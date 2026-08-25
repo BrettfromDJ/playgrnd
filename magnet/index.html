@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Magnet — field-aligned mark grids</title>
-<meta name="description" content="Generate magnetic field artworks — grids of dashes, arrows and wedges aligned to invisible poles. Exports SVG, PNG and video.">
+<meta name="description" content="Generate magnetic field artworks — grids of dashes, arrows, wedges and dot trails aligned to invisible poles. Exports SVG, PNG and video.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
@@ -281,8 +281,8 @@ function css(c,a){return`rgba(${Math.round(c[0])},${Math.round(c[1])},${Math.rou
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const STYLES=[["dash","Dash"],["line","Line"],["arrow","Arrow"],["wedge","Wedge"]];
-const MODES=[["sway","Sway"],["orbit","Orbit"]];
+const STYLES=[["dash","Dash"],["line","Line"],["arrow","Arrow"],["wedge","Wedge"],["trail","Trail"]];
+const MODES=[["sway","Sway"],["orbit","Orbit"],["stream","Stream"]];
 
 const S={
   seed:23, ratio:"16:9",
@@ -312,7 +312,7 @@ function buildPoles(){
   }
   return poles;
 }
-function fieldAngle(x,y,poles,t){
+function field(x,y,poles,t){
   const M=S.motion;
   let fx=0,fy=0;
   for(const p of poles){
@@ -334,7 +334,19 @@ function fieldAngle(x,y,poles,t){
     const a=TAU*t, k=mag*M.amount*0.9;
     fx+=Math.cos(a)*k; fy+=Math.sin(a)*k;
   }
-  return Math.atan2(fy,fx);
+  return {a:Math.atan2(fy,fx), m:Math.hypot(fx,fy)};
+}
+function fieldAngle(x,y,poles,t){return field(x,y,poles,t).a;}
+/* trail length grows away from the poles — that inverse fall-off is the
+   zoom-burst depth: stubs at the centre, long streaks at the edge */
+function trailLen(m,cell){
+  const inv=1/Math.max(0.0001,m*VB);
+  return cell*S.msize*clamp(inv*2.4,0.4,3);
+}
+function trailDots(len,cell){
+  const R=cell*0.16*S.weight;
+  const step=R*1.15;
+  return {R,step,n:clamp(Math.round(len/step)+1,2,18)};
 }
 function gridMarks(){
   const H=vh(), n=S.cols|0, cell=VB/n;
@@ -390,11 +402,25 @@ function paint(c,W,Hpx,f){
   const {L,w}=markDims(cell);
   c.setTransform(1,0,0,1,0,0);
   c.fillStyle=S.bg;c.fillRect(0,0,W,Hpx);
+  const phase=(M.on&&M.mode==="stream")?(t*Math.max(1,Math.round(M.amount)))%1:0;
   for(const m of marks){
-    const a=fieldAngle(m.x,m.y,poles,t);
-    const cos=Math.cos(a),sin=Math.sin(a);
+    const f2=field(m.x,m.y,poles,t);
+    const cos=Math.cos(f2.a),sin=Math.sin(f2.a);
     c.setTransform(cos*k,sin*k,-sin*k,cos*k,m.x*k,m.y*k);
-    drawMark(c,L,w,ink);
+    if(S.style==="trail"){
+      const len=trailLen(f2.m,cell);
+      const {R,step,n}=trailDots(len,cell);
+      for(let i=0;i<n;i++){
+        /* dots flow tail-to-head; the pattern shifts one slot per loop */
+        const uu=clamp(((i+phase)%n)/Math.max(1,n-1),0,1);
+        c.fillStyle=css(ink);
+        c.globalAlpha=Math.pow(1-uu*S.taper,1.6);
+        c.beginPath();c.arc(-len*uu,0,R*(1-0.5*uu),0,TAU);c.fill();
+      }
+      c.globalAlpha=1;
+    }else{
+      drawMark(c,L,w,ink);
+    }
   }
   c.setTransform(1,0,0,1,0,0);
 }
@@ -428,8 +454,22 @@ function buildSVG(){
     defs=`<g id="mk"><path fill="${S.ink}" d="M ${(Lk/2).toFixed(2)} 0 L ${(-Lk/2).toFixed(2)} ${(wk*0.5).toFixed(2)} L ${(-Lk/2*(1-S.taper*0.3)).toFixed(2)} 0 L ${(-Lk/2).toFixed(2)} ${(-wk*0.5).toFixed(2)} Z"/></g>`;
   }
   for(const m of marks){
-    const a=fieldAngle(m.x,m.y,poles,t)*180/Math.PI;
-    shape+=`<use href="#mk" transform="translate(${(m.x*k).toFixed(2)} ${(m.y*k).toFixed(2)}) rotate(${a.toFixed(2)})"/>`;
+    const f2=field(m.x,m.y,poles,t);
+    const deg=f2.a*180/Math.PI;
+    if(S.style==="trail"){
+      const len=trailLen(f2.m,cell)*k;
+      const {R,n}=trailDots(trailLen(f2.m,cell),cell);
+      const Rk=R*k;
+      let g=`<g transform="translate(${(m.x*k).toFixed(2)} ${(m.y*k).toFixed(2)}) rotate(${deg.toFixed(2)})">`;
+      for(let i=0;i<n;i++){
+        const uu=n<2?0:i/(n-1);
+        const op=Math.pow(1-uu*S.taper,1.6);
+        g+=`<circle cx="${(-len*uu).toFixed(2)}" cy="0" r="${(Rk*(1-0.5*uu)).toFixed(2)}" fill="${S.ink}" fill-opacity="${op.toFixed(3)}"/>`;
+      }
+      shape+=g+"</g>";
+    }else{
+      shape+=`<use href="#mk" transform="translate(${(m.x*k).toFixed(2)} ${(m.y*k).toFixed(2)}) rotate(${deg.toFixed(2)})"/>`;
+    }
   }
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`+
     `<rect width="${W}" height="${H}" fill="${S.bg}"/><defs>${defs}</defs>${shape}</svg>`;
