@@ -7,7 +7,7 @@
 <meta name="description" content="Generate dot fields — halftone lattices and contour scatters read from a noise field, with optional symmetry. Exports vector, animation and video.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
 <style>
 :root{
   --bg:#0b0b0d;--panel:#101013;--panel-2:#15151a;--line:#22222a;--line-soft:#1a1a20;
@@ -820,6 +820,41 @@ document.addEventListener("keydown",e=>{
 newSeed(5);
 updateExportNote();
 draw();
+})();
+</script>
+<!-- Embed mode: open with ?embed to render just the artwork full-viewport
+     (used by the landing page to show live output as its background). -->
+<style>
+html.embed .topbar,html.embed .panel,html.embed .transport,html.embed .toast{display:none!important}
+html.embed .app{height:100dvh!important;grid-template-rows:1fr!important}
+html.embed .main{display:grid!important;grid-template-columns:1fr!important}
+html.embed .stage{height:auto!important;position:static!important;grid-template-rows:1fr!important;background:none!important;order:0!important}
+html.embed .stage-inner{padding:0!important}
+html.embed #art{width:100vw!important;height:100dvh!important;max-width:none!important;max-height:none!important;object-fit:cover!important;border-radius:0!important;box-shadow:none!important;cursor:default!important}
+html.embed body{overflow:hidden!important}
+</style>
+<script>
+(function(){
+  var q=new URLSearchParams(location.search);
+  if(!q.has("embed")) return;
+  document.documentElement.classList.add("embed");
+  /* pick the preset ratio closest to the viewport so the cover-crop stays small */
+  var R=[[9,16],[3,4],[4,5],[1,1],[5,4],[4,3],[3,2],[16,9]];
+  var vr=innerWidth/Math.max(1,innerHeight),best=3,bd=1e9;
+  for(var i=0;i<R.length;i++){var d=Math.abs(Math.log(vr*R[i][1]/R[i][0]));if(d<bd){bd=d;best=i}}
+  var rb=document.querySelectorAll("#ratios .ratio")[best]; if(rb) rb.click();
+  /* fresh artwork per load, or a pinned one via ?seed=N */
+  var seed=q.get("seed"), si=document.getElementById("seed");
+  if(seed&&si){si.value=seed;si.dispatchEvent(new Event("change"));}
+  else{var sh=document.getElementById("shuf"); if(sh) sh.click();}
+  /* start the tool's own motion; static tools re-roll on a slow cadence instead */
+  var mt=document.getElementById("motionTog");
+  if(mt){if(mt.getAttribute("aria-pressed")!=="true") mt.click();}
+  else setInterval(function(){var sh=document.getElementById("shuf");if(sh)sh.click();},7000);
+  /* tell an embedding page the first frame has painted */
+  requestAnimationFrame(function(){requestAnimationFrame(function(){
+    try{if(parent!==window)parent.postMessage({type:"tool-embed-ready"},"*");}catch(e){}
+  });});
 })();
 </script>
 </body>
