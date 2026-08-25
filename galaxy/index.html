@@ -200,38 +200,14 @@ input[type=range]:disabled{opacity:.3;pointer-events:none}
       </section>
 
       <section class="sec">
-        <h2 class="sec-h">Motion</h2>
-        <div class="row tog">
-          <span class="lab" style="margin:0"><span>Animate</span></span>
-          <button class="switch" id="motionTog" aria-pressed="false" aria-label="Animate"></button>
-        </div>
-        <div id="motionBody" hidden>
-          <div class="row">
-            <div class="lab"><span>Intensity</span><span class="val" id="amtVal">0.80</span></div>
-            <input type="range" id="amt" min="0.1" max="2" step="0.05" value="0.8">
-          </div>
-          <div class="row">
-            <div class="lab"><span>Speed</span><span class="val" id="fpsVal">20 fps</span></div>
-            <input type="range" id="fps" min="4" max="30" step="1" value="20">
-          </div>
-          <div class="row">
-            <div class="lab"><span>Loop length</span><span class="val" id="framesVal">120 frames</span></div>
-            <input type="range" id="frames" min="24" max="240" step="4" value="120">
-          </div>
-          <div class="note">The centre drifts in a slow circle and the whole galaxy swirls around it — every loop lands back at frame one exactly.</div>
-        </div>
-      </section>
-
-      <section class="sec">
         <h2 class="sec-h">Export</h2>
         <div class="row">
           <div class="lab"><span>Size</span><span class="val" id="sizeVal">2400 px</span></div>
           <input type="range" id="size" min="600" max="6000" step="100" value="2400">
         </div>
-        <div class="row btn-row" style="grid-template-columns:1fr 1fr 1fr">
+        <div class="row btn-row">
           <button class="btn primary" id="expPng">PNG</button>
           <button class="btn" id="expSvg">SVG</button>
-          <button class="btn" id="expVid">Video</button>
         </div>
         <div class="note">The SVG is true vectors — every mark is a real shape, tapers included.</div>
       </section>
@@ -240,11 +216,9 @@ input[type=range]:disabled{opacity:.3;pointer-events:none}
     <main class="stage">
       <div class="stage-inner"><canvas id="art" width="800" height="800"></canvas></div>
       <div class="transport">
-        <button class="play" id="play" aria-label="Play or pause"><svg width="10" height="11" viewBox="0 0 10 11" id="playIcon"><path d="M0 0l10 5.5L0 11z"/></svg></button>
-        <input type="range" id="scrub" min="0" max="119" step="1" value="0" aria-label="Timeline" disabled>
-        <span class="frameno" id="frameno">01 / 01</span>
+        <span style="flex:1"></span>
         <span>Render <b id="dims">—</b></span>
-        <span class="hint">Space — new variation · P — play/pause</span>
+        <span class="hint">Space — new variation</span>
         <span class="build">gx1</span>
       </div>
     </main>
@@ -491,8 +465,6 @@ function draw(){
   paint(ctx,w,h,curFrame);
   const ms=Math.round(performance.now()-t0);
   $("#dims").textContent=w+"×"+h+" · "+ms+"ms";
-  const F=S.motion.on?S.motion.frames:1;
-  $("#frameno").textContent=String(curFrame+1).padStart(2,"0")+" / "+String(F).padStart(2,"0");
 }
 function requestDraw(){if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;draw();});}
 function invalidate(){requestDraw();updateExportNote();}
@@ -501,22 +473,7 @@ if(window.ResizeObserver){
   const box=$(".stage-inner");
   if(box){let p=false;new ResizeObserver(()=>{if(p)return;p=true;requestAnimationFrame(()=>{p=false;draw();});}).observe(box);}
 }
-let playing=false,t0=0,raf=0;
-function tick(now){
-  if(!playing)return;
-  const M=S.motion,dur=(M.frames/M.fps)*1000;
-  const f=Math.floor(((now-t0)%dur)/dur*M.frames)%M.frames;
-  if(f!==curFrame){curFrame=f;$("#scrub").value=f;draw();}
-  raf=requestAnimationFrame(tick);
-}
-function setPlaying(v){
-  playing=v&&S.motion.on;
-  $("#playIcon").innerHTML=playing
-    ?'<rect x="0" y="0" width="3.5" height="11"/><rect x="6.5" y="0" width="3.5" height="11"/>'
-    :'<path d="M0 0l10 5.5L0 11z"/>';
-  cancelAnimationFrame(raf);
-  if(playing){t0=performance.now()-(curFrame/S.motion.frames)*(S.motion.frames/S.motion.fps*1000);raf=requestAnimationFrame(tick);}
-}
+const playing=false;
 
 /* ============================================================
    Export
@@ -532,11 +489,7 @@ function save(blob,name){
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
 function stamp(){return `galaxy-${S.seed}-${S.ratio.replace(":","x")}`;}
-function updateExportNote(){
-  const a=$("#expVid"),sc=$("#scrub");
-  if(a)a.disabled=!S.motion.on;
-  if(sc)sc.disabled=!S.motion.on;
-}
+function updateExportNote(){}
 $("#expPng").addEventListener("click",()=>{
   toast("Rendering…",true);
   setTimeout(()=>{
@@ -550,37 +503,6 @@ $("#expPng").addEventListener("click",()=>{
 $("#expSvg").addEventListener("click",()=>{
   save(new Blob([buildSVG()],{type:"image/svg+xml"}),stamp()+".svg");
   toast("SVG saved");
-});
-function pickVideoType(){
-  const t=["video/mp4;codecs=avc1.42E01E","video/mp4","video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"];
-  for(const x of t)if(window.MediaRecorder&&MediaRecorder.isTypeSupported(x))return x;
-  return null;
-}
-$("#expVid").addEventListener("click",()=>{
-  if(!S.motion.on)return toast("Turn on motion first");
-  const type=pickVideoType();
-  if(!type)return toast("This browser can't record video");
-  const ext=type.startsWith("video/mp4")?"mp4":"webm";
-  const r=RATIOS.find(x=>x.id===S.ratio);
-  let W=Math.min(1280,S.size);W-=W%2;
-  let H=Math.round(W*r.h/r.w);H-=H%2;
-  const c=document.createElement("canvas");c.width=W;c.height=H;
-  const cc=c.getContext("2d");
-  const F=S.motion.frames,loops=1;
-  const rec=new MediaRecorder(c.captureStream(60),{mimeType:type,videoBitsPerSecond:16000000});
-  const chunks=[];
-  rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
-  rec.onstop=()=>{save(new Blob(chunks,{type}),stamp()+"-loop."+ext);toast(ext.toUpperCase()+" saved");};
-  const was=playing;setPlaying(false);
-  toast("Recording…",true);
-  let n=0;
-  rec.start();
-  (function step(){
-    paint(cc,W,H,n%F);
-    n++;
-    if(n<F*loops) setTimeout(()=>requestAnimationFrame(step), Math.max(0,1000/S.motion.fps-4));
-    else setTimeout(()=>{rec.stop();if(was)setPlaying(true);},200);
-  })();
 });
 
 /* ============================================================
@@ -646,23 +568,7 @@ bindRange("cols",v=>v,v=>S.cols=v|0);
 bindRange("msize",pct,v=>S.msize=v);
 bindRange("weight",pct,v=>S.weight=v);
 bindRange("taper",pct,v=>S.taper=v);
-bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
-$("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
-  $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
-$("#frames").addEventListener("input",e=>{S.motion.frames=parseInt(e.target.value,10);
-  $("#framesVal").textContent=S.motion.frames+" frames";$("#scrub").max=S.motion.frames-1;
-  curFrame=Math.min(curFrame,S.motion.frames-1);reframe();if(playing)setPlaying(true);});
 $("#size").addEventListener("input",e=>{S.size=parseInt(e.target.value,10);$("#sizeVal").textContent=S.size+" px";});
-$("#motionTog").addEventListener("click",e=>{
-  S.motion.on=!S.motion.on;
-  e.currentTarget.setAttribute("aria-pressed",String(S.motion.on));
-  $("#motionBody").hidden=!S.motion.on;
-  curFrame=0;$("#scrub").value=0;
-  reframe();updateExportNote();
-  setPlaying(S.motion.on&&!reduceMotion);
-});
-$("#play").addEventListener("click",()=>{if(!S.motion.on){$("#motionTog").click();return;}setPlaying(!playing);});
-$("#scrub").addEventListener("input",e=>{setPlaying(false);curFrame=parseInt(e.target.value,10)%Math.max(1,S.motion.frames);draw();});
 function newSeed(v){S.seed=(v!==undefined)?v:(Math.random()*99999|0)+1;$("#seed").value=S.seed;reframe();}
 $("#shuf").addEventListener("click",()=>newSeed());
 $("#seed").addEventListener("change",e=>{const v=parseInt(e.target.value,10);newSeed(Number.isFinite(v)?Math.abs(v):1);});
@@ -670,10 +576,8 @@ art.addEventListener("click",()=>newSeed());
 document.addEventListener("keydown",e=>{
   if(e.target.matches("input,textarea"))return;
   if(e.code==="Space"){e.preventDefault();newSeed();}
-  if(e.key==="p"||e.key==="P"){if(S.motion.on)setPlaying(!playing);}
 });
 newSeed(7);
-$("#scrub").max=S.motion.frames-1;
 updateExportNote();
 draw();
 })();
