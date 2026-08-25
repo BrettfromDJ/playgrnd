@@ -149,10 +149,6 @@ input[type=range]:disabled{opacity:.3;pointer-events:none}
       <section class="sec">
         <h2 class="sec-h">Field</h2>
         <div class="row">
-          <div class="lab"><span>Poles</span><span class="val" id="polesVal">1</span></div>
-          <input type="range" id="poles" min="1" max="6" step="1" value="1">
-        </div>
-        <div class="row">
           <div class="lab"><span>Twist</span><span class="val" id="twistVal">0%</span></div>
           <input type="range" id="twist" min="0" max="1" step="0.01" value="0">
         </div>
@@ -211,10 +207,6 @@ input[type=range]:disabled{opacity:.3;pointer-events:none}
         </div>
         <div id="motionBody" hidden>
           <div class="row">
-            <div class="lab"><span>Movement</span></div>
-            <div class="chips grow" id="modes"></div>
-          </div>
-          <div class="row">
             <div class="lab"><span>Intensity</span><span class="val" id="amtVal">0.80</span></div>
             <input type="range" id="amt" min="0.1" max="2" step="0.05" value="0.8">
           </div>
@@ -226,7 +218,7 @@ input[type=range]:disabled{opacity:.3;pointer-events:none}
             <div class="lab"><span>Loop length</span><span class="val" id="framesVal">120 frames</span></div>
             <input type="range" id="frames" min="24" max="240" step="4" value="120">
           </div>
-          <div class="note">Stream rushes the dots along their trails; Orbit walks the poles in a circle, swirling the whole galaxy. Both land back at frame one exactly.</div>
+          <div class="note">The centre drifts in a slow circle and the whole galaxy swirls around it — every loop lands back at frame one exactly.</div>
         </div>
       </section>
 
@@ -277,14 +269,13 @@ function css(c,a){return`rgba(${Math.round(c[0])},${Math.round(c[1])},${Math.rou
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const MODES=[["stream","Stream"],["orbit","Orbit"]];
 
 const S={
   seed:7, ratio:"3:4",
   poles:1, twist:0,
   style:"trail", cols:18, msize:1, weight:1, taper:.8,
   ink:"#F2F0EA", bg:"#0A0A0A",
-  motion:{on:false,mode:"stream",amount:.8,fps:20,frames:120},
+  motion:{on:false,mode:"orbit",amount:.8,fps:20,frames:120},
   size:2400
 };
 
@@ -302,7 +293,7 @@ function buildPoles(){
     poles.push({
       x:lerp(VB*0.1,VB*0.9,r()), y:lerp(H*0.1,H*0.9,r()),
       pol:r()<.5?-1:1, spin:r()<.5?-1:1,
-      orad:lerp(60,170,r()), oph:r(), odir:r()<.5?-1:1
+      orad:lerp(25,70,r()), oph:r(), odir:r()<.5?-1:1
     });
   }
   return poles;
@@ -317,7 +308,7 @@ function field(x,y,poles,t){
       px+=Math.cos(a)*rr; py+=Math.sin(a)*rr;
     }
     const dx=x-px,dy=y-py;
-    const r2=(dx*dx+dy*dy)/(VB*VB)+0.004;
+    const r2=(dx*dx+dy*dy)/(VB*VB)+0.009;
     const s=p.pol/r2/(VB*VB);
     fx+=(dx*(1-S.twist)-dy*S.twist*p.spin)*s;
     fy+=(dy*(1-S.twist)+dx*S.twist*p.spin)*s;
@@ -336,7 +327,7 @@ function fieldAngle(x,y,poles,t){return field(x,y,poles,t).a;}
    zoom-burst depth: stubs at the centre, long streaks at the edge */
 function trailLen(m,cell){
   const inv=1/Math.max(0.0001,m*VB);
-  return cell*S.msize*clamp(inv*2.4,0.4,3);
+  return cell*S.msize*clamp(inv*2.4,0.16,3);
 }
 function trailDots(len,cell){
   const R=cell*0.16*S.weight;
@@ -397,7 +388,7 @@ function paint(c,W,Hpx,f){
   const {L,w}=markDims(cell);
   c.setTransform(1,0,0,1,0,0);
   c.fillStyle=S.bg;c.fillRect(0,0,W,Hpx);
-  const phase=(M.on&&M.mode==="stream")?(t*Math.max(1,Math.round(M.amount)))%1:0;
+  const phase=0;
   for(const m of marks){
     const f2=field(m.x,m.y,poles,t);
     const cos=Math.cos(f2.a),sin=Math.sin(f2.a);
@@ -640,7 +631,6 @@ function bindRange(id,fmt,set,after){
 const pct=v=>Math.round(v*100)+"%";
 
 buildRatios();accent();
-segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
 $("#inkFill").style.background=S.ink;
 $("#inkIn").addEventListener("input",e=>{S.ink=e.target.value;$("#inkFill").style.background=S.ink;accent();reframe();});
 $("#bgFill").style.background=S.bg;
@@ -651,7 +641,6 @@ $("#swapColors").addEventListener("click",()=>{
   $("#inkFill").style.background=S.ink;$("#bgFill").style.background=S.bg;
   accent();reframe();
 });
-bindRange("poles",v=>v,v=>S.poles=v|0);
 bindRange("twist",pct,v=>S.twist=v);
 bindRange("cols",v=>v,v=>S.cols=v|0);
 bindRange("msize",pct,v=>S.msize=v);
