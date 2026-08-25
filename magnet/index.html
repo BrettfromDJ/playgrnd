@@ -281,7 +281,7 @@ function css(c,a){return`rgba(${Math.round(c[0])},${Math.round(c[1])},${Math.rou
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const STYLES=[["dash","Dash"],["arrow","Arrow"],["wedge","Wedge"]];
+const STYLES=[["dash","Dash"],["line","Line"],["arrow","Arrow"],["wedge","Wedge"]];
 const MODES=[["sway","Sway"],["orbit","Orbit"]];
 
 const S={
@@ -355,7 +355,10 @@ function markDims(cell){
   return{L,w};
 }
 function drawMark(c,L,w,ink){
-  if(S.style==="dash"){
+  if(S.style==="line"){
+    c.strokeStyle=css(ink);c.lineWidth=w;c.lineCap="round";
+    c.beginPath();c.moveTo(-L/2,0);c.lineTo(L/2,0);c.stroke();
+  }else if(S.style==="dash"){
     const g=c.createLinearGradient(-L/2,0,L/2,0);
     g.addColorStop(0,css(ink,1-S.taper));
     g.addColorStop(1,css(ink,1));
@@ -409,7 +412,9 @@ function buildSVG(){
   const t=S.motion.on?curFrame/S.motion.frames:0;
   const Lk=L*k,wk=w*k;
   let defs="",shape="";
-  if(S.style==="dash"){
+  if(S.style==="line"){
+    defs=`<g id="mk"><line x1="${-Lk/2}" y1="0" x2="${Lk/2}" y2="0" stroke="${S.ink}" stroke-width="${wk.toFixed(2)}" stroke-linecap="round"/></g>`;
+  }else if(S.style==="dash"){
     defs=`<linearGradient id="tp" gradientUnits="userSpaceOnUse" x1="${-Lk/2}" y1="0" x2="${Lk/2}" y2="0">`+
       `<stop offset="0" stop-color="${S.ink}" stop-opacity="${(1-S.taper).toFixed(3)}"/>`+
       `<stop offset="1" stop-color="${S.ink}"/></linearGradient>`+
