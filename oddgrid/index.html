@@ -1431,7 +1431,11 @@ html.embed body{overflow:hidden!important}
 <script>
 (function(){
   var q=new URLSearchParams(location.search);
-  if(!q.has("embed")) return;
+  /* embed mode: explicit flag, or being shown inside another page (the
+     landing background) — servers with clean URLs drop query strings */
+  var embedded=q.has("embed")||location.hash.indexOf("embed")>-1;
+  try{embedded=embedded||window.self!==window.top;}catch(e){embedded=true;}
+  if(!embedded) return;
   document.documentElement.classList.add("embed");
   /* pick the preset ratio closest to the viewport so the cover-crop stays small */
   var R=[[9,16],[3,4],[4,5],[1,1],[5,4],[4,3],[3,2],[16,9]];

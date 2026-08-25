@@ -271,7 +271,7 @@ function setScene(i){
     lastSwitch = performance.now() - DWELL_MS + 3000;
   }, 4000);
   addEventListener("message", onReady);
-  target.src = `${TOOLS[i].slug}/index.html?embed=1`;
+  target.src = `${TOOLS[i].slug}/index.html?embed=1#embed`;
 }
 
 /* hover on the list previews that tool's live background */
