@@ -694,5 +694,77 @@ html.embed body{overflow:hidden!important}
   });});
 })();
 </script>
+<!-- Hex entry for colour swatches: tap a swatch, type a hex code.
+     One shared layer for every colour input on the page. -->
+<style>
+.hexpop{position:fixed;z-index:70;display:flex;gap:6px;align-items:center;
+  background:var(--panel-2,#15151a);border:1px solid var(--line,#22222a);border-radius:6px;
+  padding:8px;box-shadow:0 14px 40px rgba(0,0,0,.55)}
+.hexpop .hexfield{font-family:var(--mono,ui-monospace,monospace);font-size:12px;letter-spacing:.06em;
+  width:96px;background:var(--panel,#101013);color:var(--text,#EFEDE8);
+  border:1px solid var(--line,#22222a);border-radius:4px;padding:7px 8px;text-transform:lowercase}
+.hexpop .hexfield:focus{outline:none;border-color:var(--accent,#F0621E)}
+.hexpop .hexfield.bad{border-color:#c8484d}
+.hexpop .hexwheel{font-family:var(--mono,ui-monospace,monospace);font-size:9.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted,#7c7c88);background:none;border:1px solid var(--line,#22222a);
+  border-radius:4px;padding:7px 9px;cursor:pointer}
+.hexpop .hexwheel:hover{color:var(--text,#EFEDE8)}
+</style>
+<script>
+(function(){
+  "use strict";
+  var pop=null,bypass=false;
+  function close(){if(pop){pop.remove();pop=null;}}
+  function openFor(inp){
+    close();
+    pop=document.createElement("div");
+    pop.className="hexpop";
+    pop.innerHTML='<input class="hexfield" spellcheck="false" autocomplete="off" inputmode="text" value="'+inp.value+'">'+
+      '<button class="hexwheel" type="button">Wheel</button>';
+    document.body.appendChild(pop);
+    var anchor=(inp.closest&&(inp.closest(".sw")||inp.closest("label")))||inp;
+    var r=anchor.getBoundingClientRect();
+    var w=pop.offsetWidth||170,h=pop.offsetHeight||38;
+    var x=Math.min(Math.max(8,r.left),innerWidth-w-8);
+    var y=r.bottom+6; if(y+h>innerHeight-8)y=r.top-h-6;
+    pop.style.left=x+"px";pop.style.top=y+"px";
+    var f=pop.querySelector(".hexfield");
+    function norm(){
+      var v=f.value.trim().replace(/^#/,"");
+      if(/^[0-9a-fA-F]{3}$/.test(v))v=v.replace(/./g,function(c){return c+c;});
+      return /^[0-9a-fA-F]{6}$/.test(v)?"#"+v.toLowerCase():null;
+    }
+    function apply(){
+      var hex=norm();
+      f.classList.toggle("bad",!hex);
+      if(!hex)return false;
+      inp.value=hex;
+      inp.dispatchEvent(new Event("input",{bubbles:true}));
+      inp.dispatchEvent(new Event("change",{bubbles:true}));
+      return true;
+    }
+    f.addEventListener("input",apply);
+    f.addEventListener("keydown",function(e){
+      if(e.key==="Enter"){e.preventDefault();if(apply())close();}
+      if(e.key==="Escape")close();
+    });
+    pop.querySelector(".hexwheel").addEventListener("click",function(){
+      close();bypass=true;inp.click();bypass=false;
+    });
+    f.focus();f.select();
+  }
+  document.addEventListener("click",function(e){
+    if(pop&&pop.contains(e.target))return;
+    var t=e.target;
+    var inp=t&&t.matches&&t.matches('input[type=color]')?t:null;
+    if(inp&&!bypass){
+      e.preventDefault();e.stopPropagation();
+      openFor(inp);
+      return;
+    }
+    if(pop)close();
+  },true);
+})();
+</script>
 </body>
 </html>
