@@ -265,7 +265,7 @@ function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
 const MODES=[["spin","Spin"],["pulse","Pulse"]];
-const STYLES=[["auto","Auto"],["burst","Burst"],["dash","Dash"],["wedge","Wedge"],["off","Off-centre"]];
+const STYLES=[["auto","Auto"],["burst","Burst"],["dash","Dash"],["wedge","Wedge"]];
 /* ground plus the ray ink and two accents that speckle in */
 const PALETTES=[
   ["#2E211C","#C1489B","#E8A6C8","#F5C518"],
@@ -291,11 +291,14 @@ function motionState(f){
 }
 
 /* ============================================================
-   The burst engine — concentric tiers of radial rays sharing
-   one set of angles. The innermost tier is dense enough to
-   merge into a solid disc; gaps of ground separate the tiers.
-   Ray lengths follow a repeating rhythm around the circle, so
-   the silhouette stays even and the burst reads centred.
+   The burst engine — a constructed radial system. Everything is
+   computed from one centre point, one angular step and fixed
+   radius ratios: hole, dense tapered sunburst, transition ring,
+   uniform segment ring, transition ring, long outer rays on the
+   same axes. Ray lengths follow a quantised cosine whose
+   harmonic is a multiple of four, so the pattern repeats in
+   every quadrant and each ray matches its opposite exactly.
+   No random angles, widths, radii or lengths anywhere.
 ============================================================ */
 function rayPoly(cx,cy,a,r0,r1,w0,w1){
   const ca=Math.cos(a), sa=Math.sin(a);
@@ -306,73 +309,68 @@ function rayPoly(cx,cy,a,r0,r1,w0,w1){
          [cx+ca*r0+px*w0/2,cy+sa*r0+py*w0/2]];
 }
 function buildPlan(W,H,f){
+  /* the seed only selects which designed pattern to draw — harmonic,
+     level count, style, accents — never per-ray values */
   const r=rng(S.seed*2654435761>>>0);
-  const KINDS=["burst","dash","wedge","off"];
+  const KINDS=["burst","dash","wedge"];
   const kind=S.style==="auto"?KINDS[(r()*KINDS.length)|0]:S.style;
   const mo=motionState(f);
   const md=Math.min(W,H);
-  const N=Math.max(6,S.rays|0);
+  const cx=W/2, cy=H/2;                      /* exact centre, always */
+  const N=Math.max(8,Math.round((S.rays|0)/4)*4);   /* a multiple of 4 */
+  const step=TAU/N;
   const R=md*0.46*S.reach;
-  const hole=md*0.035*S.core;
+  const hole=md*0.03*S.core;
   const spin=mo.flow?TAU*Math.max(1,Math.round(mo.amp))*mo.t:0;
-  let cx=W/2, cy=H/2;
-  if(kind==="off"){cx+=(r()-0.5)*W*0.22;cy+=(r()-0.5)*H*0.22;}
 
-  /* tiers: the first is the solid core, the last carries the long rays */
-  const T=r()<0.72?2:3;   /* two tiers is the archetype: core disc, long rays */
-  const wts=[];let sum=0;
-  for(let i=0;i<T;i++){const v=i===0?1.5:(i===T-1?2.6:1.1);wts.push(v);sum+=v;}
-  const gap=(R-hole)*0.055;
-  const usable=(R-hole)-gap*(T-1);
-  const tiers=[];
-  let acc=hole;
-  for(let i=0;i<T;i++){
-    const th=usable*wts[i]/sum;
-    tiers.push({r0:acc,r1:acc+th,last:i===T-1,first:i===0});
-    acc+=th+gap;
-  }
-  /* a repeating two-harmonic rhythm, stepped into a few lengths — it closes
-     around the circle exactly, so no seam and no lopsided silhouette */
-  const k1=2+((r()*4)|0), k2=k1+1+((r()*3)|0), ph=r()*TAU;
-  const levels=3+((r()*2)|0);
-  const rhythm=i=>{
-    let u=(0.5-0.5*Math.cos(i/N*TAU*k1))*0.6+(0.5-0.5*Math.cos(i/N*TAU*k2+ph))*0.4;
-    u=Math.round(u*(levels-1))/(levels-1);
-    return 1-S.vary*u;
+  /* designed length sequence: cosine quantised to a few levels; the
+     harmonic k is a multiple of 4 so it closes over every quadrant */
+  const k=[4,8,12,16][(r()*4)|0];
+  const levels=3+((r()*3)|0);
+  const lenAt=i=>{
+    const u=0.5+0.5*Math.cos(i*step*k);      /* peak on ray 0 */
+    const q=Math.round(u*(levels-1))/(levels-1);
+    return 1-S.vary*(1-q);
   };
-  const base=TAU*R/N;
-  const breakSome=kind==="burst"&&r()<0.6;
-  const accentTier=r()<0.18?1+((r()*(T-1))|0):-1;
+  const breathe=mo.pulse?1+0.14*mo.amp*Math.sin(TAU*mo.t):1;
+
+  /* concentric zones as pure ratios of the span; the boundaries between
+     them are perfect circles because every ray shares these radii */
+  const span=R-hole;
+  const A0=hole,         A1=hole+span*0.34;  /* dense tapered sunburst */
+  const B0=A1+span*0.06, B1=B0+span*0.15;    /* uniform segment ring */
+  const C0=B1+span*0.06;                     /* long outer rays */
+  const slot=rr=>TAU*rr/N;
+  const accent=r()<0.25?1+((r()*2)|0):0;     /* 0 none, 1 mid ring, 2 outer */
+  const breakMax=kind==="burst"&&r()<0.5;    /* longest rays split in two */
+
   const polys=[];
+  const a00=-Math.PI/2;                      /* ray 0 points straight up */
   for(let i=0;i<N;i++){
-    const a=i/N*TAU+spin;
-    let lf=rhythm(i);
-    if(mo.pulse)lf*=1+0.16*mo.amp*Math.sin(TAU*mo.t+(i/N)*TAU*k1);
-    tiers.forEach((t,ti)=>{
-      const col=ti===accentTier?S.pal[2]:S.pal[1];
-      /* the core tier is full width so its rays merge; outer tiers are slimmer */
-      const wMul=t.first?1.02:S.weight;
-      const w=base*wMul;
-      const r0=t.r0;
-      /* only the outermost tier varies in length */
-      const r1=t.last?t.r0+(t.r1-t.r0)*Math.max(0.12,lf):t.r1;
-      if(r1<=r0)return;
-      if(kind==="wedge"&&!t.first){
-        polys.push({p:rayPoly(cx,cy,a,r0,r1,w*0.35,w*1.6),c:col});
-        return;
+    const a=a00+i*step+spin;
+    /* zone 2 — tapered rays wide enough to read as a notched disc */
+    polys.push({p:rayPoly(cx,cy,a,A0,A1,slot(A0)*0.82,slot(A1)*0.82),c:S.pal[1]});
+    /* zone 4 — identical segments, full ring */
+    const w=slot(B0)*S.weight;
+    polys.push({p:rayPoly(cx,cy,a,B0,B1,w,w),c:accent===1?S.pal[2]:S.pal[1]});
+    /* zone 5 — long rays on the same axes, lengths from the sequence */
+    const colC=accent===2?S.pal[2]:S.pal[1];
+    const r1=C0+(R-C0)*Math.min(1.15,Math.max(0.15,lenAt(i)*breathe));
+    if(kind==="dash"){
+      const seg=(r1-C0)/3;
+      for(let s=0;s<3;s++){
+        const s0=C0+s*seg;
+        polys.push({p:rayPoly(cx,cy,a,s0,s0+seg*0.78,w,w),c:colC});
       }
-      const dashing=(kind==="dash"&&!t.first)||(breakSome&&t.last&&hashi(i,9,0,S.seed)<0.35);
-      if(dashing){
-        const segs=kind==="dash"?2+((hashi(i,6,0,S.seed)*3)|0):2;
-        const span=(r1-r0)/segs;
-        for(let s=0;s<segs;s++){
-          const s0=r0+s*span, s1=s0+span-span*0.22;
-          if(s1>s0)polys.push({p:rayPoly(cx,cy,a,s0,s1,w,w),c:col});
-        }
-      }else{
-        polys.push({p:rayPoly(cx,cy,a,r0,r1,w,w),c:col});
-      }
-    });
+    }else if(kind==="wedge"){
+      polys.push({p:rayPoly(cx,cy,a,C0,r1,w*0.5,w*1.7),c:colC});
+    }else if(breakMax&&lenAt(i)>0.999){
+      const mid=C0+(r1-C0)*0.62, gap=(r1-C0)*0.1;
+      polys.push({p:rayPoly(cx,cy,a,C0,mid,w,w),c:colC});
+      polys.push({p:rayPoly(cx,cy,a,mid+gap,r1,w,w),c:colC});
+    }else{
+      polys.push({p:rayPoly(cx,cy,a,C0,r1,w,w),c:colC});
+    }
   }
   return{bg:S.pal[0],polys,cx,cy,hole};
 }
