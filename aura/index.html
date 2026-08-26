@@ -153,16 +153,16 @@ input[type=range]:disabled{opacity:.3;pointer-events:none}
           <div class="chips grow" id="styles"></div>
         </div>
         <div class="row">
-          <div class="lab"><span>Scale</span><span class="val" id="scaleVal">100%</span></div>
-          <input type="range" id="scale" min="0.5" max="2" step="0.05" value="1">
+          <div class="lab"><span>Scale</span><span class="val" id="scaleVal">200%</span></div>
+          <input type="range" id="scale" min="0.5" max="2" step="0.05" value="2">
         </div>
         <div class="row">
-          <div class="lab"><span>Churn</span><span class="val" id="churnVal">60%</span></div>
-          <input type="range" id="churn" min="0" max="1" step="0.01" value="0.6">
+          <div class="lab"><span>Churn</span><span class="val" id="churnVal">100%</span></div>
+          <input type="range" id="churn" min="0" max="1" step="0.01" value="1">
         </div>
         <div class="row">
-          <div class="lab"><span>Punch</span><span class="val" id="punchVal">55%</span></div>
-          <input type="range" id="punch" min="0" max="1" step="0.01" value="0.55">
+          <div class="lab"><span>Punch</span><span class="val" id="punchVal">100%</span></div>
+          <input type="range" id="punch" min="0" max="1" step="0.01" value="1">
         </div>
       </section>
 
@@ -270,8 +270,8 @@ const PALETTES=[
 
 const S={
   seed:11, ratio:"1:1",
-  style:"auto", scale:1, churn:.6, punch:.55,
-  pal:PALETTES[0].slice(),
+  style:"clouds", scale:2, churn:1, punch:1,
+  pal:PALETTES[3].slice(),
   motion:{on:false,mode:"flow",amount:.8,fps:12,frames:72},
   size:2400
 };
