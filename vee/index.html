@@ -165,8 +165,8 @@ input[type=range]:disabled{opacity:.3;pointer-events:none}
           <input type="range" id="weight" min="0.15" max="0.85" step="0.01" value="0.5">
         </div>
         <div class="row">
-          <div class="lab"><span>Bands</span><span class="val" id="bandsVal">1</span></div>
-          <input type="range" id="bands" min="1" max="4" step="1" value="1">
+          <div class="lab"><span>Bands</span><span class="val" id="bandsVal">2</span></div>
+          <input type="range" id="bands" min="1" max="4" step="1" value="2">
         </div>
       </section>
 
@@ -274,7 +274,7 @@ const PALETTES=[
 
 const S={
   seed:11, ratio:"1:1",
-  style:"auto", angle:45, width:1, weight:.5, bands:1,
+  style:"auto", angle:45, width:1, weight:.5, bands:2,
   pal:PALETTES[0].slice(),
   motion:{on:false,mode:"travel",amount:.8,fps:12,frames:72},
   size:2400
