@@ -274,8 +274,8 @@ function chroma(h){const[r,g,b]=hex2rgb(h);return(Math.max(r,g,b)-Math.min(r,g,b
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
 const MODES=[["crawl","Crawl"],["blink","Blink"]];
-const STYLES=[["auto","Auto"],["teeth","Teeth"],["chevron","Chevron"],["stairs","Stairs"]];
-const STYLE_POOL=["teeth","chevron","stairs"];
+const STYLES=[["auto","Auto"],["teeth","Teeth"],["chevron","Chevron"],["stairs","Stairs"],["ricrac","Ricrac"],["waves","Waves"],["scales","Scales"]];
+const STYLE_POOL=["teeth","chevron","stairs","ricrac","waves","scales"];
 
 const S={
   seed:12, ratio:"3:2",
@@ -344,7 +344,7 @@ function buildStripes(){
       const poly=[...a,...[...b].reverse()];
       stripes.push({poly:st==="teeth"?poly:poly.map(q=>[q[1],q[0]]),on:j%2===0});
     }
-  }else{ /* stairs: diagonal staircase bands */
+  }else if(st==="stairs"){ /* stairs: diagonal staircase bands */
     const s=VB*0.07*S.tooth*S.width;
     const bw=Math.max(1,Math.round(2*S.width))* s*2; /* band spacing along x */
     const per=2*s;
@@ -366,11 +366,41 @@ function buildStripes(){
       const poly=[...bnd[j],...[...bnd[j+1]].reverse()];
       stripes.push({poly,on:j%2===0});
     }
+  }else{ /* row-based: ricrac (triangle wave), waves (sine), scales (shingles) */
+    const rh=H*0.115*S.width;
+    const per=VB*0.14*S.tooth;
+    const amp=(st==="scales"?per*0.5:rh*0.42)*S.depth*(st==="ricrac"?1.2:1);
+    const shift=crawlShift(per);
+    const rows=Math.ceil(H/rh)+3;
+    const bnd=[];
+    for(let j=-2;j<rows;j++){
+      const base=j*rh;
+      const p=[];
+      if(st==="ricrac"){
+        const half=per/2;
+        const k0=Math.floor((-half*4-shift)/half), k1=Math.ceil((VB+half*4-shift)/half);
+        for(let k=k0;k<=k1;k++)p.push([k*half+shift,base+(((k%2)+2)%2===0?-amp:amp)]);
+      }else{
+        const off=(st==="scales"&&(((j%2)+2)%2!==0))?per/2:0;
+        const stp=per/14;
+        for(let x=-per*3;x<=VB+per*3;x+=stp){
+          const u=(x+shift+off)/per*Math.PI*2;
+          const yb=st==="waves"?Math.sin(u)*amp:-Math.abs(Math.sin(u/2))*amp;
+          p.push([x,base+yb]);
+        }
+      }
+      bnd.push(p);
+    }
+    for(let j=0;j<bnd.length-1;j++){
+      stripes.push({poly:[...bnd[j],...[...bnd[j+1]].reverse()],on:j%2===0});
+    }
   }
   return stripes;
 }
 function cornerRadius(){
   const st=activeStyle(), H=vh();
+  if(st==="ricrac")return Math.max(0,VB*0.07*S.tooth*0.9*S.round);
+  if(st==="waves"||st==="scales")return 6;   /* sampled curves are already smooth */
   const base=st==="stairs"?VB*0.07*S.tooth*S.width:Math.min(VB*0.125*S.width*S.depth*0.5,(st==="teeth"?VB:H)*0.055*S.tooth);
   return Math.max(0,base*0.9*S.round);
 }
