@@ -153,20 +153,20 @@ input[type=range]:disabled{opacity:.3;pointer-events:none}
           <div class="chips grow" id="styles"></div>
         </div>
         <div class="row">
-          <div class="lab"><span>Rays</span><span class="val" id="raysVal">44</span></div>
-          <input type="range" id="rays" min="8" max="120" step="1" value="44">
+          <div class="lab"><span>Rays</span><span class="val" id="raysVal">48</span></div>
+          <input type="range" id="rays" min="8" max="120" step="1" value="48">
         </div>
         <div class="row">
-          <div class="lab"><span>Weight</span><span class="val" id="weightVal">38%</span></div>
-          <input type="range" id="weight" min="0.15" max="1.2" step="0.01" value="0.38">
+          <div class="lab"><span>Weight</span><span class="val" id="weightVal">42%</span></div>
+          <input type="range" id="weight" min="0.15" max="1.2" step="0.01" value="0.42">
         </div>
         <div class="row">
           <div class="lab"><span>Reach</span><span class="val" id="reachVal">100%</span></div>
           <input type="range" id="reach" min="0.5" max="1.5" step="0.01" value="1">
         </div>
         <div class="row">
-          <div class="lab"><span>Vary</span><span class="val" id="varyVal">45%</span></div>
-          <input type="range" id="vary" min="0" max="0.9" step="0.01" value="0.45">
+          <div class="lab"><span>Vary</span><span class="val" id="varyVal">50%</span></div>
+          <input type="range" id="vary" min="0" max="0.9" step="0.01" value="0.5">
         </div>
         <div class="row">
           <div class="lab"><span>Core</span><span class="val" id="coreVal">100%</span></div>
@@ -278,7 +278,7 @@ const PALETTES=[
 
 const S={
   seed:11, ratio:"1:1",
-  style:"auto", rays:44, weight:.38, reach:1, vary:.45, core:1,
+  style:"auto", rays:48, weight:.42, reach:1, vary:.5, core:1,
   pal:PALETTES[0].slice(),
   motion:{on:false,mode:"spin",amount:.8,fps:12,frames:72},
   size:2400
@@ -291,9 +291,11 @@ function motionState(f){
 }
 
 /* ============================================================
-   The burst engine — rays radiating from a centre. Near the
-   middle they overlap into a solid disc; a hole is punched at
-   the very centre. Canvas and SVG share one plan.
+   The burst engine — concentric tiers of radial rays sharing
+   one set of angles. The innermost tier is dense enough to
+   merge into a solid disc; gaps of ground separate the tiers.
+   Ray lengths follow a repeating rhythm around the circle, so
+   the silhouette stays even and the burst reads centred.
 ============================================================ */
 function rayPoly(cx,cy,a,r0,r1,w0,w1){
   const ca=Math.cos(a), sa=Math.sin(a);
@@ -310,38 +312,69 @@ function buildPlan(W,H,f){
   const mo=motionState(f);
   const md=Math.min(W,H);
   const N=Math.max(6,S.rays|0);
-  const R=md*0.52*S.reach;
-  const core=md*0.05*S.core;
-  /* spin turns whole revolutions, so the loop always closes */
+  const R=md*0.46*S.reach;
+  const hole=md*0.035*S.core;
   const spin=mo.flow?TAU*Math.max(1,Math.round(mo.amp))*mo.t:0;
   let cx=W/2, cy=H/2;
-  if(kind==="off"){cx+=(r()-0.5)*W*0.3;cy+=(r()-0.5)*H*0.3;}
+  if(kind==="off"){cx+=(r()-0.5)*W*0.22;cy+=(r()-0.5)*H*0.22;}
+
+  /* tiers: the first is the solid core, the last carries the long rays */
+  const T=r()<0.72?2:3;   /* two tiers is the archetype: core disc, long rays */
+  const wts=[];let sum=0;
+  for(let i=0;i<T;i++){const v=i===0?1.5:(i===T-1?2.6:1.1);wts.push(v);sum+=v;}
+  const gap=(R-hole)*0.055;
+  const usable=(R-hole)-gap*(T-1);
+  const tiers=[];
+  let acc=hole;
+  for(let i=0;i<T;i++){
+    const th=usable*wts[i]/sum;
+    tiers.push({r0:acc,r1:acc+th,last:i===T-1,first:i===0});
+    acc+=th+gap;
+  }
+  /* a repeating two-harmonic rhythm, stepped into a few lengths — it closes
+     around the circle exactly, so no seam and no lopsided silhouette */
+  const k1=2+((r()*4)|0), k2=k1+1+((r()*3)|0), ph=r()*TAU;
+  const levels=3+((r()*2)|0);
+  const rhythm=i=>{
+    let u=(0.5-0.5*Math.cos(i/N*TAU*k1))*0.6+(0.5-0.5*Math.cos(i/N*TAU*k2+ph))*0.4;
+    u=Math.round(u*(levels-1))/(levels-1);
+    return 1-S.vary*u;
+  };
   const base=TAU*R/N;
+  const breakSome=kind==="burst"&&r()<0.6;
+  const accentTier=r()<0.18?1+((r()*(T-1))|0):-1;
   const polys=[];
   for(let i=0;i<N;i++){
     const a=i/N*TAU+spin;
-    let lf=1-S.vary*hashi(i,1,0,S.seed);
-    /* pulse breathes the lengths, each ray on its own phase */
-    if(mo.pulse)lf*=1+0.22*mo.amp*Math.sin(TAU*mo.t+hashi(i,2,0,S.seed)*TAU);
-    const r1=core+(R-core)*Math.max(0.05,lf);
-    const col=hashi(i,3,0,S.seed)<0.07?S.pal[2+((hashi(i,4,0,S.seed)*2)|0)]:S.pal[1];
-    if(kind==="dash"){
-      /* break the outer part of the ray into marching segments */
-      const solid=core+(r1-core)*(0.28+hashi(i,5,0,S.seed)*0.25);
-      polys.push({p:rayPoly(cx,cy,a,core,solid,base*S.weight,base*S.weight),c:col});
-      const segs=2+((hashi(i,6,0,S.seed)*3)|0);
-      const span=(r1-solid)/segs;
-      for(let s=0;s<segs;s++){
-        const s0=solid+s*span+span*0.22, s1=solid+(s+1)*span-span*0.12;
-        if(s1>s0)polys.push({p:rayPoly(cx,cy,a,s0,s1,base*S.weight,base*S.weight),c:col});
+    let lf=rhythm(i);
+    if(mo.pulse)lf*=1+0.16*mo.amp*Math.sin(TAU*mo.t+(i/N)*TAU*k1);
+    tiers.forEach((t,ti)=>{
+      const col=ti===accentTier?S.pal[2]:S.pal[1];
+      /* the core tier is full width so its rays merge; outer tiers are slimmer */
+      const wMul=t.first?1.02:S.weight;
+      const w=base*wMul;
+      const r0=t.r0;
+      /* only the outermost tier varies in length */
+      const r1=t.last?t.r0+(t.r1-t.r0)*Math.max(0.12,lf):t.r1;
+      if(r1<=r0)return;
+      if(kind==="wedge"&&!t.first){
+        polys.push({p:rayPoly(cx,cy,a,r0,r1,w*0.35,w*1.6),c:col});
+        return;
       }
-    }else if(kind==="wedge"){
-      polys.push({p:rayPoly(cx,cy,a,core,r1,base*S.weight*0.35,base*S.weight*1.5),c:col});
-    }else{
-      polys.push({p:rayPoly(cx,cy,a,core,r1,base*S.weight,base*S.weight),c:col});
-    }
+      const dashing=(kind==="dash"&&!t.first)||(breakSome&&t.last&&hashi(i,9,0,S.seed)<0.35);
+      if(dashing){
+        const segs=kind==="dash"?2+((hashi(i,6,0,S.seed)*3)|0):2;
+        const span=(r1-r0)/segs;
+        for(let s=0;s<segs;s++){
+          const s0=r0+s*span, s1=s0+span-span*0.22;
+          if(s1>s0)polys.push({p:rayPoly(cx,cy,a,s0,s1,w,w),c:col});
+        }
+      }else{
+        polys.push({p:rayPoly(cx,cy,a,r0,r1,w,w),c:col});
+      }
+    });
   }
-  return{bg:S.pal[0],polys,cx,cy,core};
+  return{bg:S.pal[0],polys,cx,cy,hole};
 }
 function paint(c,W,H,f){
   const P=buildPlan(W,H,f);
@@ -355,9 +388,9 @@ function paint(c,W,H,f){
     for(let i=1;i<q.p.length;i++)c.lineTo(q.p[i][0],q.p[i][1]);
     c.closePath();c.fill();
   }
-  if(P.core>0.5){
+  if(P.hole>0.5){
     c.fillStyle=P.bg;
-    c.beginPath();c.arc(P.cx,P.cy,P.core,0,TAU);c.fill();
+    c.beginPath();c.arc(P.cx,P.cy,P.hole,0,TAU);c.fill();
   }
 }
 function svgFrame(f,uid){
@@ -373,7 +406,7 @@ function svgFrame(f,uid){
   }
   let body=`<rect width="${W}" height="${H}" fill="${P.bg}"/>`;
   for(const[col,d]of groups)body+=`<path d="${d}" fill="${col}"/>`;
-  if(P.core>0.5)body+=`<circle cx="${P.cx.toFixed(1)}" cy="${P.cy.toFixed(1)}" r="${P.core.toFixed(1)}" fill="${P.bg}"/>`;
+  if(P.hole>0.5)body+=`<circle cx="${P.cx.toFixed(1)}" cy="${P.cy.toFixed(1)}" r="${P.hole.toFixed(1)}" fill="${P.bg}"/>`;
   return{defs:"",body};
 }
 function svgWrap(defs,inner){
