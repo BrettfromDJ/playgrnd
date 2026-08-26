@@ -164,6 +164,10 @@ input[type=range]:disabled{opacity:.3;pointer-events:none}
           <div class="lab"><span>Grids</span><span class="val" id="gridsVal">4</span></div>
           <input type="range" id="grids" min="0" max="8" step="1" value="4">
         </div>
+        <div class="row">
+          <div class="lab"><span>Line blend</span></div>
+          <div class="chips grow" id="blends"></div>
+        </div>
       </section>
 
       <section class="sec">
@@ -257,6 +261,9 @@ function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"1:1",w:1,h:1},{id:"4:3",w:4,h:3},
  {id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9},{id:"2:1",w:2,h:1},{id:"3:1",w:3,h:1}];
 const MODES=[["creep","Creep"],["trace","Trace"]];
+/* multiply lets the hairlines darken whatever they cross instead of
+   sitting on top as one flat colour */
+const BLENDS=[["multiply","Multiply"],["normal","Normal"]];
 /* base ground, ink blocks, hairline grid colour */
 const PALETTES=[
   ["#D9D9D4","#DFF23C","#98988F"],
@@ -269,7 +276,7 @@ const PALETTES=[
 
 const S={
   seed:11, ratio:"1:1",
-  cells:16, cover:.5, chunk:1, grids:4,
+  cells:16, cover:.5, chunk:1, grids:4, blend:"multiply",
   pal:PALETTES[0].slice(),
   motion:{on:false,mode:"creep",amount:.8,fps:12,frames:72},
   size:2400
@@ -399,12 +406,14 @@ function paint(c,W,H,f){
   }
   c.strokeStyle=S.pal[2];
   c.lineWidth=1;
+  if(S.blend==="multiply")c.globalCompositeOperation="multiply";
   c.beginPath();
   for(const[x0,y0,x1,y1]of gridLines(p,gw,gh,stT)){
     c.moveTo(Math.round(x0*cw)+0.5,Math.round(y0*ch)+0.5);
     c.lineTo(Math.round(x1*cw)+0.5,Math.round(y1*ch)+0.5);
   }
   c.stroke();
+  c.globalCompositeOperation="source-over";
 }
 function svgFrame(f){
   const r=RATIOS.find(x=>x.id===S.ratio);
@@ -430,14 +439,15 @@ function svgFrame(f){
     d+=`M${Math.round(x0*cw)} ${Math.round(y0*ch)}L${Math.round(x1*cw)} ${Math.round(y1*ch)}`;
   /* one display pixel at a nominal 900px view, so the hairline survives scaling */
   const lw=Math.max(1,Math.round(W/900));
+  const bl=S.blend==="multiply"?' style="mix-blend-mode:multiply"':"";
   return `<rect width="${W}" height="${H}" fill="${S.pal[0]}"/>`+
     `<g fill="${S.pal[1]}" shape-rendering="crispEdges">${runs}</g>`+
-    `<path d="${d}" fill="none" stroke="${S.pal[2]}" stroke-width="${lw}" shape-rendering="crispEdges"/>`;
+    `<path d="${d}" fill="none" stroke="${S.pal[2]}" stroke-width="${lw}" shape-rendering="crispEdges"${bl}/>`;
 }
 function svgWrap(inner){
   const r=RATIOS.find(x=>x.id===S.ratio);
   const W=S.size,H=Math.round(S.size*r.h/r.w);
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`+inner+`</svg>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" style="isolation:isolate">`+inner+`</svg>`;
 }
 function buildSVG(){return svgWrap(svgFrame(curFrame));}
 /* animated loop: motion is stepwise, so identical consecutive frames are
@@ -667,6 +677,7 @@ bindRange("cells",v=>v,v=>S.cells=v|0);
 bindRange("cover",pct,v=>S.cover=v);
 bindRange("chunk",pct,v=>S.chunk=v);
 bindRange("grids",v=>v,v=>S.grids=v|0);
+segmented($("#blends"),BLENDS,()=>S.blend,v=>{S.blend=v;reframe();});
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
