@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Riso — torn paper collage</title>
+<meta name="description" content="Generate torn-paper riso collages — stacked bands of ragged two-colour patterns, wandering scribbles, big dots and grain. Exports SVG, PNG and video.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
+<style>
+:root{
+  --bg:#0b0b0d;--panel:#101013;--panel-2:#15151a;--line:#22222a;--line-soft:#1a1a20;
+  --text:#EFEDE8;--muted:#7c7c88;--muted-2:#55555f;--accent:#F0621E;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:"Archivo",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow:hidden}
+button,input{font-family:inherit;color:inherit}
+button{cursor:pointer;background:none;border:none;padding:0}
+.app{height:100dvh;display:grid;grid-template-rows:auto 1fr}
+.topbar{height:52px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:16px;padding:0 16px;background:var(--panel)}
+.mark{display:flex;align-items:center;gap:9px;min-width:0}
+.glyph{display:grid;grid-template-columns:repeat(3,4px);grid-auto-rows:4px;gap:1px}
+.glyph i{background:var(--muted-2);border-radius:1px}
+.glyph i.on{background:var(--accent)}
+.wordmark{font-variation-settings:"wdth" 112;font-weight:700;font-size:15px;letter-spacing:.02em;line-height:1}
+.tagline{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);padding-left:10px;border-left:1px solid var(--line)}
+.spacer{flex:1}
+.strip{display:flex;height:16px;border-radius:3px;overflow:hidden;border:1px solid var(--line);min-width:64px}
+.strip span{flex:1}
+.main{display:grid;grid-template-columns:316px 1fr;min-height:0}
+.panel{border-right:1px solid var(--line);background:var(--panel);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.panel::-webkit-scrollbar{width:9px}
+.panel::-webkit-scrollbar-thumb{background:var(--line);border:3px solid var(--panel);border-radius:9px}
+.sec{padding:16px 16px 18px;border-bottom:1px solid var(--line-soft)}
+.sec:last-child{border-bottom:none;padding-bottom:40px}
+.sec-h{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-2);margin:0 0 13px;display:flex;align-items:center;gap:8px}
+.sec-h::after{content:"";flex:1;height:1px;background:var(--line-soft)}
+.row{margin-bottom:13px}.row:last-child{margin-bottom:0}
+.lab{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.val{color:var(--text);font-variant-numeric:tabular-nums}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:16px;background:transparent;display:block;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:var(--line);border-radius:2px}
+input[type=range]::-moz-range-track{height:2px;background:var(--line);border-radius:2px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;border-radius:50%;background:var(--accent);margin-top:-4.5px;border:none;transition:transform .12s}
+input[type=range]::-moz-range-thumb{width:11px;height:11px;border:none;border-radius:50%;background:var(--accent)}
+input[type=range]:hover::-webkit-slider-thumb{transform:scale(1.25)}
+input[type=range]:disabled{opacity:.3;pointer-events:none}
+.chips{display:flex;flex-wrap:wrap;gap:4px}.chips.grow .chip{flex:1;text-align:center}
+.chip{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:5px 8px;border:1px solid var(--line);border-radius:4px;color:var(--muted);background:var(--panel-2);transition:.14s;white-space:nowrap}
+.chip:hover{color:var(--text);border-color:var(--muted-2)}
+.chip[aria-pressed=true]{color:#0b0b0d;background:var(--accent);border-color:var(--accent);font-weight:500}
+.ratios{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.ratio{border:1px solid var(--line);border-radius:4px;background:var(--panel-2);padding:7px 3px 6px;display:flex;flex-direction:column;align-items:center;gap:5px;transition:.14s}
+.ratio:hover{border-color:var(--muted-2)}
+.ratio .box{border:1.5px solid var(--muted-2);border-radius:1.5px;transition:.14s}
+.ratio .t{font-family:var(--mono);font-size:9px;color:var(--muted)}
+.ratio[aria-pressed=true]{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,var(--panel-2))}
+.ratio[aria-pressed=true] .box{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 30%,transparent)}
+.ratio[aria-pressed=true] .t{color:var(--text)}
+.sw-grid{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.sw{position:relative;width:30px;height:30px;border-radius:4px;border:1px solid rgba(255,255,255,.14);overflow:hidden;padding:0;display:block;transition:transform .12s}
+.sw:hover{transform:translateY(-2px)}
+.sw input{position:absolute;inset:-4px;width:calc(100% + 8px);height:calc(100% + 8px);border:none;padding:0;background:none;cursor:pointer;opacity:0}
+.sw .fill{position:absolute;inset:0}
+.btn{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:9px 10px;border:1px solid var(--line);border-radius:5px;background:var(--panel-2);color:var(--text);transition:.14s;width:100%;text-align:center}
+.btn:hover{border-color:var(--muted-2);background:#1a1a20}
+.btn.primary{background:var(--accent);color:#0b0b0d;border-color:var(--accent);font-weight:500}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn[disabled]{opacity:.4;pointer-events:none}
+.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.seedwrap{display:grid;grid-template-columns:1fr auto;gap:6px}
+.seed{font-family:var(--mono);font-size:11px;background:var(--panel-2);border:1px solid var(--line);border-radius:5px;padding:8px 10px;width:100%;letter-spacing:.05em}
+.seed:focus{outline:none;border-color:var(--accent)}
+.note{font-family:var(--mono);font-size:9.5px;line-height:1.5;color:var(--muted-2);letter-spacing:.03em;margin-top:9px}
+.tog{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:5px 0}
+.row.tog{margin-bottom:16px}
+.switch{width:34px;height:19px;border-radius:19px;background:var(--line);position:relative;transition:.16s;flex:none}
+.switch::after{content:"";position:absolute;top:2.5px;left:2.5px;width:14px;height:14px;border-radius:50%;background:var(--muted);transition:.16s}
+.switch[aria-pressed=true]{background:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.switch[aria-pressed=true]::after{left:17.5px;background:var(--accent)}
+.stage{position:relative;min-width:0;display:grid;grid-template-rows:1fr auto;background:radial-gradient(120% 90% at 50% 0%, #131318 0%, var(--bg) 62%)}
+.stage-inner{min-height:0;display:grid;place-items:center;padding:32px 32px 8px;position:relative}
+#art{max-width:100%;max-height:100%;object-fit:contain;border-radius:2px;box-shadow:0 24px 70px -20px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.07);cursor:pointer}
+.transport{height:56px;display:flex;align-items:center;gap:12px;padding:0 32px 12px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.transport b{color:var(--muted);font-weight:400;font-variant-numeric:tabular-nums}
+.play{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:var(--panel-2);display:grid;place-items:center;flex:none;transition:.14s}
+.play:hover{border-color:var(--muted-2)}
+.play svg{fill:var(--text)}
+#scrub{flex:1}
+.frameno{font-variant-numeric:tabular-nums;color:var(--muted-2);min-width:62px;text-align:right}
+.hint{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-2);white-space:nowrap}
+@media (max-width:1180px){.hint{display:none}}
+.build{font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--muted-2)}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,14px);background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:10px 15px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;opacity:0;pointer-events:none;transition:.2s;z-index:40;box-shadow:0 12px 34px rgba(0,0,0,.6)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast.busy::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent);margin-right:8px;vertical-align:middle;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:.25}50%{opacity:1}}
+@media (max-width:900px){
+  body{overflow:auto}.app{height:auto;min-height:100dvh}
+  .main{grid-template-columns:1fr;grid-template-rows:auto auto}
+  .panel{border-right:none;border-top:1px solid var(--line);order:2;overflow:visible}
+  /* the preview and the bar above it stay put while the controls scroll under them */
+  .topbar{position:sticky;top:0;z-index:30}
+  .stage{order:1;height:46dvh;position:sticky;top:52px;z-index:20;
+         background:var(--bg);border-bottom:1px solid var(--line)}
+  .stage-inner{padding:14px 18px 2px}
+  .transport{padding:0 18px 8px}
+  .hint{display:none}
+  .tagline{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="mark">
+      <div class="glyph" id="glyph"></div>
+      <div class="wordmark">Riso</div>
+      <div class="tagline">Torn paper collage</div>
+    </div>
+    <a href="../index.html" class="chip" style="text-decoration:none">← All tools</a>
+    <div class="spacer"></div>
+    <div class="strip" id="strip"></div>
+  </header>
+  <div class="main">
+    <aside class="panel">
+      <section class="sec">
+        <h2 class="sec-h">Variation</h2>
+        <div class="seedwrap">
+          <input class="seed" id="seed" value="1" inputmode="numeric" aria-label="Variation number">
+          <button class="btn" id="shuf" style="width:auto;padding:8px 12px">New</button>
+        </div>
+        <div class="note">Each number deals a different collage — the band stack, every tear, the scribble paths. Note it down to get the same one back.</div>
+      </section>
+
+      <section class="sec">
+        <h2 class="sec-h">Frame</h2>
+        <div class="row">
+          <div class="lab"><span>Aspect ratio</span><span class="val" id="ratioVal">1:1</span></div>
+          <div class="ratios" id="ratios"></div>
+        </div>
+      </section>
+
+      <section class="sec">
+        <h2 class="sec-h">Artwork</h2>
+        <div class="row">
+          <div class="lab"><span>Bands</span><span class="val" id="bandsVal">3</span></div>
+          <input type="range" id="bands" min="2" max="5" step="1" value="3">
+        </div>
+        <div class="row">
+          <div class="lab"><span>Rough</span><span class="val" id="roughVal">50%</span></div>
+          <input type="range" id="rough" min="0.1" max="1" step="0.01" value="0.5">
+        </div>
+        <div class="row">
+          <div class="lab"><span>Scribbles</span><span class="val" id="scribVal">60%</span></div>
+          <input type="range" id="scrib" min="0" max="1" step="0.01" value="0.6">
+        </div>
+        <div class="row">
+          <div class="lab"><span>Dot</span><span class="val" id="dotpVal">50%</span></div>
+          <input type="range" id="dotp" min="0" max="1" step="0.01" value="0.5">
+        </div>
+        <div class="row">
+          <div class="lab"><span>Grain</span><span class="val" id="grainVal">50%</span></div>
+          <input type="range" id="grain" min="0" max="1" step="0.01" value="0.5">
+        </div>
+      </section>
+
+      <section class="sec">
+        <h2 class="sec-h">Color</h2>
+        <div class="row">
+          <div class="lab"><span>Base + inks</span></div>
+          <div class="sw-grid" id="swatches"></div>
+        </div>
+        <div class="row btn-row">
+          <button class="btn" id="shufColors">New set</button>
+          <button class="btn" id="rotColors">Rotate inks</button>
+        </div>
+      </section>
+
+      <section class="sec">
+        <h2 class="sec-h">Motion</h2>
+        <div class="row tog">
+          <span class="lab" style="margin:0"><span>Animate</span></span>
+          <button class="switch" id="motionTog" aria-pressed="false" aria-label="Animate"></button>
+        </div>
+        <div id="motionBody" hidden>
+          <div class="row">
+            <div class="lab"><span>Movement</span></div>
+            <div class="chips grow" id="modes"></div>
+          </div>
+          <div class="row">
+            <div class="lab"><span>Intensity</span><span class="val" id="amtVal">0.80</span></div>
+            <input type="range" id="amt" min="0.1" max="2" step="0.05" value="0.8">
+          </div>
+          <div class="row">
+            <div class="lab"><span>Speed</span><span class="val" id="fpsVal">8 fps</span></div>
+            <input type="range" id="fps" min="2" max="30" step="1" value="8">
+          </div>
+          <div class="row">
+            <div class="lab"><span>Loop length</span><span class="val" id="framesVal">16 frames</span></div>
+            <input type="range" id="frames" min="8" max="48" step="2" value="16">
+          </div>
+          <div class="note">Tear makes every ripped edge writhe; Scribble draws the pen lines stroke by stroke; Flicker re-deals blocks and grain like a misprint. Every loop closes.</div>
+        </div>
+      </section>
+
+      <section class="sec">
+        <h2 class="sec-h">Export</h2>
+        <div class="row">
+          <div class="lab"><span>Size</span><span class="val" id="sizeVal">2400 px</span></div>
+          <input type="range" id="size" min="600" max="6000" step="100" value="2400">
+        </div>
+        <div class="row btn-row">
+          <button class="btn primary" id="expPng">PNG</button>
+          <button class="btn" id="expSvg">SVG</button>
+          <button class="btn" id="expSvgLoop">SVG loop</button>
+          <button class="btn" id="expVid">Video</button>
+        </div>
+        <div class="note">The SVG is true vectors — every tear stays crisp at any size. The loop stacks frames of the moving layer, so it can run large — video is smaller.</div>
+      </section>
+
+    </aside>
+    <main class="stage">
+      <div class="stage-inner"><canvas id="art" width="800" height="800"></canvas></div>
+      <div class="transport">
+        <button class="play" id="play" aria-label="Play or pause"><svg width="10" height="11" viewBox="0 0 10 11" id="playIcon"><path d="M0 0l10 5.5L0 11z"/></svg></button>
+        <input type="range" id="scrub" min="0" max="15" step="1" value="0" aria-label="Timeline" disabled>
+        <span class="frameno" id="frameno">01 / 01</span>
+        <span>Render <b id="dims">—</b></span>
+        <span class="hint">Space — new variation · P — play/pause</span>
+        <span class="build">v1</span>
+      </div>
+    </main>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(() => {
+"use strict";
+const $=s=>document.querySelector(s);
+const TAU=Math.PI*2;
+const clamp=(v,a,b)=>v<a?a:v>b?b:v;
+const reduceMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function rng(s){let a=(s>>>0)||1;return()=>{a^=a<<13;a>>>=0;a^=a>>17;a^=a<<5;a>>>=0;return a/4294967296;};}
+function hashi(x,y,z,s){
+  let n=Math.imul(x|0,374761393)^Math.imul(y|0,668265263)^Math.imul(z|0,1440662683)^Math.imul(s|0,1013904223);
+  n=Math.imul(n^(n>>>15),2246822519);n=Math.imul(n^(n>>>13),3266489917);n^=n>>>16;
+  return (n>>>0)/4294967296;
+}
+function hex2rgb(h){h=h.replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
+  return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];}
+function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4);});
+  return .2126*r+.7152*g+.0722*b;}
+
+const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
+ {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
+const MODES=[["tear","Tear"],["scribble","Scribble"],["flicker","Flicker"]];
+/* riso ink sets: mids, one hot, one dark, one pale */
+const PALETTES=[
+  ["#9B7FD4","#F26B1D","#FF4FA0","#556135","#E0402A","#9A97C9"],
+  ["#F2A0C8","#2B3AD8","#F5C518","#1E4A2E","#F0480F","#EFE9D4"],
+  ["#63D8C2","#E0402A","#F5C518","#2B2B8C","#FF87C3","#E8E4DC"],
+  ["#FF9E3D","#1B4FA0","#FF4FA0","#3A4A1E","#8A5CF0","#F2EFE8"],
+  ["#C9E265","#8A2BE2","#F0621E","#1E3A5A","#FF3DA6","#F5F0E8"],
+  ["#F5C518","#E22BC3","#2AAE9E","#4A2010","#2E7CFF","#EFE9D4"]
+];
+const INK="#1A1A1A";
+
+const S={
+  seed:11, ratio:"1:1",
+  bands:3, rough:.5, scrib:.6, dotp:.5, grain:.5,
+  pal:PALETTES[0].slice(),
+  motion:{on:false,mode:"tear",amount:.8,fps:8,frames:16},
+  size:2400
+};
+
+function motionState(f){
+  const M=S.motion;
+  const t=M.on?f/M.frames:0;
+  return{t,mode:M.on?M.mode:"",amp:M.amount,f};
+}
+
+/* ============================================================
+   The collage engine — stacked bands of ragged two-colour
+   patterns, cut with jittered polygon edges so every shape
+   reads as torn paper. Canvas and SVG walk the same polygons.
+============================================================ */
+const VB=1000;
+function vbH(){const r=RATIOS.find(x=>x.id===S.ratio);return VB*r.h/r.w;}
+function buildSpec(){
+  const r=rng(S.seed*2654435761>>>0);
+  const H=vbH();
+  const n=S.bands|0;
+  /* band heights: uneven but never slivers */
+  const ws=[];let sum=0;
+  for(let i=0;i<n;i++){const v=0.6+r()*1.2;ws.push(v);sum+=v;}
+  const kinds=["blocks","streaks","static","blocks","streaks"];
+  for(let i=kinds.length-1;i>0;i--){const j=(r()*(i+1))|0;const t2=kinds[i];kinds[i]=kinds[j];kinds[j]=t2;}
+  const nc=S.pal.length;
+  /* pick a second ink that actually reads against the first */
+  const against=(base,r2)=>{
+    let fg=(r2*nc)|0;
+    for(let q=0;q<nc;q++){
+      const c2=(fg+q)%nc;
+      if(c2!==base&&Math.abs(relLum(S.pal[c2])-relLum(S.pal[base]))>0.09)return c2;
+    }
+    return (base+1)%nc;
+  };
+  const bands=[];let y=0;
+  for(let i=0;i<n;i++){
+    const h=ws[i]/sum*H;
+    const bg=(r()*nc)|0;
+    const fg=against(bg,r());
+    bands.push({y0:y,y1:y+h,kind:kinds[i%kinds.length],bg,fg,v:r(),v2:r(),id:i});
+    y+=h;
+  }
+  const scribs=[];
+  const ns=Math.round(S.scrib*3);
+  for(let i=0;i<ns;i++){
+    const pts=[];
+    let px=r()*VB*0.3, py=r()*H*0.5;
+    let ang=r()*TAU, sp=VB*0.02+r()*VB*0.02;
+    for(let q=0;q<70;q++){
+      pts.push([px,py]);
+      ang+=(hashi(i,q,3,S.seed)-0.5)*1.4;
+      /* the pen loops back if it wanders off the page */
+      if(px<0||px>VB)ang=Math.PI-ang;
+      if(py<0||py>H)ang=-ang;
+      px+=Math.cos(ang)*sp;py+=Math.sin(ang)*sp;
+    }
+    /* smooth the walk so it reads as a hand line */
+    const sm=[pts[0]];
+    for(let q=1;q<pts.length-1;q++)
+      sm.push([(pts[q-1][0]+pts[q][0]*2+pts[q+1][0])/4,(pts[q-1][1]+pts[q][1]*2+pts[q+1][1])/4]);
+    sm.push(pts[pts.length-1]);
+    scribs.push(sm);
+  }
+  let dot=null;
+  if(r()<S.dotp){
+    const b=bands[(r()*bands.length)|0];
+    const rr=Math.min(VB,H)*(0.14+r()*0.10);
+    dot={cx:VB*(0.3+r()*0.4),cy:Math.min(b.y1-rr*0.3,Math.max(b.y0+rr*0.3,b.y0+(b.y1-b.y0)*r())),
+      rr,ci:against(b.bg,r()),ph:r()};
+  }
+  return{bands,scribs,dot,H,SW:(r()*1e9)|0};
+}
+/* a ragged polygon: rectangle edges subdivided and jittered */
+function tornPoly(x,y,w,h,rough,k1,k2,SW,mo,mid){
+  const pts=[];
+  const wob=(q,ed)=>{
+    let j=(hashi(k1,q,ed+k2*7,SW)-0.5)*rough;
+    if(mo.mode==="tear")
+      j+=rough*0.45*Math.min(1.6,mo.amp)*Math.sin(TAU*(mo.t+hashi(k1,q,ed+50,SW)));
+    return j;
+  };
+  const n=5;
+  for(let q=0;q<=n;q++)pts.push([x+w*q/n,y+wob(q,1)]);
+  for(let q=1;q<=n;q++)pts.push([x+w+wob(q,2),y+h*q/n]);
+  for(let q=n-1;q>=0;q--)pts.push([x+w*q/n,y+h+wob(q,3)]);
+  for(let q=n-1;q>=1;q--)pts.push([x+wob(q,4),y+h*q/n]);
+  return pts;
+}
+/* everything on the sheet, one frame, as layered polygon lists */
+function sceneParts(f){
+  const mo=motionState(f);
+  const sp=buildSpec();
+  const H=sp.H;
+  const rough=S.rough;
+  const flickState=mo.mode==="flicker"?mo.f%S.motion.frames:0;
+  const bandsOut=[];
+  for(const b of sp.bands){
+    const bh=b.y1-b.y0;
+    const shapes=[];
+    const rg=VB*0.016*(0.4+rough*1.6);
+    if(b.kind==="blocks"){
+      const cols=5+((b.v*3)|0);
+      const rows=Math.max(1,Math.round(bh/(VB*0.16)));
+      const cw2=VB/cols, ch2=bh/rows;
+      for(let cy2=0;cy2<rows;cy2++)for(let cx2=0;cx2<cols;cx2++){
+        let on=hashi(cx2,cy2,b.id*3+1,sp.SW)<0.58;
+        if(mo.mode==="flicker"&&hashi(cx2,cy2,b.id*5+flickState,sp.SW)<0.05)on=!on;
+        if(!on)continue;
+        const jx=(hashi(cx2,cy2,b.id+11,sp.SW)-0.5)*cw2*0.4;
+        const jy=(hashi(cx2,cy2,b.id+12,sp.SW)-0.5)*ch2*0.3;
+        const w2=cw2*(0.7+hashi(cx2,cy2,b.id+13,sp.SW)*0.55);
+        const h2=ch2*(0.75+hashi(cx2,cy2,b.id+14,sp.SW)*0.5);
+        shapes.push(tornPoly(cx2*cw2+jx,b.y0+cy2*ch2+jy,w2,h2,rg,cx2+cy2*31,b.id,sp.SW,mo));
+      }
+    }else if(b.kind==="streaks"){
+      const cols=7+((b.v*3)|0);
+      const cw2=VB/cols;
+      for(let i=0;i<cols;i++){
+        if(hashi(i,0,b.id*7+2,sp.SW)<0.16)continue;
+        const seg=6;
+        const L=[],R=[];
+        for(let q=0;q<=seg;q++){
+          const yy=b.y0+bh*q/seg;
+          let wb=(hashi(i,q,b.id*7+3,sp.SW)-0.5)*cw2*1.1*(0.4+rough);
+          if(mo.mode==="tear")
+            wb+=cw2*0.3*Math.min(1.6,mo.amp)*Math.sin(TAU*(mo.t+hashi(i,q,b.id+60,sp.SW)));
+          const wd=cw2*(0.34+hashi(i,q,b.id*7+4,sp.SW)*0.5);
+          L.push([i*cw2+cw2/2+wb-wd/2,yy]);
+          R.push([i*cw2+cw2/2+wb+wd/2,yy]);
+        }
+        shapes.push(L.concat(R.reverse()));
+      }
+    }else{ /* static: rows of scratchy dashes */
+      const rows=Math.max(3,Math.round(bh/(VB*0.028)));
+      const rh=bh/rows;
+      for(let ry=0;ry<rows;ry++){
+        const nd=2+((hashi(ry,1,b.id*9+1,sp.SW)*6)|0);
+        for(let d2=0;d2<nd;d2++){
+          if(mo.mode==="flicker"&&hashi(ry,d2*3+flickState,b.id,sp.SW)<0.08)continue;
+          const x0=hashi(ry,d2*2,b.id*9+2,sp.SW)*VB;
+          const ln=VB*(0.03+hashi(ry,d2*2+1,b.id*9+3,sp.SW)*0.16);
+          shapes.push(tornPoly(x0,b.y0+ry*rh+rh*0.2,ln,rh*0.55,rg*0.5,ry*17+d2,b.id,sp.SW,mo));
+        }
+      }
+    }
+    bandsOut.push({b,shapes});
+  }
+  /* the big dot, edge gently torn */
+  let dotPoly=null;
+  if(sp.dot){
+    const d2=sp.dot,pts=[];
+    for(let q=0;q<36;q++){
+      const a2=q/36*TAU;
+      let rr=d2.rr*(1+(hashi(q,1,77,sp.SW)-0.5)*0.05*rough);
+      pts.push([d2.cx+Math.cos(a2)*rr,d2.cy+Math.sin(a2)*rr]);
+    }
+    dotPoly={pts,col:S.pal[d2.ci%S.pal.length]};
+  }
+  /* scribbles, optionally drawing themselves */
+  const scribsOut=sp.scribs.map(sm=>{
+    if(mo.mode==="scribble"){
+      const k=Math.max(2,Math.ceil(sm.length*((mo.f+1)/S.motion.frames)));
+      return sm.slice(0,k);
+    }
+    return sm;
+  });
+  /* grain specks over everything */
+  const specks=[];
+  const ns=Math.round(S.grain*700);
+  for(let i=0;i<ns;i++){
+    const gk=mo.mode==="flicker"?flickState:0;
+    specks.push([hashi(i,1,gk+91,sp.SW)*VB,hashi(i,2,gk+92,sp.SW)*H,
+      hashi(i,3,gk+93,sp.SW)<0.55]);
+  }
+  return{bandsOut,dotPoly,scribsOut,specks,H,sp};
+}
+function paint(c,W,Hpx,f){
+  const P=sceneParts(f);
+  const k=W/VB;
+  c.setTransform(1,0,0,1,0,0);
+  for(const{b,shapes}of P.bandsOut){
+    c.save();
+    c.beginPath();c.rect(0,b.y0*k-0.5,W,(b.y1-b.y0)*k+1);c.clip();
+    c.fillStyle=S.pal[b.bg%S.pal.length];c.fillRect(0,b.y0*k-1,W,(b.y1-b.y0)*k+2);
+    c.fillStyle=S.pal[b.fg%S.pal.length];
+    for(const pts of shapes){
+      c.beginPath();
+      pts.forEach((p,i)=>i?c.lineTo(p[0]*k,p[1]*k):c.moveTo(p[0]*k,p[1]*k));
+      c.closePath();c.fill();
+    }
+    c.restore();
+  }
+  if(P.dotPoly){
+    c.beginPath();
+    P.dotPoly.pts.forEach((p,i)=>i?c.lineTo(p[0]*k,p[1]*k):c.moveTo(p[0]*k,p[1]*k));
+    c.closePath();c.fillStyle=P.dotPoly.col;c.fill();
+  }
+  c.strokeStyle=INK;c.lineWidth=Math.max(1,VB*0.0035*k);c.lineCap="round";c.lineJoin="round";
+  for(const sm of P.scribsOut){
+    c.beginPath();
+    sm.forEach((p,i)=>i?c.lineTo(p[0]*k,p[1]*k):c.moveTo(p[0]*k,p[1]*k));
+    c.stroke();
+  }
+  const sr=Math.max(1,VB*0.0016*k);
+  for(const[x,y,dk]of P.specks){
+    c.fillStyle=dk?"rgba(10,10,10,0.5)":"rgba(255,255,255,0.4)";
+    c.fillRect(x*k,y*k,sr,sr);
+  }
+}
+/* ---------- SVG: the same parts as strings, per layer ---------- */
+function svgLayers(f,uid){
+  const P=sceneParts(f);
+  const f1=x=>x.toFixed(1);
+  const poly=pts=>`<polygon points="${pts.map(p=>f1(p[0])+","+f1(p[1])).join(" ")}"/>`;
+  let bands="",defs="";
+  P.bandsOut.forEach(({b,shapes},i)=>{
+    const cid=`c${uid}_${i}`;
+    defs+=`<clipPath id="${cid}"><rect x="0" y="${f1(b.y0-0.5)}" width="${VB}" height="${f1(b.y1-b.y0+1)}"/></clipPath>`;
+    bands+=`<g clip-path="url(#${cid})"><rect x="0" y="${f1(b.y0-1)}" width="${VB}" height="${f1(b.y1-b.y0+2)}" fill="${S.pal[b.bg%S.pal.length]}"/>`+
+      `<g fill="${S.pal[b.fg%S.pal.length]}">${shapes.map(poly).join("")}</g></g>`;
+  });
+  const dot=P.dotPoly?`<g fill="${P.dotPoly.col}">${poly(P.dotPoly.pts)}</g>`:"";
+  const scrib=P.scribsOut.length
+    ?`<g fill="none" stroke="${INK}" stroke-width="${(VB*0.0035).toFixed(2)}" stroke-linecap="round" stroke-linejoin="round">`+
+      P.scribsOut.map(sm=>`<polyline points="${sm.map(p=>f1(p[0])+","+f1(p[1])).join(" ")}"/>`).join("")+`</g>`:"";
+  let g1="",g2="";
+  for(const[x,y,dk]of P.specks){
+    const r2=`<rect x="${f1(x)}" y="${f1(y)}" width="1.6" height="1.6"/>`;
+    if(dk)g1+=r2;else g2+=r2;
+  }
+  const grain=(g1||g2)?`<g fill="#0A0A0A" opacity="0.5">${g1}</g><g fill="#FFFFFF" opacity="0.4">${g2}</g>`:"";
+  return{defs,bands,dot,scrib,grain,H:P.H};
+}
+function svgWrap(defs,inner){
+  const r=RATIOS.find(x=>x.id===S.ratio);
+  const W=S.size,H=Math.round(S.size*r.h/r.w);
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${VB} ${vbH().toFixed(1)}">`+
+    (defs?`<defs>${defs}</defs>`:"")+inner+`</svg>`;
+}
+function buildSVG(){
+  const L=svgLayers(curFrame,0);
+  return svgWrap(L.defs,L.bands+L.dot+L.scrib+L.grain);
+}
+/* the loop stacks only the layers the current movement changes */
+function buildLoopSVG(){
+  const M=S.motion,F=M.frames,dur=(F/M.fps).toFixed(3);
+  const moving=M.mode==="tear"?["bands"]:M.mode==="scribble"?["scrib"]:["bands","grain"];
+  const perFrame=[];let defs="";
+  for(let f=0;f<F;f++){const L=svgLayers(f,f);perFrame.push(L);if(f===0)defs="";defs+=L.defs;}
+  const stack=key=>{
+    const segs=[];
+    for(let f=0;f<F;f++){
+      const s2=perFrame[f][key];
+      const cmp=s2.replace(/c\d+_/g,"c_");
+      if(segs.length&&segs[segs.length-1].cmp===cmp)segs[segs.length-1].n++;
+      else segs.push({cmp,c:s2,f0:f,n:1});
+    }
+    let out2="";
+    segs.forEach((sg,i)=>{
+      const t0=(sg.f0/F).toFixed(5),t1=((sg.f0+sg.n)/F).toFixed(5);
+      const anim=i===0
+        ?`<animate attributeName="visibility" values="visible;hidden" keyTimes="0;${t1}" dur="${dur}s" calcMode="discrete" repeatCount="indefinite"/>`
+        :`<animate attributeName="visibility" values="hidden;visible;hidden" keyTimes="0;${t0};${t1}" dur="${dur}s" calcMode="discrete" repeatCount="indefinite"/>`;
+      out2+=`<g visibility="${i===0?"visible":"hidden"}">${anim}${sg.c}</g>`;
+    });
+    return out2;
+  };
+  const L0=perFrame[0];
+  const part=key=>moving.includes(key)?stack(key):L0[key];
+  return svgWrap(defs,part("bands")+part("dot")+part("scrib")+part("grain"));
+}
+
+const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
+function fitCanvas(){
+  const r=RATIOS.find(x=>x.id===S.ratio);
+  const box=$(".stage-inner");
+  let dpr=Math.min(2,window.devicePixelRatio||1);
+  let availW=700,availH=700;
+  if(box&&box.clientWidth){
+    const bs=getComputedStyle(box);
+    availW=box.clientWidth-parseFloat(bs.paddingLeft)-parseFloat(bs.paddingRight);
+    availH=box.clientHeight-parseFloat(bs.paddingTop)-parseFloat(bs.paddingBottom);
+  }
+  availW=Math.max(80,availW);availH=Math.max(80,availH);
+  const s=Math.min(availW/r.w,availH/r.h);
+  const dispW=Math.max(40,Math.floor(r.w*s)),dispH=Math.max(40,Math.floor(r.h*s));
+  const w=Math.round(dispW*dpr),h=Math.round(dispH*dpr);
+  if(art.width!==w||art.height!==h){art.width=w;art.height=h;}
+  if(art.style.width!==dispW+"px"||art.style.height!==dispH+"px"){
+    art.style.width=dispW+"px";art.style.height=dispH+"px";
+  }
+  return{w,h};
+}
+let curFrame=0,queued=false;
+function draw(){
+  const{w,h}=fitCanvas();
+  const t0=performance.now();
+  paint(ctx,w,h,curFrame);
+  const ms=Math.round(performance.now()-t0);
+  $("#dims").textContent=w+"×"+h+" · "+ms+"ms";
+  const F=S.motion.on?S.motion.frames:1;
+  $("#frameno").textContent=String(curFrame+1).padStart(2,"0")+" / "+String(F).padStart(2,"0");
+}
+function requestDraw(){if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;draw();});}
+const reframe=requestDraw;
+if(window.ResizeObserver){
+  const box=$(".stage-inner");
+  if(box){let p=false;new ResizeObserver(()=>{if(p)return;p=true;requestAnimationFrame(()=>{p=false;draw();});}).observe(box);}
+}
+let playing=false,t0=0,raf=0;
+function tick(now){
+  if(!playing)return;
+  const M=S.motion,dur=(M.frames/M.fps)*1000;
+  const f=Math.floor(((now-t0)%dur)/dur*M.frames)%M.frames;
+  if(f!==curFrame){curFrame=f;$("#scrub").value=f;draw();}
+  raf=requestAnimationFrame(tick);
+}
+function setPlaying(v){
+  playing=v&&S.motion.on;
+  $("#playIcon").innerHTML=playing
+    ?'<rect x="0" y="0" width="3.5" height="11"/><rect x="6.5" y="0" width="3.5" height="11"/>'
+    :'<path d="M0 0l10 5.5L0 11z"/>';
+  cancelAnimationFrame(raf);
+  if(playing){t0=performance.now()-(curFrame/S.motion.frames)*(S.motion.frames/S.motion.fps*1000);raf=requestAnimationFrame(tick);}
+  else requestDraw();
+}
+
+/* ============================================================
+   Export
+============================================================ */
+let toastTimer;
+function toast(msg,busy){
+  const el=$("#toast");el.textContent=msg;el.classList.toggle("busy",!!busy);el.classList.add("show");
+  clearTimeout(toastTimer);if(!busy)toastTimer=setTimeout(()=>el.classList.remove("show"),2400);
+}
+function save(blob,name){
+  const url=URL.createObjectURL(blob),a=document.createElement("a");
+  a.href=url;a.download=name;document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
+}
+function stamp(){return `riso-${S.seed}-${S.ratio.replace(":","x")}`;}
+function updateExportNote(){
+  const a=$("#expVid"),sc=$("#scrub"),l=$("#expSvgLoop");
+  if(a)a.disabled=!S.motion.on;
+  if(l)l.disabled=!S.motion.on;
+  if(sc)sc.disabled=!S.motion.on;
+}
+$("#expPng").addEventListener("click",()=>{
+  toast("Rendering…",true);
+  setTimeout(()=>{
+    const r=RATIOS.find(x=>x.id===S.ratio);
+    const W=S.size,H=Math.round(S.size*r.h/r.w);
+    const c=document.createElement("canvas");c.width=W;c.height=H;
+    paint(c.getContext("2d"),W,H,curFrame);
+    c.toBlob(b=>{save(b,stamp()+".png");toast(`PNG saved · ${W}×${H}`);});
+  },30);
+});
+$("#expSvg").addEventListener("click",()=>{
+  save(new Blob([buildSVG()],{type:"image/svg+xml"}),stamp()+".svg");
+  toast("SVG saved");
+});
+$("#expSvgLoop").addEventListener("click",()=>{
+  if(!S.motion.on)return toast("Turn on motion first");
+  toast("Building loop\u2026",true);
+  setTimeout(()=>{
+    save(new Blob([buildLoopSVG()],{type:"image/svg+xml"}),stamp()+"-loop.svg");
+    toast("Animated SVG saved");
+  },30);
+});
+function pickVideoType(){
+  const t=["video/mp4;codecs=avc1.42E01E","video/mp4","video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"];
+  for(const x of t)if(window.MediaRecorder&&MediaRecorder.isTypeSupported(x))return x;
+  return null;
+}
+$("#expVid").addEventListener("click",()=>{
+  if(!S.motion.on)return toast("Turn on motion first");
+  const type=pickVideoType();
+  if(!type)return toast("This browser can't record video");
+  const ext=type.startsWith("video/mp4")?"mp4":"webm";
+  const r=RATIOS.find(x=>x.id===S.ratio);
+  let W=Math.min(1120,S.size);W-=W%2;
+  let H=Math.round(W*r.h/r.w);H-=H%2;
+  const c=document.createElement("canvas");c.width=W;c.height=H;
+  const cc=c.getContext("2d");
+  const F=S.motion.frames,loops=1;
+  const rec=new MediaRecorder(c.captureStream(60),{mimeType:type,videoBitsPerSecond:16000000});
+  const chunks=[];
+  rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
+  rec.onstop=()=>{save(new Blob(chunks,{type}),stamp()+"-loop."+ext);toast(ext.toUpperCase()+" saved");};
+  const was=playing;setPlaying(false);
+  toast("Recording…",true);
+  let n=0;
+  rec.start();
+  (function step(){
+    paint(cc,W,H,n%F);
+    n++;
+    if(n<F*loops) setTimeout(()=>requestAnimationFrame(step), Math.max(0,1000/S.motion.fps-4));
+    else setTimeout(()=>{rec.stop();if(was)setPlaying(true);},200);
+  })();
+});
+
+/* ============================================================
+   UI
+============================================================ */
+function accent(){
+  let best=S.pal[1],bl=-1;
+  for(const c of S.pal){const l=relLum(c);if(l>bl&&l>0.1&&l<0.85){bl=l;best=c;}}
+  document.documentElement.style.setProperty("--accent",bl>0?best:"#F0621E");
+  $("#strip").innerHTML=S.pal.map(c=>`<span style="background:${c}"></span>`).join("");
+  const g=$("#glyph");
+  if(g.children.length!==9)g.innerHTML=Array.from({length:9},()=>"<i></i>").join("");
+  [...g.children].forEach((el,i)=>el.classList.toggle("on",[1,3,4,5,7].includes(i)));
+}
+function segmented(host,items,get,set){
+  if(!host)return;
+  host.innerHTML="";
+  items.forEach(([id,label])=>{
+    const b=document.createElement("button");
+    b.className="chip";b.type="button";b.textContent=label;
+    b.setAttribute("aria-pressed",String(get()===id));
+    b.onclick=()=>{set(id);[...host.children].forEach(c=>c.setAttribute("aria-pressed",String(c===b)));};
+    host.appendChild(b);
+  });
+}
+function buildRatios(){
+  const host=$("#ratios");if(!host)return;
+  host.innerHTML="";
+  RATIOS.forEach(r=>{
+    const b=document.createElement("button");
+    b.className="ratio";b.type="button";
+    b.setAttribute("aria-pressed",String(S.ratio===r.id));
+    const sc=20/Math.max(r.w,r.h);
+    b.innerHTML=`<span class="box" style="width:${(r.w*sc).toFixed(1)}px;height:${(r.h*sc).toFixed(1)}px"></span><span class="t">${r.id}</span>`;
+    b.onclick=()=>{S.ratio=r.id;$("#ratioVal").textContent=r.id;
+      [...host.children].forEach(c=>c.setAttribute("aria-pressed",String(c===b)));reframe();};
+    host.appendChild(b);
+  });
+}
+const ROLES=["Ink 1","Ink 2","Ink 3","Ink 4","Ink 5","Ink 6"];
+function buildSwatches(){
+  const host=$("#swatches");
+  host.innerHTML="";
+  S.pal.forEach((c,i)=>{
+    const b=document.createElement("button");
+    b.className="sw";b.type="button";b.setAttribute("aria-label",ROLES[i]+" color");
+    b.innerHTML=`<span class="fill" style="background:${c}"></span><input type="color" value="${c}">`;
+    b.querySelector("input").addEventListener("input",e=>{
+      S.pal[i]=e.target.value;
+      b.querySelector(".fill").style.background=e.target.value;
+      accent();reframe();
+    });
+    host.appendChild(b);
+  });
+}
+function setPalette(p){S.pal=p.slice();buildSwatches();accent();reframe();}
+function bindRange(id,fmt,set,after){
+  const el=$("#"+id),label=$("#"+id+"Val");
+  if(!el)return;
+  el.addEventListener("input",()=>{
+    const v=parseFloat(el.value);set(v);
+    if(label)label.textContent=fmt(v);
+    (after||reframe)();
+  });
+}
+const pct=v=>Math.round(v*100)+"%";
+
+buildRatios();buildSwatches();accent();
+segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
+function hsl2hex(h,sa,l){
+  h=((h%360)+360)%360;sa/=100;l/=100;
+  const a=sa*Math.min(l,1-l);
+  const f=n=>{const k=(n+h/30)%12;const c=l-a*Math.max(-1,Math.min(k-3,9-k,1));
+    return Math.round(c*255).toString(16).padStart(2,"0");};
+  return "#"+f(0)+f(8)+f(4);
+}
+/* New set mixes fresh riso ink sets with the curated list */
+function newPalette(){
+  const R=Math.random;
+  if(R()<0.25)return PALETTES[(R()*PALETTES.length)|0].slice();
+  const h=R()*360;
+  return[
+    hsl2hex(h,45+R()*25,60+R()*10),
+    hsl2hex(h+120+R()*60,70+R()*25,52+R()*10),
+    hsl2hex(h+200+R()*60,80+R()*20,58+R()*8),
+    hsl2hex(h+60+R()*40,30+R()*20,24+R()*10),
+    hsl2hex(h+300+R()*40,75+R()*25,50+R()*10),
+    hsl2hex(h+30,20+R()*20,84+R()*8)
+  ];
+}
+$("#shufColors").addEventListener("click",()=>{
+  let p;do{p=newPalette();}while(p[0]===S.pal[0]&&p[1]===S.pal[1]);
+  setPalette(p);
+});
+$("#rotColors").addEventListener("click",()=>{
+  setPalette(S.pal.slice(1).concat([S.pal[0]]));
+});
+bindRange("bands",v=>v,v=>S.bands=v|0);
+bindRange("rough",pct,v=>S.rough=v);
+bindRange("scrib",pct,v=>S.scrib=v);
+bindRange("dotp",pct,v=>S.dotp=v);
+bindRange("grain",pct,v=>S.grain=v);
+bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
+$("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
+  $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
+$("#frames").addEventListener("input",e=>{S.motion.frames=parseInt(e.target.value,10);
+  $("#framesVal").textContent=S.motion.frames+" frames";$("#scrub").max=S.motion.frames-1;
+  curFrame=Math.min(curFrame,S.motion.frames-1);reframe();if(playing)setPlaying(true);});
+$("#size").addEventListener("input",e=>{S.size=parseInt(e.target.value,10);$("#sizeVal").textContent=S.size+" px";});
+$("#motionTog").addEventListener("click",e=>{
+  S.motion.on=!S.motion.on;
+  e.currentTarget.setAttribute("aria-pressed",String(S.motion.on));
+  $("#motionBody").hidden=!S.motion.on;
+  curFrame=0;$("#scrub").value=0;
+  reframe();updateExportNote();
+  setPlaying(S.motion.on&&!reduceMotion);
+});
+$("#play").addEventListener("click",()=>{if(!S.motion.on){$("#motionTog").click();return;}setPlaying(!playing);});
+$("#scrub").addEventListener("input",e=>{setPlaying(false);curFrame=parseInt(e.target.value,10)%Math.max(1,S.motion.frames);draw();});
+/* the seed deals the whole collage inside the engine; here it deals
+   the layout numbers */
+function applySeed(){
+  const r=rng((S.seed^0x9e3779b9)>>>0);
+  const pick=a=>a[(r()*a.length)|0];
+  S.bands=pick([2,3,3,3,4,5]);
+  S.rough=pick([0.35,0.5,0.5,0.65,0.8]);
+  S.scrib=pick([0.3,0.6,0.6,0.9]);
+}
+function syncControls(){
+  const set=(id,v,txt)=>{const el=$("#"+id);if(el)el.value=v;const l=$("#"+id+"Val");if(l)l.textContent=txt;};
+  set("bands",S.bands,S.bands);
+  set("rough",S.rough,pct(S.rough));
+  set("scrib",S.scrib,pct(S.scrib));
+}
+function newSeed(v){S.seed=(v!==undefined)?v:(Math.random()*99999|0)+1;$("#seed").value=S.seed;applySeed();syncControls();reframe();}
+$("#shuf").addEventListener("click",()=>newSeed());
+$("#seed").addEventListener("change",e=>{const v=parseInt(e.target.value,10);newSeed(Number.isFinite(v)?Math.abs(v):1);});
+art.addEventListener("click",()=>newSeed());
+document.addEventListener("keydown",e=>{
+  if(e.target.matches("input,textarea"))return;
+  if(e.code==="Space"){e.preventDefault();newSeed();}
+  if(e.key==="p"||e.key==="P"){if(S.motion.on)setPlaying(!playing);}
+});
+newSeed(11);
+$("#scrub").max=S.motion.frames-1;
+updateExportNote();
+draw();
+})();
+</script>
+<!-- Embed mode: open with ?embed to render just the artwork full-viewport
+     (used by the landing page to show live output as its background). -->
+<style>
+html.embed .topbar,html.embed .panel,html.embed .transport,html.embed .toast{display:none!important}
+html.embed .app{height:100dvh!important;grid-template-rows:1fr!important}
+html.embed .main{display:grid!important;grid-template-columns:1fr!important}
+html.embed .stage{height:auto!important;position:static!important;grid-template-rows:1fr!important;background:none!important;order:0!important}
+html.embed .stage-inner{padding:0!important}
+html.embed #art{width:100vw!important;height:100dvh!important;max-width:none!important;max-height:none!important;object-fit:cover!important;border-radius:0!important;box-shadow:none!important;cursor:default!important}
+html.embed body{overflow:hidden!important}
+</style>
+<script>
+(function(){
+  var q=new URLSearchParams(location.search);
+  /* embed mode: explicit flag, or being shown inside another page (the
+     landing background) — servers with clean URLs drop query strings */
+  var embedded=q.has("embed")||location.hash.indexOf("embed")>-1;
+  try{embedded=embedded||window.self!==window.top;}catch(e){embedded=true;}
+  if(!embedded) return;
+  document.documentElement.classList.add("embed");
+  /* pick the preset ratio closest to the viewport so the cover-crop stays small */
+  var R=[[9,16],[3,4],[4,5],[1,1],[5,4],[4,3],[3,2],[16,9]];
+  var vr=innerWidth/Math.max(1,innerHeight),best=3,bd=1e9;
+  for(var i=0;i<R.length;i++){var d=Math.abs(Math.log(vr*R[i][1]/R[i][0]));if(d<bd){bd=d;best=i}}
+  var rb=document.querySelectorAll("#ratios .ratio")[best]; if(rb) rb.click();
+  /* fresh artwork per load, or a pinned one via ?seed=N */
+  var seed=q.get("seed"), si=document.getElementById("seed");
+  if(seed&&si){si.value=seed;si.dispatchEvent(new Event("change"));}
+  else{var sh=document.getElementById("shuf"); if(sh) sh.click();}
+  /* start the tool's own motion; static tools re-roll on a slow cadence instead */
+  var mt=document.getElementById("motionTog");
+  if(mt){if(mt.getAttribute("aria-pressed")!=="true") mt.click();}
+  else setInterval(function(){var sh=document.getElementById("shuf");if(sh)sh.click();},7000);
+  /* tell an embedding page the first frame has painted */
+  requestAnimationFrame(function(){requestAnimationFrame(function(){
+    try{if(parent!==window)parent.postMessage({type:"tool-embed-ready"},"*");}catch(e){}
+  });});
+})();
+</script>
+<!-- Hex entry for colour swatches: tap a swatch, type a hex code.
+     One shared layer for every colour input on the page. -->
+<style>
+.hexpop{position:fixed;z-index:70;display:flex;gap:6px;align-items:center;
+  background:var(--panel-2,#15151a);border:1px solid var(--line,#22222a);border-radius:6px;
+  padding:8px;box-shadow:0 14px 40px rgba(0,0,0,.55)}
+.hexpop .hexfield{font-family:var(--mono,ui-monospace,monospace);font-size:12px;letter-spacing:.06em;
+  width:96px;background:var(--panel,#101013);color:var(--text,#EFEDE8);
+  border:1px solid var(--line,#22222a);border-radius:4px;padding:7px 8px;text-transform:lowercase}
+.hexpop .hexfield:focus{outline:none;border-color:var(--accent,#F0621E)}
+.hexpop .hexfield.bad{border-color:#c8484d}
+.hexpop .hexwheel{font-family:var(--mono,ui-monospace,monospace);font-size:9.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted,#7c7c88);background:none;border:1px solid var(--line,#22222a);
+  border-radius:4px;padding:7px 9px;cursor:pointer}
+.hexpop .hexwheel:hover{color:var(--text,#EFEDE8)}
+</style>
+<script>
+(function(){
+  "use strict";
+  var pop=null,bypass=false;
+  function close(){if(pop){pop.remove();pop=null;}}
+  function openFor(inp){
+    close();
+    pop=document.createElement("div");
+    pop.className="hexpop";
+    pop.innerHTML='<input class="hexfield" spellcheck="false" autocomplete="off" inputmode="text" value="'+inp.value+'">'+
+      '<button class="hexwheel" type="button">Wheel</button>';
+    document.body.appendChild(pop);
+    var anchor=(inp.closest&&(inp.closest(".sw")||inp.closest("label")))||inp;
+    var r=anchor.getBoundingClientRect();
+    var w=pop.offsetWidth||170,h=pop.offsetHeight||38;
+    var x=Math.min(Math.max(8,r.left),innerWidth-w-8);
+    var y=r.bottom+6; if(y+h>innerHeight-8)y=r.top-h-6;
+    pop.style.left=x+"px";pop.style.top=y+"px";
+    var f=pop.querySelector(".hexfield");
+    function norm(){
+      var v=f.value.trim().replace(/^#/,"");
+      if(/^[0-9a-fA-F]{3}$/.test(v))v=v.replace(/./g,function(c){return c+c;});
+      return /^[0-9a-fA-F]{6}$/.test(v)?"#"+v.toLowerCase():null;
+    }
+    function apply(){
+      var hex=norm();
+      f.classList.toggle("bad",!hex);
+      if(!hex)return false;
+      inp.value=hex;
+      inp.dispatchEvent(new Event("input",{bubbles:true}));
+      inp.dispatchEvent(new Event("change",{bubbles:true}));
+      return true;
+    }
+    f.addEventListener("input",apply);
+    f.addEventListener("keydown",function(e){
+      if(e.key==="Enter"){e.preventDefault();if(apply())close();}
+      if(e.key==="Escape")close();
+    });
+    pop.querySelector(".hexwheel").addEventListener("click",function(){
+      close();bypass=true;inp.click();bypass=false;
+    });
+    f.focus();f.select();
+  }
+  document.addEventListener("click",function(e){
+    if(pop&&pop.contains(e.target))return;
+    var t=e.target;
+    var inp=t&&t.matches&&t.matches('input[type=color]')?t:null;
+    if(inp&&!bypass){
+      e.preventDefault();e.stopPropagation();
+      openFor(inp);
+      return;
+    }
+    if(pop)close();
+  },true);
+})();
+</script>
+</body>
+</html>
