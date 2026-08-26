@@ -135,7 +135,7 @@ input[type=range]:disabled{opacity:.3;pointer-events:none}
           <input class="seed" id="seed" value="1" inputmode="numeric" aria-label="Variation number">
           <button class="btn" id="shuf" style="width:auto;padding:8px 12px">New</button>
         </div>
-        <div class="note">Each number deals a different poster — where the bands sit, their slant, and every smear inside them. Note it down to get the same one back.</div>
+        <div class="note">Each number deals a different paste-up — which strips, blocks and squares land where, and every smear inside them. Note it down to get the same one back.</div>
       </section>
 
       <section class="sec">
@@ -149,8 +149,8 @@ input[type=range]:disabled{opacity:.3;pointer-events:none}
       <section class="sec">
         <h2 class="sec-h">Artwork</h2>
         <div class="row">
-          <div class="lab"><span>Bands</span><span class="val" id="bandsVal">2</span></div>
-          <input type="range" id="bands" min="1" max="3" step="1" value="2">
+          <div class="lab"><span>Blocks</span><span class="val" id="bandsVal">4</span></div>
+          <input type="range" id="bands" min="2" max="6" step="1" value="4">
         </div>
         <div class="row">
           <div class="lab"><span>Slant</span><span class="val" id="slantVal">50%</span></div>
@@ -201,7 +201,7 @@ input[type=range]:disabled{opacity:.3;pointer-events:none}
             <div class="lab"><span>Loop length</span><span class="val" id="framesVal">24 frames</span></div>
             <input type="range" id="frames" min="8" max="48" step="2" value="24">
           </div>
-          <div class="note">Morph makes the smears writhe like wet ink and the scrawl undulate; Sway rocks the bands on their slant; Draw paints everything on stroke by stroke. Every loop closes.</div>
+          <div class="note">Morph makes the smears writhe like wet ink and the scrawl undulate; Sway rocks every pasted piece on its slant; Draw paints everything on stroke by stroke. Every loop closes.</div>
         </div>
       </section>
 
@@ -269,7 +269,7 @@ const PALETTES=[
 
 const S={
   seed:11, ratio:"1:1",
-  bands:2, slant:.5, fat:.6, wiggle:.5,
+  bands:4, slant:.5, fat:.6, wiggle:.5,
   pal:PALETTES[0].slice(),
   motion:{on:false,mode:"morph",amount:.8,fps:10,frames:24},
   size:2400
@@ -294,38 +294,62 @@ function buildSpec(){
   const r=rng(S.seed*2654435761>>>0);
   const H=vbH();
   const n=S.bands|0;
-  const SLOTS=n===1?[[0.15],[0.5],[0.85]][((r()*3)|0)]
-    :n===2?[[0.14,0.84],[0.16,0.6],[0.4,0.87]][((r()*3)|0)]
-    :[0.12,0.5,0.87];
-  const kinds=n===1?[r()<0.7?"smear":"scrawl"]
-    :n===2?(r()<0.6?["scrawl","smear"]:["smear","scrawl"])
-    :["scrawl","smear",r()<0.5?"smear":"scrawl"];
+  /* anchor slots so the collage spreads instead of stacking */
+  const anchors=[];
+  for(const ys of [0.13,0.37,0.62,0.87])for(const xs of [0.26,0.5,0.74])
+    anchors.push([xs*VB,ys*H]);
+  for(let i=anchors.length-1;i>0;i--){const j=(r()*(i+1))|0;
+    const t2=anchors[i];anchors[i]=anchors[j];anchors[j]=t2;}
+  /* a mix of shapes: full-bleed strips, wide blocks, and squares */
+  const SHAPES=["strip","square","block","strip","square","block"];
+  for(let i=SHAPES.length-1;i>0;i--){const j=(r()*(i+1))|0;
+    const t2=SHAPES[i];SHAPES[i]=SHAPES[j];SHAPES[j]=t2;}
   const bands=[];
+  const usedY=[];
   for(let i=0;i<n;i++){
-    const cy=SLOTS[i]*H;
-    const h=H*(0.13+r()*0.11);
+    const shape=SHAPES[i%SHAPES.length];
+    let[ax,ay]=anchors[i%anchors.length];
+    /* keep strips from landing on the same lane twice */
+    if(shape==="strip"){
+      ax=VB/2;
+      let guard=0;
+      while(usedY.some(u=>Math.abs(u-ay)<H*0.2)&&guard++<8)ay=anchors[(i+guard)%anchors.length][1];
+    }
+    usedY.push(ay);
+    const md=Math.min(VB,H);
+    let pw,phh;
+    if(shape==="strip"){pw=VB*1.2;phh=H*(0.12+r()*0.09);}
+    else if(shape==="square"){const q=md*(0.24+r()*0.16);pw=q;phh=q;}
+    else{pw=VB*(0.34+r()*0.24);phh=H*(0.13+r()*0.1);}
     const ang=(r()-0.5)*2*S.slant*0.1;
-    /* the two edges get their own extra tilt and bow, so the band reads
-       as a pasted strip rather than a clean rectangle */
-    const da=(r()-0.5)*S.slant*0.07;
-    const bow1=(r()-0.5)*h*0.5, bow2=(r()-0.5)*h*0.5;
+    /* every corner drifts a little and every edge bows — pasted paper */
+    const co=[];
+    for(let q=0;q<4;q++)co.push((r()-0.5)*phh*0.3*S.slant);
+    const bows=[];
+    for(let q=0;q<4;q++)bows.push((r()-0.5)*phh*0.4);
     const neon=1+((r()<0.55?0:1)+i)%2;
-    const b={cy,h,ang,da,bow1,bow2,neon,kind:kinds[i],id:i,ph:r(),blades:[]};
+    const kind=shape==="strip"?(r()<0.55?"smear":"scrawl")
+      :shape==="square"?(r()<0.5?"solid":"smear")
+      :(r()<0.4?"solid":(r()<0.7?"smear":"scrawl"));
+    const b={cx:ax,cy:ay,pw,phh,ang,co,bows,neon,kind,id:i,ph:r(),blades:[],
+      area:pw*phh};
     if(b.kind==="smear"){
-      const nb=5+((r()*4)|0);
+      const nb=Math.max(3,Math.round(3+pw/VB*5+r()*2));
       for(let q=0;q<nb;q++){
         b.blades.push({
           u:(q+0.5)/nb, w:0.55+r()*0.6, sh:(r()<0.5?-1:1)*(0.35+r()*0.5),
           bl:0.2+r()*0.25, br:-(0.1+r()*0.45), ph:r()
         });
       }
-    }else{
+    }else if(b.kind==="scrawl"){
       b.k=(10+r()*16)*S.wiggle+6;
       b.amp=0.24+r()*0.12;
       b.loop=1.4+r()*1.4;
     }
     bands.push(b);
   }
+  /* big panels go down first so small blocks paste on top */
+  bands.sort((x,y)=>y.area-x.area);
   return{bands,H,SW:(r()*1e9)|0};
 }
 /* one frame of everything, as band groups of polygons/lines */
@@ -339,62 +363,62 @@ function sceneParts(f){
     let ang=b.ang;
     if(mo.mode==="sway")ang+=0.028*AA*Math.sin(TAU*(mo.t+b.ph));
     const ca=Math.cos(ang),sa=Math.sin(ang);
-    const cx=VB/2, cy=b.cy;
+    const cx=b.cx, cy=b.cy;
     const T=(u,v)=>[cx+u*ca-v*sa,cy+u*sa+v*ca];
-    const uw=VB*0.75, hh=b.h/2;
-    /* irregular strip: each edge has its own extra tilt and a slight bow */
+    const hw=b.pw/2, hh=b.phh/2;
+    /* pasted-paper quad: drifting corners, bowed edges */
+    const C=[[-hw,-hh+b.co[0]],[hw,-hh+b.co[1]],[hw,hh+b.co[2]],[-hw,hh+b.co[3]]];
     const clip=[];
-    const NE=8;
-    for(let q=0;q<=NE;q++){
-      const s2=q/NE, u=-uw+2*uw*s2;
-      clip.push(T(u,-hh+u*Math.tan(b.da)+Math.sin(Math.PI*s2)*b.bow1));
-    }
-    for(let q=NE;q>=0;q--){
-      const s2=q/NE, u=-uw+2*uw*s2;
-      clip.push(T(u,hh-u*Math.tan(b.da)+Math.sin(Math.PI*s2)*b.bow2));
+    const NE=7;
+    for(let e=0;e<4;e++){
+      const A2=C[e],B2=C[(e+1)%4];
+      const ex=B2[0]-A2[0],ey=B2[1]-A2[1];
+      const el=Math.hypot(ex,ey)||1;
+      const nx=-ey/el,ny=ex/el;
+      for(let q=0;q<NE;q++){
+        const s2=q/NE;
+        const bw2=Math.sin(Math.PI*s2)*b.bows[e];
+        clip.push(T(A2[0]+ex*s2+nx*bw2,A2[1]+ey*s2+ny*bw2));
+      }
     }
     const shapes=[],lines=[];
     if(b.kind==="smear"){
       const nb=b.blades.length;
-      const span=VB*1.06, u0=-span/2;
+      const span=b.pw*1.06, u0=-span/2;
       const bw=span/nb;
       let vis=nb;
       if(mo.mode==="draw")vis=Math.max(1,Math.ceil(((mo.f+1)/S.motion.frames)*nb));
       b.blades.forEach((bl,q)=>{
         if(q>=vis)return;
-        let sh=bl.sh*b.h, wq=bw*bl.w*(0.6+0.8*S.fat);
+        let sh=bl.sh*b.phh, wq=bw*bl.w*(0.6+0.8*S.fat);
         if(mo.mode==="morph"){
-          sh+=b.h*0.3*AA*Math.sin(TAU*(mo.t+bl.ph));
+          sh+=b.phh*0.3*AA*Math.sin(TAU*(mo.t+bl.ph));
           wq*=1+0.13*AA*Math.sin(TAU*(mo.t+bl.ph+0.3));
         }
         const ub=u0+bl.u*span-wq/2;
         const vt=-hh-6, vb=hh+6;
         const pts=[];
         const N2=9;
-        /* left edge, bowed outwards */
         for(let s2=0;s2<=N2;s2++){
           const t2=s2/N2;
           pts.push([ub+sh*t2-Math.sin(Math.PI*t2)*wq*bl.bl,vb+(vt-vb)*t2]);
         }
         pts.push([ub+sh+wq,vt]);
-        /* right edge, carved inwards for the claw look */
         for(let s2=N2;s2>=0;s2--){
           const t2=s2/N2;
           pts.push([ub+wq+sh*t2+Math.sin(Math.PI*t2)*wq*bl.br,vb+(vt-vb)*t2]);
         }
-        shapes.push(pts.map(p=>T(p[0],p[1])));
+        shapes.push(pts.map(p2=>T(p2[0],p2[1])));
       });
-    }else{
+    }else if(b.kind==="scrawl"){
       const N2=160;
-      const uw2=VB*0.62;
+      const uw2=b.pw*0.62;
       let phT=b.ph*TAU;
       if(mo.mode==="morph")phT+=TAU*mo.t;
-      const kk=b.k;
+      const kk=b.k*(b.pw/VB);
       const pts=[];
-      /* the pen speeds up, slows down and presses wider as it goes, so
-         the loops read as handwriting rather than a coiled spring */
       let th=phT;
-      const step=kk*TAU*0.5/N2;
+      const step=Math.max(4,kk)*TAU*0.5/N2;
       for(let q=0;q<=N2;q++){
         const t2=q/N2;
         const fm=0.5+1.0*(0.5+0.5*Math.sin(t2*TAU*1.3+b.ph*11));
@@ -740,7 +764,7 @@ $("#scrub").addEventListener("input",e=>{setPlaying(false);curFrame=parseInt(e.t
 function applySeed(){
   const r=rng((S.seed^0x9e3779b9)>>>0);
   const pick=a=>a[(r()*a.length)|0];
-  S.bands=pick([1,2,2,2,3]);
+  S.bands=pick([3,3,4,4,5]);
   S.slant=pick([0.2,0.4,0.5,0.7,1]);
   S.fat=pick([0.4,0.5,0.6,0.6,0.75]);
   S.wiggle=pick([0.35,0.5,0.5,0.7]);
