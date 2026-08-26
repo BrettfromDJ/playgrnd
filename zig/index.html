@@ -404,6 +404,15 @@ function cornerRadius(){
   const base=st==="stairs"?VB*0.07*S.tooth*S.width:Math.min(VB*0.125*S.width*S.depth*0.5,(st==="teeth"?VB:H)*0.055*S.tooth);
   return Math.max(0,base*0.9*S.round);
 }
+/* arcTo trims each edge by radius/tan(half-angle), so at sharp corners the
+   radius must shrink or the arc overshoots the edge and cuts slivers —
+   clamp the trim length, then convert back to a safe radius */
+function cornerTrim(p0,p1,p2,r,l1,l2){
+  const dot=((p0[0]-p1[0])*(p2[0]-p1[0])+(p0[1]-p1[1])*(p2[1]-p1[1]))/(l1*l2);
+  const tanH=Math.tan(Math.acos(clamp(dot,-1,1))/2)||1;
+  const tl=Math.min(r/tanH,l1/2,l2/2);
+  return{tl,rr:Math.max(0,tl*tanH)};
+}
 /* canvas: rounded polygon via arcTo */
 function tracePoly(c,poly,r,k){
   const n=poly.length;
@@ -411,9 +420,9 @@ function tracePoly(c,poly,r,k){
   c.beginPath();
   for(let i=0;i<n;i++){
     const p0=P(i),p1=P(i+1),p2=P(i+2);
-    const l1=Math.hypot(p1[0]-p0[0],p1[1]-p0[1]);
-    const l2=Math.hypot(p2[0]-p1[0],p2[1]-p1[1]);
-    const rr=Math.min(r,l1/2,l2/2);
+    const l1=Math.hypot(p1[0]-p0[0],p1[1]-p0[1])||1;
+    const l2=Math.hypot(p2[0]-p1[0],p2[1]-p1[1])||1;
+    const{rr}=cornerTrim(p0,p1,p2,r,l1,l2);
     if(i===0){
       const mx=(p0[0]+p1[0])/2,my=(p0[1]+p1[1])/2;
       c.moveTo(mx*k,my*k);
@@ -431,7 +440,7 @@ function polyPathD(poly,r,k){
     const p0=P(i),p1=P(i+1),p2=P(i+2);
     const l1=Math.hypot(p1[0]-p0[0],p1[1]-p0[1])||1;
     const l2=Math.hypot(p2[0]-p1[0],p2[1]-p1[1])||1;
-    const rr=Math.min(r,l1/2,l2/2);
+    const rr=cornerTrim(p0,p1,p2,r,l1,l2).tl;
     const ax=p1[0]+(p0[0]-p1[0])/l1*rr, ay=p1[1]+(p0[1]-p1[1])/l1*rr;
     const bx=p1[0]+(p2[0]-p1[0])/l2*rr, by=p1[1]+(p2[1]-p1[1])/l2*rr;
     if(i===0)d=`M ${(ax*k).toFixed(2)} ${(ay*k).toFixed(2)}`;
