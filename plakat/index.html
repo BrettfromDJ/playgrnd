@@ -305,8 +305,12 @@ function buildSpec(){
     const cy=SLOTS[i]*H;
     const h=H*(0.13+r()*0.11);
     const ang=(r()-0.5)*2*S.slant*0.1;
+    /* the two edges get their own extra tilt and bow, so the band reads
+       as a pasted strip rather than a clean rectangle */
+    const da=(r()-0.5)*S.slant*0.07;
+    const bow1=(r()-0.5)*h*0.5, bow2=(r()-0.5)*h*0.5;
     const neon=1+((r()<0.55?0:1)+i)%2;
-    const b={cy,h,ang,neon,kind:kinds[i],id:i,ph:r(),blades:[]};
+    const b={cy,h,ang,da,bow1,bow2,neon,kind:kinds[i],id:i,ph:r(),blades:[]};
     if(b.kind==="smear"){
       const nb=5+((r()*4)|0);
       for(let q=0;q<nb;q++){
@@ -338,7 +342,17 @@ function sceneParts(f){
     const cx=VB/2, cy=b.cy;
     const T=(u,v)=>[cx+u*ca-v*sa,cy+u*sa+v*ca];
     const uw=VB*0.75, hh=b.h/2;
-    const clip=[T(-uw,-hh),T(uw,-hh),T(uw,hh),T(-uw,hh)];
+    /* irregular strip: each edge has its own extra tilt and a slight bow */
+    const clip=[];
+    const NE=8;
+    for(let q=0;q<=NE;q++){
+      const s2=q/NE, u=-uw+2*uw*s2;
+      clip.push(T(u,-hh+u*Math.tan(b.da)+Math.sin(Math.PI*s2)*b.bow1));
+    }
+    for(let q=NE;q>=0;q--){
+      const s2=q/NE, u=-uw+2*uw*s2;
+      clip.push(T(u,hh-u*Math.tan(b.da)+Math.sin(Math.PI*s2)*b.bow2));
+    }
     const shapes=[],lines=[];
     if(b.kind==="smear"){
       const nb=b.blades.length;
@@ -416,6 +430,8 @@ function paint(c,W,Hpx,f){
       pts.forEach((p,i)=>i?c.lineTo(p[0]*k,p[1]*k):c.moveTo(p[0]*k,p[1]*k));
       c.closePath();c.fill();
     }
+    c.restore();
+    /* the scrawl escapes the band onto the paper */
     c.strokeStyle=S.pal[3];c.lineWidth=Math.max(1,VB*0.0036*k);
     c.lineCap="round";c.lineJoin="round";
     for(const pts of b.lines){
@@ -423,7 +439,6 @@ function paint(c,W,Hpx,f){
       pts.forEach((p,i)=>i?c.lineTo(p[0]*k,p[1]*k):c.moveTo(p[0]*k,p[1]*k));
       c.stroke();
     }
-    c.restore();
   }
 }
 /* ---------- SVG ---------- */
@@ -438,10 +453,10 @@ function svgScene(f,uid){
     if(b.shapes.length)
       inner+=`<g fill="${S.pal[3]}">`+b.shapes.map(pts=>
         `<polygon points="${pts.map(p=>f1(p[0])+","+f1(p[1])).join(" ")}"/>`).join("")+`</g>`;
-    if(b.lines.length)
-      inner+=`<g fill="none" stroke="${S.pal[3]}" stroke-width="${(VB*0.0036).toFixed(2)}" stroke-linecap="round" stroke-linejoin="round">`+
-        b.lines.map(pts=>`<polyline points="${pts.map(p=>f1(p[0])+","+f1(p[1])).join(" ")}"/>`).join("")+`</g>`;
     body+=`<g clip-path="url(#${cid})">${inner}</g>`;
+    if(b.lines.length)
+      body+=`<g fill="none" stroke="${S.pal[3]}" stroke-width="${(VB*0.0036).toFixed(2)}" stroke-linecap="round" stroke-linejoin="round">`+
+        b.lines.map(pts=>`<polyline points="${pts.map(p=>f1(p[0])+","+f1(p[1])).join(" ")}"/>`).join("")+`</g>`;
   });
   return{defs,body};
 }
