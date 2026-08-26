@@ -254,8 +254,10 @@ const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:
 const MODES=[["scroll","Scroll"],["cycle","Cycle"]];
 const STYLES=[["auto","Auto"],["bands","Bands"],["tabs","Tabs"],["plaid","Plaid"],
  ["dither","Dither"],["steps","Steps"],["zigzag","Zigzag"],["diamond","Diamond"],
- ["cross","Cross"],["basket","Basket"]];
-const STYLE_POOL=["bands","tabs","plaid","dither","steps","zigzag","diamond","cross","basket"];
+ ["cross","Cross"],["basket","Basket"],["rings","Rings"],["star","Star"],
+ ["waves","Waves"],["gingham","Gingham"],["burst","Burst"]];
+const STYLE_POOL=["bands","tabs","plaid","dither","steps","zigzag","diamond","cross",
+ "basket","rings","star","waves","gingham","burst"];
 /* four roles: base cloth, two weave colours, one pop accent */
 const PALETTES=[
   ["#4A7DD1","#8A2A50","#E85B3A","#F2D53B"],
@@ -336,6 +338,27 @@ function buildPattern(){
   /* basket */
   P.bb=Math.max(4,Math.round((5+r()*3)*ch));
   P.bs=Math.max(1,Math.round(1.4*ch));
+  /* rings: concentric frame sequence, cyclic like steps */
+  const rw1=Math.max(2,Math.round((2+r()*2)*ch));
+  const rseq=r()<0.5?[[0,rw1+1],[1,rw1],[0,rw1],[2,rw1],[3,t1]]:[[0,rw1+1],[2,rw1],[3,t1],[1,rw1]];
+  P.rlut=[];
+  for(const[ci,w]of rseq)for(let i=0;i<w;i++)P.rlut.push(ci);
+  P.rPT=P.rlut.length;
+  /* star */
+  P.stt=Math.max(7,Math.round((10+r()*4)*ch));
+  /* waves: scalloped row sequence */
+  P.wper=Math.max(6,Math.round((8+r()*5)*ch));
+  P.wamp=Math.max(2,Math.round(2.6*ch));
+  const wh=Math.max(2,Math.round(2.4*ch));
+  const wseq=r()<0.5?[[1,wh],[0,wh],[2,wh],[0,wh]]:[[1,wh],[0,wh],[3,t1],[2,wh],[0,wh]];
+  P.wlut=[];
+  for(const[ci,w]of wseq)for(let i=0;i<w;i++)P.wlut.push(ci);
+  P.wPT=P.wlut.length;
+  /* gingham */
+  P.gg=Math.max(2,Math.round((3+r()*2)*ch));
+  /* burst */
+  P.bn=3+((r()*3)|0);
+  P.bcore=Math.max(2,Math.round(3*ch));
   return P;
 }
 
@@ -421,6 +444,53 @@ function renderGrid(gw,gh,f){
         const bx=Math.floor((ux+s)/B),by=Math.floor(vy/B);
         if((bx+by)&1)ci=(Math.floor(vy)%(sw*2))<sw?1:0;
         else ci=(Math.floor(ux+s)%(sw*2))<sw?2:0;
+        break;
+      }
+      case"rings":{
+        /* concentric frames that follow the frame's own proportions */
+        const q=Math.max(ux*(gh/gw),vy);
+        const d=Math.floor(q)-sh(P.rPT);
+        ci=P.rlut[((d%P.rPT)+P.rPT)%P.rPT];
+        break;
+      }
+      case"star":{
+        const T=P.stt;
+        const key=scroll?Math.floor(t*Math.max(1,perLoop*4)):0;
+        const ax=u-midX, ay=v-midY;
+        const tX=Math.round(ax/T), tY=Math.round(ay/T);
+        const cx=midX+tX*T, cy=midY+tY*T;
+        const R=T*0.46;
+        if(cx-R<-0.5||cx+R>gw-0.5||cy-R<-0.5||cy+R>gh-0.5){ci=0;break;}
+        const du=Math.abs(ax-tX*T), dv=Math.abs(ay-tY*T);
+        const p=(tX+tY+key)&1;
+        /* pixel star = diamond union square, with a small centre */
+        if(du+dv<=R*0.95||Math.max(du,dv)<=R*0.55)
+          ci=(du+dv<=R*0.4&&Math.max(du,dv)<=R*0.4)?(p?3:2):(p?1:2);
+        else ci=0;
+        break;
+      }
+      case"waves":{
+        const per=P.wper, s=sh(per);
+        const uu=((ux+s)%per+per)%per;
+        const x=uu/per*2-1;
+        const bump=Math.sqrt(Math.max(0,1-x*x))*P.wamp;
+        const d=Math.floor(vy+bump);
+        ci=P.wlut[((d%P.wPT)+P.wPT)%P.wPT];
+        break;
+      }
+      case"gingham":{
+        const w=P.gg, s=sh(w*2);
+        const hs=Math.floor(vy/w)&1, vs=Math.floor((ux+s)/w)&1;
+        ci=hs&&vs?2:(hs||vs?1:0);
+        break;
+      }
+      case"burst":{
+        const q=Math.max(ux*(gh/gw),vy);
+        if(q<P.bcore){ci=3;break;}
+        const ang=Math.atan2(vy+0.5,ux+0.5);
+        const shift=scroll?Math.floor(t*Math.max(1,perLoop)*4):0;
+        const kk=Math.floor(ang/(Math.PI/2)*P.bn)+shift;
+        ci=[1,0,2,0][((kk%4)+4)%4];
         break;
       }
       case"plaid":{
