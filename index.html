@@ -23,6 +23,7 @@
 :root{
   --bg:#EFEFEC; --ink:#111112; --muted:#6d6d68; --line:#d9d9d4;
   --sans:"Archivo",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
 }
 *{box-sizing:border-box}
 body{
@@ -43,40 +44,27 @@ a{color:inherit; text-decoration:none}
 .topbar .spacer{flex:1}
 .topbar .count{font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
 
-/* ---------- four columns, endless rows ---------- */
+/* ---------- four columns, tight grid: 8px around every image ---------- */
 .grid{
   display:grid; grid-template-columns:repeat(4,1fr);
-  column-gap:clamp(14px,1.8vw,30px); row-gap:clamp(38px,4vw,64px);
-  padding-top:clamp(24px,3vw,48px); padding-bottom:90px;
+  gap:0; padding-top:8px; padding-bottom:64px;
 }
-.entry{display:block}
+.entry{display:block; padding:8px}
 /* Artwork: each tool's animated SVG gets dropped inside its .card-art
    (id="art-<slug>") — empty slots just hold the space. */
 .art{
   position:relative; aspect-ratio:4/5; overflow:hidden;
 }
 .art svg,.art img{width:100%; height:100%; display:block; object-fit:cover}
-.art .idx{
-  position:absolute; top:0; right:-1.4em;
-  writing-mode:vertical-rl;
-  font-size:10px; letter-spacing:.14em; color:var(--muted);
-}
-.meta{
-  display:flex; justify-content:space-between; align-items:baseline; gap:12px;
-  margin-top:0; padding-top:7px;
-}
-.meta .tags{
-  font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink);
-  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-}
-.meta .no{font-size:10px; letter-spacing:.1em; color:var(--ink); font-variant-numeric:tabular-nums}
-.entry .nm{
-  margin-top:9px;
-  font-size:clamp(14px,1.25vw,18px); font-weight:600;
-  letter-spacing:.03em; text-transform:uppercase;
+/* the label lives on the image: a white mono chip, top left */
+.tag{
+  position:absolute; left:24px; top:24px;
+  background:#fff; color:#141414;
+  font-family:var(--mono); font-size:13px; font-weight:500;
+  letter-spacing:.04em; text-transform:uppercase;
+  padding:9px 12px; line-height:1;
 }
 .entry:hover .art{opacity:.92}
-.entry:hover .nm{text-decoration:underline; text-underline-offset:3px}
 
 .foot{
   border-top:1px solid var(--line);
@@ -87,9 +75,11 @@ a{color:inherit; text-decoration:none}
 @media (max-width:1000px){
   .grid{grid-template-columns:repeat(2,1fr)}
 }
+@media (max-width:640px){
+  .tag{left:12px; top:12px; font-size:11px; padding:7px 9px}
+}
 @media (max-width:460px){
   .grid{grid-template-columns:1fr}
-  .art .idx{right:4px; top:6px; color:#888}
 }
 </style>
 </head>
@@ -102,7 +92,7 @@ a{color:inherit; text-decoration:none}
   <span class="count" id="count"></span>
 </header>
 
-<main class="wrap grid" id="grid" aria-label="Tools"></main>
+<main class="grid" id="grid" aria-label="Tools" style="max-width:1760px;margin:0 auto"></main>
 
 <footer class="wrap foot">Everything exports as real files — SVG, PNG and video.</footer>
 
@@ -135,9 +125,7 @@ grid.innerHTML=TOOLS.map((t,i)=>{
   const n=String(i+1).padStart(2,"0");
   return `
   <a class="entry" href="${t.slug}/index.html" aria-label="${t.name} — ${t.desc}">
-    <div class="art" id="art-${t.slug}">${t.art?`<img src="${t.art}" alt="" loading="lazy">`:""}<span class="idx">00-${i+1}</span></div>
-    <div class="meta"><span class="tags">${t.desc}</span><span class="no">${n}</span></div>
-    <div class="nm">${t.name}</div>
+    <div class="art" id="art-${t.slug}">${t.art?`<img src="${t.art}" alt="" loading="lazy">`:""}<span class="tag">${n} ${t.name}</span></div>
   </a>`;
 }).join("");
 document.getElementById("count").textContent=String(TOOLS.length).padStart(2,"0")+" tools";
