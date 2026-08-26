@@ -141,7 +141,7 @@ input[type=range]:disabled{opacity:.3;pointer-events:none}
       <section class="sec">
         <h2 class="sec-h">Frame</h2>
         <div class="row">
-          <div class="lab"><span>Aspect ratio</span><span class="val" id="ratioVal">3:2</span></div>
+          <div class="lab"><span>Aspect ratio</span><span class="val" id="ratioVal">1:1</span></div>
           <div class="ratios" id="ratios"></div>
         </div>
       </section>
@@ -272,7 +272,7 @@ const PALETTES=[
 const BAYER=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];
 
 const S={
-  seed:7, ratio:"3:2",
+  seed:7, ratio:"1:1",
   pattern:"auto", cells:44, chunk:1,
   pal:PALETTES[0].slice(),
   motion:{on:false,mode:"scroll",amount:.8,fps:10,frames:60},
