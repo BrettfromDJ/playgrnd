@@ -308,16 +308,18 @@ function buildSpec(W,H){
     if(A2[0]>=W)tangs.push(A2[1]<H/2?Math.PI/2:-Math.PI/2);
     const tang=tangs[(r()*tangs.length)|0];
     const inward=Math.atan2(H/2-A2[1],W/2-A2[0]);
-    /* blend the two, leaning hard on the tangent */
-    let dx2=Math.cos(tang)*0.78+Math.cos(inward)*0.22;
-    let dy2=Math.sin(tang)*0.78+Math.sin(inward)*0.22;
+    /* blend the two — each stream picks its own mix, so some hug the
+       edge and some dive toward the middle */
+    const tw=0.35+0.45*r();
+    let dx2=Math.cos(tang)*tw+Math.cos(inward)*(1-tw);
+    let dy2=Math.sin(tang)*tw+Math.sin(inward)*(1-tw);
     const nl=Math.hypot(dx2,dy2)||1;
-    const aim=Math.atan2(dy2/nl,dx2/nl)+(r()-0.5)*0.3;
+    const aim=Math.atan2(dy2/nl,dx2/nl)+(r()-0.5)*0.5;
     const L2=dg*S.reach*(0.7+0.4*r());
     const P0=[A2[0]-Math.cos(aim)*md*0.15,A2[1]-Math.sin(aim)*md*0.15];
     const P2=[A2[0]+Math.cos(aim)*L2,A2[1]+Math.sin(aim)*L2];
     const perp=aim+Math.PI/2;
-    const bend=(r()-0.5)*L2*0.7;
+    const bend=(r()-0.5)*L2*1.1;
     const P1=[(P0[0]+P2[0])/2+Math.cos(perp)*bend,(P0[1]+P2[1])/2+Math.sin(perp)*bend];
     const pts=[];
     for(let q=0;q<=28;q++){const t2=q/28,mt=1-t2;
@@ -342,13 +344,16 @@ function cellColor(sp,cx2,cy2,gx,gy,mo){
   }
   const j0=hashi(gx,gy,1,sp.SW);
   let jit=(j0-0.5)*0.32;
+  /* coarse lumps: 2x2 blocks push in or out together, so the fringe
+     bulges and throws off detached clusters instead of tracing a line */
+  jit+=(hashi(gx>>1,gy>>1,15,sp.SW)-0.5)*0.42;
   if(mo.mode==="drift")jit+=0.18*Math.min(1.6,mo.amp)*Math.sin(TAU*mo.t+j0*TAU);
   const dn=best+jit;
   let ring=-1;
   for(let q=0;q<TH.length;q++)if(dn<TH[q]){ring=q;break;}
   if(ring<0){
     /* sparse speckle just past the edge */
-    if(dn<1.55&&hashi(gx,gy,7,sp.SW)<0.05)ring=3+(hashi(gx,gy,8,sp.SW)<0.5?0:1);
+    if(dn<1.7&&hashi(gx,gy,7,sp.SW)<0.07)ring=2+((hashi(gx,gy,8,sp.SW)*2.4)|0);
     else return null;
   }
   const state=mo.mode==="shimmer"?Math.floor(mo.t*6*Math.max(1,Math.round(mo.amp)))%6:0;
