@@ -44,12 +44,12 @@ a{color:inherit; text-decoration:none}
 .topbar .spacer{flex:1}
 .topbar .count{font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
 
-/* ---------- four columns, tight grid: 8px around every image ---------- */
+/* ---------- four columns, tight grid: 4px around every image ---------- */
 .grid{
   display:grid; grid-template-columns:repeat(4,1fr);
-  gap:0; padding-top:8px; padding-bottom:64px;
+  gap:0; padding-top:4px; padding-bottom:64px;
 }
-.entry{display:block; padding:8px}
+.entry{display:block; padding:4px}
 /* Artwork: each tool's animated SVG gets dropped inside its .card-art
    (id="art-<slug>") — empty slots just hold the space. */
 .art{
@@ -114,11 +114,11 @@ const TOOLS=[
   {slug:"ember",    name:"Ember",    tint:"#C75B33", desc:"heat-mapped field grids", art:"art/ember.svg"},
   {slug:"static",   name:"Static",   tint:"#F0480F", desc:"glitch pixel posters", art:"art/static.svg"},
   {slug:"fete",     name:"Fete",     tint:"#FF3DA6", desc:"festival patch posters", art:"art/fete.svg"},
-  {slug:"weave",    name:"Weave",    tint:"#F2A0DC", desc:"striped ribbon bands"},
-  {slug:"zig",      name:"Zig",      tint:"#EF9C8D", desc:"rounded zigzag patterns"},
-  {slug:"quilt",    name:"Quilt",    tint:"#F5C21B", desc:"pixel blanket patterns"},
-  {slug:"aura",     name:"Aura",     tint:"#F786A8", desc:"soft vibrant gradients"},
-  {slug:"warp",     name:"Warp",     tint:"#7CE860", desc:"warped op-art patterns"}
+  {slug:"weave",    name:"Weave",    tint:"#F2A0DC", desc:"striped ribbon bands", art:"art/weave.svg"},
+  {slug:"zig",      name:"Zig",      tint:"#EF9C8D", desc:"rounded zigzag patterns", art:"art/zig.svg"},
+  {slug:"quilt",    name:"Quilt",    tint:"#F5C21B", desc:"pixel blanket patterns", art:"art/quilt.svg"},
+  {slug:"aura",     name:"Aura",     tint:"#F786A8", desc:"soft vibrant gradients", art:"art/aura.png"},
+  {slug:"warp",     name:"Warp",     tint:"#7CE860", desc:"warped op-art patterns", art:"art/warp.svg"}
 ];
 const grid=document.getElementById("grid");
 grid.innerHTML=TOOLS.map((t,i)=>{
