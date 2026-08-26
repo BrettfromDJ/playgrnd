@@ -177,8 +177,12 @@ input[type=range]:disabled{opacity:.3;pointer-events:none}
           <input type="range" id="taper" min="-1" max="1" step="0.05" value="0">
         </div>
         <div class="row">
-          <div class="lab"><span>Variance</span><span class="val" id="varyVal">0%</span></div>
+          <div class="lab"><span>Length var</span><span class="val" id="varyVal">0%</span></div>
           <input type="range" id="vary" min="0" max="1" step="0.05" value="0">
+        </div>
+        <div class="row">
+          <div class="lab"><span>Weight var</span><span class="val" id="wvaryVal">0%</span></div>
+          <input type="range" id="wvary" min="0" max="1" step="0.05" value="0">
         </div>
         <div class="row">
           <div class="lab"><span>Core</span><span class="val" id="coreVal">30%</span></div>
@@ -294,7 +298,7 @@ const PALETTES=[
 
 const S={
   seed:11, ratio:"1:1",
-  style:"burst", rays:36, rings:3, gap:.45, twist:0, weight:.55, taper:0, vary:0, core:.3, scale:.88,
+  style:"burst", rays:36, rings:3, gap:.45, twist:0, weight:.55, taper:0, vary:0, wvary:0, core:.3, scale:.88,
   pal:PALETTES[0].slice(),
   motion:{on:false,mode:"spin",amount:.8,fps:12,frames:72},
   size:2400
@@ -338,6 +342,16 @@ function geo(W,H,f){
     const lv=LV[(st0+i*str)%LV.length];
     fac.push(1+S.vary*(lv-1));
   }
+  /* weight variance walks its own ladder, so ring thickness swings
+     between skinny and chunky independently of ring depth */
+  const LW=[0.4,0.7,1,1.45,1.9];
+  const sw0=(hashi(3,3,7,S.seed)*LW.length)|0;
+  const swr=1+((hashi(4,3,7,S.seed)*(LW.length-1))|0);
+  const wfac=[];
+  for(let i=0;i<k;i++){
+    const lw=LW[(sw0+i*swr)%LW.length];
+    wfac.push(1+S.wvary*(lw-1));
+  }
   let units=S.gap*(k-1);
   for(let i=0;i<k;i++)units+=(1+grow*i)*fac[i];
   const unitV=(R-r0)/units;
@@ -345,10 +359,13 @@ function geo(W,H,f){
   let ra=r0;
   for(let i=0;i<k;i++){
     const band=unitV*(1+grow*i)*fac[i], rb=ra+band;
-    /* dash width follows the local pitch but never squares off the dash */
-    const w=Math.min(S.weight*TAU*((ra+rb)/2)/N,band*0.6);
+    const wf=wfac[i];
+    /* dash width follows the local pitch but never squares off the dash
+       or lets neighbours touch */
+    const w=Math.min(Math.min(S.weight*wf,0.95)*TAU*((ra+rb)/2)/N,
+      band*0.6*Math.max(1,wf),band*0.8);
     const spin=mo.spin?lap:mo.twirl?(i%2?-lap:lap):0;
-    rings.push({ra,rb,w,base:S.twist*step*i,spin,rot:S.twist*step*i+spin*mo.t});
+    rings.push({ra,rb,w,wf,base:S.twist*step*i,spin,rot:S.twist*step*i+spin*mo.t});
     ra=rb+unitV*S.gap;
   }
   /* twist does the heavy lifting here: it tilts every dash about its own
@@ -370,7 +387,7 @@ function paint(c,W,H,f){
   for(const rg of g.rings){
     c.save();c.rotate(rg.rot);
     if(S.style==="burst"){
-      const h=S.weight*g.step/2, hi=h*g.fi, ho=h*g.fo, sh=g.swirl;
+      const h=Math.min(S.weight*rg.wf,0.95)*g.step/2, hi=h*g.fi, ho=h*g.fo, sh=g.swirl;
       c.beginPath();
       for(let j=0;j<g.N;j++){
         const a=j*g.step;
@@ -409,7 +426,7 @@ function svgBody(f,loop){
   for(const rg of g.rings){
     let shapes="";
     if(S.style==="burst"){
-      const h=S.weight*g.step/2, hi=h*g.fi, ho=h*g.fo, sh=g.swirl;
+      const h=Math.min(S.weight*rg.wf,0.95)*g.step/2, hi=h*g.fi, ho=h*g.fo, sh=g.swirl;
       const p=(rr,aa)=>`${(Math.cos(aa)*rr).toFixed(2)} ${(Math.sin(aa)*rr).toFixed(2)}`;
       let d="";
       for(let j=0;j<g.N;j++){
@@ -650,6 +667,7 @@ bindRange("twist",pct,v=>S.twist=v);
 bindRange("weight",pct,v=>S.weight=v);
 bindRange("taper",pct,v=>S.taper=v);
 bindRange("vary",pct,v=>S.vary=v);
+bindRange("wvary",pct,v=>S.wvary=v);
 bindRange("core",pct,v=>S.core=v);
 bindRange("scale",pct,v=>S.scale=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
@@ -682,6 +700,7 @@ function applySeed(){
   S.weight=pick([0.35,0.4,0.45,0.5,0.55]);
   S.taper=pick([0,0,0,0.4,0.7,-0.4]);
   S.vary=pick([0,0,0,0.35,0.6,0.9]);
+  S.wvary=pick([0,0,0,0.4,0.7,1]);
   S.core=pick([0.16,0.22,0.3,0.38,0.46]);
 }
 function syncControls(){
@@ -693,6 +712,7 @@ function syncControls(){
   set("weight",S.weight,pct(S.weight));
   set("taper",S.taper,pct(S.taper));
   set("vary",S.vary,pct(S.vary));
+  set("wvary",S.wvary,pct(S.wvary));
   set("core",S.core,pct(S.core));
   set("scale",S.scale,pct(S.scale));
   segmented($("#styles"),STYLES,()=>S.style,v=>{S.style=v;reframe();});
