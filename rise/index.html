@@ -628,8 +628,41 @@ const pct=v=>Math.round(v*100)+"%";
 
 buildRatios();buildSwatches();accent();
 segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
+function hsl2hex(h,sa,l){
+  h=((h%360)+360)%360;sa/=100;l/=100;
+  const a=sa*Math.min(l,1-l);
+  const f=n=>{const k=(n+h/30)%12;const c=l-a*Math.max(-1,Math.min(k-3,9-k,1));
+    return Math.round(c*255).toString(16).padStart(2,"0");};
+  return "#"+f(0)+f(8)+f(4);
+}
+/* New set mixes freshly generated triads with the curated list, so the
+   colours keep surprising instead of cycling the same few */
+function newPalette(){
+  const R=Math.random;
+  if(R()<0.2)return PALETTES[(R()*PALETTES.length)|0].slice();
+  const h1=R()*360, h2=(h1+120+R()*140)%360;
+  const mode=(R()*4)|0;
+  if(mode===0) /* pastel field, deep bars, pale accent — the reference */
+    return[hsl2hex(h1,45+R()*25,64+R()*8),
+           hsl2hex(h2,55+R()*30,40+R()*12),
+           hsl2hex(h2+R()*40-20,50+R()*30,78+R()*8)];
+  if(mode===1) /* deep field, light bars, vivid accent */
+    return[hsl2hex(h1,35+R()*40,14+R()*10),
+           hsl2hex(h1+R()*60-30,25+R()*35,86+R()*8),
+           hsl2hex(h2,65+R()*30,55+R()*12)];
+  if(mode===2) /* hot field, ink bars, pale accent */
+    return[hsl2hex(h1,70+R()*25,55+R()*10),
+           hsl2hex(h1+180+R()*60,50+R()*30,16+R()*10),
+           hsl2hex(h1+R()*50-25,45+R()*30,82+R()*6)];
+  /* light neutral field, dark bars, pop accent */
+  return[hsl2hex(h1,12+R()*18,88+R()*6),
+         hsl2hex(h1+R()*80-40,25+R()*30,16+R()*10),
+         hsl2hex(h2,70+R()*28,58+R()*12)];
+}
 $("#shufColors").addEventListener("click",()=>{
-  setPalette(PALETTES[(Math.random()*PALETTES.length)|0]);
+  let p;
+  do{p=newPalette();}while(p[0]===S.pal[0]&&p[1]===S.pal[1]);
+  setPalette(p);
 });
 $("#rotColors").addEventListener("click",()=>{
   setPalette([S.pal[1],S.pal[2],S.pal[0]]);
