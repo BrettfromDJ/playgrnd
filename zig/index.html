@@ -223,9 +223,10 @@ input[type=range]:disabled{opacity:.3;pointer-events:none}
           <div class="lab"><span>Size</span><span class="val" id="sizeVal">2400 px</span></div>
           <input type="range" id="size" min="600" max="6000" step="100" value="2400">
         </div>
-        <div class="row btn-row" style="grid-template-columns:1fr 1fr 1fr">
+        <div class="row btn-row">
           <button class="btn primary" id="expPng">PNG</button>
           <button class="btn" id="expSvg">SVG</button>
+          <button class="btn" id="expSvgLoop">SVG loop</button>
           <button class="btn" id="expVid">Video</button>
         </div>
         <div class="note">The SVG is true vectors — each zigzag stripe is one clean rounded path.</div>
@@ -473,12 +474,12 @@ function paint(c,W,Hpx,f){
 /* ============================================================
    SVG
 ============================================================ */
-function buildSVG(){
+function svgFrame(f){
   const rr=RATIOS.find(x=>x.id===S.ratio);
   const W=S.size,H=Math.round(S.size*rr.h/rr.w);
   const k=W/VB;
   const M=S.motion;
-  curT=M.on?curFrame/M.frames:0;
+  curT=M.on?f/M.frames:0;
   const[ca,cb]=pairAt(curT);
   const stripes=buildStripes();
   const r=cornerRadius();
@@ -487,8 +488,35 @@ function buildSVG(){
     if(!s.on)continue;
     out+=`<path d="${polyPathD(s.poly,r,k)}"/>`;
   }
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`+
-    `<rect width="${W}" height="${H}" fill="${ca}"/><g fill="${cb}">${out}</g></svg>`;
+  return `<rect width="${W}" height="${H}" fill="${ca}"/><g fill="${cb}">${out}</g>`;
+}
+function svgWrap(inner){
+  const rr=RATIOS.find(x=>x.id===S.ratio);
+  const W=S.size,H=Math.round(S.size*rr.h/rr.w);
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`+inner+`</svg>`;
+}
+function buildSVG(){
+  const out=svgWrap(svgFrame(curFrame));
+  curT=S.motion.on?curFrame/S.motion.frames:0;
+  return out;
+}
+
+/* animated loop: every frame goes into the file as a hidden group, and a
+   discrete visibility animation flips through them on the tool's own clock */
+function buildLoopSVG(){
+  const M=S.motion;
+  const F=M.frames;
+  const dur=(F/M.fps).toFixed(3);
+  let groups="";
+  for(let f=0;f<F;f++){
+    const t0=(f/F).toFixed(5), t1=((f+1)/F).toFixed(5);
+    const anim=f===0
+      ?`<animate attributeName="visibility" values="visible;hidden" keyTimes="0;${t1}" dur="${dur}s" calcMode="discrete" repeatCount="indefinite"/>`
+      :`<animate attributeName="visibility" values="hidden;visible;hidden" keyTimes="0;${t0};${t1}" dur="${dur}s" calcMode="discrete" repeatCount="indefinite"/>`;
+    groups+=`<g visibility="${f===0?"visible":"hidden"}">${anim}${svgFrame(f)}</g>`;
+  }
+  curT=M.on?curFrame/M.frames:0;
+  return svgWrap(groups);
 }
 
 const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
@@ -560,8 +588,9 @@ function save(blob,name){
 }
 function stamp(){return `zig-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
-  const a=$("#expVid"),sc=$("#scrub");
+  const a=$("#expVid"),sc=$("#scrub"),l=$("#expSvgLoop");
   if(a)a.disabled=!S.motion.on;
+  if(l)l.disabled=!S.motion.on;
   if(sc)sc.disabled=!S.motion.on;
 }
 $("#expPng").addEventListener("click",()=>{
@@ -577,6 +606,14 @@ $("#expPng").addEventListener("click",()=>{
 $("#expSvg").addEventListener("click",()=>{
   save(new Blob([buildSVG()],{type:"image/svg+xml"}),stamp()+".svg");
   toast("SVG saved");
+});
+$("#expSvgLoop").addEventListener("click",()=>{
+  if(!S.motion.on)return toast("Turn on motion first");
+  toast("Building loop\u2026",true);
+  setTimeout(()=>{
+    save(new Blob([buildLoopSVG()],{type:"image/svg+xml"}),stamp()+"-loop.svg");
+    toast("Animated SVG saved");
+  },30);
 });
 function pickVideoType(){
   const t=["video/mp4;codecs=avc1.42E01E","video/mp4","video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"];
