@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Warp — warped op-art panels</title>
-<meta name="description" content="Generate warped op-art panels — checkerboards, slashes and rings in neon on black, bent through waves, tapers and bulges. Exports PNG and video.">
+<title>Warp — warped op-art patterns</title>
+<meta name="description" content="Generate warped op-art patterns — checkerboards, slashes and rings in neon on black, bent through waves, tapers and bulges. Exports SVG, PNG and video.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
@@ -121,7 +121,7 @@ input[type=range]:disabled{opacity:.3;pointer-events:none}
     <div class="mark">
       <div class="glyph" id="glyph"></div>
       <div class="wordmark">Warp</div>
-      <div class="tagline">Warped op-art panels</div>
+      <div class="tagline">Warped op-art patterns</div>
     </div>
     <a href="../index.html" class="chip" style="text-decoration:none">← All tools</a>
     <div class="spacer"></div>
@@ -135,7 +135,7 @@ input[type=range]:disabled{opacity:.3;pointer-events:none}
           <input class="seed" id="seed" value="1" inputmode="numeric" aria-label="Variation number">
           <button class="btn" id="shuf" style="width:auto;padding:8px 12px">New</button>
         </div>
-        <div class="note">Each number deals a different set of panels. Note it down to get the same one back.</div>
+        <div class="note">Each number bends a different pattern and picks one of the four inks. Note it down to get the same one back.</div>
       </section>
 
       <section class="sec">
@@ -159,10 +159,6 @@ input[type=range]:disabled{opacity:.3;pointer-events:none}
         <div class="row">
           <div class="lab"><span>Warp</span><span class="val" id="warpVal">70%</span></div>
           <input type="range" id="warp" min="0" max="1" step="0.01" value="0.7">
-        </div>
-        <div class="row">
-          <div class="lab"><span>Panels</span></div>
-          <div class="chips grow" id="panels"></div>
         </div>
       </section>
 
@@ -201,7 +197,7 @@ input[type=range]:disabled{opacity:.3;pointer-events:none}
             <div class="lab"><span>Loop length</span><span class="val" id="framesVal">72 frames</span></div>
             <input type="range" id="frames" min="12" max="180" step="4" value="72">
           </div>
-          <div class="note">Bend makes the warps undulate; March drives the patterns through their panels. Every loop closes exactly.</div>
+          <div class="note">Bend makes the warp undulate; March drives the pattern through the frame. Every loop closes exactly.</div>
         </div>
       </section>
 
@@ -211,11 +207,12 @@ input[type=range]:disabled{opacity:.3;pointer-events:none}
           <div class="lab"><span>Size</span><span class="val" id="sizeVal">2400 px</span></div>
           <input type="range" id="size" min="600" max="6000" step="100" value="2400">
         </div>
-        <div class="row btn-row">
+        <div class="row btn-row" style="grid-template-columns:1fr 1fr 1fr">
           <button class="btn primary" id="expPng">PNG</button>
+          <button class="btn" id="expSvg">SVG</button>
           <button class="btn" id="expVid">Video</button>
         </div>
-        <div class="note">Panels export as PNG stills and looping video, rendered sharp at whatever size you set.</div>
+        <div class="note">The SVG is true vectors — every warped shape becomes a crisp path, ready for print.</div>
       </section>
 
     </aside>
@@ -268,7 +265,7 @@ const PALETTES=[
 
 const S={
   seed:11, ratio:"1:1",
-  style:"auto", panels:4, scale:1, warp:.7,
+  style:"auto", scale:1, warp:.7,
   pal:PALETTES[0].slice(),
   motion:{on:false,mode:"bend",amount:.8,fps:12,frames:72},
   size:2400
@@ -281,127 +278,143 @@ function motionState(f){
 }
 
 /* ============================================================
-   The op-art engine — flat panels of checkerboard, slashes and
-   rings, bent through wave / taper / bulge distortions
+   The op-art engine — one checker, slash or ring pattern per
+   artwork, built as real polygons and bent vertex-by-vertex
+   through a wave, taper or bulge. The same paths feed the
+   canvas and the SVG export.
 ============================================================ */
 let SW=1;
 const fract=x=>x-Math.floor(x);
-function buildPanels(bw,bh){
+function buildSpec(){
   const r=rng(S.seed*2654435761>>>0);
   SW=(S.seed^0x2c1b3c6d)>>>0;
-  const m=Math.round(Math.min(bw,bh)*0.04);
-  const X0=m,Y0=m,X1=bw-m,Y1=bh-m;
-  let rects;
-  if(S.panels===1)rects=[[X0,Y0,X1,Y1]];
-  else if(S.panels===2){
-    if(r()<0.5){const sx=X0+(X1-X0)*(0.4+r()*0.2);rects=[[X0,Y0,sx,Y1],[sx,Y0,X1,Y1]];}
-    else{const sy=Y0+(Y1-Y0)*(0.4+r()*0.2);rects=[[X0,Y0,X1,sy],[X0,sy,X1,Y1]];}
-  }else{
-    const sx=X0+(X1-X0)*(0.38+r()*0.24), sy=Y0+(Y1-Y0)*(0.38+r()*0.24);
-    rects=[[X0,Y0,sx,sy],[sx,Y0,X1,sy],[X0,sy,sx,Y1],[sx,sy,X1,Y1]];
-  }
-  const order=[1,2,3,4];
-  for(let i=order.length-1;i>0;i--){const j=(r()*(i+1))|0;const tmp=order[i];order[i]=order[j];order[j]=tmp;}
   const kinds=["checker","slash","rings"];
-  return rects.map((rc,i)=>{
-    const kpick=(r()*kinds.length)|0;
-    return{
-      rc, kind:S.style==="auto"?kinds[kpick]:S.style,
-      ink:order[i%4],
-      cell:0.08+r()*0.09,
-      ang:(r()<0.5?-1:1)*(0.35+r()*0.55),
-      duty:0.42+r()*0.2,
-      ccx:r(),ccy:r(),
-      warp:["wave","taper","bulge"][(r()*3)|0],
-      wA:0.5+r()*0.8, wF:2+r()*3.5, ph:r()*TAU,
-      brk:2.5+r()*3,
-      inv:r()<0.35,
-      mdir:r()<0.5?1:-1
-    };
-  });
+  const kpick=(r()*kinds.length)|0;
+  return{
+    kind:S.style==="auto"?kinds[kpick]:S.style,
+    ink:1+((r()*4)|0),
+    cell:0.09+r()*0.09,
+    ang:(r()<0.5?-1:1)*(0.35+r()*0.55),
+    duty:0.45+r()*0.18,
+    ccx:r(),ccy:r(),
+    warp:["wave","taper","bulge"][(r()*3)|0],
+    wA:0.5+r()*0.8,wF:2+r()*3.5,ph:r()*TAU,
+    brk:2.5+r()*3,
+    inv:r()<0.4,
+    mdir:r()<0.5?1:-1
+  };
 }
-function panelOn(p,x,y,mo){
-  const rc=p.rc, w=rc[2]-rc[0], h=rc[3]-rc[1], md=Math.min(w,h);
-  let u=(x-rc[0])/md, v=(y-rc[1])/md;
-  const bend=mo.flow?1+0.55*mo.amp*Math.sin(TAU*mo.t+p.ph):1;
-  const W=S.warp*p.wA*bend;
+function warpPt(p,u,v,md,W,H,WA){
   if(p.warp==="wave"){
-    u+=W*0.15*Math.sin(v*p.wF*2.1+p.ph);
-    v+=W*0.08*Math.sin(u*p.wF*1.6+p.ph*1.7);
-  }else if(p.warp==="taper"){
-    const g=1+W*0.9*(v/(h/md)-0.5);
-    u=(u-0.5*w/md)*g+0.5*w/md;
-  }else{
-    const cx=0.5*w/md, cy=0.5*h/md;
-    const dx=u-cx, dy=v-cy, rr=Math.hypot(dx,dy)+1e-6;
-    const f=Math.pow(rr/0.72,1+W*1.2)/(rr/0.72);
-    u=cx+dx*f; v=cy+dy*f;
+    return[u+WA*0.15*Math.sin(v/md*p.wF*2.1+p.ph)*md,
+           v+WA*0.08*Math.sin(u/md*p.wF*1.6+p.ph*1.7)*md];
   }
-  const cell=p.cell*S.scale;
-  const off=mo.pulse?p.mdir*Math.max(1,Math.round(mo.amp*2))*mo.t*cell:0;
-  let on;
+  if(p.warp==="taper"){
+    const g=1+WA*0.9*(v/H-0.5);
+    return[(u-W/2)*g+W/2,v];
+  }
+  const cx=W/2,cy=H/2;
+  const dx=(u-cx)/md,dy=(v-cy)/md,rr=Math.hypot(dx,dy)+1e-6;
+  const f=Math.pow(rr/0.72,1+WA*1.2)/(rr/0.72);
+  return[cx+dx*f*md,cy+dy*f*md];
+}
+function buildPolys(p,W,H,mo){
+  const md=Math.min(W,H);
+  const bend=mo.flow?1+0.55*mo.amp*Math.sin(TAU*mo.t+p.ph):1;
+  const WA=S.warp*p.wA*bend;
+  const cs=p.cell*S.scale*md;
+  const per=Math.max(1,Math.round((mo.amp||1)*2));
+  const mt=mo.pulse?p.mdir*per*mo.t:0;   /* march offset, in pattern periods */
+  const mrg=md*0.35;
+  const polys=[];
+  const wp=(u,v)=>warpPt(p,u,v,md,W,H,WA);
+  const seg=(a,b,n,out)=>{for(let i=0;i<n;i++){const t=i/n;out.push(wp(a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t));}};
+  function quad(c0,c1,c2,c3){
+    const o=[];seg(c0,c1,5,o);seg(c1,c2,5,o);seg(c2,c3,5,o);seg(c3,c0,5,o);
+    polys.push(o);
+  }
   if(p.kind==="checker"){
-    const a=Math.floor((u+off)/cell)+Math.floor(v/cell);
-    on=((a%2)+2)%2===0;
+    const off=mt*2*cs;
+    const i0=Math.floor((-mrg-off)/cs),i1=Math.ceil((W+mrg-off)/cs);
+    const j0=Math.floor(-mrg/cs),j1=Math.ceil((H+mrg)/cs);
+    for(let j=j0;j<j1;j++)for(let i=i0;i<i1;i++){
+      if((((i+j)%2)+2)%2)continue;
+      const x=i*cs+off,y=j*cs;
+      quad([x,y],[x+cs,y],[x+cs,y+cs],[x,y+cs]);
+    }
   }else if(p.kind==="slash"){
     const ca=Math.cos(p.ang),sa=Math.sin(p.ang);
-    const q=u*ca+v*sa, s2=-u*sa+v*ca;
-    const band=Math.floor(s2/(cell*p.brk));
-    const qq=q+hashi(band,3,7,SW)*cell*2+off;
-    on=fract(qq/cell)<p.duty;
-  }else{
-    const cx=p.ccx*w/md, cy=p.ccy*h/md;
-    const rr=Math.hypot(u-cx,v-cy)+off;
-    const ring=Math.floor(rr/cell);
-    on=fract(rr/cell)<p.duty;
-    if(on){
-      const th=Math.atan2(v-cy,u-cx);
-      const seg=Math.floor((th/TAU+1+hashi(ring,5,9,SW))*(p.brk*2.5));
-      if(hashi(seg,ring,11,SW)<0.25)on=false;
-    }
-  }
-  return on!==p.inv;
-}
-let fieldC=null,fieldX=null;
-function paint(c,W,H,f,budget){
-  const mo=motionState(f);
-  const bw=Math.max(120,Math.min(budget||(S.motion.on&&playing?380:820),Math.round(W)));
-  const bh=Math.max(120,Math.round(bw*H/W));
-  if(!fieldC||fieldC.width!==bw||fieldC.height!==bh){
-    fieldC=document.createElement("canvas");fieldC.width=bw;fieldC.height=bh;
-    fieldX=fieldC.getContext("2d");
-  }
-  const panels=buildPanels(bw,bh);
-  const rgb=S.pal.map(hex2rgb);
-  const ss=bw>=520?2:1, isv=1/(ss*ss);
-  const img=fieldX.createImageData(bw,bh);
-  const d=img.data;
-  let ptr=0;
-  for(let y=0;y<bh;y++){
-    for(let x=0;x<bw;x++){
-      /* which panel holds this pixel? outside them all = the black frame */
-      let p=null;
-      for(const pp of panels){const rc=pp.rc;
-        if(x>=rc[0]&&x<rc[2]&&y>=rc[1]&&y<rc[3]){p=pp;break;}}
-      let cr,cg,cb;
-      if(!p){const c0=rgb[0];cr=c0[0];cg=c0[1];cb=c0[2];}
-      else{
-        let acc=0;
-        for(let sy=0;sy<ss;sy++)for(let sx=0;sx<ss;sx++)
-          if(panelOn(p,x+(sx+0.5)/ss,y+(sy+0.5)/ss,mo))acc++;
-        const a=acc*isv;
-        const ink=rgb[p.ink], c0=rgb[0];
-        cr=c0[0]+(ink[0]-c0[0])*a;
-        cg=c0[1]+(ink[1]-c0[1])*a;
-        cb=c0[2]+(ink[2]-c0[2])*a;
+    const bs=cs*p.brk;
+    const R=Math.hypot(W,H)+mrg;
+    const uv=(q,s)=>[q*ca-s*sa,q*sa+s*ca];
+    const b0=Math.floor(-R/bs),b1=Math.ceil(R/bs);
+    for(let b=b0;b<b1;b++){
+      const shift=hashi(b,3,7,SW)*cs*2+mt*cs;
+      const s0=b*bs,s1=(b+1)*bs;
+      const k0=Math.floor((-R-shift)/cs),k1=Math.ceil((R-shift)/cs);
+      for(let k=k0;k<k1;k++){
+        const q0=k*cs+shift,q1=q0+cs*p.duty;
+        quad(uv(q0,s0),uv(q1,s0),uv(q1,s1),uv(q0,s1));
       }
-      d[ptr]=cr;d[ptr+1]=cg;d[ptr+2]=cb;d[ptr+3]=255;ptr+=4;
+    }
+  }else{
+    const cx=p.ccx*W,cy=p.ccy*H;
+    const rmax=Math.hypot(Math.max(cx,W-cx),Math.max(cy,H-cy))+mrg;
+    const nR=Math.ceil(rmax/cs)+1;
+    for(let n=Math.floor(-mt)-1;n<nR;n++){
+      const r0=(n+mt)*cs, r1=r0+cs*p.duty;
+      if(r1<=cs*0.05)continue;
+      const ri=Math.max(0.001,r0);
+      const m=Math.max(4,Math.round(p.brk*2.5));
+      const a00=hashi(n,5,9,SW)*TAU;
+      for(let s=0;s<m;s++){
+        if(hashi(s,n,11,SW)<0.25)continue;
+        const a0=a00+s/m*TAU, a1=a00+(s+1)/m*TAU-TAU/m*0.06;
+        const steps=Math.max(3,Math.ceil((a1-a0)*r1/(md*0.03)));
+        const o=[];
+        for(let i=0;i<=steps;i++){const a=a0+(a1-a0)*i/steps;o.push(wp(cx+Math.cos(a)*r1,cy+Math.sin(a)*r1));}
+        for(let i=steps;i>=0;i--){const a=a0+(a1-a0)*i/steps;o.push(wp(cx+Math.cos(a)*ri,cy+Math.sin(a)*ri));}
+        polys.push(o);
+      }
     }
   }
-  fieldX.putImageData(img,0,0);
-  c.imageSmoothingEnabled=true;
-  c.imageSmoothingQuality="high";
-  c.drawImage(fieldC,0,0,W,H);
+  return polys;
+}
+function artColors(p){
+  const base=S.pal[0], ink=S.pal[p.ink];
+  return p.inv?[ink,base]:[base,ink];
+}
+function paint(c,W,H,f){
+  const p=buildSpec();
+  const mo=motionState(f);
+  const polys=buildPolys(p,W,H,mo);
+  const[bgc,fgc]=artColors(p);
+  c.setTransform(1,0,0,1,0,0);
+  c.fillStyle=bgc;c.fillRect(0,0,W,H);
+  c.fillStyle=fgc;
+  c.beginPath();
+  for(const poly of polys){
+    c.moveTo(poly[0][0],poly[0][1]);
+    for(let i=1;i<poly.length;i++)c.lineTo(poly[i][0],poly[i][1]);
+    c.closePath();
+  }
+  c.fill();
+}
+function buildSVG(){
+  const r=RATIOS.find(x=>x.id===S.ratio);
+  const W=S.size,H=Math.round(S.size*r.h/r.w);
+  const p=buildSpec();
+  const mo=motionState(curFrame);
+  const polys=buildPolys(p,W,H,mo);
+  const[bgc,fgc]=artColors(p);
+  let d="";
+  for(const poly of polys){
+    d+=`M ${poly[0][0].toFixed(1)} ${poly[0][1].toFixed(1)}`;
+    for(let i=1;i<poly.length;i++)d+=` L ${poly[i][0].toFixed(1)} ${poly[i][1].toFixed(1)}`;
+    d+=" Z";
+  }
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`+
+    `<rect width="${W}" height="${H}" fill="${bgc}"/><path d="${d}" fill="${fgc}"/></svg>`;
 }
 
 const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
@@ -484,9 +497,13 @@ $("#expPng").addEventListener("click",()=>{
     const r=RATIOS.find(x=>x.id===S.ratio);
     const W=S.size,H=Math.round(S.size*r.h/r.w);
     const c=document.createElement("canvas");c.width=W;c.height=H;
-    paint(c.getContext("2d"),W,H,curFrame,1600);
+    paint(c.getContext("2d"),W,H,curFrame);
     c.toBlob(b=>{save(b,stamp()+".png");toast(`PNG saved · ${W}×${H}`);});
   },30);
+});
+$("#expSvg").addEventListener("click",()=>{
+  save(new Blob([buildSVG()],{type:"image/svg+xml"}),stamp()+".svg");
+  toast("SVG saved");
 });
 function pickVideoType(){
   const t=["video/mp4;codecs=avc1.42E01E","video/mp4","video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"];
@@ -513,7 +530,7 @@ $("#expVid").addEventListener("click",()=>{
   let n=0;
   rec.start();
   (function step(){
-    paint(cc,W,H,n%F,560);
+    paint(cc,W,H,n%F);
     n++;
     if(n<F*loops) setTimeout(()=>requestAnimationFrame(step), Math.max(0,1000/S.motion.fps-4));
     else setTimeout(()=>{rec.stop();if(was)setPlaying(true);},200);
@@ -596,7 +613,6 @@ $("#rotColors").addEventListener("click",()=>{
 });
 bindRange("scale",pct,v=>S.scale=v);
 bindRange("warp",pct,v=>S.warp=v);
-segmented($("#panels"),[["1","1"],["2","2"],["4","4"]],()=>String(S.panels),v=>{S.panels=parseInt(v,10);reframe();});
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
