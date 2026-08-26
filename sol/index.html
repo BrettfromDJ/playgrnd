@@ -173,6 +173,10 @@ input[type=range]:disabled{opacity:.3;pointer-events:none}
           <input type="range" id="weight" min="0.15" max="0.85" step="0.01" value="0.55">
         </div>
         <div class="row">
+          <div class="lab"><span>Taper</span><span class="val" id="taperVal">0%</span></div>
+          <input type="range" id="taper" min="-1" max="1" step="0.05" value="0">
+        </div>
+        <div class="row">
           <div class="lab"><span>Core</span><span class="val" id="coreVal">30%</span></div>
           <input type="range" id="core" min="0" max="0.6" step="0.01" value="0.3">
         </div>
@@ -286,7 +290,7 @@ const PALETTES=[
 
 const S={
   seed:11, ratio:"1:1",
-  style:"burst", rays:36, rings:3, gap:.45, twist:0, weight:.55, core:.3, scale:.88,
+  style:"burst", rays:36, rings:3, gap:.45, twist:0, weight:.55, taper:0, core:.3, scale:.88,
   pal:PALETTES[0].slice(),
   motion:{on:false,mode:"spin",amount:.8,fps:12,frames:72},
   size:2400
@@ -330,7 +334,10 @@ function geo(W,H,f){
   /* twist does the heavy lifting here: it tilts every dash about its own
      centre (a vortex) and shears burst rays into a swirl — the same angle
      on every ray, so the rotational symmetry is untouched */
-  return{cx,cy,R,r0,N,step,rings,tilt:S.twist*1.0,swirl:S.twist*0.9,
+  /* taper thins one end of every ray: positive thins the rim end,
+     negative thins the centre end */
+  const fo=1-Math.max(0,S.taper), fi=1-Math.max(0,-S.taper);
+  return{cx,cy,R,r0,N,step,rings,tilt:S.twist*1.0,swirl:S.twist*0.9,fi,fo,
     core:S.style==="burst"&&r0>1};
 }
 function paint(c,W,H,f){
@@ -343,22 +350,26 @@ function paint(c,W,H,f){
   for(const rg of g.rings){
     c.save();c.rotate(rg.rot);
     if(S.style==="burst"){
-      const h=S.weight*g.step/2, sh=g.swirl;
+      const h=S.weight*g.step/2, hi=h*g.fi, ho=h*g.fo, sh=g.swirl;
       c.beginPath();
       for(let j=0;j<g.N;j++){
         const a=j*g.step;
-        c.moveTo(Math.cos(a+sh-h)*rg.rb,Math.sin(a+sh-h)*rg.rb);
-        c.arc(0,0,rg.rb,a+sh-h,a+sh+h);
-        c.arc(0,0,rg.ra,a+h,a-h,true);
+        c.moveTo(Math.cos(a+sh-ho)*rg.rb,Math.sin(a+sh-ho)*rg.rb);
+        c.arc(0,0,rg.rb,a+sh-ho,a+sh+ho);
+        c.arc(0,0,rg.ra,a+hi,a-hi,true);
         c.closePath();
       }
       c.fill();
     }else{
       const rm=(rg.ra+rg.rb)/2, len=rg.rb-rg.ra;
+      const wi=rg.w*g.fi/2, wo=rg.w*g.fo/2;
       for(let j=0;j<g.N;j++){
         c.save();c.rotate(j*g.step);
         c.translate(rm,0);c.rotate(g.tilt);
-        c.fillRect(-len/2,-rg.w/2,len,rg.w);
+        c.beginPath();
+        c.moveTo(-len/2,-wi);c.lineTo(len/2,-wo);
+        c.lineTo(len/2,wo);c.lineTo(-len/2,wi);
+        c.closePath();c.fill();
         c.restore();
       }
     }
@@ -378,18 +389,20 @@ function svgBody(f,loop){
   for(const rg of g.rings){
     let shapes="";
     if(S.style==="burst"){
-      const h=S.weight*g.step/2, sh=g.swirl;
+      const h=S.weight*g.step/2, hi=h*g.fi, ho=h*g.fo, sh=g.swirl;
       const p=(rr,aa)=>`${(Math.cos(aa)*rr).toFixed(2)} ${(Math.sin(aa)*rr).toFixed(2)}`;
       let d="";
       for(let j=0;j<g.N;j++){
         const a=j*g.step;
-        d+=`M${p(rg.rb,a+sh-h)}A${rg.rb.toFixed(2)} ${rg.rb.toFixed(2)} 0 0 1 ${p(rg.rb,a+sh+h)}L${p(rg.ra,a+h)}A${rg.ra.toFixed(2)} ${rg.ra.toFixed(2)} 0 0 0 ${p(rg.ra,a-h)}Z`;
+        d+=`M${p(rg.rb,a+sh-ho)}A${rg.rb.toFixed(2)} ${rg.rb.toFixed(2)} 0 0 1 ${p(rg.rb,a+sh+ho)}L${p(rg.ra,a+hi)}A${rg.ra.toFixed(2)} ${rg.ra.toFixed(2)} 0 0 0 ${p(rg.ra,a-hi)}Z`;
       }
       shapes=`<path d="${d}"/>`;
     }else{
       const rm=((rg.ra+rg.rb)/2).toFixed(2), len=rg.rb-rg.ra;
+      const x0=(-len/2).toFixed(2), x1=(len/2).toFixed(2);
+      const wi=(rg.w*g.fi/2).toFixed(2), wo=(rg.w*g.fo/2).toFixed(2);
       for(let j=0;j<g.N;j++)
-        shapes+=`<rect x="${(-len/2).toFixed(2)}" y="${(-rg.w/2).toFixed(2)}" width="${len.toFixed(2)}" height="${rg.w.toFixed(2)}" transform="rotate(${deg(j*g.step)}) translate(${rm} 0) rotate(${deg(g.tilt)})"/>`;
+        shapes+=`<polygon points="${x0},-${wi} ${x1},-${wo} ${x1},${wo} ${x0},${wi}" transform="rotate(${deg(j*g.step)}) translate(${rm} 0) rotate(${deg(g.tilt)})"/>`;
     }
     const inner=loop&&rg.spin
       ?`<g><animateTransform attributeName="transform" type="rotate" from="0" to="${deg(rg.spin)}" dur="${dur}s" repeatCount="indefinite"/>${shapes}</g>`
@@ -615,6 +628,7 @@ bindRange("rings",v=>v,v=>S.rings=v|0);
 bindRange("gap",pct,v=>S.gap=v);
 bindRange("twist",pct,v=>S.twist=v);
 bindRange("weight",pct,v=>S.weight=v);
+bindRange("taper",pct,v=>S.taper=v);
 bindRange("core",pct,v=>S.core=v);
 bindRange("scale",pct,v=>S.scale=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
@@ -645,6 +659,7 @@ function applySeed(){
   S.gap=pick([0.3,0.45,0.45,0.6,0.8]);
   S.twist=pick([0,0,0,0.2,0.35,0.55]);
   S.weight=pick([0.35,0.4,0.45,0.5,0.55]);
+  S.taper=pick([0,0,0,0.4,0.7,-0.4]);
   S.core=pick([0.16,0.22,0.3,0.38,0.46]);
 }
 function syncControls(){
@@ -654,6 +669,7 @@ function syncControls(){
   set("gap",S.gap,pct(S.gap));
   set("twist",S.twist,pct(S.twist));
   set("weight",S.weight,pct(S.weight));
+  set("taper",S.taper,pct(S.taper));
   set("core",S.core,pct(S.core));
   set("scale",S.scale,pct(S.scale));
   segmented($("#styles"),STYLES,()=>S.style,v=>{S.style=v;reframe();});
