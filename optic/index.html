@@ -205,7 +205,7 @@ input[type=range]:disabled{opacity:.3;pointer-events:none}
             <div class="lab"><span>Loop length</span><span class="val" id="framesVal">72 frames</span></div>
             <input type="range" id="frames" min="12" max="180" step="4" value="72">
           </div>
-          <div class="note">Slide marches the bars sideways by whole bar-widths; Flip counterchanges the figure in steps. Every loop closes exactly.</div>
+          <div class="note">Slide counter-marches ground and figure; Turn spins the bars inside the figure; Breathe pumps the figure in and out; Flip counterchanges in steps. Every loop closes exactly.</div>
         </div>
       </section>
 
@@ -260,7 +260,7 @@ function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const MODES=[["slide","Slide"],["flip","Flip"]];
+const MODES=[["slide","Slide"],["turn","Turn"],["breathe","Breathe"],["flip","Flip"]];
 const STYLES=[["auto","Auto"],["diamond","Diamond"],["circle","Circle"],["peak","Peak"],["square","Square"]];
 /* the two bar colours — everything is built from just these */
 const PALETTES=[
@@ -283,7 +283,7 @@ const S={
 function motionState(f){
   const M=S.motion;
   const t=M.on?f/M.frames:0;
-  return{t,slide:M.on&&M.mode==="slide",flip:M.on&&M.mode==="flip",amp:M.amount};
+  return{t,mode:M.on?M.mode:"",amp:M.amount};
 }
 
 /* ============================================================
@@ -321,19 +321,32 @@ function geo(W,H,f){
   const P=md/Math.max(4,S.count|0);
   const mo=motionState(f);
   const lapP=Math.max(1,Math.round(mo.amp*2));
-  const off=mo.slide?mo.t*lapP*P:0;
+  /* every move closes its loop exactly:
+     slide  — whole bar-periods, ground and figure in opposite directions
+     turn   — half-turns of the bars inside the figure (bars have 180°
+              symmetry, so a half-turn lands back on the start)
+     breathe— one sine cycle of the figure sizes
+     flip   — an even count of counterchange steps */
+  const off=mo.mode==="slide"?mo.t*lapP*P:0;
+  const halfTurns=Math.max(1,Math.round(mo.amp));
   const steps=2*Math.max(1,Math.round(mo.amp*2));
-  const state=mo.flip?Math.floor(mo.t*steps)%2:0;
+  const state=mo.mode==="flip"?Math.floor(mo.t*steps)%2:0;
+  const breA=mo.mode==="breathe"?0.13*Math.min(2,mo.amp):0;
   const sp=buildSpec();
   const SIZES=[1,0.55,0.22];
-  const layers=sp.moves.map((m,i)=>({
-    shape:sp.fig,
-    s:S.sizeF*md/2*SIZES[i],
-    rot:m.rot,
-    /* flip counterchanges the even levels in steps */
-    ph:(m.ph+(state&&i%2===0?0.5:0))*P+off
-  }));
-  return{cx,cy,W,H,P,duty:S.weight,off,lapP,state,layers,
+  const layers=sp.moves.map((m,i)=>{
+    const dir=i%2?1:-1;
+    const turnD=mo.mode==="turn"?dir*halfTurns*180:0;
+    return{
+      shape:sp.fig,
+      s:S.sizeF*md/2*SIZES[i]*(1+breA*Math.sin(TAU*(mo.t+i*0.25))),
+      rot:m.rot+turnD*mo.t*Math.PI/180,
+      rotBase:m.rot, turnD,
+      slideD:dir*lapP*P,
+      ph:(m.ph+(state&&i%2===0?0.5:0))*P+dir*off
+    };
+  });
+  return{cx,cy,W,H,P,duty:S.weight,off,lapP,state,breA,mode:mo.mode,layers,
     R:Math.hypot(W,H)/2+P*(lapP+2)};
 }
 function barXs(P,duty,R,phase){
@@ -385,40 +398,59 @@ function paint(c,W,H,f){
   }
 }
 /* ---------- SVG: same plan, one string ---------- */
-function shapePath(g,L){
-  const s=L.s, f2=x=>x.toFixed(2);
-  if(L.shape==="circle")
-    return `<circle cx="${f2(g.cx)}" cy="${f2(g.cy)}" r="${f2(s)}"/>`;
+function shapePts(g,L,s){
+  const f2=x=>x.toFixed(2);
   if(L.shape==="square"){const q=s*0.9;
-    return `<rect x="${f2(g.cx-q)}" y="${f2(g.cy-q)}" width="${f2(2*q)}" height="${f2(2*q)}"/>`;}
+    return `${f2(g.cx-q)},${f2(g.cy-q)} ${f2(g.cx+q)},${f2(g.cy-q)} ${f2(g.cx+q)},${f2(g.cy+q)} ${f2(g.cx-q)},${f2(g.cy+q)}`;}
   if(L.shape==="diamond")
-    return `<polygon points="${f2(g.cx)},${f2(g.cy-s)} ${f2(g.cx+s)},${f2(g.cy)} ${f2(g.cx)},${f2(g.cy+s)} ${f2(g.cx-s)},${f2(g.cy)}"/>`;
-  return `<polygon points="${f2(g.cx)},${f2(g.cy-s*0.92)} ${f2(g.cx+s*1.05)},${f2(g.cy+s*0.8)} ${f2(g.cx-s*1.05)},${f2(g.cy+s*0.8)}"/>`;
+    return `${f2(g.cx)},${f2(g.cy-s)} ${f2(g.cx+s)},${f2(g.cy)} ${f2(g.cx)},${f2(g.cy+s)} ${f2(g.cx-s)},${f2(g.cy)}`;
+  return `${f2(g.cx)},${f2(g.cy-s*0.92)} ${f2(g.cx+s*1.05)},${f2(g.cy+s*0.8)} ${f2(g.cx-s*1.05)},${f2(g.cy+s*0.8)}`;
 }
-function svgBars(g,rot,ph,anim){
+function shapePath(g,L,bre){
+  const f2=x=>x.toFixed(2);
+  /* bre = {i, dur}: write one sine cycle of sizes into the clip itself */
+  const sizes=q=>{const out=[];for(let m=0;m<=16;m++)
+    out.push(q(L.s0*(1+g.breA*Math.sin(TAU*(m/16+bre.i*0.25)))));return out.join(";");};
+  if(L.shape==="circle"){
+    const anim=bre?`<animate attributeName="r" values="${sizes(v=>v.toFixed(2))}" dur="${bre.dur}s" repeatCount="indefinite"/>`:"";
+    return `<circle cx="${f2(g.cx)}" cy="${f2(g.cy)}" r="${f2(L.s)}">${anim}</circle>`;
+  }
+  const anim=bre?`<animate attributeName="points" values="${sizes(v=>shapePts(g,L,v))}" dur="${bre.dur}s" repeatCount="indefinite"/>`:"";
+  return `<polygon points="${shapePts(g,L,L.s)}">${anim}</polygon>`;
+}
+function svgBars(g,rot,ph,animInner,forceCentre){
   const{w,xs}=barXs(g.P,g.duty,g.R,ph);
   const f2=x=>x.toFixed(2);
+  const centred=rot||forceCentre;
   let rects="";
-  if(!rot){
+  if(!centred){
     for(const x of xs)
       rects+=`<rect x="${f2(g.cx+x)}" y="-2" width="${f2(w)}" height="${f2(g.H+4)}"/>`;
   }else{
     for(const x of xs)
       rects+=`<rect x="${f2(x)}" y="${f2(-g.R)}" width="${f2(w)}" height="${f2(2*g.R)}"/>`;
   }
-  const slide=anim
-    ?`<g><animateTransform attributeName="transform" type="translate" from="0 0" to="${f2(anim.d)} 0" dur="${anim.dur}s" repeatCount="indefinite"/>${rects}</g>`
-    :rects;
-  const core=`<g fill="${S.pal[1]}"${rot?"":' shape-rendering="crispEdges"'}>${slide}</g>`;
-  return rot?`<g transform="translate(${f2(g.cx)} ${f2(g.cy)}) rotate(${(rot*180/Math.PI).toFixed(3)})">${core}</g>`:core;
+  const inner=animInner?`<g>${animInner}${rects}</g>`:rects;
+  const core=`<g fill="${S.pal[1]}"${centred?"":' shape-rendering="crispEdges"'}>${inner}</g>`;
+  return centred
+    ?`<g transform="translate(${f2(g.cx)} ${f2(g.cy)}) rotate(${(rot*180/Math.PI).toFixed(3)})">${core}</g>`
+    :core;
 }
 function svgScene(g,uid,anim){
+  const dur=anim?anim.dur:0;
+  const trans=d=>`<animateTransform attributeName="transform" type="translate" from="0 0" to="${d.toFixed(2)} 0" dur="${dur}s" repeatCount="indefinite"/>`;
+  const spin=d=>`<animateTransform attributeName="transform" type="rotate" from="0" to="${d}" dur="${dur}s" repeatCount="indefinite"/>`;
   let defs="",body=`<rect width="${g.W}" height="${g.H}" fill="${S.pal[0]}"/>`;
-  body+=svgBars(g,0,g.off,anim);
+  const groundAnim=anim&&anim.mode==="slide"?trans(g.lapP*g.P):"";
+  body+=svgBars(g,0,g.off,groundAnim,false);
   g.layers.forEach((L,i)=>{
     const cid=`c${uid}_${i}`;
-    defs+=`<clipPath id="${cid}">${shapePath(g,L)}</clipPath>`;
-    body+=`<g clip-path="url(#${cid})"><rect width="${g.W}" height="${g.H}" fill="${S.pal[0]}"/>${svgBars(g,L.rot,L.ph,anim)}</g>`;
+    const bre=anim&&anim.mode==="breathe"?{i,dur}:null;
+    defs+=`<clipPath id="${cid}">${shapePath(g,L,bre)}</clipPath>`;
+    let inner="",force=false;
+    if(anim&&anim.mode==="slide")inner=trans(L.slideD);
+    if(anim&&anim.mode==="turn"){inner=spin(L.turnD);force=true;}
+    body+=`<g clip-path="url(#${cid})"><rect width="${g.W}" height="${g.H}" fill="${S.pal[0]}"/>${svgBars(g,anim&&anim.mode==="turn"?L.rotBase:L.rot,L.ph,inner,force)}</g>`;
   });
   return{defs,body};
 }
@@ -434,15 +466,17 @@ function buildSVG(){
   const{defs,body}=svgScene(geo(W,H,curFrame),0,null);
   return svgWrap(defs,body);
 }
-/* the loop writes the movement itself: Slide is one translate per bar
-   set, Flip is two states swapped on a discrete clock */
+/* the loop writes the movement itself: translates for Slide, rotates
+   for Turn, animated clip shapes for Breathe, a two-state clock for
+   Flip — every file stays tiny */
 function buildLoopSVG(){
   const r=RATIOS.find(x=>x.id===S.ratio);
   const W=S.size,H=Math.round(S.size*r.h/r.w);
   const M=S.motion,dur=M.frames/M.fps;
-  if(M.mode==="slide"){
+  if(M.mode!=="flip"){
     const g=geo(W,H,0);
-    const{defs,body}=svgScene(g,0,{d:g.lapP*g.P,dur:dur.toFixed(3)});
+    if(M.mode==="breathe")g.layers.forEach((L,i)=>{L.s0=S.sizeF*Math.min(W,H)/2*[1,0.55,0.22][i];});
+    const{defs,body}=svgScene(g,0,{mode:M.mode,dur:dur.toFixed(3)});
     return svgWrap(defs,body);
   }
   /* flip: render the two states, alternate them on a discrete clock */
