@@ -240,9 +240,10 @@ input[type=range]:disabled{opacity:.3;pointer-events:none}
           <div class="lab"><span>Size</span><span class="val" id="sizeVal">2400 px</span></div>
           <input type="range" id="size" min="600" max="6000" step="100" value="2400">
         </div>
-        <div class="row btn-row" style="grid-template-columns:1fr 1fr 1fr">
+        <div class="row btn-row">
           <button class="btn primary" id="expPng">PNG</button>
           <button class="btn" id="expSvg">SVG</button>
+          <button class="btn" id="expSvgLoop">SVG loop</button>
           <button class="btn" id="expVid">Video</button>
         </div>
         <div class="note">The SVG is true vectors — pixel patches as crisp rectangles, the doodle as a real stroke, dots as circles.</div>
@@ -501,12 +502,8 @@ function paint(c,W,Hpx,f){
 /* ============================================================
    SVG — patch rects + one stroke path per polyline + dot circles
 ============================================================ */
-function buildSVG(){
+function svgContent(t,reveal){
   const {gw,gh}=gridDims();
-  const r=RATIOS.find(x=>x.id===S.ratio);
-  const W=S.size,H=Math.round(S.size*r.h/r.w);
-  const M=S.motion;
-  const t=M.on?curFrame/M.frames:0;
   /* patches: run-length rects per colour, in grid units */
   const k=S.palette.length;
   let patchG="";
@@ -522,22 +519,72 @@ function buildSVG(){
     }
     patchG+=`<g fill="${S.palette[ci]}">${shape}</g>`;
   }
-  /* doodle + dots in grid units too */
+  /* doodle + dots in grid units, honouring the draw-mode reveal */
   const s=gw/VB;
   const D=buildDoodle();
   const dots=buildDots(D);
   let lines="";
-  for(const poly of D.polys){
-    let dd=`M ${(poly[0].x*s).toFixed(2)} ${(poly[0].y*s).toFixed(2)}`;
-    for(let i=1;i<poly.length;i++)dd+=` L ${(poly[i].x*s).toFixed(2)} ${(poly[i].y*s).toFixed(2)}`;
-    lines+=`<path d="${dd}"/>`;
+  if(reveal>=1){
+    for(const poly of D.polys){
+      let dd=`M ${(poly[0].x*s).toFixed(2)} ${(poly[0].y*s).toFixed(2)}`;
+      for(let i=1;i<poly.length;i++)dd+=` L ${(poly[i].x*s).toFixed(2)} ${(poly[i].y*s).toFixed(2)}`;
+      lines+=`<path d="${dd}"/>`;
+    }
+  }else{
+    let budget=reveal*D.total;
+    for(let pi=0;pi<D.polys.length&&budget>0;pi++){
+      const poly=D.polys[pi];
+      let dd=`M ${(poly[0].x*s).toFixed(2)} ${(poly[0].y*s).toFixed(2)}`;
+      for(let i=1;i<poly.length;i++){
+        const seg=Math.hypot(poly[i].x-poly[i-1].x,poly[i].y-poly[i-1].y);
+        if(seg>=budget){
+          const u=budget/seg;
+          dd+=` L ${((poly[i-1].x+(poly[i].x-poly[i-1].x)*u)*s).toFixed(2)} ${((poly[i-1].y+(poly[i].y-poly[i-1].y)*u)*s).toFixed(2)}`;
+          budget=0;break;
+        }
+        dd+=` L ${(poly[i].x*s).toFixed(2)} ${(poly[i].y*s).toFixed(2)}`;
+        budget-=seg;
+      }
+      lines+=`<path d="${dd}"/>`;
+    }
   }
   let dotEls="";
-  for(const q of dots)dotEls+=`<circle cx="${(q.x*s).toFixed(2)}" cy="${(q.y*s).toFixed(2)}" r="${(VB*0.0085*s).toFixed(2)}"/>`;
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${gw} ${gh}">`+
-    `<g shape-rendering="crispEdges">${patchG}</g>`+
+  for(const q of dots){
+    if(reveal<1&&q.ord>reveal)continue;
+    dotEls+=`<circle cx="${(q.x*s).toFixed(2)}" cy="${(q.y*s).toFixed(2)}" r="${(VB*0.0085*s).toFixed(2)}"/>`;
+  }
+  return `<g shape-rendering="crispEdges">${patchG}</g>`+
     `<g fill="none" stroke="${S.line}" stroke-width="${(VB*0.009*S.lw*s).toFixed(2)}" stroke-linecap="round" stroke-linejoin="round">${lines}</g>`+
-    `<g fill="${S.dot}">${dotEls}</g></svg>`;
+    `<g fill="${S.dot}">${dotEls}</g>`;
+}
+function svgWrap(inner){
+  const {gw,gh}=gridDims();
+  const r=RATIOS.find(x=>x.id===S.ratio);
+  const W=S.size,H=Math.round(S.size*r.h/r.w);
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${gw} ${gh}">`+inner+`</svg>`;
+}
+function buildSVG(){
+  const M=S.motion;
+  const t=M.on?curFrame/M.frames:0;
+  return svgWrap(svgContent(t,1));
+}
+/* animated loop: every frame goes into the file as a hidden group, and a
+   discrete visibility animation flips through them on the tool's own clock */
+function buildLoopSVG(){
+  const M=S.motion;
+  const F=M.frames;
+  const dur=(F/M.fps).toFixed(3);
+  let groups="";
+  for(let f=0;f<F;f++){
+    const t=f/F;
+    const reveal=M.mode==="draw"?clamp(t/0.82,0,1):1;
+    const t0=(f/F).toFixed(5), t1=((f+1)/F).toFixed(5);
+    const anim=f===0
+      ?`<animate attributeName="visibility" values="visible;hidden" keyTimes="0;${t1}" dur="${dur}s" calcMode="discrete" repeatCount="indefinite"/>`
+      :`<animate attributeName="visibility" values="hidden;visible;hidden" keyTimes="0;${t0};${t1}" dur="${dur}s" calcMode="discrete" repeatCount="indefinite"/>`;
+    groups+=`<g visibility="${f===0?"visible":"hidden"}">${anim}${svgContent(t,reveal)}</g>`;
+  }
+  return svgWrap(groups);
 }
 
 const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
@@ -611,8 +658,9 @@ function save(blob,name){
 }
 function stamp(){return `fete-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
-  const a=$("#expVid"),sc=$("#scrub");
+  const a=$("#expVid"),sc=$("#scrub"),l=$("#expSvgLoop");
   if(a)a.disabled=!S.motion.on;
+  if(l)l.disabled=!S.motion.on;
   if(sc)sc.disabled=!S.motion.on;
 }
 $("#expPng").addEventListener("click",()=>{
@@ -628,6 +676,14 @@ $("#expPng").addEventListener("click",()=>{
 $("#expSvg").addEventListener("click",()=>{
   save(new Blob([buildSVG()],{type:"image/svg+xml"}),stamp()+".svg");
   toast("SVG saved");
+});
+$("#expSvgLoop").addEventListener("click",()=>{
+  if(!S.motion.on)return toast("Turn on motion first");
+  toast("Building loop\u2026",true);
+  setTimeout(()=>{
+    save(new Blob([buildLoopSVG()],{type:"image/svg+xml"}),stamp()+"-loop.svg");
+    toast("Animated SVG saved");
+  },30);
 });
 function pickVideoType(){
   const t=["video/mp4;codecs=avc1.42E01E","video/mp4","video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"];
