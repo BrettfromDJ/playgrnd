@@ -18,109 +18,115 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Crect width='8' height='8' fill='%230b0b0d'/%3E%3Crect x='1' y='1' width='3' height='3' fill='%23FF87C3'/%3E%3Crect x='4' y='1' width='3' height='3' fill='%231B4FA0'/%3E%3Crect x='1' y='4' width='3' height='3' fill='%238E9A24'/%3E%3Crect x='4' y='4' width='3' height='3' fill='%23FF5B1E'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Crect width='8' height='8' fill='%23EFEFEC'/%3E%3Crect x='1' y='1' width='3' height='3' fill='%23FF87C3'/%3E%3Crect x='4' y='1' width='3' height='3' fill='%231B4FA0'/%3E%3Crect x='1' y='4' width='3' height='3' fill='%238E9A24'/%3E%3Crect x='4' y='4' width='3' height='3' fill='%23FF5B1E'/%3E%3C/svg%3E">
 <style>
 :root{
-  --bg:#0b0b0d; --panel:#101013; --line:#22222a; --line-soft:#1a1a20;
-  --text:#EFEDE8; --muted:#7c7c88; --muted-2:#55555f;
-  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --bg:#EFEFEC; --ink:#111112; --muted:#6d6d68; --line:#d9d9d4;
   --sans:"Archivo",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 *{box-sizing:border-box}
 body{
-  margin:0; background:var(--bg); color:var(--text);
+  margin:0; background:var(--bg); color:var(--ink);
   font-family:var(--sans); -webkit-font-smoothing:antialiased;
 }
+a{color:inherit; text-decoration:none}
+
+.wrap{max-width:1760px; margin:0 auto; padding:0 clamp(16px,2.4vw,44px)}
 
 .topbar{
-  position:sticky; top:0; z-index:10;
-  height:56px; padding:0 22px;
-  display:flex; align-items:center; gap:12px;
-  background:color-mix(in srgb, var(--bg) 86%, transparent);
-  -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--line-soft);
+  display:flex; align-items:baseline; gap:8px;
+  padding-top:20px; padding-bottom:8px;
+  font-size:13px; letter-spacing:.01em;
 }
-.topbar svg{display:block; border-radius:2px}
-.topbar h1{margin:0; font-size:15px; font-weight:800; letter-spacing:.08em; text-transform:uppercase}
-.kicker{
-  font-family:var(--mono); font-size:10.5px; color:var(--muted);
-  letter-spacing:.02em; padding-left:12px; border-left:1px solid var(--line);
-}
-.spacer{flex:1}
-.count{font-family:var(--mono); font-size:10.5px; color:var(--muted-2); letter-spacing:.08em}
+.topbar .brand{font-weight:600}
+.topbar .home{color:var(--muted)}
+.topbar .spacer{flex:1}
+.topbar .count{font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
 
-/* ---------- the card grid ---------- */
+.hero{padding-top:clamp(36px,6vw,90px)}
+.hero h1{
+  margin:0; text-transform:uppercase;
+  font-size:clamp(40px,7vw,108px); line-height:.98; letter-spacing:-.015em;
+  font-weight:500; max-width:19ch;
+}
+.hero .kicker{
+  margin:18px 0 0; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase;
+  line-height:1.5; color:var(--ink);
+}
+
+/* ---------- four columns, endless rows ---------- */
 .grid{
-  display:grid; gap:16px;
-  grid-template-columns:repeat(auto-fill, minmax(250px, 1fr));
-  padding:22px; max-width:1720px; margin:0 auto;
+  display:grid; grid-template-columns:repeat(4,1fr);
+  column-gap:clamp(14px,1.8vw,30px); row-gap:clamp(38px,4vw,64px);
+  padding-top:clamp(36px,5vw,84px); padding-bottom:90px;
 }
-.card{
-  position:relative; display:block;
-  aspect-ratio:4/5;
-  border-radius:6px; overflow:hidden;
-  border:1px solid var(--line-soft);
-  text-decoration:none;
-  background:#000;
-  transition:transform .16s ease, border-color .16s ease;
+.entry{display:block}
+/* Artwork: each tool's animated SVG gets dropped inside its .card-art
+   (id="art-<slug>") — until then the slot stays black. */
+.art{
+  position:relative; aspect-ratio:4/5; background:#000; overflow:hidden;
 }
-.card:hover, .card:focus-visible{
-  transform:translateY(-4px);
-  border-color:var(--muted-2);
-  outline:none;
+.art svg{width:100%; height:100%; display:block}
+.art .idx{
+  position:absolute; top:0; right:-1.4em;
+  writing-mode:vertical-rl;
+  font-size:10px; letter-spacing:.14em; color:var(--muted);
 }
-/* Card artwork: each tool's animated SVG gets dropped inside its
-   .card-art (id="art-<slug>") — until then the card stays black. */
-.card-art{position:absolute; inset:0; background:#000}
-.card-art svg{width:100%; height:100%; display:block; object-fit:cover}
-
-/* the white name plate, top-left like the reference */
-.plate{
-  position:absolute; left:0; top:7%;
-  width:min(72%, 300px); aspect-ratio:2.9/1;
-  background:#fff; color:#141414;
-  display:flex; flex-direction:column; justify-content:space-between;
-  padding:14px 16px 12px;
+.meta{
+  display:flex; justify-content:space-between; align-items:baseline; gap:12px;
+  border-top:1px solid var(--ink);
+  margin-top:0; padding-top:7px;
 }
-.plate .nm{
-  font-size:clamp(17px, 1.5vw, 22px); font-weight:500;
-  letter-spacing:.005em; line-height:1;
+.meta .tags{
+  font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
-.plate .no{
-  align-self:flex-end;
-  font-size:clamp(15px, 1.3vw, 19px); font-weight:400;
-  font-variant-numeric:tabular-nums; line-height:1;
+.meta .no{font-size:10px; letter-spacing:.1em; color:var(--ink); font-variant-numeric:tabular-nums}
+.entry .nm{
+  margin-top:9px;
+  font-size:clamp(14px,1.25vw,18px); font-weight:600;
+  letter-spacing:.03em; text-transform:uppercase;
 }
+.entry:hover .art{opacity:.92}
+.entry:hover .nm{text-decoration:underline; text-underline-offset:3px}
 
 .foot{
-  padding:10px 22px 34px; max-width:1720px; margin:0 auto;
-  font-family:var(--mono); font-size:10px; line-height:1.6; color:var(--muted-2);
+  border-top:1px solid var(--line);
+  padding-top:16px; padding-bottom:44px;
+  font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted);
 }
-@media (max-width:640px){
-  .grid{grid-template-columns:repeat(auto-fill, minmax(160px, 1fr)); gap:10px; padding:12px}
-  .plate{padding:9px 11px 8px}
-  .kicker{display:none}
+
+@media (max-width:1000px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:460px){
+  .grid{grid-template-columns:1fr}
+  .art .idx{right:4px; top:6px; color:#888}
 }
 </style>
 </head>
 <body>
 
-<header class="topbar">
-  <svg width="26" height="26" viewBox="0 0 8 8" aria-hidden="true"><rect width="8" height="8" fill="#0b0b0d"/><rect x="1" y="1" width="3" height="3" fill="#FF87C3"/><rect x="4" y="1" width="3" height="3" fill="#1B4FA0"/><rect x="1" y="4" width="3" height="3" fill="#8E9A24"/><rect x="4" y="4" width="3" height="3" fill="#FF5B1E"/></svg>
-  <h1>Tools</h1>
-  <span class="kicker">Small tools for making things</span>
+<header class="wrap topbar">
+  <span class="brand">Tools<sup>®</sup></span>
+  <span class="home">— Home</span>
   <span class="spacer"></span>
   <span class="count" id="count"></span>
 </header>
 
-<main class="grid" id="grid" aria-label="Tools"></main>
+<section class="wrap hero">
+  <h1>Small single-purpose tools for making things</h1>
+  <p class="kicker">No accounts, no uploads<br>Everything runs in your browser</p>
+</section>
 
-<p class="foot">No accounts, no uploads. Everything runs in your browser and exports as real files.</p>
+<main class="wrap grid" id="grid" aria-label="Tools"></main>
+
+<footer class="wrap foot">Everything exports as real files — SVG, PNG and video.</footer>
 
 <script>
 (() => {
 "use strict";
-/* Order sets the card numbers. tint/desc kept for tooling and future art. */
+/* Order sets the numbering. tint kept for tooling and future art. */
 const TOOLS=[
   {slug:"oddgrid",  name:"Oddgrid",  tint:"#FF87C3", desc:"generative pixel compositions"},
   {slug:"modular",  name:"Modular",  tint:"#FF5B1E", desc:"rounded modular grid posters"},
@@ -141,12 +147,16 @@ const TOOLS=[
   {slug:"warp",     name:"Warp",     tint:"#7CE860", desc:"warped op-art patterns"}
 ];
 const grid=document.getElementById("grid");
-grid.innerHTML=TOOLS.map((t,i)=>`
-  <a class="card" href="${t.slug}/index.html" aria-label="${t.name} — ${t.desc}">
-    <div class="card-art" id="art-${t.slug}"></div>
-    <div class="plate"><span class="nm">${t.name}</span><span class="no">${String(i+1).padStart(2,"0")}</span></div>
-  </a>`).join("");
-document.getElementById("count").textContent=String(TOOLS.length).padStart(2,"0")+" TOOLS";
+grid.innerHTML=TOOLS.map((t,i)=>{
+  const n=String(i+1).padStart(2,"0");
+  return `
+  <a class="entry" href="${t.slug}/index.html" aria-label="${t.name} — ${t.desc}">
+    <div class="art" id="art-${t.slug}"><span class="idx">00-${i+1}</span></div>
+    <div class="meta"><span class="tags">${t.desc}</span><span class="no">${n}</span></div>
+    <div class="nm">${t.name}</div>
+  </a>`;
+}).join("");
+document.getElementById("count").textContent=String(TOOLS.length).padStart(2,"0")+" tools";
 })();
 </script>
 </body>
