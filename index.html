@@ -103,24 +103,24 @@ a{color:inherit; text-decoration:none}
    /art) and its card shows that animated SVG; without one the slot stays empty. */
 const TOOLS=[
   {slug:"oddgrid",  name:"Oddgrid",  tint:"#FF87C3", desc:"generative pixel compositions", art:"art/oddgrid.svg"},
-  {slug:"modular",  name:"Modular",  tint:"#FF5B1E", desc:"rounded modular grid posters", art:"art/modular.svg"},
-  {slug:"specimen", name:"Specimen", tint:"#8E9A24", desc:"type specimen posters", art:"art/specimen.svg"},
   {slug:"terrain",  name:"Terrain",  tint:"#1B4FA0", desc:"layered contour landscapes", art:"art/terrain.jpg"},
-  {slug:"stipple",  name:"Stipple",  tint:"#E4CDA7", desc:"halftone dot portraits of light", art:"art/stipple.svg"},
   {slug:"filament", name:"Filament", tint:"#63D8C2", desc:"flowing thread fields", art:"art/filament.svg"},
-  {slug:"tokens",   name:"Tokens",   tint:"#C5B8FF", desc:"geometric badge sets", art:"art/tokens.svg"},
-  {slug:"magnet",   name:"Magnet",   tint:"#4ADE80", desc:"field-aligned mark grids", art:"art/magnet.svg"},
-  {slug:"galaxy",   name:"Galaxy",   tint:"#EFEDE8", desc:"zoom-burst dot trails", art:"art/galaxy.svg"},
-  {slug:"ember",    name:"Ember",    tint:"#C75B33", desc:"heat-mapped field grids", art:"art/ember.svg"},
-  {slug:"static",   name:"Static",   tint:"#F0480F", desc:"glitch pixel posters", art:"art/static.svg"},
-  {slug:"fete",     name:"Fete",     tint:"#FF3DA6", desc:"festival patch posters", art:"art/fete.svg"},
-  {slug:"weave",    name:"Weave",    tint:"#F2A0DC", desc:"striped ribbon bands", art:"art/weave.svg"},
   {slug:"zig",      name:"Zig",      tint:"#EF9C8D", desc:"rounded zigzag patterns", art:"art/zig.svg"},
   {slug:"quilt",    name:"Quilt",    tint:"#F5C21B", desc:"pixel blanket patterns", art:"art/quilt.svg"},
+  {slug:"galaxy",   name:"Galaxy",   tint:"#EFEDE8", desc:"zoom-burst dot trails", art:"art/galaxy.svg"},
   {slug:"aura",     name:"Aura",     tint:"#F786A8", desc:"soft vibrant gradients", art:"art/aura.png"},
   {slug:"warp",     name:"Warp",     tint:"#7CE860", desc:"warped op-art patterns", art:"art/warp.svg"},
+  {slug:"specimen", name:"Specimen", tint:"#8E9A24", desc:"type specimen posters", art:"art/specimen.svg"},
+  {slug:"tokens",   name:"Tokens",   tint:"#C5B8FF", desc:"geometric badge sets", art:"art/tokens.svg"},
+  {slug:"vee",      name:"Vee",      tint:"#F0621E", desc:"mirrored chevron stripes", art:"art/vee.svg"},
+  {slug:"fete",     name:"Fete",     tint:"#FF3DA6", desc:"festival patch posters", art:"art/fete.svg"},
   {slug:"parcel",   name:"Parcel",   tint:"#DFF23C", desc:"pixel parcel posters", art:"art/parcel.svg"},
-  {slug:"vee",      name:"Vee",      tint:"#F0621E", desc:"mirrored chevron stripes", art:"art/vee.svg"}
+  {slug:"magnet",   name:"Magnet",   tint:"#4ADE80", desc:"field-aligned mark grids", art:"art/magnet.svg"},
+  {slug:"weave",    name:"Weave",    tint:"#F2A0DC", desc:"striped ribbon bands", art:"art/weave.svg"},
+  {slug:"stipple",  name:"Stipple",  tint:"#E4CDA7", desc:"halftone dot portraits of light", art:"art/stipple.svg"},
+  {slug:"modular",  name:"Modular",  tint:"#FF5B1E", desc:"rounded modular grid posters", art:"art/modular.svg"},
+  {slug:"ember",    name:"Ember",    tint:"#C75B33", desc:"heat-mapped field grids", art:"art/ember.svg"},
+  {slug:"static",   name:"Static",   tint:"#F0480F", desc:"glitch pixel posters", art:"art/static.svg"}
 ];
 const grid=document.getElementById("grid");
 grid.innerHTML=TOOLS.map((t,i)=>{
