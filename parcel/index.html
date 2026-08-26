@@ -333,6 +333,39 @@ function gridClusters(p,gw,gh,key){
   }
   return out;
 }
+/* grid lines: dedupe shared cell borders, merge collinear runs, so every
+   line is drawn exactly once as a clean single-pixel stroke */
+function gridLines(p,gw,gh,key){
+  const H=new Set(), V=new Set();
+  const flip=(s,k)=>{if(s.has(k))s.delete(k);else s.add(k);};
+  for(const cells of gridClusters(p,gw,gh,key))
+    for(const[a,b]of cells){
+      H.add(a+","+b);H.add(a+","+(b+1));
+      V.add(a+","+b);V.add((a+1)+","+b);
+    }
+  const runs=[];
+  const group=(set,horiz)=>{
+    const rows=new Map();
+    for(const k of set){
+      const[a,b]=k.split(",").map(Number);
+      const key=horiz?b:a, at=horiz?a:b;
+      if(!rows.has(key))rows.set(key,[]);
+      rows.get(key).push(at);
+    }
+    for(const[key,list]of rows){
+      list.sort((x,y)=>x-y);
+      let s=list[0],prev=list[0];
+      for(let i=1;i<=list.length;i++){
+        const c=list[i];
+        if(c===prev+1){prev=c;continue;}
+        runs.push(horiz?[s,key,prev+1,key]:[key,s,key,prev+1]);
+        s=c;prev=c;
+      }
+    }
+  };
+  group(H,true);group(V,false);
+  return runs;
+}
 function frameData(f){
   const p=buildSpec();
   const mo=motionState(f);
@@ -365,11 +398,12 @@ function paint(c,W,H,f){
     }
   }
   c.strokeStyle=S.pal[2];
-  c.lineWidth=Math.max(1,W*0.0011);
+  c.lineWidth=1;
   c.beginPath();
-  for(const cells of gridClusters(p,gw,gh,stT))
-    for(const[a,b]of cells)
-      c.rect(a*cw,b*ch,cw,ch);
+  for(const[x0,y0,x1,y1]of gridLines(p,gw,gh,stT)){
+    c.moveTo(Math.round(x0*cw)+0.5,Math.round(y0*ch)+0.5);
+    c.lineTo(Math.round(x1*cw)+0.5,Math.round(y1*ch)+0.5);
+  }
   c.stroke();
 }
 function svgFrame(f){
@@ -391,13 +425,14 @@ function svgFrame(f){
       }
     }
   }
-  let lines="";
-  for(const cells of gridClusters(p,gw,gh,stT))
-    for(const[a,b]of cells)
-      lines+=`<rect x="${(a*cw).toFixed(1)}" y="${(b*ch).toFixed(1)}" width="${cw.toFixed(1)}" height="${ch.toFixed(1)}"/>`;
+  let d="";
+  for(const[x0,y0,x1,y1]of gridLines(p,gw,gh,stT))
+    d+=`M${Math.round(x0*cw)} ${Math.round(y0*ch)}L${Math.round(x1*cw)} ${Math.round(y1*ch)}`;
+  /* one display pixel at a nominal 900px view, so the hairline survives scaling */
+  const lw=Math.max(1,Math.round(W/900));
   return `<rect width="${W}" height="${H}" fill="${S.pal[0]}"/>`+
     `<g fill="${S.pal[1]}" shape-rendering="crispEdges">${runs}</g>`+
-    `<g fill="none" stroke="${S.pal[2]}" stroke-width="${(W*0.0011).toFixed(2)}">${lines}</g>`;
+    `<path d="${d}" fill="none" stroke="${S.pal[2]}" stroke-width="${lw}" shape-rendering="crispEdges"/>`;
 }
 function svgWrap(inner){
   const r=RATIOS.find(x=>x.id===S.ratio);
