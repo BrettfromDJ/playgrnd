@@ -293,7 +293,7 @@ function buildPattern(){
   let type=S.pattern;
   if(type==="auto")type=STYLE_POOL[(r()*STYLE_POOL.length)|0];
   const ch=S.chunk;
-  const P={type,rs:(r()*1e9)|0,dir:r()<0.5?1:-1};
+  const P={type,rs:(r()*1e9)|0};
   /* bands */
   P.bh=Math.max(2,Math.round(2.2*ch));
   P.L=Math.max(4,Math.round((6+r()*4)*ch));
@@ -350,14 +350,17 @@ function renderGrid(gw,gh,f){
   const sh=p=>scroll?Math.floor(t*perLoop*p):0;
   const P=buildPattern();
   const ix=new Uint8Array(gw*gh);
-  for(let v=0;v<gh;v++)for(let u0=0;u0<gw;u0++){
-    const u=P.dir>0?u0:gw-1-u0;
+  /* everything is measured from the centre of the frame, so the whole
+     composition is mirror-symmetric and motifs sit inside the edges */
+  const midX=(gw-1)/2, midY=(gh-1)/2;
+  for(let v=0;v<gh;v++)for(let u=0;u<gw;u++){
+    const ux=Math.abs(u-midX), vy=Math.abs(v-midY);
     let ci;
     switch(P.type){
       case"bands":{
-        const b=Math.floor(v/P.bh);
+        const b=Math.floor(vy/P.bh);
         const ph=Math.floor(hashi(0,b,2,P.rs)*P.L);
-        const uu=u+sh(P.L)+ph;
+        const uu=ux+sh(P.L)+ph;
         const k=Math.floor(uu/P.L);
         ci=Math.floor(hashi(k,b,5,P.rs)*3);
         if(hashi(k,b,9,P.rs)<0.22){
@@ -368,74 +371,83 @@ function renderGrid(gw,gh,f){
       }
       case"tabs":{
         const py=P.th+P.gy, px=P.tw+P.gx;
-        const row=Math.floor(v/py);
-        if((v-row*py)>=P.th){ci=0;break;}
+        const row=Math.floor(vy/py);
+        if((vy-row*py)>=P.th){ci=0;break;}
         const off=(row&1)?(px>>1):0;
-        const uu=u+sh(px)+off;
+        const uu=ux+sh(px)+off;
         if(((uu%px)+px)%px>=P.tw){ci=0;break;}
         ci=hashi(Math.floor(uu/px),row,3,P.rs)<0.12?2:1;
         break;
       }
       case"zigzag":{
         const per=P.zper,s=sh(per);
-        const uu=((u+s)%per+per)%per;
+        const uu=((ux+s)%per+per)%per;
         const tri=Math.abs(uu*2-per)/2;
-        const d=v+Math.round(tri*P.zslope);
+        const d=Math.floor(vy+tri*P.zslope);
         ci=P.zlut[((d%P.zPT)+P.zPT)%P.zPT];
         break;
       }
       case"diamond":{
-        const tw=P.dw,th2=P.dh,uu=u+sh(tw);
-        const tx=Math.floor(uu/tw),ty=Math.floor(v/th2);
-        const du=Math.abs(uu-tx*tw-tw/2)/(tw/2),dv=Math.abs(v-ty*th2-th2/2)/(th2/2);
-        const md=du+dv,p=(tx+ty)&1;
+        const tw=P.dw,th2=P.dh;
+        const key=scroll?Math.floor(t*Math.max(1,perLoop*4)):0;
+        const ax=u-midX, ay=v-midY;
+        const tX=Math.round(ax/tw), tY=Math.round(ay/th2);
+        const cx=midX+tX*tw, cy=midY+tY*th2;
+        /* whole motifs only — anything that would spill past the frame is ground */
+        if(cx-tw/2<-0.5||cx+tw/2>gw-0.5||cy-th2/2<-0.5||cy+th2/2>gh-0.5){ci=0;break;}
+        const du=Math.abs(ax-tX*tw)/(tw/2), dv=Math.abs(ay-tY*th2)/(th2/2);
+        const md=du+dv,p=(tX+tY+key)&1;
         if(md<=0.4)ci=p?3:1;
         else if(md<=0.95)ci=p?1:2;
         else ci=0;
         break;
       }
       case"cross":{
-        const T=P.ct,uu=u+sh(T*2);
-        const tx=Math.floor(uu/T),ty=Math.floor(v/T);
-        const du=Math.abs(uu-tx*T-(T>>1)),dv=Math.abs(v-ty*T-(T>>1));
+        const T=P.ct;
+        const key=scroll?Math.floor(t*Math.max(1,perLoop*4)):0;
+        const ax=u-midX, ay=v-midY;
+        const tX=Math.round(ax/T), tY=Math.round(ay/T);
         const L=Math.max(2,Math.floor(T*0.38)),aw=P.ca;
+        const cx=midX+tX*T, cy=midY+tY*T;
+        if(cx-L<-0.5||cx+L>gw-0.5||cy-L<-0.5||cy+L>gh-0.5){ci=0;break;}
+        const du=Math.abs(ax-tX*T), dv=Math.abs(ay-tY*T);
         if((du<aw&&dv<=L)||(dv<aw&&du<=L))
-          ci=hashi(tx,ty,4,P.rs)<0.12?3:((tx+ty)&1?1:2);
+          ci=hashi(Math.abs(tX),Math.abs(tY),4+key,P.rs)<0.15?3:(((tX+tY)&1)?1:2);
         else ci=0;
         break;
       }
       case"basket":{
-        const B=P.bb,sw=P.bs,uu=u+sh(B*2);
-        const bx=Math.floor(uu/B),by=Math.floor(v/B);
-        if((bx+by)&1)ci=(((v%(sw*2))+sw*2)%(sw*2))<sw?1:0;
-        else ci=(((uu%(sw*2))+sw*2)%(sw*2))<sw?2:0;
+        const B=P.bb,sw=P.bs,s=sh(B*2);
+        const bx=Math.floor((ux+s)/B),by=Math.floor(vy/B);
+        if((bx+by)&1)ci=(Math.floor(vy)%(sw*2))<sw?1:0;
+        else ci=(Math.floor(ux+s)%(sw*2))<sw?2:0;
         break;
       }
       case"plaid":{
         const per=P.per,w=P.pw,s=sh(per);
-        const uu=((u+s)%per+per)%per, vv=((v+s)%per+per)%per;
+        const uu=(ux+s)%per, vv=vy%per;
         const hs=vv<w, vs=uu<w;
         if(hs&&vs)ci=2;
         else if(hs||vs)ci=1;
         else{
           const mid=w+((per-w)>>1);
-          ci=(uu===mid||vv===mid)?3:0;
+          ci=(Math.floor(uu)===mid||Math.floor(vv)===mid)?3:0;
         }
         break;
       }
       case"dither":{
         const ph=scroll?t*TAU*perLoop:0;
-        const s=0.5+0.5*Math.sin((u+v)*P.f1+Math.sin(u*P.f2+ph)*P.warp+P.ph0);
-        ci=s>(BAYER[(v&3)*4+(u&3)]+0.5)/16?1:0;
+        const s=0.5+0.5*Math.sin((ux+vy)*P.f1+Math.sin(ux*P.f2+ph)*P.warp+P.ph0);
+        ci=s>(BAYER[(Math.floor(vy)&3)*4+(Math.floor(ux)&3)]+0.5)/16?1:0;
         break;
       }
       default:{ /* steps */
-        const d=v+sh(P.PT)+Math.floor((u+P.off)/P.rw)*P.rh;
+        const d=Math.floor(vy+sh(P.PT)+Math.floor((ux+P.off)/P.rw)*P.rh);
         ci=P.lut[((d%P.PT)+P.PT)%P.PT];
       }
     }
     if(cycle&&ci>0)ci=1+((ci-1+st)%3);
-    ix[v*gw+u0]=ci;
+    ix[v*gw+u]=ci;
   }
   return ix;
 }
