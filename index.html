@@ -18,12 +18,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Crect width='8' height='8' fill='%23EFEFEC'/%3E%3Crect x='1' y='1' width='3' height='3' fill='%23FF87C3'/%3E%3Crect x='4' y='1' width='3' height='3' fill='%231B4FA0'/%3E%3Crect x='1' y='4' width='3' height='3' fill='%238E9A24'/%3E%3Crect x='4' y='4' width='3' height='3' fill='%23FF5B1E'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Crect width='8' height='8' fill='%23FFFFFF'/%3E%3Crect x='1' y='1' width='3' height='3' fill='%23FF87C3'/%3E%3Crect x='4' y='1' width='3' height='3' fill='%231B4FA0'/%3E%3Crect x='1' y='4' width='3' height='3' fill='%238E9A24'/%3E%3Crect x='4' y='4' width='3' height='3' fill='%23FF5B1E'/%3E%3C/svg%3E">
 <style>
 :root{
-  --bg:#EFEFEC; --ink:#111112; --muted:#6d6d68; --line:#d9d9d4;
+  --bg:#FFFFFF; --ink:#111112; --ghost:#c2c2be; --line:#e8e8e5; --rule:#111112;
   --sans:"Archivo",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
 }
 *{box-sizing:border-box}
 body{
@@ -31,112 +30,249 @@ body{
   font-family:var(--sans); -webkit-font-smoothing:antialiased;
 }
 a{color:inherit; text-decoration:none}
+button{font-family:inherit;color:inherit;background:none;border:none;padding:0;cursor:pointer}
 
-.wrap{max-width:1760px; margin:0 auto; padding:0 clamp(16px,2.4vw,44px)}
+.wrap{padding-left:clamp(16px,1.6vw,32px); padding-right:clamp(16px,1.6vw,32px)}
 
+/* ---------- top: logo left, round menu right ---------- */
 .topbar{
-  display:flex; align-items:baseline; gap:8px;
-  padding-top:20px; padding-bottom:8px;
-  font-size:13px; letter-spacing:.01em;
+  display:flex; align-items:flex-start; justify-content:space-between;
+  padding-top:clamp(20px,2.6vw,40px); padding-bottom:clamp(36px,5vw,84px);
 }
-.topbar .brand{font-weight:600}
-.topbar .home{color:var(--muted)}
-.topbar .spacer{flex:1}
-.topbar .count{font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+.brand{
+  font-weight:700; letter-spacing:-.02em; line-height:1.04;
+  font-size:clamp(22px,1.8vw,32px);
+}
+.menuwrap{position:relative}
+.menu{
+  width:clamp(48px,4.4vw,84px); height:clamp(48px,4.4vw,84px); border-radius:50%;
+  background:#9c9c9a; display:flex; align-items:center; justify-content:center;
+  transition:background .2s ease;
+}
+.menu:hover{background:#7f7f7d}
+.menu svg{width:42%; height:auto; display:block}
+.dropdown{
+  position:absolute; right:0; top:calc(100% + 10px); z-index:50;
+  background:var(--bg); border:1px solid var(--ink);
+  min-width:220px; padding:10px 0; display:none;
+}
+.dropdown.open{display:block}
+.dropdown button{
+  display:flex; width:100%; justify-content:space-between; align-items:baseline;
+  padding:9px 18px; font-size:15px; color:var(--ghost); text-align:left;
+}
+.dropdown button:hover,.dropdown button[aria-pressed=true]{color:var(--ink)}
+.dropdown button .n{font-size:12px}
 
-/* ---------- four columns, tight grid: 4px around every image ---------- */
-.grid{
-  display:grid; grid-template-columns:repeat(4,1fr);
-  gap:0; padding-top:4px; padding-bottom:64px;
+/* ---------- the index table ---------- */
+.thead{
+  border-top:1px solid var(--rule);
+  display:grid; grid-template-columns:90px 150px 1.55fr 1fr 200px;
+  gap:16px; align-items:baseline;
+  padding-top:16px; padding-bottom:clamp(40px,5vw,72px);
+  font-size:16px;
 }
-.entry{display:block; padding:4px}
-/* Artwork: each tool's animated SVG gets dropped inside its .card-art
-   (id="art-<slug>") — empty slots just hold the space. */
-.art{
-  position:relative; aspect-ratio:4/5; overflow:hidden;
-}
-.art svg,.art img{width:100%; height:100%; display:block; object-fit:cover}
-/* the label lives on the image: a white mono chip, top left */
-.tag{
-  position:absolute; left:24px; top:24px;
-  background:#fff; color:#141414;
-  font-family:var(--mono); font-size:13px; font-weight:500;
-  letter-spacing:.04em; text-transform:uppercase;
-  padding:9px 12px; line-height:1;
-}
-.entry:hover .art{opacity:.92}
+.thead .h{display:flex; align-items:center; gap:7px}
+.thead button.h:hover{opacity:.6}
+.thead .h svg{width:12px; height:12px; transition:transform .2s ease}
+.thead .h.flip svg{transform:rotate(180deg)}
+.thead .right{justify-self:end; text-align:right}
 
-.foot{
-  border-top:1px solid var(--line);
-  padding-top:16px; padding-bottom:44px;
-  font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted);
+.rows{padding-bottom:clamp(60px,8vw,120px)}
+.row{
+  display:grid; grid-template-columns:90px 150px 1.55fr 1fr 200px;
+  gap:16px; align-items:baseline;
+  padding:15px 0;
+  border-bottom:1px solid var(--line);
+  font-size:17px; color:var(--ghost);
+  transition:color .12s ease;
+}
+.rows .row:first-child{border-top:1px solid var(--line)}
+.row:hover{color:var(--ink)}
+.row .right{justify-self:end; text-align:right}
+.row.hidden{display:none}
+
+/* floating thumbnail that follows the cursor (desktop pointers only) */
+#peek{
+  position:fixed; z-index:60; width:clamp(260px,24vw,460px); aspect-ratio:4/3;
+  pointer-events:none; overflow:hidden; display:none; background:#eee;
+}
+#peek img{width:100%; height:100%; object-fit:cover; display:block}
+@media (hover:hover) and (pointer:fine){ #peek.on{display:block} }
+
+.empty{
+  display:none; padding:48px 0; font-size:15px; color:var(--ghost);
 }
 
-@media (max-width:1000px){
-  .grid{grid-template-columns:repeat(2,1fr)}
+@media (max-width:900px){
+  .thead{grid-template-columns:52px 64px 1fr 150px}
+  .thead .h.client{display:none}
+  .row{grid-template-columns:52px 64px 1fr 150px}
+  .row .client{display:none}
 }
-@media (max-width:640px){
-  .tag{left:12px; top:12px; font-size:11px; padding:7px 9px}
-}
-@media (max-width:460px){
-  .grid{grid-template-columns:1fr}
+@media (max-width:560px){
+  .thead{grid-template-columns:44px 1fr 110px; font-size:14px}
+  .thead .h.year{display:none}
+  .row{grid-template-columns:44px 1fr 110px; font-size:15px}
+  .row .year{display:none}
 }
 </style>
 </head>
 <body>
 
 <header class="wrap topbar">
-  <span class="brand">Tools<sup>®</sup></span>
-  <span class="home">— Home</span>
-  <span class="spacer"></span>
-  <span class="count" id="count"></span>
+  <div class="brand">Tools<sup>®</sup></div>
+  <div class="menuwrap">
+    <button class="menu" id="menuBtn" type="button" aria-label="Filter by category" aria-expanded="false">
+      <svg viewBox="0 0 36 14" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round">
+        <path d="M2 2h32"/><path d="M2 12h32"/>
+      </svg>
+    </button>
+    <nav class="dropdown" id="dropdown" aria-label="Categories"></nav>
+  </div>
 </header>
 
-<main class="grid" id="grid" aria-label="Tools" style="max-width:1760px;margin:0 auto"></main>
+<main class="wrap">
+  <div class="thead">
+    <span class="h">No.</span>
+    <button class="h year" id="sortYear" type="button">Year
+      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M2.5 4.5L6 8l3.5-3.5"/></svg>
+    </button>
+    <span class="h">Title</span>
+    <span class="h client">Makes</span>
+    <button class="h right" id="sortCat" type="button">Category
+      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M2.5 4.5L6 8l3.5-3.5"/></svg>
+    </button>
+  </div>
+  <div class="rows" id="rows"></div>
+  <div class="empty" id="empty">Nothing in this category yet.</div>
+</main>
 
-<footer class="wrap foot">Everything exports as real files — SVG, PNG and video.</footer>
+<div id="peek" aria-hidden="true"><img src="" alt=""></div>
 
 <script>
 (() => {
 "use strict";
-/* Order sets the numbering. Give a tool an `art` path (drop the file in
-   /art) and its card shows that animated SVG; without one the slot stays empty. */
+/* Order sets the numbering: add new tools to the end of this list.
+   `cat` groups tools for the category filter in the round menu. */
 const TOOLS=[
-  {slug:"oddgrid",  name:"Oddgrid",  tint:"#FF87C3", desc:"generative pixel compositions", art:"art/oddgrid.svg"},
-  {slug:"terrain",  name:"Terrain",  tint:"#1B4FA0", desc:"layered contour landscapes", art:"art/terrain.jpg"},
-  {slug:"filament", name:"Filament", tint:"#63D8C2", desc:"flowing thread fields", art:"art/filament.svg"},
-  {slug:"zig",      name:"Zig",      tint:"#EF9C8D", desc:"rounded zigzag patterns", art:"art/zig.svg"},
-  {slug:"quilt",    name:"Quilt",    tint:"#F5C21B", desc:"pixel blanket patterns", art:"art/quilt.svg"},
-  {slug:"galaxy",   name:"Galaxy",   tint:"#EFEDE8", desc:"zoom-burst dot trails", art:"art/galaxy.svg"},
-  {slug:"aura",     name:"Aura",     tint:"#F786A8", desc:"soft vibrant gradients", art:"art/aura.png"},
-  {slug:"warp",     name:"Warp",     tint:"#7CE860", desc:"warped op-art patterns", art:"art/warp.svg"},
-  {slug:"specimen", name:"Specimen", tint:"#8E9A24", desc:"type specimen posters", art:"art/specimen.svg"},
-  {slug:"tokens",   name:"Tokens",   tint:"#C5B8FF", desc:"geometric badge sets", art:"art/tokens.svg"},
-  {slug:"vee",      name:"Vee",      tint:"#F0621E", desc:"mirrored chevron stripes", art:"art/vee.svg"},
-  {slug:"fete",     name:"Fete",     tint:"#FF3DA6", desc:"festival patch posters", art:"art/fete.svg"},
-  {slug:"parcel",   name:"Parcel",   tint:"#DFF23C", desc:"pixel parcel posters", art:"art/parcel.svg"},
-  {slug:"magnet",   name:"Magnet",   tint:"#4ADE80", desc:"field-aligned mark grids", art:"art/magnet.svg"},
-  {slug:"weave",    name:"Weave",    tint:"#F2A0DC", desc:"striped ribbon bands", art:"art/weave.svg"},
-  {slug:"stipple",  name:"Stipple",  tint:"#E4CDA7", desc:"halftone dot portraits of light", art:"art/stipple.svg"},
-  {slug:"modular",  name:"Modular",  tint:"#FF5B1E", desc:"rounded modular grid posters", art:"art/modular.svg"},
-  {slug:"ember",    name:"Ember",    tint:"#C75B33", desc:"heat-mapped field grids", art:"art/ember.svg"},
-  {slug:"static",   name:"Static",   tint:"#F0480F", desc:"glitch pixel posters", art:"art/static.svg"},
-  {slug:"optic",    name:"Optic",    tint:"#EFE9D4", desc:"striped counterchange posters", art:"art/optic.svg"},
-  {slug:"rise",     name:"Rise",     tint:"#98D8A8", desc:"radial stripe arcs", art:"art/rise.svg"},
-  {slug:"prism",    name:"Prism",    tint:"#FF3DA6", desc:"pixel aurora backdrops", art:"art/prism.svg"},
-  {slug:"riso",     name:"Riso",     tint:"#F26B1D", desc:"torn paper collage", art:"art/riso.svg"},
-  {slug:"plakat",   name:"Plakat",   tint:"#E4FF1A", desc:"neon band posters", art:"art/plakat.svg"},
-  {slug:"mist",     name:"Mist",     tint:"#DCFF1E", desc:"sprayed neon washes", art:"art/mist.png"}
+  {slug:"oddgrid",  name:"Oddgrid",  year:2026, cat:"Patterns",    desc:"generative pixel compositions", art:"art/oddgrid.svg"},
+  {slug:"terrain",  name:"Terrain",  year:2026, cat:"Backgrounds", desc:"layered contour landscapes", art:"art/terrain.jpg"},
+  {slug:"filament", name:"Filament", year:2026, cat:"Backgrounds", desc:"flowing thread fields", art:"art/filament.svg"},
+  {slug:"zig",      name:"Zig",      year:2026, cat:"Patterns",    desc:"rounded zigzag patterns", art:"art/zig.svg"},
+  {slug:"quilt",    name:"Quilt",    year:2026, cat:"Patterns",    desc:"pixel blanket patterns", art:"art/quilt.svg"},
+  {slug:"galaxy",   name:"Galaxy",   year:2026, cat:"Backgrounds", desc:"zoom-burst dot trails", art:"art/galaxy.svg"},
+  {slug:"aura",     name:"Aura",     year:2026, cat:"Backgrounds", desc:"soft vibrant gradients", art:"art/aura.png"},
+  {slug:"warp",     name:"Warp",     year:2026, cat:"Patterns",    desc:"warped op-art patterns", art:"art/warp.svg"},
+  {slug:"specimen", name:"Specimen", year:2026, cat:"Posters",     desc:"type specimen posters", art:"art/specimen.svg"},
+  {slug:"tokens",   name:"Tokens",   year:2026, cat:"Badges",      desc:"geometric badge sets", art:"art/tokens.svg"},
+  {slug:"vee",      name:"Vee",      year:2026, cat:"Patterns",    desc:"mirrored chevron stripes", art:"art/vee.svg"},
+  {slug:"fete",     name:"Fete",     year:2026, cat:"Posters",     desc:"festival patch posters", art:"art/fete.svg"},
+  {slug:"parcel",   name:"Parcel",   year:2026, cat:"Posters",     desc:"pixel parcel posters", art:"art/parcel.svg"},
+  {slug:"magnet",   name:"Magnet",   year:2026, cat:"Grids",       desc:"field-aligned mark grids", art:"art/magnet.svg"},
+  {slug:"weave",    name:"Weave",    year:2026, cat:"Patterns",    desc:"striped ribbon bands", art:"art/weave.svg"},
+  {slug:"stipple",  name:"Stipple",  year:2026, cat:"Textures",    desc:"halftone dot portraits of light", art:"art/stipple.svg"},
+  {slug:"modular",  name:"Modular",  year:2026, cat:"Posters",     desc:"rounded modular grid posters", art:"art/modular.svg"},
+  {slug:"ember",    name:"Ember",    year:2026, cat:"Grids",       desc:"heat-mapped field grids", art:"art/ember.svg"},
+  {slug:"static",   name:"Static",   year:2026, cat:"Posters",     desc:"glitch pixel posters", art:"art/static.svg"},
+  {slug:"optic",    name:"Optic",    year:2026, cat:"Posters",     desc:"striped counterchange posters", art:"art/optic.svg"},
+  {slug:"rise",     name:"Rise",     year:2026, cat:"Backgrounds", desc:"radial stripe arcs", art:"art/rise.svg"},
+  {slug:"prism",    name:"Prism",    year:2026, cat:"Backgrounds", desc:"pixel aurora backdrops", art:"art/prism.svg"},
+  {slug:"riso",     name:"Riso",     year:2026, cat:"Posters",     desc:"torn paper collage", art:"art/riso.svg"},
+  {slug:"plakat",   name:"Plakat",   year:2026, cat:"Posters",     desc:"neon band posters", art:"art/plakat.svg"},
+  {slug:"mist",     name:"Mist",     year:2026, cat:"Backgrounds", desc:"sprayed neon washes", art:"art/mist.png"}
 ];
-const grid=document.getElementById("grid");
-grid.innerHTML=TOOLS.map((t,i)=>{
-  const n=String(i+1).padStart(2,"0");
-  return `
-  <a class="entry" href="${t.slug}/index.html" aria-label="${t.name} — ${t.desc}">
-    <div class="art" id="art-${t.slug}">${t.art?`<img src="${t.art}" alt="" loading="lazy">`:""}<span class="tag">${n} ${t.name}</span></div>
-  </a>`;
-}).join("");
-document.getElementById("count").textContent=String(TOOLS.length).padStart(2,"0")+" tools";
+const $=s=>document.querySelector(s);
+const rowsEl=$("#rows");
+let newestFirst=true, activeCat="All";
+
+const numbered=TOOLS.map((t,i)=>({...t,no:i+1}));
+
+function render(){
+  let list=numbered.slice();
+  if(newestFirst)list.reverse();
+  rowsEl.innerHTML=list.map(t=>`
+    <a class="row" data-cat="${t.cat}" data-art="${t.art||""}" href="${t.slug}/index.html" aria-label="${t.name} — ${t.desc}">
+      <span>${t.no}</span>
+      <span class="year">${t.year}</span>
+      <span>${t.name}</span>
+      <span class="client">${t.desc}</span>
+      <span class="right">${t.cat}</span>
+    </a>`).join("");
+  applyFilter();
+}
+function applyFilter(){
+  let shown=0;
+  rowsEl.querySelectorAll(".row").forEach(r=>{
+    const on=activeCat==="All"||r.dataset.cat===activeCat;
+    r.classList.toggle("hidden",!on);
+    if(on)shown++;
+  });
+  $("#empty").style.display=shown?"none":"block";
+}
+
+/* Year header: flip between newest-first and oldest-first */
+$("#sortYear").addEventListener("click",()=>{
+  newestFirst=!newestFirst;
+  $("#sortYear").classList.toggle("flip",!newestFirst);
+  render();
+});
+/* Category header: step through the categories */
+const CATS=["All",...[...new Set(TOOLS.map(t=>t.cat))].sort()];
+$("#sortCat").addEventListener("click",()=>{
+  activeCat=CATS[(CATS.indexOf(activeCat)+1)%CATS.length];
+  $("#sortCat").firstChild.textContent=(activeCat==="All"?"Category":activeCat)+" ";
+  applyFilter();
+  syncMenu();
+});
+
+/* round menu: category filter */
+const drop=$("#dropdown"),menuBtn=$("#menuBtn");
+function syncMenu(){
+  drop.innerHTML=CATS.map(c=>{
+    const n=c==="All"?TOOLS.length:TOOLS.filter(t=>t.cat===c).length;
+    return `<button type="button" data-cat="${c}" aria-pressed="${String(c===activeCat)}">${c==="All"?"All tools":c}<span class="n">${String(n).padStart(2,"0")}</span></button>`;
+  }).join("");
+}
+syncMenu();
+menuBtn.addEventListener("click",e=>{
+  e.stopPropagation();
+  const open=!drop.classList.contains("open");
+  drop.classList.toggle("open",open);
+  menuBtn.setAttribute("aria-expanded",String(open));
+});
+drop.addEventListener("click",e=>{
+  const b=e.target.closest("button[data-cat]");
+  if(!b)return;
+  activeCat=b.dataset.cat;
+  $("#sortCat").firstChild.textContent=(activeCat==="All"?"Category":activeCat)+" ";
+  applyFilter(); syncMenu();
+  drop.classList.remove("open");
+  menuBtn.setAttribute("aria-expanded","false");
+});
+document.addEventListener("click",()=>{
+  drop.classList.remove("open");
+  menuBtn.setAttribute("aria-expanded","false");
+});
+
+/* hover thumbnail follows the cursor */
+const peek=$("#peek"),peekImg=peek.querySelector("img");
+rowsEl.addEventListener("mouseover",e=>{
+  const row=e.target.closest(".row");
+  if(!row||!row.dataset.art){peek.classList.remove("on");return;}
+  if(peekImg.getAttribute("src")!==row.dataset.art)peekImg.src=row.dataset.art;
+  peek.classList.add("on");
+});
+rowsEl.addEventListener("mouseleave",()=>peek.classList.remove("on"));
+rowsEl.addEventListener("mousemove",e=>{
+  const w=peek.offsetWidth||460,h=peek.offsetHeight||345;
+  let x=e.clientX+28,y=e.clientY+22;
+  if(x+w>innerWidth-16)x=e.clientX-w-28;
+  if(y+h>innerHeight-16)y=e.clientY-h-22;
+  peek.style.left=x+"px"; peek.style.top=y+"px";
+});
+
+render();
 })();
 </script>
 </body>
