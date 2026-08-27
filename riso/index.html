@@ -115,19 +115,18 @@ button{cursor:pointer;background:none;border:none;padding:0}
 
 /* ---------------- aspect ratio ---------------- */
 .ratios{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.ratio{height:63px;border-radius:var(--r);border:1px solid var(--edge);background:var(--field);
+.ratio{height:63px;border-radius:var(--r);border:1px solid transparent;background:var(--field);
   display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
   padding:7px 0 0;gap:4px;transition:background .13s,border-color .13s}
-.ratio:hover{border-color:var(--edge-on)}
-.ratio .box{border:1px solid var(--edge);border-radius:2px;background:var(--field);flex:none}
+.ratio:hover{background:var(--raise-hi)}
+.ratio .box{border:1px solid transparent;border-radius:2px;background:rgba(0,0,0,.18);flex:none}
 .ratio .t{font-size:8px;line-height:10px;letter-spacing:-.32px;color:var(--text);text-align:center}
 .ratio[aria-pressed=true]{background:var(--raise);border-color:var(--edge-on)}
-.ratio[aria-pressed=true] .box{border-color:var(--edge-on);background:rgba(0,0,0,.14)}
+.ratio[aria-pressed=true] .box{background:rgba(0,0,0,.45)}
 
 /* ---------------- colours ---------------- */
 .sw-grid{display:flex;flex-wrap:wrap;align-items:center;align-content:center;gap:8px;
-  min-height:40px;padding:7px 8px;background:var(--field);border-radius:var(--r);
-  border:1px solid var(--edge)}
+  min-height:40px;padding:7px 8px;background:var(--field);border-radius:var(--r)}
 .sw{position:relative;width:24px;height:24px;flex:none;border-radius:50%;overflow:hidden;
   padding:0;display:block;box-shadow:inset 0 0 0 1px rgba(0,0,0,.16);transition:transform .13s}
 .sw:hover{transform:scale(1.08)}
@@ -753,6 +752,7 @@ let toastTimer;
 window.__toast=toast;
 window.__toast=toast;
 window.__toast=toast;
+window.__toast=toast;
 function toast(msg,busy){
   window.__toast=toast;
   const el=$("#toast");el.textContent=msg;el.classList.toggle("busy",!!busy);el.classList.add("show");
@@ -1102,6 +1102,7 @@ html.embed body{overflow:hidden!important}
   },true);
 })();
 </script>
+
 
 
 
