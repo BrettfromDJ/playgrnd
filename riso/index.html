@@ -69,8 +69,9 @@ button{cursor:pointer;background:none;border:none;padding:0}
 .row.is-slider::before{content:"";position:absolute;top:0;bottom:0;left:0;z-index:0;
   width:calc(var(--p,0) * 1%);background:var(--raise);border-radius:var(--r);
   box-shadow:var(--gloss)}
-/* handle rides inside the fill, 12px in from its edge */
-.row.is-slider::after{content:"";position:absolute;top:50%;z-index:1;
+/* handle rides inside the fill, 12px in from its edge, and passes behind
+   the label and value (which sit at z-index 1) */
+.row.is-slider::after{content:"";position:absolute;top:50%;z-index:0;
   left:clamp(6px,calc(var(--p,0) * 1% - 12px),calc(100% - 10px));
   width:4px;height:24px;margin-top:-12px;border-radius:40px;background:var(--handle)}
 .row.is-slider input[type=range]{position:absolute;inset:0;z-index:2;width:100%;height:100%;
@@ -753,6 +754,7 @@ function setPlaying(v){
 ============================================================ */
 let toastTimer;
 window.__toast=toast;
+window.__toast=toast;
 function toast(msg,busy){
   window.__toast=toast;
   const el=$("#toast");el.textContent=msg;el.classList.toggle("busy",!!busy);el.classList.add("show");
@@ -1102,6 +1104,7 @@ html.embed body{overflow:hidden!important}
   },true);
 })();
 </script>
+
 
 
 
