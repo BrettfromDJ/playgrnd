@@ -97,8 +97,14 @@ button{font-family:inherit;color:inherit;background:none;border:none;padding:0;c
   position:fixed; z-index:60; width:clamp(260px,24vw,460px); aspect-ratio:4/3;
   pointer-events:none; overflow:hidden; display:none; background:#eee;
 }
-#peek img{width:100%; height:100%; object-fit:cover; display:block}
+/* frames stack on top of each other and cross-fade — a flipbook, no GIF */
+#peek img{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
+  opacity:0; transition:opacity .18s linear;
+}
+#peek img.show{opacity:1}
 @media (hover:hover) and (pointer:fine){ #peek.on{display:block} }
+@media (prefers-reduced-motion:reduce){ #peek img{transition:none} }
 
 .empty{
   display:none; padding:48px 0; font-size:15px; color:var(--ghost);
@@ -148,15 +154,19 @@ button{font-family:inherit;color:inherit;background:none;border:none;padding:0;c
   <div class="empty" id="empty">Nothing in this category yet.</div>
 </main>
 
-<div id="peek" aria-hidden="true"><img src="" alt=""></div>
+<div id="peek" aria-hidden="true"></div>
 
 <script>
 (() => {
 "use strict";
 /* Order sets the numbering: add new tools to the end of this list.
-   `cat` groups tools for the category filter in the round menu. */
+   `cat` groups tools for the category filter in the round menu.
+   `art` is the hover thumbnail. Give it a LIST of images instead of one and
+   the thumbnail flips through them like a GIF while you hover the row —
+   e.g. art:["art/oddgrid-1.jpg","art/oddgrid-2.jpg","art/oddgrid-3.jpg"].
+   Keep every frame of a tool the same shape so it doesn't jump. */
 const TOOLS=[
-  {slug:"oddgrid",  name:"Oddgrid",  year:2026, cat:"Patterns",    desc:"generative pixel compositions", art:"art/oddgrid.svg"},
+  {slug:"oddgrid",  name:"Oddgrid",  year:2026, cat:"Patterns",    desc:"generative pixel compositions", art:["art/oddgrid-1.jpg","art/oddgrid-2.jpg","art/oddgrid-3.jpg"]},
   {slug:"terrain",  name:"Terrain",  year:2026, cat:"Backgrounds", desc:"layered contour landscapes", art:"art/terrain.jpg"},
   {slug:"filament", name:"Filament", year:2026, cat:"Backgrounds", desc:"flowing thread fields", art:"art/filament.svg"},
   {slug:"zig",      name:"Zig",      year:2026, cat:"Patterns",    desc:"rounded zigzag patterns", art:"art/zig.svg"},
@@ -187,12 +197,14 @@ const rowsEl=$("#rows");
 let newestFirst=true, activeCat="All";
 
 const numbered=TOOLS.map((t,i)=>({...t,no:i+1}));
+/* one image or many — always hand back a list of frames */
+const frames=t=>!t.art?[]:(Array.isArray(t.art)?t.art:[t.art]);
 
 function render(){
   let list=numbered.slice();
   if(newestFirst)list.reverse();
   rowsEl.innerHTML=list.map(t=>`
-    <a class="row" data-cat="${t.cat}" data-art="${t.art||""}" href="${t.slug}/index.html" aria-label="${t.name} — ${t.desc}">
+    <a class="row" data-cat="${t.cat}" data-art="${frames(t).join("|")}" href="${t.slug}/index.html" aria-label="${t.name} — ${t.desc}">
       <span>${t.no}</span>
       <span class="year">${t.year}</span>
       <span>${t.name}</span>
@@ -255,15 +267,32 @@ document.addEventListener("click",()=>{
   menuBtn.setAttribute("aria-expanded","false");
 });
 
-/* hover thumbnail follows the cursor */
-const peek=$("#peek"),peekImg=peek.querySelector("img");
+/* hover thumbnail follows the cursor and flips through its frames */
+const FRAME_MS=620;
+const peek=$("#peek");
+let peekKey="",flipTimer=0;
+function stopFlip(){clearInterval(flipTimer);flipTimer=0;}
+function showThumb(key){
+  if(key===peekKey)return;
+  peekKey=key; stopFlip();
+  const srcs=key.split("|").filter(Boolean);
+  peek.innerHTML=srcs.map((s,i)=>`<img src="${s}" alt=""${i===0?' class="show"':""}>`).join("");
+  if(srcs.length<2)return;
+  const imgs=[...peek.children];
+  let i=0;
+  flipTimer=setInterval(()=>{
+    imgs[i].classList.remove("show");
+    i=(i+1)%imgs.length;
+    imgs[i].classList.add("show");
+  },FRAME_MS);
+}
 rowsEl.addEventListener("mouseover",e=>{
   const row=e.target.closest(".row");
-  if(!row||!row.dataset.art){peek.classList.remove("on");return;}
-  if(peekImg.getAttribute("src")!==row.dataset.art)peekImg.src=row.dataset.art;
+  if(!row||!row.dataset.art){peek.classList.remove("on");stopFlip();return;}
+  showThumb(row.dataset.art);
   peek.classList.add("on");
 });
-rowsEl.addEventListener("mouseleave",()=>peek.classList.remove("on"));
+rowsEl.addEventListener("mouseleave",()=>{peek.classList.remove("on");stopFlip();peekKey="";});
 rowsEl.addEventListener("mousemove",e=>{
   const w=peek.offsetWidth||460,h=peek.offsetHeight||345;
   let x=e.clientX+28,y=e.clientY+22;
