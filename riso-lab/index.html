@@ -143,7 +143,8 @@ input{font:inherit;color:inherit}
 .corner.d{right:-18px;bottom:-18px;border-left:0;border-top:0}
 
 /* ---------------- frame rack ---------------- */
-.rack{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:2px}
+.rack{display:grid;grid-template-columns:repeat(2,46px);gap:11px 16px;justify-content:end;
+  margin-bottom:2px}
 .ratio{height:40px;display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:6px}
 .ratio .box{border:1px solid var(--hair);transition:.12s}
@@ -205,8 +206,9 @@ input{font:inherit;color:inherit}
 .grp[open]>summary::after{content:"\2212"}
 .grp>summary:hover::after{color:var(--ink)}
 .grp-b{padding-bottom:8px}
-.z-right .grp>summary{flex-direction:row-reverse}
+.z-right .grp>summary{flex-direction:row-reverse;justify-content:flex-end;gap:10px}
 .idblock{padding-bottom:4px}
+.r-top .grp>summary{padding-top:26px}
 .z-left .idblock{padding-bottom:34px}
 
 /* leftovers passed through from the tool's own panel */
@@ -346,7 +348,6 @@ input{font:inherit;color:inherit}
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
-    <details class="grp" open><summary>Frame</summary><div class="grp-b"><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span></div></details>
     <details class="grp" open><summary>Artwork</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Bands</span><span class="v" id="bandsVal">3</span></div><div class="track"><input type="range" id="bands" min="2" max="5" step="1" value="3" aria-label="Bands"></div></div>
         <div class="pr"><div class="top"><span class="k">Rough</span><span class="v" id="roughVal">50%</span></div><div class="track"><input type="range" id="rough" min="0.1" max="1" step="0.01" value="0.5" aria-label="Rough"></div></div>
         <div class="pr"><div class="top"><span class="k">Scribbles</span><span class="v" id="scribVal">60%</span></div><div class="track"><input type="range" id="scrib" min="0" max="1" step="0.01" value="0.6" aria-label="Scribbles"></div></div>
@@ -386,6 +387,7 @@ input{font:inherit;color:inherit}
         <span class="k">Inks</span><span class="v" id="inkEcho">&mdash;</span>
         <span class="k">Render</span><span class="v" id="dims">&mdash;</span>
       </div>
+      <details class="grp" open><summary>Frame</summary><div class="grp-b"><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span></div></details>
     </div>
     <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><span class="chips" id="modes" style="display:flex;gap:6px"></span></span></div>
           <div class="pr"><div class="top"><span class="k">Intensity</span><span class="v" id="amtVal">0.80</span></div><div class="track"><input type="range" id="amt" min="0.1" max="2" step="0.05" value="0.8" aria-label="Intensity"></div></div>
