@@ -87,6 +87,15 @@ input{font:inherit;color:inherit}
 .pbtn:hover{color:var(--ink)}
 .pbtn.go{background:var(--ink);color:var(--gnd);margin-left:12px}
 .pbtn.go:hover{color:var(--gnd);opacity:.82}
+
+/* standalone pill button — same language as the variation pill */
+.pillbtn{height:28px;padding:0 18px;border-radius:999px;border:1px solid var(--ink);
+  background:none;color:var(--ink);font-size:8.5px;letter-spacing:.22em;
+  text-transform:uppercase;transition:background .13s,color .13s}
+.pillbtn:hover{background:rgba(21,22,26,.07)}
+.pillbtn[aria-pressed=true]{background:var(--ink);color:var(--gnd)}
+.pillbtn[aria-pressed=true]:hover{background:var(--ink);opacity:.85}
+.btnrow{display:flex;justify-content:flex-end}
 .copy.done{color:var(--ink)}
 
 /* ---------------- hairline sliders ---------------- */
@@ -247,6 +256,7 @@ input{font:inherit;color:inherit}
   .z-right .rack,.z-right .tbl,.z-right .pr,.z-right .chips{margin-left:0}
   .rack{justify-content:start}
   .z-right .chips,.expmenu,.z-right .tbl,.z-br .tbl{justify-content:start}
+  .btnrow{justify-content:flex-start}
   .rightblock{width:auto}
   .z-bottom{justify-self:stretch;text-align:left}
   .caps,.tport{justify-content:flex-start}
@@ -359,8 +369,9 @@ input{font:inherit;color:inherit}
       <h2 class="h">Frame</h2>
       <div class="rack" id="ratios"></div>
 
-      <h2 class="h" style="margin-top:34px">Motion</h2>
-      <button class="lnk" id="motionTog" aria-pressed="false">Animate</button>
+      <div class="btnrow" style="margin-top:34px">
+        <button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button>
+      </div>
       <div class="group" id="motionBody" hidden>
         <div class="modrow">
           <span class="k">Movement</span>
@@ -407,8 +418,9 @@ input{font:inherit;color:inherit}
   <!-- export -->
   <div class="zone z-br">
     <div class="rightblock">
-      <h2 class="h">Export</h2>
-      <button class="lnk" id="exportTog" aria-pressed="false">Export</button>
+      <div class="btnrow">
+        <button class="pillbtn" id="exportTog" aria-pressed="false">Export</button>
+      </div>
       <div class="group" id="exportBody" hidden>
         <div class="pr">
           <div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div>
