@@ -43,8 +43,9 @@ input{font:inherit;color:inherit}
 .v{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase}
 .tbl{display:grid;grid-template-columns:auto auto;column-gap:22px;row-gap:5px;align-items:baseline}
 .tbl .v{justify-self:start}
+/* anything you click carries the same weight as the section titles */
 .lnk{display:inline-flex;align-items:center;gap:7px;font-size:8.5px;letter-spacing:.19em;
-  text-transform:uppercase;color:var(--key);transition:color .12s}
+  text-transform:uppercase;font-weight:700;color:var(--key);transition:color .12s}
 /* icons carried over from a tool's own buttons stay at label size */
 .lnk svg,.misc svg,.grp-b svg{width:11px;height:11px;flex:none;display:block}
 .lnk:hover{color:var(--ink)}
@@ -93,7 +94,7 @@ input{font:inherit;color:inherit}
   letter-spacing:.16em;padding:0}
 .seed:focus{outline:none;text-decoration:underline;text-underline-offset:4px}
 .pbtn{height:20px;padding:0 12px;border-radius:999px;font-size:8.5px;letter-spacing:.22em;
-  text-transform:uppercase;color:var(--key);transition:.12s}
+  text-transform:uppercase;font-weight:700;color:var(--key);transition:.12s}
 .pbtn:hover{color:var(--ink)}
 .pbtn.go{background:var(--ink);color:var(--gnd);margin-left:12px}
 .pbtn.go:hover{color:var(--gnd);opacity:.82}
@@ -101,7 +102,7 @@ input{font:inherit;color:inherit}
 /* standalone pill button — same language as the variation pill */
 .pillbtn{height:28px;padding:0 18px;border-radius:999px;border:1px solid var(--ink);
   background:none;color:var(--ink);font-size:8.5px;letter-spacing:.22em;
-  text-transform:uppercase;transition:background .13s,color .13s}
+  text-transform:uppercase;font-weight:700;transition:background .13s,color .13s}
 .pillbtn:hover{background:rgba(21,22,26,.07)}
 .pillbtn[aria-pressed=true]{background:var(--ink);color:var(--gnd)}
 .pillbtn[aria-pressed=true]:hover{background:var(--ink);opacity:.85}
@@ -265,8 +266,8 @@ input{font:inherit;color:inherit}
 .group.pop .expmenu{gap:14px 18px;margin-top:14px}
 .group.pop > :last-child{margin-bottom:0}
 .chips{display:flex;gap:14px;margin-top:4px}
-.chip{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key);
-  transition:color .12s}
+.chip{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;font-weight:700;
+  color:var(--key);transition:color .12s}
 .chip:hover{color:var(--ink)}
 .chip[aria-pressed=true]{color:var(--ink);text-decoration:underline;text-underline-offset:4px}
 .modrow{margin-bottom:14px}
