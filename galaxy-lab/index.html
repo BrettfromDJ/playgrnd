@@ -267,7 +267,12 @@ input{font:inherit;color:inherit}
 .expmenu{display:flex;flex-wrap:wrap;gap:16px;margin-top:14px;justify-content:flex-end}
 .z-right .rack,.z-right .tbl,.z-right .pr,.z-right .chips{margin-left:auto}
 .z-right,.z-br{text-align:right}
-.z-right .tbl,.z-br .tbl{justify-content:end}
+/* the readout hugs the right edge, keys right-aligned against the gutter and
+   values left-aligned in a capped column so a long one wraps tidily instead of
+   stretching the table and ragging the second line */
+.z-right .tbl,.z-br .tbl{justify-content:end;column-gap:20px}
+.z-right .tbl .k{text-align:right;white-space:nowrap}
+.z-right .tbl .v{text-align:left;max-width:150px;line-height:1.5}
 .z-right .chips{justify-content:flex-end}
 .z-right .pr .top,.z-br .pr .top{flex-direction:row}
 .rightblock{width:196px}
