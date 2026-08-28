@@ -60,16 +60,19 @@ input{font:inherit;color:inherit}
 /* the side columns run the full height of the page and scroll on their own, so a
    tool can carry any number of parameter groups without the layout changing */
 .z-left{grid-column:1;grid-row:1/3} .z-right{grid-column:3;grid-row:1/3}
-/* one soft-edged scroll box: no scrollbar, no border, just a fade at the foot */
 .z-left,.z-right{align-self:stretch;min-height:0;max-height:100%;
-  overflow-y:auto;overflow-x:hidden;padding-bottom:14px;
+  display:flex;flex-direction:column}
+/* one soft-edged scroll box: no scrollbar, no border, just a fade at the foot */
+.l-scroll,.z-right{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;
   scrollbar-width:none;-ms-overflow-style:none;--fade:0px;
   -webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - var(--fade)),transparent 100%);
   mask-image:linear-gradient(to bottom,#000 calc(100% - var(--fade)),transparent 100%)}
-.z-left::-webkit-scrollbar,.z-right::-webkit-scrollbar{width:0;height:0;display:none}
+.l-scroll::-webkit-scrollbar,.z-right::-webkit-scrollbar{width:0;height:0;display:none}
+.l-top,.l-bot{flex:none}
+.l-bot{padding-top:26px}
 .z-stage{grid-column:2;grid-row:1}
 .z-bottom{grid-column:2;grid-row:2;justify-self:center;text-align:center}
-.z-right{text-align:right;display:flex;flex-direction:column}
+.z-right{text-align:right}
 .r-mid{margin:auto 0}          /* centred between the readout and the corner */
 .r-bot{flex:none}
 
@@ -206,7 +209,7 @@ input{font:inherit;color:inherit}
 .grp[open]>summary::after{content:"\2212"}
 .grp>summary:hover::after{color:var(--ink)}
 .grp-b{padding-bottom:8px}
-.z-right .grp>summary{flex-direction:row-reverse;justify-content:flex-end;gap:10px}
+.z-right .grp>summary{flex-direction:row-reverse;justify-content:flex-start;gap:10px}
 .idblock{padding-bottom:4px}
 .r-top .grp>summary{padding-top:26px}
 .z-left .idblock{padding-bottom:34px}
@@ -218,6 +221,11 @@ input{font:inherit;color:inherit}
 .misc .mval{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;
   min-width:0}
 .misc .sw-grid{max-width:none}
+.btn-row,.expmenu{display:flex;flex-wrap:wrap;gap:18px;margin-top:22px}
+.z-left .btn-row{justify-content:flex-start}
+/* a row that is only a button has nothing to sit opposite — start it at the edge */
+.misc .mhead:empty{display:none}
+.misc .mhead:empty + .mval{justify-content:flex-start;flex:1}
 .pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
 .pair .lab{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key);
   display:block;margin-bottom:7px}
@@ -290,7 +298,9 @@ input{font:inherit;color:inherit}
     grid-template-rows:auto;row-gap:30px;padding:0 30px 60px}
   .z-left,.z-stage,.z-right,.z-bottom{
     grid-column:1;grid-row:auto;justify-self:stretch;align-self:auto;text-align:left;
-    max-height:none;overflow:visible}
+    max-height:none;overflow:visible;display:block}
+  .l-scroll{overflow:visible;max-height:none;-webkit-mask-image:none;mask-image:none}
+  .l-bot{padding-top:12px}
   /* the work comes first and stays put while the controls scroll under it */
   .z-stage{order:1} .z-left{order:2} .z-bottom{order:3} .z-right{order:4}
   .z-stage{height:52dvh;padding:64px 26px 26px;overflow:hidden;
@@ -326,7 +336,7 @@ input{font:inherit;color:inherit}
 
 <div class="rig">
   <div class="zone z-left">
-    <div class="idblock">
+    <div class="l-top idblock">
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><svg viewBox="0 0 4461 1789" fill="currentColor" role="img" aria-label="playgrnd">
 <path d="M3936.73 538.639C3936.73 480.025 3923.07 434.4 3895.76 401.763C3868.46 369.126 3830.82 352.807 3782.87 352.807C3735.58 352.807 3698.94 368.793 3672.97 400.764C3647.66 432.735 3635 479.026 3635 539.638C3635 599.584 3647.66 645.876 3672.97 678.513C3698.94 710.484 3735.58 726.47 3782.87 726.47C3830.82 726.47 3868.46 709.818 3895.76 676.515C3923.07 643.212 3936.73 597.253 3936.73 538.639ZM3943.72 810.394L3940.72 719.476C3924.74 754.112 3900.09 780.088 3866.79 797.406C3833.49 814.724 3796.85 823.382 3756.89 823.382C3721.59 823.382 3689.28 816.722 3659.98 803.401C3631.34 789.413 3606.69 770.097 3586.04 745.453C3565.4 720.808 3549.41 691.168 3538.09 656.533C3526.76 621.898 3521.1 583.266 3521.1 540.638C3521.1 498.009 3526.76 459.377 3538.09 424.742C3549.41 390.107 3565.4 360.467 3586.04 335.822C3606.69 310.512 3631.34 291.196 3659.98 277.875C3689.28 263.887 3721.59 256.894 3756.89 256.894C3796.85 256.894 3832.49 265.552 3863.79 282.87C3895.76 299.522 3920.08 323.833 3936.73 355.804V76.0566H4047.63V810.394H3943.72Z"/>
@@ -348,16 +358,19 @@ input{font:inherit;color:inherit}
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
-    <details class="grp" open><summary>Artwork</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Bands</span><span class="v" id="bandsVal">3</span></div><div class="track"><input type="range" id="bands" min="2" max="5" step="1" value="3" aria-label="Bands"></div></div>
+    <div class="l-scroll"><details class="grp" open><summary>Artwork</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Bands</span><span class="v" id="bandsVal">3</span></div><div class="track"><input type="range" id="bands" min="2" max="5" step="1" value="3" aria-label="Bands"></div></div>
         <div class="pr"><div class="top"><span class="k">Rough</span><span class="v" id="roughVal">50%</span></div><div class="track"><input type="range" id="rough" min="0.1" max="1" step="0.01" value="0.5" aria-label="Rough"></div></div>
         <div class="pr"><div class="top"><span class="k">Scribbles</span><span class="v" id="scribVal">60%</span></div><div class="track"><input type="range" id="scrib" min="0" max="1" step="0.01" value="0.6" aria-label="Scribbles"></div></div>
         <div class="pr"><div class="top"><span class="k">Dot</span><span class="v" id="dotpVal">50%</span></div><div class="track"><input type="range" id="dotp" min="0" max="1" step="0.01" value="0.5" aria-label="Dot"></div></div>
-        <div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">50%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.5" aria-label="Grain"></div></div></div></details>
-    <details class="grp" open><summary>Colors</summary><div class="grp-b"><div class="sw-grid" id="swatches"></div>
-        <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="1.6" y="1.6" width="12.8" height="12.8" rx="3"/><circle cx="5.6" cy="5.6" r="1" fill="currentColor" stroke="none"/><circle cx="10.4" cy="10.4" r="1" fill="currentColor" stroke="none"/></svg> Randomize</button>
-          <button class="lnk" id="rotColors"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.9 8a6.1 6.1 0 0 1 10.4-4.3L14.4 5.7"/><path d="M14.4 2.2v3.5h-3.5"/><path d="M14.1 8A6.1 6.1 0 0 1 3.7 12.3L1.6 10.3"/><path d="M1.6 13.8v-3.5h3.5"/></svg> Rotate</button></span></div></div></details>
-    <div class="strip" id="strip"></div>
-    <div class="glyph" id="glyph"></div>
+        <div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">50%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.5" aria-label="Grain"></div></div></div></details></div>
+    <div class="l-bot"><details class="grp" open><summary>Colors</summary><div class="grp-b"><div class="sw-grid" id="swatches"></div>
+        <div class="btn-row">
+          <button class="lnk" id="shufColors"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="1.6" y="1.6" width="12.8" height="12.8" rx="3"/><circle cx="5.6" cy="5.6" r="1" fill="currentColor" stroke="none"/><circle cx="10.4" cy="10.4" r="1" fill="currentColor" stroke="none"/></svg> Randomize</button>
+          <button class="lnk" id="rotColors"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.9 8a6.1 6.1 0 0 1 10.4-4.3L14.4 5.7"/><path d="M14.4 2.2v3.5h-3.5"/><path d="M14.1 8A6.1 6.1 0 0 1 3.7 12.3L1.6 10.3"/><path d="M1.6 13.8v-3.5h3.5"/></svg> Rotate</button>
+        </div></div></details>
+      <div class="strip" id="strip"></div>
+      <div class="glyph" id="glyph"></div>
+    </div>
   </div>
 
   <main class="zone z-stage stage-inner">
@@ -1232,7 +1245,7 @@ html.embed body{overflow:hidden!important}
   notches();
 
   /* ---- the columns fade out at the foot while there is more to scroll -- */
-  var boxes=[$(".z-left"),$(".z-right")].filter(Boolean);
+  var boxes=[$(".l-scroll"),$(".z-right")].filter(Boolean);
   function fade(el){
     var more=el.scrollHeight-el.clientHeight-el.scrollTop;
     el.style.setProperty("--fade", more>2 ? "56px" : "0px");
