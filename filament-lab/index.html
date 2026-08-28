@@ -214,7 +214,7 @@ input{font:inherit;color:inherit}
 .grp-b{padding-bottom:8px}
 .z-right .grp>summary{flex-direction:row-reverse;justify-content:flex-start;gap:10px}
 .idblock{padding-bottom:4px}
-.r-top .grp>summary{padding-top:26px}
+.frame-h{margin:30px 0 14px}
 .z-left .idblock{padding-bottom:34px}
 
 /* leftovers passed through from the tool's own panel */
@@ -425,7 +425,7 @@ input{font:inherit;color:inherit}
         <span class="k">Inks</span><span class="v" id="inkEcho">&mdash;</span>
         <span class="k">Render</span><span class="v" id="dims">&mdash;</span>
       </div>
-      <details class="grp" open><summary>Frame</summary><div class="grp-b"><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span></div></details>
+      <h2 class="h frame-h">Frame</h2><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span>
     </div>
     <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
           <div class="pr"><div class="top"><span class="k">Moving share</span><span class="v" id="activeVal">50%</span></div><div class="track"><input type="range" id="active" min="0" max="1" step="0.01" value="0.5"></div></div>
