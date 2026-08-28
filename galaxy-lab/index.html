@@ -35,7 +35,10 @@ input{font:inherit;color:inherit}
 .edgetick{width:8px;height:1px;background:var(--hair)}
 
 /* ---------------- type ---------------- */
-.h{font-size:10px;letter-spacing:.32em;text-transform:uppercase;margin:0 0 13px}
+/* Output and Frame read heavier only because they are <h2>; state it outright so
+   the group headings can match */
+.h{font-size:10px;letter-spacing:.32em;text-transform:uppercase;margin:0 0 13px;
+  font-weight:700}
 .k{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key)}
 .v{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase}
 .tbl{display:grid;grid-template-columns:auto auto;column-gap:22px;row-gap:5px;align-items:baseline}
@@ -205,7 +208,8 @@ input{font:inherit;color:inherit}
 .grp{margin:0 0 4px}
 .grp>summary{list-style:none;cursor:pointer;display:flex;align-items:center;
   justify-content:space-between;gap:12px;font-size:10px;letter-spacing:.32em;
-  text-transform:uppercase;padding:15px 0 13px;background:none}
+  text-transform:uppercase;font-weight:700;padding:15px 0 13px;background:none}
+.grp>summary::after{font-weight:400}
 .grp>summary::-webkit-details-marker{display:none}
 .grp>summary::after{content:"+";font-size:12px;line-height:1;color:var(--key);
   letter-spacing:0;transition:color .12s}
