@@ -320,8 +320,13 @@ input{font:inherit;color:inherit}
     max-height:none;overflow:visible;display:block}
   .l-scroll{overflow:visible;max-height:none;-webkit-mask-image:none;mask-image:none}
   .l-bot{padding-top:12px}
-  /* the work comes first and stays put while the controls scroll under it */
-  .z-stage{order:1} .z-left{order:2} .z-bottom{order:3} .z-right{order:4}
+  /* the tool name heads the page, then the work, which stays put while the
+     controls scroll under it. display:contents lets the identity block out of
+     the left column so it can be ordered ahead of the stage */
+  .z-left{display:contents}
+  .l-top{order:0} .z-stage{order:1} .l-scroll{order:2} .l-bot{order:3}
+  .z-bottom{order:4} .z-right{order:5}
+  .l-top{padding-top:30px}
   .z-stage{height:52dvh;padding:64px 26px 26px;overflow:hidden;
     position:sticky;top:0;z-index:20;background:#F3F3F1;
     margin:0 -30px;padding-left:30px;padding-right:30px}
