@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Riso — playgrnd</title>
-<meta name="description" content="Generate torn-paper riso collages — stacked bands of ragged two-colour patterns, wandering scribbles, big dots and grain. Exports SVG, PNG and video.">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=DM+Mono&display=swap">
+<title>Tokens — playgrnd</title>
+<meta name="description" content="Generate clustered grid tokens — outlined circles and squares that chain and merge into compound forms.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
   --gnd:#EFEFEC;
@@ -333,22 +333,43 @@ input{font:inherit;color:inherit}
 <path d="M4229.87 247.195V89.9279H4308.51C4316.18 89.9279 4323.85 91.8458 4331.52 95.6816C4339.34 99.3753 4345.8 105.058 4350.91 112.73C4356.17 120.259 4358.8 129.635 4358.8 140.859C4358.8 152.224 4356.1 161.884 4350.7 169.84C4345.3 177.796 4338.55 183.834 4330.46 187.954C4322.36 192.073 4314.26 194.133 4306.16 194.133H4250.33V167.07H4296.36C4301.47 167.07 4306.52 164.868 4311.49 160.464C4316.6 156.06 4319.16 149.525 4319.16 140.859C4319.16 131.766 4316.6 125.515 4311.49 122.106C4306.52 118.696 4301.69 116.991 4297 116.991H4266.53V247.195H4229.87ZM4326.62 173.463L4364.76 247.195H4324.49L4287.84 173.463H4326.62ZM4290.18 340.959C4266.6 340.959 4244.51 336.555 4223.91 327.747C4203.31 318.939 4185.19 306.721 4169.57 291.094C4153.94 275.466 4141.72 257.353 4132.91 236.753C4124.1 216.154 4119.7 194.062 4119.7 170.479C4119.7 146.896 4124.1 124.805 4132.91 104.206C4141.72 83.606 4153.94 65.4925 4169.57 49.8652C4185.19 34.238 4203.31 22.0203 4223.91 13.2122C4244.51 4.40406 4266.6 0 4290.18 0C4313.76 0 4335.85 4.40406 4356.45 13.2122C4377.05 22.0203 4395.17 34.238 4410.79 49.8652C4426.42 65.4925 4438.64 83.606 4447.45 104.206C4456.26 124.805 4460.66 146.896 4460.66 170.479C4460.66 194.062 4456.26 216.154 4447.45 236.753C4438.64 257.353 4426.42 275.466 4410.79 291.094C4395.17 306.721 4377.05 318.939 4356.45 327.747C4335.85 336.555 4313.76 340.959 4290.18 340.959ZM4290.18 298.765C4313.76 298.765 4335.22 293.012 4354.54 281.504C4374 269.855 4389.48 254.369 4400.99 235.048C4412.5 215.585 4418.25 194.062 4418.25 170.479C4418.25 146.896 4412.5 125.444 4400.99 106.123C4389.48 86.6604 4374 71.1752 4354.54 59.6678C4335.22 48.0184 4313.76 42.1936 4290.18 42.1936C4266.6 42.1936 4245.07 48.0184 4225.61 59.6678C4206.15 71.1752 4190.66 86.6604 4179.16 106.123C4167.65 125.444 4161.89 146.896 4161.89 170.479C4161.89 194.062 4167.65 215.585 4179.16 235.048C4190.66 254.369 4206.15 269.855 4225.61 281.504C4245.07 293.012 4266.6 298.765 4290.18 298.765Z"/>
         </svg></span>
         <span class="slash">&frasl;</span>
-        <span class="tool">Riso</span>
+        <span class="tool">Tokens</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">07 / 25</span>
-        <span class="k">Type</span><span class="v">Duotone print</span>
+        <span class="k">Index</span><span class="v">22 / 25</span>
+        <span class="k">Type</span><span class="v">Glyph grid</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
-    <details class="grp" open><summary>Artwork</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Bands</span><span class="v" id="bandsVal">3</span></div><div class="track"><input type="range" id="bands" min="2" max="5" step="1" value="3" aria-label="Bands"></div></div>
-        <div class="pr"><div class="top"><span class="k">Rough</span><span class="v" id="roughVal">50%</span></div><div class="track"><input type="range" id="rough" min="0.1" max="1" step="0.01" value="0.5" aria-label="Rough"></div></div>
-        <div class="pr"><div class="top"><span class="k">Scribbles</span><span class="v" id="scribVal">60%</span></div><div class="track"><input type="range" id="scrib" min="0" max="1" step="0.01" value="0.6" aria-label="Scribbles"></div></div>
-        <div class="pr"><div class="top"><span class="k">Dot</span><span class="v" id="dotpVal">50%</span></div><div class="track"><input type="range" id="dotp" min="0" max="1" step="0.01" value="0.5" aria-label="Dot"></div></div>
-        <div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">50%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.5" aria-label="Grain"></div></div></div></details>
-    <details class="grp" open><summary>Colors</summary><div class="grp-b"><div class="sw-grid" id="swatches"></div>
-        <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="1.6" y="1.6" width="12.8" height="12.8" rx="3"/><circle cx="5.6" cy="5.6" r="1" fill="currentColor" stroke="none"/><circle cx="10.4" cy="10.4" r="1" fill="currentColor" stroke="none"/></svg> Randomize</button>
-          <button class="lnk" id="rotColors"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.9 8a6.1 6.1 0 0 1 10.4-4.3L14.4 5.7"/><path d="M14.4 2.2v3.5h-3.5"/><path d="M14.1 8A6.1 6.1 0 0 1 3.7 12.3L1.6 10.3"/><path d="M1.6 13.8v-3.5h3.5"/></svg> Rotate</button></span></div></div></details>
+    <details class="grp" open><summary>Clusters</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Count</span><span class="v" id="countVal">14</span></div><div class="track"><input type="range" id="count" min="1" max="400" step="1" value="14"></div></div>
+        <div class="pr"><div class="top"><span class="k">Chains</span><span class="v" id="wRunVal">44</span></div><div class="track"><input type="range" id="wRun" min="0" max="100" step="1" value="44"></div></div>
+        <div class="pr"><div class="top"><span class="k">Blocks</span><span class="v" id="wBlockVal">18</span></div><div class="track"><input type="range" id="wBlock" min="0" max="100" step="1" value="18"></div></div>
+        <div class="pr"><div class="top"><span class="k">Crosses</span><span class="v" id="wPlusVal">10</span></div><div class="track"><input type="range" id="wPlus" min="0" max="100" step="1" value="10"></div></div>
+        <div class="pr"><div class="top"><span class="k">Singles</span><span class="v" id="wOneVal">28</span></div><div class="track"><input type="range" id="wOne" min="0" max="100" step="1" value="28"></div></div>
+        <div class="pr"><div class="top"><span class="k">Clustering</span><span class="v" id="clumpVal">70%</span></div><div class="track"><input type="range" id="clump" min="0" max="1" step="0.01" value="0.7"></div></div>
+        <div class="pr"><div class="top"><span class="k">Alignment</span><span class="v" id="alignVal">55%</span></div><div class="track"><input type="range" id="align" min="0" max="1" step="0.01" value="0.55"></div></div>
+        <div class="pr"><div class="top"><span class="k">Chain length</span><span class="v" id="runLenVal">5</span></div><div class="track"><input type="range" id="runLen" min="2" max="12" step="1" value="5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Upright chains</span><span class="v" id="uprightVal">18%</span></div><div class="track"><input type="range" id="upright" min="0" max="1" step="0.01" value="0.18"></div></div></div></details>
+    <details class="grp"><summary>Tokens</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeTVal">50%</span></div><div class="track"><input type="range" id="sizeT" min="0.03" max="1" step="0.01" value="0.5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Size variation</span><span class="v" id="svarVal">45%</span></div><div class="track"><input type="range" id="svar" min="0" max="1" step="0.01" value="0.45"></div></div>
+        <div class="pr"><div class="top"><span class="k">Hierarchy</span><span class="v" id="hierVal">65%</span></div><div class="track"><input type="range" id="hier" min="0" max="1" step="0.01" value="0.65"></div></div>
+        <div class="pr"><div class="top"><span class="k">Squares</span><span class="v" id="squareVal">34%</span></div><div class="track"><input type="range" id="square" min="0" max="1" step="0.01" value="0.34"></div></div>
+        <div class="pr"><div class="top"><span class="k">Outline</span><span class="v" id="strokeWVal">1.5</span></div><div class="track"><input type="range" id="strokeW" min="0" max="8" step="0.5" value="1.5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Hollow</span><span class="v" id="hollowVal">18%</span></div><div class="track"><input type="range" id="hollow" min="0" max="1" step="0.01" value="0.18"></div></div>
+        <div class="pr"><div class="top"><span class="k">Outline relation</span><span class="v" id="kinVal">20%</span></div><div class="track"><input type="range" id="kin" min="0" max="1" step="0.01" value="0.2"></div></div>
+        <div class="pr"><div class="top"><span class="k">Colour breaks</span><span class="v" id="breakVal">30%</span></div><div class="track"><input type="range" id="break" min="0" max="1" step="0.01" value="0.3"></div></div></div></details>
+    <details class="grp"><summary>Color</summary><div class="grp-b"><div class="pair">
+          <div>
+            <div class="lab"><span>Ground</span></div>
+            <button class="sw" id="bgSw"><span class="fill"></span><input type="color" id="bgIn" aria-label="Ground"></button>
+          </div>
+          <div>
+            <div class="lab"><span>Grid</span></div>
+            <button class="sw" id="gridSw"><span class="fill"></span><input type="color" id="gridIn" aria-label="Grid lines"></button>
+          </div>
+        </div>
+        <div class="misc"><span class="mhead"><span class="k">Token colours</span><span class="v" id="swCountVal">9</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+        <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">Shuffle colors</button></span></div></div></details>
     <div class="strip" id="strip"></div>
     <div class="glyph" id="glyph"></div>
   </div>
@@ -381,18 +402,21 @@ input{font:inherit;color:inherit}
         <span class="k">Render</span><span class="v" id="dims">&mdash;</span>
       </div>
     </div>
-    <details class="grp" open><summary>Frame</summary><div class="grp-b"><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span></div></details>
-    <div class="btnrow" style="margin-top:26px"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><span class="chips" id="modes" style="display:flex;gap:6px"></span></span></div>
-          <div class="pr"><div class="top"><span class="k">Intensity</span><span class="v" id="amtVal">0.80</span></div><div class="track"><input type="range" id="amt" min="0.1" max="2" step="0.05" value="0.8" aria-label="Intensity"></div></div>
-          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">8 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="8" aria-label="Speed"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">16 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="48" step="2" value="16" aria-label="Loop length"></div></div></div>
-    <div class="btnrow" style="margin-top:22px"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400" aria-label="Size"></div></div>
-          <div class="expmenu">
-            <button class="lnk" id="expPng">PNG</button>
-            <button class="lnk" id="expSvg">SVG</button>
-            <button class="lnk" id="expSvgLoop">SVG loop</button>
-            <button class="lnk" id="expVid">Video</button>
-          </div></div>
+    <details class="grp" open><summary>Frame</summary><div class="grp-b"><div class="rack" id="ratios"></div><div class="pr"><div class="top"><span class="k">Grid</span><span class="v" id="colsVal">16</span></div><div class="track"><input type="range" id="cols" min="4" max="120" step="1" value="16"></div></div>
+        <div class="pr"><div class="top"><span class="k">Rectangle width</span><span class="v" id="ruleEveryVal">4 cells</span></div><div class="track"><input type="range" id="ruleEvery" min="1" max="10" step="1" value="4"></div></div>
+        <div class="pr"><div class="top"><span class="k">Grid lines</span><span class="v" id="gridVal">60%</span></div><div class="track"><input type="range" id="grid" min="0" max="1" step="0.01" value="0.6"></div></div><span class="val" id="ratioVal" hidden>1:1</span></div></details>
+    <div class="btnrow" style="margin-top:26px"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
+          <div class="pr"><div class="top"><span class="k">Moving share</span><span class="v" id="activeVal">45%</span></div><div class="track"><input type="range" id="active" min="0" max="1" step="0.01" value="0.45"></div></div>
+          <div class="pr"><div class="top"><span class="k">Stagger</span><span class="v" id="stagVal">0.55</span></div><div class="track"><input type="range" id="stag" min="0" max="1" step="0.02" value="0.55"></div></div>
+          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">14</span></div><div class="track"><input type="range" id="fps" min="1" max="30" step="1" value="14"></div></div>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="6" max="90" step="1" value="36"></div></div>
+          <div class="note">Playback is continuous; the frame count only sets how the loop is sampled on export.</div></div>
+    <div class="btnrow" style="margin-top:22px"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
+        <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
+          <button class="lnk" id="expSvg">SVG</button></span></div>
+        <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expSvgAnim">Animated SVG</button>
+          <button class="lnk" id="expVid">Video</button></span></div>
+        <div class="note" id="expNote">Turn on motion to export a loop.</div></div>
     <div class="tbl" style="margin-top:22px">
       <span class="k">Version</span><span class="v build">v1</span>
     </div>
@@ -420,312 +444,224 @@ const TAU=Math.PI*2;
 const clamp=(v,a,b)=>v<a?a:v>b?b:v;
 const reduceMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
 function rng(s){let a=(s>>>0)||1;return()=>{a^=a<<13;a>>>=0;a^=a>>17;a^=a<<5;a>>>=0;return a/4294967296;};}
-function hashi(x,y,z,s){
-  let n=Math.imul(x|0,374761393)^Math.imul(y|0,668265263)^Math.imul(z|0,1440662683)^Math.imul(s|0,1013904223);
-  n=Math.imul(n^(n>>>15),2246822519);n=Math.imul(n^(n>>>13),3266489917);n^=n>>>16;
-  return (n>>>0)/4294967296;
-}
 function hex2rgb(h){h=h.replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
   return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];}
+function rgb2hex(r,g,b){return"#"+[r,g,b].map(v=>clamp(Math.round(v),0,255).toString(16).padStart(2,"0")).join("");}
+function hsl2hex(h,s,l){h=((h%360)+360)%360;s/=100;l/=100;
+  const c=(1-Math.abs(2*l-1))*s,x=c*(1-Math.abs((h/60)%2-1)),m=l-c/2;let r,g,b;
+  if(h<60)[r,g,b]=[c,x,0];else if(h<120)[r,g,b]=[x,c,0];else if(h<180)[r,g,b]=[0,c,x];
+  else if(h<240)[r,g,b]=[0,x,c];else if(h<300)[r,g,b]=[x,0,c];else[r,g,b]=[c,0,x];
+  return rgb2hex((r+m)*255,(g+m)*255,(b+m)*255);}
+function hueOf(hex){
+  const [r,g,b]=hex2rgb(hex).map(v=>v/255);
+  const mx=Math.max(r,g,b), mn=Math.min(r,g,b), d=mx-mn;
+  if(d===0) return 0;
+  let h;
+  if(mx===r) h=((g-b)/d)%6; else if(mx===g) h=(b-r)/d+2; else h=(r-g)/d+4;
+  return ((h*60)%360+360)%360;
+}
+function hueGap(a,b){const d=Math.abs(a-b)%360;return d>180?360-d:d;}
+function chroma(h){const[r,g,b]=hex2rgb(h);return(Math.max(r,g,b)-Math.min(r,g,b))/255;}
 function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4);});
   return .2126*r+.7152*g+.0722*b;}
 
-const RATIOS=[{id:"1:1",w:1,h:1},{id:"4:5",w:4,h:5},{id:"3:4",w:3,h:4},{id:"9:16",w:9,h:16},{id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const MODES=[["tear","Tear"],["scribble","Scribble"],["flicker","Flicker"]];
-/* riso ink sets: mids, one hot, one dark, one pale */
-const PALETTES=[
-  ["#9B7FD4","#F26B1D","#FF4FA0","#556135","#E0402A","#9A97C9"],
-  ["#F2A0C8","#2B3AD8","#F5C518","#1E4A2E","#F0480F","#EFE9D4"],
-  ["#63D8C2","#E0402A","#F5C518","#2B2B8C","#FF87C3","#E8E4DC"],
-  ["#FF9E3D","#1B4FA0","#FF4FA0","#3A4A1E","#8A5CF0","#F2EFE8"],
-  ["#C9E265","#8A2BE2","#F0621E","#1E3A5A","#FF3DA6","#F5F0E8"],
-  ["#F5C518","#E22BC3","#2AAE9E","#4A2010","#2E7CFF","#EFE9D4"]
-];
-const INK="#1A1A1A";
+const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
+ {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
+const PALETTES={
+  Token: {bg:"#000000",grid:"#4D4D4D",colors:["#1E90FF","#00BFFF","#2B1BF3","#FFE800","#FF0000","#FF2D6E","#FF8A00","#0A8A0A","#00CC00"]},
+  Riso:  {bg:"#0E0E0E",grid:"#2E2E2E",colors:["#FF87C3","#8E9A24","#FF5B1E","#1B4FA0","#F1EBE1"]},
+  Candy: {bg:"#08131F",grid:"#1B2C3E",colors:["#FF4FA3","#FFD23F","#3DDC97","#4C6EF5","#FF7A45"]},
+  Paper: {bg:"#EFEDE6",grid:"#D8D4C8",colors:["#12183A","#E8452C","#1B4FA0","#8E9A24","#F0B429"]},
+  Mono:  {bg:"#0A0A0A",grid:"#262626",colors:["#FFFFFF","#B8B8B8","#7A7A7A","#4A4A4A"]}
+};
+const MODES=[["cycle","Cycle"],["blink","Blink"]];
 
 const S={
-  seed:11, ratio:"1:1",
-  bands:3, rough:.5, scrib:.6, dotp:.5, grain:.5,
-  pal:PALETTES[0].slice(),
-  motion:{on:false,mode:"tear",amount:.8,fps:8,frames:16},
+  seed:6, ratio:"1:1", cols:16, grid:.6, ruleEvery:4,
+  count:14, wRun:44, wBlock:18, wPlus:10, wOne:28, runLen:5, upright:.18,
+  clump:.7, align:.55, hier:.65, kin:.2,
+  sizeT:.5, svar:.45, square:.34, strokeW:1.5, hollow:.18, brk:.3,
+  paletteName:"Token", bg:"#000000", gridCol:"#4D4D4D",
+  palette:["#EA337B","#EA33CA","#510BF5","#75FBFA","#78FC4C","#EAFE53","#EE7F31","#EA3323"],
+  motion:{on:false,mode:"cycle",stagger:.55,active:.45,fps:14,frames:36},
   size:2400
 };
-
-function motionState(f){
-  const M=S.motion;
-  const t=M.on?f/M.frames:0;
-  return{t,mode:M.on?M.mode:"",amp:M.amount,f};
+const VB=1000;
+function h2(x,y,seed){
+  let n=Math.imul(x|0,374761393)^Math.imul(y|0,668265263)^Math.imul(seed|0,1013904223);
+  n=Math.imul(n^(n>>>15),2246822519);n=Math.imul(n^(n>>>13),3266489917);n^=n>>>16;
+  return (n>>>0)/4294967296;
+}
+function field(x,y,seed){          // smooth, a few lobes across the board
+  const xi=Math.floor(x),yi=Math.floor(y),fx=x-xi,fy=y-yi;
+  const sm=t=>t*t*(3-2*t), u=sm(fx), v=sm(fy);
+  const a=h2(xi,yi,seed),b=h2(xi+1,yi,seed),c=h2(xi,yi+1,seed),d=h2(xi+1,yi+1,seed);
+  return (a+(b-a)*u)+((c+(d-c)*u)-(a+(b-a)*u))*v;
+}
+function vh(){const r=RATIOS.find(x=>x.id===S.ratio);return VB*r.h/r.w;}
+function dims(){
+  const H=vh(), C=Math.max(3,S.cols|0);
+  return {C,R:Math.max(3,Math.round(C*H/VB)),cell:VB/C,H};
 }
 
 /* ============================================================
-   The collage engine — stacked bands of ragged two-colour
-   patterns, cut with jittered polygon edges so every shape
-   reads as torn paper. Canvas and SVG walk the same polygons.
+   Place — clusters are laid onto an occupancy grid with a cell of
+   clearance, so separate clusters never run into one another
 ============================================================ */
-const VB=1000;
-function vbH(){const r=RATIOS.find(x=>x.id===S.ratio);return VB*r.h/r.w;}
-function buildSpec(){
-  const r=rng(S.seed*2654435761>>>0);
-  const H=vbH();
-  const n=S.bands|0;
-  /* band heights: uneven but never slivers */
-  const ws=[];let sum=0;
-  for(let i=0;i<n;i++){const v=0.6+r()*1.2;ws.push(v);sum+=v;}
-  const kinds=["blocks","streaks","static","blocks","streaks"];
-  for(let i=kinds.length-1;i>0;i--){const j=(r()*(i+1))|0;const t2=kinds[i];kinds[i]=kinds[j];kinds[j]=t2;}
-  const nc=S.pal.length;
-  /* pick a second ink that actually reads against the first */
-  const against=(base,r2)=>{
-    let fg=(r2*nc)|0;
-    for(let q=0;q<nc;q++){
-      const c2=(fg+q)%nc;
-      if(c2!==base&&Math.abs(relLum(S.pal[c2])-relLum(S.pal[base]))>0.09)return c2;
+let clusters=[], placed=0, tokenCount=0;
+function footprint(kind,r){
+  if(kind==="one") return [[0,0]];
+  if(kind==="plus") return [[0,-1],[-1,0],[0,0],[1,0],[0,1]];
+  if(kind==="block"){
+    const w=2+(r()<0.4?1:0), h=2+(r()<0.4?1:0);
+    const out=[];for(let y=0;y<h;y++)for(let x=0;x<w;x++)out.push([x,y]);
+    return out;
+  }
+  const n=2+Math.floor(r()*Math.max(1,S.runLen-1));
+  const vert=r()<S.upright;
+  const out=[];for(let i=0;i<n;i++)out.push(vert?[0,i]:[i,0]);
+  return out;
+}
+function build(){
+  const {C,R}=dims();
+  const r=rng(S.seed*2654435761+17);
+  const occ=new Uint8Array(C*R);
+  const nCol=S.palette.length;
+  const free=(cells,ox,oy)=>{
+    for(const [dx,dy] of cells){
+      const x=ox+dx,y=oy+dy;
+      if(x<0||y<0||x>=C||y>=R) return false;
+      for(let jy=-1;jy<=1;jy++)for(let jx=-1;jx<=1;jx++){
+        const nx=x+jx,ny=y+jy;
+        if(nx<0||ny<0||nx>=C||ny>=R) continue;
+        if(occ[ny*C+nx]) return false;
+      }
     }
-    return (base+1)%nc;
+    return true;
   };
-  const bands=[];let y=0;
-  for(let i=0;i<n;i++){
-    const h=ws[i]/sum*H;
-    const bg=(r()*nc)|0;
-    const fg=against(bg,r());
-    bands.push({y0:y,y1:y+h,kind:kinds[i%kinds.length],bg,fg,v:r(),v2:r(),id:i});
-    y+=h;
-  }
-  const scribs=[];
-  const ns=Math.round(S.scrib*3);
-  for(let i=0;i<ns;i++){
-    const pts=[];
-    let px=r()*VB*0.3, py=r()*H*0.5;
-    let ang=r()*TAU, sp=VB*0.02+r()*VB*0.02;
-    for(let q=0;q<70;q++){
-      pts.push([px,py]);
-      ang+=(hashi(i,q,3,S.seed)-0.5)*1.4;
-      /* the pen loops back if it wanders off the page */
-      if(px<0||px>VB)ang=Math.PI-ang;
-      if(py<0||py>H)ang=-ang;
-      px+=Math.cos(ang)*sp;py+=Math.sin(ang)*sp;
-    }
-    /* smooth the walk so it reads as a hand line */
-    const sm=[pts[0]];
-    for(let q=1;q<pts.length-1;q++)
-      sm.push([(pts[q-1][0]+pts[q][0]*2+pts[q+1][0])/4,(pts[q-1][1]+pts[q][1]*2+pts[q+1][1])/4]);
-    sm.push(pts[pts.length-1]);
-    scribs.push(sm);
-  }
-  let dot=null;
-  if(r()<S.dotp){
-    const b=bands[(r()*bands.length)|0];
-    const rr=Math.min(VB,H)*(0.14+r()*0.10);
-    dot={cx:VB*(0.3+r()*0.4),cy:Math.min(b.y1-rr*0.3,Math.max(b.y0+rr*0.3,b.y0+(b.y1-b.y0)*r())),
-      rr,ci:against(b.bg,r()),ph:r()};
-  }
-  return{bands,scribs,dot,H,SW:(r()*1e9)|0};
-}
-/* a ragged polygon: rectangle edges subdivided and jittered */
-function tornPoly(x,y,w,h,rough,k1,k2,SW,mo,mid){
-  const pts=[];
-  const wob=(q,ed)=>{
-    let j=(hashi(k1,q,ed+k2*7,SW)-0.5)*rough;
-    if(mo.mode==="tear")
-      j+=rough*0.45*Math.min(1.6,mo.amp)*Math.sin(TAU*(mo.t+hashi(k1,q,ed+50,SW)));
-    return j;
+  // for each swatch, its palette neighbours ordered by how close they sit in hue.
+  // "Outline relation" decides how far down that list an outline may be drawn from.
+  const hues=S.palette.map(hueOf);
+  const near=S.palette.map((_,i)=>
+    S.palette.map((_,j)=>j).filter(j=>j!==i)
+      .sort((a,b)=>hueGap(hues[i],hues[a])-hueGap(hues[i],hues[b])));
+  const pickOutline=(fi)=>{
+    const list=near[fi]; if(!list.length) return fi;
+    const reach=Math.max(1,Math.round(1+S.kin*(list.length-1)));
+    return list[Math.floor(r()*reach)];
   };
-  const n=5;
-  for(let q=0;q<=n;q++)pts.push([x+w*q/n,y+wob(q,1)]);
-  for(let q=1;q<=n;q++)pts.push([x+w+wob(q,2),y+h*q/n]);
-  for(let q=n-1;q>=0;q--)pts.push([x+w*q/n,y+h+wob(q,3)]);
-  for(let q=n-1;q>=1;q--)pts.push([x+wob(q,4),y+h*q/n]);
-  return pts;
-}
-/* everything on the sheet, one frame, as layered polygon lists */
-function sceneParts(f){
-  const mo=motionState(f);
-  const sp=buildSpec();
-  const H=sp.H;
-  const rough=S.rough;
-  const flickState=mo.mode==="flicker"?mo.f%S.motion.frames:0;
-  const bandsOut=[];
-  for(const b of sp.bands){
-    const bh=b.y1-b.y0;
-    const shapes=[];
-    const rg=VB*0.016*(0.4+rough*1.6);
-    if(b.kind==="blocks"){
-      const cols=5+((b.v*3)|0);
-      const rows=Math.max(1,Math.round(bh/(VB*0.16)));
-      const cw2=VB/cols, ch2=bh/rows;
-      for(let cy2=0;cy2<rows;cy2++)for(let cx2=0;cx2<cols;cx2++){
-        let on=hashi(cx2,cy2,b.id*3+1,sp.SW)<0.58;
-        if(mo.mode==="flicker"&&hashi(cx2,cy2,b.id*5+flickState,sp.SW)<0.05)on=!on;
-        if(!on)continue;
-        const jx=(hashi(cx2,cy2,b.id+11,sp.SW)-0.5)*cw2*0.4;
-        const jy=(hashi(cx2,cy2,b.id+12,sp.SW)-0.5)*ch2*0.3;
-        const w2=cw2*(0.7+hashi(cx2,cy2,b.id+13,sp.SW)*0.55);
-        const h2=ch2*(0.75+hashi(cx2,cy2,b.id+14,sp.SW)*0.5);
-        shapes.push(tornPoly(cx2*cw2+jx,b.y0+cy2*ch2+jy,w2,h2,rg,cx2+cy2*31,b.id,sp.SW,mo));
-      }
-    }else if(b.kind==="streaks"){
-      const cols=7+((b.v*3)|0);
-      const cw2=VB/cols;
-      for(let i=0;i<cols;i++){
-        if(hashi(i,0,b.id*7+2,sp.SW)<0.16)continue;
-        const seg=6;
-        const L=[],R=[];
-        for(let q=0;q<=seg;q++){
-          const yy=b.y0+bh*q/seg;
-          let wb=(hashi(i,q,b.id*7+3,sp.SW)-0.5)*cw2*1.1*(0.4+rough);
-          if(mo.mode==="tear")
-            wb+=cw2*0.3*Math.min(1.6,mo.amp)*Math.sin(TAU*(mo.t+hashi(i,q,b.id+60,sp.SW)));
-          const wd=cw2*(0.34+hashi(i,q,b.id*7+4,sp.SW)*0.5);
-          L.push([i*cw2+cw2/2+wb-wd/2,yy]);
-          R.push([i*cw2+cw2/2+wb+wd/2,yy]);
-        }
-        shapes.push(L.concat(R.reverse()));
-      }
-    }else{ /* static: rows of scratchy dashes */
-      const rows=Math.max(3,Math.round(bh/(VB*0.028)));
-      const rh=bh/rows;
-      for(let ry=0;ry<rows;ry++){
-        const nd=2+((hashi(ry,1,b.id*9+1,sp.SW)*6)|0);
-        for(let d2=0;d2<nd;d2++){
-          if(mo.mode==="flicker"&&hashi(ry,d2*3+flickState,b.id,sp.SW)<0.08)continue;
-          const x0=hashi(ry,d2*2,b.id*9+2,sp.SW)*VB;
-          const ln=VB*(0.03+hashi(ry,d2*2+1,b.id*9+3,sp.SW)*0.16);
-          shapes.push(tornPoly(x0,b.y0+ry*rh+rh*0.2,ln,rh*0.55,rg*0.5,ry*17+d2,b.id,sp.SW,mo));
-        }
-      }
+  const kinds=[["run",S.wRun],["block",S.wBlock],["plus",S.wPlus],["one",S.wOne]];
+  const total=kinds.reduce((a,k)=>a+k[1],0)||1;
+  const pick=()=>{let n=r()*total;for(const [k,w] of kinds){n-=w;if(n<=0)return k;}return "one";};
+  // a few committed guide lines, rather than "any row already used" — which
+  // stops being a constraint the moment a handful exist
+  const nG=Math.max(2,Math.round(2+(1-S.align)*4));
+  const gRows=[],gCols=[];
+  for(let i=0;i<nG;i++){gRows.push(Math.floor(r()*R));gCols.push(Math.floor(r()*C));}
+  clusters=[];tokenCount=0;
+  let tries=0;
+  while(clusters.length<S.count && tries<S.count*140){
+    tries++;
+    const kind=pick();
+    const cells=footprint(kind,r);
+    let ox=Math.floor(r()*C), oy=Math.floor(r()*R);
+    // alignment: reuse a row or column something already sits on
+    if(S.align>0 && r()<S.align){
+      if(r()<0.5) oy=gRows[Math.floor(r()*gRows.length)];
+      else ox=gCols[Math.floor(r()*gCols.length)];
     }
-    bandsOut.push({b,shapes});
-  }
-  /* the big dot, edge gently torn */
-  let dotPoly=null;
-  if(sp.dot){
-    const d2=sp.dot,pts=[];
-    for(let q=0;q<36;q++){
-      const a2=q/36*TAU;
-      let rr=d2.rr*(1+(hashi(q,1,77,sp.SW)-0.5)*0.05*rough);
-      pts.push([d2.cx+Math.cos(a2)*rr,d2.cy+Math.sin(a2)*rr]);
+    // clustering: accept readily where the field is high, rarely where it is low
+    if(S.clump>0){
+      const fv=field(ox/C*2.6+0.5, oy/R*2.6+0.5, S.seed+301);
+      if(r() > Math.pow(fv, 1+S.clump*6)) continue;   // steeply favours the high ground
     }
-    dotPoly={pts,col:S.pal[d2.ci%S.pal.length]};
-  }
-  /* scribbles, optionally drawing themselves */
-  const scribsOut=sp.scribs.map(sm=>{
-    if(mo.mode==="scribble"){
-      const k=Math.max(2,Math.ceil(sm.length*((mo.f+1)/S.motion.frames)));
-      return sm.slice(0,k);
-    }
-    return sm;
-  });
-  /* grain specks over everything */
-  const specks=[];
-  const ns=Math.round(S.grain*700);
-  for(let i=0;i<ns;i++){
-    const gk=mo.mode==="flicker"?flickState:0;
-    specks.push([hashi(i,1,gk+91,sp.SW)*VB,hashi(i,2,gk+92,sp.SW)*H,
-      hashi(i,3,gk+93,sp.SW)<0.55]);
-  }
-  return{bandsOut,dotPoly,scribsOut,specks,H,sp};
-}
-function paint(c,W,Hpx,f){
-  const P=sceneParts(f);
-  const k=W/VB;
-  c.setTransform(1,0,0,1,0,0);
-  for(const{b,shapes}of P.bandsOut){
-    c.save();
-    c.beginPath();c.rect(0,b.y0*k-0.5,W,(b.y1-b.y0)*k+1);c.clip();
-    c.fillStyle=S.pal[b.bg%S.pal.length];c.fillRect(0,b.y0*k-1,W,(b.y1-b.y0)*k+2);
-    c.fillStyle=S.pal[b.fg%S.pal.length];
-    for(const pts of shapes){
-      c.beginPath();
-      pts.forEach((p,i)=>i?c.lineTo(p[0]*k,p[1]*k):c.moveTo(p[0]*k,p[1]*k));
-      c.closePath();c.fill();
-    }
-    c.restore();
-  }
-  if(P.dotPoly){
-    c.beginPath();
-    P.dotPoly.pts.forEach((p,i)=>i?c.lineTo(p[0]*k,p[1]*k):c.moveTo(p[0]*k,p[1]*k));
-    c.closePath();c.fillStyle=P.dotPoly.col;c.fill();
-  }
-  c.strokeStyle=INK;c.lineWidth=Math.max(1,VB*0.0035*k);c.lineCap="round";c.lineJoin="round";
-  for(const sm of P.scribsOut){
-    c.beginPath();
-    sm.forEach((p,i)=>i?c.lineTo(p[0]*k,p[1]*k):c.moveTo(p[0]*k,p[1]*k));
-    c.stroke();
-  }
-  const sr=Math.max(1,VB*0.0016*k);
-  for(const[x,y,dk]of P.specks){
-    c.fillStyle=dk?"rgba(10,10,10,0.5)":"rgba(255,255,255,0.4)";
-    c.fillRect(x*k,y*k,sr,sr);
-  }
-}
-/* ---------- SVG: the same parts as strings, per layer ---------- */
-function svgLayers(f,uid){
-  const P=sceneParts(f);
-  const f1=x=>x.toFixed(1);
-  const poly=pts=>`<polygon points="${pts.map(p=>f1(p[0])+","+f1(p[1])).join(" ")}"/>`;
-  let bands="",defs="";
-  P.bandsOut.forEach(({b,shapes},i)=>{
-    const cid=`c${uid}_${i}`;
-    defs+=`<clipPath id="${cid}"><rect x="0" y="${f1(b.y0-0.5)}" width="${VB}" height="${f1(b.y1-b.y0+1)}"/></clipPath>`;
-    bands+=`<g clip-path="url(#${cid})"><rect x="0" y="${f1(b.y0-1)}" width="${VB}" height="${f1(b.y1-b.y0+2)}" fill="${S.pal[b.bg%S.pal.length]}"/>`+
-      `<g fill="${S.pal[b.fg%S.pal.length]}">${shapes.map(poly).join("")}</g></g>`;
-  });
-  const dot=P.dotPoly?`<g fill="${P.dotPoly.col}">${poly(P.dotPoly.pts)}</g>`:"";
-  const scrib=P.scribsOut.length
-    ?`<g fill="none" stroke="${INK}" stroke-width="${(VB*0.0035).toFixed(2)}" stroke-linecap="round" stroke-linejoin="round">`+
-      P.scribsOut.map(sm=>`<polyline points="${sm.map(p=>f1(p[0])+","+f1(p[1])).join(" ")}"/>`).join("")+`</g>`:"";
-  let g1="",g2="";
-  for(const[x,y,dk]of P.specks){
-    const r2=`<rect x="${f1(x)}" y="${f1(y)}" width="1.6" height="1.6"/>`;
-    if(dk)g1+=r2;else g2+=r2;
-  }
-  const grain=(g1||g2)?`<g fill="#0A0A0A" opacity="0.5">${g1}</g><g fill="#FFFFFF" opacity="0.4">${g2}</g>`:"";
-  return{defs,bands,dot,scrib,grain,H:P.H};
-}
-function svgWrap(defs,inner){
-  const r=RATIOS.find(x=>x.id===S.ratio);
-  const W=S.size,H=Math.round(S.size*r.h/r.w);
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${VB} ${vbH().toFixed(1)}">`+
-    (defs?`<defs>${defs}</defs>`:"")+inner+`</svg>`;
-}
-function buildSVG(){
-  const L=svgLayers(curFrame,0);
-  return svgWrap(L.defs,L.bands+L.dot+L.scrib+L.grain);
-}
-/* the loop stacks only the layers the current movement changes */
-function buildLoopSVG(){
-  const M=S.motion,F=M.frames,dur=(F/M.fps).toFixed(3);
-  const moving=M.mode==="tear"?["bands"]:M.mode==="scribble"?["scrib"]:["bands","grain"];
-  const perFrame=[];let defs="";
-  for(let f=0;f<F;f++){const L=svgLayers(f,f);perFrame.push(L);if(f===0)defs="";defs+=L.defs;}
-  const stack=key=>{
-    const segs=[];
-    for(let f=0;f<F;f++){
-      const s2=perFrame[f][key];
-      const cmp=s2.replace(/c\d+_/g,"c_");
-      if(segs.length&&segs[segs.length-1].cmp===cmp)segs[segs.length-1].n++;
-      else segs.push({cmp,c:s2,f0:f,n:1});
-    }
-    let out2="";
-    segs.forEach((sg,i)=>{
-      const t0=(sg.f0/F).toFixed(5),t1=((sg.f0+sg.n)/F).toFixed(5);
-      const anim=i===0
-        ?`<animate attributeName="visibility" values="visible;hidden" keyTimes="0;${t1}" dur="${dur}s" calcMode="discrete" repeatCount="indefinite"/>`
-        :`<animate attributeName="visibility" values="hidden;visible;hidden" keyTimes="0;${t0};${t1}" dur="${dur}s" calcMode="discrete" repeatCount="indefinite"/>`;
-      out2+=`<g visibility="${i===0?"visible":"hidden"}">${anim}${sg.c}</g>`;
+    if(!free(cells,ox,oy)) continue;
+    for(const [dx,dy] of cells) occ[(oy+dy)*C+(ox+dx)]=1;
+    const fi=Math.floor(r()*nCol);
+    let si=pickOutline(fi);
+    if(si===fi) si=(si+1)%nCol;
+    const shape=r()<S.square?"square":"circle";
+    // Hierarchy skews the draw so a few come out large and most stay small —
+    // but a token is never allowed past its own cell, outline included.
+    const k1=1+S.hier*3.2;
+    const big=Math.pow(r(),k1);
+    const size=S.sizeT*(1-S.svar*0.5+S.svar*r())*(1+S.hier*2.6*big);
+    const tokens=cells.map(([dx,dy])=>{
+      const brk=r()<S.brk;
+      let tf=fi, ts=si;
+      if(brk){ tf=Math.floor(r()*nCol); ts=pickOutline(tf); if(ts===tf) ts=(ts+1)%nCol; }
+      return {x:ox+dx,y:oy+dy,fi:tf,si:ts,
+        shape:(r()<0.12)?(shape==="circle"?"square":"circle"):shape,
+        hollow:r()<S.hollow, phase:r()};
     });
-    return out2;
-  };
-  const L0=perFrame[0];
-  const part=key=>moving.includes(key)?stack(key):L0[key];
-  return svgWrap(defs,part("bands")+part("dot")+part("scrib")+part("grain"));
+    tokenCount+=tokens.length;
+    clusters.push({kind,tokens,size,phase:r(),dir:r()<0.5?-1:1,active:r()<S.motion.active});
+  }
+  placed=clusters.length;
 }
 
+/* one frame's worth of drawable tokens */
+function scene(f){
+  const {cell}=dims();
+  const M=S.motion;
+  const t=M.on?f/M.frames:0;
+  const n=Math.max(1,clusters.length);
+  const nCol=S.palette.length;
+  const out=[];
+  clusters.forEach((cl,ci)=>{
+    cl.tokens.forEach((tk,ti)=>{
+      const size=cl.size;
+      let hollow=tk.hollow, fi=tk.fi, si=tk.si;
+      if(M.on && cl.active){
+        const lag=((ci/n)+(ti*0.06))*M.stagger;
+        if(M.mode==="cycle"){const s2=Math.floor((t+lag)*nCol);fi=(fi+s2)%nCol;si=(si+s2)%nCol;
+          if(si===fi) si=(si+1)%nCol;}
+        if(M.mode==="blink") hollow = (Math.sin(TAU*(t+lag))>0) ? !tk.hollow : tk.hollow;
+      }
+      // the outline grows outward from the radius by a fixed amount, so the cell
+      // cap has to leave room for it
+      const room=Math.max(0.05, cell/2 - Math.max(0,S.strokeW));
+      const rad=Math.max(0.05, Math.min(size*cell/2, room));
+      out.push({cx:(tk.x+0.5)*cell, cy:(tk.y+0.5)*cell, r:rad,
+        shape:tk.shape, fill:hollow?S.bg:S.palette[fi%nCol], stroke:S.palette[si%nCol], ci});
+    });
+  });
+  return out;
+}
+
+/* ============================================================
+   Drawing — outlines go down first and fills cover them, so a run of
+   touching tokens reads as one shape with no seams inside it
+============================================================ */
 const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
+function shapePath(c,tk,k,grow){
+  const r=(tk.r+grow)*k, x=tk.cx*k, y=tk.cy*k;
+  c.beginPath();
+  if(tk.shape==="square") c.rect(x-r,y-r,r*2,r*2);
+  else c.arc(x,y,r,0,TAU);
+}
+function paint(c,W,H,f){
+  const k=W/VB;
+  const {C,R,cell}=dims();
+  c.fillStyle=S.bg;c.fillRect(0,0,W,H);
+  if(S.grid>0){
+    c.strokeStyle=S.gridCol;c.globalAlpha=S.grid;c.lineWidth=Math.max(0.5,1.1*k);
+    c.beginPath();
+    const step=Math.max(1,S.ruleEvery|0);
+    for(let i=step;i<C;i+=step){const X=Math.round(i*cell*k)+0.5;c.moveTo(X,0);c.lineTo(X,H);}
+    for(let j=1;j<R;j++){const Y=Math.round(j*cell*k)+0.5;c.moveTo(0,Y);c.lineTo(W,Y);}
+    c.stroke();c.globalAlpha=1;
+  }
+  const list=scene(f);
+  for(const tk of list){
+    if(S.strokeW>0){ shapePath(c,tk,k,S.strokeW); c.fillStyle=tk.stroke; c.fill(); }
+    shapePath(c,tk,k,0); c.fillStyle=tk.fill; c.fill();
+  }
+}
 function fitCanvas(){
   const r=RATIOS.find(x=>x.id===S.ratio);
   const box=$(".stage-inner");
-  let dpr=Math.min(2,window.devicePixelRatio||1);
+  const dpr=Math.min(2,window.devicePixelRatio||1);
   let availW=700,availH=700;
   if(box&&box.clientWidth){
     const bs=getComputedStyle(box);
@@ -742,18 +678,18 @@ function fitCanvas(){
   }
   return{w,h};
 }
-let curFrame=0,queued=false;
+let curFrame=0,curPos=0,queued=false;
 function draw(){
   const{w,h}=fitCanvas();
   const t0=performance.now();
-  paint(ctx,w,h,curFrame);
-  const ms=Math.round(performance.now()-t0);
-  $("#dims").textContent=w+"×"+h+" · "+ms+"ms";
+  paint(ctx,w,h,playing?curPos:curFrame);
+  $("#dims").textContent=placed+" clusters · "+tokenCount+" tokens · "+Math.round(performance.now()-t0)+"ms";
   const F=S.motion.on?S.motion.frames:1;
   $("#frameno").textContent=String(curFrame+1).padStart(2,"0")+" / "+String(F).padStart(2,"0");
 }
 function requestDraw(){if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;draw();});}
 const reframe=requestDraw;
+function invalidate(){build();requestDraw();updateExportNote();}
 if(window.ResizeObserver){
   const box=$(".stage-inner");
   if(box){let p=false;new ResizeObserver(()=>{if(p)return;p=true;requestAnimationFrame(()=>{p=false;draw();});}).observe(box);}
@@ -762,8 +698,10 @@ let playing=false,t0=0,raf=0;
 function tick(now){
   if(!playing)return;
   const M=S.motion,dur=(M.frames/M.fps)*1000;
-  const f=Math.floor(((now-t0)%dur)/dur*M.frames)%M.frames;
-  if(f!==curFrame){curFrame=f;$("#scrub").value=f;draw();}
+  curPos=(((now-t0)%dur)/dur)*M.frames;
+  const f=Math.floor(curPos)%M.frames;
+  if(f!==curFrame){curFrame=f;$("#scrub").value=f;}
+  draw();
   raf=requestAnimationFrame(tick);
 }
 function setPlaying(v){
@@ -772,57 +710,107 @@ function setPlaying(v){
     ?'<rect x="0" y="0" width="3.5" height="11"/><rect x="6.5" y="0" width="3.5" height="11"/>'
     :'<path d="M0 0l10 5.5L0 11z"/>';
   cancelAnimationFrame(raf);
-  if(playing){t0=performance.now()-(curFrame/S.motion.frames)*(S.motion.frames/S.motion.fps*1000);raf=requestAnimationFrame(tick);}
-  else requestDraw();
+  if(playing){curPos=curFrame;t0=performance.now()-(curFrame/S.motion.frames)*(S.motion.frames/S.motion.fps*1000);raf=requestAnimationFrame(tick);}
+}
+
+/* ============================================================
+   SVG
+============================================================ */
+function buildSVG(animated){
+  const r=RATIOS.find(x=>x.id===S.ratio);
+  const W=S.size,H=Math.round(S.size*r.h/r.w),VH=vh();
+  const {C,R,cell}=dims();
+  const F=animated?S.motion.frames:1;
+  const dur=(F/S.motion.fps).toFixed(3)+"s";
+  const frames=[];for(let f=0;f<F;f++)frames.push(scene(f));
+  const anim=(attr,vals)=>`<animate attributeName="${attr}" values="${vals.join(";")};${vals[0]}" dur="${dur}" calcMode="discrete" repeatCount="indefinite"/>`;
+  const same=a=>a.every(v=>v===a[0]);
+  const n2=v=>Number(v).toFixed(1);
+  let body="";
+  if(S.grid>0){
+    let d="";
+    const step=Math.max(1,S.ruleEvery|0);
+    for(let i=step;i<C;i+=step)d+=`M${(i*cell).toFixed(1)} 0V${VH.toFixed(1)}`;
+    for(let j=1;j<R;j++)d+=`M0 ${(j*cell).toFixed(1)}H${VB}`;
+    body+=`<path d="${d}" stroke="${S.gridCol}" stroke-width="1.1" fill="none" opacity="${S.grid}"/>`;
+  }
+  const el=(tk,grow,fill,per,attrKey)=>{
+    const kids=[];
+    if(per){
+      const g=q=>attrKey==="stroke"?S.strokeW:0;
+      const cxs=per.map(p=>n2(p.cx)),cys=per.map(p=>n2(p.cy));
+      const rs=per.map(p=>n2(p.r+g(p))),fs=per.map(p=>attrKey==="stroke"?p.stroke:p.fill);
+      if(tk.shape==="square"){
+        const xs=per.map(p=>n2(p.cx-(p.r+g(p)))),ys=per.map(p=>n2(p.cy-(p.r+g(p))));
+        const ws=per.map(p=>n2((p.r+g(p))*2));
+        let e=`<rect x="${xs[0]}" y="${ys[0]}" width="${ws[0]}" height="${ws[0]}" fill="${fs[0]}"`;
+        if(!same(xs))kids.push(anim("x",xs));
+        if(!same(ys))kids.push(anim("y",ys));
+        if(!same(ws)){kids.push(anim("width",ws));kids.push(anim("height",ws));}
+        if(!same(fs))kids.push(anim("fill",fs));
+        return kids.length?e+`>${kids.join("")}</rect>`:e+"/>";
+      }
+      let e=`<circle cx="${cxs[0]}" cy="${cys[0]}" r="${rs[0]}" fill="${fs[0]}"`;
+      if(!same(cxs))kids.push(anim("cx",cxs));
+      if(!same(cys))kids.push(anim("cy",cys));
+      if(!same(rs))kids.push(anim("r",rs));
+      if(!same(fs))kids.push(anim("fill",fs));
+      return kids.length?e+`>${kids.join("")}</circle>`:e+"/>";
+    }
+    if(tk.shape==="square")
+      return `<rect x="${n2(tk.cx-tk.r-grow)}" y="${n2(tk.cy-tk.r-grow)}" width="${n2((tk.r+grow)*2)}" height="${n2((tk.r+grow)*2)}" fill="${fill}"/>`;
+    return `<circle cx="${n2(tk.cx)}" cy="${n2(tk.cy)}" r="${n2(tk.r+grow)}" fill="${fill}"/>`;
+  };
+  const first=frames[0];
+  for(let m=0;m<first.length;m++){
+    const per=animated?frames.map(fr=>fr[m]||first[m]):null;
+    if(S.strokeW>0) body+=el(first[m],S.strokeW,first[m].stroke,per,"stroke");
+    body+=el(first[m],0,first[m].fill,per,"fill");
+  }
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${VB} ${VH.toFixed(1)}">`
+       + `<rect width="${VB}" height="${VH.toFixed(1)}" fill="${S.bg}"/>${body}</svg>`;
 }
 
 /* ============================================================
    Export
 ============================================================ */
 let toastTimer;
-window.__toast=toast;
-window.__toast=toast;
-window.__toast=toast;
-window.__toast=toast;
-window.__toast=toast;
-window.__toast=toast;
 function toast(msg,busy){
-  window.__toast=toast;
-  const el=$("#toast");el.textContent=msg;el.classList.toggle("busy",!!busy);el.classList.add("show");
-  clearTimeout(toastTimer);if(!busy)toastTimer=setTimeout(()=>el.classList.remove("show"),2400);
+  const el2=$("#toast");el2.textContent=msg;el2.classList.toggle("busy",!!busy);el2.classList.add("show");
+  clearTimeout(toastTimer);if(!busy)toastTimer=setTimeout(()=>el2.classList.remove("show"),2400);
 }
 function save(blob,name){
   const url=URL.createObjectURL(blob),a=document.createElement("a");
   a.href=url;a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
-function stamp(){return `riso-${S.seed}-${S.ratio.replace(":","x")}`;}
+function stamp(){return `tokens-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
-  const a=$("#expVid"),sc=$("#scrub"),l=$("#expSvgLoop");
+  const n=$("#expNote"),a=$("#expSvgAnim"),v=$("#expVid"),sc=$("#scrub");
   if(a)a.disabled=!S.motion.on;
-  if(l)l.disabled=!S.motion.on;
+  if(v)v.disabled=!S.motion.on;
   if(sc)sc.disabled=!S.motion.on;
+  if(n)n.textContent=S.motion.on?"Every token is a real circle or rect — editable after export.":"Turn on motion to export a loop.";
 }
 $("#expPng").addEventListener("click",()=>{
-  toast("Rendering…",true);
-  setTimeout(()=>{
-    const r=RATIOS.find(x=>x.id===S.ratio);
-    const W=S.size,H=Math.round(S.size*r.h/r.w);
-    const c=document.createElement("canvas");c.width=W;c.height=H;
-    paint(c.getContext("2d"),W,H,curFrame);
-    c.toBlob(b=>{save(b,stamp()+".png");toast(`PNG saved · ${W}×${H}`);});
-  },30);
+  const r=RATIOS.find(x=>x.id===S.ratio);
+  const W=S.size,H=Math.round(S.size*r.h/r.w);
+  const c=document.createElement("canvas");c.width=W;c.height=H;
+  paint(c.getContext("2d"),W,H,curFrame);
+  c.toBlob(b=>{save(b,stamp()+".png");toast("PNG saved");});
 });
 $("#expSvg").addEventListener("click",()=>{
-  save(new Blob([buildSVG()],{type:"image/svg+xml"}),stamp()+".svg");
-  toast("SVG saved");
+  const svg=buildSVG(false);
+  save(new Blob([svg],{type:"image/svg+xml"}),stamp()+".svg");
+  toast(`SVG saved · ${Math.round(svg.length/1024)} KB`);
 });
-$("#expSvgLoop").addEventListener("click",()=>{
+$("#expSvgAnim").addEventListener("click",()=>{
   if(!S.motion.on)return toast("Turn on motion first");
-  toast("Building loop\u2026",true);
+  toast("Building animated SVG…",true);
   setTimeout(()=>{
-    save(new Blob([buildLoopSVG()],{type:"image/svg+xml"}),stamp()+"-loop.svg");
-    toast("Animated SVG saved");
+    const svg=buildSVG(true);
+    save(new Blob([svg],{type:"image/svg+xml"}),stamp()+"-loop.svg");
+    toast(`Animated SVG saved · ${Math.round(svg.length/1024)} KB`);
   },30);
 });
 function pickVideoType(){
@@ -836,38 +824,41 @@ $("#expVid").addEventListener("click",()=>{
   if(!type)return toast("This browser can't record video");
   const ext=type.startsWith("video/mp4")?"mp4":"webm";
   const r=RATIOS.find(x=>x.id===S.ratio);
-  let W=Math.min(1120,S.size);W-=W%2;
+  let W=Math.min(1920,S.size);W-=W%2;
   let H=Math.round(W*r.h/r.w);H-=H%2;
   const c=document.createElement("canvas");c.width=W;c.height=H;
   const cc=c.getContext("2d");
-  const F=S.motion.frames,loops=1;
-  const rec=new MediaRecorder(c.captureStream(60),{mimeType:type,videoBitsPerSecond:16000000});
+  const F=S.motion.frames,loops=2;
+  const rec=new MediaRecorder(c.captureStream(60),{mimeType:type,videoBitsPerSecond:14000000});
   const chunks=[];
   rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
   rec.onstop=()=>{save(new Blob(chunks,{type}),stamp()+"-loop."+ext);toast(ext.toUpperCase()+" saved");};
   const was=playing;setPlaying(false);
   toast("Recording…",true);
-  let n=0;
-  rec.start();
-  (function step(){
-    paint(cc,W,H,n%F);
-    n++;
-    if(n<F*loops) setTimeout(()=>requestAnimationFrame(step), Math.max(0,1000/S.motion.fps-4));
-    else setTimeout(()=>{rec.stop();if(was)setPlaying(true);},200);
-  })();
+  const start=performance.now(),total=(F/S.motion.fps)*1000*loops;
+  paint(cc,W,H,0);rec.start();
+  (function step(now){
+    const el2=now-start;
+    const p=(el2/total)*F*loops;
+    paint(cc,W,H,p%F);
+    if(el2<total)requestAnimationFrame(step);
+    else setTimeout(()=>{rec.stop();if(was)setPlaying(true);},150);
+  })(performance.now());
 });
 
 /* ============================================================
    UI
 ============================================================ */
 function accent(){
-  let best=S.pal[1],bl=-1;
-  for(const c of S.pal){const l=relLum(c);if(l>bl&&l>0.1&&l<0.85){bl=l;best=c;}}
-  /* UI accent stays constant — the artwork supplies the colour */
-  $("#strip").innerHTML=S.pal.map(c=>`<span style="background:${c}"></span>`).join("");
+  let best=S.palette[0],score=-1;
+  for(const c of S.palette){const k=chroma(c)*0.9+relLum(c)*0.2;if(k>score){score=k;best=c;}}
+  document.documentElement.style.setProperty("--accent",best);
+  $("#strip").innerHTML=[S.bg,S.gridCol,...S.palette].map(c=>`<span style="background:${c}"></span>`).join("");
   const g=$("#glyph");
   if(g.children.length!==9)g.innerHTML=Array.from({length:9},()=>"<i></i>").join("");
-  [...g.children].forEach((el,i)=>el.classList.toggle("on",[1,3,4,5,7].includes(i)));
+  [...g.children].forEach((el2,i)=>el2.classList.toggle("on",[0,1,3,4,7].includes(i)));
+  $("#bgSw").querySelector(".fill").style.background=S.bg;
+  $("#gridSw").querySelector(".fill").style.background=S.gridCol;
 }
 function segmented(host,items,get,set){
   if(!host)return;
@@ -880,6 +871,7 @@ function segmented(host,items,get,set){
     host.appendChild(b);
   });
 }
+function refreshPalettes(){}   // palette presets removed; colours are edited by swatch
 function buildRatios(){
   const host=$("#ratios");if(!host)return;
   host.innerHTML="";
@@ -890,126 +882,104 @@ function buildRatios(){
     const sc=Math.min(20/r.w,20/r.h);
     b.innerHTML=`<span class="box" style="width:${(r.w*sc).toFixed(1)}px;height:${(r.h*sc).toFixed(1)}px"></span><span class="t">${r.id}</span>`;
     b.onclick=()=>{S.ratio=r.id;$("#ratioVal").textContent=r.id;
-      [...host.children].forEach(c=>c.setAttribute("aria-pressed",String(c===b)));reframe();};
+      [...host.children].forEach(c=>c.setAttribute("aria-pressed",String(c===b)));invalidate();};
     host.appendChild(b);
   });
 }
-const ROLES=["Ink 1","Ink 2","Ink 3","Ink 4","Ink 5","Ink 6"];
 function buildSwatches(){
-  const host=$("#swatches");
+  const host=$("#swatches");if(!host)return;
   host.innerHTML="";
-  const lock=S.pal.length<=2;
-  S.pal.forEach((c,i)=>{
+  S.palette.forEach((c,i)=>{
     const b=document.createElement("button");
-    b.className="sw"+(lock?" locked":"");b.type="button";
-    b.setAttribute("aria-label","Ink "+(i+1)+" colour");
-    b.innerHTML=`<span class="fill" style="background:${c}"></span>`+
-      `<input type="color" value="${c}"><span class="x" aria-hidden="true">×</span>`;
-    b.querySelector("input").addEventListener("input",e=>{
-      S.pal[i]=e.target.value;
-      b.querySelector(".fill").style.background=e.target.value;
-      accent();reframe();
-    });
-    b.addEventListener("click",e=>{
-      if(e.target.classList.contains("x")&&S.pal.length>2){
-        e.preventDefault();e.stopPropagation();
-        S.pal.splice(i,1);buildSwatches();accent();reframe();
-      }
-    },true);
+    b.className="sw";b.type="button";
+    b.innerHTML=`<span class="fill" style="background:${c}"></span><input type="color" value="${c}" aria-label="Colour ${i+1}">${S.palette.length>2?'<span class="x">×</span>':''}`;
+    const input=b.querySelector("input");
+    input.oninput=e=>{S.palette[i]=e.target.value;b.querySelector(".fill").style.background=e.target.value;
+      S.paletteName=null;refreshPalettes();accent();reframe();};
+    b.onclick=e=>{
+      if(e.target.classList.contains("x")){e.preventDefault();e.stopPropagation();
+        S.palette.splice(i,1);S.paletteName=null;buildSwatches();refreshPalettes();accent();invalidate();return;}
+      if(e.target!==input)input.click();
+    };
     host.appendChild(b);
   });
-  const add=document.createElement("button");
-  add.className="sw-add";add.type="button";add.textContent="+";
-  add.setAttribute("aria-label","Add colour");
-  add.addEventListener("click",()=>{
-    const commit=hex=>{S.pal.push(hex);buildSwatches();accent();reframe();};
-    if(window.__pickColour) window.__pickColour(add,commit);
-    else commit(hsl2hex(Math.random()*360,45+Math.random()*45,42+Math.random()*30));
-  });
-  host.appendChild(add);
+  if(S.palette.length<10){
+    const add=document.createElement("button");
+    add.className="sw-add";add.type="button";add.textContent="+";
+    add.onclick=()=>{S.palette.push(hsl2hex(Math.random()*360,80+Math.random()*20,50+Math.random()*15));
+      S.paletteName=null;buildSwatches();refreshPalettes();accent();invalidate();};
+    host.appendChild(add);
+  }
+  const cv=$("#swCountVal");if(cv)cv.textContent=S.palette.length;
 }
-function setPalette(p){S.pal=p.slice();buildSwatches();accent();reframe();}
+function shuffleColors(){
+  const r=rng((Math.random()*1e9)|0);
+  const h0=r()*360;
+  S.palette=S.palette.map((_,i)=>hsl2hex(h0+i*(360/S.palette.length)+(r()-0.5)*24,78+r()*22,48+r()*18));
+  const dark=r()<0.8;
+  S.bg=dark?"#000000":hsl2hex(h0,8,94);
+  S.gridCol=dark?hsl2hex(h0,4,23):hsl2hex(h0,6,84);
+  S.paletteName=null;$("#bgIn").value=S.bg;$("#gridIn").value=S.gridCol;
+  buildSwatches();accent();refreshPalettes();reframe();
+}
 function bindRange(id,fmt,set,after){
-  const el=$("#"+id),label=$("#"+id+"Val");
-  if(!el)return;
-  el.addEventListener("input",()=>{
-    const v=parseFloat(el.value);set(v);
+  const el2=$("#"+id),label=$("#"+id+"Val");
+  if(!el2)return;
+  el2.addEventListener("input",()=>{
+    const v=parseFloat(el2.value);set(v);
     if(label)label.textContent=fmt(v);
     (after||reframe)();
   });
 }
 const pct=v=>Math.round(v*100)+"%";
 
-buildRatios();buildSwatches();accent();
+buildRatios();buildSwatches();refreshPalettes();accent();
 segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
-function hsl2hex(h,sa,l){
-  h=((h%360)+360)%360;sa/=100;l/=100;
-  const a=sa*Math.min(l,1-l);
-  const f=n=>{const k=(n+h/30)%12;const c=l-a*Math.max(-1,Math.min(k-3,9-k,1));
-    return Math.round(c*255).toString(16).padStart(2,"0");};
-  return "#"+f(0)+f(8)+f(4);
-}
-/* New set mixes fresh riso ink sets with the curated list */
-function newPalette(){
-  const R=Math.random;
-  if(R()<0.25)return PALETTES[(R()*PALETTES.length)|0].slice();
-  const h=R()*360;
-  return[
-    hsl2hex(h,45+R()*25,60+R()*10),
-    hsl2hex(h+120+R()*60,70+R()*25,52+R()*10),
-    hsl2hex(h+200+R()*60,80+R()*20,58+R()*8),
-    hsl2hex(h+60+R()*40,30+R()*20,24+R()*10),
-    hsl2hex(h+300+R()*40,75+R()*25,50+R()*10),
-    hsl2hex(h+30,20+R()*20,84+R()*8)
-  ];
-}
-$("#shufColors").addEventListener("click",()=>{
-  let p;do{p=newPalette();}while(p[0]===S.pal[0]&&p[1]===S.pal[1]);
-  const n=S.pal.length;
-  while(p.length<n) p.push(hsl2hex(Math.random()*360,45+Math.random()*45,42+Math.random()*30));
-  setPalette(p.slice(0,n));
-});
-$("#rotColors").addEventListener("click",()=>{
-  setPalette(S.pal.slice(1).concat([S.pal[0]]));
-});
-bindRange("bands",v=>v,v=>S.bands=v|0);
-bindRange("rough",pct,v=>S.rough=v);
-bindRange("scrib",pct,v=>S.scrib=v);
-bindRange("dotp",pct,v=>S.dotp=v);
-bindRange("grain",pct,v=>S.grain=v);
-bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
+bindRange("cols",v=>v,v=>S.cols=v|0,invalidate);
+bindRange("grid",pct,v=>S.grid=v);
+bindRange("ruleEvery",v=>v+(v==1?" cell":" cells"),v=>S.ruleEvery=v|0);
+bindRange("count",v=>v,v=>S.count=v|0,invalidate);
+bindRange("wRun",v=>v,v=>S.wRun=v|0,invalidate);
+bindRange("wBlock",v=>v,v=>S.wBlock=v|0,invalidate);
+bindRange("wPlus",v=>v,v=>S.wPlus=v|0,invalidate);
+bindRange("wOne",v=>v,v=>S.wOne=v|0,invalidate);
+bindRange("runLen",v=>v,v=>S.runLen=v|0,invalidate);
+bindRange("clump",pct,v=>S.clump=v,invalidate);
+bindRange("align",pct,v=>S.align=v,invalidate);
+bindRange("hier",pct,v=>S.hier=v,invalidate);
+bindRange("kin",pct,v=>S.kin=v,invalidate);
+bindRange("active",pct,v=>S.motion.active=v,invalidate);
+bindRange("upright",pct,v=>S.upright=v,invalidate);
+bindRange("sizeT",pct,v=>S.sizeT=v,invalidate);
+bindRange("svar",pct,v=>S.svar=v,invalidate);
+bindRange("square",pct,v=>S.square=v,invalidate);
+bindRange("strokeW",v=>v.toFixed(1),v=>S.strokeW=v);
+bindRange("hollow",pct,v=>S.hollow=v,invalidate);
+bindRange("break",pct,v=>S.brk=v,invalidate);
+bindRange("stag",v=>v.toFixed(2),v=>S.motion.stagger=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
-  $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
+  $("#fpsVal").textContent=String(S.motion.fps);if(playing)setPlaying(true);});
 $("#frames").addEventListener("input",e=>{S.motion.frames=parseInt(e.target.value,10);
   $("#framesVal").textContent=S.motion.frames+" frames";$("#scrub").max=S.motion.frames-1;
   curFrame=Math.min(curFrame,S.motion.frames-1);reframe();if(playing)setPlaying(true);});
 $("#size").addEventListener("input",e=>{S.size=parseInt(e.target.value,10);$("#sizeVal").textContent=S.size+" px";});
+$("#bgIn").value=S.bg;$("#gridIn").value=S.gridCol;
+$("#bgIn").addEventListener("input",e=>{S.bg=e.target.value;S.paletteName=null;refreshPalettes();accent();reframe();});
+$("#gridIn").addEventListener("input",e=>{S.gridCol=e.target.value;S.paletteName=null;refreshPalettes();accent();reframe();});
+$("#bgSw").addEventListener("click",e=>{if(e.target!==$("#bgIn"))$("#bgIn").click();});
+$("#gridSw").addEventListener("click",e=>{if(e.target!==$("#gridIn"))$("#gridIn").click();});
+$("#shufColors").addEventListener("click",shuffleColors);
 $("#motionTog").addEventListener("click",e=>{
   S.motion.on=!S.motion.on;
   e.currentTarget.setAttribute("aria-pressed",String(S.motion.on));
   $("#motionBody").hidden=!S.motion.on;
-  curFrame=0;$("#scrub").value=0;
+  curFrame=0;curPos=0;$("#scrub").value=0;
   reframe();updateExportNote();
   setPlaying(S.motion.on&&!reduceMotion);
 });
 $("#play").addEventListener("click",()=>{if(!S.motion.on){$("#motionTog").click();return;}setPlaying(!playing);});
-$("#scrub").addEventListener("input",e=>{setPlaying(false);curFrame=parseInt(e.target.value,10)%Math.max(1,S.motion.frames);draw();});
-/* the seed deals the whole collage inside the engine; here it deals
-   the layout numbers */
-function applySeed(){
-  const r=rng((S.seed^0x9e3779b9)>>>0);
-  const pick=a=>a[(r()*a.length)|0];
-  S.bands=pick([2,3,3,3,4,5]);
-  S.rough=pick([0.35,0.5,0.5,0.65,0.8]);
-  S.scrib=pick([0.3,0.6,0.6,0.9]);
-}
-function syncControls(){
-  const set=(id,v,txt)=>{const el=$("#"+id);if(el)el.value=v;const l=$("#"+id+"Val");if(l)l.textContent=txt;};
-  set("bands",S.bands,S.bands);
-  set("rough",S.rough,pct(S.rough));
-  set("scrib",S.scrib,pct(S.scrib));
-}
-function newSeed(v){S.seed=(v!==undefined)?v:(Math.random()*99999|0)+1;$("#seed").value=S.seed;applySeed();syncControls();reframe();}
+$("#scrub").addEventListener("input",e=>{setPlaying(false);curFrame=parseInt(e.target.value,10)%Math.max(1,S.motion.frames);curPos=curFrame;draw();});
+function newSeed(v){S.seed=(v!==undefined)?v:(Math.random()*99999|0)+1;$("#seed").value=S.seed;invalidate();}
 $("#shuf").addEventListener("click",()=>newSeed());
 $("#seed").addEventListener("change",e=>{const v=parseInt(e.target.value,10);newSeed(Number.isFinite(v)?Math.abs(v):1);});
 art.addEventListener("click",()=>newSeed());
@@ -1018,8 +988,7 @@ document.addEventListener("keydown",e=>{
   if(e.code==="Space"){e.preventDefault();newSeed();}
   if(e.key==="p"||e.key==="P"){if(S.motion.on)setPlaying(!playing);}
 });
-newSeed(11);
-$("#scrub").max=S.motion.frames-1;
+newSeed(6);
 updateExportNote();
 draw();
 })();
@@ -1125,7 +1094,7 @@ html.embed body{overflow:hidden!important}
   document.addEventListener("click",function(e){
     if(pop&&pop.contains(e.target))return;
     var t=e.target;
-    var inp=t&&t.matches&&t.matches('input[type=color]')&&!t.hasAttribute('data-nohex')?t:null;
+    var inp=t&&t.matches&&t.matches('input[type=color]')?t:null;
     if(inp&&!bypass){
       e.preventDefault();e.stopPropagation();
       openFor(inp);
@@ -1135,16 +1104,6 @@ html.embed body{overflow:hidden!important}
   },true);
 })();
 </script>
-
-
-
-
-
-
-
-
-
-
 
 <!-- Instrument chassis runtime: hairline slider fills, capture dots, the corner
      readouts and the Animate / Export disclosures. The tool's own code is untouched. -->
