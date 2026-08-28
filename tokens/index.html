@@ -118,13 +118,14 @@ input{font:inherit;color:inherit}
 .track input[type=range]:active{cursor:grabbing}
 .track input[type=range]::-webkit-slider-runnable-track{height:16px;background:none}
 .track input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
-  width:3px;height:16px;border:0;border-radius:0;background:var(--ink)}
-.track input[type=range]:hover::-webkit-slider-thumb{width:5px}
-.track input[type=range]::-moz-range-thumb{cursor:grab}
-.track input[type=range]:active::-moz-range-thumb{cursor:grabbing}
+  width:9px;height:9px;border:0;border-radius:50%;background:var(--ink);
+  margin-top:-0.5px;transition:width .1s,height .1s,margin-top .1s}
+.track input[type=range]:hover::-webkit-slider-thumb{width:11px;height:11px;margin-top:-1.5px}
 .track input[type=range]::-moz-range-track{height:16px;background:none;border:0}
-.track input[type=range]::-moz-range-thumb{width:3px;height:16px;border:0;border-radius:0;
-  background:var(--ink)}
+.track input[type=range]::-moz-range-thumb{width:9px;height:9px;border:0;border-radius:50%;
+  background:var(--ink);cursor:grab}
+.track input[type=range]:hover::-moz-range-thumb{width:11px;height:11px}
+.track input[type=range]:active::-moz-range-thumb{cursor:grabbing}
 .notch{position:absolute;top:5px;width:1px;height:5px;background:var(--hair2)}
 
 /* ---------------- stage ---------------- */
