@@ -114,11 +114,14 @@ input{font:inherit;color:inherit}
   width:calc(var(--p,0) * 1%)}
 .pr:hover .track::after{height:2px;top:6.5px}
 .track input[type=range]{position:absolute;inset:0;width:100%;height:16px;margin:0;
-  -webkit-appearance:none;appearance:none;background:none;cursor:ew-resize}
+  -webkit-appearance:none;appearance:none;background:none;cursor:pointer}
+.track input[type=range]:active{cursor:grabbing}
 .track input[type=range]::-webkit-slider-runnable-track{height:16px;background:none}
 .track input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
   width:3px;height:16px;border:0;border-radius:0;background:var(--ink)}
-.track input[type=range]:hover::-webkit-slider-thumb{width:4px}
+.track input[type=range]:hover::-webkit-slider-thumb{width:5px}
+.track input[type=range]::-moz-range-thumb{cursor:grab}
+.track input[type=range]:active::-moz-range-thumb{cursor:grabbing}
 .track input[type=range]::-moz-range-track{height:16px;background:none;border:0}
 .track input[type=range]::-moz-range-thumb{width:3px;height:16px;border:0;border-radius:0;
   background:var(--ink)}
@@ -155,6 +158,8 @@ input{font:inherit;color:inherit}
 
 /* ---------------- inks ---------------- */
 .sw-grid{display:flex;flex-wrap:wrap;gap:9px;align-items:center;max-width:210px}
+.l-bot .sw-grid{max-width:none}
+.l-bot .btn-row{margin-top:18px}
 .sw{position:relative;width:15px;height:15px;border-radius:50%;overflow:hidden;display:block;
   transition:transform .12s}
 .sw:hover{transform:scale(1.22)}
@@ -213,6 +218,11 @@ input{font:inherit;color:inherit}
 /* leftovers passed through from the tool's own panel */
 .misc{display:flex;align-items:center;justify-content:space-between;gap:12px;
   margin-bottom:14px;min-height:20px}
+/* in the colour corner nothing sits opposite anything: label above, control below */
+.l-bot .misc{flex-direction:column;align-items:flex-start;gap:9px;margin-bottom:18px}
+.l-bot .misc .mhead{width:100%;justify-content:flex-start}
+.l-bot .misc .mval{justify-content:flex-start;width:100%}
+.l-bot .misc:last-child{margin-bottom:0}
 .misc .mhead{display:flex;align-items:baseline;gap:10px;flex:none}
 .misc .mval{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;
   min-width:0}
@@ -222,9 +232,10 @@ input{font:inherit;color:inherit}
 /* a row that is only a button has nothing to sit opposite — start it at the edge */
 .misc .mhead:empty{display:none}
 .misc .mhead:empty + .mval{justify-content:flex-start;flex:1}
-.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.pair{display:flex;gap:30px;margin-bottom:18px}
+.pair>*{display:flex;flex-direction:column;gap:9px}
 .pair .lab{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key);
-  display:block;margin-bottom:7px}
+  display:block;margin:0}
 .note{font-size:8.5px;letter-spacing:.06em;line-height:1.7;color:var(--key);margin:2px 0 14px;
   text-transform:none}
 .sec-h{font-size:10px;letter-spacing:.32em;text-transform:uppercase;margin:0 0 12px}
