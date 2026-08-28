@@ -181,11 +181,13 @@ input{font:inherit;color:inherit}
 .group{margin-top:14px}
 .group[hidden]{display:none}
 /* floats over the page so the layout underneath never reflows */
-.group.pop{position:fixed;z-index:70;margin:0;width:232px;padding:16px 16px 4px;
+.group.pop{position:fixed;z-index:70;margin:0;width:232px;padding:16px;
   background:var(--gnd);border:1px solid var(--ink);text-align:left}
 .group.pop .chips,.group.pop .expmenu{justify-content:flex-start}
 .group.pop .pr .top{flex-direction:row}
-.group.pop .expmenu{gap:14px 18px;margin-top:16px}
+.group.pop .pr{margin-bottom:0}
+.group.pop .expmenu{gap:14px 18px;margin-top:14px}
+.group.pop > :last-child{margin-bottom:0}
 .chips{display:flex;gap:14px;margin-top:4px}
 .chip{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key);
   transition:color .12s}
