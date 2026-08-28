@@ -44,8 +44,10 @@ input{font:inherit;color:inherit}
 .v{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase}
 .tbl{display:grid;grid-template-columns:auto auto;column-gap:22px;row-gap:5px;align-items:baseline}
 .tbl .v{justify-self:start}
-.lnk{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key);
-  transition:color .12s}
+.lnk{display:inline-flex;align-items:center;gap:7px;font-size:8.5px;letter-spacing:.19em;
+  text-transform:uppercase;color:var(--key);transition:color .12s}
+/* icons carried over from a tool's own buttons stay at label size */
+.lnk svg,.misc svg,.grp-b svg{width:11px;height:11px;flex:none;display:block}
 .lnk:hover{color:var(--ink)}
 .lnk[aria-pressed=true],.lnk.on{color:var(--ink);text-decoration:underline;text-underline-offset:4px}
 
@@ -67,7 +69,9 @@ input{font:inherit;color:inherit}
 .z-left::-webkit-scrollbar,.z-right::-webkit-scrollbar{width:0;height:0;display:none}
 .z-stage{grid-column:2;grid-row:1}
 .z-bottom{grid-column:2;grid-row:2;justify-self:center;text-align:center}
-.z-right{text-align:right}
+.z-right{text-align:right;display:flex;flex-direction:column}
+.r-mid{margin:auto 0}          /* centred between the readout and the corner */
+.r-bot{flex:none}
 
 /* ---------------- identity ---------------- */
 .idline{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;margin-bottom:14px}
@@ -194,8 +198,7 @@ input{font:inherit;color:inherit}
 .grp{margin:0 0 4px}
 .grp>summary{list-style:none;cursor:pointer;display:flex;align-items:center;
   justify-content:space-between;gap:12px;font-size:10px;letter-spacing:.32em;
-  text-transform:uppercase;padding:15px 0 13px;position:sticky;top:0;z-index:3;
-  background:var(--gnd)}
+  text-transform:uppercase;padding:15px 0 13px;background:none}
 .grp>summary::-webkit-details-marker{display:none}
 .grp>summary::after{content:"+";font-size:12px;line-height:1;color:var(--key);
   letter-spacing:0;transition:color .12s}
@@ -204,6 +207,7 @@ input{font:inherit;color:inherit}
 .grp-b{padding-bottom:8px}
 .z-right .grp>summary{flex-direction:row-reverse}
 .idblock{padding-bottom:4px}
+.z-left .idblock{padding-bottom:34px}
 
 /* leftovers passed through from the tool's own panel */
 .misc{display:flex;align-items:center;justify-content:space-between;gap:12px;
@@ -374,7 +378,7 @@ input{font:inherit;color:inherit}
   </main>
 
   <div class="zone z-right">
-    <div class="idblock">
+    <div class="r-top idblock">
       <h2 class="h">Output</h2>
       <div class="tbl">
         <span class="k">Ratio</span><span class="v" id="ratioEcho">1:1</span>
@@ -383,19 +387,21 @@ input{font:inherit;color:inherit}
         <span class="k">Render</span><span class="v" id="dims">&mdash;</span>
       </div>
     </div>
-    <div class="btnrow" style="margin-top:26px"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><span class="chips" id="modes" style="display:flex;gap:6px"></span></span></div>
+    <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><span class="chips" id="modes" style="display:flex;gap:6px"></span></span></div>
           <div class="pr"><div class="top"><span class="k">Intensity</span><span class="v" id="amtVal">0.80</span></div><div class="track"><input type="range" id="amt" min="0.1" max="2" step="0.05" value="0.8" aria-label="Intensity"></div></div>
           <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">8 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="8" aria-label="Speed"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">16 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="48" step="2" value="16" aria-label="Loop length"></div></div></div>
-    <div class="btnrow" style="margin-top:22px"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400" aria-label="Size"></div></div>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">16 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="48" step="2" value="16" aria-label="Loop length"></div></div></div></div>
+    <div class="r-bot">
+      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400" aria-label="Size"></div></div>
           <div class="expmenu">
             <button class="lnk" id="expPng">PNG</button>
             <button class="lnk" id="expSvg">SVG</button>
             <button class="lnk" id="expSvgLoop">SVG loop</button>
             <button class="lnk" id="expVid">Video</button>
           </div></div>
-    <div class="tbl" style="margin-top:22px">
-      <span class="k">Version</span><span class="v build">v1</span>
+      <div class="tbl" style="margin-top:20px">
+        <span class="k">Version</span><span class="v build">v1</span>
+      </div>
     </div>
   </div>
 
