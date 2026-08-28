@@ -110,21 +110,20 @@ input{font:inherit;color:inherit}
 .pr .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
 .track{position:relative;height:16px}
 .track::before{content:"";position:absolute;left:0;right:0;top:7px;height:1px;background:var(--hair2)}
+.track{--tw:10px}
 .track::after{content:"";position:absolute;left:0;top:7px;height:1px;background:var(--ink);
-  width:calc(var(--p,0) * 1%)}
+  width:calc(var(--tw)/2 + (100% - var(--tw)) * var(--p,0) / 100)}
 .pr:hover .track::after{height:2px;top:6.5px}
 .track input[type=range]{position:absolute;inset:0;width:100%;height:16px;margin:0;
   -webkit-appearance:none;appearance:none;background:none;cursor:pointer}
 .track input[type=range]:active{cursor:grabbing}
 .track input[type=range]::-webkit-slider-runnable-track{height:16px;background:none}
+/* the dot stays one size — its width is baked into the fill and notch maths above */
 .track input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
-  width:9px;height:9px;border:0;border-radius:50%;background:var(--ink);
-  margin-top:-0.5px;transition:width .1s,height .1s,margin-top .1s}
-.track input[type=range]:hover::-webkit-slider-thumb{width:11px;height:11px;margin-top:-1.5px}
+  width:10px;height:10px;border:0;border-radius:50%;background:var(--ink);margin-top:-1px}
 .track input[type=range]::-moz-range-track{height:16px;background:none;border:0}
-.track input[type=range]::-moz-range-thumb{width:9px;height:9px;border:0;border-radius:50%;
+.track input[type=range]::-moz-range-thumb{width:10px;height:10px;border:0;border-radius:50%;
   background:var(--ink);cursor:grab}
-.track input[type=range]:hover::-moz-range-thumb{width:11px;height:11px}
 .track input[type=range]:active::-moz-range-thumb{cursor:grabbing}
 .notch{position:absolute;top:5px;width:1px;height:5px;background:var(--hair2)}
 
@@ -982,7 +981,8 @@ html.embed body{overflow:hidden!important}
       if(n<2||n>8||w/n<16) return;
       for(var i=1;i<n;i++){
         var s=document.createElement("span");
-        s.className="notch"; s.style.left=(i/n*100).toFixed(2)+"%";
+        s.className="notch";
+        s.style.left="calc(var(--tw)/2 + (100% - var(--tw)) * "+(i/n).toFixed(4)+")";
         tr.appendChild(s);
       }
     });
