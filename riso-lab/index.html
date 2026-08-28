@@ -58,12 +58,13 @@ input{font:inherit;color:inherit}
 /* the side columns run the full height of the page and scroll on their own, so a
    tool can carry any number of parameter groups without the layout changing */
 .z-left{grid-column:1;grid-row:1/3} .z-right{grid-column:3;grid-row:1/3}
+/* one soft-edged scroll box: no scrollbar, no border, just a fade at the foot */
 .z-left,.z-right{align-self:stretch;min-height:0;max-height:100%;
-  overflow-y:auto;overflow-x:hidden;padding-bottom:20px;
-  scrollbar-width:thin;scrollbar-color:rgba(21,22,26,.18) transparent}
-.z-left::-webkit-scrollbar,.z-right::-webkit-scrollbar{width:6px}
-.z-left::-webkit-scrollbar-thumb,.z-right::-webkit-scrollbar-thumb{
-  background:rgba(21,22,26,.18);border-radius:6px}
+  overflow-y:auto;overflow-x:hidden;padding-bottom:14px;
+  scrollbar-width:none;-ms-overflow-style:none;--fade:0px;
+  -webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - var(--fade)),transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 calc(100% - var(--fade)),transparent 100%)}
+.z-left::-webkit-scrollbar,.z-right::-webkit-scrollbar{width:0;height:0;display:none}
 .z-stage{grid-column:2;grid-row:1}
 .z-bottom{grid-column:2;grid-row:2;justify-self:center;text-align:center}
 .z-right{text-align:right}
@@ -138,7 +139,7 @@ input{font:inherit;color:inherit}
 .corner.d{right:-18px;bottom:-18px;border-left:0;border-top:0}
 
 /* ---------------- frame rack ---------------- */
-.rack{display:grid;grid-template-columns:repeat(2,46px);gap:11px 16px;justify-content:end}
+.rack{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:2px}
 .ratio{height:40px;display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:6px}
 .ratio .box{border:1px solid var(--hair);transition:.12s}
@@ -341,6 +342,7 @@ input{font:inherit;color:inherit}
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
+    <details class="grp" open><summary>Frame</summary><div class="grp-b"><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span></div></details>
     <details class="grp" open><summary>Artwork</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Bands</span><span class="v" id="bandsVal">3</span></div><div class="track"><input type="range" id="bands" min="2" max="5" step="1" value="3" aria-label="Bands"></div></div>
         <div class="pr"><div class="top"><span class="k">Rough</span><span class="v" id="roughVal">50%</span></div><div class="track"><input type="range" id="rough" min="0.1" max="1" step="0.01" value="0.5" aria-label="Rough"></div></div>
         <div class="pr"><div class="top"><span class="k">Scribbles</span><span class="v" id="scribVal">60%</span></div><div class="track"><input type="range" id="scrib" min="0" max="1" step="0.01" value="0.6" aria-label="Scribbles"></div></div>
@@ -381,7 +383,6 @@ input{font:inherit;color:inherit}
         <span class="k">Render</span><span class="v" id="dims">&mdash;</span>
       </div>
     </div>
-    <details class="grp" open><summary>Frame</summary><div class="grp-b"><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span></div></details>
     <div class="btnrow" style="margin-top:26px"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><span class="chips" id="modes" style="display:flex;gap:6px"></span></span></div>
           <div class="pr"><div class="top"><span class="k">Intensity</span><span class="v" id="amtVal">0.80</span></div><div class="track"><input type="range" id="amt" min="0.1" max="2" step="0.05" value="0.8" aria-label="Intensity"></div></div>
           <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">8 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="8" aria-label="Speed"></div></div>
@@ -1202,21 +1203,43 @@ html.embed body{overflow:hidden!important}
   })();
 
   /* whole-number sliders get a notch per step, but only when they fit */
-  (function notches(){
+  function notches(){
     document.querySelectorAll(".pr input[type=range]").forEach(function(el){
+      var tr=el.parentNode;
+      if(tr.__notched) return;
+      var w=tr.clientWidth;
+      if(!w) return;                      /* inside a collapsed group — try again later */
+      tr.__notched=1;
       var min=parseFloat(el.min),max=parseFloat(el.max),st=parseFloat(el.step);
       if(!isFinite(st)||st<=0) return;
       var n=Math.round((max-min)/st);
-      if(n<2||n>8) return;
-      var tr=el.parentNode, w=tr.clientWidth||190;
-      if(w/n<16) return;
+      if(n<2||n>8||w/n<16) return;
       for(var i=1;i<n;i++){
         var s=document.createElement("span");
         s.className="notch"; s.style.left=(i/n*100).toFixed(2)+"%";
         tr.appendChild(s);
       }
     });
-  })();
+  }
+  notches();
+
+  /* ---- the columns fade out at the foot while there is more to scroll -- */
+  var boxes=[$(".z-left"),$(".z-right")].filter(Boolean);
+  function fade(el){
+    var more=el.scrollHeight-el.clientHeight-el.scrollTop;
+    el.style.setProperty("--fade", more>2 ? "56px" : "0px");
+  }
+  function fadeAll(){ boxes.forEach(fade); }
+  boxes.forEach(function(el){
+    el.addEventListener("scroll",function(){fade(el);},{passive:true});
+    if(window.ResizeObserver) new ResizeObserver(function(){fade(el);}).observe(el);
+  });
+  addEventListener("resize",fadeAll);
+  /* opening or closing a parameter group changes both the fade and the notches */
+  document.addEventListener("toggle",function(){
+    syncSliders(); notches(); fadeAll();
+  },true);
+  fadeAll();
 
   /* ---- corner readouts ------------------------------------------------- */
   var ratioEcho=$("#ratioEcho"), ratioVal=$("#ratioVal"),
