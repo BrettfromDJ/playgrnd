@@ -120,7 +120,10 @@ input{font:inherit;color:inherit}
 .track input[type=range]::-webkit-slider-runnable-track{height:16px;background:none}
 /* the dot stays one size — its width is baked into the fill and notch maths above */
 .track input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
-  width:10px;height:10px;border:0;border-radius:50%;background:var(--ink);margin-top:-1px}
+  width:10px;height:10px;border:0;border-radius:50%;background:var(--ink);
+  /* webkit hangs the thumb from the top of the runnable track, so this margin is
+     what centres the dot on the 1px rule at 7.5px, not decoration */
+  margin-top:2.5px}
 .track input[type=range]::-moz-range-track{height:16px;background:none;border:0}
 .track input[type=range]::-moz-range-thumb{width:10px;height:10px;border:0;border-radius:50%;
   background:var(--ink);cursor:grab}
