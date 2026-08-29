@@ -237,6 +237,8 @@ input[type=range]{accent-color:var(--ink)}
 .l-bot .misc .mval{justify-content:flex-start;width:100%}
 .l-bot .misc:last-child{margin-bottom:0}
 .misc .mhead{display:flex;align-items:baseline;gap:10px;flex:none}
+.misc.stack{flex-direction:column;align-items:flex-start;gap:9px}
+.misc.stack .mhead,.misc.stack .mval{width:100%;justify-content:flex-start}
 .misc .mval{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;
   min-width:0}
 .l-bot .misc .mval{gap:10px}
@@ -272,7 +274,7 @@ input[type=range]{accent-color:var(--ink)}
 .group.pop .pr{margin-bottom:0}
 .group.pop .expmenu{gap:14px 18px;margin-top:14px}
 .group.pop > :last-child{margin-bottom:0}
-.chips{display:flex;gap:14px;margin-top:4px}
+.chips{display:flex;flex-wrap:wrap;gap:14px;margin-top:4px}
 .chip{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;font-weight:700;
   color:var(--key);transition:color .12s}
 .chip:hover{color:var(--ink)}
@@ -390,12 +392,12 @@ input[type=range]{accent-color:var(--ink)}
         <div class="pr"><div class="top"><span class="k">Weight variation</span><span class="v" id="wvarVal">60%</span></div><div class="track"><input type="range" id="wvar" min="0" max="1" step="0.01" value="0.6"></div></div>
         <div class="pr"><div class="top"><span class="k">Hierarchy</span><span class="v" id="hierVal">55%</span></div><div class="track"><input type="range" id="hier" min="0" max="1" step="0.01" value="0.55"></div></div>
         <div class="pr"><div class="top"><span class="k">Hairlines</span><span class="v" id="hairVal">22%</span></div><div class="track"><input type="range" id="hair" min="0" max="1" step="0.01" value="0.22"></div></div></div></details>
-    <details class="grp"><summary>Marks</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Style</span></span><span class="mval"><div class="chips" id="mstyles"></div></span></div>
+    <details class="grp"><summary>Marks</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Style</span></span><span class="mval"><div class="chips" id="mstyles"></div></span></div>
         <div class="pr" id="symRow"><div class="top"><span class="k">Symbols</span><span class="v" id="markVal">30%</span></div><div class="track"><input type="range" id="mark" min="0" max="1" step="0.01" value="0.3"></div></div>
         <div class="pr" id="beadRow" hidden><div class="top"><span class="k">Beaded strands</span><span class="v" id="beadVal">28%</span></div><div class="track"><input type="range" id="bead" min="0" max="1" step="0.01" value="0.28"></div></div>
         <div class="pr" id="beadGapRow" hidden><div class="top"><span class="k">Bead spacing</span><span class="v" id="bgapVal">4</span></div><div class="track"><input type="range" id="bgap" min="2" max="14" step="1" value="4"></div></div>
         <div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="msizeVal">9</span></div><div class="track"><input type="range" id="msize" min="2" max="26" step="0.5" value="9"></div></div>
-        <div class="misc" id="kindRow"><span class="mhead"><span class="k">Kinds</span></span><span class="mval"><div class="chips" id="kinds"></div></span></div></div></details></div>
+        <div class="misc stack" id="kindRow"><span class="mhead"><span class="k">Kinds</span></span><span class="mval"><div class="chips" id="kinds"></div></span></div></div></details></div>
     <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Ground</span></span><span class="mval"><button class="sw" id="bgSw"><span class="fill"></span><input type="color" id="bgIn" aria-label="Ground"></button></span></div>
         <div class="misc"><span class="mhead"><span class="k">Strands</span><span class="v" id="swCountVal">3</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
         <div class="misc"><span class="mhead"><span class="k">Marks</span><span class="v" id="acCountVal">3</span></span><span class="mval"><div class="sw-grid" id="accents"></div></span></div>
@@ -434,7 +436,7 @@ input[type=range]{accent-color:var(--ink)}
       </div>
       <h2 class="h frame-h">Frame</h2><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span>
     </div>
-    <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
+    <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
           <div class="pr"><div class="top"><span class="k">Moving share</span><span class="v" id="activeVal">50%</span></div><div class="track"><input type="range" id="active" min="0" max="1" step="0.01" value="0.5"></div></div>
           <div class="pr"><div class="top"><span class="k">Intensity</span><span class="v" id="amtVal">0.80</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2.5" step="0.05" value="0.8"></div></div>
           <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">16 fps</span></div><div class="track"><input type="range" id="fps" min="1" max="30" step="1" value="16"></div></div>

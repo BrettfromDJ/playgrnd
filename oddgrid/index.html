@@ -251,6 +251,8 @@ input[type=range]{accent-color:var(--ink)}
 .l-bot .misc .mval{justify-content:flex-start;width:100%}
 .l-bot .misc:last-child{margin-bottom:0}
 .misc .mhead{display:flex;align-items:baseline;gap:10px;flex:none}
+.misc.stack{flex-direction:column;align-items:flex-start;gap:9px}
+.misc.stack .mhead,.misc.stack .mval{width:100%;justify-content:flex-start}
 .misc .mval{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;
   min-width:0}
 .l-bot .misc .mval{gap:10px}
@@ -286,7 +288,7 @@ input[type=range]{accent-color:var(--ink)}
 .group.pop .pr{margin-bottom:0}
 .group.pop .expmenu{gap:14px 18px;margin-top:14px}
 .group.pop > :last-child{margin-bottom:0}
-.chips{display:flex;gap:14px;margin-top:4px}
+.chips{display:flex;flex-wrap:wrap;gap:14px;margin-top:4px}
 .chip{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;font-weight:700;
   color:var(--key);transition:color .12s}
 .chip:hover{color:var(--ink)}
@@ -389,7 +391,7 @@ input[type=range]{accent-color:var(--ink)}
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Pattern</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Look</span></span><span class="mval"><div class="chips" id="presets"></div></span></div>
+    <div class="l-scroll"><details class="grp" open><summary>Pattern</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Look</span></span><span class="mval"><div class="chips" id="presets"></div></span></div>
         <div class="pr"><div class="top"><span class="k">Zoom</span><span class="v" id="scaleVal">10</span></div><div class="track"><input type="range" id="scale" min="2" max="60" step="0.5" value="10"></div></div>
         <div class="pr"><div class="top"><span class="k">Fill</span><span class="v" id="densityVal">55%</span></div><div class="track"><input type="range" id="density" min="0" max="1" step="0.01" value="0.55"></div></div>
         <div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">35%</span></div><div class="track"><input type="range" id="grain" min="0" max="1.4" step="0.01" value="0.35"></div></div>
@@ -397,7 +399,7 @@ input[type=range]{accent-color:var(--ink)}
         <div class="pr"><div class="top"><span class="k">Blockiness</span><span class="v" id="blockVal">40%</span></div><div class="track"><input type="range" id="block" min="0" max="1" step="0.01" value="0.4"></div></div>
         <div class="pr"><div class="top"><span class="k">Block size</span><span class="v" id="bsizeVal">6</span></div><div class="track"><input type="range" id="bsize" min="2" max="16" step="1" value="6"></div></div>
         <div class="pr"><div class="top"><span class="k">Speckle</span><span class="v" id="speckVal">8%</span></div><div class="track"><input type="range" id="speck" min="0" max="0.6" step="0.01" value="0.08"></div></div></div></details>
-    <details class="grp"><summary>Detail</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Cell marks</span></span><span class="mval"><div class="chips" id="motifs"></div></span></div>
+    <details class="grp"><summary>Detail</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Cell marks</span></span><span class="mval"><div class="chips" id="motifs"></div></span></div>
         <div class="pr"><div class="top"><span class="k">Mark amount</span><span class="v" id="motifVal">0%</span></div><div class="track"><input type="range" id="motifAmt" min="0" max="1" step="0.01" value="0"></div></div>
         <div class="pr"><div class="top"><span class="k">Mark size</span><span class="v" id="markSizeVal">52%</span></div><div class="track"><input type="range" id="markSize" min="0.15" max="1" step="0.01" value="0.52"></div></div>
         <div class="misc" id="customRow"><span class="mhead"><span class="k">Your own shape</span></span><span class="mval"><div id="customSlot">
@@ -453,7 +455,7 @@ input[type=range]{accent-color:var(--ink)}
       </div>
       <h2 class="h frame-h">Frame</h2><div class="rack" id="ratios"></div><div class="pr"><div class="top"><span class="k">Grid detail</span><span class="v" id="colsVal">44</span></div><div class="track"><input type="range" id="cols" min="12" max="110" step="1" value="44"></div></div><span class="val" id="ratioVal" hidden>1:1</span>
     </div>
-    <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
+    <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
           <div class="pr"><div class="top"><span class="k">Intensity</span><span class="v" id="amtVal">0.8</span></div><div class="track"><input type="range" id="amt" min="0.1" max="3" step="0.05" value="0.8"></div></div>
           <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">8 fps</span></div><div class="track"><input type="range" id="fps" min="1" max="30" step="1" value="8"></div></div>
           <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">32 frames</span></div><div class="track"><input type="range" id="frames" min="6" max="90" step="1" value="32"></div></div>

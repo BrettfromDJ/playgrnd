@@ -237,6 +237,8 @@ input[type=range]{accent-color:var(--ink)}
 .l-bot .misc .mval{justify-content:flex-start;width:100%}
 .l-bot .misc:last-child{margin-bottom:0}
 .misc .mhead{display:flex;align-items:baseline;gap:10px;flex:none}
+.misc.stack{flex-direction:column;align-items:flex-start;gap:9px}
+.misc.stack .mhead,.misc.stack .mval{width:100%;justify-content:flex-start}
 .misc .mval{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;
   min-width:0}
 .l-bot .misc .mval{gap:10px}
@@ -272,7 +274,7 @@ input[type=range]{accent-color:var(--ink)}
 .group.pop .pr{margin-bottom:0}
 .group.pop .expmenu{gap:14px 18px;margin-top:14px}
 .group.pop > :last-child{margin-bottom:0}
-.chips{display:flex;gap:14px;margin-top:4px}
+.chips{display:flex;flex-wrap:wrap;gap:14px;margin-top:4px}
 .chip{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;font-weight:700;
   color:var(--key);transition:color .12s}
 .chip:hover{color:var(--ink)}
@@ -440,7 +442,7 @@ input[type=range]{accent-color:var(--ink)}
         <div class="pr"><div class="top"><span class="k">Rectangle width</span><span class="v" id="ruleEveryVal">4 cells</span></div><div class="track"><input type="range" id="ruleEvery" min="1" max="10" step="1" value="4"></div></div>
         <div class="pr"><div class="top"><span class="k">Grid lines</span><span class="v" id="gridVal">60%</span></div><div class="track"><input type="range" id="grid" min="0" max="1" step="0.01" value="0.6"></div></div><span class="val" id="ratioVal" hidden>1:1</span>
     </div>
-    <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
+    <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
           <div class="pr"><div class="top"><span class="k">Moving share</span><span class="v" id="activeVal">45%</span></div><div class="track"><input type="range" id="active" min="0" max="1" step="0.01" value="0.45"></div></div>
           <div class="pr"><div class="top"><span class="k">Stagger</span><span class="v" id="stagVal">0.55</span></div><div class="track"><input type="range" id="stag" min="0" max="1" step="0.02" value="0.55"></div></div>
           <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">14</span></div><div class="track"><input type="range" id="fps" min="1" max="30" step="1" value="14"></div></div>

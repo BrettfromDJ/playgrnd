@@ -237,6 +237,8 @@ input[type=range]{accent-color:var(--ink)}
 .l-bot .misc .mval{justify-content:flex-start;width:100%}
 .l-bot .misc:last-child{margin-bottom:0}
 .misc .mhead{display:flex;align-items:baseline;gap:10px;flex:none}
+.misc.stack{flex-direction:column;align-items:flex-start;gap:9px}
+.misc.stack .mhead,.misc.stack .mval{width:100%;justify-content:flex-start}
 .misc .mval{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;
   min-width:0}
 .l-bot .misc .mval{gap:10px}
@@ -272,7 +274,7 @@ input[type=range]{accent-color:var(--ink)}
 .group.pop .pr{margin-bottom:0}
 .group.pop .expmenu{gap:14px 18px;margin-top:14px}
 .group.pop > :last-child{margin-bottom:0}
-.chips{display:flex;gap:14px;margin-top:4px}
+.chips{display:flex;flex-wrap:wrap;gap:14px;margin-top:4px}
 .chip{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;font-weight:700;
   color:var(--key);transition:color .12s}
 .chip:hover{color:var(--ink)}

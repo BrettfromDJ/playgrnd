@@ -237,6 +237,8 @@ input[type=range]{accent-color:var(--ink)}
 .l-bot .misc .mval{justify-content:flex-start;width:100%}
 .l-bot .misc:last-child{margin-bottom:0}
 .misc .mhead{display:flex;align-items:baseline;gap:10px;flex:none}
+.misc.stack{flex-direction:column;align-items:flex-start;gap:9px}
+.misc.stack .mhead,.misc.stack .mval{width:100%;justify-content:flex-start}
 .misc .mval{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;
   min-width:0}
 .l-bot .misc .mval{gap:10px}
@@ -272,7 +274,7 @@ input[type=range]{accent-color:var(--ink)}
 .group.pop .pr{margin-bottom:0}
 .group.pop .expmenu{gap:14px 18px;margin-top:14px}
 .group.pop > :last-child{margin-bottom:0}
-.chips{display:flex;gap:14px;margin-top:4px}
+.chips{display:flex;flex-wrap:wrap;gap:14px;margin-top:4px}
 .chip{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;font-weight:700;
   color:var(--key);transition:color .12s}
 .chip:hover{color:var(--ink)}
@@ -377,7 +379,7 @@ input[type=range]{accent-color:var(--ink)}
     </div>
     <div class="l-scroll"><details class="grp" open><summary>Field</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Poles</span><span class="v" id="polesVal">2</span></div><div class="track"><input type="range" id="poles" min="1" max="6" step="1" value="2"></div></div>
         <div class="pr"><div class="top"><span class="k">Twist</span><span class="v" id="twistVal">50%</span></div><div class="track"><input type="range" id="twist" min="0" max="1" step="0.01" value="0.5"></div></div></div></details>
-    <details class="grp" open><summary>Marks</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Style</span></span><span class="mval"><div class="chips" id="styles"></div></span></div>
+    <details class="grp" open><summary>Marks</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Style</span></span><span class="mval"><div class="chips" id="styles"></div></span></div>
         <div class="pr"><div class="top"><span class="k">Density</span><span class="v" id="colsVal">26</span></div><div class="track"><input type="range" id="cols" min="10" max="48" step="1" value="26"></div></div>
         <div class="pr"><div class="top"><span class="k">Mark size</span><span class="v" id="msizeVal">100%</span></div><div class="track"><input type="range" id="msize" min="0.4" max="1.6" step="0.02" value="1"></div></div>
         <div class="pr"><div class="top"><span class="k">Weight</span><span class="v" id="weightVal">100%</span></div><div class="track"><input type="range" id="weight" min="0.4" max="2" step="0.05" value="1"></div></div></div></details></div>
@@ -424,7 +426,7 @@ input[type=range]{accent-color:var(--ink)}
       </div>
       <h2 class="h frame-h">Frame</h2><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span>
     </div>
-    <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
+    <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
           <div class="pr"><div class="top"><span class="k">Intensity</span><span class="v" id="amtVal">0.80</span></div><div class="track"><input type="range" id="amt" min="0.1" max="2" step="0.05" value="0.8"></div></div>
           <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">20 fps</span></div><div class="track"><input type="range" id="fps" min="4" max="30" step="1" value="20"></div></div>
           <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">120 frames</span></div><div class="track"><input type="range" id="frames" min="24" max="240" step="4" value="120"></div></div>

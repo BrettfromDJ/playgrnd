@@ -237,6 +237,8 @@ input[type=range]{accent-color:var(--ink)}
 .l-bot .misc .mval{justify-content:flex-start;width:100%}
 .l-bot .misc:last-child{margin-bottom:0}
 .misc .mhead{display:flex;align-items:baseline;gap:10px;flex:none}
+.misc.stack{flex-direction:column;align-items:flex-start;gap:9px}
+.misc.stack .mhead,.misc.stack .mval{width:100%;justify-content:flex-start}
 .misc .mval{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;
   min-width:0}
 .l-bot .misc .mval{gap:10px}
@@ -272,7 +274,7 @@ input[type=range]{accent-color:var(--ink)}
 .group.pop .pr{margin-bottom:0}
 .group.pop .expmenu{gap:14px 18px;margin-top:14px}
 .group.pop > :last-child{margin-bottom:0}
-.chips{display:flex;gap:14px;margin-top:4px}
+.chips{display:flex;flex-wrap:wrap;gap:14px;margin-top:4px}
 .chip{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;font-weight:700;
   color:var(--key);transition:color .12s}
 .chip:hover{color:var(--ink)}
@@ -377,7 +379,7 @@ input[type=range]{accent-color:var(--ink)}
     </div>
     <div class="l-scroll"><details class="grp" open><summary>Patches</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Blob scale</span><span class="v" id="scaleVal">2.6</span></div><div class="track"><input type="range" id="scale" min="1.2" max="6" step="0.1" value="2.6"></div></div>
         <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="resVal">64</span></div><div class="track"><input type="range" id="res" min="36" max="120" step="4" value="64"></div></div></div></details>
-    <details class="grp" open><summary>Doodle</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Motif</span></span><span class="mval"><div class="chips" id="motifs"></div></span></div>
+    <details class="grp" open><summary>Doodle</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Motif</span></span><span class="mval"><div class="chips" id="motifs"></div></span></div>
         <div class="pr"><div class="top"><span class="k">Line weight</span><span class="v" id="lwVal">100%</span></div><div class="track"><input type="range" id="lw" min="0.4" max="2.2" step="0.05" value="1"></div></div>
         <div class="pr"><div class="top"><span class="k">Dots</span><span class="v" id="dotsVal">32</span></div><div class="track"><input type="range" id="dots" min="0" max="80" step="2" value="32"></div></div></div></details></div>
     <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Patch colors</span><span class="v" id="swCountVal">4</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
@@ -428,7 +430,7 @@ input[type=range]{accent-color:var(--ink)}
       </div>
       <h2 class="h frame-h">Frame</h2><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span>
     </div>
-    <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
+    <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
           <div class="pr"><div class="top"><span class="k">Intensity</span><span class="v" id="amtVal">0.80</span></div><div class="track"><input type="range" id="amt" min="0.1" max="2" step="0.05" value="0.8"></div></div>
           <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">20 fps</span></div><div class="track"><input type="range" id="fps" min="4" max="30" step="1" value="20"></div></div>
           <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">100 frames</span></div><div class="track"><input type="range" id="frames" min="24" max="240" step="4" value="100"></div></div>
