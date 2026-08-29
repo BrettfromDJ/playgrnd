@@ -61,7 +61,8 @@ input{font:inherit;color:inherit}
 .lnk{display:inline-flex;align-items:center;justify-content:center;gap:7px;
   height:26px;padding:0 15px;border:1px solid var(--ink);border-radius:999px;
   font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;font-weight:700;
-  color:var(--ink);background:none;transition:background .13s,color .13s}
+  color:var(--ink);background:none;text-decoration:none;
+  transition:background .13s,color .13s}
 /* icons carried over from a tool's own buttons stay at label size */
 .lnk svg,.misc svg,.grp-b svg{width:11px;height:11px;flex:none;display:block}
 .lnk:hover{background:rgba(21,22,26,.07);color:var(--ink)}
@@ -98,7 +99,7 @@ input{font:inherit;color:inherit}
 .idline .brand img{width:100%;height:auto;display:block}
 .idline .slash{font-size:10px;color:var(--key)}
 .idline .tool{font-size:10px;letter-spacing:.32em;text-transform:uppercase}
-.back{display:inline-block;margin-top:16px}
+.back{margin-top:16px}
 
 /* ---------------- variation pill ---------------- */
 .z-top{position:absolute;left:50%;top:0;translate:-50% 0;z-index:12}
