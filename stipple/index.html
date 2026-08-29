@@ -133,6 +133,9 @@ input{font:inherit;color:inherit}
   background:var(--ink);cursor:grab}
 .track input[type=range]:active::-moz-range-thumb{cursor:grabbing}
 .notch{position:absolute;top:5px;width:1px;height:5px;background:var(--hair2)}
+/* safety net: if a range control ever escapes the converter it still reads in
+   ink rather than the browser's blue */
+input[type=range]{accent-color:var(--ink)}
 
 /* ---------------- stage ---------------- */
 .z-stage{position:relative;display:grid;place-items:center;padding:64px 46px 30px;min-height:0}
@@ -376,16 +379,8 @@ input{font:inherit;color:inherit}
         <div class="pr"><div class="top"><span class="k">Size variation</span><span class="v" id="varyVal">70%</span></div><div class="track"><input type="range" id="vary" min="0" max="1" step="0.01" value="0.7"></div></div>
         <div class="pr"><div class="top"><span class="k">Cutout</span><span class="v" id="cutVal">34%</span></div><div class="track"><input type="range" id="cut" min="0" max="0.95" step="0.01" value="0.34"></div></div>
         <div class="pr"><div class="top"><span class="k">Jitter</span><span class="v" id="jitVal">0%</span></div><div class="track"><input type="range" id="jit" min="0" max="1" step="0.01" value="0"></div></div>
-        <div id="contourOnly">
-          <div class="row">
-            <div class="lab"><span>Edge pull</span><span class="val" id="edgeVal">85%</span></div>
-            <input type="range" id="edge" min="0" max="1" step="0.01" value="0.85">
-          </div>
-          <div class="row">
-            <div class="lab"><span>Loose scatter</span><span class="val" id="looseVal">12%</span></div>
-            <input type="range" id="loose" min="0" max="0.6" step="0.01" value="0.12">
-          </div>
-        </div></div></details>
+        <div id="contourOnly"><div class="pr"><div class="top"><span class="k">Edge pull</span><span class="v" id="edgeVal">85%</span></div><div class="track"><input type="range" id="edge" min="0" max="1" step="0.01" value="0.85"></div></div>
+          <div class="pr"><div class="top"><span class="k">Loose scatter</span><span class="v" id="looseVal">12%</span></div><div class="track"><input type="range" id="loose" min="0" max="0.6" step="0.01" value="0.12"></div></div></div></div></details>
     <details class="grp"><summary>Field</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Field scale</span><span class="v" id="zoomVal">2.4</span></div><div class="track"><input type="range" id="zoom" min="0.5" max="9" step="0.1" value="2.4"></div></div>
         <div class="pr"><div class="top"><span class="k">Warp</span><span class="v" id="warpVal">80%</span></div><div class="track"><input type="range" id="warp" min="0" max="3" step="0.02" value="0.8"></div></div>
         <div class="pr"><div class="top"><span class="k">Detail</span><span class="v" id="octVal">4</span></div><div class="track"><input type="range" id="oct" min="1" max="7" step="1" value="4"></div></div>

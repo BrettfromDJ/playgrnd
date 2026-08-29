@@ -133,6 +133,9 @@ input{font:inherit;color:inherit}
   background:var(--ink);cursor:grab}
 .track input[type=range]:active::-moz-range-thumb{cursor:grabbing}
 .notch{position:absolute;top:5px;width:1px;height:5px;background:var(--hair2)}
+/* safety net: if a range control ever escapes the converter it still reads in
+   ink rather than the browser's blue */
+input[type=range]{accent-color:var(--ink)}
 
 /* ---------------- stage ---------------- */
 .z-stage{position:relative;display:grid;place-items:center;padding:64px 46px 30px;min-height:0}
