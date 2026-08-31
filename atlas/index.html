@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Delta — playgrnd</title>
-<meta name="description" content="Generate corrupted satellite fields — a marbled noise ground buried under mosaics of clashing pixel blocks, solid bars and sliced bands. Exports image and video.">
+<title>Atlas — playgrnd</title>
+<meta name="description" content="Generate text-mode terrain — noise carved into terraces and typed out in characters on a monospace grid. Exports plain text, vector, image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -379,27 +379,25 @@ input[type=range]{accent-color:var(--ink)}
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
         <span class="slash">&frasl;</span>
-        <span class="tool">Delta</span>
+        <span class="tool">Atlas</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">23 / 26</span>
-        <span class="k">Type</span><span class="v">Satellite mosaic</span>
+        <span class="k">Index</span><span class="v">26 / 26</span>
+        <span class="k">Type</span><span class="v">Text-mode terrain</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Field</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Scale</span><span class="v" id="scaleVal">3.2</span></div><div class="track"><input type="range" id="scale" min="1" max="9" step="0.1" value="3.2"></div></div>
-        <div class="pr"><div class="top"><span class="k">Warp</span><span class="v" id="warpVal">55%</span></div><div class="track"><input type="range" id="warp" min="0" max="1.6" step="0.01" value="0.55"></div></div>
-        <div class="pr"><div class="top"><span class="k">Contrast</span><span class="v" id="contrastVal">60%</span></div><div class="track"><input type="range" id="contrast" min="0" max="1" step="0.01" value="0.6"></div></div>
-        <div class="pr"><div class="top"><span class="k">Bleach</span><span class="v" id="bleachVal">35%</span></div><div class="track"><input type="range" id="bleach" min="0" max="1" step="0.01" value="0.35"></div></div></div></details>
-    <details class="grp"><summary>Mosaic</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Patches</span><span class="v" id="patchesVal">6</span></div><div class="track"><input type="range" id="patches" min="0" max="18" step="1" value="6"></div></div>
-        <div class="pr"><div class="top"><span class="k">Cell size</span><span class="v" id="cellVal">28</span></div><div class="track"><input type="range" id="cell" min="8" max="90" step="1" value="28"></div></div>
-        <div class="pr"><div class="top"><span class="k">Fill</span><span class="v" id="fillVal">55%</span></div><div class="track"><input type="range" id="fill" min="0.05" max="1" step="0.01" value="0.55"></div></div>
-        <div class="pr"><div class="top"><span class="k">Pixelate</span><span class="v" id="quantVal">35%</span></div><div class="track"><input type="range" id="quant" min="0" max="1" step="0.01" value="0.35"></div></div></div></details>
-    <details class="grp"><summary>Blocks</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Solid blocks</span><span class="v" id="blocksVal">3</span></div><div class="track"><input type="range" id="blocks" min="0" max="10" step="1" value="3"></div></div>
-        <div class="pr"><div class="top"><span class="k">Bands</span><span class="v" id="bandsVal">1</span></div><div class="track"><input type="range" id="bands" min="0" max="6" step="1" value="1"></div></div>
-        <div class="pr"><div class="top"><span class="k">Slice</span><span class="v" id="sliceVal">25%</span></div><div class="track"><input type="range" id="slice" min="0" max="1" step="0.01" value="0.25"></div></div></div></details></div>
-    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">6</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+    <div class="l-scroll"><details class="grp" open><summary>Terrain</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Scale</span><span class="v" id="scaleVal">2.4</span></div><div class="track"><input type="range" id="scale" min="1" max="9" step="0.1" value="2.4"></div></div>
+        <div class="pr"><div class="top"><span class="k">Warp</span><span class="v" id="warpVal">31%</span></div><div class="track"><input type="range" id="warp" min="0" max="1.6" step="0.01" value="0.5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Terraces</span><span class="v" id="bandsVal">6</span></div><div class="track"><input type="range" id="bands" min="2" max="14" step="1" value="6"></div></div>
+        <div class="pr"><div class="top"><span class="k">Contrast</span><span class="v" id="mixVal">55%</span></div><div class="track"><input type="range" id="mix" min="0" max="1" step="0.01" value="0.55"></div></div></div></details>
+    <details class="grp" open><summary>Type</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Character set</span></span><span class="mval"><div class="chips" id="sets"></div></span></div>
+        <div class="pr"><div class="top"><span class="k">Columns</span><span class="v" id="colsVal">110</span></div><div class="track"><input type="range" id="cols" min="24" max="260" step="1" value="110"></div></div>
+        <div class="pr"><div class="top"><span class="k">Density</span><span class="v" id="densityVal">62%</span></div><div class="track"><input type="range" id="density" min="0" max="1" step="0.01" value="0.62"></div></div>
+        <div class="pr"><div class="top"><span class="k">Variety</span><span class="v" id="weightVal">50%</span></div><div class="track"><input type="range" id="weight" min="0" max="1.5" step="0.01" value="0.5"></div></div></div></details></div>
+    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">8</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
         
+        <div class="note">Each terrace takes the next ink along, so the order of these decides the map.</div>
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
@@ -437,13 +435,15 @@ input[type=range]{accent-color:var(--ink)}
     </div>
     <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
           <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
-          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="12"></div></div>
+          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">8 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="8"></div></div>
           <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">24 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="24"></div></div></div></div>
     <div class="r-bot">
       <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
+          <button class="lnk" id="expSvg">SVG</button>
+          <button class="lnk" id="expTxt">Text</button>
           <button class="lnk" id="expVid">Video</button></span></div>
-        <div class="note" id="expNote">The field is drawn pixel by pixel, so this one exports as an image rather than vector.</div></div>
+        <div class="note" id="expNote">The characters are real text: the SVG stays editable and Text gives you the plain characters to paste anywhere.</div></div>
       <div class="tbl" style="margin-top:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>
@@ -484,201 +484,216 @@ function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const MODES=[["shuffle","Shuffle"],["slice","Slice"]];
+const MODES=[["shuffle","Shuffle"],["drift","Drift"]];
 
-/* Loud, clashing sets — the mosaic wants colours that fight the muddy field. */
+/* Text-mode sets. Order matters inside a set: the glyphs run light to heavy,
+   so a band can pick by how dense it wants to read. */
+const SETS=[
+  ["dos","DOS","0369#%&@!;,'()"],
+  ["stipple","Stipple",".,;:'\"^~*"],
+  ["blocks","Blocks","░▒▓█■▪·"],
+  ["code","Code","/\\|_-+=<>[]{}"],
+  ["digits","Digits","0123456789"],
+  ["runes","Runes","†‡§¶®©≠∞≈"]
+];
+
 const PALETTES=[
-  ["#2B2BE8","#19A7A0","#F25CA2","#F5D93B","#6BD44A","#F0602A"],
-  ["#1F3BD6","#0FB5A8","#FF4FA3","#FFE04D","#8CE05B","#FF6B2C"],
-  ["#3B1FD1","#00B3B3","#FF77C8","#FFF06B","#4FD1FF","#FF4646"],
-  ["#0C1BE0","#1FC6A6","#E85BD0","#F7E14C","#7CE0A0","#FF7A45"],
-  ["#4B2BEA","#25B7C9","#FF5C8A","#EFE04F","#A3E04B","#F0553B"],
-  ["#111ACC","#12A48F","#FF69B4","#FFD84D","#5FD08A","#FF5A36"]
+  ["#1BA89B","#2D3BD6","#E0452C","#C42BC4","#1E6B6B","#151A22","#8A8FA8","#D8E04A"],
+  ["#0E7C6B","#1D3FBF","#E85D2A","#7A2BD6","#0B4F4F","#0A0E14","#7E93A8","#C9E04A"],
+  ["#2AB7A0","#3B4FE0","#FF5B3B","#E03BA8","#1B5E5E","#12141C","#9AA3B8","#EDE04A"],
+  ["#149C8C","#5B2BD6","#E03B3B","#2B8AD6","#14504A","#101418","#8FA0A8","#B9E04A"]
 ];
 
 const S={
-  seed:7, ratio:"16:9",
-  scale:4.6, warp:0.85, contrast:0.55, bleach:0.3,
-  patches:11, cell:18, fill:0.62, quant:0.45,
-  blocks:3, bands:1, slice:0.22,
+  seed:11, ratio:"1:1",
+  cols:110, scale:2.4, warp:0.5, bands:6,
+  density:0.62, mix:0.55, set:"dos", weight:0.5,
   pal:PALETTES[0].slice(),
-  motion:{on:false,mode:"shuffle",amount:0.6,fps:12,frames:24},
+  motion:{on:false,mode:"shuffle",amount:0.6,fps:8,frames:24},
   size:2400
 };
 
-/* ---- value noise -------------------------------------------------------
-   One hash, bilinear interpolation, a few octaves, then the whole field is
-   pushed through itself once so the bands buckle like a satellite image. */
-function hsh(x,y,s){
-  let n=x*374761393+y*668265263+s*1442695040888963407;
-  n=(n^(n>>13))*1274126177;
-  return ((n^(n>>16))>>>0)/4294967296;
+const MONO='ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace';
+
+/* ---- noise -------------------------------------------------------------- */
+/* Math.imul, not *: a plain multiply here overflows into float territory,
+   loses the low bits and never sets bit 31, so the hash only ever returns
+   the bottom half of its range — which silently pinned every band to the
+   first character of its slice. */
+function hshA(x,y,s){
+  let n=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1274126177);
+  n=Math.imul(n^(n>>>13),1274126177);
+  n^=n>>>16;
+  return (n>>>0)/4294967296;
 }
-function vnoise(x,y,s){
-  const xi=Math.floor(x), yi=Math.floor(y);
-  const xf=x-xi, yf=y-yi;
+function vnA(x,y,s){
+  const xi=Math.floor(x), yi=Math.floor(y), xf=x-xi, yf=y-yi;
   const u=xf*xf*(3-2*xf), v=yf*yf*(3-2*yf);
-  const a=hsh(xi,yi,s), b=hsh(xi+1,yi,s), c=hsh(xi,yi+1,s), d=hsh(xi+1,yi+1,s);
+  const a=hshA(xi,yi,s), b=hshA(xi+1,yi,s), c=hshA(xi,yi+1,s), d=hshA(xi+1,yi+1,s);
   return (a*(1-u)+b*u)*(1-v)+(c*(1-u)+d*u)*v;
 }
-function fbm(x,y,s,oct){
+function fbmA(x,y,s,oct){
   let sum=0,amp=.5,f=1,norm=0;
-  for(let i=0;i<oct;i++){ sum+=amp*vnoise(x*f,y*f,s+i*57); norm+=amp; amp*=.5; f*=2; }
+  for(let i=0;i<oct;i++){ sum+=amp*vnA(x*f,y*f,s+i*131); norm+=amp; amp*=.5; f*=2; }
   return sum/norm;
 }
 
-function hex2rgbA(h){h=h.replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
+function hex2rgbG(h){h=h.replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
   const n=parseInt(h,16);return[(n>>16)&255,(n>>8)&255,n&255];}
-
-/* The ground is the palette pushed towards silt: darkened, desaturated and
-   spread over a ramp, so the bright mosaic has something muddy to sit on. */
-function fieldRamp(){
-  const pal=(S.pal.length?S.pal:["#888888"]).slice();
-  const lum=h=>{const[r,g,b]=hex2rgbA(h);return r*.299+g*.587+b*.114;};
-  pal.sort((a,b)=>lum(a)-lum(b));
-  const mix=0.10+0.55*S.bleach;
-  const stops=[[38,36,46]];
-  for(let i=0;i<pal.length;i++){
-    const [r,g,b]=hex2rgbA(pal[i]);
-    const l=lum(pal[i])/255;
-    const grey=70+150*l;
-    stops.push([
-      Math.round(r*(1-mix)+grey*mix),
-      Math.round(g*(1-mix)+grey*mix),
-      Math.round(b*(1-mix)+grey*mix)
-    ]);
-  }
-  stops.push([236,231,220]);
-  return stops;
+function lumG(h){const[r,g,b]=hex2rgbG(h);return r*.299+g*.587+b*.114;}
+/* Type on a coloured ground only reads if the ink is nothing like the ground.
+   Text-mode art solves this the same way every time: one bright accent does
+   the typing over every territory, and swaps for a dark one where the ground
+   is itself the bright colour. */
+function inkFor(bg,pal){
+  let hi=pal[0], lo=pal[0];
+  for(const c of pal){ if(lumG(c)>lumG(hi)) hi=c; if(lumG(c)<lumG(lo)) lo=c; }
+  return Math.abs(lumG(bg)-lumG(hi)) > Math.abs(lumG(bg)-lumG(lo)) ? hi : lo;
 }
 
-let fbuf=null,fctx=null;
-function paintField(W,H){
-  const long=Math.max(W,H);
-  const res=Math.max(120,Math.min(420,Math.round(long/3)));
-  const fw=Math.max(2,Math.round(res*W/long)), fh=Math.max(2,Math.round(res*H/long));
-  if(!fbuf){fbuf=document.createElement("canvas");fctx=fbuf.getContext("2d");}
-  if(fbuf.width!==fw||fbuf.height!==fh){fbuf.width=fw;fbuf.height=fh;}
-  const img=fctx.createImageData(fw,fh), d=img.data;
-  const ramp=fieldRamp(), n=ramp.length-1;
-  const sc=S.scale, wp=S.warp, ct=0.5+S.contrast*1.6;
-  const sd=S.seed*13;
-  for(let y=0;y<fh;y++){
-    for(let x=0;x<fw;x++){
-      const u=x/fh*sc, v=y/fh*sc;
-      /* warp the lookup by the field itself — this is what makes the marbling */
-      const wx=u+wp*(fbm(u*1.7+11,v*1.7,sd+91,3)-0.5)*2.4;
-      const wy=v+wp*(fbm(u*1.7,v*1.7+7,sd+37,3)-0.5)*2.4;
-      let t=fbm(wx,wy,sd,6);
-      /* a ridged pass adds the thin bright filaments of a satellite image */
-      const rg=1-Math.abs(fbm(wx*2.1+5,wy*2.1-3,sd+211,4)*2-1);
-      t=t*0.74+rg*rg*0.26;
-      t=(t-0.5)*ct+0.5;
-      t=t<0?0:t>1?1:t;
-      const p=t*n, i=Math.min(n-1,Math.floor(p)), m=p-i;
-      const A=ramp[i], B=ramp[i+1];
-      const o=(y*fw+x)*4;
-      d[o]  =A[0]+(B[0]-A[0])*m;
-      d[o+1]=A[1]+(B[1]-A[1])*m;
-      d[o+2]=A[2]+(B[2]-A[2])*m;
-      d[o+3]=255;
+function curSet(){
+  const s=SETS.find(x=>x[0]===S.set)||SETS[0];
+  return s[2];
+}
+
+/* ---- the grid ----------------------------------------------------------
+   Everything downstream reads this one array, so the canvas, the SVG and the
+   plain-text export are three renderings of the same grid rather than three
+   descriptions of the same idea. */
+function buildGrid(f){
+  const r=RATIOS.find(x=>x.id===S.ratio);
+  const cols=Math.max(8,S.cols|0);
+  /* a monospace cell is about 0.6 wide for its height; rows follow from the
+     aspect so the characters stay square-ish on the page */
+  const cellAspect=0.6;
+  const R=Math.max(6,Math.round(cols*(r.h/r.w)*cellAspect));
+  const M=S.motion;
+  const gseed=(M.on&&M.mode==="shuffle")?S.seed+f*7919:S.seed;
+  const drift=(M.on&&M.mode==="drift")?(f/M.frames)*M.amount*2:0;
+  const rnd=rng(gseed);
+  const glyphs=curSet();
+  const nb=Math.max(2,S.bands|0);
+  const pal=S.pal.length?S.pal:["#888888"];
+
+  /* one ink per band, wrapping if the palette is short; the last band is the
+     page itself so the composition has somewhere to breathe */
+  const cell=new Array(cols*R);
+  const sc=S.scale, wp=S.warp;
+  for(let y=0;y<R;y++){
+    for(let x=0;x<cols;x++){
+      /* sample in page space, not grid space, or the noise stretches with
+         the aspect ratio and the terrain smears sideways */
+      const u=x/cols*sc, v=(y/R)*sc*(r.h/r.w)+drift;
+      const wx=u+wp*(fbmA(u*1.6+19,v*1.6,gseed+41,3)-0.5)*2.2;
+      const wy=v+wp*(fbmA(u*1.6,v*1.6+7,gseed+83,3)-0.5)*2.2;
+      let t=fbmA(wx,wy,gseed,4);
+      t=(t-0.5)*(0.7+S.mix*1.6)+0.5;
+      t=t<0?0:t>0.999?0.999:t;
+      const band=Math.floor(t*nb);
+      const bg=pal[band%pal.length];
+      const ink=inkFor(bg,pal);
+      /* a band's texture: its own slice of the glyph set, so each terrace
+         reads as a different material rather than random noise */
+      const lo=Math.floor(band/nb*glyphs.length);
+      /* Variety runs from one character per terrace to the whole set */
+      const span=Math.max(1,Math.round(1+(S.weight/1.5)*(glyphs.length-1)));
+      const jitter=hshA(x*7+1,y*13+3,gseed+band*97);
+      const on=hshA(x*3+5,y*5+11,gseed+band*57) < S.density*(0.35+0.9*((band+1)/nb));
+      const ch=on ? glyphs[(lo+Math.floor(jitter*span))%glyphs.length] : " ";
+      cell[y*cols+x]={bg:bg,ink:ink,ch:ch};
     }
   }
-  fctx.putImageData(img,0,0);
-  return fbuf;
+  return {cols:cols, rows:R, cell:cell};
 }
 
 function paint(c,W,H,f){
-  const M=S.motion;
-  const frameSeed=(M.on&&M.mode==="shuffle")?S.seed+f*7919:S.seed;
-  const r=rng(frameSeed);
-  const field=paintField(W,H);
-
-  c.imageSmoothingEnabled=true;
-  c.clearRect(0,0,W,H);
-  c.drawImage(field,0,0,W,H);
-
-  const unit=Math.max(4,Math.round(S.cell*W/1200));
-  const cols=Math.max(1,Math.ceil(W/unit)), rows=Math.max(1,Math.ceil(H/unit));
-  const pal=S.pal.length?S.pal:["#000"];
-  const pick=()=>pal[(r()*pal.length)|0];
-
-  /* 1 — pixelate: read the field back in chunks and stamp it as flat squares */
-  if(S.quant>0.01){
-    const fw=field.width, fh=field.height;
-    const src=fctx.getImageData(0,0,fw,fh).data;
-    const regions=Math.round(2+S.quant*9);
-    for(let g=0;g<regions;g++){
-      const px=Math.max(2,Math.round(unit*(0.5+r()*1.6)));
-      const rw=Math.round((3+r()*11)*px), rh=Math.round((3+r()*9)*px);
-      const rx=Math.round((r()*W-rw/2)/px)*px, ry=Math.round((r()*H-rh/2)/px)*px;
-      for(let y=ry;y<ry+rh;y+=px){
-        for(let x=rx;x<rx+rw;x+=px){
-          if(x+px<0||y+px<0||x>W||y>H) continue;
-          const sx=Math.min(fw-1,Math.max(0,Math.floor((x+px/2)/W*fw)));
-          const sy=Math.min(fh-1,Math.max(0,Math.floor((y+px/2)/H*fh)));
-          const o=(sy*fw+sx)*4;
-          c.fillStyle="rgb("+src[o]+","+src[o+1]+","+src[o+2]+")";
-          c.fillRect(x,y,px,px);
-        }
-      }
+  const g=buildGrid(f);
+  const cw=W/g.cols, chh=H/g.rows;
+  c.imageSmoothingEnabled=false;
+  /* backgrounds first, as merged runs — far fewer fills than one per cell */
+  for(let y=0;y<g.rows;y++){
+    let x=0;
+    while(x<g.cols){
+      const col=g.cell[y*g.cols+x].bg;
+      let x2=x+1;
+      while(x2<g.cols && g.cell[y*g.cols+x2].bg===col) x2++;
+      c.fillStyle=col;
+      c.fillRect(Math.floor(x*cw),Math.floor(y*chh),
+                 Math.ceil((x2-x)*cw)+1,Math.ceil(chh)+1);
+      x=x2;
     }
   }
-
-  /* 2 — mosaic patches: rectangles of loose cells in clashing inks */
-  for(let p=0;p<S.patches;p++){
-    /* every third patch or so runs on a finer grid — those are the dense
-       chequered fields, the rest are the loose scatters between them */
-    const fine=r()<0.38;
-    const u=Math.max(3,Math.round(unit*(fine?0.42:1)));
-    const pw=Math.round((3+r()*(fine?16:9))*u), ph=Math.round((3+r()*(fine?14:8))*u);
-    const px=Math.round((r()*W-pw/2)/u)*u, py=Math.round((r()*H-ph/2)/u)*u;
-    const local=pal.slice().sort(()=>r()-0.5).slice(0,2+((r()*3)|0));
-    const dens=S.fill*(fine?0.85:1);
-    for(let y=py;y<py+ph;y+=u){
-      for(let x=px;x<px+pw;x+=u){
-        if(r()>dens) continue;
-        c.fillStyle=local[(r()*local.length)|0];
-        c.fillRect(x,y,u,u);
-      }
-    }
-  }
-
-  /* 3 — solid blocks, snapped to the same grid */
-  for(let b=0;b<S.blocks;b++){
-    const bw=Math.round((4+r()*12)*unit), bh=Math.round((2+r()*8)*unit);
-    const bx=Math.round(r()*cols)*unit, by=Math.round(r()*rows)*unit;
-    c.fillStyle=pick();
-    c.fillRect(bx-Math.round(bw/2),by-Math.round(bh/2),bw,bh);
-  }
-
-  /* 4 — full-bleed bands */
-  for(let b=0;b<S.bands;b++){
-    const bh=Math.round((1+r()*4)*unit);
-    const by=Math.round(r()*rows)*unit;
-    c.fillStyle=pick();
-    c.globalAlpha=0.85+r()*0.15;
-    c.fillRect(0,by,W,bh);
-    c.globalAlpha=1;
-  }
-
-  /* 5 — slice: shove bands of the finished image sideways */
-  if(S.slice>0.01){
-    const jitter=(M.on&&M.mode==="slice")?(f/M.frames)*M.amount:0;
-    const rs=rng(frameSeed+(M.on&&M.mode==="slice"?f*131:0)+555);
-    const n=Math.round(2+S.slice*14);
-    for(let i=0;i<n;i++){
-      const sh=Math.round((0.4+rs()*2.2)*unit);
-      const sy=Math.round(rs()*rows)*unit;
-      const dx=Math.round((rs()-0.5+jitter)*S.slice*10*unit);
-      if(!dx) continue;
-      const strip=c.getImageData(0,Math.max(0,Math.min(H-1,sy)),W,Math.min(sh,H-sy));
-      if(!strip.width||!strip.height) continue;
-      c.putImageData(strip,dx,sy);
-      c.putImageData(strip,dx-(dx>0?W:-W),sy);
+  const fs=chh*0.98;
+  c.font=fs+"px "+MONO;
+  c.textAlign="center";
+  c.textBaseline="middle";
+  for(let y=0;y<g.rows;y++){
+    for(let x=0;x<g.cols;x++){
+      const k=g.cell[y*g.cols+x];
+      if(k.ch===" ") continue;
+      c.fillStyle=k.ink;
+      c.fillText(k.ch,(x+0.5)*cw,(y+0.55)*chh);
     }
   }
 }
+
+/* ---- plain text --------------------------------------------------------- */
+function buildTXT(){
+  const g=buildGrid(curFrame);
+  const out=[];
+  for(let y=0;y<g.rows;y++){
+    let line="";
+    for(let x=0;x<g.cols;x++) line+=g.cell[y*g.cols+x].ch;
+    out.push(line.replace(/\s+$/,""));
+  }
+  return out.join("\n")+"\n";
+}
+
+/* ---- vector ------------------------------------------------------------
+   Real <text>, not outlines: the SVG stays editable and the characters stay
+   characters. textLength pins every run to an exact multiple of the cell
+   width, so the grid holds even if the viewer substitutes a different
+   monospace face. */
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function svgFrame(f){
+  const r=RATIOS.find(x=>x.id===S.ratio);
+  const W=S.size,H=Math.round(S.size*r.h/r.w);
+  const g=buildGrid(f);
+  const cw=W/g.cols, chh=H/g.rows;
+  let bg="", tx="";
+  for(let y=0;y<g.rows;y++){
+    let x=0;
+    while(x<g.cols){
+      const col=g.cell[y*g.cols+x].bg;
+      let x2=x+1;
+      while(x2<g.cols && g.cell[y*g.cols+x2].bg===col) x2++;
+      bg+='<rect x="'+(x*cw).toFixed(2)+'" y="'+(y*chh).toFixed(2)+
+          '" width="'+((x2-x)*cw).toFixed(2)+'" height="'+(chh+0.5).toFixed(2)+
+          '" fill="'+col+'"/>';
+      x=x2;
+    }
+    /* One tspan per character, anchored at the middle of its cell. Runs with
+       textLength would be a third of the size, but spacing-adjustment hangs
+       each glyph off the LEFT of its cell while the canvas centres it — the
+       export would then not match what is on screen. Cells beat bytes. */
+    let runs="";
+    for(x=0;x<g.cols;x++){
+      const k=g.cell[y*g.cols+x];
+      if(k.ch===" ") continue;
+      runs+='<tspan x="'+((x+0.5)*cw).toFixed(2)+'" fill="'+k.ink+'">'+esc(k.ch)+'</tspan>';
+    }
+    if(runs) tx+='<text y="'+((y+0.55)*chh).toFixed(2)+'" dominant-baseline="central" xml:space="preserve">'+runs+'</text>';
+  }
+  return bg+'<g font-family=\''+MONO+'\' font-size="'+(chh*0.98).toFixed(2)+
+         '" text-anchor="middle">'+tx+'</g>';
+}
+function svgWrap(inner){
+  const r=RATIOS.find(x=>x.id===S.ratio);
+  const W=S.size,H=Math.round(S.size*r.h/r.w);
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+
+         '" viewBox="0 0 '+W+' '+H+'">'+inner+'</svg>';
+}
+function buildSVG(){return svgWrap(svgFrame(curFrame));}
 
 const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
 function fitCanvas(){
@@ -747,7 +762,7 @@ function save(blob,name){
   a.href=url;a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
-function stamp(){return `delta-${S.seed}-${S.ratio.replace(":","x")}`;}
+function stamp(){return `atlas-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
   const a=$("#expVid"),sc=$("#scrub"),l=$("#expSvgLoop");
   if(a)a.disabled=!S.motion.on;
@@ -763,6 +778,15 @@ $("#expPng").addEventListener("click",()=>{
     paint(c.getContext("2d"),W,H,curFrame);
     c.toBlob(b=>{save(b,stamp()+".png");toast(`PNG saved · ${W}×${H}`);});
   },30);
+});
+$("#expSvg").addEventListener("click",()=>{
+  save(new Blob([buildSVG()],{type:"image/svg+xml"}),stamp()+".svg");
+  toast("SVG saved");
+});
+$("#expTxt").addEventListener("click",()=>{
+  const txt=buildTXT();
+  save(new Blob([txt],{type:"text/plain;charset=utf-8"}),stamp()+".txt");
+  toast(`Text saved · ${txt.split("\n").length - 1} lines`);
 });
 function pickVideoType(){
   const t=["video/mp4;codecs=avc1.42E01E","video/mp4","video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"];
@@ -879,6 +903,7 @@ function bindRange(id,fmt,set,after){
 }
 
 buildRatios();buildSwatches();accent();
+segmented($("#sets"),SETS.map(x=>[x[0],x[1]]),()=>S.set,v=>{S.set=v;reframe();});
 segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
 $("#shufColors").addEventListener("click",()=>{
   setPalette(PALETTES[(Math.random()*PALETTES.length)|0]);
@@ -888,15 +913,11 @@ $("#rotColors").addEventListener("click",()=>{
 });
 bindRange("scale",v=>v.toFixed(1),v=>S.scale=v);
 bindRange("warp",v=>Math.round(v/1.6*100)+"%",v=>S.warp=v);
-bindRange("contrast",v=>Math.round(v*100)+"%",v=>S.contrast=v);
-bindRange("bleach",v=>Math.round(v*100)+"%",v=>S.bleach=v);
-bindRange("patches",v=>v|0,v=>S.patches=v|0);
-bindRange("cell",v=>v|0,v=>S.cell=v|0);
-bindRange("fill",v=>Math.round(v*100)+"%",v=>S.fill=v);
-bindRange("quant",v=>Math.round(v*100)+"%",v=>S.quant=v);
-bindRange("blocks",v=>v|0,v=>S.blocks=v|0);
 bindRange("bands",v=>v|0,v=>S.bands=v|0);
-bindRange("slice",v=>Math.round(v*100)+"%",v=>S.slice=v);
+bindRange("mix",v=>Math.round(v*100)+"%",v=>S.mix=v);
+bindRange("cols",v=>v|0,v=>S.cols=v|0);
+bindRange("density",v=>Math.round(v*100)+"%",v=>S.density=v);
+bindRange("weight",v=>Math.round(v/1.5*100)+"%",v=>S.weight=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
