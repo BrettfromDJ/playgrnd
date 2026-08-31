@@ -393,8 +393,9 @@ input[type=range]{accent-color:var(--ink)}
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Glyph</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Arms</span><span class="v" id="armsVal">45%</span></div><div class="track"><input type="range" id="arms" min="0" max="1" step="0.01" value="0.45"></div></div>
-        <div class="pr"><div class="top"><span class="k">Stroke</span><span class="v" id="weightVal">30%</span></div><div class="track"><input type="range" id="weight" min="0" max="1" step="0.01" value="0.3"></div></div>
+    <div class="l-scroll"><details class="grp" open><summary>Arrow</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Head</span><span class="v" id="armsVal">55%</span></div><div class="track"><input type="range" id="arms" min="0" max="1" step="0.01" value="0.55"></div></div>
+        <div class="pr"><div class="top"><span class="k">Tail</span><span class="v" id="tailVal">30%</span></div><div class="track"><input type="range" id="tail" min="0" max="0.7" step="0.01" value="0.3"></div></div>
+        <div class="pr"><div class="top"><span class="k">Stroke</span><span class="v" id="weightVal">34%</span></div><div class="track"><input type="range" id="weight" min="0" max="1" step="0.01" value="0.34"></div></div>
         <div class="pr"><div class="top"><span class="k">Bite</span><span class="v" id="biteVal">70%</span></div><div class="track"><input type="range" id="bite" min="0" max="1" step="0.01" value="0.7"></div></div></div></details>
     <details class="grp" open><summary>Layout</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Glyphs across</span><span class="v" id="gridVal">4</span></div><div class="track"><input type="range" id="grid" min="1" max="16" step="1" value="4"></div></div>
         <div class="pr"><div class="top"><span class="k">Rotation</span><span class="v" id="spinVal">75%</span></div><div class="track"><input type="range" id="spin" min="0" max="1" step="0.01" value="0.75"></div></div></div></details></div>
@@ -499,7 +500,7 @@ const PALETTES=[
 
 const S={
   seed:13, ratio:"1:1",
-  grid:4, weight:0.30, arms:0.45,
+  grid:4, weight:0.34, arms:0.55, tail:0.30,
   bite:0.70, spin:0.75,
   pal:PALETTES[0].slice(),
   motion:{on:false,mode:"shuffle",amount:0.6,fps:6,frames:24},
@@ -516,47 +517,47 @@ function hex2rgbG2(h){h=String(h).replace("#","");if(h.length===3)h=h.split("").
   const n=parseInt(h,16);return[(n>>16)&255,(n>>8)&255,n&255];}
 function lumG2(h){const[r,g,b]=hex2rgbG2(h);return r*.299+g*.587+b*.114;}
 
-/* ---- the motif ---------------------------------------------------------
-   One glyph is designed per variation and then stamped in four rotations.
-   It is built from thick strokes on a coarse lattice — a spine, a couple of
-   arms off it, and a bar or two — which is the whole vocabulary the
-   reference uses. The strokes are drawn with round joins and then squared
-   off, so a corner reads as one mitred bend rather than two overlapping
-   bars. */
+/* ---- the arrow ---------------------------------------------------------
+   It is always an arrow. The seed varies its proportions — how far the shaft
+   runs, how big the head is, whether it carries a tail bar — never whether it
+   is an arrow at all. An earlier version dealt strokes freely between anchor
+   points and the result was a set of marks that happened to include arrows,
+   which is not the same thing.
+
+   The shaft runs down the diagonal and the head is two bars laid back from
+   the tip along the axes, so the shaft bisects a right angle. That is how the
+   reference draws it, and it is why the head still reads as a head after a
+   quarter turn: the bars land on the grid rather than at some odd angle. */
 function buildGlyph(f){
   const M=S.motion;
   const gseed=(M.on&&M.mode==="shuffle")?S.seed+f*7919:S.seed;
   const r=(k)=>hshG(k*13+1,k*7+3,gseed+k*29);
 
-  /* Nine anchors — the four corners, the four edge midpoints and the centre.
-     Coarse on purpose: a stroke between any two of them is either square or
-     a true 45, which is the whole geometry of the reference, and because the
-     anchors sit ON the tile edge the marks run off one tile and into the
-     next instead of floating in the middle of it. */
-  const A=[];
-  for(let b=0;b<3;b++) for(let a=0;a<3;a++) A.push([a/2,b/2]);
-
+  /* The tip stops short of the corner the arrow points at, because that
+     corner is where the scoop is bitten out and where four arrows converge.
+     Running the shaft all the way in puts the head under the scoop, which
+     eats it and leaves a bare diagonal. */
+  const t0=0.04+r(2)*0.08;                 /* where the shaft starts */
+  const t1=0.78+r(3)*0.10;                 /* where it ends, at the tip */
+  /* the head has a floor: a small one stops reading as an arrowhead at all,
+     and the whole point of this tool is that it is always an arrow */
+  const head=Math.max(0.20,(0.20+S.arms*0.30)*(0.88+r(4)*0.24));
   const strokes=[];
-  const used={};
-  /* The slider has to move the count for EVERY glyph, not just the ones whose
-     hash happens to sit near a boundary. Scaling a hash by the slider leaves
-     seeds where the whole travel floors to the same number and the control
-     does nothing; adding the slider instead, with only a small seeded wobble
-     on top, means every seed responds while glyphs still differ from each
-     other at the same setting. */
-  const nStrokes=Math.max(2,Math.round(2+S.arms*3.4+(r(1)-0.5)*1.4));
-  for(let k=0;k<nStrokes;k++){
-    let p=Math.floor(r(10+k)*9), q=Math.floor(r(30+k)*9);
-    if(p===q) q=(q+1+Math.floor(r(50+k)*8))%9;
-    /* the centre is where marks meet; a glyph whose strokes never touch is
-       a scatter, not a mark, so pull every stroke after the first onto a
-       point the glyph already uses */
-    if(k>0 && r(70+k)<0.72){
-      const keys=Object.keys(used);
-      if(keys.length) p=+keys[Math.floor(r(90+k)*keys.length)];
-    }
-    used[p]=1; used[q]=1;
-    strokes.push([A[p],A[q]]);
+
+  /* the shaft, running to the bottom-right corner */
+  strokes.push([[t0,t0],[t1,t1]]);
+  /* the head: one bar back along x, one back along y */
+  strokes.push([[t1,t1],[Math.max(0.02,t1-head),t1]]);
+  strokes.push([[t1,t1],[t1,Math.max(0.02,t1-head)]]);
+
+  /* the tail: a bar squared off across the base of the shaft, which is what
+     turns a bare arrow into the bracketed mark the reference stamps */
+  const tail=S.tail*(0.7+r(5)*0.6);
+  if(tail>0.04){
+    const perp=(r(6)<0.5)?1:-1;
+    strokes.push([[t0,t0],[Math.min(0.98,Math.max(0.02,t0+tail*perp)),t0]]);
+    if(r(7)<0.55)
+      strokes.push([[t0,t0],[t0,Math.min(0.98,Math.max(0.02,t0-tail*perp))]]);
   }
   return {strokes:strokes, seed:gseed};
 }
@@ -911,6 +912,7 @@ $("#rotColors").addEventListener("click",()=>{
   setPalette(out);
 });
 bindRange("arms",v=>Math.round(v*100)+"%",v=>S.arms=v);
+bindRange("tail",v=>Math.round(v/0.7*100)+"%",v=>S.tail=v);
 bindRange("weight",v=>Math.round(v*100)+"%",v=>S.weight=v);
 bindRange("bite",v=>Math.round(v*100)+"%",v=>S.bite=v);
 bindRange("grid",v=>v|0,v=>S.grid=v|0);
