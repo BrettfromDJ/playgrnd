@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Warp — playgrnd</title>
-<meta name="description" content="Generate warped op-art patterns — checkerboards, slashes and rings in neon on black, bent through waves, tapers and bulges. Exports SVG, PNG and video.">
+<title>Sampler — playgrnd</title>
+<meta name="description" content="Generate seamless sampler-board backgrounds — columns of pattern blocks under routed traces that wrap at every edge, so the tile repeats forever. Exports vector, image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -379,19 +379,23 @@ input[type=range]{accent-color:var(--ink)}
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
         <span class="slash">&frasl;</span>
-        <span class="tool">Warp</span>
+        <span class="tool">Sampler</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">07 / 28</span>
-        <span class="k">Type</span><span class="v">Op-art pattern</span>
+        <span class="k">Index</span><span class="v">28 / 28</span>
+        <span class="k">Type</span><span class="v">Modular tiles</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Artwork</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Style</span></span><span class="mval"><div class="chips" id="styles"></div></span></div>
-        <div class="pr"><div class="top"><span class="k">Scale</span><span class="v" id="scaleVal">100%</span></div><div class="track"><input type="range" id="scale" min="0.5" max="2" step="0.05" value="1"></div></div>
-        <div class="pr"><div class="top"><span class="k">Warp</span><span class="v" id="warpVal">70%</span></div><div class="track"><input type="range" id="warp" min="0" max="1" step="0.01" value="0.7"></div></div></div></details></div>
-    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Base + inks</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+    <div class="l-scroll"><details class="grp" open><summary>Grid</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Tiles across</span><span class="v" id="gridVal">16</span></div><div class="track"><input type="range" id="grid" min="4" max="48" step="1" value="16"></div></div>
+        <div class="pr"><div class="top"><span class="k">Bands</span><span class="v" id="bandsVal">6</span></div><div class="track"><input type="range" id="bands" min="1" max="14" step="1" value="6"></div></div></div></details>
+    <details class="grp" open><summary>Tiles</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Shapes per band</span><span class="v" id="mixVal">55%</span></div><div class="track"><input type="range" id="mix" min="0" max="1" step="0.01" value="0.55"></div></div>
+        <div class="pr"><div class="top"><span class="k">Rotation</span><span class="v" id="turnVal">75%</span></div><div class="track"><input type="range" id="turn" min="0" max="1" step="0.01" value="0.75"></div></div>
+        <div class="pr"><div class="top"><span class="k">Coverage</span><span class="v" id="densityVal">95%</span></div><div class="track"><input type="range" id="density" min="0.1" max="1" step="0.01" value="0.95"></div></div>
+        <div class="pr"><div class="top"><span class="k">Ink balance</span><span class="v" id="weightVal">50%</span></div><div class="track"><input type="range" id="weight" min="0" max="1" step="0.01" value="0.5"></div></div></div></details></div>
+    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">7</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
         
+        <div class="note">The darkest ink is the page; each band takes two of the rest.</div>
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
@@ -428,17 +432,15 @@ input[type=range]{accent-color:var(--ink)}
       <h2 class="h frame-h">Frame</h2><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span>
     </div>
     <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
-          <div class="pr"><div class="top"><span class="k">Intensity</span><span class="v" id="amtVal">0.80</span></div><div class="track"><input type="range" id="amt" min="0.1" max="2" step="0.05" value="0.8"></div></div>
-          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="12"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">72 frames</span></div><div class="track"><input type="range" id="frames" min="12" max="180" step="4" value="72"></div></div>
-          <div class="note">Bend makes the warp undulate; March drives the pattern through the frame. Every loop closes exactly.</div></div></div>
+          <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
+          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">6 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="6"></div></div>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">24 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="24"></div></div></div></div>
     <div class="r-bot">
       <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
           <button class="lnk" id="expSvg">SVG</button>
-          <button class="lnk" id="expSvgLoop">SVG loop</button>
           <button class="lnk" id="expVid">Video</button></span></div>
-        <div class="note">The SVG is true vectors — every warped shape becomes a crisp path, ready for print.</div></div>
+        <div class="note" id="expNote">Every tile is a flat polygon, so the SVG is true vectors, and the edges match on all four sides.</div></div>
       <div class="tbl" style="margin-top:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>
@@ -477,196 +479,222 @@ function hex2rgb(h){h=h.replace("#","");if(h.length===3)h=h.split("").map(c=>c+c
 function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4);});
   return .2126*r+.7152*g+.0722*b;}
 
-const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"1:1",w:1,h:1},{id:"4:3",w:4,h:3},
- {id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9},{id:"2:1",w:2,h:1},{id:"3:1",w:3,h:1}];
-const MODES=[["bend","Bend"],["march","March"]];
-const STYLES=[["auto","Auto"],["checker","Checker"],["slash","Slash"],["rings","Rings"]];
-/* black base + four neon inks, one per panel */
+const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
+ {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
+const MODES=[["shuffle","Shuffle"],["turn","Turn"]];
+
 const PALETTES=[
-  ["#0A0A0C","#2B4FD8","#7CE860","#6A2BE0","#F03C8C"],
-  ["#0A0A0C","#F05A1E","#F0D82C","#2CC8F0","#F03C8C"],
-  ["#101216","#E8E4DC","#F04A10","#2B4FD8","#7CE860"],
-  ["#F2EDE4","#141414","#F04A10","#2B4FD8","#F5C21B"],
-  ["#0A0A0C","#F786A8","#8A5CF0","#41C6F0","#BFE84A"],
-  ["#12122A","#F0D82C","#F03C8C","#2CC8F0","#7CE860"]
+  ["#080604","#E8330F","#8C2010","#F09018","#F58AB8","#D8D8D8","#12A07A"],
+  ["#060606","#E4402A","#7A1C14","#F5A21E","#FF8FC0","#E2E2E2","#1AA688"],
+  ["#0A0A0C","#DF2C55","#6E1430","#F2B01C","#F58ACB","#DDDCD8","#1C8FA8"],
+  ["#050505","#F04E1E","#8E2A12","#FFC02E","#FF9ED0","#E8E6E0","#22B0A0"],
+  ["#0B0808","#D62828","#7C1A1A","#F0A202","#F58FAF","#DEDEDE","#1F8A70"]
+];
+
+/* Tile vocabulary. Every mark is straight-edged — triangles, bars, elbows,
+   diagonals — because that is what the reference is made of; an arc would
+   read as a different language entirely. Each is drawn in a unit square and
+   then rotated, so four orientations come free from one definition. */
+const TILES=[
+  ["tri","Triangles"],
+  ["diag","Diagonals"],
+  ["bar","Bars"],
+  ["elbow","Elbows"],
+  ["step","Steps"],
+  ["half","Halves"],
+  ["notch","Notches"],
+  ["arrow","Arrows"]
 ];
 
 const S={
-  seed:11, ratio:"1:1",
-  style:"auto", scale:1, warp:.7,
+  seed:17, ratio:"3:4",
+  grid:16, bands:6, mix:0.55,
+  weight:0.5, density:0.95, turn:0.75,
   pal:PALETTES[0].slice(),
-  motion:{on:false,mode:"bend",amount:.8,fps:12,frames:72},
+  motion:{on:false,mode:"shuffle",amount:0.6,fps:6,frames:24},
   size:2400
 };
 
-function motionState(f){
+function hshS(x,y,s){
+  let n=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1274126177);
+  n=Math.imul(n^(n>>>13),1274126177);
+  n^=n>>>16;
+  return (n>>>0)/4294967296;
+}
+function hex2rgbS(h){h=h.replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
+  const n=parseInt(h,16);return[(n>>16)&255,(n>>8)&255,n&255];}
+function lumS(h){const[r,g,b]=hex2rgbS(h);return r*.299+g*.587+b*.114;}
+function darkestS(pal){let d=pal[0];for(const c of pal) if(lumS(c)<lumS(d)) d=c; return d;}
+
+/* ---- bands -------------------------------------------------------------
+   The page stacks into bands, each with its own tile mix and its own pair of
+   inks. Heights land on whole tiles and the run wraps, so the top edge of the
+   tile meets its own bottom edge. */
+function buildBands(f){
   const M=S.motion;
-  const t=M.on?f/M.frames:0;
-  return{t,flow:M.on&&M.mode==="bend",pulse:M.on&&M.mode==="march",amp:M.amount};
+  const bseed=(M.on&&M.mode==="shuffle")?S.seed+f*7919:S.seed;
+  const g=Math.max(3,S.grid|0);
+  const r=RATIOS.find(x=>x.id===S.ratio);
+  const rows=Math.max(3,Math.round(g*(r.h/r.w)));
+  const pal=S.pal.length?S.pal:["#111111"];
+  const ground=darkestS(pal);
+  const inks=pal.filter(c=>c!==ground);
+  const use=inks.length?inks:pal;
+
+  const want=Math.max(1,S.bands|0);
+  const out=[];
+  /* start the run at a random row so no band edge is pinned to y=0 */
+  const y0=Math.floor(hshS(0,71,bseed+3)*rows);
+  let y=y0, i=0, guard=0;
+  while(guard++<400){
+    if(y-y0>=rows) break;
+    let h=Math.max(1,Math.round(rows/want*(0.55+hshS(i,11,bseed+13)*0.95)));
+    if((y+h)-y0>rows) h=rows-(y-y0);
+    if(h<1) break;
+    /* each band picks a couple of tile kinds — one kind reads as a weave,
+       three or more reads as noise */
+    const nk=1+Math.floor(hshS(i,17,bseed+19)*(1+S.mix*2.2));
+    const kinds=[];
+    for(let k=0;k<nk;k++) kinds.push(TILES[Math.floor(hshS(i*7+k,23,bseed+29)*TILES.length)][0]);
+    const a=use[Math.floor(hshS(i,31,bseed+37)*use.length)];
+    /* the second ink must be a different ink, not the page. Falling back to
+       the ground made roughly half of every band's tiles invisible, which
+       read as a coverage problem rather than as the colour bug it was —
+       the black in this artwork comes from the shapes, not from blank cells. */
+    const alt=use.filter(c=>c!==a);
+    const b=alt.length?alt[Math.floor(hshS(i,41,bseed+43)*alt.length)]:ground;
+    out.push({y0:y, y1:y+h, kinds:kinds, a:a, b:b, seed:bseed+i*257});
+    y+=h; i++;
+  }
+  return {cols:g, rows:rows, bands:out, ground:ground, inks:use, seed:bseed};
 }
 
-/* ============================================================
-   The op-art engine — one checker, slash or ring pattern per
-   artwork, built as real polygons and bent vertex-by-vertex
-   through a wave, taper or bulge. The same paths feed the
-   canvas and the SVG export.
-============================================================ */
-let SW=1;
-const fract=x=>x-Math.floor(x);
-function buildSpec(){
-  const r=rng(S.seed*2654435761>>>0);
-  SW=(S.seed^0x2c1b3c6d)>>>0;
-  const kinds=["checker","slash","rings"];
-  const kpick=(r()*kinds.length)|0;
-  return{
-    kind:S.style==="auto"?kinds[kpick]:S.style,
-    ink:1+((r()*4)|0),
-    cell:0.09+r()*0.09,
-    ang:(r()<0.5?-1:1)*(0.35+r()*0.55),
-    duty:0.45+r()*0.18,
-    ccx:r(),ccy:r(),
-    warp:["wave","taper","bulge"][(r()*3)|0],
-    wA:0.5+r()*0.8,wF:2+r()*3.5,ph:r()*TAU,
-    brk:2.5+r()*3,
-    inv:r()<0.4,
-    mdir:r()<0.5?1:-1
-  };
-}
-function warpPt(p,u,v,md,W,H,WA){
-  if(p.warp==="wave"){
-    return[u+WA*0.15*Math.sin(v/md*p.wF*2.1+p.ph)*md,
-           v+WA*0.08*Math.sin(u/md*p.wF*1.6+p.ph*1.7)*md];
-  }
-  if(p.warp==="taper"){
-    const g=1+WA*0.9*(v/H-0.5);
-    return[(u-W/2)*g+W/2,v];
-  }
-  const cx=W/2,cy=H/2;
-  const dx=(u-cx)/md,dy=(v-cy)/md,rr=Math.hypot(dx,dy)+1e-6;
-  const f=Math.pow(rr/0.72,1+WA*1.2)/(rr/0.72);
-  return[cx+dx*f*md,cy+dy*f*md];
-}
-function buildPolys(p,W,H,mo){
-  const md=Math.min(W,H);
-  const bend=mo.flow?1+0.55*mo.amp*Math.sin(TAU*mo.t+p.ph):1;
-  const WA=S.warp*p.wA*bend;
-  const cs=p.cell*S.scale*md;
-  const per=Math.max(1,Math.round((mo.amp||1)*2));
-  const mt=mo.pulse?p.mdir*per*mo.t:0;   /* march offset, in pattern periods */
-  const mrg=md*0.35;
-  const polys=[];
-  const wp=(u,v)=>warpPt(p,u,v,md,W,H,WA);
-  const seg=(a,b,n,out)=>{for(let i=0;i<n;i++){const t=i/n;out.push(wp(a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t));}};
-  function quad(c0,c1,c2,c3){
-    const o=[];seg(c0,c1,5,o);seg(c1,c2,5,o);seg(c2,c3,5,o);seg(c3,c0,5,o);
-    polys.push(o);
-  }
-  if(p.kind==="checker"){
-    const off=mt*2*cs;
-    const i0=Math.floor((-mrg-off)/cs),i1=Math.ceil((W+mrg-off)/cs);
-    const j0=Math.floor(-mrg/cs),j1=Math.ceil((H+mrg)/cs);
-    for(let j=j0;j<j1;j++)for(let i=i0;i<i1;i++){
-      if((((i+j)%2)+2)%2)continue;
-      const x=i*cs+off,y=j*cs;
-      quad([x,y],[x+cs,y],[x+cs,y+cs],[x,y+cs]);
-    }
-  }else if(p.kind==="slash"){
-    const ca=Math.cos(p.ang),sa=Math.sin(p.ang);
-    const bs=cs*p.brk;
-    const R=Math.hypot(W,H)+mrg;
-    const uv=(q,s)=>[q*ca-s*sa,q*sa+s*ca];
-    const b0=Math.floor(-R/bs),b1=Math.ceil(R/bs);
-    for(let b=b0;b<b1;b++){
-      const shift=hashi(b,3,7,SW)*cs*2+mt*cs;
-      const s0=b*bs,s1=(b+1)*bs;
-      const k0=Math.floor((-R-shift)/cs),k1=Math.ceil((R-shift)/cs);
-      for(let k=k0;k<k1;k++){
-        const q0=k*cs+shift,q1=q0+cs*p.duty;
-        quad(uv(q0,s0),uv(q1,s0),uv(q1,s1),uv(q0,s1));
-      }
-    }
-  }else{
-    const cx=p.ccx*W,cy=p.ccy*H;
-    const rmax=Math.hypot(Math.max(cx,W-cx),Math.max(cy,H-cy))+mrg;
-    const nR=Math.ceil(rmax/cs)+1;
-    for(let n=Math.floor(-mt)-1;n<nR;n++){
-      const r0=(n+mt)*cs, r1=r0+cs*p.duty;
-      if(r1<=cs*0.05)continue;
-      const ri=Math.max(0.001,r0);
-      const m=Math.max(4,Math.round(p.brk*2.5));
-      const a00=hashi(n,5,9,SW)*TAU;
-      for(let s=0;s<m;s++){
-        if(hashi(s,n,11,SW)<0.25)continue;
-        const a0=a00+s/m*TAU, a1=a00+(s+1)/m*TAU-TAU/m*0.06;
-        const steps=Math.max(3,Math.ceil((a1-a0)*r1/(md*0.03)));
-        const o=[];
-        for(let i=0;i<=steps;i++){const a=a0+(a1-a0)*i/steps;o.push(wp(cx+Math.cos(a)*r1,cy+Math.sin(a)*r1));}
-        for(let i=steps;i>=0;i--){const a=a0+(a1-a0)*i/steps;o.push(wp(cx+Math.cos(a)*ri,cy+Math.sin(a)*ri));}
-        polys.push(o);
-      }
-    }
-  }
-  return polys;
-}
-function artColors(p){
-  const base=S.pal[0], ink=S.pal[p.ink];
-  return p.inv?[ink,base]:[base,ink];
-}
-function paint(c,W,H,f){
-  const p=buildSpec();
-  const mo=motionState(f);
-  const polys=buildPolys(p,W,H,mo);
-  const[bgc,fgc]=artColors(p);
-  c.setTransform(1,0,0,1,0,0);
-  c.fillStyle=bgc;c.fillRect(0,0,W,H);
-  c.fillStyle=fgc;
+/* ---- one tile ----------------------------------------------------------
+   Drawn in a unit square at the origin; the caller has already translated and
+   rotated, so each shape is defined once and gets four orientations free. */
+function tilePath(c,kind,u){
   c.beginPath();
-  for(const poly of polys){
-    c.moveTo(poly[0][0],poly[0][1]);
-    for(let i=1;i<poly.length;i++)c.lineTo(poly[i][0],poly[i][1]);
-    c.closePath();
+  switch(kind){
+    case "tri":   c.moveTo(0,0); c.lineTo(u,0); c.lineTo(0,u); break;
+    case "half":  c.moveTo(0,0); c.lineTo(u,0); c.lineTo(u,u/2); c.lineTo(0,u/2); break;
+    case "diag":  /* a thick diagonal band corner to corner */
+                  c.moveTo(0,u*0.34); c.lineTo(u*0.66,0); c.lineTo(u,0);
+                  c.lineTo(u,u*0.66); c.lineTo(u*0.34,u); c.lineTo(0,u); break;
+    case "bar":   c.moveTo(0,u*0.30); c.lineTo(u,u*0.30); c.lineTo(u,u*0.70); c.lineTo(0,u*0.70); break;
+    case "elbow": c.moveTo(0,u*0.30); c.lineTo(u*0.70,u*0.30); c.lineTo(u*0.70,u);
+                  c.lineTo(u*0.30,u); c.lineTo(u*0.30,u*0.70); c.lineTo(0,u*0.70); break;
+    case "step":  c.moveTo(0,u*0.5); c.lineTo(u*0.5,u*0.5); c.lineTo(u*0.5,0);
+                  c.lineTo(u,0); c.lineTo(u,u*0.5); c.lineTo(u*0.5,u*0.5);
+                  c.lineTo(u*0.5,u); c.lineTo(0,u); break;
+    case "notch": c.moveTo(0,0); c.lineTo(u,0); c.lineTo(u,u);
+                  c.lineTo(u*0.5,u); c.lineTo(u*0.5,u*0.5); c.lineTo(0,u*0.5); break;
+    case "arrow": c.moveTo(0,0); c.lineTo(u*0.5,u*0.5); c.lineTo(0,u);
+                  c.lineTo(u*0.34,u); c.lineTo(u*0.84,u*0.5); c.lineTo(u*0.34,0); break;
   }
+  c.closePath();
   c.fill();
 }
+
+function paint(c,W,H,f){
+  const bd=buildBands(f);
+  const cw=W/bd.cols, chh=H/bd.rows;
+  const M=S.motion;
+  /* Turn must land on a whole number of quarter-turns across the loop, or the
+     last frame does not meet the first and the animation jumps. Amount sets
+     how many full revolutions, not how far it happens to get. */
+  const turns=Math.max(1,Math.round(M.amount*2));
+  const spin=(M.on&&M.mode==="turn")?(Math.floor((f/M.frames)*4*turns)&3):0;
+
+  c.fillStyle=bd.ground; c.fillRect(0,0,W,H);
+
+  for(const bn of bd.bands){
+    for(let ry=bn.y0;ry<bn.y1;ry++){
+      /* bands are laid out on a wrapping run, so a band can hang off the
+         bottom; it comes back in at the top of the same tile */
+      const y=((ry%bd.rows)+bd.rows)%bd.rows;
+      for(let x=0;x<bd.cols;x++){
+        const hs=hshS(x*3+1,ry*5+7,bn.seed);
+        if(hs>S.density) continue;
+        const kind=bn.kinds[Math.floor(hshS(x,ry,bn.seed+61)*bn.kinds.length)%bn.kinds.length];
+        /* rotation is what turns eight shapes into a language; Turn biases
+           how freely a tile may spin away from its neighbours */
+        const rq=hshS(x*11,ry*13,bn.seed+67);
+        const rot=(Math.floor(rq*4*(0.25+S.turn*0.75))+spin)&3;
+        const ink=(hshS(x*17,ry*19,bn.seed+73)<0.5+0.3*(S.weight-0.5))?bn.a:bn.b;
+        c.save();
+        c.translate(x*cw,y*chh);
+        /* Scale into the cell FIRST, then rotate inside unit space. Rotating
+           before the scale turns a cell-wide extent onto the cell's other
+           axis, so on a non-square cell every quarter-turned tile overhangs
+           its neighbour — and at the right-hand edge that overhang is clipped
+           instead, which is exactly the sliver a tiling background must not
+           have. This way a tile always fills its own cell and nothing else. */
+        c.scale(cw,chh);
+        c.translate(0.5,0.5); c.rotate(rot*Math.PI/2); c.translate(-0.5,-0.5);
+        c.fillStyle=ink;
+        tilePath(c,kind,1);
+        c.restore();
+      }
+    }
+  }
+}
+
+/* ---- vector ------------------------------------------------------------
+   The same paint() against a recorder, so the SVG cannot drift from the
+   canvas. Transforms are emitted as groups; the shapes are already polygons,
+   so they land as real paths rather than traced outlines. */
+function SvgSurfaceS(){
+  this.fillStyle="#000"; this.imageSmoothingEnabled=false;
+  this._b=[]; this._m=[1,0,0,1,0,0]; this._st=[]; this._p=null;
+}
+function mulS(m,n){
+  return [m[0]*n[0]+m[2]*n[1], m[1]*n[0]+m[3]*n[1],
+          m[0]*n[2]+m[2]*n[3], m[1]*n[2]+m[3]*n[3],
+          m[0]*n[4]+m[2]*n[5]+m[4], m[1]*n[4]+m[3]*n[5]+m[5]];
+}
+SvgSurfaceS.prototype.save=function(){this._st.push(this._m.slice());};
+SvgSurfaceS.prototype.restore=function(){if(this._st.length)this._m=this._st.pop();};
+SvgSurfaceS.prototype.translate=function(x,y){this._m=mulS(this._m,[1,0,0,1,x,y]);};
+SvgSurfaceS.prototype.scale=function(x,y){this._m=mulS(this._m,[x,0,0,y,0,0]);};
+SvgSurfaceS.prototype.rotate=function(a){
+  const c=Math.cos(a), s=Math.sin(a);
+  this._m=mulS(this._m,[c,s,-s,c,0,0]);
+};
+SvgSurfaceS.prototype.clearRect=function(){};
+SvgSurfaceS.prototype.fillRect=function(x,y,w,h){
+  const p=this._pt(x,y), q=this._pt(x+w,y+h);
+  this._b.push('<rect x="'+Math.min(p[0],q[0]).toFixed(1)+'" y="'+Math.min(p[1],q[1]).toFixed(1)+
+    '" width="'+Math.abs(q[0]-p[0]).toFixed(1)+'" height="'+Math.abs(q[1]-p[1]).toFixed(1)+
+    '" fill="'+this.fillStyle+'"/>');
+};
+SvgSurfaceS.prototype._pt=function(x,y){
+  const m=this._m; return [m[0]*x+m[2]*y+m[4], m[1]*x+m[3]*y+m[5]];
+};
+SvgSurfaceS.prototype.beginPath=function(){this._p=[];};
+SvgSurfaceS.prototype.moveTo=function(x,y){this._p=[this._pt(x,y)];};
+SvgSurfaceS.prototype.lineTo=function(x,y){if(this._p)this._p.push(this._pt(x,y));};
+SvgSurfaceS.prototype.closePath=function(){};
+SvgSurfaceS.prototype.fill=function(){
+  if(!this._p||this._p.length<3)return;
+  const d=this._p.map(function(q,i){return (i?"L":"M")+q[0].toFixed(1)+" "+q[1].toFixed(1);}).join("")+"Z";
+  this._b.push('<path d="'+d+'" fill="'+this.fillStyle+'"/>');
+};
+SvgSurfaceS.prototype.markup=function(){return this._b.join("");};
+
 function svgFrame(f){
   const r=RATIOS.find(x=>x.id===S.ratio);
   const W=S.size,H=Math.round(S.size*r.h/r.w);
-  const p=buildSpec();
-  const mo=motionState(f);
-  const polys=buildPolys(p,W,H,mo);
-  const[bgc,fgc]=artColors(p);
-  let d="";
-  for(const poly of polys){
-    d+=`M ${poly[0][0].toFixed(1)} ${poly[0][1].toFixed(1)}`;
-    for(let i=1;i<poly.length;i++)d+=` L ${poly[i][0].toFixed(1)} ${poly[i][1].toFixed(1)}`;
-    d+=" Z";
-  }
-  return `<rect width="${W}" height="${H}" fill="${bgc}"/><path d="${d}" fill="${fgc}"/>`;
+  const s=new SvgSurfaceS();
+  paint(s,W,H,f);
+  return s.markup();
 }
 function svgWrap(inner){
   const r=RATIOS.find(x=>x.id===S.ratio);
   const W=S.size,H=Math.round(S.size*r.h/r.w);
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`+inner+`</svg>`;
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+
+         '" viewBox="0 0 '+W+' '+H+'">'+inner+'</svg>';
 }
 function buildSVG(){return svgWrap(svgFrame(curFrame));}
-
-/* animated loop: every frame goes into the file as a hidden group, and a
-   discrete visibility animation flips through them on the tool's own clock */
-function buildLoopSVG(){
-  const M=S.motion;
-  const F=M.frames;
-  const dur=(F/M.fps).toFixed(3);
-  let groups="";
-  for(let f=0;f<F;f++){
-    const t0=(f/F).toFixed(5), t1=((f+1)/F).toFixed(5);
-    const anim=f===0
-      ?`<animate attributeName="visibility" values="visible;hidden" keyTimes="0;${t1}" dur="${dur}s" calcMode="discrete" repeatCount="indefinite"/>`
-      :`<animate attributeName="visibility" values="hidden;visible;hidden" keyTimes="0;${t0};${t1}" dur="${dur}s" calcMode="discrete" repeatCount="indefinite"/>`;
-    groups+=`<g visibility="${f===0?"visible":"hidden"}">${anim}${svgFrame(f)}</g>`;
-  }
-  
-  return svgWrap(groups);
-}
 
 const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
 function fitCanvas(){
@@ -720,7 +748,6 @@ function setPlaying(v){
     :'<path d="M0 0l10 5.5L0 11z"/>';
   cancelAnimationFrame(raf);
   if(playing){t0=performance.now()-(curFrame/S.motion.frames)*(S.motion.frames/S.motion.fps*1000);raf=requestAnimationFrame(tick);}
-  else requestDraw();
 }
 
 /* ============================================================
@@ -736,7 +763,7 @@ function save(blob,name){
   a.href=url;a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
-function stamp(){return `warp-${S.seed}-${S.ratio.replace(":","x")}`;}
+function stamp(){return `sampler-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
   const a=$("#expVid"),sc=$("#scrub"),l=$("#expSvgLoop");
   if(a)a.disabled=!S.motion.on;
@@ -757,14 +784,6 @@ $("#expSvg").addEventListener("click",()=>{
   save(new Blob([buildSVG()],{type:"image/svg+xml"}),stamp()+".svg");
   toast("SVG saved");
 });
-$("#expSvgLoop").addEventListener("click",()=>{
-  if(!S.motion.on)return toast("Turn on motion first");
-  toast("Building loop\u2026",true);
-  setTimeout(()=>{
-    save(new Blob([buildLoopSVG()],{type:"image/svg+xml"}),stamp()+"-loop.svg");
-    toast("Animated SVG saved");
-  },30);
-});
 function pickVideoType(){
   const t=["video/mp4;codecs=avc1.42E01E","video/mp4","video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"];
   for(const x of t)if(window.MediaRecorder&&MediaRecorder.isTypeSupported(x))return x;
@@ -776,7 +795,7 @@ $("#expVid").addEventListener("click",()=>{
   if(!type)return toast("This browser can't record video");
   const ext=type.startsWith("video/mp4")?"mp4":"webm";
   const r=RATIOS.find(x=>x.id===S.ratio);
-  let W=Math.min(1120,S.size);W-=W%2;
+  let W=Math.min(1280,S.size);W-=W%2;
   let H=Math.round(W*r.h/r.w);H-=H%2;
   const c=document.createElement("canvas");c.width=W;c.height=H;
   const cc=c.getContext("2d");
@@ -801,13 +820,13 @@ $("#expVid").addEventListener("click",()=>{
    UI
 ============================================================ */
 function accent(){
-  let best=S.pal[1],bl=-1;
-  for(const c of S.pal){const l=relLum(c);if(l>bl&&l>0.1&&l<0.85){bl=l;best=c;}}
-  document.documentElement.style.setProperty("--accent",bl>0?best:"#7CE860");
+  let best=S.pal[S.pal.length-1],bl=-1;
+  for(const c of S.pal){const l=relLum(c);if(l>bl&&l>0.12){bl=l;best=c;}}
+  document.documentElement.style.setProperty("--accent",bl>0?best:"#F5C21B");
   $("#strip").innerHTML=S.pal.map(c=>`<span style="background:${c}"></span>`).join("");
   const g=$("#glyph");
   if(g.children.length!==9)g.innerHTML=Array.from({length:9},()=>"<i></i>").join("");
-  [...g.children].forEach((el,i)=>el.classList.toggle("on",[1,3,4,5,7].includes(i)));
+  [...g.children].forEach((el,i)=>el.classList.toggle("on",[0,2,4,6,8].includes(i)));
 }
 function segmented(host,items,get,set){
   if(!host)return;
@@ -834,21 +853,39 @@ function buildRatios(){
     host.appendChild(b);
   });
 }
-const ROLES=["Base","Ink 1","Ink 2","Ink 3","Ink 4"];
 function buildSwatches(){
   const host=$("#swatches");
   host.innerHTML="";
+  const lock=S.pal.length<=2;
   S.pal.forEach((c,i)=>{
     const b=document.createElement("button");
-    b.className="sw";b.type="button";b.setAttribute("aria-label",ROLES[i]+" color");
-    b.innerHTML=`<span class="fill" style="background:${c}"></span><input type="color" value="${c}">`;
+    b.className="sw"+(lock?" locked":"");b.type="button";
+    b.setAttribute("aria-label","Ink "+(i+1)+" color");
+    b.innerHTML=`<span class="fill" style="background:${c}"></span>`+
+      `<input type="color" value="${c}"><span class="x" aria-hidden="true">\u00d7</span>`;
     b.querySelector("input").addEventListener("input",e=>{
       S.pal[i]=e.target.value;
       b.querySelector(".fill").style.background=e.target.value;
       accent();reframe();
     });
+    b.addEventListener("click",e=>{
+      if(e.target.classList.contains("x")&&S.pal.length>2){
+        e.preventDefault();e.stopPropagation();
+        S.pal.splice(i,1);buildSwatches();accent();reframe();
+      }
+    },true);
     host.appendChild(b);
   });
+  const add=document.createElement("button");
+  add.className="sw-add";add.type="button";add.textContent="+";
+  add.setAttribute("aria-label","Add color");
+  add.addEventListener("click",()=>{
+    const commit=hex=>{S.pal.push(hex);buildSwatches();accent();reframe();};
+    if(window.__pickColour) window.__pickColour(add,commit);
+    else commit(PALETTES[0][(Math.random()*PALETTES[0].length)|0]);
+  });
+  host.appendChild(add);
+  const n=$("#swCountVal"); if(n) n.textContent=S.pal.length;
 }
 function setPalette(p){S.pal=p.slice();buildSwatches();accent();reframe();}
 function bindRange(id,fmt,set,after){
@@ -860,19 +897,29 @@ function bindRange(id,fmt,set,after){
     (after||reframe)();
   });
 }
-const pct=v=>Math.round(v*100)+"%";
 
 buildRatios();buildSwatches();accent();
-segmented($("#styles"),STYLES,()=>S.style,v=>{S.style=v;reframe();});
 segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
 $("#shufColors").addEventListener("click",()=>{
   setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
 });
 $("#rotColors").addEventListener("click",()=>{
-  setPalette([S.pal[0],S.pal[2],S.pal[3],S.pal[4],S.pal[1]]);
+  if(S.pal.length<3){setPalette(S.pal.slice(1).concat(S.pal[0]));return;}
+  let di=0;
+  for(let i=1;i<S.pal.length;i++) if(lumS(S.pal[i])<lumS(S.pal[di])) di=i;
+  const rest=S.pal.filter((c,i)=>i!==di);
+  rest.push(rest.shift());
+  const out=S.pal.slice();
+  let k=0;
+  for(let i=0;i<out.length;i++) if(i!==di) out[i]=rest[k++];
+  setPalette(out);
 });
-bindRange("scale",pct,v=>S.scale=v);
-bindRange("warp",pct,v=>S.warp=v);
+bindRange("grid",v=>v|0,v=>S.grid=v|0);
+bindRange("bands",v=>v|0,v=>S.bands=v|0);
+bindRange("mix",v=>Math.round(v*100)+"%",v=>S.mix=v);
+bindRange("weight",v=>Math.round(v*100)+"%",v=>S.weight=v);
+bindRange("density",v=>Math.round(v*100)+"%",v=>S.density=v);
+bindRange("turn",v=>Math.round(v*100)+"%",v=>S.turn=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
@@ -899,7 +946,7 @@ document.addEventListener("keydown",e=>{
   if(e.code==="Space"){e.preventDefault();newSeed();}
   if(e.key==="p"||e.key==="P"){if(S.motion.on)setPlaying(!playing);}
 });
-newSeed(11);
+newSeed(7);
 $("#scrub").max=S.motion.frames-1;
 updateExportNote();
 draw();
@@ -926,8 +973,8 @@ html.embed body{overflow:hidden!important}
   if(!embedded) return;
   document.documentElement.classList.add("embed");
   /* pick the preset ratio closest to the viewport so the cover-crop stays small */
-  var R=[[9,16],[3,4],[1,1],[4,3],[3,2],[16,9],[2,1],[3,1]];
-  var vr=innerWidth/Math.max(1,innerHeight),best=0,bd=1e9;
+  var R=[[9,16],[3,4],[4,5],[1,1],[5,4],[4,3],[3,2],[16,9]];
+  var vr=innerWidth/Math.max(1,innerHeight),best=3,bd=1e9;
   for(var i=0;i<R.length;i++){var d=Math.abs(Math.log(vr*R[i][1]/R[i][0]));if(d<bd){bd=d;best=i}}
   var rb=document.querySelectorAll("#ratios .ratio")[best]; if(rb) rb.click();
   /* fresh artwork per load, or a pinned one via ?seed=N */
