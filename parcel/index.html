@@ -889,7 +889,7 @@ const pct=v=>Math.round(v*100)+"%";
 buildRatios();buildSwatches();accent();
 segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
 $("#shufColors").addEventListener("click",()=>{
-  setPalette(PALETTES[(Math.random()*PALETTES.length)|0]);
+  setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
 });
 $("#rotColors").addEventListener("click",()=>{
   setPalette([S.pal[1],S.pal[0],S.pal[2]]);
@@ -1446,6 +1446,61 @@ html.embed body{overflow:hidden!important}
       input.dispatchEvent(new Event("input",{bubbles:true}));
     },{start:input.value,label:"Done",live:true});
   },true);
+
+  /* ---- fresh palettes --------------------------------------------------
+     Several tools dealt New colors from a fixed list of five or six sets, so
+     clicking repeatedly cycled the same handful of looks. This recolours a
+     set instead: every hue is dealt afresh, while each slot keeps its
+     lightness and saturation. That value structure is the tool's own design
+     — which ink is the board, which is the page, which is the accent — and
+     randomising it too would break the artwork rather than recolour it. */
+  function rgb2hslA(hex){
+    var h=String(hex).replace("#","");
+    if(h.length===3) h=h.split("").map(function(c){return c+c;}).join("");
+    var n=parseInt(h,16)||0;
+    var r=((n>>16)&255)/255, g=((n>>8)&255)/255, b=(n&255)/255;
+    var mx=Math.max(r,g,b), mn=Math.min(r,g,b), d=mx-mn;
+    var l=(mx+mn)/2, sa=0, hu=0;
+    if(d){
+      sa=l>0.5 ? d/(2-mx-mn) : d/(mx+mn);
+      if(mx===r) hu=((g-b)/d+(g<b?6:0));
+      else if(mx===g) hu=(b-r)/d+2;
+      else hu=(r-g)/d+4;
+      hu*=60;
+    }
+    return [hu,sa,l];
+  }
+  function hsl2hexA(h,s,l){
+    h=((h%360)+360)%360; s=Math.min(1,Math.max(0,s)); l=Math.min(1,Math.max(0,l));
+    var a=s*Math.min(l,1-l);
+    function f(n){
+      var k=(n+h/30)%12;
+      var v=l-a*Math.max(-1,Math.min(k-3,9-k,1));
+      return Math.round(v*255).toString(16).padStart(2,"0");
+    }
+    return "#"+f(0)+f(8)+f(4);
+  }
+  window.__freshPalette=function(base){
+    if(!base||!base.length) return base;
+    var h0=Math.random()*360;
+    /* a scheme rather than free hues: unrelated hues look like a mistake */
+    var schemes=[[0,24,48,72,96,120,144,168],
+                 [0,180,25,205,50,230,75,255],
+                 [0,120,240,40,160,280,80,200],
+                 [0,16,32,186,202,218,48,170]];
+    var sch=schemes[(Math.random()*schemes.length)|0];
+    var flip=Math.random()<0.5?1:-1;
+    return base.map(function(hex,i){
+      var c=rgb2hslA(hex);
+      var h=h0+flip*sch[i%sch.length]+(Math.random()-0.5)*20;
+      var sa=c[1], l=c[2];
+      /* a near-grey stays near-grey — that slot is usually the board or the
+         page, and colouring it would change the tool's structure */
+      if(sa>0.08) sa=Math.min(1,Math.max(0.12,sa*(0.8+Math.random()*0.55)));
+      l=Math.min(0.97,Math.max(0.03,l*(0.9+Math.random()*0.22)));
+      return hsl2hexA(h,sa,l);
+    });
+  };
 
   function freshHue(){
     var h=Math.floor(Math.random()*360), s=62, l=56, a=s/100*Math.min(l/100,1-l/100);
