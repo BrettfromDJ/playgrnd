@@ -81,7 +81,7 @@ input{font:inherit;color:inherit}
 
 /* ---------------- identity ---------------- */
 .idline{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;margin-bottom:14px}
-.idline .brand{display:block;width:82px;color:var(--ink)}
+.idline .brand{display:block;width:118px;color:var(--ink)}
 .idline .brand img{width:100%;height:auto;display:block}
 .idline .slash{font-size:10px;color:var(--key)}
 .idline .tool{font-size:10px;letter-spacing:.32em;text-transform:uppercase}
@@ -491,7 +491,7 @@ function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const MODES=[["shuffle","Shuffle"],["pulse","Pulse"]];
+const MODES=[["spin","Rotate"]];
 
 const PALETTES=[
   ["#0A0A0A","#C9B7A4","#2E6BFF","#FBA7C8","#F2C500"],
@@ -509,7 +509,7 @@ const S={
   rings:0.42, radius:0.34, hole:0.42, points:18, spike:0.42,
   emblem:0.55,
   pal:PALETTES[0].slice(),
-  motion:{on:false,mode:"shuffle",amount:0.6,fps:6,frames:24},
+  motion:{on:false,mode:"spin",amount:0.6,fps:6,frames:24},
   size:2400
 };
 
@@ -597,9 +597,11 @@ function clearE(c,cx,cy,r,cell,cols,groundOf){
 function paint(c,W,H,f){
   const R=rolesE();
   const M=S.motion;
-  const eseed=(M.on&&M.mode==="shuffle")?S.seed+f*7919:S.seed;
-  const beat=(M.on&&M.mode==="pulse")
-    ? 0.5-0.5*Math.cos((f/M.frames)*Math.PI*2*Math.max(1,Math.round(M.amount*2))) : 0;
+  const eseed=S.seed;
+  /* The only thing that moves is the emblem, and it only turns. The check
+     field, the panels and the rings are the symmetry of the page; re-dealing
+     them or breathing them apart is what would make it look like a different
+     picture every frame instead of one picture with a turning centre. */
 
   const cols=Math.max(3,S.grid|0);
   const cell=W/cols;
@@ -652,12 +654,12 @@ function paint(c,W,H,f){
   /* ---- rings ----------------------------------------------------------
      A thick disc with the panel's own ground punched out of the middle, so a
      ring always shows the colour it is standing on. */
-  const rr=cell*(0.30+S.radius*0.24)*(1+beat*0.06);
+  const rr=cell*(0.30+S.radius*0.24);
   const hr=rr*(0.22+S.hole*0.34);
   /* worked out ahead of the ring grid so a ring never gets a bite taken out of
      it by the emblem's clearing: rings that would collide simply stand down */
   const ex=W/2, ey=H/2;
-  const er=Math.min(W,H)*(0.10+S.emblem*0.20)*(1+beat*0.10);
+  const er=Math.min(W,H)*(0.10+S.emblem*0.20);
   const keep=er*1.06;
   for(let j=0;j<rows;j++){
     for(let i=0;i<cols;i++){
@@ -680,12 +682,24 @@ function paint(c,W,H,f){
   clearE(c,ex,ey,keep,cell,cols,groundOf);
   c.fillStyle=R.ink;
   const pts=Math.max(4,S.points|0);
+  const arms=Math.max(4,Math.min(12,Math.round(pts/4)*2));
+  const petals=Math.max(4,Math.min(12,Math.round(pts/3)))&~1||4;
+
+  /* The turn is measured in teeth, not in whole revolutions. An eighteen-point
+     burst maps onto itself every twenty degrees, so one revolution spread over
+     twenty-four frames steps fifteen degrees a frame against a twenty degree
+     period — the wagon-wheel effect, and the emblem appears to stutter
+     backwards. Turning by a whole number of teeth is smooth at any point count
+     and still lands the last frame exactly on the first. */
+  const sym=(kind==="cross")?arms:(kind==="rosette")?petals:pts;
+  const spin=(M.on&&M.mode==="spin")
+    ? (f/M.frames)*(Math.PI*2/sym)*Math.max(1,Math.round(M.amount*2)) : 0;
   if(kind==="burst"){
     /* a starburst: Points teeth, Depth how far they are cut back */
     const inr=er*(1-0.20-S.spike*0.45);
     c.beginPath();
     for(let k=0;k<pts*2;k++){
-      const a=-Math.PI/2+k*Math.PI/pts;
+      const a=-Math.PI/2+spin+k*Math.PI/pts;
       const rad2=(k&1)?inr:er;
       const px=ex+Math.cos(a)*rad2, py=ey+Math.sin(a)*rad2;
       if(k) c.lineTo(px,py); else c.moveTo(px,py);
@@ -696,7 +710,7 @@ function paint(c,W,H,f){
     const inr=er*(1-0.08-S.spike*0.20);
     c.beginPath();
     for(let k=0;k<pts*2;k++){
-      const a=-Math.PI/2+k*Math.PI/pts;
+      const a=-Math.PI/2+spin+k*Math.PI/pts;
       const rad2=(k&1)?inr:er;
       const px=ex+Math.cos(a)*rad2, py=ey+Math.sin(a)*rad2;
       if(k) c.lineTo(px,py); else c.moveTo(px,py);
@@ -707,14 +721,13 @@ function paint(c,W,H,f){
   }else if(kind==="cross"){
     /* a compass: an even number of arms so one lies on the mirror line, the
        count taken from Points and the width from Depth */
-    const arms=Math.max(4,Math.min(12,Math.round(pts/4)*2));
     /* Each arm is a tapered bar of real width, measured square to its own
        axis. Building it as a triangle off a hub instead gives a base only a
        fraction of a degree wide, and the compass comes out as a bundle of
        needles rather than a solid mark. */
     const w=er*(0.09+S.spike*0.20);
     for(let k=0;k<arms;k++){
-      const a=-Math.PI/2+k*Math.PI*2/arms;
+      const a=-Math.PI/2+spin+k*Math.PI*2/arms;
       const ux=Math.cos(a), uy=Math.sin(a), px=-uy, py=ux;
       c.beginPath();
       c.moveTo(ex+px*w, ey+py*w);
@@ -731,10 +744,10 @@ function paint(c,W,H,f){
        so a high Points count gives more, smaller petals instead of eighteen
        overlapping discs that fuse into one lump. Depth then runs them from
        just touching to a closed flower. */
-    const N=Math.max(4,Math.min(12,Math.round(pts/3)))&~1||4;
+    const N=petals;
     const ring=er*0.66, pr=ring*Math.sin(Math.PI/N)*(0.85+S.spike*0.55);
     for(let k=0;k<N;k++){
-      const a=-Math.PI/2+k*Math.PI*2/N;
+      const a=-Math.PI/2+spin+k*Math.PI*2/N;
       c.beginPath();
       c.arc(ex+Math.cos(a)*ring, ey+Math.sin(a)*ring, pr, 0, Math.PI*2);
       c.closePath(); c.fill();
