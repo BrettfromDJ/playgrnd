@@ -182,6 +182,12 @@ input{font:inherit;color:inherit}
 .row:focus-visible{outline-offset:-1px}
 .empty{padding:34px 2px;font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key)}
 
+/* ---------------- the slide ---------------- */
+/* Sits at the foot of the left rail, above the note. It is decoration, so it
+   carries no alt text and is removed outright if the file is missing rather
+   than left as a broken-image box. */
+.slide{display:block;width:88%;max-width:212px;height:auto;margin:0 0 26px}
+
 .hint{display:block;font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key)}
 .kbd{color:var(--ink)}
 
@@ -200,6 +206,7 @@ input{font:inherit;color:inherit}
   .z-top{position:static;translate:none;margin-bottom:26px}
   .z-stage{padding:0}
   .list{overflow:visible;max-height:none;-webkit-mask-image:none;mask-image:none}
+  .slide{max-width:168px;margin-top:10px}
   .btnrow{justify-content:flex-start}
   /* the right rail is a centred column on the desktop rig; stacked it is just
      three blocks in a row, so the auto margin that centred it has to go or the
@@ -256,6 +263,7 @@ input{font:inherit;color:inherit}
     </div>
 
     <div class="l-bot">
+      <img class="slide" id="slide" src="art/slide.png" alt="" width="694" height="546">
       <p class="note">Every tool runs in the browser.<br>Nothing is uploaded and nothing<br>is stored. Exports are yours.</p>
     </div>
   </div>
@@ -493,6 +501,14 @@ function fades(){
 }
 [listEl,$("#lscroll"),$(".z-right")].forEach(el=>el&&el.addEventListener("scroll",()=>fade(el)));
 addEventListener("resize",fades);
+
+/* ---- the slide ------------------------------------------------------- */
+/* Decoration, so a missing file should cost nothing: take the element out
+   rather than leave the browser's broken-image box in the rail. */
+{
+  const im=$("#slide");
+  if(im) im.addEventListener("error",()=>{im.remove();fades();});
+}
 
 /* ---- go -------------------------------------------------------------- */
 $("#statTools").textContent=pad(TOOLS.length);
