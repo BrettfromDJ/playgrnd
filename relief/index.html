@@ -168,6 +168,12 @@ input[type=range]{accent-color:var(--ink)}
 .ratio[aria-pressed=true] .box{border-color:var(--ink);background:var(--ink)}
 .ratio[aria-pressed=true] .t{color:var(--ink)}
 
+/* The hidden attribute only means display:none in the browser's own sheet, so
+   any display rule of ours quietly outranks it — .misc{display:flex} was
+   keeping rows on screen that had been hidden deliberately. State it once,
+   loudly, rather than remembering to at every rule that sets display. */
+[hidden]{display:none!important}
+
 /* ---------------- inks ---------------- */
 .sw-grid{display:flex;flex-wrap:wrap;gap:13px;align-items:center;max-width:210px}
 .l-bot .sw-grid{max-width:none}
@@ -392,7 +398,7 @@ input[type=range]{accent-color:var(--ink)}
         <div class="pr"><div class="top"><span class="k">Interlock</span><span class="v" id="varietyVal">100%</span></div><div class="track"><input type="range" id="variety" min="0" max="1" step="0.01" value="1"></div></div>
         <div class="pr"><div class="top"><span class="k">Flats</span><span class="v" id="solidsVal">10%</span></div><div class="track"><input type="range" id="solids" min="0" max="1" step="0.01" value="0.1"></div></div></div></details>
     <details class="grp" open><summary>Light</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Relief</span><span class="v" id="reliefVal">80%</span></div><div class="track"><input type="range" id="relief" min="0" max="1" step="0.01" value="0.8"></div></div>
-        <div class="pr"><div class="top"><span class="k">Accent cubes</span><span class="v" id="accentVal">10%</span></div><div class="track"><input type="range" id="accent" min="0" max="1" step="0.01" value="0.1"></div></div></div></details></div>
+        <div class="pr"><div class="top"><span class="k">Accent cubes</span><span class="v" id="accentVal">0%</span></div><div class="track"><input type="range" id="accent" min="0" max="1" step="0.01" value="0"></div></div></div></details></div>
     <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">6</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
         
         <div class="note">The most saturated ink lights the cubes; the rest turn up as accents.</div>
@@ -432,7 +438,7 @@ input[type=range]{accent-color:var(--ink)}
       <h2 class="h frame-h">Frame</h2><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span>
     </div>
     <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
-          <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
+          <div class="pr"><div class="top"><span class="k">Churn</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
           <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">6 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="6"></div></div>
           <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">24 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="24"></div></div></div></div>
     <div class="r-bot">
@@ -481,7 +487,7 @@ function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const MODES=[["shuffle","Shuffle"],["roll","Roll"]];
+const MODES=[["shuffle","Shuffle"]];
 
 const PALETTES=[
   ["#F21D0A","#FF8A00","#FFDD00","#2AA7E0","#12B07A","#E03B8C"],
@@ -494,7 +500,7 @@ const PALETTES=[
 const S={
   seed:19, ratio:"3:4",
   scale:52, repeat:5, variety:1, solids:0.1,
-  relief:0.8, accent:0.1,
+  relief:0.8, accent:0,
   pal:PALETTES[0].slice(),
   motion:{on:false,mode:"shuffle",amount:0.6,fps:6,frames:24},
   size:2400
@@ -556,7 +562,12 @@ function facesOf(hex,spread){
    break the plain tumbling-block field into the interlocking hooks. */
 function buildUnit(f){
   const M=S.motion;
-  const useed=(M.on&&M.mode==="shuffle")?S.seed+f*7919:S.seed;
+  /* Amount decides how much of the unit is re-dealt each frame rather than how
+     far anything travels: at the low end a few cubes flip while the rest hold,
+     at the top the whole unit is dealt again. Frame zero always uses the base
+     seed, so the loop closes on itself. */
+  const churn=(M.on&&M.mode==="shuffle")?Math.min(1,M.amount/2):0;
+  const step=S.seed+f*7919;
   const P=Math.max(1,S.repeat|0), Q=Math.max(1,S.repeat|0);
   const pal=S.pal.length?S.pal:["#F21D0A"];
   /* the most saturated ink leads; the rest are available as accents */
@@ -566,13 +577,14 @@ function buildUnit(f){
   const turns=Math.max(1,Math.round(1+S.variety*2));
   const cells=[];
   for(let j=0;j<Q;j++) for(let i=0;i<P;i++){
+    const useed=(churn>0 && hshR(i*5+3,j*7+1,S.seed+131)<churn) ? step : S.seed;
     const rot=Math.floor(hshR(i,j,useed+11)*turns)%3;
     const solid=hshR(i,j,useed+29)<S.solids;
     const acc=others.length&&hshR(i,j,useed+41)<S.accent
       ? others[Math.floor(hshR(i,j,useed+53)*others.length)] : base;
     cells.push({rot:rot, solid:solid, faces:facesOf(acc,S.relief)});
   }
-  return {P:P, Q:Q, cells:cells, seed:useed};
+  return {P:P, Q:Q, cells:cells, seed:S.seed};
 }
 
 /* ---- geometry ----------------------------------------------------------
@@ -625,7 +637,6 @@ function paint(c,W,H,f){
   const sx=W/(SQ3*cubesX), sy=H/(1.5*cubesY);
 
   const cols=cubesX+2, rows=cubesY+2;
-  const roll=(M.on&&M.mode==="roll")?(f/M.frames):0;
 
   c.fillStyle=U.cells[0].faces[2]; c.fillRect(0,0,W,H);
 
@@ -635,10 +646,7 @@ function paint(c,W,H,f){
          interlock rather than sit in columns */
       const cx=(i+(j&1?0.5:0))*SQ3*sx;
       const cy=j*1.5*sy;
-      /* Roll walks the unit past the lattice along one axis; the pattern
-         moves, the geometry does not, so the tile stays put. */
-      const oi=Math.floor(roll*Pe*Math.max(1,Math.round(M.amount*2)));
-      const pi=(((i+oi)%Pe)+Pe)%Pe, pj=((j%Qe)+Qe)%Qe;
+      const pi=((i%Pe)+Pe)%Pe, pj=((j%Qe)+Qe)%Qe;
       const cell=U.cells[pj*U.P+pi];
       for(let k=0;k<3;k++){
         c.fillStyle=cell.solid ? cell.faces[1] : cell.faces[(k+cell.rot)%3];
@@ -1183,6 +1191,18 @@ html.embed body{overflow:hidden!important}
     if(changed){ syncSliders(); notches(); fadeAll(); }
   }
   syncDisabled();
+
+  /* ---- single-choice groups -------------------------------------------
+     A tool with one movement has nothing to choose between, and a chip row
+     you cannot change is the same dead control as a slider you cannot drag.
+     Hide the row; the name of the one movement is already on the pill. */
+  (function(){
+    var modes=document.getElementById("modes");
+    if(!modes) return;
+    var only=modes.querySelectorAll("button").length<2;
+    var row=modes.closest(".misc")||modes.parentElement;
+    if(row&&only&&!row.hidden){ row.setAttribute("data-inert",""); row.hidden=true; }
+  })();
 
   /* ---- Rotate, for tools that never had one ----------------------------
      Ten tools could only ever deal a whole new palette; there was no way to

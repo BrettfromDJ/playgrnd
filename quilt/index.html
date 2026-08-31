@@ -168,6 +168,12 @@ input[type=range]{accent-color:var(--ink)}
 .ratio[aria-pressed=true] .box{border-color:var(--ink);background:var(--ink)}
 .ratio[aria-pressed=true] .t{color:var(--ink)}
 
+/* The hidden attribute only means display:none in the browser's own sheet, so
+   any display rule of ours quietly outranks it — .misc{display:flex} was
+   keeping rows on screen that had been hidden deliberately. State it once,
+   loudly, rather than remembering to at every rule that sets display. */
+[hidden]{display:none!important}
+
 /* ---------------- inks ---------------- */
 .sw-grid{display:flex;flex-wrap:wrap;gap:13px;align-items:center;max-width:210px}
 .l-bot .sw-grid{max-width:none}
@@ -1284,6 +1290,18 @@ html.embed body{overflow:hidden!important}
     if(changed){ syncSliders(); notches(); fadeAll(); }
   }
   syncDisabled();
+
+  /* ---- single-choice groups -------------------------------------------
+     A tool with one movement has nothing to choose between, and a chip row
+     you cannot change is the same dead control as a slider you cannot drag.
+     Hide the row; the name of the one movement is already on the pill. */
+  (function(){
+    var modes=document.getElementById("modes");
+    if(!modes) return;
+    var only=modes.querySelectorAll("button").length<2;
+    var row=modes.closest(".misc")||modes.parentElement;
+    if(row&&only&&!row.hidden){ row.setAttribute("data-inert",""); row.hidden=true; }
+  })();
 
   /* ---- Rotate, for tools that never had one ----------------------------
      Ten tools could only ever deal a whole new palette; there was no way to
