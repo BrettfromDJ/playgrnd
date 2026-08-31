@@ -474,7 +474,7 @@ function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const MODES=[["drift","Drift"],["shuffle","Shuffle"],["slice","Slice"]];
+const MODES=[["shuffle","Shuffle"],["slice","Slice"]];
 
 /* Loud, clashing sets — the mosaic wants colours that fight the muddy field. */
 const PALETTES=[
@@ -492,7 +492,7 @@ const S={
   patches:11, cell:18, fill:0.62, quant:0.45,
   blocks:3, bands:1, slice:0.22,
   pal:PALETTES[0].slice(),
-  motion:{on:false,mode:"drift",amount:0.6,fps:12,frames:24},
+  motion:{on:false,mode:"shuffle",amount:0.6,fps:12,frames:24},
   size:2400
 };
 
@@ -543,7 +543,7 @@ function fieldRamp(){
 }
 
 let fbuf=null,fctx=null;
-function paintField(W,H,f){
+function paintField(W,H){
   const long=Math.max(W,H);
   const res=Math.max(120,Math.min(420,Math.round(long/3)));
   const fw=Math.max(2,Math.round(res*W/long)), fh=Math.max(2,Math.round(res*H/long));
@@ -552,11 +552,10 @@ function paintField(W,H,f){
   const img=fctx.createImageData(fw,fh), d=img.data;
   const ramp=fieldRamp(), n=ramp.length-1;
   const sc=S.scale, wp=S.warp, ct=0.5+S.contrast*1.6;
-  const M=S.motion, drift=(M.on&&M.mode==="drift")?(f/M.frames)*M.amount*2:0;
   const sd=S.seed*13;
   for(let y=0;y<fh;y++){
     for(let x=0;x<fw;x++){
-      const u=x/fh*sc, v=y/fh*sc + drift;
+      const u=x/fh*sc, v=y/fh*sc;
       /* warp the lookup by the field itself — this is what makes the marbling */
       const wx=u+wp*(fbm(u*1.7+11,v*1.7,sd+91,3)-0.5)*2.4;
       const wy=v+wp*(fbm(u*1.7,v*1.7+7,sd+37,3)-0.5)*2.4;
@@ -583,7 +582,7 @@ function paint(c,W,H,f){
   const M=S.motion;
   const frameSeed=(M.on&&M.mode==="shuffle")?S.seed+f*7919:S.seed;
   const r=rng(frameSeed);
-  const field=paintField(W,H,f);
+  const field=paintField(W,H);
 
   c.imageSmoothingEnabled=true;
   c.clearRect(0,0,W,H);
