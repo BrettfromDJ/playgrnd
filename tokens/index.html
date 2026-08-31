@@ -1236,9 +1236,38 @@ html.embed body{overflow:hidden!important}
   addEventListener("resize",fadeAll);
   /* opening or closing a parameter group changes both the fade and the notches */
   document.addEventListener("toggle",function(){
-    syncSliders(); notches(); fadeAll();
+    syncSliders(); notches(); fadeAll(); syncDisabled();
   },true);
   fadeAll();
+
+  /* ---- inert rows ------------------------------------------------------
+     A tool may drive one control from another and disable the passenger --
+     Specimen derives Rows from Columns while Square cells is on. Left on
+     screen the passenger slides about under a cursor that can never grab
+     it, which reads as a broken control. Hide the row while it is inert and
+     bring it back the moment it can be used again. Rows the tool itself had
+     already hidden are left alone: only rows this marks are unhidden. */
+  function syncDisabled(){
+    var changed=false;
+    document.querySelectorAll(".pr input[type=range]").forEach(function(el){
+      var pr=el.closest(".pr"); if(!pr) return;
+      var mine=pr.hasAttribute("data-inert");
+      if(el.disabled && !mine){
+        if(pr.hidden) return;
+        pr.setAttribute("data-inert","");pr.hidden=true;changed=true;
+      }else if(!el.disabled && mine){
+        pr.removeAttribute("data-inert");pr.hidden=false;changed=true;
+      }
+    });
+    if(changed){ syncSliders(); notches(); fadeAll(); }
+  }
+  syncDisabled();
+  if(window.MutationObserver){
+    var dob=new MutationObserver(syncDisabled);
+    document.querySelectorAll(".pr input[type=range]").forEach(function(el){
+      dob.observe(el,{attributes:true,attributeFilter:["disabled"]});
+    });
+  }
 
   /* ---- corner readouts ------------------------------------------------- */
   var ratioEcho=$("#ratioEcho"), ratioVal=$("#ratioVal"),
