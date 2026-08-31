@@ -169,20 +169,30 @@ input[type=range]{accent-color:var(--ink)}
 .ratio[aria-pressed=true] .t{color:var(--ink)}
 
 /* ---------------- inks ---------------- */
-.sw-grid{display:flex;flex-wrap:wrap;gap:9px;align-items:center;max-width:210px}
+.sw-grid{display:flex;flex-wrap:wrap;gap:13px;align-items:center;max-width:210px}
 .l-bot .sw-grid{max-width:none}
 .l-bot .btn-row{margin-top:18px}
-.sw{position:relative;width:15px;height:15px;border-radius:50%;overflow:hidden;display:block;
-  transition:transform .12s}
-.sw:hover{transform:scale(1.22)}
-.sw input{position:absolute;inset:-4px;width:calc(100% + 8px);height:calc(100% + 8px);
-  border:0;padding:0;background:none;opacity:0;cursor:pointer}
-.sw .fill{position:absolute;inset:0}
-.sw .x{position:absolute;inset:0;display:grid;place-items:center;font-size:9px;line-height:1;
-  background:rgba(21,22,26,.72);color:var(--gnd);opacity:0;transition:.12s}
-.sw:hover .x{opacity:1}
+/* the fill carries the circle, not the swatch: the swatch must not clip, or
+   the delete badge hanging off its corner would be sliced in half */
+.sw{position:relative;width:18px;height:18px;border-radius:50%;display:block;
+  cursor:pointer;transition:transform .12s}
+.sw:hover{transform:scale(1.14)}
+.sw .fill{position:absolute;inset:0;border-radius:50%}
+/* the native input is only a value holder now — clicking the circle opens the
+   wheel-and-hex popover instead, so this must never swallow the click */
+.sw input{position:absolute;inset:0;width:100%;height:100%;
+  border:0;padding:0;background:none;opacity:0;pointer-events:none}
+/* delete is a badge in the corner, so the circle itself is free to mean edit */
+.sw .x{position:absolute;top:-5px;right:-5px;width:12px;height:12px;border-radius:50%;
+  display:grid;place-items:center;font-size:8px;line-height:1;cursor:pointer;
+  background:var(--ink);color:var(--gnd);border:1px solid var(--gnd);
+  opacity:0;transform:scale(.6);transition:opacity .12s,transform .12s}
+.sw:hover .x,.sw:focus-visible .x,.sw .x:hover{opacity:1;transform:scale(1)}
 .sw.locked .x{display:none}
-.sw-add{width:15px;height:15px;border-radius:50%;border:1px solid var(--hair);
+/* single-colour chips get the same treatment: click to edit, no native dialog */
+[data-ink]{position:relative;cursor:pointer}
+[data-ink] input[type=color]{pointer-events:none}
+.sw-add{width:18px;height:18px;border-radius:50%;border:1px solid var(--hair);
   display:grid;place-items:center;font-size:9px;line-height:1;color:var(--key);transition:.12s}
 .sw-add:hover{border-color:var(--ink);color:var(--ink)}
 .lnks{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
@@ -1307,16 +1317,20 @@ html.embed body{overflow:hidden!important}
   /* ---- add-colour popover --------------------------------------------- */
   var pop=null;
   function closePop(){ if(pop){ pop.remove(); pop=null; } }
-  window.__pickColour=function(anchor,commit){
+  /* opts.start  — open on an existing colour instead of a fresh hue
+     opts.label  — the confirm button's word
+     opts.live   — apply every change as it is made, so the artwork previews */
+  window.__pickColour=function(anchor,commit,opts){
     closePop();
-    var hex=freshHue();
+    opts=opts||{};
+    var hex=opts.start||freshHue();
     pop=document.createElement("div");
     pop.className="addpop";
     pop.innerHTML=
       '<label class="ap-sw"><input type="color" data-nohex value="'+hex+'" aria-label="Pick a colour">'+
       '<span class="fill" style="background:'+hex+'"></span></label>'+
       '<input class="ap-hex" spellcheck="false" autocomplete="off" value="'+hex+'" aria-label="Hex value">'+
-      '<button class="ap-add" type="button">Add</button>';
+      '<button class="ap-add" type="button">'+(opts.label||"Add")+'</button>';
     document.body.appendChild(pop);
     var r=anchor.getBoundingClientRect();
     var w=pop.offsetWidth||210, h=pop.offsetHeight||40;
@@ -1331,14 +1345,31 @@ html.embed body{overflow:hidden!important}
       if(/^[0-9a-f]{3}$/i.test(v)) v=v.replace(/./g,function(c){return c+c;});
       return /^[0-9a-f]{6}$/i.test(v) ? "#"+v.toLowerCase() : null;
     }
-    function show(v){ hex=v; fill.style.background=v; }
+    /* live edits arrive as fast as the wheel can drag; one apply per frame is
+       plenty and keeps the heavier tools from stuttering under the cursor */
+    var queued=null, ticking=false;
+    function flush(){ ticking=false; if(queued!==null){ var v=queued; queued=null; commit(v); } }
+    function show(v){
+      hex=v; fill.style.background=v;
+      if(!opts.live) return;
+      queued=v;
+      if(!ticking){ ticking=true; requestAnimationFrame(flush); }
+    }
     wheel.addEventListener("input",function(){ show(wheel.value); field.value=wheel.value; field.classList.remove("bad"); });
     field.addEventListener("input",function(){
       var v=norm(field.value);
       field.classList.toggle("bad",!v);
       if(v){ show(v); wheel.value=v; }
     });
-    function add(){ var v=norm(field.value); if(!v){field.classList.add("bad");field.focus();return;} closePop(); commit(v); }
+    function add(){
+      var v=norm(field.value);
+      if(!v){field.classList.add("bad");field.focus();return;}
+      closePop();
+      /* a live picker has already applied every step; committing again here
+         would only queue a redundant redraw */
+      if(opts.live){ if(queued!==null||v!==hex) commit(v); }
+      else commit(v);
+    }
     pop.querySelector(".ap-add").addEventListener("click",add);
     field.addEventListener("keydown",function(e){
       if(e.key==="Enter"){ e.preventDefault(); add(); }
@@ -1346,6 +1377,54 @@ html.embed body{overflow:hidden!important}
     });
     setTimeout(function(){ field.focus(); field.select(); },0);
   };
+  /* ---- editing an ink --------------------------------------------------
+     Every colour circle now means "edit me": clicking one opens the same
+     wheel-and-hex popover the + button uses, starting on that colour and
+     applying as you go. Deleting moved to the badge in the corner, so the
+     circle is no longer a delete button wearing a colour.
+
+     The popover writes through the tool's own <input type=color> and fires
+     its input event, so each tool's existing handler does the actual work —
+     no per-tool code, and nothing here can drift from it. Only inputs found
+     at load are claimed, and only a claimed one has its native dialog
+     suppressed: anything unrecognised keeps working exactly as it did. */
+  function inkHost(input){
+    var sw=input.closest(".sw");
+    if(sw) return sw;
+    var lab=input.closest("label");
+    if(lab) return lab;
+    return input.parentElement;
+  }
+  function claimInks(){
+    var col=document.querySelector(".z-left")||document.body;
+    col.querySelectorAll('input[type=color]').forEach(function(input){
+      if(input.closest(".addpop")) return;
+      var host=inkHost(input);
+      if(!host||host.hasAttribute("data-ink")) return;
+      host.setAttribute("data-ink","");
+    });
+  }
+  claimInks();
+  /* the swatch row is rebuilt whenever colours are added or removed */
+  var swHostAll=document.getElementById("swatches");
+  if(window.MutationObserver&&swHostAll)
+    new MutationObserver(claimInks).observe(swHostAll,{childList:true,subtree:true});
+
+  document.addEventListener("click",function(e){
+    /* the corner badge is the tool's own delete; let it through untouched */
+    if(e.target.closest(".x")) return;
+    var host=e.target.closest("[data-ink]");
+    if(!host||e.target.closest(".addpop")) return;
+    var input=host.querySelector('input[type=color]');
+    if(!input) return;
+    e.preventDefault(); e.stopPropagation();
+    window.__pickColour(host,function(v){
+      if(input.value===v) return;
+      input.value=v;
+      input.dispatchEvent(new Event("input",{bubbles:true}));
+    },{start:input.value,label:"Done",live:true});
+  },true);
+
   function freshHue(){
     var h=Math.floor(Math.random()*360), s=62, l=56, a=s/100*Math.min(l/100,1-l/100);
     function f(n){ var k=(n+h/30)%12, c=l/100-a*Math.max(-1,Math.min(k-3,9-k,1));
@@ -1353,7 +1432,7 @@ html.embed body{overflow:hidden!important}
     return "#"+f(0)+f(8)+f(4);
   }
   document.addEventListener("mousedown",function(e){
-    if(pop && !pop.contains(e.target) && !e.target.closest(".sw-add")) closePop();
+    if(pop && !pop.contains(e.target) && !e.target.closest(".sw-add,[data-ink]")) closePop();
   },true);
 
   /* ---- disclosures ----------------------------------------------------- */
