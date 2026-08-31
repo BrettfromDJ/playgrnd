@@ -372,7 +372,7 @@ input[type=range]{accent-color:var(--ink)}
         <span class="tool">Delta</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">24 / 25</span>
+        <span class="k">Index</span><span class="v">23 / 24</span>
         <span class="k">Type</span><span class="v">Satellite mosaic</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
@@ -487,7 +487,7 @@ const PALETTES=[
 ];
 
 const S={
-  seed:7, ratio:"3:2",
+  seed:7, ratio:"16:9",
   scale:4.6, warp:0.85, contrast:0.55, bleach:0.3,
   patches:11, cell:18, fill:0.62, quant:0.45,
   blocks:3, bands:1, slice:0.22,
@@ -914,7 +914,7 @@ document.addEventListener("keydown",e=>{
   if(e.code==="Space"){e.preventDefault();newSeed();}
   if(e.key==="p"||e.key==="P"){if(S.motion.on)setPlaying(!playing);}
 });
-S.ratio="3:2";newSeed(7);
+newSeed(7);
 $("#scrub").max=S.motion.frames-1;
 updateExportNote();
 draw();
