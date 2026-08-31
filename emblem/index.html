@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Trellis — playgrnd</title>
-<meta name="description" content="Generate seamless trellis-board backgrounds — columns of pattern blocks under routed traces that wrap at every edge, so the tile repeats forever. Exports vector, image and video.">
+<title>Emblem — playgrnd</title>
+<meta name="description" content="Generate symmetrical emblem backgrounds — a checkered field over upright colour panels, ringed discs, and a starburst, cogged ring, compass or rosette on the centre line. Everything is mirrored left to right. Exports vector, image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -385,21 +385,27 @@ input[type=range]{accent-color:var(--ink)}
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
         <span class="slash">&frasl;</span>
-        <span class="tool">Trellis</span>
+        <span class="tool">Emblem</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">31 / 31</span>
-        <span class="k">Type</span><span class="v">Diagonal lattice</span>
+        <span class="k">Index</span><span class="v">30 / 30</span>
+        <span class="k">Type</span><span class="v">Mirrored emblems</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Lattice</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Pitch</span><span class="v" id="pitchVal">5</span></div><div class="track"><input type="range" id="pitch" min="2" max="20" step="1" value="5"></div></div>
-        <div class="pr"><div class="top"><span class="k">Band width</span><span class="v" id="bandVal">30%</span></div><div class="track"><input type="range" id="band" min="0" max="1" step="0.01" value="0.3"></div></div>
-        <div class="pr"><div class="top"><span class="k">Crossings</span><span class="v" id="crossVal">72%</span></div><div class="track"><input type="range" id="cross" min="0" max="1" step="0.01" value="0.72"></div></div></div></details>
-    <details class="grp" open><summary>Cells</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Triangles</span><span class="v" id="fillVal">55%</span></div><div class="track"><input type="range" id="fill" min="0" max="1" step="0.01" value="0.55"></div></div></div></details></div>
+    <div class="l-scroll"><details class="grp" open><summary>Field</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Columns</span><span class="v" id="gridVal">9</span></div><div class="track"><input type="range" id="grid" min="3" max="24" step="1" value="9"></div></div>
+        <div class="pr"><div class="top"><span class="k">Panels</span><span class="v" id="panelsVal">3</span></div><div class="track"><input type="range" id="panels" min="1" max="7" step="1" value="3"></div></div>
+        <div class="pr"><div class="top"><span class="k">Rounding</span><span class="v" id="cornerVal">42%</span></div><div class="track"><input type="range" id="corner" min="0" max="1" step="0.01" value="0.42"></div></div></div></details>
+    <details class="grp"><summary>Rings</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">How many</span><span class="v" id="ringsVal">42%</span></div><div class="track"><input type="range" id="rings" min="0" max="1" step="0.01" value="0.42"></div></div>
+        <div class="pr"><div class="top"><span class="k">Ring size</span><span class="v" id="radiusVal">34%</span></div><div class="track"><input type="range" id="radius" min="0" max="1" step="0.01" value="0.34"></div></div>
+        <div class="pr"><div class="top"><span class="k">Hole</span><span class="v" id="holeVal">42%</span></div><div class="track"><input type="range" id="hole" min="0" max="1" step="0.01" value="0.42"></div></div></div></details>
+    <details class="grp"><summary>Emblem</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="emblemVal">55%</span></div><div class="track"><input type="range" id="emblem" min="0" max="1" step="0.01" value="0.55"></div></div>
+        <div class="pr"><div class="top"><span class="k">Points</span><span class="v" id="pointsVal">18</span></div><div class="track"><input type="range" id="points" min="4" max="40" step="1" value="18"></div></div>
+        <div class="pr"><div class="top"><span class="k">Depth</span><span class="v" id="spikeVal">42%</span></div><div class="track"><input type="range" id="spike" min="0" max="1" step="0.01" value="0.42"></div></div>
+        <div class="note">The variation number picks which emblem sits on the centre line — a burst, a cogged ring, a compass or a rosette.</div></div></details></div>
     <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">5</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
         
-        <div class="note">The darkest ink is the ground and the most saturated marks the crossings.</div>
+        <div class="note">The darkest ink draws everything. The rest are the grounds the panels stand on.</div>
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
@@ -444,7 +450,7 @@ input[type=range]{accent-color:var(--ink)}
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
           <button class="lnk" id="expSvg">SVG</button>
           <button class="lnk" id="expVid">Video</button></span></div>
-        <div class="note" id="expNote">Bands stay strokes and triangles stay polygons, so the SVG is a handful of shapes.</div></div>
+        <div class="note" id="expNote">Rings stay circles and the emblem stays a path, so the SVG is a handful of shapes.</div></div>
       <div class="tbl" style="margin-top:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>
@@ -485,182 +491,300 @@ function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const MODES=[["shuffle","Shuffle"],["travel","Travel"]];
+const MODES=[["shuffle","Shuffle"],["pulse","Pulse"]];
 
 const PALETTES=[
-  ["#000000","#4A2028","#C9A98A","#7A6220","#C8352F"],
-  ["#0A0A0C","#2A2340","#D6C6A8","#5E6B2E","#D8452C"],
-  ["#060606","#123028","#E0D2B8","#8A6A1E","#E0503A"],
-  ["#0B0808","#3A1A1A","#CBB79A","#6E5A2A","#B8302A"],
-  ["#050508","#1E2A3E","#D8CDBA","#4E6B5E","#E06A2C"]
+  ["#0A0A0A","#C9B7A4","#2E6BFF","#FBA7C8","#F2C500"],
+  ["#080808","#E4DCCB","#1E5BE0","#FF8FC0","#F0A202"],
+  ["#0B0B0F","#CDBFAE","#12A07A","#E85D8A","#F5D93B"],
+  ["#101010","#DED6C6","#7A2BD6","#FF6B8A","#4FD1C5"],
+  ["#060606","#D8CBB8","#E0452C","#2AA7E0","#F2E14C"]
 ];
 
+const EMBLEMS=[["burst","Burst"],["ring","Ring"],["cross","Cross"],["rosette","Rosette"]];
+
 const S={
-  seed:21, ratio:"3:4",
-  pitch:5, band:0.30, seg:0.55,
-  fill:0.55, cross:0.72, taper:0.0,
+  seed:29, ratio:"3:2",
+  grid:9, panels:3, corner:0.42,
+  rings:0.42, radius:0.34, hole:0.42, points:18, spike:0.42,
+  emblem:0.55,
   pal:PALETTES[0].slice(),
   motion:{on:false,mode:"shuffle",amount:0.6,fps:6,frames:24},
   size:2400
 };
 
-function hshT(x,y,s){
+function hshE(x,y,s){
   let n=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1274126177);
   n=Math.imul(n^(n>>>13),1274126177);
   n^=n>>>16;
   return (n>>>0)/4294967296;
 }
-function hex2rgbT2(h){h=String(h).replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
+function hex2rgbE(h){h=String(h).replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
   const n=parseInt(h,16);return[(n>>16)&255,(n>>8)&255,n&255];}
-function lumT2(h){const[r,g,b]=hex2rgbT2(h);return r*.299+g*.587+b*.114;}
+function lumE(h){const[r,g,b]=hex2rgbE(h);return r*.299+g*.587+b*.114;}
 
 /* ---- ink roles ---------------------------------------------------------
-   The darkest ink is the ground and the most saturated is the accent that
-   marks every crossing; whatever is left stripes the bands and fills the
-   cells. Assigning by property rather than by slot means Rotate and New
-   colors change the look without ever bleaching out the structure. */
-function rolesT(){
-  const pal=S.pal.length?S.pal:["#000000","#C9A98A"];
-  let ground=pal[0];
-  for(const c of pal) if(lumT2(c)<lumT2(ground)) ground=c;
-  const rest=pal.filter(c=>c!==ground);
-  if(!rest.length) rest.push(pal[0]);
-  let accent=rest[0], best=-1;
-  for(const c of rest){
-    const [r,g,b]=hex2rgbT2(c);
-    const sat=(Math.max(r,g,b)-Math.min(r,g,b))/255;
-    if(sat>best){best=sat;accent=c;}
-  }
-  const bands=rest.filter(c=>c!==accent);
-  return {ground:ground, accent:accent,
-          bands:bands.length?bands:rest,
-          fill:bands.length?bands[0]:rest[0]};
+   The darkest ink draws everything — checks, rings, emblem — and the rest are
+   grounds for the panels. One drawing colour against several grounds is what
+   holds a panelled composition together instead of letting each panel read as
+   a separate picture. */
+function rolesE(){
+  const pal=S.pal.length?S.pal:["#0A0A0A","#C9B7A4"];
+  let ink=pal[0];
+  for(const c of pal) if(lumE(c)<lumE(ink)) ink=c;
+  const grounds=pal.filter(c=>c!==ink);
+  return {ink:ink, grounds:grounds.length?grounds:[pal[0]]};
 }
 
-/* ---- the lattice -------------------------------------------------------
-   Two families of diagonals, one running up-right and one down-right, laid
-   out in rotated space so the whole thing is an ordinary square grid turned
-   45 degrees. Working in that space rather than in page coordinates is what
-   keeps the crossings exactly on a lattice point instead of nearly on one. */
+/* ---- the composition ---------------------------------------------------
+   Everything is decided for the left half and reflected. The mirror is not a
+   post-process over the pixels: each cell asks for its own mirrored twin's
+   coordinates, so a ring on the left and its partner on the right are the
+   same decision read twice. That keeps the centre column exact — a pixel
+   mirror leaves it a half-cell out whenever the grid has an odd width. */
+function mirrorCol(i,cols){ return cols-1-i; }
+
+/* ---- clearings ---------------------------------------------------------
+   Rings and the emblem each stand in a clearing of the ground they are on,
+   otherwise they weld themselves onto the check field and the whole page goes
+   to a single black mass. A clearing can straddle a panel edge, so it is cut
+   column by column and each slice takes that column's own ground: a plain
+   circle in one colour would blot out its neighbour's panel.
+
+   The slice is traced as a polygon rather than clipped, because the same
+   paint() has to run against the SVG recorder, which has no clip. */
+function bandE(c,cx,cy,r,xa,xb){
+  /* Sampled by angle, not by x. Stepping along x puts almost every sample
+     near the equator of the circle and almost none near the poles, where the
+     curve is steepest, so the chords cut visibly inside the arc and the check
+     field shows through as a dotted outline. Stepping by angle spreads the
+     samples evenly around the curve. */
+  const u=v=>Math.acos(Math.min(1,Math.max(-1,(v-cx)/r)));
+  const ta=u(xa), tb=u(xb), N=28;
+  c.beginPath();
+  for(let k=0;k<=N;k++){
+    const t=ta+(tb-ta)*k/N, x=cx+r*Math.cos(t), y=cy-r*Math.sin(t);
+    if(k) c.lineTo(x,y); else c.moveTo(x,y);
+  }
+  for(let k=N;k>=0;k--){
+    const t=ta+(tb-ta)*k/N;
+    c.lineTo(cx+r*Math.cos(t), cy+r*Math.sin(t));
+  }
+  c.closePath(); c.fill();
+}
+function clearE(c,cx,cy,r,cell,cols,groundOf){
+  if(r<=0) return;
+  const i0=Math.max(0,Math.floor((cx-r)/cell));
+  const i1=Math.min(cols-1,Math.floor((cx+r-0.001)/cell));
+  /* When the whole clearing sits on one panel it is a plain circle. Cutting it
+     into slices anyway would leave an antialiased seam down every column edge,
+     in a colour identical on both sides — a hairline for nothing. */
+  let one=true;
+  for(let i=i0;i<=i1;i++) if(groundOf(i)!==groundOf(i0)){one=false;break;}
+  if(one){
+    c.fillStyle=groundOf(i0);
+    c.beginPath(); c.arc(cx,cy,r,0,Math.PI*2); c.closePath(); c.fill();
+    return;
+  }
+  for(let i=i0;i<=i1;i++){
+    const xa=Math.max(cx-r,i*cell), xb=Math.min(cx+r,(i+1)*cell);
+    if(xb-xa<=0.001) continue;
+    c.fillStyle=groundOf(i);
+    bandE(c,cx,cy,r,xa,xb);
+  }
+}
+
 function paint(c,W,H,f){
-  const R=rolesT();
+  const R=rolesE();
   const M=S.motion;
-  const tseed=(M.on&&M.mode==="shuffle")?S.seed+f*7919:S.seed;
-  /* The lattice repeats every PER cells across. Without a repeat, Travel
-     could never loop: shifting a hash that has no period lands on a different
-     arrangement every time, so the last frame would never meet the first.
-     Giving it a period fixes the loop and makes the pattern repeat sideways
-     into the bargain. */
-  const PER=16;
-  const travel=(M.on&&M.mode==="travel")
-    ? Math.floor((f/M.frames)*PER*Math.max(1,Math.round(M.amount*2))) : 0;
-  const wrapI=i=>(((i+travel)%PER)+PER)%PER;
+  const eseed=(M.on&&M.mode==="shuffle")?S.seed+f*7919:S.seed;
+  const beat=(M.on&&M.mode==="pulse")
+    ? 0.5-0.5*Math.cos((f/M.frames)*Math.PI*2*Math.max(1,Math.round(M.amount*2))) : 0;
 
-  c.fillStyle=R.ground; c.fillRect(0,0,W,H);
+  const cols=Math.max(3,S.grid|0);
+  const cell=W/cols;
+  const rows=Math.max(3,Math.ceil(H/cell));
 
-  /* the diamond is as wide as it is tall, so the diagonals sit at a true 45 */
-  const n=Math.max(2,S.pitch|0);
-  const dw=Math.min(W,H)/n;                 /* half-diagonal of a cell */
-  const cols=Math.ceil(W/dw)+2, rows=Math.ceil(H/dw)+2;
-  const bw=dw*(0.10+S.band*0.34);           /* band width */
+  /* ---- panels: upright bands of ground, mirrored about the centre ----- */
+  const np=Math.max(1,S.panels|0);
+  const edges=[0];
+  for(let p=1;p<np;p++) edges.push(Math.round(cols*p/np));
+  edges.push(cols);
+  const panelOf=i=>{
+    const m=Math.min(i,mirrorCol(i,cols));   /* read from the left half */
+    let p=0; for(let k=0;k<np;k++) if(m>=edges[k]) p=k;
+    return p;
+  };
+  const groundOf=i=>R.grounds[panelOf(i)%R.grounds.length];
 
-  /* ---- cells: a triangle is half a diamond, so it is drawn from three of
-     the diamond's four corners ---------------------------------------- */
-  for(let j=-1;j<rows;j++){
-    for(let i=-1;i<cols;i++){
-      if(((i+j)&1)!==0) continue;           /* diamond centres, not every point */
-      const cx=i*dw, cy=j*dw;
-      const h=hshT(wrapI(i),j,tseed+11);
-      if(h>S.fill) continue;
-      const dir=Math.floor(hshT(wrapI(i),j,tseed+29)*4);
-      const P=[[cx,cy-dw],[cx+dw,cy],[cx,cy+dw],[cx-dw,cy]];  /* N E S W */
-      /* drop the corner opposite the direction: what is left is the triangle */
-      const tri=[]; for(let k=0;k<4;k++) if(k!==dir) tri.push(P[k]);
-      c.fillStyle=R.fill;
+  for(let i=0;i<cols;i++){
+    c.fillStyle=groundOf(i);
+    c.fillRect(Math.floor(i*cell),0,Math.ceil(cell)+1,H);
+  }
+
+  /* ---- the check field ------------------------------------------------
+     Half-cell squares with the corners rounded, laid so a black square meets
+     a ground square. Deciding from the mirrored column keeps the field
+     symmetric without ever drawing it twice. */
+  const q=cell/2, rad=q*Math.min(0.5,S.corner*0.5);
+  c.fillStyle=R.ink;
+  for(let j=0;j<rows*2;j++){
+    for(let i=0;i<cols*2;i++){
+      const mi=Math.min(i,cols*2-1-i);       /* mirrored column index */
+      if(((mi+j)&1)!==0) continue;
+      const x=i*q, y=j*q;
+      const rr=Math.min(rad,q/2);
       c.beginPath();
-      c.moveTo(tri[0][0],tri[0][1]);
-      c.lineTo(tri[1][0],tri[1][1]);
-      c.lineTo(tri[2][0],tri[2][1]);
+      c.moveTo(x+rr,y);
+      c.lineTo(x+q-rr,y); c.quadraticCurveTo(x+q,y,x+q,y+rr);
+      c.lineTo(x+q,y+q-rr); c.quadraticCurveTo(x+q,y+q,x+q-rr,y+q);
+      c.lineTo(x+rr,y+q); c.quadraticCurveTo(x,y+q,x,y+q-rr);
+      c.lineTo(x,y+rr); c.quadraticCurveTo(x,y,x+rr,y);
       c.closePath(); c.fill();
     }
   }
 
-  /* ---- bands: both families of diagonals, drawn a cell at a time so the
-     colour can step along the run --------------------------------------- */
-  c.lineCap="butt";
-  for(let d=0;d<2;d++){
-    const sgn=d?1:-1;                       /* down-right, then up-right */
-    for(let k=-rows-cols;k<rows+cols;k++){
-      for(let t=-1;t<cols+rows;t++){
-        const i=t, j=k+sgn*t;
-        const x0=i*dw, y0=j*dw, x1=(i+1)*dw, y1=(j+sgn)*dw;
-        if(Math.max(x0,x1)<-dw||Math.min(x0,x1)>W+dw) continue;
-        if(Math.max(y0,y1)<-dw||Math.min(y0,y1)>H+dw) continue;
-        c.strokeStyle=R.bands[Math.floor(hshT(wrapI(i)*3+d*7,j*5,tseed+41)*R.bands.length)%R.bands.length];
-        c.lineWidth=bw;
-        c.beginPath(); c.moveTo(x0,y0); c.lineTo(x1,y1); c.stroke();
-      }
+  /* ---- rings ----------------------------------------------------------
+     A thick disc with the panel's own ground punched out of the middle, so a
+     ring always shows the colour it is standing on. */
+  const rr=cell*(0.30+S.radius*0.24)*(1+beat*0.06);
+  const hr=rr*(0.22+S.hole*0.34);
+  /* worked out ahead of the ring grid so a ring never gets a bite taken out of
+     it by the emblem's clearing: rings that would collide simply stand down */
+  const ex=W/2, ey=H/2;
+  const er=Math.min(W,H)*(0.10+S.emblem*0.20)*(1+beat*0.10);
+  const keep=er*1.06;
+  for(let j=0;j<rows;j++){
+    for(let i=0;i<cols;i++){
+      const mi=Math.min(i,mirrorCol(i,cols));
+      if(hshE(mi,j,eseed+11)>S.rings) continue;
+      const dx=(i+0.5)*cell-ex, dy=(j+0.5)*cell-ey;
+      if(Math.sqrt(dx*dx+dy*dy) < keep+rr*1.20) continue;
+      const cx=(i+0.5)*cell, cy=(j+0.5)*cell;
+      clearE(c,cx,cy,rr*1.20,cell,cols,groundOf);
+      c.fillStyle=R.ink;
+      c.beginPath(); c.arc(cx,cy,rr,0,Math.PI*2); c.closePath(); c.fill();
+      clearE(c,cx,cy,hr,cell,cols,groundOf);
     }
   }
 
-  /* ---- crossings ------------------------------------------------------
-     The accent belongs at the intersections, not along whole runs. Colouring
-     a full segment made every other cell red and the lattice stopped reading
-     as woven — it just read as a red grid. A short stub centred on the
-     crossing, on one diagonal only, is what puts one band over the other. */
-  const stub=dw*0.42;
-  for(let j=-1;j<rows;j++){
-    for(let i=-1;i<cols;i++){
-      if(((i+j)&1)!==0) continue;           /* the lattice points */
-      if(hshT(wrapI(i),j,tseed+53)>=S.cross) continue;
-      const cx=i*dw, cy=j*dw;
-      const sgn=(hshT(wrapI(i),j,tseed+67)<0.5)?1:-1;
-      const ux=stub/Math.SQRT2, uy=sgn*stub/Math.SQRT2;
-      c.strokeStyle=R.accent; c.lineWidth=bw;
-      c.beginPath(); c.moveTo(cx-ux,cy-uy); c.lineTo(cx+ux,cy+uy); c.stroke();
+  /* ---- the emblem -----------------------------------------------------
+     Dead centre, on the mirror line, so it is symmetric by position as well
+     as by shape. */
+  const kind=EMBLEMS[Math.floor(hshE(0,0,eseed+97)*EMBLEMS.length)][0];
+  clearE(c,ex,ey,keep,cell,cols,groundOf);
+  c.fillStyle=R.ink;
+  const pts=Math.max(4,S.points|0);
+  if(kind==="burst"){
+    /* a starburst: Points teeth, Depth how far they are cut back */
+    const inr=er*(1-0.20-S.spike*0.45);
+    c.beginPath();
+    for(let k=0;k<pts*2;k++){
+      const a=-Math.PI/2+k*Math.PI/pts;
+      const rad2=(k&1)?inr:er;
+      const px=ex+Math.cos(a)*rad2, py=ey+Math.sin(a)*rad2;
+      if(k) c.lineTo(px,py); else c.moveTo(px,py);
     }
+    c.closePath(); c.fill();
+  }else if(kind==="ring"){
+    /* a cogged ring: the same Points teeth, cut shallower, around a hole */
+    const inr=er*(1-0.08-S.spike*0.20);
+    c.beginPath();
+    for(let k=0;k<pts*2;k++){
+      const a=-Math.PI/2+k*Math.PI/pts;
+      const rad2=(k&1)?inr:er;
+      const px=ex+Math.cos(a)*rad2, py=ey+Math.sin(a)*rad2;
+      if(k) c.lineTo(px,py); else c.moveTo(px,py);
+    }
+    c.closePath(); c.fill();
+    clearE(c,ex,ey,er*(0.30+S.hole*0.30),cell,cols,groundOf);
+    c.fillStyle=R.ink;
+  }else if(kind==="cross"){
+    /* a compass: an even number of arms so one lies on the mirror line, the
+       count taken from Points and the width from Depth */
+    const arms=Math.max(4,Math.min(12,Math.round(pts/4)*2));
+    /* Each arm is a tapered bar of real width, measured square to its own
+       axis. Building it as a triangle off a hub instead gives a base only a
+       fraction of a degree wide, and the compass comes out as a bundle of
+       needles rather than a solid mark. */
+    const w=er*(0.09+S.spike*0.20);
+    for(let k=0;k<arms;k++){
+      const a=-Math.PI/2+k*Math.PI*2/arms;
+      const ux=Math.cos(a), uy=Math.sin(a), px=-uy, py=ux;
+      c.beginPath();
+      c.moveTo(ex+px*w, ey+py*w);
+      c.lineTo(ex+ux*er+px*w*0.30, ey+uy*er+py*w*0.30);
+      c.lineTo(ex+ux*er-px*w*0.30, ey+uy*er-py*w*0.30);
+      c.lineTo(ex-px*w, ey-py*w);
+      c.closePath(); c.fill();
+    }
+    c.beginPath(); c.arc(ex,ey,er*0.30,0,Math.PI*2); c.closePath(); c.fill();
+  }else{
+    /* rosette: petals around the centre, an even count so it stays mirrored */
+    /* An even petal count so a petal sits on the mirror line. The petal is
+       sized against the gap between neighbours rather than against the emblem,
+       so a high Points count gives more, smaller petals instead of eighteen
+       overlapping discs that fuse into one lump. Depth then runs them from
+       just touching to a closed flower. */
+    const N=Math.max(4,Math.min(12,Math.round(pts/3)))&~1||4;
+    const ring=er*0.66, pr=ring*Math.sin(Math.PI/N)*(0.85+S.spike*0.55);
+    for(let k=0;k<N;k++){
+      const a=-Math.PI/2+k*Math.PI*2/N;
+      c.beginPath();
+      c.arc(ex+Math.cos(a)*ring, ey+Math.sin(a)*ring, pr, 0, Math.PI*2);
+      c.closePath(); c.fill();
+    }
+    c.beginPath(); c.arc(ex,ey,er*0.30,0,Math.PI*2); c.closePath(); c.fill();
+    clearE(c,ex,ey,er*0.13,cell,cols,groundOf);
   }
 }
 
 /* ---- vector ------------------------------------------------------------
    The same paint() against a recorder, so the SVG cannot drift from the
-   canvas: triangles stay polygons and band segments stay strokes. */
-function SvgSurfaceT(){
+   canvas: discs stay circles, the emblem stays a path. */
+function SvgSurfaceE(){
   this.fillStyle="#000"; this.strokeStyle="#000"; this.lineWidth=1;
-  this.lineCap="butt"; this.lineJoin="miter"; this.imageSmoothingEnabled=false;
-  this._b=[]; this._p=null;
+  this.imageSmoothingEnabled=false;
+  this._b=[]; this._p=null; this._c=null;
 }
-SvgSurfaceT.prototype.save=function(){};
-SvgSurfaceT.prototype.restore=function(){};
-SvgSurfaceT.prototype.translate=function(){};
-SvgSurfaceT.prototype.scale=function(){};
-SvgSurfaceT.prototype.rotate=function(){};
-SvgSurfaceT.prototype.clearRect=function(){};
-SvgSurfaceT.prototype.fillRect=function(x,y,w,h){
+SvgSurfaceE.prototype.save=function(){};
+SvgSurfaceE.prototype.restore=function(){};
+SvgSurfaceE.prototype.translate=function(){};
+SvgSurfaceE.prototype.scale=function(){};
+SvgSurfaceE.prototype.rotate=function(){};
+SvgSurfaceE.prototype.clearRect=function(){};
+SvgSurfaceE.prototype.fillRect=function(x,y,w,h){
   this._b.push('<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+w.toFixed(1)+
                '" height="'+h.toFixed(1)+'" fill="'+this.fillStyle+'"/>');
 };
-SvgSurfaceT.prototype.beginPath=function(){this._p=[];};
-SvgSurfaceT.prototype.moveTo=function(x,y){this._p=[[x,y]];};
-SvgSurfaceT.prototype.lineTo=function(x,y){if(this._p)this._p.push([x,y]);};
-SvgSurfaceT.prototype.closePath=function(){};
-SvgSurfaceT.prototype.fill=function(){
+SvgSurfaceE.prototype.beginPath=function(){this._p=[];this._c=null;};
+SvgSurfaceE.prototype.moveTo=function(x,y){
+  if(!this._p)this._p=[];
+  this._p.push("M"+x.toFixed(1)+" "+y.toFixed(1));
+};
+SvgSurfaceE.prototype.lineTo=function(x,y){if(this._p)this._p.push("L"+x.toFixed(1)+" "+y.toFixed(1));};
+SvgSurfaceE.prototype.quadraticCurveTo=function(cx,cy,x,y){
+  if(this._p)this._p.push("Q"+cx.toFixed(1)+" "+cy.toFixed(1)+" "+x.toFixed(1)+" "+y.toFixed(1));
+};
+SvgSurfaceE.prototype.arc=function(x,y,rad){ this._c={x:x,y:y,r:rad}; };
+SvgSurfaceE.prototype.closePath=function(){ if(this._p&&this._p.length)this._p.push("Z"); };
+SvgSurfaceE.prototype.fill=function(){
+  if(this._c){
+    this._b.push('<circle cx="'+this._c.x.toFixed(1)+'" cy="'+this._c.y.toFixed(1)+
+      '" r="'+this._c.r.toFixed(1)+'" fill="'+this.fillStyle+'"/>');
+    this._c=null; this._p=null; return;
+  }
   if(!this._p||this._p.length<3)return;
-  const d=this._p.map(function(q,i){return (i?"L":"M")+q[0].toFixed(1)+" "+q[1].toFixed(1);}).join("")+"Z";
-  this._b.push('<path d="'+d+'" fill="'+this.fillStyle+'"/>');
+  this._b.push('<path d="'+this._p.join("")+'" fill="'+this.fillStyle+'"/>');
+  this._p=null;
 };
-SvgSurfaceT.prototype.stroke=function(){
-  if(!this._p||this._p.length<2)return;
-  const d=this._p.map(function(q,i){return (i?"L":"M")+q[0].toFixed(1)+" "+q[1].toFixed(1);}).join("");
-  this._b.push('<path d="'+d+'" fill="none" stroke="'+this.strokeStyle+
-    '" stroke-width="'+this.lineWidth.toFixed(2)+'" stroke-linecap="butt"/>');
-};
-SvgSurfaceT.prototype.markup=function(){return this._b.join("");};
+SvgSurfaceE.prototype.stroke=function(){};
+SvgSurfaceE.prototype.markup=function(){return this._b.join("");};
 
 function svgFrame(f){
   const r=RATIOS.find(x=>x.id===S.ratio);
   const W=S.size,H=Math.round(S.size*r.h/r.w);
-  const s=new SvgSurfaceT();
+  const s=new SvgSurfaceE();
   paint(s,W,H,f);
   return s.markup();
 }
@@ -669,8 +793,8 @@ function svgWrap(inner){
   const W=S.size,H=Math.round(S.size*r.h/r.w);
   return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+
          '" viewBox="0 0 '+W+' '+H+'">'+
-         '<clipPath id="t"><rect width="'+W+'" height="'+H+'"/></clipPath>'+
-         '<g clip-path="url(#t)">'+inner+'</g></svg>';
+         '<clipPath id="e"><rect width="'+W+'" height="'+H+'"/></clipPath>'+
+         '<g clip-path="url(#e)">'+inner+'</g></svg>';
 }
 function buildSVG(){return svgWrap(svgFrame(curFrame));}
 
@@ -741,7 +865,7 @@ function save(blob,name){
   a.href=url;a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
-function stamp(){return `trellis-${S.seed}-${S.ratio.replace(":","x")}`;}
+function stamp(){return `emblem-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
   const a=$("#expVid"),sc=$("#scrub"),l=$("#expSvgLoop");
   if(a)a.disabled=!S.motion.on;
@@ -884,7 +1008,7 @@ $("#shufColors").addEventListener("click",()=>{
 $("#rotColors").addEventListener("click",()=>{
   if(S.pal.length<3){setPalette(S.pal.slice(1).concat(S.pal[0]));return;}
   let di=0;
-  for(let i=1;i<S.pal.length;i++) if(lumT2(S.pal[i])<lumT2(S.pal[di])) di=i;
+  for(let i=1;i<S.pal.length;i++) if(lumE(S.pal[i])<lumE(S.pal[di])) di=i;
   const rest=S.pal.filter((c,i)=>i!==di);
   rest.push(rest.shift());
   const out=S.pal.slice();
@@ -892,10 +1016,15 @@ $("#rotColors").addEventListener("click",()=>{
   for(let i=0;i<out.length;i++) if(i!==di) out[i]=rest[k++];
   setPalette(out);
 });
-bindRange("pitch",v=>v|0,v=>S.pitch=v|0);
-bindRange("band",v=>Math.round(v*100)+"%",v=>S.band=v);
-bindRange("fill",v=>Math.round(v*100)+"%",v=>S.fill=v);
-bindRange("cross",v=>Math.round(v*100)+"%",v=>S.cross=v);
+bindRange("grid",v=>v|0,v=>S.grid=v|0);
+bindRange("panels",v=>v|0,v=>S.panels=v|0);
+bindRange("corner",v=>Math.round(v*100)+"%",v=>S.corner=v);
+bindRange("rings",v=>Math.round(v*100)+"%",v=>S.rings=v);
+bindRange("radius",v=>Math.round(v*100)+"%",v=>S.radius=v);
+bindRange("hole",v=>Math.round(v*100)+"%",v=>S.hole=v);
+bindRange("emblem",v=>Math.round(v*100)+"%",v=>S.emblem=v);
+bindRange("points",v=>v|0,v=>S.points=v|0);
+bindRange("spike",v=>Math.round(v*100)+"%",v=>S.spike=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
