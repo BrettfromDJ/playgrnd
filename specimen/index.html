@@ -377,7 +377,15 @@ input[type=range]{accent-color:var(--ink)}
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Specimens</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Marble</span><span class="v" id="wMarbleVal">26</span></div><div class="track"><input type="range" id="wMarble" min="0" max="100" step="1" value="26"></div></div>
+    <div class="l-scroll"><details class="grp" open><summary>Grid</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Columns</span><span class="v" id="colsVal">5</span></div><div class="track"><input type="range" id="cols" min="2" max="16" step="1" value="5"></div></div>
+        <div class="misc"><span class="mhead"><span class="k">Square cells</span></span><span class="mval"></span>
+          <button class="switch" id="squareTog" aria-pressed="true" aria-label="Square cells"></button></span></div>
+        <div class="pr"><div class="top"><span class="k">Rows</span><span class="v" id="rowsVal">5</span></div><div class="track"><input type="range" id="rows" min="2" max="16" step="1" value="5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Fill</span><span class="v" id="fillVal">26%</span></div><div class="track"><input type="range" id="fill" min="0.1" max="1" step="0.01" value="0.26"></div></div>
+        <div class="pr"><div class="top"><span class="k">Spanning</span><span class="v" id="spanVal">45%</span></div><div class="track"><input type="range" id="span" min="0" max="1" step="0.01" value="0.45"></div></div>
+        <div class="pr"><div class="top"><span class="k">Gutter</span><span class="v" id="gutVal">0%</span></div><div class="track"><input type="range" id="gut" min="0" max="0.3" step="0.005" value="0"></div></div>
+        <div class="pr"><div class="top"><span class="k">Page rules</span><span class="v" id="rulesVal">14%</span></div><div class="track"><input type="range" id="rules" min="0" max="1" step="0.01" value="0.14"></div></div></div></details>
+    <details class="grp"><summary>Specimens</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Marble</span><span class="v" id="wMarbleVal">26</span></div><div class="track"><input type="range" id="wMarble" min="0" max="100" step="1" value="26"></div></div>
         <div class="pr"><div class="top"><span class="k">Tendrils</span><span class="v" id="wTendrilVal">16</span></div><div class="track"><input type="range" id="wTendril" min="0" max="100" step="1" value="16"></div></div>
         <div class="pr"><div class="top"><span class="k">Loops</span><span class="v" id="wLoopVal">12</span></div><div class="track"><input type="range" id="wLoop" min="0" max="100" step="1" value="12"></div></div>
         <div class="pr"><div class="top"><span class="k">Flat</span><span class="v" id="wFlatVal">14</span></div><div class="track"><input type="range" id="wFlat" min="0" max="100" step="1" value="14"></div></div>
@@ -434,14 +442,7 @@ input[type=range]{accent-color:var(--ink)}
         <span class="k">Inks</span><span class="v" id="inkEcho">&mdash;</span>
         <span class="k">Render</span><span class="v" id="dims">&mdash;</span>
       </div>
-      <h2 class="h frame-h">Frame</h2><div class="rack" id="ratios"></div><div class="pr"><div class="top"><span class="k">Columns</span><span class="v" id="colsVal">5</span></div><div class="track"><input type="range" id="cols" min="2" max="16" step="1" value="5"></div></div>
-        <div class="misc"><span class="mhead"><span class="k">Square cells</span></span><span class="mval"></span>
-          <button class="switch" id="squareTog" aria-pressed="true" aria-label="Square cells"></button></span></div>
-        <div class="pr"><div class="top"><span class="k">Rows</span><span class="v" id="rowsVal">5</span></div><div class="track"><input type="range" id="rows" min="2" max="16" step="1" value="5"></div></div>
-        <div class="pr"><div class="top"><span class="k">Fill</span><span class="v" id="fillVal">26%</span></div><div class="track"><input type="range" id="fill" min="0.1" max="1" step="0.01" value="0.26"></div></div>
-        <div class="pr"><div class="top"><span class="k">Spanning</span><span class="v" id="spanVal">45%</span></div><div class="track"><input type="range" id="span" min="0" max="1" step="0.01" value="0.45"></div></div>
-        <div class="pr"><div class="top"><span class="k">Gutter</span><span class="v" id="gutVal">0%</span></div><div class="track"><input type="range" id="gut" min="0" max="0.3" step="0.005" value="0"></div></div>
-        <div class="pr"><div class="top"><span class="k">Page rules</span><span class="v" id="rulesVal">14%</span></div><div class="track"><input type="range" id="rules" min="0" max="1" step="0.01" value="0.14"></div></div><span class="val" id="ratioVal" hidden>1:1</span>
+      <h2 class="h frame-h">Frame</h2><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span>
     </div>
     <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
           <div class="pr"><div class="top"><span class="k">Intensity</span><span class="v" id="amtVal">0.80</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2.5" step="0.05" value="0.8"></div></div>
