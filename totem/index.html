@@ -388,9 +388,9 @@ input[type=range]{accent-color:var(--ink)}
     <details class="grp"><summary>Core</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="coreVal">22%</span></div><div class="track"><input type="range" id="core" min="0" max="0.6" step="0.01" value="0.22"></div></div>
         <div class="pr"><div class="top"><span class="k">Rings</span><span class="v" id="coreRingsVal">3</span></div><div class="track"><input type="range" id="coreRings" min="0" max="8" step="1" value="3"></div></div></div></details></div>
     <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">5</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
-        <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">Shuffle colors</button>
-          <button class="lnk" id="rotColors">Rotate</button></span></div>
-        <div class="note">The darkest ink prints the rules and the panel ground.</div></div></details>
+        
+        <div class="note">The darkest ink prints the rules and the panel ground.</div>
+      <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
     </div>
@@ -498,16 +498,20 @@ const S={
 };
 
 /* ---- ink roles ---------------------------------------------------------
-   Sorted darkest first, so the darkest ink always reads as the printed rule
-   and the rest stay available as pattern colours. Reordering the swatches
-   with Rotate therefore changes which ink is the mat, not which is the rule. */
+   The darkest ink prints the rules and the panel ground wherever it sits in
+   the row. Everything else keeps the order shown in the swatches, so Rotate
+   moves the mat and the motif inks: sorting the whole palette here would
+   make the rotation invisible, since a sort undoes any reordering. */
 function hex2rgbT(h){h=h.replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
   const n=parseInt(h,16);return[(n>>16)&255,(n>>8)&255,n&255];}
 function lumT(h){const[r,g,b]=hex2rgbT(h);return r*.299+g*.587+b*.114;}
 function roles(){
-  const pal=(S.pal.length?S.pal:["#111111"]).slice().sort((a,b)=>lumT(a)-lumT(b));
-  const dark=pal[0];
-  const rest=pal.length>1?pal.slice(1):pal.slice();
+  const pal=(S.pal.length?S.pal:["#111111"]).slice();
+  let di=0;
+  for(let i=1;i<pal.length;i++) if(lumT(pal[i])<lumT(pal[di])) di=i;
+  const dark=pal[di];
+  const rest=pal.filter(function(c,i){return i!==di;});
+  if(!rest.length) rest.push(dark);
   return {
     dark:dark,
     mat:rest[0],
@@ -973,7 +977,15 @@ $("#shufColors").addEventListener("click",()=>{
   setPalette(PALETTES[(Math.random()*PALETTES.length)|0]);
 });
 $("#rotColors").addEventListener("click",()=>{
-  setPalette(S.pal.slice(1).concat(S.pal[0]));
+  if(S.pal.length<3){setPalette(S.pal.slice(1).concat(S.pal[0]));return;}
+  let di=0;
+  for(let i=1;i<S.pal.length;i++) if(lumT(S.pal[i])<lumT(S.pal[di])) di=i;
+  const rest=S.pal.filter((c,i)=>i!==di);
+  rest.push(rest.shift());
+  const out=S.pal.slice();
+  let k=0;
+  for(let i=0;i<out.length;i++) if(i!==di) out[i]=rest[k++];
+  setPalette(out);
 });
 bindRange("border",v=>Math.round(v*100)+"%",v=>S.border=v);
 bindRange("mat",v=>Math.round(v*100)+"%",v=>S.mat=v);
@@ -1246,6 +1258,36 @@ html.embed body{overflow:hidden!important}
     if(changed){ syncSliders(); notches(); fadeAll(); }
   }
   syncDisabled();
+
+  /* ---- Rotate, for tools that never had one ----------------------------
+     Ten tools could only ever deal a whole new palette; there was no way to
+     keep the colours you liked and move them around. Rotating the swatch row
+     is exactly what the tool-side Rotate buttons do, and each swatch input
+     already carries that tool's own change handler, so driving them from
+     here needs no per-tool code and cannot fall out of step with it. */
+  var rotBtn=document.getElementById("rotInks");
+  if(rotBtn){
+    var swHost=document.getElementById("swatches");
+    var inksIn=function(){
+      return swHost?[].slice.call(swHost.querySelectorAll('input[type=color]')):[];
+    };
+    /* a single colour cannot be rotated; don't leave a dead control sitting there */
+    var syncRot=function(){ rotBtn.hidden=inksIn().length<2; };
+    syncRot();
+    if(window.MutationObserver&&swHost)
+      new MutationObserver(syncRot).observe(swHost,{childList:true,subtree:true});
+    rotBtn.addEventListener("click",function(){
+      var ins=inksIn();
+      if(ins.length<2) return;
+      var vals=ins.map(function(i){return i.value;});
+      vals.push(vals.shift());
+      ins.forEach(function(inp,i){
+        if(inp.value===vals[i]) return;
+        inp.value=vals[i];
+        inp.dispatchEvent(new Event("input",{bubbles:true}));
+      });
+    });
+  }
   if(window.MutationObserver){
     var dob=new MutationObserver(syncDisabled);
     document.querySelectorAll(".pr input[type=range]").forEach(function(el){

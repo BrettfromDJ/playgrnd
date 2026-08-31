@@ -409,7 +409,8 @@ input[type=range]{accent-color:var(--ink)}
           </div>
         </div>
         <div class="misc"><span class="mhead"><span class="k">Colors</span><span class="v" id="swCountVal">7</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
-        <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">Shuffle colors</button></span></div></div></details>
+        
+      <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotInks">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
     </div>
@@ -1428,6 +1429,36 @@ html.embed body{overflow:hidden!important}
     if(changed){ syncSliders(); notches(); fadeAll(); }
   }
   syncDisabled();
+
+  /* ---- Rotate, for tools that never had one ----------------------------
+     Ten tools could only ever deal a whole new palette; there was no way to
+     keep the colours you liked and move them around. Rotating the swatch row
+     is exactly what the tool-side Rotate buttons do, and each swatch input
+     already carries that tool's own change handler, so driving them from
+     here needs no per-tool code and cannot fall out of step with it. */
+  var rotBtn=document.getElementById("rotInks");
+  if(rotBtn){
+    var swHost=document.getElementById("swatches");
+    var inksIn=function(){
+      return swHost?[].slice.call(swHost.querySelectorAll('input[type=color]')):[];
+    };
+    /* a single colour cannot be rotated; don't leave a dead control sitting there */
+    var syncRot=function(){ rotBtn.hidden=inksIn().length<2; };
+    syncRot();
+    if(window.MutationObserver&&swHost)
+      new MutationObserver(syncRot).observe(swHost,{childList:true,subtree:true});
+    rotBtn.addEventListener("click",function(){
+      var ins=inksIn();
+      if(ins.length<2) return;
+      var vals=ins.map(function(i){return i.value;});
+      vals.push(vals.shift());
+      ins.forEach(function(inp,i){
+        if(inp.value===vals[i]) return;
+        inp.value=vals[i];
+        inp.dispatchEvent(new Event("input",{bubbles:true}));
+      });
+    });
+  }
   if(window.MutationObserver){
     var dob=new MutationObserver(syncDisabled);
     document.querySelectorAll(".pr input[type=range]").forEach(function(el){
