@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Terrain — playgrnd</title>
-<meta name="description" content="Generate posterised colour fields with dithered edges — organic regions of flat colour. Exports PNG and video.">
+<title>Glyph — playgrnd</title>
+<meta name="description" content="Generate seamless glyph-board backgrounds — columns of pattern blocks under routed traces that wrap at every edge, so the tile repeats forever. Exports vector, image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -385,24 +385,23 @@ input[type=range]{accent-color:var(--ink)}
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
         <span class="slash">&frasl;</span>
-        <span class="tool">Terrain</span>
+        <span class="tool">Glyph</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">02 / 30</span>
-        <span class="k">Type</span><span class="v">Contour landscape</span>
+        <span class="k">Index</span><span class="v">30 / 30</span>
+        <span class="k">Type</span><span class="v">Stamped marks</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Field</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Field scale</span><span class="v" id="scaleVal">2.6</span></div><div class="track"><input type="range" id="scale" min="0.6" max="9" step="0.1" value="2.6"></div></div>
-        <div class="pr"><div class="top"><span class="k">Warp</span><span class="v" id="warpVal">110%</span></div><div class="track"><input type="range" id="warp" min="0" max="3" step="0.02" value="1.1"></div></div>
-        <div class="pr"><div class="top"><span class="k">Detail</span><span class="v" id="octVal">5</span></div><div class="track"><input type="range" id="oct" min="1" max="7" step="1" value="5"></div></div>
-        <div class="pr"><div class="top"><span class="k">Contrast</span><span class="v" id="contrastVal">170%</span></div><div class="track"><input type="range" id="contrast" min="0.5" max="4" step="0.05" value="1.7"></div></div>
-        <div class="pr"><div class="top"><span class="k">Spread</span><span class="v" id="balanceVal">Even</span></div><div class="track"><input type="range" id="balance" min="-1.2" max="1.2" step="0.05" value="0"></div></div></div></details>
-    <details class="grp" open><summary>Grain</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Dither</span><span class="v" id="grainVal">30%</span></div><div class="track"><input type="range" id="grain" min="0" max="1.2" step="0.01" value="0.3"></div></div>
-        <div class="pr"><div class="top"><span class="k">Blockiness</span><span class="v" id="blockVal">0</span></div><div class="track"><input type="range" id="block" min="0" max="14" step="1" value="0"></div></div></div></details></div>
-    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Bands</span><span class="v" id="swCountVal">6</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+    <div class="l-scroll"><details class="grp" open><summary>Glyph</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Arms</span><span class="v" id="armsVal">45%</span></div><div class="track"><input type="range" id="arms" min="0" max="1" step="0.01" value="0.45"></div></div>
+        <div class="pr"><div class="top"><span class="k">Stroke</span><span class="v" id="weightVal">30%</span></div><div class="track"><input type="range" id="weight" min="0" max="1" step="0.01" value="0.3"></div></div>
+        <div class="pr"><div class="top"><span class="k">Bite</span><span class="v" id="biteVal">70%</span></div><div class="track"><input type="range" id="bite" min="0" max="1" step="0.01" value="0.7"></div></div></div></details>
+    <details class="grp" open><summary>Layout</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Glyphs across</span><span class="v" id="gridVal">4</span></div><div class="track"><input type="range" id="grid" min="1" max="16" step="1" value="4"></div></div>
+        <div class="pr"><div class="top"><span class="k">Rotation</span><span class="v" id="spinVal">75%</span></div><div class="track"><input type="range" id="spin" min="0" max="1" step="0.01" value="0.75"></div></div></div></details></div>
+    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">2</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
         
-      <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotInks">Rotate</button></span></div></div></details>
+        <div class="note">Two inks: the darker prints the ground, the lighter the mark.</div>
+      <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
     </div>
@@ -438,15 +437,15 @@ input[type=range]{accent-color:var(--ink)}
       <h2 class="h frame-h">Frame</h2><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span>
     </div>
     <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
-          <div class="pr"><div class="top"><span class="k">Intensity</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2.5" step="0.05" value="0.6"></div></div>
-          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="1" max="30" step="1" value="12"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">30 frames</span></div><div class="track"><input type="range" id="frames" min="6" max="90" step="1" value="30"></div></div>
-          <div class="note">Every loop closes exactly.</div></div></div>
+          <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
+          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">6 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="6"></div></div>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">24 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="24"></div></div></div></div>
     <div class="r-bot">
       <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
+          <button class="lnk" id="expSvg">SVG</button>
           <button class="lnk" id="expVid">Video</button></span></div>
-        <div class="note">The speckle is per pixel, so this one exports raster rather than vector.</div></div>
+        <div class="note" id="expNote">Strokes stay strokes in the SVG, so it is a handful of shapes rather than a traced bitmap.</div></div>
       <div class="tbl" style="margin-top:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>
@@ -473,140 +472,227 @@ input[type=range]{accent-color:var(--ink)}
 const $=s=>document.querySelector(s);
 const TAU=Math.PI*2;
 const clamp=(v,a,b)=>v<a?a:v>b?b:v;
-const lerp=(a,b,t)=>a+(b-a)*t;
-const fade=t=>t*t*(3-2*t);
 const reduceMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
 function rng(s){let a=(s>>>0)||1;return()=>{a^=a<<13;a>>>=0;a^=a>>17;a^=a<<5;a>>>=0;return a/4294967296;};}
-function hashi(x,y,z,w,seed){
-  let n=Math.imul(x|0,374761393)^Math.imul(y|0,668265263)^Math.imul(z|0,1440662683)
-       ^Math.imul(w|0,1274126177)^Math.imul(seed|0,1013904223);
+function hashi(x,y,z,s){
+  let n=Math.imul(x|0,374761393)^Math.imul(y|0,668265263)^Math.imul(z|0,1440662683)^Math.imul(s|0,1013904223);
   n=Math.imul(n^(n>>>15),2246822519);n=Math.imul(n^(n>>>13),3266489917);n^=n>>>16;
   return (n>>>0)/4294967296;
 }
-function vnoise(x,y,z,w,seed){
-  const xi=Math.floor(x),yi=Math.floor(y),zi=Math.floor(z),wi=Math.floor(w);
-  const u=fade(x-xi),v=fade(y-yi),s=fade(z-zi),t=fade(w-wi);
-  const face=(dz,dw)=>{
-    const a=hashi(xi,yi,zi+dz,wi+dw,seed),b=hashi(xi+1,yi,zi+dz,wi+dw,seed);
-    const c=hashi(xi,yi+1,zi+dz,wi+dw,seed),d=hashi(xi+1,yi+1,zi+dz,wi+dw,seed);
-    return lerp(lerp(a,b,u),lerp(c,d,u),v);
-  };
-  return lerp(lerp(face(0,0),face(0,1),t),lerp(face(1,0),face(1,1),t),s);
-}
-function fbm(x,y,z,w,seed,oct){
-  let a=0.5,f=1,sum=0,norm=0;
-  for(let i=0;i<oct;i++){sum+=a*vnoise(x*f,y*f,z,w,seed+i*1319);norm+=a;a*=0.5;f*=2;}
-  return sum/norm;
-}
-function vnoise2(x,y,seed){
-  const xi=Math.floor(x),yi=Math.floor(y),u=fade(x-xi),v=fade(y-yi);
-  const a=hashi(xi,yi,0,0,seed),b=hashi(xi+1,yi,0,0,seed);
-  const c=hashi(xi,yi+1,0,0,seed),d=hashi(xi+1,yi+1,0,0,seed);
-  return lerp(lerp(a,b,u),lerp(c,d,u),v);
-}
-function fbm2(x,y,z,w,seed,oct){
-  let a=0.5,f=1,sum=0,norm=0;
-  for(let i=0;i<oct;i++){sum+=a*vnoise2(x*f,y*f,seed+i*1319);norm+=a;a*=0.5;f*=2;}
-  return sum/norm;
-}
 function hex2rgb(h){h=h.replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
   return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];}
-function rgb2hex(r,g,b){return"#"+[r,g,b].map(v=>clamp(Math.round(v),0,255).toString(16).padStart(2,"0")).join("");}
-function hsl2hex(h,s,l){h=((h%360)+360)%360;s/=100;l/=100;
-  const c=(1-Math.abs(2*l-1))*s,x=c*(1-Math.abs((h/60)%2-1)),m=l-c/2;let r,g,b;
-  if(h<60)[r,g,b]=[c,x,0];else if(h<120)[r,g,b]=[x,c,0];else if(h<180)[r,g,b]=[0,c,x];
-  else if(h<240)[r,g,b]=[0,x,c];else if(h<300)[r,g,b]=[x,0,c];else[r,g,b]=[c,0,x];
-  return rgb2hex((r+m)*255,(g+m)*255,(b+m)*255);}
 function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4);});
   return .2126*r+.7152*g+.0722*b;}
-function chroma(h){const[r,g,b]=hex2rgb(h);return(Math.max(r,g,b)-Math.min(r,g,b))/255;}
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const PALETTES={
-  Reef:  {colors:["#17A9BE","#7FC9D4","#F5A3AE","#F79A57","#F6C21B","#FFD84D"]},
-  Bloom: {colors:["#1FA9C6","#F49CA8","#FFC02E","#F8E9C9","#FF6B4A"]},
-  Riso:  {colors:["#1B4FA0","#FF87C3","#8E9A24","#FF5B1E","#F1EBE1"]},
-  Ash:   {colors:["#E8E4DC","#B9B3A6","#7C7668","#4A463C","#211F1A"]},
-  Acid:  {colors:["#C6FF3D","#FFE800","#A97BF5","#00C48C","#FF2CB0"]}
-};
-const MODES=[["drift","Drift"],["tide","Tide"],["shimmer","Shimmer"],["warp","Warp"]];
+const MODES=[["shuffle","Shuffle"],["turn","Turn"]];
+
+const PALETTES=[
+  ["#8C2410","#FF5A0A"],
+  ["#0B1E3D","#F0E5D2"],
+  ["#123B2E","#F2C500"],
+  ["#2A0F3D","#FF3B8A"],
+  ["#101418","#E8E2D6"],
+  ["#5A0A18","#F09018"]
+];
 
 const S={
-  seed:7, ratio:"1:1",
-  scale:2.6, warp:1.1, oct:5, contrast:1.7, balance:0,
-  grain:.3, block:0,
-  paletteName:"Reef",
-  palette:["#510BF5","#75FBFA","#78FC4C","#EAFE53","#EE7F31","#EA337B"],
-  motion:{on:false,mode:"drift",amount:.6,fps:12,frames:30},
+  seed:13, ratio:"1:1",
+  grid:4, weight:0.30, arms:0.45,
+  bite:0.70, spin:0.75,
+  pal:PALETTES[0].slice(),
+  motion:{on:false,mode:"shuffle",amount:0.6,fps:6,frames:24},
   size:2400
 };
 
-/* ============================================================
-   Render — the smooth field is computed coarse and interpolated;
-   only the dither is evaluated per pixel.
-============================================================ */
-let STEP=5;
-function renderInto(data,W,H,f){
-  const M=S.motion;
-  // playback trades a little field resolution for a watchable frame rate
-  STEP = playing ? 7 : 5;
-  const t=M.on?f/M.frames:0;
-  const A=M.on?M.amount:0;
-  let z=0,w4=0, warp=S.warp;
-  if(M.on){
-    if(M.mode==="drift"||M.mode==="tide"){z=Math.cos(TAU*t)*A;w4=Math.sin(TAU*t)*A;}
-    if(M.mode==="warp"){warp=S.warp*(1+0.6*A*Math.sin(TAU*t));z=Math.cos(TAU*t)*A*0.35;w4=Math.sin(TAU*t)*A*0.35;}
-  }
-  const NZ=(z===0&&w4===0)?fbm2:fbm;      // still fields skip the time axis entirely
-  const fw=Math.ceil(W/STEP)+2, fh=Math.ceil(H/STEP)+2;
-  const field=new Float32Array(fw*fh);
-  const ar=H/W;
-  const oct=S.oct|0;
-  for(let j=0;j<fh;j++){
-    const v=(j*STEP)/H*S.scale*ar;
-    for(let i=0;i<fw;i++){
-      const u=(i*STEP)/W*S.scale;
-      const wx=NZ(u+5.2,v+1.3,z,w4,S.seed+11,2);
-      const wy=NZ(u+9.1,v+7.7,z,w4,S.seed+29,2);
-      let val=NZ(u+warp*(wx-0.5)*2, v+warp*(wy-0.5)*2, z, w4, S.seed, oct);
-      field[j*fw+i]=clamp((val-0.5)*S.contrast+0.5,0,1);
-    }
-  }
-  const nB=S.palette.length;
-  const rgb=new Uint8Array(nB*3);
-  S.palette.forEach((c,i)=>{const[r,g,b]=hex2rgb(c);rgb[i*3]=r;rgb[i*3+1]=g;rgb[i*3+2]=b;});
-  const pw=Math.pow(2,-S.balance);
-  const blk=S.block|0;
-  const shimmer=(M.on&&M.mode==="shimmer")?f+1:0;
-  let tideShift=0;
-  if(M.on&&M.mode==="tide") tideShift=0.28*A*Math.sin(TAU*t);
+function hshG(x,y,s){
+  let n=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1274126177);
+  n=Math.imul(n^(n>>>13),1274126177);
+  n^=n>>>16;
+  return (n>>>0)/4294967296;
+}
+function hex2rgbG2(h){h=String(h).replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
+  const n=parseInt(h,16);return[(n>>16)&255,(n>>8)&255,n&255];}
+function lumG2(h){const[r,g,b]=hex2rgbG2(h);return r*.299+g*.587+b*.114;}
 
-  const sample=(arr,px,py)=>{
-    const fx=px/STEP, fy=py/STEP;
-    const i0=fx|0, j0=fy|0, sx=fx-i0, sy=fy-j0;
-    const a=arr[j0*fw+i0], b=arr[j0*fw+i0+1], c=arr[(j0+1)*fw+i0], d=arr[(j0+1)*fw+i0+1];
-    return lerp(lerp(a,b,sx),lerp(c,d,sx),sy);
-  };
-  let p=0;
-  for(let y=0;y<H;y++){
-    for(let x=0;x<W;x++){
-      const px=blk?Math.floor(x/blk)*blk:x, py=blk?Math.floor(y/blk)*blk:y;
-      let val=sample(field,px,py)+tideShift;
-      val+=(hashi(x,y,shimmer,1,S.seed)-0.5)*S.grain;
-      val=clamp(val,0,1);
-      const q=Math.pow(val,pw);
-      let idx=clamp(Math.floor(q*nB),0,nB-1);
-      data[p++]=rgb[idx*3];data[p++]=rgb[idx*3+1];data[p++]=rgb[idx*3+2];data[p++]=255;
+/* ---- the motif ---------------------------------------------------------
+   One glyph is designed per variation and then stamped in four rotations.
+   It is built from thick strokes on a coarse lattice — a spine, a couple of
+   arms off it, and a bar or two — which is the whole vocabulary the
+   reference uses. The strokes are drawn with round joins and then squared
+   off, so a corner reads as one mitred bend rather than two overlapping
+   bars. */
+function buildGlyph(f){
+  const M=S.motion;
+  const gseed=(M.on&&M.mode==="shuffle")?S.seed+f*7919:S.seed;
+  const r=(k)=>hshG(k*13+1,k*7+3,gseed+k*29);
+
+  /* Nine anchors — the four corners, the four edge midpoints and the centre.
+     Coarse on purpose: a stroke between any two of them is either square or
+     a true 45, which is the whole geometry of the reference, and because the
+     anchors sit ON the tile edge the marks run off one tile and into the
+     next instead of floating in the middle of it. */
+  const A=[];
+  for(let b=0;b<3;b++) for(let a=0;a<3;a++) A.push([a/2,b/2]);
+
+  const strokes=[];
+  const used={};
+  /* The slider has to move the count for EVERY glyph, not just the ones whose
+     hash happens to sit near a boundary. Scaling a hash by the slider leaves
+     seeds where the whole travel floors to the same number and the control
+     does nothing; adding the slider instead, with only a small seeded wobble
+     on top, means every seed responds while glyphs still differ from each
+     other at the same setting. */
+  const nStrokes=Math.max(2,Math.round(2+S.arms*3.4+(r(1)-0.5)*1.4));
+  for(let k=0;k<nStrokes;k++){
+    let p=Math.floor(r(10+k)*9), q=Math.floor(r(30+k)*9);
+    if(p===q) q=(q+1+Math.floor(r(50+k)*8))%9;
+    /* the centre is where marks meet; a glyph whose strokes never touch is
+       a scatter, not a mark, so pull every stroke after the first onto a
+       point the glyph already uses */
+    if(k>0 && r(70+k)<0.72){
+      const keys=Object.keys(used);
+      if(keys.length) p=+keys[Math.floor(r(90+k)*keys.length)];
+    }
+    used[p]=1; used[q]=1;
+    strokes.push([A[p],A[q]]);
+  }
+  return {strokes:strokes, seed:gseed};
+}
+
+function paint(c,W,H,f){
+  const G=buildGlyph(f);
+  const M=S.motion;
+  const pal=S.pal.length?S.pal:["#8C2410","#FF5A0A"];
+  /* two colours, exactly: the darker is the ground, the lighter the mark */
+  let ground=pal[0], mark=pal[1]||pal[0];
+  if(lumG2(mark)<lumG2(ground)){ const t=ground; ground=mark; mark=t; }
+
+  const g=Math.max(1,S.grid|0);
+  /* the tile is square whatever the page is, so the glyph never shears; the
+     page simply holds more or fewer of them */
+  const cell=Math.min(W,H)/g;
+  const cols=Math.ceil(W/cell), rows=Math.ceil(H/cell);
+  const spin=(M.on&&M.mode==="turn")
+    ? (Math.floor((f/M.frames)*4*Math.max(1,Math.round(M.amount*2)))&3) : 0;
+
+  c.fillStyle=ground; c.fillRect(0,0,W,H);
+  c.strokeStyle=mark;
+  c.lineCap="butt"; c.lineJoin="miter"; c.miterLimit=4;
+
+  const lw=cell*(0.06+S.weight*0.22);
+  const bite=cell*S.bite*0.42;
+
+  for(let j=-1;j<=rows;j++){
+    for(let i=-1;i<=cols;i++){
+      /* rotation follows the tile, so the four orientations lock together
+         into the pinwheel the reference turns on */
+      const q=Math.floor(hshG(i,j,G.seed+7)*4*(0.25+S.spin*0.75));
+      const rot=(q+spin)&3;
+      c.save();
+      c.translate(i*cell,j*cell);
+      c.translate(cell/2,cell/2); c.rotate(rot*Math.PI/2); c.translate(-cell/2,-cell/2);
+      c.lineWidth=lw;
+      for(const st of G.strokes){
+        c.beginPath();
+        c.moveTo(st[0][0]*cell,st[0][1]*cell);
+        c.lineTo(st[1][0]*cell,st[1][1]*cell);
+        c.stroke();
+      }
+      /* the bite: a disc of ground punched out of the corner, which is what
+         gives the reference its scooped quarter-circle notches */
+      if(bite>0.5){
+        c.fillStyle=ground;
+        c.beginPath();
+        c.arc(cell,cell,bite,0,Math.PI*2);
+        c.fill();
+      }
+      c.restore();
     }
   }
 }
-const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
-function paint(c,W,H,f){
-  const img=c.createImageData(W,H);
-  renderInto(img.data,W,H,f);
-  c.putImageData(img,0,0);
+
+/* ---- vector ------------------------------------------------------------
+   The same paint() against a recorder. Strokes stay strokes and the bite
+   stays a circle, so the SVG is a handful of shapes rather than a traced
+   bitmap — and it cannot drift from what is on screen. */
+function SvgSurfaceG(){
+  this.fillStyle="#000"; this.strokeStyle="#000"; this.lineWidth=1;
+  this.lineCap="butt"; this.lineJoin="miter"; this.miterLimit=4;
+  this.imageSmoothingEnabled=false;
+  this._b=[]; this._m=[1,0,0,1,0,0]; this._st=[]; this._p=null; this._c=null;
 }
+function mulG(m,n){
+  return [m[0]*n[0]+m[2]*n[1], m[1]*n[0]+m[3]*n[1],
+          m[0]*n[2]+m[2]*n[3], m[1]*n[2]+m[3]*n[3],
+          m[0]*n[4]+m[2]*n[5]+m[4], m[1]*n[4]+m[3]*n[5]+m[5]];
+}
+SvgSurfaceG.prototype.save=function(){this._st.push(this._m.slice());};
+SvgSurfaceG.prototype.restore=function(){if(this._st.length)this._m=this._st.pop();};
+SvgSurfaceG.prototype.translate=function(x,y){this._m=mulG(this._m,[1,0,0,1,x,y]);};
+SvgSurfaceG.prototype.scale=function(x,y){this._m=mulG(this._m,[x,0,0,y,0,0]);};
+SvgSurfaceG.prototype.rotate=function(a){
+  const c=Math.cos(a), s=Math.sin(a);
+  this._m=mulG(this._m,[c,s,-s,c,0,0]);
+};
+SvgSurfaceG.prototype._pt=function(x,y){
+  const m=this._m; return [m[0]*x+m[2]*y+m[4], m[1]*x+m[3]*y+m[5]];
+};
+SvgSurfaceG.prototype.clearRect=function(){};
+SvgSurfaceG.prototype.fillRect=function(x,y,w,h){
+  const p=this._pt(x,y), q=this._pt(x+w,y+h);
+  this._b.push('<rect x="'+Math.min(p[0],q[0]).toFixed(1)+'" y="'+Math.min(p[1],q[1]).toFixed(1)+
+    '" width="'+Math.abs(q[0]-p[0]).toFixed(1)+'" height="'+Math.abs(q[1]-p[1]).toFixed(1)+
+    '" fill="'+this.fillStyle+'"/>');
+};
+SvgSurfaceG.prototype.beginPath=function(){this._p=[];this._c=null;};
+SvgSurfaceG.prototype.moveTo=function(x,y){this._p=[this._pt(x,y)];};
+SvgSurfaceG.prototype.lineTo=function(x,y){if(this._p)this._p.push(this._pt(x,y));};
+SvgSurfaceG.prototype.closePath=function(){};
+SvgSurfaceG.prototype.arc=function(x,y,rad){
+  const p=this._pt(x,y);
+  /* the transform is only ever translate and quarter-turns, so the radius
+     survives unscaled */
+  this._c={x:p[0],y:p[1],r:rad};
+};
+SvgSurfaceG.prototype.stroke=function(){
+  if(!this._p||this._p.length<2)return;
+  const d=this._p.map(function(q,i){return (i?"L":"M")+q[0].toFixed(1)+" "+q[1].toFixed(1);}).join("");
+  this._b.push('<path d="'+d+'" fill="none" stroke="'+this.strokeStyle+
+    '" stroke-width="'+this.lineWidth.toFixed(2)+'" stroke-linecap="'+this.lineCap+
+    '" stroke-linejoin="'+this.lineJoin+'"/>');
+};
+SvgSurfaceG.prototype.fill=function(){
+  if(this._c){
+    this._b.push('<circle cx="'+this._c.x.toFixed(1)+'" cy="'+this._c.y.toFixed(1)+
+      '" r="'+this._c.r.toFixed(1)+'" fill="'+this.fillStyle+'"/>');
+    this._c=null; return;
+  }
+  if(!this._p||this._p.length<3)return;
+  const d=this._p.map(function(q,i){return (i?"L":"M")+q[0].toFixed(1)+" "+q[1].toFixed(1);}).join("")+"Z";
+  this._b.push('<path d="'+d+'" fill="'+this.fillStyle+'"/>');
+};
+SvgSurfaceG.prototype.markup=function(){return this._b.join("");};
+
+function svgFrame(f){
+  const r=RATIOS.find(x=>x.id===S.ratio);
+  const W=S.size,H=Math.round(S.size*r.h/r.w);
+  const s=new SvgSurfaceG();
+  paint(s,W,H,f);
+  return s.markup();
+}
+function svgWrap(inner){
+  const r=RATIOS.find(x=>x.id===S.ratio);
+  const W=S.size,H=Math.round(S.size*r.h/r.w);
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+
+         '" viewBox="0 0 '+W+' '+H+'">'+
+         '<clipPath id="g"><rect width="'+W+'" height="'+H+'"/></clipPath>'+
+         '<g clip-path="url(#g)">'+inner+'</g></svg>';
+}
+function buildSVG(){return svgWrap(svgFrame(curFrame));}
+
+const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
 function fitCanvas(){
   const r=RATIOS.find(x=>x.id===S.ratio);
   const box=$(".stage-inner");
@@ -620,9 +706,6 @@ function fitCanvas(){
   availW=Math.max(80,availW);availH=Math.max(80,availH);
   const s=Math.min(availW/r.w,availH/r.h);
   const dispW=Math.max(40,Math.floor(r.w*s)),dispH=Math.max(40,Math.floor(r.h*s));
-  // every pixel costs work here, so cap the backing store — harder while playing
-  const cap = playing ? 900 : 1500;
-  while(dispW*dpr>cap && dpr>0.35) dpr-=0.05;
   const w=Math.round(dispW*dpr),h=Math.round(dispH*dpr);
   if(art.width!==w||art.height!==h){art.width=w;art.height=h;}
   if(art.style.width!==dispW+"px"||art.style.height!==dispH+"px"){
@@ -641,7 +724,6 @@ function draw(){
   $("#frameno").textContent=String(curFrame+1).padStart(2,"0")+" / "+String(F).padStart(2,"0");
 }
 function requestDraw(){if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;draw();});}
-function invalidate(){requestDraw();updateExportNote();}
 const reframe=requestDraw;
 if(window.ResizeObserver){
   const box=$(".stage-inner");
@@ -677,10 +759,11 @@ function save(blob,name){
   a.href=url;a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
-function stamp(){return `terrain-${S.seed}-${S.ratio.replace(":","x")}`;}
+function stamp(){return `glyph-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
-  const a=$("#expVid"),sc=$("#scrub");
+  const a=$("#expVid"),sc=$("#scrub"),l=$("#expSvgLoop");
   if(a)a.disabled=!S.motion.on;
+  if(l)l.disabled=!S.motion.on;
   if(sc)sc.disabled=!S.motion.on;
 }
 $("#expPng").addEventListener("click",()=>{
@@ -692,6 +775,10 @@ $("#expPng").addEventListener("click",()=>{
     paint(c.getContext("2d"),W,H,curFrame);
     c.toBlob(b=>{save(b,stamp()+".png");toast(`PNG saved · ${W}×${H}`);});
   },30);
+});
+$("#expSvg").addEventListener("click",()=>{
+  save(new Blob([buildSVG()],{type:"image/svg+xml"}),stamp()+".svg");
+  toast("SVG saved");
 });
 function pickVideoType(){
   const t=["video/mp4;codecs=avc1.42E01E","video/mp4","video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"];
@@ -708,14 +795,13 @@ $("#expVid").addEventListener("click",()=>{
   let H=Math.round(W*r.h/r.w);H-=H%2;
   const c=document.createElement("canvas");c.width=W;c.height=H;
   const cc=c.getContext("2d");
-  const F=S.motion.frames,loops=2;
+  const F=S.motion.frames,loops=1;
   const rec=new MediaRecorder(c.captureStream(60),{mimeType:type,videoBitsPerSecond:16000000});
   const chunks=[];
   rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
   rec.onstop=()=>{save(new Blob(chunks,{type}),stamp()+"-loop."+ext);toast(ext.toUpperCase()+" saved");};
   const was=playing;setPlaying(false);
   toast("Recording…",true);
-  // frames are expensive here, so step them rather than chase the clock
   let n=0;
   rec.start();
   (function step(){
@@ -730,13 +816,13 @@ $("#expVid").addEventListener("click",()=>{
    UI
 ============================================================ */
 function accent(){
-  let best=S.palette[0],score=-1;
-  for(const c of S.palette){const k=chroma(c)*0.8+relLum(c)*0.3;if(k>score){score=k;best=c;}}
-  document.documentElement.style.setProperty("--accent",best);
-  $("#strip").innerHTML=S.palette.map(c=>`<span style="background:${c}"></span>`).join("");
+  let best=S.pal[S.pal.length-1],bl=-1;
+  for(const c of S.pal){const l=relLum(c);if(l>bl&&l>0.12){bl=l;best=c;}}
+  document.documentElement.style.setProperty("--accent",bl>0?best:"#F5C21B");
+  $("#strip").innerHTML=S.pal.map(c=>`<span style="background:${c}"></span>`).join("");
   const g=$("#glyph");
   if(g.children.length!==9)g.innerHTML=Array.from({length:9},()=>"<i></i>").join("");
-  [...g.children].forEach((el,i)=>el.classList.toggle("on",[0,1,2,4,5,8].includes(i)));
+  [...g.children].forEach((el,i)=>el.classList.toggle("on",[0,2,4,6,8].includes(i)));
 }
 function segmented(host,items,get,set){
   if(!host)return;
@@ -749,7 +835,6 @@ function segmented(host,items,get,set){
     host.appendChild(b);
   });
 }
-function refreshPalettes(){}   // palette presets removed; colours are edited by swatch
 function buildRatios(){
   const host=$("#ratios");if(!host)return;
   host.innerHTML="";
@@ -765,46 +850,40 @@ function buildRatios(){
   });
 }
 function buildSwatches(){
-  const host=$("#swatches");if(!host)return;
+  const host=$("#swatches");
   host.innerHTML="";
-  S.palette.forEach((c,i)=>{
+  const lock=S.pal.length<=2;
+  S.pal.forEach((c,i)=>{
     const b=document.createElement("button");
-    b.className="sw";b.type="button";
-    b.innerHTML=`<span class="fill" style="background:${c}"></span><input type="color" value="${c}" aria-label="Band ${i+1}">${S.palette.length>2?'<span class="x">×</span>':''}`;
-    const input=b.querySelector("input");
-    input.oninput=e=>{S.palette[i]=e.target.value;b.querySelector(".fill").style.background=e.target.value;
-      S.paletteName=null;refreshPalettes();accent();reframe();};
-    b.onclick=e=>{
-      if(e.target.classList.contains("x")){e.preventDefault();e.stopPropagation();
-        S.palette.splice(i,1);S.paletteName=null;buildSwatches();refreshPalettes();accent();reframe();return;}
-      if(e.target!==input)input.click();
-    };
+    b.className="sw"+(lock?" locked":"");b.type="button";
+    b.setAttribute("aria-label","Ink "+(i+1)+" color");
+    b.innerHTML=`<span class="fill" style="background:${c}"></span>`+
+      `<input type="color" value="${c}"><span class="x" aria-hidden="true">\u00d7</span>`;
+    b.querySelector("input").addEventListener("input",e=>{
+      S.pal[i]=e.target.value;
+      b.querySelector(".fill").style.background=e.target.value;
+      accent();reframe();
+    });
+    b.addEventListener("click",e=>{
+      if(e.target.classList.contains("x")&&S.pal.length>2){
+        e.preventDefault();e.stopPropagation();
+        S.pal.splice(i,1);buildSwatches();accent();reframe();
+      }
+    },true);
     host.appendChild(b);
   });
-  if(S.palette.length<12){
-    const add=document.createElement("button");
-    add.className="sw-add";add.type="button";add.textContent="+";
-    add.onclick=()=>{S.palette.push(hsl2hex(Math.random()*360,60+Math.random()*35,55+Math.random()*25));
-      S.paletteName=null;buildSwatches();refreshPalettes();accent();reframe();};
-    host.appendChild(add);
-  }
-  const cv=$("#swCountVal");if(cv)cv.textContent=S.palette.length;
+  const add=document.createElement("button");
+  add.className="sw-add";add.type="button";add.textContent="+";
+  add.setAttribute("aria-label","Add color");
+  add.addEventListener("click",()=>{
+    const commit=hex=>{S.pal.push(hex);buildSwatches();accent();reframe();};
+    if(window.__pickColour) window.__pickColour(add,commit);
+    else commit(PALETTES[0][(Math.random()*PALETTES[0].length)|0]);
+  });
+  host.appendChild(add);
+  const n=$("#swCountVal"); if(n) n.textContent=S.pal.length;
 }
-function shuffleColors(){
-  const n=S.palette.length,r=rng((Math.random()*1e9)|0);
-  const h0=r()*360,scheme=r();
-  const out=[];
-  for(let i=0;i<n;i++){
-    let h;
-    if(scheme<0.45)h=h0+i*(26+r()*24);
-    else if(scheme<0.78)h=h0+(i%3)*120+(r()-0.5)*30;
-    else h=h0+(i%2?180:0)+(r()-0.5)*56;
-    out.push(hsl2hex(h,55+r()*40,52+r()*30));
-  }
-  S.palette=out;
-  S.paletteName=null;
-  buildSwatches();refreshPalettes();accent();reframe();
-}
+function setPalette(p){S.pal=p.slice();buildSwatches();accent();reframe();}
 function bindRange(id,fmt,set,after){
   const el=$("#"+id),label=$("#"+id+"Val");
   if(!el)return;
@@ -814,17 +893,28 @@ function bindRange(id,fmt,set,after){
     (after||reframe)();
   });
 }
-const pct=v=>Math.round(v*100)+"%";
 
-buildRatios();buildSwatches();refreshPalettes();accent();
+buildRatios();buildSwatches();accent();
 segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
-bindRange("scale",v=>v.toFixed(1),v=>S.scale=v);
-bindRange("warp",pct,v=>S.warp=v);
-bindRange("oct",v=>v,v=>S.oct=v|0);
-bindRange("contrast",pct,v=>S.contrast=v);
-bindRange("balance",v=>v<-0.35?"Later bands":v>0.35?"Earlier bands":"Even",v=>S.balance=v);
-bindRange("grain",pct,v=>S.grain=v);
-bindRange("block",v=>v,v=>S.block=v|0);
+$("#shufColors").addEventListener("click",()=>{
+  setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
+});
+$("#rotColors").addEventListener("click",()=>{
+  if(S.pal.length<3){setPalette(S.pal.slice(1).concat(S.pal[0]));return;}
+  let di=0;
+  for(let i=1;i<S.pal.length;i++) if(lumG2(S.pal[i])<lumG2(S.pal[di])) di=i;
+  const rest=S.pal.filter((c,i)=>i!==di);
+  rest.push(rest.shift());
+  const out=S.pal.slice();
+  let k=0;
+  for(let i=0;i<out.length;i++) if(i!==di) out[i]=rest[k++];
+  setPalette(out);
+});
+bindRange("arms",v=>Math.round(v*100)+"%",v=>S.arms=v);
+bindRange("weight",v=>Math.round(v*100)+"%",v=>S.weight=v);
+bindRange("bite",v=>Math.round(v*100)+"%",v=>S.bite=v);
+bindRange("grid",v=>v|0,v=>S.grid=v|0);
+bindRange("spin",v=>Math.round(v*100)+"%",v=>S.spin=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
@@ -832,7 +922,6 @@ $("#frames").addEventListener("input",e=>{S.motion.frames=parseInt(e.target.valu
   $("#framesVal").textContent=S.motion.frames+" frames";$("#scrub").max=S.motion.frames-1;
   curFrame=Math.min(curFrame,S.motion.frames-1);reframe();if(playing)setPlaying(true);});
 $("#size").addEventListener("input",e=>{S.size=parseInt(e.target.value,10);$("#sizeVal").textContent=S.size+" px";});
-$("#shufColors").addEventListener("click",shuffleColors);
 $("#motionTog").addEventListener("click",e=>{
   S.motion.on=!S.motion.on;
   e.currentTarget.setAttribute("aria-pressed",String(S.motion.on));
@@ -853,6 +942,7 @@ document.addEventListener("keydown",e=>{
   if(e.key==="p"||e.key==="P"){if(S.motion.on)setPlaying(!playing);}
 });
 newSeed(7);
+$("#scrub").max=S.motion.frames-1;
 updateExportNote();
 draw();
 })();
