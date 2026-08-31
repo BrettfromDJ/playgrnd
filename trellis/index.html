@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Static — playgrnd</title>
-<meta name="description" content="Generate two-colour glitch pixel posters — moiré, scanlines, noise and blocks crushed to one-bit patterns. Exports SVG, PNG and video.">
+<title>Trellis — playgrnd</title>
+<meta name="description" content="Generate seamless trellis-board backgrounds — columns of pattern blocks under routed traces that wrap at every edge, so the tile repeats forever. Exports vector, image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -385,31 +385,22 @@ input[type=range]{accent-color:var(--ink)}
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
         <span class="slash">&frasl;</span>
-        <span class="tool">Static</span>
+        <span class="tool">Trellis</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">18 / 31</span>
-        <span class="k">Type</span><span class="v">Glitch poster</span>
+        <span class="k">Index</span><span class="v">31 / 31</span>
+        <span class="k">Type</span><span class="v">Diagonal lattice</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Composition</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Regions</span><span class="v" id="regionsVal">3</span></div><div class="track"><input type="range" id="regions" min="2" max="5" step="1" value="3"></div></div>
-        <div class="pr"><div class="top"><span class="k">Resolution</span><span class="v" id="resVal">84 px</span></div><div class="track"><input type="range" id="res" min="48" max="160" step="4" value="84"></div></div>
-        <div class="pr"><div class="top"><span class="k">Glitch</span><span class="v" id="glitchVal">50%</span></div><div class="track"><input type="range" id="glitch" min="0" max="1" step="0.01" value="0.5"></div></div></div></details></div>
-    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Ink</span></span><span class="mval"><div class="sw-grid">
-            <button class="sw" type="button" aria-label="Ink color">
-              <span class="fill" id="inkFill"></span>
-              <input type="color" id="inkIn" value="#5C1226">
-            </button>
-          </div></span></div>
-        <div class="misc"><span class="mhead"><span class="k">Background</span></span><span class="mval"><div class="sw-grid">
-            <button class="sw" type="button" aria-label="Background color">
-              <span class="fill" id="bgFill"></span>
-              <input type="color" id="bgIn" value="#8286EC">
-            </button>
-          </div></span></div>
+    <div class="l-scroll"><details class="grp" open><summary>Lattice</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Pitch</span><span class="v" id="pitchVal">5</span></div><div class="track"><input type="range" id="pitch" min="2" max="20" step="1" value="5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Band width</span><span class="v" id="bandVal">30%</span></div><div class="track"><input type="range" id="band" min="0" max="1" step="0.01" value="0.3"></div></div>
+        <div class="pr"><div class="top"><span class="k">Crossings</span><span class="v" id="crossVal">72%</span></div><div class="track"><input type="range" id="cross" min="0" max="1" step="0.01" value="0.72"></div></div></div></details>
+    <details class="grp" open><summary>Cells</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Triangles</span><span class="v" id="fillVal">55%</span></div><div class="track"><input type="range" id="fill" min="0" max="1" step="0.01" value="0.55"></div></div></div></details></div>
+    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">5</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
         
-      <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="swapColors">Rotate</button></span></div></div></details>
+        <div class="note">The darkest ink is the ground and the most saturated marks the crossings.</div>
+      <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
     </div>
@@ -445,17 +436,15 @@ input[type=range]{accent-color:var(--ink)}
       <h2 class="h frame-h">Frame</h2><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span>
     </div>
     <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
-          <div class="pr"><div class="top"><span class="k">Intensity</span><span class="v" id="amtVal">0.80</span></div><div class="track"><input type="range" id="amt" min="0.1" max="2" step="0.05" value="0.8"></div></div>
-          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">10 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="10"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">60 frames</span></div><div class="track"><input type="range" id="frames" min="12" max="180" step="4" value="60"></div></div>
-          <div class="note">Flicker re-deals the noise like bad reception; Drift crawls the patterns. Every loop closes exactly.</div></div></div>
+          <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
+          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">6 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="6"></div></div>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">24 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="24"></div></div></div></div>
     <div class="r-bot">
       <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
           <button class="lnk" id="expSvg">SVG</button>
-          <button class="lnk" id="expSvgLoop">SVG loop</button>
           <button class="lnk" id="expVid">Video</button></span></div>
-        <div class="note">The SVG is true vectors — every run of pixels becomes a crisp rectangle. SVG loop writes the whole animation into one file; shorter loops keep it light.</div></div>
+        <div class="note" id="expNote">Bands stay strokes and triangles stay polygons, so the SVG is a handful of shapes.</div></div>
       <div class="tbl" style="margin-top:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>
@@ -482,7 +471,6 @@ input[type=range]{accent-color:var(--ink)}
 const $=s=>document.querySelector(s);
 const TAU=Math.PI*2;
 const clamp=(v,a,b)=>v<a?a:v>b?b:v;
-const lerp=(a,b,t)=>a+(b-a)*t;
 const reduceMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
 function rng(s){let a=(s>>>0)||1;return()=>{a^=a<<13;a>>>=0;a^=a>>17;a^=a<<5;a>>>=0;return a/4294967296;};}
 function hashi(x,y,z,s){
@@ -497,225 +485,194 @@ function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const MODES=[["flicker","Flicker"],["drift","Drift"]];
-/* riso-ish duotone pairs: [ink, background] */
-const PAIRS=[
-  ["#5C1226","#8286EC"],["#F07BD8","#DCE2AA"],["#571020","#F0480F"],
-  ["#1B3FA8","#F2E9D8"],["#0E4D3C","#F5C21B"],["#2B2BE0","#F0A7D8"],
-  ["#101010","#C6FF3D"],["#7A1FA0","#FFD84D"]
+const MODES=[["shuffle","Shuffle"],["travel","Travel"]];
+
+const PALETTES=[
+  ["#000000","#4A2028","#C9A98A","#7A6220","#C8352F"],
+  ["#0A0A0C","#2A2340","#D6C6A8","#5E6B2E","#D8452C"],
+  ["#060606","#123028","#E0D2B8","#8A6A1E","#E0503A"],
+  ["#0B0808","#3A1A1A","#CBB79A","#6E5A2A","#B8302A"],
+  ["#050508","#1E2A3E","#D8CDBA","#4E6B5E","#E06A2C"]
 ];
 
 const S={
-  seed:9, ratio:"1:1",
-  regions:3, res:84, glitch:.5,
-  ink:"#5C1226", bg:"#8286EC",
-  motion:{on:false,mode:"flicker",amount:.8,fps:10,frames:60},
+  seed:21, ratio:"3:4",
+  pitch:5, band:0.30, seg:0.55,
+  fill:0.55, cross:0.72, taper:0.0,
+  pal:PALETTES[0].slice(),
+  motion:{on:false,mode:"shuffle",amount:0.6,fps:6,frames:24},
   size:2400
 };
 
-function gridDims(){
-  const r=RATIOS.find(x=>x.id===S.ratio);
-  const gw=S.res|0;
-  const gh=Math.max(8,Math.round(gw*r.h/r.w));
-  return{gw,gh};
+function hshT(x,y,s){
+  let n=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1274126177);
+  n=Math.imul(n^(n>>>13),1274126177);
+  n^=n>>>16;
+  return (n>>>0)/4294967296;
+}
+function hex2rgbT2(h){h=String(h).replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
+  const n=parseInt(h,16);return[(n>>16)&255,(n>>8)&255,n&255];}
+function lumT2(h){const[r,g,b]=hex2rgbT2(h);return r*.299+g*.587+b*.114;}
+
+/* ---- ink roles ---------------------------------------------------------
+   The darkest ink is the ground and the most saturated is the accent that
+   marks every crossing; whatever is left stripes the bands and fills the
+   cells. Assigning by property rather than by slot means Rotate and New
+   colors change the look without ever bleaching out the structure. */
+function rolesT(){
+  const pal=S.pal.length?S.pal:["#000000","#C9A98A"];
+  let ground=pal[0];
+  for(const c of pal) if(lumT2(c)<lumT2(ground)) ground=c;
+  const rest=pal.filter(c=>c!==ground);
+  if(!rest.length) rest.push(pal[0]);
+  let accent=rest[0], best=-1;
+  for(const c of rest){
+    const [r,g,b]=hex2rgbT2(c);
+    const sat=(Math.max(r,g,b)-Math.min(r,g,b))/255;
+    if(sat>best){best=sat;accent=c;}
+  }
+  const bands=rest.filter(c=>c!==accent);
+  return {ground:ground, accent:accent,
+          bands:bands.length?bands:rest,
+          fill:bands.length?bands[0]:rest[0]};
 }
 
-/* ============================================================
-   Layout — the poster splits into stacked bands, each running
-   its own pattern engine; sometimes an inset panel punches in.
-============================================================ */
-const TYPES=["moire","bars","static","blocks","rings","zigzag"];
-function buildLayout(gw,gh){
-  const r=rng(S.seed*2654435761>>>0);
-  const n=S.regions|0;
-  const w=[];let sum=0;
-  for(let i=0;i<n;i++){const v=0.5+r()*1.2;w.push(v);sum+=v;}
-  const regions=[];let y=0;
-  for(let i=0;i<n;i++){
-    const h=Math.round(w[i]/sum*gh);
-    const y1=i===n-1?gh:Math.min(gh,y+h);
-    regions.push(mkRegion(r,0,gw,y,y1,gw,gh));
-    y=y1;
-  }
-  /* an inset panel on top of everything, now and then */
-  let inset=null;
-  if(r()<0.4){
-    const x0=Math.round(gw*(0.1+r()*0.25)), x1=Math.round(gw*(0.65+r()*0.3));
-    const iy0=Math.round(gh*(0.15+r()*0.3)), iy1=Math.round(gh*(0.55+r()*0.35));
-    inset=mkRegion(r,x0,x1,iy0,iy1,gw,gh);
-  }
-  return{regions,inset};
-}
-function mkRegion(r,x0,x1,y0,y1,gw,gh){
-  const type=TYPES[(r()*TYPES.length)|0];
-  return{
-    type,x0,x1,y0,y1,
-    a:0.15+r()*0.75, b:0.06+r()*0.4,      /* wave frequencies */
-    warp:r()*6, th:(r()-0.5)*0.8,
-    cx:(r()*1.6-0.3)*gw, cy:(r()*1.6-0.3)*gh,
-    rk:0.12+r()*0.4, ph:r()*TAU,
-    dens:0.2+r()*0.5, grad:(r()-0.5)*0.9,
-    q:2+((r()*5)|0), duty:0.35+r()*0.35,
-    p:5+((r()*10)|0), slope:(r()<0.5?1:-1)*(0.3+r()*1.2),
-    vert:r()<0.35, rs:(r()*1e9)|0
-  };
-}
-function cellOn(R,u,v,t,f,cyc){
-  const drift=S.motion.on&&S.motion.mode==="drift";
-  const fl=S.motion.on&&S.motion.mode==="flicker";
-  const gw=R.x1-R.x0;
-  switch(R.type){
-    case "moire":{
-      const dph=drift?t*TAU*cyc:0;
-      const w1=Math.sin(u*R.a+Math.sin(v*R.b+dph)*R.warp+R.ph);
-      const w2=Math.sin(Math.hypot(u-R.cx,v-R.cy)*R.rk+dph*0.7);
-      return (w1+w2)>R.th;
-    }
-    case "rings":{
-      const dph=drift?t*TAU*cyc:0;
-      return Math.sin(Math.hypot(u-R.cx,v-R.cy)*R.rk+R.ph+dph)>R.th;
-    }
-    case "bars":{
-      const off=drift?Math.floor(t*cyc*(R.vert?(R.y1-R.y0):gw)):0;
-      if(R.vert){
-        const vv=(((v-R.y0+off)%(R.y1-R.y0))+(R.y1-R.y0))%(R.y1-R.y0);
-        const seg=hashi(u,Math.floor(vv/R.q),1,R.rs);
-        const rowOn=hashi(u,0,7,R.rs)<0.8;
-        return rowOn&&seg<R.duty+Math.sin(vv*0.2)*0.1;
-      }
-      const uu=(((u-R.x0+off)%gw)+gw)%gw;
-      const seg=hashi(Math.floor(uu/R.q),v,1,R.rs);
-      const rowOn=hashi(0,v,7,R.rs)<0.8;
-      return rowOn&&seg<R.duty+Math.sin(u*0.15)*0.08;
-    }
-    case "static":{
-      const key=fl?f:0;
-      const d=clamp(R.dens+R.grad*((v-R.y0)/Math.max(1,R.y1-R.y0)-0.5)*2,0.02,0.95);
-      return hashi(u,v,key,R.rs)<d;
-    }
-    case "blocks":{
-      const key=fl&&hashi(0,0,f,R.rs)<0.25?f:0;   /* blocks re-deal only sometimes */
-      const a=hashi(Math.floor(u/(R.q*2)),Math.floor(v/(R.q*2)),key,R.rs)<0.5;
-      const b=hashi(Math.floor(u/(R.q*5)),Math.floor(v/(R.q*5)),3,R.rs)<0.5;
-      return a!==b;
-    }
-    default:{ /* zigzag */
-      const sh=drift?Math.floor(t*cyc*R.p):0;
-      const uu=u+Math.floor(v*R.slope)+sh;
-      return ((uu%R.p)+R.p)%R.p < R.p*R.duty;
-    }
-  }
-}
-/* one-bit frame buffer + the glitch pass */
-function renderBits(gw,gh,f){
-  const M=S.motion;
-  const t=M.on?f/M.frames:0;
-  const cyc=Math.max(1,Math.round(M.amount));
-  const {regions,inset}=buildLayout(gw,gh);
-  const bits=new Uint8Array(gw*gh);
-  for(let v=0;v<gh;v++){
-    let R=regions[0];
-    for(const rr of regions){if(v>=rr.y0&&v<rr.y1){R=rr;break;}}
-    for(let u=0;u<gw;u++){
-      let RR=R;
-      if(inset&&u>=inset.x0&&u<inset.x1&&v>=inset.y0&&v<inset.y1)RR=inset;
-      bits[v*gw+u]=cellOn(RR,u,v,t,f,cyc)?1:0;
-    }
-  }
-  /* glitch: shifted row segments, smeared repeats, punched dropouts */
-  const fl=M.on&&M.mode==="flicker";
-  const g=rng((S.seed^0x9e3779b9)+(fl?f*2654435761:0)>>>0);
-  const amt=S.glitch*(fl?0.6+0.8*M.amount:1);
-  const shifts=Math.round(gh*0.3*amt);
-  for(let i=0;i<shifts;i++){
-    const y=(g()*gh)|0, x0=(g()*gw)|0, len=1+(g()*gw*0.5)|0, dx=1+(g()*7)|0;
-    const row=bits.slice(y*gw,(y+1)*gw);
-    for(let x=x0;x<Math.min(gw,x0+len);x++)bits[y*gw+x]=row[(((x+dx)%gw)+gw)%gw];
-  }
-  const smears=Math.round(gh*0.08*amt);
-  for(let i=0;i<smears;i++){
-    const y=1+((g()*(gh-1))|0), reps=1+(g()*3)|0;
-    for(let k=0;k<reps&&y+k<gh;k++)
-      bits.copyWithin((y+k)*gw,(y-1)*gw,y*gw);
-  }
-  const drops=Math.round(6*amt);
-  for(let i=0;i<drops;i++){
-    const x0=(g()*gw)|0,y0=(g()*gh)|0,w=2+(g()*gw*0.2)|0,h=1+(g()*gh*0.06)|0,val=g()<0.5?0:1;
-    for(let y=y0;y<Math.min(gh,y0+h);y++)
-      for(let x=x0;x<Math.min(gw,x0+w);x++)bits[y*gw+x]=val;
-  }
-  return bits;
-}
-
-/* ============================================================
-   Paint — tiny one-bit buffer, scaled up with hard pixels
-============================================================ */
-let tiny=null,tctx=null;
+/* ---- the lattice -------------------------------------------------------
+   Two families of diagonals, one running up-right and one down-right, laid
+   out in rotated space so the whole thing is an ordinary square grid turned
+   45 degrees. Working in that space rather than in page coordinates is what
+   keeps the crossings exactly on a lattice point instead of nearly on one. */
 function paint(c,W,H,f){
-  const {gw,gh}=gridDims();
-  if(!tiny||tiny.width!==gw||tiny.height!==gh){
-    tiny=document.createElement("canvas");tiny.width=gw;tiny.height=gh;
-    tctx=tiny.getContext("2d");
-  }
-  const bits=renderBits(gw,gh,f);
-  const ink=hex2rgb(S.ink),bg=hex2rgb(S.bg);
-  const img=tctx.createImageData(gw,gh);
-  const d=img.data;
-  for(let i=0;i<bits.length;i++){
-    const p=bits[i]?ink:bg;
-    d[i*4]=p[0];d[i*4+1]=p[1];d[i*4+2]=p[2];d[i*4+3]=255;
-  }
-  tctx.putImageData(img,0,0);
-  c.imageSmoothingEnabled=false;
-  c.clearRect(0,0,W,H);
-  c.drawImage(tiny,0,0,W,H);
-}
+  const R=rolesT();
+  const M=S.motion;
+  const tseed=(M.on&&M.mode==="shuffle")?S.seed+f*7919:S.seed;
+  /* The lattice repeats every PER cells across. Without a repeat, Travel
+     could never loop: shifting a hash that has no period lands on a different
+     arrangement every time, so the last frame would never meet the first.
+     Giving it a period fixes the loop and makes the pattern repeat sideways
+     into the bargain. */
+  const PER=16;
+  const travel=(M.on&&M.mode==="travel")
+    ? Math.floor((f/M.frames)*PER*Math.max(1,Math.round(M.amount*2))) : 0;
+  const wrapI=i=>(((i+travel)%PER)+PER)%PER;
 
-/* ============================================================
-   SVG — background rect + one crisp rect per run of ink pixels
-============================================================ */
-function frameRects(gw,gh,f){
-  const bits=renderBits(gw,gh,f);
-  let shape="";
-  for(let v=0;v<gh;v++){
-    let run=-1;
-    for(let u=0;u<=gw;u++){
-      const on=u<gw&&bits[v*gw+u];
-      if(on&&run<0)run=u;
-      else if(!on&&run>=0){
-        shape+=`<rect x="${run}" y="${v}" width="${u-run}" height="1"/>`;
-        run=-1;
+  c.fillStyle=R.ground; c.fillRect(0,0,W,H);
+
+  /* the diamond is as wide as it is tall, so the diagonals sit at a true 45 */
+  const n=Math.max(2,S.pitch|0);
+  const dw=Math.min(W,H)/n;                 /* half-diagonal of a cell */
+  const cols=Math.ceil(W/dw)+2, rows=Math.ceil(H/dw)+2;
+  const bw=dw*(0.10+S.band*0.34);           /* band width */
+
+  /* ---- cells: a triangle is half a diamond, so it is drawn from three of
+     the diamond's four corners ---------------------------------------- */
+  for(let j=-1;j<rows;j++){
+    for(let i=-1;i<cols;i++){
+      if(((i+j)&1)!==0) continue;           /* diamond centres, not every point */
+      const cx=i*dw, cy=j*dw;
+      const h=hshT(wrapI(i),j,tseed+11);
+      if(h>S.fill) continue;
+      const dir=Math.floor(hshT(wrapI(i),j,tseed+29)*4);
+      const P=[[cx,cy-dw],[cx+dw,cy],[cx,cy+dw],[cx-dw,cy]];  /* N E S W */
+      /* drop the corner opposite the direction: what is left is the triangle */
+      const tri=[]; for(let k=0;k<4;k++) if(k!==dir) tri.push(P[k]);
+      c.fillStyle=R.fill;
+      c.beginPath();
+      c.moveTo(tri[0][0],tri[0][1]);
+      c.lineTo(tri[1][0],tri[1][1]);
+      c.lineTo(tri[2][0],tri[2][1]);
+      c.closePath(); c.fill();
+    }
+  }
+
+  /* ---- bands: both families of diagonals, drawn a cell at a time so the
+     colour can step along the run --------------------------------------- */
+  c.lineCap="butt";
+  for(let d=0;d<2;d++){
+    const sgn=d?1:-1;                       /* down-right, then up-right */
+    for(let k=-rows-cols;k<rows+cols;k++){
+      for(let t=-1;t<cols+rows;t++){
+        const i=t, j=k+sgn*t;
+        const x0=i*dw, y0=j*dw, x1=(i+1)*dw, y1=(j+sgn)*dw;
+        if(Math.max(x0,x1)<-dw||Math.min(x0,x1)>W+dw) continue;
+        if(Math.max(y0,y1)<-dw||Math.min(y0,y1)>H+dw) continue;
+        c.strokeStyle=R.bands[Math.floor(hshT(wrapI(i)*3+d*7,j*5,tseed+41)*R.bands.length)%R.bands.length];
+        c.lineWidth=bw;
+        c.beginPath(); c.moveTo(x0,y0); c.lineTo(x1,y1); c.stroke();
       }
     }
   }
-  return shape;
-}
-function buildSVG(){
-  const {gw,gh}=gridDims();
-  const r=RATIOS.find(x=>x.id===S.ratio);
-  const W=S.size,H=Math.round(S.size*r.h/r.w);
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${gw} ${gh}" shape-rendering="crispEdges">`+
-    `<rect width="${gw}" height="${gh}" fill="${S.bg}"/><g fill="${S.ink}">${frameRects(gw,gh,curFrame)}</g></svg>`;
-}
-/* animated loop: every frame goes into the file as a hidden group, and a
-   discrete visibility animation flips through them on the tool's own clock */
-function buildLoopSVG(){
-  const {gw,gh}=gridDims();
-  const r=RATIOS.find(x=>x.id===S.ratio);
-  const W=S.size,H=Math.round(S.size*r.h/r.w);
-  const F=S.motion.frames;
-  const dur=(F/S.motion.fps).toFixed(3);
-  let groups="";
-  for(let f=0;f<F;f++){
-    const t0=(f/F).toFixed(5), t1=((f+1)/F).toFixed(5);
-    const anim=f===0
-      ?`<animate attributeName="visibility" values="visible;hidden" keyTimes="0;${t1}" dur="${dur}s" calcMode="discrete" repeatCount="indefinite"/>`
-      :`<animate attributeName="visibility" values="hidden;visible;hidden" keyTimes="0;${t0};${t1}" dur="${dur}s" calcMode="discrete" repeatCount="indefinite"/>`;
-    groups+=`<g fill="${S.ink}" visibility="${f===0?"visible":"hidden"}">${anim}${frameRects(gw,gh,f)}</g>`;
+
+  /* ---- crossings ------------------------------------------------------
+     The accent belongs at the intersections, not along whole runs. Colouring
+     a full segment made every other cell red and the lattice stopped reading
+     as woven — it just read as a red grid. A short stub centred on the
+     crossing, on one diagonal only, is what puts one band over the other. */
+  const stub=dw*0.42;
+  for(let j=-1;j<rows;j++){
+    for(let i=-1;i<cols;i++){
+      if(((i+j)&1)!==0) continue;           /* the lattice points */
+      if(hshT(wrapI(i),j,tseed+53)>=S.cross) continue;
+      const cx=i*dw, cy=j*dw;
+      const sgn=(hshT(wrapI(i),j,tseed+67)<0.5)?1:-1;
+      const ux=stub/Math.SQRT2, uy=sgn*stub/Math.SQRT2;
+      c.strokeStyle=R.accent; c.lineWidth=bw;
+      c.beginPath(); c.moveTo(cx-ux,cy-uy); c.lineTo(cx+ux,cy+uy); c.stroke();
+    }
   }
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${gw} ${gh}" shape-rendering="crispEdges">`+
-    `<rect width="${gw}" height="${gh}" fill="${S.bg}"/>${groups}</svg>`;
 }
+
+/* ---- vector ------------------------------------------------------------
+   The same paint() against a recorder, so the SVG cannot drift from the
+   canvas: triangles stay polygons and band segments stay strokes. */
+function SvgSurfaceT(){
+  this.fillStyle="#000"; this.strokeStyle="#000"; this.lineWidth=1;
+  this.lineCap="butt"; this.lineJoin="miter"; this.imageSmoothingEnabled=false;
+  this._b=[]; this._p=null;
+}
+SvgSurfaceT.prototype.save=function(){};
+SvgSurfaceT.prototype.restore=function(){};
+SvgSurfaceT.prototype.translate=function(){};
+SvgSurfaceT.prototype.scale=function(){};
+SvgSurfaceT.prototype.rotate=function(){};
+SvgSurfaceT.prototype.clearRect=function(){};
+SvgSurfaceT.prototype.fillRect=function(x,y,w,h){
+  this._b.push('<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+w.toFixed(1)+
+               '" height="'+h.toFixed(1)+'" fill="'+this.fillStyle+'"/>');
+};
+SvgSurfaceT.prototype.beginPath=function(){this._p=[];};
+SvgSurfaceT.prototype.moveTo=function(x,y){this._p=[[x,y]];};
+SvgSurfaceT.prototype.lineTo=function(x,y){if(this._p)this._p.push([x,y]);};
+SvgSurfaceT.prototype.closePath=function(){};
+SvgSurfaceT.prototype.fill=function(){
+  if(!this._p||this._p.length<3)return;
+  const d=this._p.map(function(q,i){return (i?"L":"M")+q[0].toFixed(1)+" "+q[1].toFixed(1);}).join("")+"Z";
+  this._b.push('<path d="'+d+'" fill="'+this.fillStyle+'"/>');
+};
+SvgSurfaceT.prototype.stroke=function(){
+  if(!this._p||this._p.length<2)return;
+  const d=this._p.map(function(q,i){return (i?"L":"M")+q[0].toFixed(1)+" "+q[1].toFixed(1);}).join("");
+  this._b.push('<path d="'+d+'" fill="none" stroke="'+this.strokeStyle+
+    '" stroke-width="'+this.lineWidth.toFixed(2)+'" stroke-linecap="butt"/>');
+};
+SvgSurfaceT.prototype.markup=function(){return this._b.join("");};
+
+function svgFrame(f){
+  const r=RATIOS.find(x=>x.id===S.ratio);
+  const W=S.size,H=Math.round(S.size*r.h/r.w);
+  const s=new SvgSurfaceT();
+  paint(s,W,H,f);
+  return s.markup();
+}
+function svgWrap(inner){
+  const r=RATIOS.find(x=>x.id===S.ratio);
+  const W=S.size,H=Math.round(S.size*r.h/r.w);
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+
+         '" viewBox="0 0 '+W+' '+H+'">'+
+         '<clipPath id="t"><rect width="'+W+'" height="'+H+'"/></clipPath>'+
+         '<g clip-path="url(#t)">'+inner+'</g></svg>';
+}
+function buildSVG(){return svgWrap(svgFrame(curFrame));}
 
 const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
 function fitCanvas(){
@@ -784,7 +741,7 @@ function save(blob,name){
   a.href=url;a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
-function stamp(){return `static-${S.seed}-${S.ratio.replace(":","x")}`;}
+function stamp(){return `trellis-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
   const a=$("#expVid"),sc=$("#scrub"),l=$("#expSvgLoop");
   if(a)a.disabled=!S.motion.on;
@@ -804,14 +761,6 @@ $("#expPng").addEventListener("click",()=>{
 $("#expSvg").addEventListener("click",()=>{
   save(new Blob([buildSVG()],{type:"image/svg+xml"}),stamp()+".svg");
   toast("SVG saved");
-});
-$("#expSvgLoop").addEventListener("click",()=>{
-  if(!S.motion.on)return toast("Turn on motion first");
-  toast("Building loop\u2026",true);
-  setTimeout(()=>{
-    save(new Blob([buildLoopSVG()],{type:"image/svg+xml"}),stamp()+"-loop.svg");
-    toast("Animated SVG saved");
-  },30);
 });
 function pickVideoType(){
   const t=["video/mp4;codecs=avc1.42E01E","video/mp4","video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"];
@@ -849,12 +798,13 @@ $("#expVid").addEventListener("click",()=>{
    UI
 ============================================================ */
 function accent(){
-  const a=relLum(S.bg)>relLum(S.ink)?S.bg:S.ink;
-  document.documentElement.style.setProperty("--accent",relLum(a)>0.12?a:"#F04A12");
-  $("#strip").innerHTML=[S.ink,S.bg].map(c=>`<span style="background:${c}"></span>`).join("");
+  let best=S.pal[S.pal.length-1],bl=-1;
+  for(const c of S.pal){const l=relLum(c);if(l>bl&&l>0.12){bl=l;best=c;}}
+  document.documentElement.style.setProperty("--accent",bl>0?best:"#F5C21B");
+  $("#strip").innerHTML=S.pal.map(c=>`<span style="background:${c}"></span>`).join("");
   const g=$("#glyph");
   if(g.children.length!==9)g.innerHTML=Array.from({length:9},()=>"<i></i>").join("");
-  [...g.children].forEach((el,i)=>el.classList.toggle("on",[0,1,3,5,7,8].includes(i)));
+  [...g.children].forEach((el,i)=>el.classList.toggle("on",[0,2,4,6,8].includes(i)));
 }
 function segmented(host,items,get,set){
   if(!host)return;
@@ -881,12 +831,41 @@ function buildRatios(){
     host.appendChild(b);
   });
 }
-function setColors(ink,bg){
-  S.ink=ink;S.bg=bg;
-  $("#inkIn").value=ink;$("#bgIn").value=bg;
-  $("#inkFill").style.background=ink;$("#bgFill").style.background=bg;
-  accent();reframe();
+function buildSwatches(){
+  const host=$("#swatches");
+  host.innerHTML="";
+  const lock=S.pal.length<=2;
+  S.pal.forEach((c,i)=>{
+    const b=document.createElement("button");
+    b.className="sw"+(lock?" locked":"");b.type="button";
+    b.setAttribute("aria-label","Ink "+(i+1)+" color");
+    b.innerHTML=`<span class="fill" style="background:${c}"></span>`+
+      `<input type="color" value="${c}"><span class="x" aria-hidden="true">\u00d7</span>`;
+    b.querySelector("input").addEventListener("input",e=>{
+      S.pal[i]=e.target.value;
+      b.querySelector(".fill").style.background=e.target.value;
+      accent();reframe();
+    });
+    b.addEventListener("click",e=>{
+      if(e.target.classList.contains("x")&&S.pal.length>2){
+        e.preventDefault();e.stopPropagation();
+        S.pal.splice(i,1);buildSwatches();accent();reframe();
+      }
+    },true);
+    host.appendChild(b);
+  });
+  const add=document.createElement("button");
+  add.className="sw-add";add.type="button";add.textContent="+";
+  add.setAttribute("aria-label","Add color");
+  add.addEventListener("click",()=>{
+    const commit=hex=>{S.pal.push(hex);buildSwatches();accent();reframe();};
+    if(window.__pickColour) window.__pickColour(add,commit);
+    else commit(PALETTES[0][(Math.random()*PALETTES[0].length)|0]);
+  });
+  host.appendChild(add);
+  const n=$("#swCountVal"); if(n) n.textContent=S.pal.length;
 }
+function setPalette(p){S.pal=p.slice();buildSwatches();accent();reframe();}
 function bindRange(id,fmt,set,after){
   const el=$("#"+id),label=$("#"+id+"Val");
   if(!el)return;
@@ -896,22 +875,27 @@ function bindRange(id,fmt,set,after){
     (after||reframe)();
   });
 }
-const pct=v=>Math.round(v*100)+"%";
 
-buildRatios();accent();
-$("#inkFill").style.background=S.ink;
-$("#bgFill").style.background=S.bg;
+buildRatios();buildSwatches();accent();
 segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
-$("#inkIn").addEventListener("input",e=>{S.ink=e.target.value;$("#inkFill").style.background=S.ink;accent();reframe();});
-$("#bgIn").addEventListener("input",e=>{S.bg=e.target.value;$("#bgFill").style.background=S.bg;accent();reframe();});
 $("#shufColors").addEventListener("click",()=>{
-  const p=window.__freshPalette(PAIRS[(Math.random()*PAIRS.length)|0]);
-  if(Math.random()<0.4)setColors(p[1],p[0]);else setColors(p[0],p[1]);
+  setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
 });
-$("#swapColors").addEventListener("click",()=>setColors(S.bg,S.ink));
-bindRange("regions",v=>v,v=>S.regions=v|0);
-bindRange("res",v=>v+" px",v=>S.res=v|0);
-bindRange("glitch",pct,v=>S.glitch=v);
+$("#rotColors").addEventListener("click",()=>{
+  if(S.pal.length<3){setPalette(S.pal.slice(1).concat(S.pal[0]));return;}
+  let di=0;
+  for(let i=1;i<S.pal.length;i++) if(lumT2(S.pal[i])<lumT2(S.pal[di])) di=i;
+  const rest=S.pal.filter((c,i)=>i!==di);
+  rest.push(rest.shift());
+  const out=S.pal.slice();
+  let k=0;
+  for(let i=0;i<out.length;i++) if(i!==di) out[i]=rest[k++];
+  setPalette(out);
+});
+bindRange("pitch",v=>v|0,v=>S.pitch=v|0);
+bindRange("band",v=>Math.round(v*100)+"%",v=>S.band=v);
+bindRange("fill",v=>Math.round(v*100)+"%",v=>S.fill=v);
+bindRange("cross",v=>Math.round(v*100)+"%",v=>S.cross=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
@@ -938,7 +922,7 @@ document.addEventListener("keydown",e=>{
   if(e.code==="Space"){e.preventDefault();newSeed();}
   if(e.key==="p"||e.key==="P"){if(S.motion.on)setPlaying(!playing);}
 });
-newSeed(9);
+newSeed(7);
 $("#scrub").max=S.motion.frames-1;
 updateExportNote();
 draw();
