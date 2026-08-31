@@ -194,10 +194,10 @@ input{font:inherit;color:inherit}
     align-self:auto;text-align:left;max-height:none;overflow:visible;display:block}
   .l-scroll{overflow:visible;max-height:none;-webkit-mask-image:none;mask-image:none}
   .z-left{display:contents}
-  .l-top{order:0;padding-top:30px} .z-top{order:1} .z-stage{order:2}
-  .l-scroll{order:3} .l-bot{order:4} .z-right{order:5} .z-bottom{order:6}
-  /* the filter pill leaves the absolute slot over the stage and becomes a row */
-  .z-top{position:static;translate:none;grid-column:1;grid-row:auto;justify-self:start}
+  .l-top{order:0;padding-top:30px} .z-stage{order:1}
+  .l-scroll{order:2} .l-bot{order:3} .z-right{order:4} .z-bottom{order:5}
+  /* the filter pill leaves its absolute slot and becomes the first row */
+  .z-top{position:static;translate:none;margin-bottom:26px}
   .z-stage{padding:0}
   .list{overflow:visible;max-height:none;-webkit-mask-image:none;mask-image:none}
   .btnrow{justify-content:flex-start}
@@ -260,20 +260,23 @@ input{font:inherit;color:inherit}
     </div>
   </div>
 
-  <!-- ---------------- the filter pill, where a tool puts its variation --- -->
-  <div class="z-top">
-    <div class="pill">
-      <span class="lb">Filter</span>
-      <span class="sep"></span>
-      <input class="q" id="q" type="search" placeholder="All tools" aria-label="Filter tools"
-             autocomplete="off" spellcheck="false">
-      <button class="pbtn" id="clear" type="button">Clear</button>
-      <button class="pbtn go" id="lucky" type="button">Random</button>
-    </div>
-  </div>
-
   <!-- ---------------- centre: the index ---------------------------------- -->
   <div class="zone z-stage">
+    <!-- the filter pill sits where a tool puts its variation pill: inside the
+         stage, not the rig. top:0 resolves against the padding *box*, which for
+         a border-less element is its outer edge — anchored to .rig it would ride
+         flush against the top of the window with the page margin lost. -->
+    <div class="z-top">
+      <div class="pill">
+        <span class="lb">Filter</span>
+        <span class="sep"></span>
+        <input class="q" id="q" type="search" placeholder="All tools" aria-label="Filter tools"
+               autocomplete="off" spellcheck="false">
+        <button class="pbtn" id="clear" type="button">Clear</button>
+        <button class="pbtn go" id="lucky" type="button">Random</button>
+      </div>
+    </div>
+
     <div class="sheet">
       <span class="corner a"></span><span class="corner b"></span>
       <span class="corner c"></span><span class="corner d"></span>
