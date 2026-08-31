@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Delta — playgrnd</title>
-<meta name="description" content="Generate corrupted satellite fields — a marbled noise ground buried under mosaics of clashing pixel blocks, solid bars and sliced bands. Exports image and video.">
+<title>Circuit — playgrnd</title>
+<meta name="description" content="Generate seamless circuit-board backgrounds — columns of pattern blocks under routed traces that wrap at every edge, so the tile repeats forever. Exports vector, image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -379,27 +379,26 @@ input[type=range]{accent-color:var(--ink)}
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
         <span class="slash">&frasl;</span>
-        <span class="tool">Delta</span>
+        <span class="tool">Circuit</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">23 / 27</span>
-        <span class="k">Type</span><span class="v">Satellite mosaic</span>
+        <span class="k">Index</span><span class="v">27 / 27</span>
+        <span class="k">Type</span><span class="v">Circuit board</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Field</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Scale</span><span class="v" id="scaleVal">3.2</span></div><div class="track"><input type="range" id="scale" min="1" max="9" step="0.1" value="3.2"></div></div>
-        <div class="pr"><div class="top"><span class="k">Warp</span><span class="v" id="warpVal">55%</span></div><div class="track"><input type="range" id="warp" min="0" max="1.6" step="0.01" value="0.55"></div></div>
-        <div class="pr"><div class="top"><span class="k">Contrast</span><span class="v" id="contrastVal">60%</span></div><div class="track"><input type="range" id="contrast" min="0" max="1" step="0.01" value="0.6"></div></div>
-        <div class="pr"><div class="top"><span class="k">Bleach</span><span class="v" id="bleachVal">35%</span></div><div class="track"><input type="range" id="bleach" min="0" max="1" step="0.01" value="0.35"></div></div></div></details>
-    <details class="grp"><summary>Mosaic</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Patches</span><span class="v" id="patchesVal">6</span></div><div class="track"><input type="range" id="patches" min="0" max="18" step="1" value="6"></div></div>
-        <div class="pr"><div class="top"><span class="k">Cell size</span><span class="v" id="cellVal">28</span></div><div class="track"><input type="range" id="cell" min="8" max="90" step="1" value="28"></div></div>
-        <div class="pr"><div class="top"><span class="k">Fill</span><span class="v" id="fillVal">55%</span></div><div class="track"><input type="range" id="fill" min="0.05" max="1" step="0.01" value="0.55"></div></div>
-        <div class="pr"><div class="top"><span class="k">Pixelate</span><span class="v" id="quantVal">35%</span></div><div class="track"><input type="range" id="quant" min="0" max="1" step="0.01" value="0.35"></div></div></div></details>
-    <details class="grp"><summary>Blocks</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Solid blocks</span><span class="v" id="blocksVal">3</span></div><div class="track"><input type="range" id="blocks" min="0" max="10" step="1" value="3"></div></div>
-        <div class="pr"><div class="top"><span class="k">Bands</span><span class="v" id="bandsVal">1</span></div><div class="track"><input type="range" id="bands" min="0" max="6" step="1" value="1"></div></div>
-        <div class="pr"><div class="top"><span class="k">Slice</span><span class="v" id="sliceVal">25%</span></div><div class="track"><input type="range" id="slice" min="0" max="1" step="0.01" value="0.25"></div></div></div></details></div>
-    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">6</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+    <div class="l-scroll"><details class="grp" open><summary>Board</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Grid</span><span class="v" id="colsVal">104</span></div><div class="track"><input type="range" id="cols" min="12" max="200" step="1" value="104"></div></div>
+        <div class="pr"><div class="top"><span class="k">Column width</span><span class="v" id="stripeVal">40%</span></div><div class="track"><input type="range" id="stripe" min="0" max="1" step="0.01" value="0.4"></div></div>
+        <div class="pr"><div class="top"><span class="k">Block height</span><span class="v" id="splitVal">55%</span></div><div class="track"><input type="range" id="split" min="0" max="1" step="0.01" value="0.55"></div></div></div></details>
+    <details class="grp"><summary>Fills</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Solids</span><span class="v" id="fillsVal">70%</span></div><div class="track"><input type="range" id="fills" min="0" max="1" step="0.01" value="0.7"></div></div>
+        <div class="pr"><div class="top"><span class="k">Patterns</span><span class="v" id="motifVal">55%</span></div><div class="track"><input type="range" id="motif" min="0" max="1" step="0.01" value="0.55"></div></div></div></details>
+    <details class="grp"><summary>Traces</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="tracesVal">60%</span></div><div class="track"><input type="range" id="traces" min="0" max="1.4" step="0.01" value="0.6"></div></div>
+        <div class="pr"><div class="top"><span class="k">Run length</span><span class="v" id="runLenVal">55%</span></div><div class="track"><input type="range" id="runLen" min="0" max="1" step="0.01" value="0.55"></div></div>
+        <div class="pr"><div class="top"><span class="k">Branches</span><span class="v" id="stubsVal">50%</span></div><div class="track"><input type="range" id="stubs" min="0" max="1" step="0.01" value="0.5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Line weight</span><span class="v" id="weightVal">1.4</span></div><div class="track"><input type="range" id="weight" min="0.6" max="5" step="0.1" value="1.4"></div></div></div></details></div>
+    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">7</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
         
+        <div class="note">The darkest ink is the board itself; the brightest does the wiring.</div>
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
@@ -437,13 +436,14 @@ input[type=range]{accent-color:var(--ink)}
     </div>
     <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
           <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
-          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="12"></div></div>
+          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">6 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="6"></div></div>
           <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">24 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="24"></div></div></div></div>
     <div class="r-bot">
       <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
+          <button class="lnk" id="expSvg">SVG</button>
           <button class="lnk" id="expVid">Video</button></span></div>
-        <div class="note" id="expNote">The field is drawn pixel by pixel, so this one exports as an image rather than vector.</div></div>
+        <div class="note" id="expNote">Edges match on all four sides, so any export repeats seamlessly as a tile.</div></div>
       <div class="tbl" style="margin-top:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>
@@ -484,201 +484,305 @@ function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const MODES=[["shuffle","Shuffle"],["slice","Slice"]];
+const MODES=[["shuffle","Shuffle"],["scroll","Scroll"]];
 
-/* Loud, clashing sets — the mosaic wants colours that fight the muddy field. */
 const PALETTES=[
-  ["#2B2BE8","#19A7A0","#F25CA2","#F5D93B","#6BD44A","#F0602A"],
-  ["#1F3BD6","#0FB5A8","#FF4FA3","#FFE04D","#8CE05B","#FF6B2C"],
-  ["#3B1FD1","#00B3B3","#FF77C8","#FFF06B","#4FD1FF","#FF4646"],
-  ["#0C1BE0","#1FC6A6","#E85BD0","#F7E14C","#7CE0A0","#FF7A45"],
-  ["#4B2BEA","#25B7C9","#FF5C8A","#EFE04F","#A3E04B","#F0553B"],
-  ["#111ACC","#12A48F","#FF69B4","#FFD84D","#5FD08A","#FF5A36"]
+  ["#0A0206","#D6006E","#C4661A","#7FD4D4","#B01020","#E88AB0","#5A0A18"],
+  ["#050505","#E01060","#D08020","#6FD0C8","#A81028","#F0A0C0","#4A0812"],
+  ["#0B0210","#C81E86","#B8721E","#8ADCDC","#9E1430","#EE96C2","#520C22"],
+  ["#08060A","#E52E8C","#CE7A22","#74CFD9","#BB1A26","#F2A2CC","#601020"],
+  ["#0A0A08","#22B0A0","#E0741C","#F0D8B0","#C02040","#8ED8C8","#123830"]
 ];
 
 const S={
-  seed:7, ratio:"16:9",
-  scale:4.6, warp:0.85, contrast:0.55, bleach:0.3,
-  patches:11, cell:18, fill:0.62, quant:0.45,
-  blocks:3, bands:1, slice:0.22,
+  seed:23, ratio:"16:9",
+  cols:104, stripe:0.4, split:0.55,
+  fills:0.7, motif:0.55,
+  traces:0.6, runLen:0.55, stubs:0.5, weight:1.4,
   pal:PALETTES[0].slice(),
-  motion:{on:false,mode:"shuffle",amount:0.6,fps:12,frames:24},
+  motion:{on:false,mode:"shuffle",amount:0.6,fps:6,frames:24},
   size:2400
 };
 
-/* ---- value noise -------------------------------------------------------
-   One hash, bilinear interpolation, a few octaves, then the whole field is
-   pushed through itself once so the bands buckle like a satellite image. */
-function hsh(x,y,s){
-  let n=x*374761393+y*668265263+s*1442695040888963407;
-  n=(n^(n>>13))*1274126177;
-  return ((n^(n>>16))>>>0)/4294967296;
-}
-function vnoise(x,y,s){
-  const xi=Math.floor(x), yi=Math.floor(y);
-  const xf=x-xi, yf=y-yi;
-  const u=xf*xf*(3-2*xf), v=yf*yf*(3-2*yf);
-  const a=hsh(xi,yi,s), b=hsh(xi+1,yi,s), c=hsh(xi,yi+1,s), d=hsh(xi+1,yi+1,s);
-  return (a*(1-u)+b*u)*(1-v)+(c*(1-u)+d*u)*v;
-}
-function fbm(x,y,s,oct){
-  let sum=0,amp=.5,f=1,norm=0;
-  for(let i=0;i<oct;i++){ sum+=amp*vnoise(x*f,y*f,s+i*57); norm+=amp; amp*=.5; f*=2; }
-  return sum/norm;
+/* ---- hash --------------------------------------------------------------
+   Math.imul throughout: a plain multiply overflows past 2^53, loses its low
+   bits and never sets bit 31, which quietly halves the range. */
+function hshC(x,y,s){
+  let n=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1274126177);
+  n=Math.imul(n^(n>>>13),1274126177);
+  n^=n>>>16;
+  return (n>>>0)/4294967296;
 }
 
-function hex2rgbA(h){h=h.replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
+function hex2rgbC(h){h=h.replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
   const n=parseInt(h,16);return[(n>>16)&255,(n>>8)&255,n&255];}
+function lumC(h){const[r,g,b]=hex2rgbC(h);return r*.299+g*.587+b*.114;}
+function darkestC(pal){let d=pal[0];for(const c of pal) if(lumC(c)<lumC(d)) d=c; return d;}
+function brightestC(pal){let b=pal[0];for(const c of pal) if(lumC(c)>lumC(b)) b=c; return b;}
 
-/* The ground is the palette pushed towards silt: darkened, desaturated and
-   spread over a ramp, so the bright mosaic has something muddy to sit on. */
-function fieldRamp(){
-  const pal=(S.pal.length?S.pal:["#888888"]).slice();
-  const lum=h=>{const[r,g,b]=hex2rgbA(h);return r*.299+g*.587+b*.114;};
-  pal.sort((a,b)=>lum(a)-lum(b));
-  const mix=0.10+0.55*S.bleach;
-  const stops=[[38,36,46]];
-  for(let i=0;i<pal.length;i++){
-    const [r,g,b]=hex2rgbA(pal[i]);
-    const l=lum(pal[i])/255;
-    const grey=70+150*l;
-    stops.push([
-      Math.round(r*(1-mix)+grey*mix),
-      Math.round(g*(1-mix)+grey*mix),
-      Math.round(b*(1-mix)+grey*mix)
-    ]);
+/* ---- the board ---------------------------------------------------------
+   Columns of differing width, each cut into blocks down its length, every
+   block carrying one flat motif. Columns are what give the reference its
+   vertical banding; the blocks inside them are what stop it reading as a
+   barcode. Everything lands on one cell grid so the traces can share it.
+
+   Seamless: the column edges and block edges wrap, and the traces are routed
+   on a torus, so the tile repeats in both directions with no visible join. */
+function buildBoard(f){
+  const M=M0();
+  const cols=Math.max(6,S.cols|0);
+  const r=RATIOS.find(x=>x.id===S.ratio);
+  const rows=Math.max(6,Math.round(cols*(r.h/r.w)));
+  const bseed=(M.on&&M.mode==="shuffle")?S.seed+f*7919:S.seed;
+  const pal=S.pal.length?S.pal:["#111111"];
+  const ground=darkestC(pal);
+  const inks=pal.filter(c=>c!==ground);
+  const use=inks.length?inks:pal;
+
+  /* Columns and blocks are laid out on a torus, starting from a random
+     offset rather than from the edge. Snapping the last one to the boundary
+     would put a block edge at exactly x=0 in every row and y=0 in every
+     column — a full-width rule straight down the seam, which is precisely
+     what a tiling background must not have. Instead a column, and a block
+     within it, is allowed to straddle the edge; paint() draws the pieces on
+     both sides, and the two halves meet in the neighbouring tile. */
+  const wide=1+Math.round(S.stripe*6);
+  const tall=2+Math.round((1-S.split)*10);
+  const colStart=Math.floor(hshC(0,101,bseed+5)*cols);
+
+  const blocks=[];
+  let x=colStart, ci=0, guard=0;
+  while(guard++<600){
+    const w=1+Math.floor(hshC(ci,0,bseed+11)*wide);
+    /* stop once the run of columns has covered the width exactly once */
+    if(x-colStart>=cols) break;
+    const x0=x, x1=Math.min(x+w, colStart+cols);
+    const yStart=Math.floor(hshC(ci,103,bseed+13)*rows);
+    let y=yStart, j=0, g2=0;
+    while(g2++<600){
+      if(y-yStart>=rows) break;
+      const h=1+Math.floor(hshC(ci*31+j,7,bseed+29)*tall);
+      const y0=y, y1=Math.min(y+h, yStart+rows);
+      const g=hshC(ci*17+j,13,bseed+53);
+      const kind = g<0.30 ? "plain"
+                 : g<0.30+0.26*S.fills ? "solid"
+                 : g<0.62 ? "dots"
+                 : g<0.62+0.18*S.motif ? "checks"
+                 : g<0.86 ? "steps"
+                 : g<0.94 ? "tri"
+                 : "keys";
+      const a=use[Math.floor(hshC(ci*7+j,19,bseed+71)*use.length)%use.length];
+      /* a plain block is bare board, not another ink — the black showing
+         through is what lets the columns read as columns, and it is most of
+         what stops the whole thing becoming a wall of colour. Patterned
+         blocks often sit on the board too, so the motif reads as etched. */
+      let b=use[Math.floor(hshC(ci*7+j,23,bseed+97)*use.length)%use.length];
+      if(kind==="plain" || hshC(ci*7+j,29,bseed+103)<0.45 || b===a) b=ground;
+      blocks.push({x0:x0,x1:x1,y0:y0,y1:y1,kind:kind,a:a,b:b,seed:bseed+ci*101+j*7});
+      y=y1; j++;
+    }
+    x=x1; ci++;
   }
-  stops.push([236,231,220]);
-  return stops;
+  return {cols:cols, rows:rows, blocks:blocks, ground:ground, inks:use,
+          seed:bseed};
+}
+function M0(){ return S.motion; }
+
+/* which cells a motif inks — one rule per kind, all on the shared grid */
+function motifOnC(kind,i,j,w,h,sd){
+  switch(kind){
+    case "plain": return false;
+    case "solid": return true;
+    case "dots":  return (i%3===1)&&(j%3===1);
+    case "checks":return ((i+j)&1)===0;
+    case "steps": return ((i+j)%4)<2;
+    case "tri":   return (i%4)<=(j%4);
+    case "keys":  return (i%4===0)||(j%4===0);
+  }
+  return false;
 }
 
-let fbuf=null,fctx=null;
-function paintField(W,H){
-  const long=Math.max(W,H);
-  const res=Math.max(120,Math.min(420,Math.round(long/3)));
-  const fw=Math.max(2,Math.round(res*W/long)), fh=Math.max(2,Math.round(res*H/long));
-  if(!fbuf){fbuf=document.createElement("canvas");fctx=fbuf.getContext("2d");}
-  if(fbuf.width!==fw||fbuf.height!==fh){fbuf.width=fw;fbuf.height=fh;}
-  const img=fctx.createImageData(fw,fh), d=img.data;
-  const ramp=fieldRamp(), n=ramp.length-1;
-  const sc=S.scale, wp=S.warp, ct=0.5+S.contrast*1.6;
-  const sd=S.seed*13;
-  for(let y=0;y<fh;y++){
-    for(let x=0;x<fw;x++){
-      const u=x/fh*sc, v=y/fh*sc;
-      /* warp the lookup by the field itself — this is what makes the marbling */
-      const wx=u+wp*(fbm(u*1.7+11,v*1.7,sd+91,3)-0.5)*2.4;
-      const wy=v+wp*(fbm(u*1.7,v*1.7+7,sd+37,3)-0.5)*2.4;
-      let t=fbm(wx,wy,sd,6);
-      /* a ridged pass adds the thin bright filaments of a satellite image */
-      const rg=1-Math.abs(fbm(wx*2.1+5,wy*2.1-3,sd+211,4)*2-1);
-      t=t*0.74+rg*rg*0.26;
-      t=(t-0.5)*ct+0.5;
-      t=t<0?0:t>1?1:t;
-      const p=t*n, i=Math.min(n-1,Math.floor(p)), m=p-i;
-      const A=ramp[i], B=ramp[i+1];
-      const o=(y*fw+x)*4;
-      d[o]  =A[0]+(B[0]-A[0])*m;
-      d[o+1]=A[1]+(B[1]-A[1])*m;
-      d[o+2]=A[2]+(B[2]-A[2])*m;
-      d[o+3]=255;
+/* ---- traces ------------------------------------------------------------
+   Routed, not scattered: each trace starts somewhere on the board and walks
+   the grid, turning at right angles, wrapping at the edges, occasionally
+   throwing a short stub off to one side and finishing with a pad. That walk
+   is what reads as a circuit rather than as hatching. */
+function routeTraces(bd){
+  const paths=[];
+  const cols=bd.cols, rows=bd.rows;
+  const n=Math.round(S.traces*cols*0.75);
+  for(let t=0;t<n;t++){
+    const sd=bd.seed+t*613;
+    let cx=Math.floor(hshC(t,3,sd)*cols);
+    let cy=Math.floor(hshC(t,5,sd+7)*rows);
+    let dir=Math.floor(hshC(t,9,sd+11)*4);       /* 0 up 1 right 2 down 3 left */
+    const len=Math.round((3+hshC(t,13,sd+17)*22)*(0.4+S.runLen*1.6));
+    const pts=[[cx,cy]];
+    for(let i=0;i<len;i++){
+      const step=1+Math.floor(hshC(t*3+i,21,sd+23)*4);
+      for(let s=0;s<step;s++){
+        if(dir===0) cy--; else if(dir===1) cx++; else if(dir===2) cy++; else cx--;
+        cx=(cx+cols)%cols; cy=(cy+rows)%rows;
+      }
+      pts.push([cx,cy]);
+      /* right-angle turns only; a trace that never turns is just a rule */
+      const turn=hshC(t*5+i,27,sd+31);
+      if(turn<0.55) dir=(dir+(turn<0.275?1:3))%4;
+      if(hshC(t*7+i,33,sd+37)<S.stubs*0.22){
+        const sdir=(dir+(hshC(t*7+i,35,sd+41)<0.5?1:3))%4;
+        const slen=1+Math.floor(hshC(t*7+i,39,sd+43)*3);
+        let sx=cx, sy=cy;
+        const spts=[[sx,sy]];
+        for(let s=0;s<slen;s++){
+          if(sdir===0) sy--; else if(sdir===1) sx++; else if(sdir===2) sy++; else sx--;
+          sx=(sx+cols)%cols; sy=(sy+rows)%rows;
+        }
+        spts.push([sx,sy]);
+        paths.push({pts:spts, pad:true, ink:null, t:t});
+      }
     }
+    paths.push({pts:pts, pad:hshC(t,45,sd+47)<0.6, ink:null, t:t});
   }
-  fctx.putImageData(img,0,0);
-  return fbuf;
+  return paths;
+}
+
+/* A path wraps, so it cannot be drawn as one polyline — a trace leaving the
+   right edge would otherwise draw a stripe back across the whole board.
+   Simply cutting it there is not enough either: the stroke that crosses the
+   edge would be missing from both sides and the tile would show a gap at the
+   seam. So each crossing is drawn twice — once carrying on past the edge it
+   leaves by, once arriving from just outside the edge it comes back in by.
+   The overhang of one tile is exactly the lead-in of the next. */
+function segments(pts,cols,rows){
+  const out=[]; let run=[pts[0]];
+  for(let i=1;i<pts.length;i++){
+    const a=pts[i-1], b=pts[i];
+    const dx=b[0]-a[0], dy=b[1]-a[1];
+    const wx=Math.abs(dx)>cols/2, wy=Math.abs(dy)>rows/2;
+    if(wx||wy){
+      const ux=wx?(dx>0?dx-cols:dx+cols):dx;
+      const uy=wy?(dy>0?dy-rows:dy+rows):dy;
+      run.push([a[0]+ux,a[1]+uy]);
+      out.push(run);
+      run=[[b[0]-ux,b[1]-uy],b];
+    } else run.push(b);
+  }
+  if(run.length>1) out.push(run);
+  return out;
 }
 
 function paint(c,W,H,f){
+  const bd=buildBoard(f);
+  const cw=W/bd.cols, ch=H/bd.rows;
   const M=S.motion;
-  const frameSeed=(M.on&&M.mode==="shuffle")?S.seed+f*7919:S.seed;
-  const r=rng(frameSeed);
-  const field=paintField(W,H);
+  const shift=(M.on&&M.mode==="scroll")?(f/M.frames)*M.amount:0;
 
-  c.imageSmoothingEnabled=true;
-  c.clearRect(0,0,W,H);
-  c.drawImage(field,0,0,W,H);
+  c.imageSmoothingEnabled=false;
+  c.fillStyle=bd.ground; c.fillRect(0,0,W,H);
 
-  const unit=Math.max(4,Math.round(S.cell*W/1200));
-  const cols=Math.max(1,Math.ceil(W/unit)), rows=Math.max(1,Math.ceil(H/unit));
-  const pal=S.pal.length?S.pal:["#000"];
-  const pick=()=>pal[(r()*pal.length)|0];
-
-  /* 1 — pixelate: read the field back in chunks and stamp it as flat squares */
-  if(S.quant>0.01){
-    const fw=field.width, fh=field.height;
-    const src=fctx.getImageData(0,0,fw,fh).data;
-    const regions=Math.round(2+S.quant*9);
-    for(let g=0;g<regions;g++){
-      const px=Math.max(2,Math.round(unit*(0.5+r()*1.6)));
-      const rw=Math.round((3+r()*11)*px), rh=Math.round((3+r()*9)*px);
-      const rx=Math.round((r()*W-rw/2)/px)*px, ry=Math.round((r()*H-rh/2)/px)*px;
-      for(let y=ry;y<ry+rh;y+=px){
-        for(let x=rx;x<rx+rw;x+=px){
-          if(x+px<0||y+px<0||x>W||y>H) continue;
-          const sx=Math.min(fw-1,Math.max(0,Math.floor((x+px/2)/W*fw)));
-          const sy=Math.min(fh-1,Math.max(0,Math.floor((y+px/2)/H*fh)));
-          const o=(sy*fw+sx)*4;
-          c.fillStyle="rgb("+src[o]+","+src[o+1]+","+src[o+2]+")";
-          c.fillRect(x,y,px,px);
+  /* the whole board is drawn twice, offset, so a scroll wraps seamlessly */
+  const ox=Math.round(shift*W)%W;
+  for(const pass of [ox-W, ox]){
+    c.save(); c.translate(pass,0);
+    /* A block sits somewhere on the torus, so it may hang off one or two
+       edges. Draw it at every offset that could bring a piece into view; the
+       canvas clips the rest. Motif indices come from the block's own origin,
+       so a pattern stays continuous across the join. */
+    for(const bl of bd.blocks){
+      const bw=bl.x1-bl.x0, bh=bl.y1-bl.y0;
+      const ax=((bl.x0%bd.cols)+bd.cols)%bd.cols, ay=((bl.y0%bd.rows)+bd.rows)%bd.rows;
+      for(const dx of (ax+bw>bd.cols?[0,-bd.cols]:[0]))
+      for(const dy of (ay+bh>bd.rows?[0,-bd.rows]:[0])){
+        const X=ax+dx, Y=ay+dy;
+        c.fillStyle=bl.b;
+        c.fillRect(Math.floor(X*cw),Math.floor(Y*ch),
+                   Math.ceil(bw*cw)+1,Math.ceil(bh*ch)+1);
+        if(bl.kind==="plain") continue;
+        c.fillStyle=bl.a;
+        if(bl.kind==="solid"){
+          c.fillRect(Math.floor(X*cw),Math.floor(Y*ch),
+                     Math.ceil(bw*cw)+1,Math.ceil(bh*ch)+1);
+          continue;
+        }
+        for(let j=0;j<bh;j++) for(let i=0;i<bw;i++){
+          if(!motifOnC(bl.kind,i,j,bw,bh,bl.seed)) continue;
+          c.fillRect(Math.floor((X+i)*cw),Math.floor((Y+j)*ch),
+                     Math.ceil(cw)+1,Math.ceil(ch)+1);
         }
       }
     }
-  }
-
-  /* 2 — mosaic patches: rectangles of loose cells in clashing inks */
-  for(let p=0;p<S.patches;p++){
-    /* every third patch or so runs on a finer grid — those are the dense
-       chequered fields, the rest are the loose scatters between them */
-    const fine=r()<0.38;
-    const u=Math.max(3,Math.round(unit*(fine?0.42:1)));
-    const pw=Math.round((3+r()*(fine?16:9))*u), ph=Math.round((3+r()*(fine?14:8))*u);
-    const px=Math.round((r()*W-pw/2)/u)*u, py=Math.round((r()*H-ph/2)/u)*u;
-    const local=pal.slice().sort(()=>r()-0.5).slice(0,2+((r()*3)|0));
-    const dens=S.fill*(fine?0.85:1);
-    for(let y=py;y<py+ph;y+=u){
-      for(let x=px;x<px+pw;x+=u){
-        if(r()>dens) continue;
-        c.fillStyle=local[(r()*local.length)|0];
-        c.fillRect(x,y,u,u);
+    /* traces last, over everything, in the brightest ink and a pale second */
+    const lw=Math.max(0.6,S.weight)*Math.max(1,Math.min(cw,ch)*0.30);
+    const hot=brightestC(bd.inks), cool=bd.inks[bd.inks.length-1]||hot;
+    c.lineCap="butt"; c.lineJoin="miter";
+    const paths=routeTraces(bd);
+    for(const p of paths){
+      c.strokeStyle=(hshC(p.t,51,bd.seed)<0.5)?hot:cool;
+      c.fillStyle=c.strokeStyle;
+      c.lineWidth=lw;
+      for(const seg of segments(p.pts,bd.cols,bd.rows)){
+        c.beginPath();
+        c.moveTo((seg[0][0]+0.5)*cw,(seg[0][1]+0.5)*ch);
+        for(let i=1;i<seg.length;i++) c.lineTo((seg[i][0]+0.5)*cw,(seg[i][1]+0.5)*ch);
+        c.stroke();
+      }
+      if(p.pad){
+        const e=p.pts[p.pts.length-1];
+        const r2=lw*1.5;
+        c.fillRect((e[0]+0.5)*cw-r2,(e[1]+0.5)*ch-r2,r2*2,r2*2);
       }
     }
-  }
-
-  /* 3 — solid blocks, snapped to the same grid */
-  for(let b=0;b<S.blocks;b++){
-    const bw=Math.round((4+r()*12)*unit), bh=Math.round((2+r()*8)*unit);
-    const bx=Math.round(r()*cols)*unit, by=Math.round(r()*rows)*unit;
-    c.fillStyle=pick();
-    c.fillRect(bx-Math.round(bw/2),by-Math.round(bh/2),bw,bh);
-  }
-
-  /* 4 — full-bleed bands */
-  for(let b=0;b<S.bands;b++){
-    const bh=Math.round((1+r()*4)*unit);
-    const by=Math.round(r()*rows)*unit;
-    c.fillStyle=pick();
-    c.globalAlpha=0.85+r()*0.15;
-    c.fillRect(0,by,W,bh);
-    c.globalAlpha=1;
-  }
-
-  /* 5 — slice: shove bands of the finished image sideways */
-  if(S.slice>0.01){
-    const jitter=(M.on&&M.mode==="slice")?(f/M.frames)*M.amount:0;
-    const rs=rng(frameSeed+(M.on&&M.mode==="slice"?f*131:0)+555);
-    const n=Math.round(2+S.slice*14);
-    for(let i=0;i<n;i++){
-      const sh=Math.round((0.4+rs()*2.2)*unit);
-      const sy=Math.round(rs()*rows)*unit;
-      const dx=Math.round((rs()-0.5+jitter)*S.slice*10*unit);
-      if(!dx) continue;
-      const strip=c.getImageData(0,Math.max(0,Math.min(H-1,sy)),W,Math.min(sh,H-sy));
-      if(!strip.width||!strip.height) continue;
-      c.putImageData(strip,dx,sy);
-      c.putImageData(strip,dx-(dx>0?W:-W),sy);
-    }
+    c.restore();
   }
 }
+
+/* ---- vector ------------------------------------------------------------
+   Same routine, recorded instead of drawn, so the SVG cannot drift from the
+   canvas: one painting pass, two outputs. */
+function SvgSurfaceC(){
+  this.fillStyle="#000"; this.strokeStyle="#000"; this.lineWidth=1;
+  this.lineCap="butt"; this.lineJoin="miter"; this.imageSmoothingEnabled=false;
+  this._b=[]; this._t={e:0,f:0}; this._st=[]; this._p=null;
+}
+SvgSurfaceC.prototype.save=function(){this._st.push({e:this._t.e,f:this._t.f});};
+SvgSurfaceC.prototype.restore=function(){if(this._st.length)this._t=this._st.pop();};
+SvgSurfaceC.prototype.translate=function(x,y){this._t.e+=x;this._t.f+=y;};
+SvgSurfaceC.prototype.scale=function(){};
+SvgSurfaceC.prototype.clearRect=function(){};
+SvgSurfaceC.prototype.fillRect=function(x,y,w,h){
+  if(!(w>0)||!(h>0))return;
+  const X=Math.round(x+this._t.e), Y=Math.round(y+this._t.f);
+  this._b.push('<rect x="'+X+'" y="'+Y+'" width="'+Math.round(w)+'" height="'+
+               Math.round(h)+'" fill="'+this.fillStyle+'"/>');
+};
+SvgSurfaceC.prototype.beginPath=function(){this._p=[];};
+SvgSurfaceC.prototype.moveTo=function(x,y){this._p=[[x+this._t.e,y+this._t.f]];};
+SvgSurfaceC.prototype.lineTo=function(x,y){if(this._p)this._p.push([x+this._t.e,y+this._t.f]);};
+SvgSurfaceC.prototype.stroke=function(){
+  if(!this._p||this._p.length<2)return;
+  const d=this._p.map(function(q,i){return (i?"L":"M")+q[0].toFixed(1)+" "+q[1].toFixed(1);}).join("");
+  this._b.push('<path d="'+d+'" fill="none" stroke="'+this.strokeStyle+
+               '" stroke-width="'+this.lineWidth.toFixed(2)+
+               '" stroke-linecap="butt" stroke-linejoin="miter"/>');
+};
+SvgSurfaceC.prototype.markup=function(){return this._b.join("");};
+
+function svgFrame(f){
+  const r=RATIOS.find(x=>x.id===S.ratio);
+  const W=S.size,H=Math.round(S.size*r.h/r.w);
+  const s=new SvgSurfaceC();
+  paint(s,W,H,f);
+  return s.markup();
+}
+function svgWrap(inner){
+  const r=RATIOS.find(x=>x.id===S.ratio);
+  const W=S.size,H=Math.round(S.size*r.h/r.w);
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+
+         '" viewBox="0 0 '+W+' '+H+'" shape-rendering="crispEdges">'+
+         '<clipPath id="t"><rect width="'+W+'" height="'+H+'"/></clipPath>'+
+         '<g clip-path="url(#t)">'+inner+'</g></svg>';
+}
+function buildSVG(){return svgWrap(svgFrame(curFrame));}
 
 const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
 function fitCanvas(){
@@ -747,7 +851,7 @@ function save(blob,name){
   a.href=url;a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
-function stamp(){return `delta-${S.seed}-${S.ratio.replace(":","x")}`;}
+function stamp(){return `circuit-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
   const a=$("#expVid"),sc=$("#scrub"),l=$("#expSvgLoop");
   if(a)a.disabled=!S.motion.on;
@@ -763,6 +867,10 @@ $("#expPng").addEventListener("click",()=>{
     paint(c.getContext("2d"),W,H,curFrame);
     c.toBlob(b=>{save(b,stamp()+".png");toast(`PNG saved · ${W}×${H}`);});
   },30);
+});
+$("#expSvg").addEventListener("click",()=>{
+  save(new Blob([buildSVG()],{type:"image/svg+xml"}),stamp()+".svg");
+  toast("SVG saved");
 });
 function pickVideoType(){
   const t=["video/mp4;codecs=avc1.42E01E","video/mp4","video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"];
@@ -884,19 +992,25 @@ $("#shufColors").addEventListener("click",()=>{
   setPalette(PALETTES[(Math.random()*PALETTES.length)|0]);
 });
 $("#rotColors").addEventListener("click",()=>{
-  setPalette(S.pal.slice(1).concat(S.pal[0]));
+  if(S.pal.length<3){setPalette(S.pal.slice(1).concat(S.pal[0]));return;}
+  let di=0;
+  for(let i=1;i<S.pal.length;i++) if(lumC(S.pal[i])<lumC(S.pal[di])) di=i;
+  const rest=S.pal.filter((c,i)=>i!==di);
+  rest.push(rest.shift());
+  const out=S.pal.slice();
+  let k=0;
+  for(let i=0;i<out.length;i++) if(i!==di) out[i]=rest[k++];
+  setPalette(out);
 });
-bindRange("scale",v=>v.toFixed(1),v=>S.scale=v);
-bindRange("warp",v=>Math.round(v/1.6*100)+"%",v=>S.warp=v);
-bindRange("contrast",v=>Math.round(v*100)+"%",v=>S.contrast=v);
-bindRange("bleach",v=>Math.round(v*100)+"%",v=>S.bleach=v);
-bindRange("patches",v=>v|0,v=>S.patches=v|0);
-bindRange("cell",v=>v|0,v=>S.cell=v|0);
-bindRange("fill",v=>Math.round(v*100)+"%",v=>S.fill=v);
-bindRange("quant",v=>Math.round(v*100)+"%",v=>S.quant=v);
-bindRange("blocks",v=>v|0,v=>S.blocks=v|0);
-bindRange("bands",v=>v|0,v=>S.bands=v|0);
-bindRange("slice",v=>Math.round(v*100)+"%",v=>S.slice=v);
+bindRange("cols",v=>v|0,v=>S.cols=v|0);
+bindRange("stripe",v=>Math.round(v*100)+"%",v=>S.stripe=v);
+bindRange("split",v=>Math.round(v*100)+"%",v=>S.split=v);
+bindRange("fills",v=>Math.round(v*100)+"%",v=>S.fills=v);
+bindRange("motif",v=>Math.round(v*100)+"%",v=>S.motif=v);
+bindRange("traces",v=>Math.round(v/1.4*100)+"%",v=>S.traces=v);
+bindRange("runLen",v=>Math.round(v*100)+"%",v=>S.runLen=v);
+bindRange("stubs",v=>Math.round(v*100)+"%",v=>S.stubs=v);
+bindRange("weight",v=>v.toFixed(1),v=>S.weight=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
