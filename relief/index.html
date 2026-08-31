@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ember — playgrnd</title>
-<meta name="description" content="Generate heat-mapped field artworks — mark grids that glow from ember to white-hot around invisible poles. Exports SVG, PNG and video.">
+<title>Relief — playgrnd</title>
+<meta name="description" content="Generate seamless relief-board backgrounds — columns of pattern blocks under routed traces that wrap at every edge, so the tile repeats forever. Exports vector, image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -379,30 +379,24 @@ input[type=range]{accent-color:var(--ink)}
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
         <span class="slash">&frasl;</span>
-        <span class="tool">Ember</span>
+        <span class="tool">Relief</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">17 / 29</span>
-        <span class="k">Type</span><span class="v">Field grid</span>
+        <span class="k">Index</span><span class="v">29 / 29</span>
+        <span class="k">Type</span><span class="v">Isometric blocks</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Field</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Poles</span><span class="v" id="polesVal">2</span></div><div class="track"><input type="range" id="poles" min="1" max="6" step="1" value="2"></div></div>
-        <div class="pr"><div class="top"><span class="k">Twist</span><span class="v" id="twistVal">50%</span></div><div class="track"><input type="range" id="twist" min="0" max="1" step="0.01" value="0.5"></div></div></div></details>
-    <details class="grp" open><summary>Marks</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Style</span></span><span class="mval"><div class="chips" id="styles"></div></span></div>
-        <div class="pr"><div class="top"><span class="k">Density</span><span class="v" id="colsVal">26</span></div><div class="track"><input type="range" id="cols" min="10" max="48" step="1" value="26"></div></div>
-        <div class="pr"><div class="top"><span class="k">Mark size</span><span class="v" id="msizeVal">100%</span></div><div class="track"><input type="range" id="msize" min="0.4" max="1.6" step="0.02" value="1"></div></div>
-        <div class="pr"><div class="top"><span class="k">Weight</span><span class="v" id="weightVal">100%</span></div><div class="track"><input type="range" id="weight" min="0.4" max="2" step="0.05" value="1"></div></div></div></details></div>
-    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Heat ramp</span><span class="v" id="swCountVal">5</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
-        <div class="pr"><div class="top"><span class="k">Heat reach</span><span class="v" id="heatVal">100%</span></div><div class="track"><input type="range" id="heat" min="0.3" max="2.5" step="0.05" value="1"></div></div>
-        <div class="misc"><span class="mhead"><span class="k">Background</span></span><span class="mval"><div class="sw-grid">
-            <button class="sw" type="button" aria-label="Background color">
-              <span class="fill" id="bgFill"></span>
-              <input type="color" id="bgIn" value="#0A0A0A">
-            </button>
-          </div></span></div>
+    <div class="l-scroll"><details class="grp" open><summary>Blocks</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Cube size</span><span class="v" id="scaleVal">52</span></div><div class="track"><input type="range" id="scale" min="12" max="180" step="1" value="52"></div></div>
+        <div class="pr"><div class="top"><span class="k">Repeat</span><span class="v" id="repeatVal">5</span></div><div class="track"><input type="range" id="repeat" min="1" max="12" step="1" value="5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Interlock</span><span class="v" id="varietyVal">100%</span></div><div class="track"><input type="range" id="variety" min="0" max="1" step="0.01" value="1"></div></div>
+        <div class="pr"><div class="top"><span class="k">Flats</span><span class="v" id="solidsVal">10%</span></div><div class="track"><input type="range" id="solids" min="0" max="1" step="0.01" value="0.1"></div></div></div></details>
+    <details class="grp" open><summary>Light</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Relief</span><span class="v" id="reliefVal">80%</span></div><div class="track"><input type="range" id="relief" min="0" max="1" step="0.01" value="0.8"></div></div>
+        <div class="pr"><div class="top"><span class="k">Accent cubes</span><span class="v" id="accentVal">10%</span></div><div class="track"><input type="range" id="accent" min="0" max="1" step="0.01" value="0.1"></div></div></div></details></div>
+    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">6</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
         
-      <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotInks">Rotate</button></span></div></div></details>
+        <div class="note">The most saturated ink lights the cubes; the rest turn up as accents.</div>
+      <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
     </div>
@@ -438,16 +432,15 @@ input[type=range]{accent-color:var(--ink)}
       <h2 class="h frame-h">Frame</h2><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span>
     </div>
     <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
-          <div class="pr"><div class="top"><span class="k">Intensity</span><span class="v" id="amtVal">0.80</span></div><div class="track"><input type="range" id="amt" min="0.1" max="2" step="0.05" value="0.8"></div></div>
-          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">20 fps</span></div><div class="track"><input type="range" id="fps" min="4" max="30" step="1" value="20"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">120 frames</span></div><div class="track"><input type="range" id="frames" min="24" max="240" step="4" value="120"></div></div>
-          <div class="note">Sway swings every needle through one full breath; Orbit walks the poles in a circle. Both land back at frame one exactly.</div></div></div>
+          <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
+          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">6 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="6"></div></div>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">24 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="24"></div></div></div></div>
     <div class="r-bot">
       <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
           <button class="lnk" id="expSvg">SVG</button>
           <button class="lnk" id="expVid">Video</button></span></div>
-        <div class="note">The SVG is true vectors — every mark is a real shape carrying its own colour.</div></div>
+        <div class="note" id="expNote">Every face is a flat quadrilateral, so the SVG is true vectors, and the edges match on all four sides.</div></div>
       <div class="tbl" style="margin-top:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>
@@ -474,184 +467,236 @@ input[type=range]{accent-color:var(--ink)}
 const $=s=>document.querySelector(s);
 const TAU=Math.PI*2;
 const clamp=(v,a,b)=>v<a?a:v>b?b:v;
-const lerp=(a,b,t)=>a+(b-a)*t;
 const reduceMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
 function rng(s){let a=(s>>>0)||1;return()=>{a^=a<<13;a>>>=0;a^=a>>17;a^=a<<5;a>>>=0;return a/4294967296;};}
+function hashi(x,y,z,s){
+  let n=Math.imul(x|0,374761393)^Math.imul(y|0,668265263)^Math.imul(z|0,1440662683)^Math.imul(s|0,1013904223);
+  n=Math.imul(n^(n>>>15),2246822519);n=Math.imul(n^(n>>>13),3266489917);n^=n>>>16;
+  return (n>>>0)/4294967296;
+}
 function hex2rgb(h){h=h.replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
   return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];}
 function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4);});
   return .2126*r+.7152*g+.0722*b;}
-function rgb2hex(r,g,b){return"#"+[r,g,b].map(v=>clamp(Math.round(v),0,255).toString(16).padStart(2,"0")).join("");}
-function hsl2hex(h,s,l){h=((h%360)+360)%360;s/=100;l/=100;
-  const c=(1-Math.abs(2*l-1))*s,x=c*(1-Math.abs((h/60)%2-1)),m=l-c/2;let r,g,b;
-  if(h<60)[r,g,b]=[c,x,0];else if(h<120)[r,g,b]=[x,c,0];else if(h<180)[r,g,b]=[0,c,x];
-  else if(h<240)[r,g,b]=[0,x,c];else if(h<300)[r,g,b]=[x,0,c];else[r,g,b]=[c,0,x];
-  return rgb2hex((r+m)*255,(g+m)*255,(b+m)*255);}
-function chroma(h){const[r,g,b]=hex2rgb(h);return(Math.max(r,g,b)-Math.min(r,g,b))/255;}
-function mix(c1,c2,t){return[c1[0]+(c2[0]-c1[0])*t,c1[1]+(c2[1]-c1[1])*t,c1[2]+(c2[2]-c1[2])*t];}
-function css(c,a){return`rgba(${Math.round(c[0])},${Math.round(c[1])},${Math.round(c[2])},${a===undefined?1:a})`;}
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const STYLES=[["dash","Dash"],["line","Line"],["arrow","Arrow"],["wedge","Wedge"]];
-const MODES=[["sway","Sway"],["orbit","Orbit"]];
+const MODES=[["shuffle","Shuffle"],["roll","Roll"]];
+
+const PALETTES=[
+  ["#F21D0A","#FF8A00","#FFDD00","#2AA7E0","#12B07A","#E03B8C"],
+  ["#E01020","#F07000","#FFC800","#1E7FD6","#0FA07A","#C42BC4"],
+  ["#D6006E","#F0407A","#FF9EC0","#2AB7A0","#F0A202","#3B4FE0"],
+  ["#1B3FA8","#2E7CFF","#8AC4FF","#F0532A","#F2C500","#0FA958"],
+  ["#0E4D3C","#12A07A","#7FD4A8","#F0A202","#E0452C","#7A1FD6"]
+];
 
 const S={
-  seed:23, ratio:"1:1",
-  poles:2, twist:.5,
-  style:"dash", cols:26, msize:1, weight:1,
-  heat:1,
-  palette:["#2A0E0B","#7E2A18","#C75B33","#E89A6B","#F7E9D8"],
-  bg:"#0A0A0A",
-  motion:{on:false,mode:"sway",amount:.8,fps:20,frames:120},
+  seed:19, ratio:"3:4",
+  scale:52, repeat:5, variety:1, solids:0.1,
+  relief:0.8, accent:0.1,
+  pal:PALETTES[0].slice(),
+  motion:{on:false,mode:"shuffle",amount:0.6,fps:6,frames:24},
   size:2400
 };
 
-const VB=1000;
-function vh(){const r=RATIOS.find(x=>x.id===S.ratio);return VB*r.h/r.w;}
-
-/* ============================================================
-   The field: invisible poles push and pull; each grid mark
-   points along the summed pull, like a compass needle.
-============================================================ */
-function buildPoles(){
-  const r=rng(S.seed*2654435761>>>0), H=vh();
-  const poles=[];
-  for(let i=0;i<S.poles;i++){
-    poles.push({
-      x:lerp(VB*0.1,VB*0.9,r()), y:lerp(H*0.1,H*0.9,r()),
-      pol:r()<.5?-1:1, spin:r()<.5?-1:1,
-      orad:lerp(60,170,r()), oph:r(), odir:r()<.5?-1:1
-    });
-  }
-  return poles;
+function hshR(x,y,s){
+  let n=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1274126177);
+  n=Math.imul(n^(n>>>13),1274126177);
+  n^=n>>>16;
+  return (n>>>0)/4294967296;
 }
-function field(x,y,poles,t){
+function hex2rgbR(h){h=String(h).replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
+  const n=parseInt(h,16);return[(n>>16)&255,(n>>8)&255,n&255];}
+function rgb2hslR(hex){
+  const [r0,g0,b0]=hex2rgbR(hex), r=r0/255,g=g0/255,b=b0/255;
+  const mx=Math.max(r,g,b), mn=Math.min(r,g,b), d=mx-mn;
+  let h=0,s=0,l=(mx+mn)/2;
+  if(d){
+    s=l>0.5?d/(2-mx-mn):d/(mx+mn);
+    if(mx===r)h=((g-b)/d+(g<b?6:0)); else if(mx===g)h=(b-r)/d+2; else h=(r-g)/d+4;
+    h*=60;
+  }
+  return [h,s,l];
+}
+function hsl2hexR(h,s,l){
+  h=((h%360)+360)%360; s=Math.min(1,Math.max(0,s)); l=Math.min(1,Math.max(0,l));
+  const a=s*Math.min(l,1-l);
+  const f=n=>{const k=(n+h/30)%12;
+    const v=l-a*Math.max(-1,Math.min(k-3,9-k,1));
+    return Math.round(v*255).toString(16).padStart(2,"0");};
+  return "#"+f(0)+f(8)+f(4);
+}
+
+/* ---- the three faces ---------------------------------------------------
+   Top, left and right are one colour at three lightnesses, which is the only
+   reason a flat rhombus reads as a lit solid. Relief sets how far apart the
+   three sit: at zero the cube flattens into a hexagon, wide open it reads as
+   hard raking light. The hue drifts a little with the lightness because a
+   real ramp of paint does, and a purely tonal ramp looks plastic. */
+function facesOf(hex,spread){
+  const [h,s,l]=rgb2hslR(hex);
+  const base=Math.min(0.62,Math.max(0.38,l));
+  /* The ramp walks the hue as much as the lightness. Darkening alone turns an
+     orange into brown, and a brown face reads as dirt rather than as the same
+     paint in shadow; swinging the hue instead keeps the dark face a saturated
+     red and the light face a yellow, which is the step the reference has. */
+  const sat=Math.min(1,Math.max(0.55,s));
+  return [
+    hsl2hexR(h+spread*26, Math.min(1,sat*1.00), Math.min(0.92,base+spread*0.22)),
+    hsl2hexR(h,           sat,                  base),
+    hsl2hexR(h-spread*22, Math.min(1,sat*1.06), Math.max(0.16,base-spread*0.16))
+  ];
+}
+
+/* ---- the repeating unit ------------------------------------------------
+   One unit is worked out and then repeated across the page. A cube is not
+   recoloured face by face — that reads as noise — but turned as a whole: its
+   three tones rotate together. Neighbouring cubes turned differently are what
+   break the plain tumbling-block field into the interlocking hooks. */
+function buildUnit(f){
   const M=S.motion;
-  let fx=0,fy=0;
-  for(const p of poles){
-    let px=p.x,py=p.y;
-    if(M.on&&M.mode==="orbit"){
-      const a=TAU*(t*p.odir+p.oph), rr=p.orad*M.amount;
-      px+=Math.cos(a)*rr; py+=Math.sin(a)*rr;
+  const useed=(M.on&&M.mode==="shuffle")?S.seed+f*7919:S.seed;
+  const P=Math.max(1,S.repeat|0), Q=Math.max(1,S.repeat|0);
+  const pal=S.pal.length?S.pal:["#F21D0A"];
+  /* the most saturated ink leads; the rest are available as accents */
+  let base=pal[0], bs=-1;
+  for(const c of pal){ const t=rgb2hslR(c); if(t[1]>bs){bs=t[1];base=c;} }
+  const others=pal.filter(c=>c!==base);
+  const turns=Math.max(1,Math.round(1+S.variety*2));
+  const cells=[];
+  for(let j=0;j<Q;j++) for(let i=0;i<P;i++){
+    const rot=Math.floor(hshR(i,j,useed+11)*turns)%3;
+    const solid=hshR(i,j,useed+29)<S.solids;
+    const acc=others.length&&hshR(i,j,useed+41)<S.accent
+      ? others[Math.floor(hshR(i,j,useed+53)*others.length)] : base;
+    cells.push({rot:rot, solid:solid, faces:facesOf(acc,S.relief)});
+  }
+  return {P:P, Q:Q, cells:cells, seed:useed};
+}
+
+/* ---- geometry ----------------------------------------------------------
+   Rhombille: every cube is a hexagon cut into three rhombi meeting at its
+   centre, and the hexagons tile the plane on a triangular lattice. The three
+   rhombi are the top, right and left faces of a cube seen from the corner. */
+const SQ3=Math.sqrt(3);
+function facePath(c,cx,cy,sx,sy,k){
+  const hx=SQ3/2*sx, hy=0.5*sy;
+  c.beginPath();
+  if(k===0){                       /* top */
+    c.moveTo(cx,cy-sy); c.lineTo(cx+hx,cy-hy); c.lineTo(cx,cy); c.lineTo(cx-hx,cy-hy);
+  }else if(k===1){                 /* right */
+    c.moveTo(cx,cy); c.lineTo(cx+hx,cy-hy); c.lineTo(cx+hx,cy+hy); c.lineTo(cx,cy+sy);
+  }else{                           /* left */
+    c.moveTo(cx,cy); c.lineTo(cx-hx,cy-hy); c.lineTo(cx-hx,cy+hy); c.lineTo(cx,cy+sy);
+  }
+  c.closePath();
+  c.fill();
+  /* neighbouring faces antialias against each other and leave a pale hairline
+     along every shared edge; stroking in the same ink closes it */
+  if(c.stroke){ c.lineWidth=1; c.strokeStyle=c.fillStyle; c.stroke(); }
+}
+
+function paint(c,W,H,f){
+  const U=buildUnit(f);
+  const M=S.motion;
+
+  /* Seamless by construction: work out how many cubes the requested size gives,
+     round that to a whole number of repeating units, then stretch the cube by
+     the couple of percent needed to make it land exactly. That stretch is far
+     below what the eye reads as distortion, and it is what makes the export a
+     true tile rather than a crop of one.
+
+     The repeat is capped at what actually fits. Asking for cubes so large that
+     five of them overflow the page would otherwise round to one unit and stop
+     responding — the size slider would simply die at the top of its travel.
+     Fewer cubes across means a shorter repeat, not a frozen control. */
+  const want=Math.max(6,S.scale);
+  let cubesX=Math.max(1,Math.round(W/(SQ3*want)));
+  let cubesY=Math.max(1,Math.round(H/(1.5*want)));
+  const Pe=Math.max(1,Math.min(U.P,cubesX));
+  const Qe=Math.max(1,Math.min(U.Q,cubesY));
+  cubesX=Math.ceil(cubesX/Pe)*Pe;
+  cubesY=Math.ceil(cubesY/Qe)*Qe;
+  /* Rows alternate by half a cube, so the lattice itself has a vertical period
+     of two rows. An odd row count flips the parity at the wrap and puts every
+     cube along the join half a step out — an unmistakable seam. */
+  if(cubesY&1) cubesY+=Qe*((Qe&1)?1:0)||Qe;
+  const sx=W/(SQ3*cubesX), sy=H/(1.5*cubesY);
+
+  const cols=cubesX+2, rows=cubesY+2;
+  const roll=(M.on&&M.mode==="roll")?(f/M.frames):0;
+
+  c.fillStyle=U.cells[0].faces[2]; c.fillRect(0,0,W,H);
+
+  for(let j=-1;j<rows;j++){
+    for(let i=-1;i<cols;i++){
+      /* rows are offset by half a cube, which is what makes the hexagons
+         interlock rather than sit in columns */
+      const cx=(i+(j&1?0.5:0))*SQ3*sx;
+      const cy=j*1.5*sy;
+      /* Roll walks the unit past the lattice along one axis; the pattern
+         moves, the geometry does not, so the tile stays put. */
+      const oi=Math.floor(roll*Pe*Math.max(1,Math.round(M.amount*2)));
+      const pi=(((i+oi)%Pe)+Pe)%Pe, pj=((j%Qe)+Qe)%Qe;
+      const cell=U.cells[pj*U.P+pi];
+      for(let k=0;k<3;k++){
+        c.fillStyle=cell.solid ? cell.faces[1] : cell.faces[(k+cell.rot)%3];
+        facePath(c,cx,cy,sx,sy,k);
+      }
     }
-    const dx=x-px,dy=y-py;
-    const r2=(dx*dx+dy*dy)/(VB*VB)+0.004;
-    const s=p.pol/r2/(VB*VB);
-    fx+=(dx*(1-S.twist)-dy*S.twist*p.spin)*s;
-    fy+=(dy*(1-S.twist)+dx*S.twist*p.spin)*s;
   }
-  if(M.on&&M.mode==="sway"){
-    /* one full turn of a uniform external field per loop — needles far
-       from any pole swing wide, needles near a pole barely tremble */
-    const mag=Math.hypot(fx,fy)||1;
-    const a=TAU*t, k=mag*M.amount*0.9;
-    fx+=Math.cos(a)*k; fy+=Math.sin(a)*k;
-  }
-  return {a:Math.atan2(fy,fx), m:Math.hypot(fx,fy)};
-}
-function fieldAngle(x,y,poles,t){return field(x,y,poles,t).a;}
-/* the ramp reads the field's strength: white-hot beside a pole,
-   cooling to the darkest ember far away */
-function heatColor(m){
-  const u=clamp(Math.pow(m*VB*0.11,0.75)*S.heat,0,1);
-  const P=S.palette,n=P.length;
-  if(n===1)return hex2rgb(P[0]);
-  const x=u*(n-1), i=Math.min(n-2,Math.floor(x)), f=x-i;
-  return mix(hex2rgb(P[i]),hex2rgb(P[i+1]),f);
-}
-function gridMarks(){
-  const H=vh(), n=S.cols|0, cell=VB/n;
-  const rows=Math.max(2,Math.round(H/cell));
-  const marks=[];
-  for(let j=0;j<rows;j++)for(let i=0;i<n;i++){
-    marks.push({x:(i+.5)*cell,y:(j+.5)*(H/rows)});
-  }
-  return {marks,cell:Math.min(cell,H/rows)};
 }
 
-/* ============================================================
-   One mark, drawn in local coordinates (pointing along +x)
-============================================================ */
-function markDims(cell){
-  const L=cell*(S.style==="arrow"?0.62:S.style==="wedge"?0.42:0.55)*S.msize;
-  const w=Math.max(1,cell*0.075*S.weight*(S.style==="wedge"?2.6:1));
-  return{L,w};
+/* ---- vector ------------------------------------------------------------
+   The same paint() against a recorder, so the SVG cannot drift from what is
+   on screen. Every face is already a quadrilateral, so it lands as a real
+   path rather than a traced outline. */
+function SvgSurfaceR(){
+  this.fillStyle="#000"; this.imageSmoothingEnabled=false;
+  this._b=[]; this._p=null;
 }
-function drawMark(c,L,w,ink){
-  if(S.style==="line"){
-    c.strokeStyle=css(ink);c.lineWidth=w;c.lineCap="round";
-    c.beginPath();c.moveTo(-L/2,0);c.lineTo(L/2,0);c.stroke();
-  }else if(S.style==="dash"){
-    c.strokeStyle=css(ink);c.lineWidth=w*1.5;c.lineCap="round";
-    c.beginPath();c.moveTo(-L*0.3,0);c.lineTo(L*0.3,0);c.stroke();
-  }else if(S.style==="arrow"){
-    c.strokeStyle=css(ink);c.lineWidth=w;c.lineCap="round";c.lineJoin="round";
-    const h=L*0.32;
-    c.beginPath();c.moveTo(-L/2,0);c.lineTo(L/2,0);
-    c.moveTo(L/2-h,-h*0.62);c.lineTo(L/2,0);c.lineTo(L/2-h,h*0.62);
-    c.stroke();
-  }else{ /* wedge: a slim tapered triangle, tail thin, head full */
-    c.fillStyle=css(ink);
-    c.beginPath();
-    c.moveTo(L/2,0);
-    c.lineTo(-L/2,w*0.5);
-    c.lineTo(-L/2*0.75,0);
-    c.lineTo(-L/2,-w*0.5);
-    c.closePath();c.fill();
-  }
-}
-function paint(c,W,Hpx,f){
-  const M=S.motion;
-  const t=M.on?f/M.frames:0;
-  const k=W/VB;
-  const poles=buildPoles();
-  const {marks,cell}=gridMarks();
-  const {L,w}=markDims(cell);
-  c.setTransform(1,0,0,1,0,0);
-  c.fillStyle=S.bg;c.fillRect(0,0,W,Hpx);
-  for(const m of marks){
-    const f2=field(m.x,m.y,poles,t);
-    const cos=Math.cos(f2.a),sin=Math.sin(f2.a);
-    c.setTransform(cos*k,sin*k,-sin*k,cos*k,m.x*k,m.y*k);
-    drawMark(c,L,w,heatColor(f2.m));
-  }
-  c.setTransform(1,0,0,1,0,0);
-}
+SvgSurfaceR.prototype.save=function(){};
+SvgSurfaceR.prototype.restore=function(){};
+SvgSurfaceR.prototype.translate=function(){};
+SvgSurfaceR.prototype.scale=function(){};
+SvgSurfaceR.prototype.rotate=function(){};
+SvgSurfaceR.prototype.clearRect=function(){};
+SvgSurfaceR.prototype.fillRect=function(x,y,w,h){
+  this._b.push('<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+w.toFixed(1)+
+               '" height="'+h.toFixed(1)+'" fill="'+this.fillStyle+'"/>');
+};
+SvgSurfaceR.prototype.beginPath=function(){this._p=[];};
+SvgSurfaceR.prototype.moveTo=function(x,y){this._p=[[x,y]];};
+SvgSurfaceR.prototype.lineTo=function(x,y){if(this._p)this._p.push([x,y]);};
+SvgSurfaceR.prototype.closePath=function(){};
+SvgSurfaceR.prototype.fill=function(){
+  if(!this._p||this._p.length<3)return;
+  const d=this._p.map(function(q,i){return (i?"L":"M")+q[0].toFixed(1)+" "+q[1].toFixed(1);}).join("")+"Z";
+  /* the canvas strokes each face in its own ink to close the hairline where
+     two faces antialias against each other; the vector has to do the same or
+     the export would be a slightly different picture from the screen */
+  this._b.push('<path d="'+d+'" fill="'+this.fillStyle+
+               '" stroke="'+this.fillStyle+'" stroke-width="1"/>');
+};
+SvgSurfaceR.prototype.markup=function(){return this._b.join("");};
 
-/* ============================================================
-   SVG export — one shape defined once, then placed per mark
-============================================================ */
-function buildSVG(){
+function svgFrame(f){
   const r=RATIOS.find(x=>x.id===S.ratio);
   const W=S.size,H=Math.round(S.size*r.h/r.w);
-  const k=W/VB;
-  const poles=buildPoles();
-  const {marks,cell}=gridMarks();
-  const {L,w}=markDims(cell);
-  const t=S.motion.on?curFrame/S.motion.frames:0;
-  const Lk=L*k,wk=w*k;
-  let shape="";
-  for(const m of marks){
-    const f2=field(m.x,m.y,poles,t);
-    const deg=f2.a*180/Math.PI;
-    const cc=heatColor(f2.m);
-    const col=rgb2hex(cc[0],cc[1],cc[2]);
-    const tr=`transform="translate(${(m.x*k).toFixed(2)} ${(m.y*k).toFixed(2)}) rotate(${deg.toFixed(2)})"`;
-    if(S.style==="line"){
-      shape+=`<line x1="${(-Lk/2).toFixed(2)}" y1="0" x2="${(Lk/2).toFixed(2)}" y2="0" stroke="${col}" stroke-width="${wk.toFixed(2)}" stroke-linecap="round" ${tr}/>`;
-    }else if(S.style==="dash"){
-      shape+=`<line x1="${(-Lk*0.3).toFixed(2)}" y1="0" x2="${(Lk*0.3).toFixed(2)}" y2="0" stroke="${col}" stroke-width="${(wk*1.5).toFixed(2)}" stroke-linecap="round" ${tr}/>`;
-    }else if(S.style==="arrow"){
-      const hh=Lk*0.32;
-      shape+=`<g stroke="${col}" stroke-width="${wk.toFixed(2)}" stroke-linecap="round" stroke-linejoin="round" fill="none" ${tr}><line x1="${(-Lk/2).toFixed(2)}" y1="0" x2="${(Lk/2).toFixed(2)}" y2="0"/><path d="M ${(Lk/2-hh).toFixed(2)} ${(-hh*0.62).toFixed(2)} L ${(Lk/2).toFixed(2)} 0 L ${(Lk/2-hh).toFixed(2)} ${(hh*0.62).toFixed(2)}"/></g>`;
-    }else{
-      shape+=`<path fill="${col}" d="M ${(Lk/2).toFixed(2)} 0 L ${(-Lk/2).toFixed(2)} ${(wk*0.5).toFixed(2)} L ${(-Lk/2*0.75).toFixed(2)} 0 L ${(-Lk/2).toFixed(2)} ${(-wk*0.5).toFixed(2)} Z" ${tr}/>`;
-    }
-  }
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`+
-    `<rect width="${W}" height="${H}" fill="${S.bg}"/>${shape}</svg>`;
+  const s=new SvgSurfaceR();
+  paint(s,W,H,f);
+  return s.markup();
 }
+function svgWrap(inner){
+  const r=RATIOS.find(x=>x.id===S.ratio);
+  const W=S.size,H=Math.round(S.size*r.h/r.w);
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+
+         '" viewBox="0 0 '+W+' '+H+'">'+
+         '<clipPath id="r"><rect width="'+W+'" height="'+H+'"/></clipPath>'+
+         '<g clip-path="url(#r)">'+inner+'</g></svg>';
+}
+function buildSVG(){return svgWrap(svgFrame(curFrame));}
 
 const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
 function fitCanvas(){
@@ -667,8 +712,6 @@ function fitCanvas(){
   availW=Math.max(80,availW);availH=Math.max(80,availH);
   const s=Math.min(availW/r.w,availH/r.h);
   const dispW=Math.max(40,Math.floor(r.w*s)),dispH=Math.max(40,Math.floor(r.h*s));
-  const cap = playing ? 1100 : 1600;
-  while(dispW*dpr>cap && dpr>0.35) dpr-=0.05;
   const w=Math.round(dispW*dpr),h=Math.round(dispH*dpr);
   if(art.width!==w||art.height!==h){art.width=w;art.height=h;}
   if(art.style.width!==dispW+"px"||art.style.height!==dispH+"px"){
@@ -687,7 +730,6 @@ function draw(){
   $("#frameno").textContent=String(curFrame+1).padStart(2,"0")+" / "+String(F).padStart(2,"0");
 }
 function requestDraw(){if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;draw();});}
-function invalidate(){requestDraw();updateExportNote();}
 const reframe=requestDraw;
 if(window.ResizeObserver){
   const box=$(".stage-inner");
@@ -723,10 +765,11 @@ function save(blob,name){
   a.href=url;a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
-function stamp(){return `ember-${S.seed}-${S.ratio.replace(":","x")}`;}
+function stamp(){return `relief-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
-  const a=$("#expVid"),sc=$("#scrub");
+  const a=$("#expVid"),sc=$("#scrub"),l=$("#expSvgLoop");
   if(a)a.disabled=!S.motion.on;
+  if(l)l.disabled=!S.motion.on;
   if(sc)sc.disabled=!S.motion.on;
 }
 $("#expPng").addEventListener("click",()=>{
@@ -779,10 +822,10 @@ $("#expVid").addEventListener("click",()=>{
    UI
 ============================================================ */
 function accent(){
-  let best=S.palette[S.palette.length-1],score=-1;
-  for(const c of S.palette){const k=chroma(c)*0.8+relLum(c)*0.3;if(k>score){score=k;best=c;}}
-  document.documentElement.style.setProperty("--accent",best);
-  $("#strip").innerHTML=S.palette.map(c=>`<span style="background:${c}"></span>`).join("");
+  let best=S.pal[S.pal.length-1],bl=-1;
+  for(const c of S.pal){const l=relLum(c);if(l>bl&&l>0.12){bl=l;best=c;}}
+  document.documentElement.style.setProperty("--accent",bl>0?best:"#F5C21B");
+  $("#strip").innerHTML=S.pal.map(c=>`<span style="background:${c}"></span>`).join("");
   const g=$("#glyph");
   if(g.children.length!==9)g.innerHTML=Array.from({length:9},()=>"<i></i>").join("");
   [...g.children].forEach((el,i)=>el.classList.toggle("on",[0,2,4,6,8].includes(i)));
@@ -812,6 +855,41 @@ function buildRatios(){
     host.appendChild(b);
   });
 }
+function buildSwatches(){
+  const host=$("#swatches");
+  host.innerHTML="";
+  const lock=S.pal.length<=2;
+  S.pal.forEach((c,i)=>{
+    const b=document.createElement("button");
+    b.className="sw"+(lock?" locked":"");b.type="button";
+    b.setAttribute("aria-label","Ink "+(i+1)+" color");
+    b.innerHTML=`<span class="fill" style="background:${c}"></span>`+
+      `<input type="color" value="${c}"><span class="x" aria-hidden="true">\u00d7</span>`;
+    b.querySelector("input").addEventListener("input",e=>{
+      S.pal[i]=e.target.value;
+      b.querySelector(".fill").style.background=e.target.value;
+      accent();reframe();
+    });
+    b.addEventListener("click",e=>{
+      if(e.target.classList.contains("x")&&S.pal.length>2){
+        e.preventDefault();e.stopPropagation();
+        S.pal.splice(i,1);buildSwatches();accent();reframe();
+      }
+    },true);
+    host.appendChild(b);
+  });
+  const add=document.createElement("button");
+  add.className="sw-add";add.type="button";add.textContent="+";
+  add.setAttribute("aria-label","Add color");
+  add.addEventListener("click",()=>{
+    const commit=hex=>{S.pal.push(hex);buildSwatches();accent();reframe();};
+    if(window.__pickColour) window.__pickColour(add,commit);
+    else commit(PALETTES[0][(Math.random()*PALETTES[0].length)|0]);
+  });
+  host.appendChild(add);
+  const n=$("#swCountVal"); if(n) n.textContent=S.pal.length;
+}
+function setPalette(p){S.pal=p.slice();buildSwatches();accent();reframe();}
 function bindRange(id,fmt,set,after){
   const el=$("#"+id),label=$("#"+id+"Val");
   if(!el)return;
@@ -821,56 +899,29 @@ function bindRange(id,fmt,set,after){
     (after||reframe)();
   });
 }
-const pct=v=>Math.round(v*100)+"%";
 
-function buildSwatches(){
-  const host=$("#swatches");if(!host)return;
-  host.innerHTML="";
-  S.palette.forEach((c,i)=>{
-    const b=document.createElement("button");
-    b.className="sw";b.type="button";
-    b.innerHTML=`<span class="fill" style="background:${c}"></span><input type="color" value="${c}" aria-label="Ramp stop ${i+1}">${S.palette.length>2?'<span class="x">×</span>':''}`;
-    const input=b.querySelector("input");
-    input.oninput=e=>{S.palette[i]=e.target.value;b.querySelector(".fill").style.background=e.target.value;accent();reframe();};
-    b.onclick=e=>{
-      if(e.target.classList.contains("x")){e.preventDefault();e.stopPropagation();
-        S.palette.splice(i,1);buildSwatches();accent();reframe();return;}
-      if(e.target!==input)input.click();
-    };
-    host.appendChild(b);
-  });
-  if(S.palette.length<8){
-    const add=document.createElement("button");
-    add.className="sw-add";add.type="button";add.textContent="+";
-    add.onclick=()=>{S.palette.push(hsl2hex(Math.random()*360,55,60));buildSwatches();accent();reframe();};
-    host.appendChild(add);
-  }
-  const cv=$("#swCountVal");if(cv)cv.textContent=S.palette.length;
-}
-function shuffleColors(){
-  /* a fresh ember ramp: one hue family, running dark coals to white heat */
-  const r=rng((Math.random()*1e9)|0);
-  const h0=r()*360, drift=(r()-0.5)*60, n=S.palette.length;
-  const out=[];
-  for(let i=0;i<n;i++){
-    const u=n<2?1:i/(n-1);
-    out.push(hsl2hex(h0+drift*u, 42+u*30, 8+u*82));
-  }
-  S.palette=out;
-  buildSwatches();accent();reframe();
-}
 buildRatios();buildSwatches();accent();
-segmented($("#styles"),STYLES,()=>S.style,v=>{S.style=v;reframe();});
 segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
-$("#bgFill").style.background=S.bg;
-$("#bgIn").addEventListener("input",e=>{S.bg=e.target.value;$("#bgFill").style.background=S.bg;accent();reframe();});
-bindRange("poles",v=>v,v=>S.poles=v|0);
-bindRange("twist",pct,v=>S.twist=v);
-bindRange("cols",v=>v,v=>S.cols=v|0);
-bindRange("msize",pct,v=>S.msize=v);
-bindRange("heat",pct,v=>S.heat=v);
-$("#shufColors").addEventListener("click",shuffleColors);
-bindRange("weight",pct,v=>S.weight=v);
+$("#shufColors").addEventListener("click",()=>{
+  setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
+});
+$("#rotColors").addEventListener("click",()=>{
+  if(S.pal.length<3){setPalette(S.pal.slice(1).concat(S.pal[0]));return;}
+  let di=0;
+  for(let i=1;i<S.pal.length;i++) if(rgb2hslR(S.pal[i])[2]<rgb2hslR(S.pal[di])[2]) di=i;
+  const rest=S.pal.filter((c,i)=>i!==di);
+  rest.push(rest.shift());
+  const out=S.pal.slice();
+  let k=0;
+  for(let i=0;i<out.length;i++) if(i!==di) out[i]=rest[k++];
+  setPalette(out);
+});
+bindRange("scale",v=>v|0,v=>S.scale=v|0);
+bindRange("repeat",v=>v|0,v=>S.repeat=v|0);
+bindRange("variety",v=>Math.round(v*100)+"%",v=>S.variety=v);
+bindRange("solids",v=>Math.round(v*100)+"%",v=>S.solids=v);
+bindRange("relief",v=>Math.round(v*100)+"%",v=>S.relief=v);
+bindRange("accent",v=>Math.round(v*100)+"%",v=>S.accent=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
@@ -897,7 +948,7 @@ document.addEventListener("keydown",e=>{
   if(e.code==="Space"){e.preventDefault();newSeed();}
   if(e.key==="p"||e.key==="P"){if(S.motion.on)setPlaying(!playing);}
 });
-newSeed(23);
+newSeed(7);
 $("#scrub").max=S.motion.frames-1;
 updateExportNote();
 draw();
