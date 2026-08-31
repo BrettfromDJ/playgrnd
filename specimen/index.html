@@ -1410,6 +1410,12 @@ html.embed body{overflow:hidden!important}
       sizeEcho=$("#sizeEcho"), sizeVal=$("#sizeVal"),
       inkEcho=$("#inkEcho"), swatches=$("#swatches");
   function put(el,v){ if(el && el.textContent!==v) el.textContent=v; }
+  /* the hidden mirror ships with a placeholder and is only rewritten on click,
+     so seed it from whichever ratio tile starts pressed */
+  if(ratioVal){
+    var act=document.querySelector('#ratios .ratio[aria-pressed="true"] .t');
+    if(act && act.textContent.trim()) ratioVal.textContent=act.textContent.trim();
+  }
   function echo(){
     if(ratioVal) put(ratioEcho, ratioVal.textContent||"1:1");
     if(sizeVal) put(sizeEcho, sizeVal.textContent||"");
