@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Magnet — playgrnd</title>
-<meta name="description" content="Generate magnetic field artworks — grids of dashes, arrows and wedges aligned to invisible poles. Exports SVG, PNG and video.">
+<title>Kiosk — playgrnd</title>
+<meta name="description" content="Generate fly-poster backgrounds — a sweep of colour bands running into hard vertical stripes, halftone and solid blocks punched over the top, and a dense grid of type across the whole page. Exports vector, image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -385,35 +385,27 @@ input[type=range]{accent-color:var(--ink)}
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
         <span class="slash">&frasl;</span>
-        <span class="tool">Magnet</span>
+        <span class="tool">Kiosk</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">13 / 31</span>
-        <span class="k">Type</span><span class="v">Mark grid</span>
+        <span class="k">Index</span><span class="v">31 / 31</span>
+        <span class="k">Type</span><span class="v">Typographic poster</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Field</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Poles</span><span class="v" id="polesVal">3</span></div><div class="track"><input type="range" id="poles" min="1" max="6" step="1" value="3"></div></div>
-        <div class="pr"><div class="top"><span class="k">Twist</span><span class="v" id="twistVal">35%</span></div><div class="track"><input type="range" id="twist" min="0" max="1" step="0.01" value="0.35"></div></div></div></details>
-    <details class="grp" open><summary>Marks</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Style</span></span><span class="mval"><div class="chips" id="styles"></div></span></div>
-        <div class="pr"><div class="top"><span class="k">Density</span><span class="v" id="colsVal">24</span></div><div class="track"><input type="range" id="cols" min="10" max="48" step="1" value="24"></div></div>
-        <div class="pr"><div class="top"><span class="k">Mark size</span><span class="v" id="msizeVal">100%</span></div><div class="track"><input type="range" id="msize" min="0.4" max="1.6" step="0.02" value="1"></div></div>
-        <div class="pr"><div class="top"><span class="k">Weight</span><span class="v" id="weightVal">100%</span></div><div class="track"><input type="range" id="weight" min="0.4" max="2" step="0.05" value="1"></div></div>
-        <div class="pr"><div class="top"><span class="k">Taper</span><span class="v" id="taperVal">80%</span></div><div class="track"><input type="range" id="taper" min="0" max="1" step="0.01" value="0.8"></div></div></div></details></div>
-    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Marks</span></span><span class="mval"><div class="sw-grid">
-            <button class="sw" type="button" aria-label="Mark color">
-              <span class="fill" id="inkFill"></span>
-              <input type="color" id="inkIn" value="#F2F0EA">
-            </button>
-          </div></span></div>
-        <div class="misc"><span class="mhead"><span class="k">Background</span></span><span class="mval"><div class="sw-grid">
-            <button class="sw" type="button" aria-label="Background color">
-              <span class="fill" id="bgFill"></span>
-              <input type="color" id="bgIn" value="#0A0A0A">
-            </button>
-          </div></span></div>
+    <div class="l-scroll"><details class="grp" open><summary>Ground</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Split</span><span class="v" id="splitVal">62%</span></div><div class="track"><input type="range" id="split" min="0.15" max="0.95" step="0.01" value="0.62"></div></div>
+        <div class="pr"><div class="top"><span class="k">Sweep bands</span><span class="v" id="ringsVal">15</span></div><div class="track"><input type="range" id="rings" min="4" max="40" step="1" value="15"></div></div>
+        <div class="pr"><div class="top"><span class="k">Stripes</span><span class="v" id="stripesVal">9</span></div><div class="track"><input type="range" id="stripes" min="2" max="24" step="1" value="9"></div></div>
+        <div class="note">Split sets how much of the page the sweep keeps before the stripes take over.</div></div></details>
+    <details class="grp" open><summary>Type</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Columns</span><span class="v" id="gridVal">13</span></div><div class="track"><input type="range" id="grid" min="4" max="30" step="1" value="13"></div></div>
+        <div class="pr"><div class="top"><span class="k">Large</span><span class="v" id="densityVal">84%</span></div><div class="track"><input type="range" id="density" min="0" max="1" step="0.01" value="0.84"></div></div>
+        <div class="pr"><div class="top"><span class="k">Small</span><span class="v" id="smallVal">60%</span></div><div class="track"><input type="range" id="small" min="0" max="1" step="0.01" value="0.6"></div></div></div></details>
+    <details class="grp" open><summary>Blocks</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">How many</span><span class="v" id="blocksVal">62%</span></div><div class="track"><input type="range" id="blocks" min="0" max="1" step="0.01" value="0.62"></div></div>
+        <div class="note">Halftone and solid squares down the right edge, plus one panel dropped over the page.</div></div></details></div>
+    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">8</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
         
-      <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="swapColors">Rotate</button></span></div></div></details>
+        <div class="note">The darkest ink prints the panels and dots, the lightest is the paper under them, and the next sets the type.</div>
+      <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
     </div>
@@ -449,16 +441,15 @@ input[type=range]{accent-color:var(--ink)}
       <h2 class="h frame-h">Frame</h2><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span>
     </div>
     <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
-          <div class="pr"><div class="top"><span class="k">Intensity</span><span class="v" id="amtVal">0.80</span></div><div class="track"><input type="range" id="amt" min="0.1" max="2" step="0.05" value="0.8"></div></div>
-          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">20 fps</span></div><div class="track"><input type="range" id="fps" min="4" max="30" step="1" value="20"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">120 frames</span></div><div class="track"><input type="range" id="frames" min="24" max="240" step="4" value="120"></div></div>
-          <div class="note">Sway swings every needle through one full breath; Orbit walks the poles in a circle. Both land back at frame one exactly.</div></div></div>
+          <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
+          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">6 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="6"></div></div>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">24 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="24"></div></div></div></div>
     <div class="r-bot">
       <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
           <button class="lnk" id="expSvg">SVG</button>
           <button class="lnk" id="expVid">Video</button></span></div>
-        <div class="note">The SVG is true vectors — every mark is a real shape, tapers included.</div></div>
+        <div class="note" id="expNote">The letters stay real text in the SVG, so the export opens as editable type.</div></div>
       <div class="tbl" style="margin-top:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>
@@ -485,170 +476,270 @@ input[type=range]{accent-color:var(--ink)}
 const $=s=>document.querySelector(s);
 const TAU=Math.PI*2;
 const clamp=(v,a,b)=>v<a?a:v>b?b:v;
-const lerp=(a,b,t)=>a+(b-a)*t;
 const reduceMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
 function rng(s){let a=(s>>>0)||1;return()=>{a^=a<<13;a>>>=0;a^=a>>17;a^=a<<5;a>>>=0;return a/4294967296;};}
+function hashi(x,y,z,s){
+  let n=Math.imul(x|0,374761393)^Math.imul(y|0,668265263)^Math.imul(z|0,1440662683)^Math.imul(s|0,1013904223);
+  n=Math.imul(n^(n>>>15),2246822519);n=Math.imul(n^(n>>>13),3266489917);n^=n>>>16;
+  return (n>>>0)/4294967296;
+}
 function hex2rgb(h){h=h.replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
   return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];}
 function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4);});
   return .2126*r+.7152*g+.0722*b;}
-function css(c,a){return`rgba(${Math.round(c[0])},${Math.round(c[1])},${Math.round(c[2])},${a===undefined?1:a})`;}
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const STYLES=[["dash","Dash"],["line","Line"],["arrow","Arrow"],["wedge","Wedge"]];
-const MODES=[["sway","Sway"],["orbit","Orbit"]];
+const MODES=[["shuffle","Shuffle"],["bloom","Bloom"]];
+
+/* A bold gothic, centred cell by cell. The face is proportional, not a
+   monospace: the reference sets real letters on a grid, and forcing them to a
+   fixed advance would give a typewriter rather than a fly-poster. */
+/* Single quotes around the family names, not double: the same string is set on
+   the canvas and written into an SVG attribute, and a double quote inside a
+   double-quoted attribute ends it early and takes the whole export with it. */
+const FACE="'Helvetica Neue',Helvetica,Arial,'Liberation Sans',sans-serif";
+
+/* Weighted towards the consonants and brackets the reference leans on, so a
+   page reads like set type rather than like a random dump of the alphabet. */
+const GLYPHS=("ABCDEFGHIJKLMNOPQRSTUVWXYZ"+
+              "ACEHMNPSU"+"ACEHMNPSU"+"ACEHMNPSU"+"ACEHMNPSU"+
+              "()()()-:-:./"+"0123456789").split("");
+
+const PALETTES=[
+  ["#0A0A0A","#E8B84B","#F4F4F2","#E8202A","#00A650","#1B7FE0","#F5D000","#EC1E79"],
+  ["#080808","#D9A83E","#F2F0EA","#D81E2C","#0E9B6C","#2A5FD6","#F0C400","#E0187A"],
+  ["#0B0B0D","#F0C860","#FFFFFF","#FF3B1F","#12B074","#0F6BE0","#FFD400","#FF3D9A"],
+  ["#101010","#C9A227","#EFEFE8","#C4161C","#2E8B57","#1E4FA0","#E8C000","#C2185B"],
+  ["#060606","#EFC050","#F7F5EF","#F04A10","#7CE860","#2CC8F0","#F0D82C","#F03C8C"]
+];
 
 const S={
-  seed:23, ratio:"1:1",
-  poles:3, twist:.35,
-  style:"dash", cols:24, msize:1, weight:1, taper:.8,
-  ink:"#F2F0EA", bg:"#0A0A0A",
-  motion:{on:false,mode:"sway",amount:.8,fps:20,frames:120},
+  seed:7, ratio:"4:5",
+  split:0.62, rings:15, stripes:9,
+  grid:13, density:0.84, small:0.60,
+  blocks:0.62,
+  pal:PALETTES[0].slice(),
+  motion:{on:false,mode:"shuffle",amount:0.6,fps:6,frames:24},
   size:2400
 };
 
-const VB=1000;
-function vh(){const r=RATIOS.find(x=>x.id===S.ratio);return VB*r.h/r.w;}
-
-/* ============================================================
-   The field: invisible poles push and pull; each grid mark
-   points along the summed pull, like a compass needle.
-============================================================ */
-function buildPoles(){
-  const r=rng(S.seed*2654435761>>>0), H=vh();
-  const poles=[];
-  for(let i=0;i<S.poles;i++){
-    poles.push({
-      x:lerp(VB*0.1,VB*0.9,r()), y:lerp(H*0.1,H*0.9,r()),
-      pol:r()<.5?-1:1, spin:r()<.5?-1:1,
-      orad:lerp(60,170,r()), oph:r(), odir:r()<.5?-1:1
-    });
-  }
-  return poles;
+function hshK(x,y,s){
+  let n=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1274126177);
+  n=Math.imul(n^(n>>>13),1274126177);
+  n^=n>>>16;
+  return (n>>>0)/4294967296;
 }
-function fieldAngle(x,y,poles,t){
+function hex2rgbK(h){h=String(h).replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
+  const n=parseInt(h,16);return[(n>>16)&255,(n>>8)&255,n&255];}
+function lumK(h){const[r,g,b]=hex2rgbK(h);return r*.299+g*.587+b*.114;}
+
+/* ---- ink roles ---------------------------------------------------------
+   The darkest ink prints the panels and the halftone dots, the lightest is the
+   paper those dots sit on, and the first of what is left sets the type. The
+   rest are the bands. Only the two extremes are found by scanning, so Rotate
+   still moves the type colour and re-deals the bands — assigning every role by
+   property would leave the button doing nothing at all. */
+function rolesK(){
+  const pal=S.pal.length?S.pal:["#0A0A0A","#E8B84B","#F4F4F2","#E8202A"];
+  let dark=pal[0], paper=pal[0];
+  for(const c of pal){ if(lumK(c)<lumK(dark)) dark=c; if(lumK(c)>lumK(paper)) paper=c; }
+  const rest=pal.filter(c=>c!==dark&&c!==paper);
+  if(!rest.length) rest.push(paper);
+  const ink=rest[0];
+  const bands=rest.length>1?rest.slice(1):rest;
+  return {dark:dark, paper:paper, ink:ink, bands:bands};
+}
+
+function paint(c,W,H,f){
+  const R=rolesK();
   const M=S.motion;
-  let fx=0,fy=0;
-  for(const p of poles){
-    let px=p.x,py=p.y;
-    if(M.on&&M.mode==="orbit"){
-      const a=TAU*(t*p.odir+p.oph), rr=p.orad*M.amount;
-      px+=Math.cos(a)*rr; py+=Math.sin(a)*rr;
+  const kseed=(M.on&&M.mode==="shuffle")?S.seed+f*7919:S.seed;
+  /* Bloom steps the band colours outward a whole ring at a time. A whole
+     number of steps over the loop brings the colours back to where they
+     started, so the last frame meets the first. */
+  const nb=R.bands.length;
+  const bloom=(M.on&&M.mode==="bloom")
+    ? Math.round((f/M.frames)*nb*Math.max(1,Math.round(M.amount*2))) : 0;
+  const band=i=>R.bands[(((i+bloom)%nb)+nb)%nb];
+
+  /* ---- the swirl ------------------------------------------------------
+     Concentric rings around a centre held off the left edge, drawn largest
+     first so each smaller disc leaves the one beneath it as a band. From a
+     centre off the page they arrive as big arcs sweeping across, which is what
+     the reference does; a centre on the page would give a bullseye. */
+  c.fillStyle=band(0); c.fillRect(0,0,W,H);
+  const cx=W*(-0.22+hshK(1,1,S.seed+11)*0.30);
+  const cy=H*(-0.06+hshK(2,2,S.seed+13)*0.36);
+  const nR=Math.max(4,S.rings|0);
+  const rmax=Math.hypot(Math.max(Math.abs(cx),Math.abs(W-cx)),
+                        Math.max(Math.abs(cy),Math.abs(H-cy)))*1.02;
+  const stepR=rmax/nR;
+  for(let k=nR;k>=1;k--){
+    c.fillStyle=band(k);
+    c.beginPath(); c.arc(cx,cy,k*stepR,0,Math.PI*2); c.closePath(); c.fill();
+  }
+
+  /* ---- the stripe half ------------------------------------------------
+     Painted straight over the swirl rather than clipped away from it: the
+     same paint() has to run against the SVG recorder, which has no clip, and
+     an opaque band does the same job in both. */
+  const sx=Math.round(W*Math.min(0.95,Math.max(0.15,S.split)));
+  const ns=Math.max(2,S.stripes|0);
+  const wts=[]; let tot=0;
+  for(let i=0;i<ns;i++){ const w=0.45+hshK(i,7,S.seed+31); wts.push(w); tot+=w; }
+  let x=sx;
+  for(let i=0;i<ns;i++){
+    const w=wts[i]/tot*(W-sx);
+    const x0=Math.round(x), x1=Math.round(x+w);
+    c.fillStyle=band(Math.floor(hshK(i,9,S.seed+37)*nb));
+    c.fillRect(x0,0,x1-x0,H);
+    x+=w;
+  }
+
+  /* ---- blocks ---------------------------------------------------------
+     A column of halftone and solid squares down the right edge, plus one large
+     panel dropped over the composition. These are what stop the page reading
+     as a plain field of colour behind type. */
+  const colW=W*0.115, colX=W-colW, nbk=8, bh=H/nbk;
+  for(let i=0;i<nbk;i++){
+    if(hshK(i,13,S.seed+41)>S.blocks) continue;
+    const y0=Math.round(i*bh), y1=Math.round((i+1)*bh);
+    if(((i+(hshK(0,19,S.seed+47)<0.5?1:0))&1)===0){
+      c.fillStyle=R.paper; c.fillRect(colX,y0,colW,y1-y0);
+      const d=colW/6;
+      c.fillStyle=R.dark;
+      const dr=Math.ceil((y1-y0)/d);
+      for(let jy=0;jy<dr;jy++) for(let jx=0;jx<6;jx++){
+        const dy=y0+(jy+0.5)*d;
+        if(dy>y1) continue;
+        c.beginPath(); c.arc(colX+(jx+0.5)*d,dy,d*0.23,0,Math.PI*2); c.closePath(); c.fill();
+      }
+    }else{
+      c.fillStyle=R.dark; c.fillRect(colX,y0,colW,y1-y0);
     }
-    const dx=x-px,dy=y-py;
-    const r2=(dx*dx+dy*dy)/(VB*VB)+0.004;
-    const s=p.pol/r2/(VB*VB);
-    fx+=(dx*(1-S.twist)-dy*S.twist*p.spin)*s;
-    fy+=(dy*(1-S.twist)+dx*S.twist*p.spin)*s;
   }
-  if(M.on&&M.mode==="sway"){
-    /* one full turn of a uniform external field per loop — needles far
-       from any pole swing wide, needles near a pole barely tremble */
-    const mag=Math.hypot(fx,fy)||1;
-    const a=TAU*t, k=mag*M.amount*0.9;
-    fx+=Math.cos(a)*k; fy+=Math.sin(a)*k;
+  const pw=W*(0.26+hshK(3,3,S.seed+53)*0.18), ph=H*(0.14+hshK(4,4,S.seed+59)*0.11);
+  const px=W*(0.26+hshK(5,5,S.seed+61)*0.26), py=H*(0.56+hshK(6,6,S.seed+67)*0.22);
+  c.fillStyle=R.dark;
+  c.fillRect(Math.round(px),Math.round(py),Math.round(pw),Math.round(ph));
+
+  /* ---- the type -------------------------------------------------------
+     Two passes on the same grid: the full cells, then the corners between
+     them at under half the size. One pass at one size gives an even mesh; the
+     reference has a coarse rank of large letters with smaller ones packed into
+     the gaps, and it is that second pass that makes it read as dense. */
+  const cols=Math.max(4,S.grid|0);
+  const cw=W/cols;
+  const rows=Math.max(2,Math.round(H/cw));
+  const rh=H/rows;
+  c.textAlign="center"; c.textBaseline="middle";
+
+  const put=(i,j,gx,gy,sz,salt)=>{
+    const ch=GLYPHS[Math.floor(hshK(i,j,kseed+salt+3)*GLYPHS.length)];
+    c.fillStyle=hshK(i,j,kseed+salt+7)<0.28?R.dark:R.ink;
+    c.font="700 "+sz.toFixed(1)+"px "+FACE;
+    c.fillText(ch,gx,gy);
+  };
+  for(let j=0;j<rows;j++) for(let i=0;i<cols;i++){
+    if(hshK(i,j,kseed+71)>S.density) continue;
+    put(i,j,(i+0.5)*cw,(j+0.53)*rh,rh*0.92,71);
   }
-  return Math.atan2(fy,fx);
-}
-function gridMarks(){
-  const H=vh(), n=S.cols|0, cell=VB/n;
-  const rows=Math.max(2,Math.round(H/cell));
-  const marks=[];
-  for(let j=0;j<rows;j++)for(let i=0;i<n;i++){
-    marks.push({x:(i+.5)*cell,y:(j+.5)*(H/rows)});
+  for(let j=0;j<rows;j++) for(let i=0;i<cols;i++){
+    if(hshK(i,j,kseed+91)>S.small) continue;
+    put(i,j,(i+1)*cw,(j+1)*rh,rh*0.40,91);
   }
-  return {marks,cell:Math.min(cell,H/rows)};
 }
 
-/* ============================================================
-   One mark, drawn in local coordinates (pointing along +x)
-============================================================ */
-function markDims(cell){
-  const L=cell*(S.style==="arrow"?0.62:S.style==="wedge"?0.42:0.55)*S.msize;
-  const w=Math.max(1,cell*0.075*S.weight*(S.style==="wedge"?2.6:1));
-  return{L,w};
+/* ---- vector ------------------------------------------------------------
+   The same paint() against a recorder. Discs stay circles and the letters stay
+   real <text>, so the export opens as editable type rather than as outlines —
+   and it cannot drift from what is on screen. */
+function escK(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function SvgSurfaceK(){
+  this.fillStyle="#000"; this.font=""; this.textAlign="center"; this.textBaseline="middle";
+  this.imageSmoothingEnabled=false;
+  this._b=[]; this._c=null;
 }
-function drawMark(c,L,w,ink){
-  if(S.style==="line"){
-    c.strokeStyle=css(ink);c.lineWidth=w;c.lineCap="round";
-    c.beginPath();c.moveTo(-L/2,0);c.lineTo(L/2,0);c.stroke();
-  }else if(S.style==="dash"){
-    const g=c.createLinearGradient(-L/2,0,L/2,0);
-    g.addColorStop(0,css(ink,1-S.taper));
-    g.addColorStop(1,css(ink,1));
-    c.strokeStyle=g;c.lineWidth=w;c.lineCap="round";
-    c.beginPath();c.moveTo(-L/2,0);c.lineTo(L/2,0);c.stroke();
-  }else if(S.style==="arrow"){
-    c.strokeStyle=css(ink);c.lineWidth=w;c.lineCap="round";c.lineJoin="round";
-    const h=L*0.32;
-    c.beginPath();c.moveTo(-L/2,0);c.lineTo(L/2,0);
-    c.moveTo(L/2-h,-h*0.62);c.lineTo(L/2,0);c.lineTo(L/2-h,h*0.62);
-    c.stroke();
-  }else{ /* wedge: a slim tapered triangle, tail thin, head full */
-    c.fillStyle=css(ink);
-    c.beginPath();
-    c.moveTo(L/2,0);
-    c.lineTo(-L/2,w*0.5);
-    c.lineTo(-L/2*(1-S.taper*0.3),0);
-    c.lineTo(-L/2,-w*0.5);
-    c.closePath();c.fill();
-  }
+SvgSurfaceK.prototype.save=function(){};
+SvgSurfaceK.prototype.restore=function(){};
+SvgSurfaceK.prototype.translate=function(){};
+SvgSurfaceK.prototype.scale=function(){};
+SvgSurfaceK.prototype.rotate=function(){};
+SvgSurfaceK.prototype.clearRect=function(){};
+SvgSurfaceK.prototype.fillRect=function(x,y,w,h){
+  this._b.push('<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+w.toFixed(1)+
+               '" height="'+h.toFixed(1)+'" fill="'+this.fillStyle+'"/>');
+};
+SvgSurfaceK.prototype.beginPath=function(){this._c=null;};
+SvgSurfaceK.prototype.moveTo=function(){};
+SvgSurfaceK.prototype.lineTo=function(){};
+SvgSurfaceK.prototype.closePath=function(){};
+SvgSurfaceK.prototype.arc=function(x,y,r){this._c={x:x,y:y,r:r};};
+SvgSurfaceK.prototype.fill=function(){
+  if(!this._c) return;
+  this._b.push('<circle cx="'+this._c.x.toFixed(1)+'" cy="'+this._c.y.toFixed(1)+
+    '" r="'+this._c.r.toFixed(1)+'" fill="'+this.fillStyle+'"/>');
+  this._c=null;
+};
+SvgSurfaceK.prototype.stroke=function(){};
+/* Canvas centres a glyph on its em box when textBaseline is "middle". SVG's
+   dominant-baseline="central" is a near neighbour of that, not the same thing,
+   and across a page of ninety-pixel letters the few pixels between them put a
+   tenth of the export out of register with the screen. So the offset is
+   measured from the font itself, once, and the text is written on the ordinary
+   alphabetic baseline where both renderers agree. */
+let BASEK=null;
+function baseOffK(){
+  if(BASEK!==null) return BASEK;
+  BASEK=0.32;                       /* a sane fallback if metrics are absent */
+  try{
+    /* Ask the canvas itself how far it moves a glyph for "middle", rather than
+       deriving it from the font's ascent and descent: the em square a browser
+       centres on is not the same as the span between those two, and the couple
+       of percent between the guess and the truth is three pixels on a
+       hundred-pixel letter. measureText reports its box relative to whichever
+       baseline is set, so the difference between the two readings is the shift
+       itself, in pixels, for whatever face actually resolved. */
+    const c=document.createElement("canvas").getContext("2d");
+    c.font="700 200px "+FACE;
+    c.textBaseline="alphabetic";
+    const a=c.measureText("H").actualBoundingBoxAscent;
+    c.textBaseline="middle";
+    const m=c.measureText("H").actualBoundingBoxAscent;
+    if(isFinite(a)&&isFinite(m)) BASEK=(a-m)/200;
+  }catch(e){}
+  return BASEK;
 }
-function paint(c,W,Hpx,f){
-  const M=S.motion;
-  const t=M.on?f/M.frames:0;
-  const k=W/VB;
-  const poles=buildPoles();
-  const {marks,cell}=gridMarks();
-  const ink=hex2rgb(S.ink);
-  const {L,w}=markDims(cell);
-  c.setTransform(1,0,0,1,0,0);
-  c.fillStyle=S.bg;c.fillRect(0,0,W,Hpx);
-  for(const m of marks){
-    const a=fieldAngle(m.x,m.y,poles,t);
-    const cos=Math.cos(a),sin=Math.sin(a);
-    c.setTransform(cos*k,sin*k,-sin*k,cos*k,m.x*k,m.y*k);
-    drawMark(c,L,w,ink);
-  }
-  c.setTransform(1,0,0,1,0,0);
-}
+SvgSurfaceK.prototype.fillText=function(t,x,y){
+  /* the size is read back off the same font string the canvas was given, so
+     the two can never be set to different numbers */
+  const m=/([\d.]+)px/.exec(this.font);
+  const sz=m?parseFloat(m[1]):16;
+  this._b.push('<text x="'+x.toFixed(1)+'" y="'+(y+sz*baseOffK()).toFixed(1)+
+    '" font-size="'+sz.toFixed(1)+'" fill="'+this.fillStyle+'">'+escK(t)+'</text>');
+};
+SvgSurfaceK.prototype.markup=function(){
+  return '<g font-family="'+FACE+'" font-weight="700" text-anchor="middle">'+
+         this._b.join("")+'</g>';
+};
 
-/* ============================================================
-   SVG export — one shape defined once, then placed per mark
-============================================================ */
-function buildSVG(){
+function svgFrame(f){
   const r=RATIOS.find(x=>x.id===S.ratio);
   const W=S.size,H=Math.round(S.size*r.h/r.w);
-  const k=W/VB;
-  const poles=buildPoles();
-  const {marks,cell}=gridMarks();
-  const {L,w}=markDims(cell);
-  const t=S.motion.on?curFrame/S.motion.frames:0;
-  const Lk=L*k,wk=w*k;
-  let defs="",shape="";
-  if(S.style==="line"){
-    defs=`<g id="mk"><line x1="${-Lk/2}" y1="0" x2="${Lk/2}" y2="0" stroke="${S.ink}" stroke-width="${wk.toFixed(2)}" stroke-linecap="round"/></g>`;
-  }else if(S.style==="dash"){
-    defs=`<linearGradient id="tp" gradientUnits="userSpaceOnUse" x1="${-Lk/2}" y1="0" x2="${Lk/2}" y2="0">`+
-      `<stop offset="0" stop-color="${S.ink}" stop-opacity="${(1-S.taper).toFixed(3)}"/>`+
-      `<stop offset="1" stop-color="${S.ink}"/></linearGradient>`+
-      `<g id="mk"><line x1="${-Lk/2}" y1="0" x2="${Lk/2}" y2="0" stroke="url(#tp)" stroke-width="${wk.toFixed(2)}" stroke-linecap="round"/></g>`;
-  }else if(S.style==="arrow"){
-    const h=Lk*0.32;
-    defs=`<g id="mk" stroke="${S.ink}" stroke-width="${wk.toFixed(2)}" stroke-linecap="round" stroke-linejoin="round" fill="none">`+
-      `<line x1="${-Lk/2}" y1="0" x2="${Lk/2}" y2="0"/>`+
-      `<path d="M ${(Lk/2-h).toFixed(2)} ${(-h*0.62).toFixed(2)} L ${(Lk/2).toFixed(2)} 0 L ${(Lk/2-h).toFixed(2)} ${(h*0.62).toFixed(2)}"/></g>`;
-  }else{
-    defs=`<g id="mk"><path fill="${S.ink}" d="M ${(Lk/2).toFixed(2)} 0 L ${(-Lk/2).toFixed(2)} ${(wk*0.5).toFixed(2)} L ${(-Lk/2*(1-S.taper*0.3)).toFixed(2)} 0 L ${(-Lk/2).toFixed(2)} ${(-wk*0.5).toFixed(2)} Z"/></g>`;
-  }
-  for(const m of marks){
-    const a=fieldAngle(m.x,m.y,poles,t)*180/Math.PI;
-    shape+=`<use href="#mk" transform="translate(${(m.x*k).toFixed(2)} ${(m.y*k).toFixed(2)}) rotate(${a.toFixed(2)})"/>`;
-  }
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`+
-    `<rect width="${W}" height="${H}" fill="${S.bg}"/><defs>${defs}</defs>${shape}</svg>`;
+  const s=new SvgSurfaceK();
+  paint(s,W,H,f);
+  return s.markup();
 }
+function svgWrap(inner){
+  const r=RATIOS.find(x=>x.id===S.ratio);
+  const W=S.size,H=Math.round(S.size*r.h/r.w);
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+
+         '" viewBox="0 0 '+W+' '+H+'">'+
+         '<clipPath id="k"><rect width="'+W+'" height="'+H+'"/></clipPath>'+
+         '<g clip-path="url(#k)">'+inner+'</g></svg>';
+}
+function buildSVG(){return svgWrap(svgFrame(curFrame));}
 
 const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
 function fitCanvas(){
@@ -664,8 +755,6 @@ function fitCanvas(){
   availW=Math.max(80,availW);availH=Math.max(80,availH);
   const s=Math.min(availW/r.w,availH/r.h);
   const dispW=Math.max(40,Math.floor(r.w*s)),dispH=Math.max(40,Math.floor(r.h*s));
-  const cap = playing ? 1100 : 1600;
-  while(dispW*dpr>cap && dpr>0.35) dpr-=0.05;
   const w=Math.round(dispW*dpr),h=Math.round(dispH*dpr);
   if(art.width!==w||art.height!==h){art.width=w;art.height=h;}
   if(art.style.width!==dispW+"px"||art.style.height!==dispH+"px"){
@@ -684,7 +773,6 @@ function draw(){
   $("#frameno").textContent=String(curFrame+1).padStart(2,"0")+" / "+String(F).padStart(2,"0");
 }
 function requestDraw(){if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;draw();});}
-function invalidate(){requestDraw();updateExportNote();}
 const reframe=requestDraw;
 if(window.ResizeObserver){
   const box=$(".stage-inner");
@@ -720,10 +808,11 @@ function save(blob,name){
   a.href=url;a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
-function stamp(){return `magnet-${S.seed}-${S.ratio.replace(":","x")}`;}
+function stamp(){return `kiosk-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
-  const a=$("#expVid"),sc=$("#scrub");
+  const a=$("#expVid"),sc=$("#scrub"),l=$("#expSvgLoop");
   if(a)a.disabled=!S.motion.on;
+  if(l)l.disabled=!S.motion.on;
   if(sc)sc.disabled=!S.motion.on;
 }
 $("#expPng").addEventListener("click",()=>{
@@ -776,12 +865,13 @@ $("#expVid").addEventListener("click",()=>{
    UI
 ============================================================ */
 function accent(){
-  const a=relLum(S.ink)>0.18?S.ink:"#4ADE80";
-  document.documentElement.style.setProperty("--accent",a);
-  $("#strip").innerHTML=[S.ink,S.bg].map(c=>`<span style="background:${c}"></span>`).join("");
+  let best=S.pal[S.pal.length-1],bl=-1;
+  for(const c of S.pal){const l=relLum(c);if(l>bl&&l>0.12){bl=l;best=c;}}
+  document.documentElement.style.setProperty("--accent",bl>0?best:"#F5C21B");
+  $("#strip").innerHTML=S.pal.map(c=>`<span style="background:${c}"></span>`).join("");
   const g=$("#glyph");
   if(g.children.length!==9)g.innerHTML=Array.from({length:9},()=>"<i></i>").join("");
-  [...g.children].forEach((el,i)=>el.classList.toggle("on",[1,3,4,5,7].includes(i)));
+  [...g.children].forEach((el,i)=>el.classList.toggle("on",[0,2,4,6,8].includes(i)));
 }
 function segmented(host,items,get,set){
   if(!host)return;
@@ -808,6 +898,41 @@ function buildRatios(){
     host.appendChild(b);
   });
 }
+function buildSwatches(){
+  const host=$("#swatches");
+  host.innerHTML="";
+  const lock=S.pal.length<=2;
+  S.pal.forEach((c,i)=>{
+    const b=document.createElement("button");
+    b.className="sw"+(lock?" locked":"");b.type="button";
+    b.setAttribute("aria-label","Ink "+(i+1)+" color");
+    b.innerHTML=`<span class="fill" style="background:${c}"></span>`+
+      `<input type="color" value="${c}"><span class="x" aria-hidden="true">\u00d7</span>`;
+    b.querySelector("input").addEventListener("input",e=>{
+      S.pal[i]=e.target.value;
+      b.querySelector(".fill").style.background=e.target.value;
+      accent();reframe();
+    });
+    b.addEventListener("click",e=>{
+      if(e.target.classList.contains("x")&&S.pal.length>2){
+        e.preventDefault();e.stopPropagation();
+        S.pal.splice(i,1);buildSwatches();accent();reframe();
+      }
+    },true);
+    host.appendChild(b);
+  });
+  const add=document.createElement("button");
+  add.className="sw-add";add.type="button";add.textContent="+";
+  add.setAttribute("aria-label","Add color");
+  add.addEventListener("click",()=>{
+    const commit=hex=>{S.pal.push(hex);buildSwatches();accent();reframe();};
+    if(window.__pickColour) window.__pickColour(add,commit);
+    else commit(PALETTES[0][(Math.random()*PALETTES[0].length)|0]);
+  });
+  host.appendChild(add);
+  const n=$("#swCountVal"); if(n) n.textContent=S.pal.length;
+}
+function setPalette(p){S.pal=p.slice();buildSwatches();accent();reframe();}
 function bindRange(id,fmt,set,after){
   const el=$("#"+id),label=$("#"+id+"Val");
   if(!el)return;
@@ -817,27 +942,30 @@ function bindRange(id,fmt,set,after){
     (after||reframe)();
   });
 }
-const pct=v=>Math.round(v*100)+"%";
 
-buildRatios();accent();
-segmented($("#styles"),STYLES,()=>S.style,v=>{S.style=v;reframe();});
+buildRatios();buildSwatches();accent();
 segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
-$("#inkFill").style.background=S.ink;
-$("#inkIn").addEventListener("input",e=>{S.ink=e.target.value;$("#inkFill").style.background=S.ink;accent();reframe();});
-$("#bgFill").style.background=S.bg;
-$("#bgIn").addEventListener("input",e=>{S.bg=e.target.value;$("#bgFill").style.background=S.bg;accent();reframe();});
-$("#swapColors").addEventListener("click",()=>{
-  const i=S.ink;S.ink=S.bg;S.bg=i;
-  $("#inkIn").value=S.ink;$("#bgIn").value=S.bg;
-  $("#inkFill").style.background=S.ink;$("#bgFill").style.background=S.bg;
-  accent();reframe();
+$("#shufColors").addEventListener("click",()=>{
+  setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
 });
-bindRange("poles",v=>v,v=>S.poles=v|0);
-bindRange("twist",pct,v=>S.twist=v);
-bindRange("cols",v=>v,v=>S.cols=v|0);
-bindRange("msize",pct,v=>S.msize=v);
-bindRange("weight",pct,v=>S.weight=v);
-bindRange("taper",pct,v=>S.taper=v);
+$("#rotColors").addEventListener("click",()=>{
+  if(S.pal.length<3){setPalette(S.pal.slice(1).concat(S.pal[0]));return;}
+  let di=0;
+  for(let i=1;i<S.pal.length;i++) if(lumK(S.pal[i])<lumK(S.pal[di])) di=i;
+  const rest=S.pal.filter((c,i)=>i!==di);
+  rest.push(rest.shift());
+  const out=S.pal.slice();
+  let k=0;
+  for(let i=0;i<out.length;i++) if(i!==di) out[i]=rest[k++];
+  setPalette(out);
+});
+bindRange("split",v=>Math.round(v*100)+"%",v=>S.split=v);
+bindRange("rings",v=>v|0,v=>S.rings=v|0);
+bindRange("stripes",v=>v|0,v=>S.stripes=v|0);
+bindRange("grid",v=>v|0,v=>S.grid=v|0);
+bindRange("density",v=>Math.round(v*100)+"%",v=>S.density=v);
+bindRange("small",v=>Math.round(v*100)+"%",v=>S.small=v);
+bindRange("blocks",v=>Math.round(v*100)+"%",v=>S.blocks=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
@@ -864,7 +992,7 @@ document.addEventListener("keydown",e=>{
   if(e.code==="Space"){e.preventDefault();newSeed();}
   if(e.key==="p"||e.key==="P"){if(S.motion.on)setPlaying(!playing);}
 });
-newSeed(23);
+newSeed(7);
 $("#scrub").max=S.motion.frames-1;
 updateExportNote();
 draw();
