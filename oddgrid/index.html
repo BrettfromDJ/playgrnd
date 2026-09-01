@@ -188,6 +188,15 @@ input[type=range]{accent-color:var(--ink)}
    loudly, rather than remembering to at every rule that sets display. */
 [hidden]{display:none!important}
 
+/* ---------------- typed fields ---------------- */
+/* One hairline under the text, the same weight as a slider track, so a field
+   you type into reads as part of the instrument rather than as a web form. */
+.mval input[type=text]{width:100%;min-width:0;box-sizing:border-box;border:0;
+  border-bottom:1px solid var(--hair);background:none;color:var(--ink);
+  font-family:var(--mono);font-size:10px;letter-spacing:.10em;padding:4px 0}
+.mval input[type=text]:focus{outline:none;border-bottom-color:var(--ink)}
+.mval input[type=text]::placeholder{color:var(--key)}
+
 /* ---------------- inks ---------------- */
 .sw-grid{display:flex;flex-wrap:wrap;gap:13px;align-items:center;max-width:210px}
 .l-bot .sw-grid{max-width:none}

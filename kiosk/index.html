@@ -174,6 +174,15 @@ input[type=range]{accent-color:var(--ink)}
    loudly, rather than remembering to at every rule that sets display. */
 [hidden]{display:none!important}
 
+/* ---------------- typed fields ---------------- */
+/* One hairline under the text, the same weight as a slider track, so a field
+   you type into reads as part of the instrument rather than as a web form. */
+.mval input[type=text]{width:100%;min-width:0;box-sizing:border-box;border:0;
+  border-bottom:1px solid var(--hair);background:none;color:var(--ink);
+  font-family:var(--mono);font-size:10px;letter-spacing:.10em;padding:4px 0}
+.mval input[type=text]:focus{outline:none;border-bottom-color:var(--ink)}
+.mval input[type=text]::placeholder{color:var(--key)}
+
 /* ---------------- inks ---------------- */
 .sw-grid{display:flex;flex-wrap:wrap;gap:13px;align-items:center;max-width:210px}
 .l-bot .sw-grid{max-width:none}
@@ -397,11 +406,16 @@ input[type=range]{accent-color:var(--ink)}
         <div class="pr"><div class="top"><span class="k">Sweep bands</span><span class="v" id="ringsVal">15</span></div><div class="track"><input type="range" id="rings" min="4" max="40" step="1" value="15"></div></div>
         <div class="pr"><div class="top"><span class="k">Stripes</span><span class="v" id="stripesVal">9</span></div><div class="track"><input type="range" id="stripes" min="2" max="24" step="1" value="9"></div></div>
         <div class="note">Split sets how much of the page the sweep keeps before the stripes take over.</div></div></details>
-    <details class="grp" open><summary>Type</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Character set</span></span><span class="mval"><div class="chips" id="sets"></div></span></div>
+    <details class="grp"><summary>Type</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Character set</span></span><span class="mval"><div class="chips" id="sets"></div></span></div>
+        <div class="misc stack" id="customRow" hidden><span class="mhead"><span class="k">Your characters</span></span><span class="mval"><input type="text" id="customSet" value=".:-=+*#%@" spellcheck="false"
+                 autocomplete="off" aria-label="Your own characters"
+                 placeholder="type any characters"></span></div>
         <div class="pr"><div class="top"><span class="k">Columns</span><span class="v" id="gridVal">13</span></div><div class="track"><input type="range" id="grid" min="4" max="30" step="1" value="13"></div></div>
-        <div class="pr"><div class="top"><span class="k">Large</span><span class="v" id="densityVal">84%</span></div><div class="track"><input type="range" id="density" min="0" max="1" step="0.01" value="0.84"></div></div>
-        <div class="pr"><div class="top"><span class="k">Small</span><span class="v" id="smallVal">60%</span></div><div class="track"><input type="range" id="small" min="0" max="1" step="0.01" value="0.6"></div></div></div></details>
-    <details class="grp" open><summary>Blocks</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">How many</span><span class="v" id="blocksVal">62%</span></div><div class="track"><input type="range" id="blocks" min="0" max="1" step="0.01" value="0.62"></div></div>
+        <div class="pr"><div class="top"><span class="k">Large size</span><span class="v" id="bigSizeVal">102%</span></div><div class="track"><input type="range" id="bigSize" min="0.3" max="1.6" step="0.01" value="1.02"></div></div>
+        <div class="pr"><div class="top"><span class="k">How many large</span><span class="v" id="densityVal">84%</span></div><div class="track"><input type="range" id="density" min="0" max="1" step="0.01" value="0.84"></div></div>
+        <div class="pr"><div class="top"><span class="k">Small size</span><span class="v" id="smallSizeVal">44%</span></div><div class="track"><input type="range" id="smallSize" min="0.1" max="0.9" step="0.01" value="0.44"></div></div>
+        <div class="pr"><div class="top"><span class="k">How many small</span><span class="v" id="smallVal">60%</span></div><div class="track"><input type="range" id="small" min="0" max="1" step="0.01" value="0.6"></div></div></div></details>
+    <details class="grp"><summary>Blocks</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">How many</span><span class="v" id="blocksVal">62%</span></div><div class="track"><input type="range" id="blocks" min="0" max="1" step="0.01" value="0.62"></div></div>
         <div class="note">Halftone and solid squares down the right edge, plus one panel dropped over the page.</div></div></details></div>
     <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">8</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
         
@@ -508,11 +522,18 @@ const SETS=[
   ["blocks","Blocks","\u2591\u2592\u2593\u2588\u25a0\u25aa\u00b7"],
   ["code","Code","/\\|_-+=<>[]{}"],
   ["digits","Digits","0123456789"],
-  ["runes","Runes","\u2020\u2021\u00a7\u00b6\u00ae\u00a9\u2260\u221e\u2248"]
+  ["runes","Runes","\u2020\u2021\u00a7\u00b6\u00ae\u00a9\u2260\u221e\u2248"],
+  ["custom","Custom",""]
 ];
+
+/* The classic density ramp, as a starting point to edit rather than a set to
+   use as it is. An empty field falls back to the first set rather than drawing
+   nothing at all. */
+const CUSTOM_DEFAULT=".:-=+*#%@";
 function curSetK(){
+  if(S.set==="custom") return S.custom&&S.custom.length?S.custom:SETS[0][2];
   const s=SETS.find(x=>x[0]===S.set)||SETS[0];
-  return s[2];
+  return s[2]||SETS[0][2];
 }
 
 const PALETTES=[
@@ -524,9 +545,9 @@ const PALETTES=[
 ];
 
 const S={
-  seed:7, ratio:"4:5", set:"dos",
+  seed:7, ratio:"4:5", set:"dos", custom:CUSTOM_DEFAULT,
   split:0.62, rings:15, stripes:9,
-  grid:13, density:0.84, small:0.60,
+  grid:13, density:0.84, small:0.60, bigSize:1.02, smallSize:0.44,
   blocks:0.62,
   pal:PALETTES[0].slice(),
   motion:{on:false,mode:"shuffle",amount:0.6,fps:6,frames:24},
@@ -653,11 +674,11 @@ function paint(c,W,H,f){
   };
   for(let j=0;j<rows;j++) for(let i=0;i<cols;i++){
     if(hshK(i,j,kseed+71)>S.density) continue;
-    put(i,j,(i+0.5)*cw,(j+0.52)*rh,rh*1.02,71);
+    put(i,j,(i+0.5)*cw,(j+0.52)*rh,rh*S.bigSize,71);
   }
   for(let j=0;j<rows;j++) for(let i=0;i<cols;i++){
     if(hshK(i,j,kseed+91)>S.small) continue;
-    put(i,j,(i+1)*cw,(j+1)*rh,rh*0.44,91);
+    put(i,j,(i+1)*cw,(j+1)*rh,rh*S.smallSize,91);
   }
 }
 
@@ -954,7 +975,21 @@ function bindRange(id,fmt,set,after){
 }
 
 buildRatios();buildSwatches();accent();
-segmented($("#sets"),SETS.map(x=>[x[0],x[1]]),()=>S.set,v=>{S.set=v;reframe();});
+segmented($("#sets"),SETS.map(x=>[x[0],x[1]]),()=>S.set,v=>{S.set=v;syncCustomSet();reframe();});
+/* The field only means anything under Custom, so it only appears there. The
+   chassis states [hidden] loudly enough to beat its own display rules. */
+function syncCustomSet(){
+  const row=$("#customRow");
+  if(row) row.hidden=(S.set!=="custom");
+}
+{
+  const el=$("#customSet");
+  if(el){
+    el.value=S.custom;
+    el.addEventListener("input",()=>{S.custom=el.value;reframe();});
+  }
+  syncCustomSet();
+}
 segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
 $("#shufColors").addEventListener("click",()=>{
   setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
@@ -974,7 +1009,9 @@ bindRange("split",v=>Math.round(v*100)+"%",v=>S.split=v);
 bindRange("rings",v=>v|0,v=>S.rings=v|0);
 bindRange("stripes",v=>v|0,v=>S.stripes=v|0);
 bindRange("grid",v=>v|0,v=>S.grid=v|0);
+bindRange("bigSize",v=>Math.round(v*100)+"%",v=>S.bigSize=v);
 bindRange("density",v=>Math.round(v*100)+"%",v=>S.density=v);
+bindRange("smallSize",v=>Math.round(v*100)+"%",v=>S.smallSize=v);
 bindRange("small",v=>Math.round(v*100)+"%",v=>S.small=v);
 bindRange("blocks",v=>Math.round(v*100)+"%",v=>S.blocks=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);

@@ -174,6 +174,15 @@ input[type=range]{accent-color:var(--ink)}
    loudly, rather than remembering to at every rule that sets display. */
 [hidden]{display:none!important}
 
+/* ---------------- typed fields ---------------- */
+/* One hairline under the text, the same weight as a slider track, so a field
+   you type into reads as part of the instrument rather than as a web form. */
+.mval input[type=text]{width:100%;min-width:0;box-sizing:border-box;border:0;
+  border-bottom:1px solid var(--hair);background:none;color:var(--ink);
+  font-family:var(--mono);font-size:10px;letter-spacing:.10em;padding:4px 0}
+.mval input[type=text]:focus{outline:none;border-bottom-color:var(--ink)}
+.mval input[type=text]::placeholder{color:var(--key)}
+
 /* ---------------- inks ---------------- */
 .sw-grid{display:flex;flex-wrap:wrap;gap:13px;align-items:center;max-width:210px}
 .l-bot .sw-grid{max-width:none}
@@ -398,6 +407,9 @@ input[type=range]{accent-color:var(--ink)}
         <div class="pr"><div class="top"><span class="k">Terraces</span><span class="v" id="bandsVal">6</span></div><div class="track"><input type="range" id="bands" min="2" max="14" step="1" value="6"></div></div>
         <div class="pr"><div class="top"><span class="k">Contrast</span><span class="v" id="mixVal">55%</span></div><div class="track"><input type="range" id="mix" min="0" max="1" step="0.01" value="0.55"></div></div></div></details>
     <details class="grp" open><summary>Type</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Character set</span></span><span class="mval"><div class="chips" id="sets"></div></span></div>
+        <div class="misc stack" id="customRow" hidden><span class="mhead"><span class="k">Your characters</span></span><span class="mval"><input type="text" id="customSet" value=".:-=+*#%@" spellcheck="false"
+                 autocomplete="off" aria-label="Your own characters"
+                 placeholder="type any characters"></span></div>
         <div class="pr"><div class="top"><span class="k">Columns</span><span class="v" id="colsVal">110</span></div><div class="track"><input type="range" id="cols" min="24" max="260" step="1" value="110"></div></div>
         <div class="pr"><div class="top"><span class="k">Density</span><span class="v" id="densityVal">62%</span></div><div class="track"><input type="range" id="density" min="0" max="1" step="0.01" value="0.62"></div></div>
         <div class="pr"><div class="top"><span class="k">Variety</span><span class="v" id="weightVal">50%</span></div><div class="track"><input type="range" id="weight" min="0" max="1.5" step="0.01" value="0.5"></div></div></div></details></div>
@@ -500,8 +512,14 @@ const SETS=[
   ["blocks","Blocks","░▒▓█■▪·"],
   ["code","Code","/\\|_-+=<>[]{}"],
   ["digits","Digits","0123456789"],
-  ["runes","Runes","†‡§¶®©≠∞≈"]
+  ["runes","Runes","†‡§¶®©≠∞≈"],
+  ["custom","Custom",""]
 ];
+
+/* The classic density ramp, as a starting point to edit rather than a set to
+   use as it is. An empty field falls back to the first set rather than drawing
+   nothing at all. */
+const CUSTOM_DEFAULT=".:-=+*#%@";
 
 const PALETTES=[
   ["#1BA89B","#2D3BD6","#E0452C","#C42BC4","#1E6B6B","#151A22","#8A8FA8","#D8E04A"],
@@ -513,7 +531,7 @@ const PALETTES=[
 const S={
   seed:11, ratio:"1:1",
   cols:110, scale:2.4, warp:0.5, bands:6,
-  density:0.62, mix:0.55, set:"dos", weight:0.5,
+  density:0.62, mix:0.55, set:"dos", custom:CUSTOM_DEFAULT, weight:0.5,
   pal:PALETTES[0].slice(),
   motion:{on:false,mode:"shuffle",amount:0.6,fps:8,frames:24},
   size:2400
@@ -558,8 +576,9 @@ function inkFor(bg,pal){
 }
 
 function curSet(){
+  if(S.set==="custom") return S.custom&&S.custom.length?S.custom:SETS[0][2];
   const s=SETS.find(x=>x[0]===S.set)||SETS[0];
-  return s[2];
+  return s[2]||SETS[0][2];
 }
 
 /* ---- the grid ----------------------------------------------------------
@@ -661,6 +680,29 @@ function buildTXT(){
    width, so the grid holds even if the viewer substitutes a different
    monospace face. */
 function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+/* Canvas centres a glyph on its em box for textBaseline "middle". SVG's
+   dominant-baseline="central" is a near neighbour of that, not the same thing,
+   and the pixel between them left the whole export a row out of register with
+   the screen. So the canvas is asked directly how far it moves a glyph:
+   measureText reports its box relative to whichever baseline is set, and the
+   difference between two readings is the shift itself, in pixels, for whatever
+   face actually resolved. */
+let BASEA=null;
+function baseOffA(){
+  if(BASEA!==null) return BASEA;
+  BASEA=0.32;
+  try{
+    const c=document.createElement("canvas").getContext("2d");
+    c.font="200px "+MONO;
+    c.textBaseline="alphabetic";
+    const a=c.measureText("H").actualBoundingBoxAscent;
+    c.textBaseline="middle";
+    const m=c.measureText("H").actualBoundingBoxAscent;
+    if(isFinite(a)&&isFinite(m)) BASEA=(a-m)/200;
+  }catch(e){}
+  return BASEA;
+}
 function svgFrame(f){
   const r=RATIOS.find(x=>x.id===S.ratio);
   const W=S.size,H=Math.round(S.size*r.h/r.w);
@@ -688,9 +730,10 @@ function svgFrame(f){
       if(k.ch===" ") continue;
       runs+='<tspan x="'+((x+0.5)*cw).toFixed(2)+'" fill="'+k.ink+'">'+esc(k.ch)+'</tspan>';
     }
-    if(runs) tx+='<text y="'+((y+0.55)*chh).toFixed(2)+'" dominant-baseline="central" xml:space="preserve">'+runs+'</text>';
+    if(runs) tx+='<text y="'+((y+0.55)*chh+chh*0.98*baseOffA()).toFixed(2)+
+                 '" xml:space="preserve">'+runs+'</text>';
   }
-  return bg+'<g font-family=\''+MONO+'\' font-size="'+(chh*0.98).toFixed(2)+
+  return bg+'<g font-family="'+MONO.replace(/"/g,"'")+'" font-size="'+(chh*0.98).toFixed(2)+
          '" text-anchor="middle">'+tx+'</g>';
 }
 function svgWrap(inner){
@@ -909,7 +952,21 @@ function bindRange(id,fmt,set,after){
 }
 
 buildRatios();buildSwatches();accent();
-segmented($("#sets"),SETS.map(x=>[x[0],x[1]]),()=>S.set,v=>{S.set=v;reframe();});
+segmented($("#sets"),SETS.map(x=>[x[0],x[1]]),()=>S.set,v=>{S.set=v;syncCustomSet();reframe();});
+/* The field only means anything under Custom, so it only appears there. The
+   chassis states [hidden] loudly enough to beat its own display rules. */
+function syncCustomSet(){
+  const row=$("#customRow");
+  if(row) row.hidden=(S.set!=="custom");
+}
+{
+  const el=$("#customSet");
+  if(el){
+    el.value=S.custom;
+    el.addEventListener("input",()=>{S.custom=el.value;reframe();});
+  }
+  syncCustomSet();
+}
 segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
 $("#shufColors").addEventListener("click",()=>{
   setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
