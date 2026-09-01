@@ -537,11 +537,21 @@ function placeNote(){
   if(n&&b) n.style.top=Math.round(b.getBoundingClientRect().bottom+16)+"px";
 }
 function fitPit(){
-  dpr=Math.min(2,devicePixelRatio||1);
+  /* a shaded ball is forgiving, and the pit is the one thing on the page
+     redrawing every frame, so it takes fewer pixels than the page does */
+  dpr=Math.min(1.6,devicePixelRatio||1);
   pit.width=Math.round(innerWidth*dpr);
   pit.height=Math.round(innerHeight*dpr);
   pit.style.width=innerWidth+"px";
   pit.style.height=innerHeight+"px";
+}
+const TAU2=Math.PI*2;
+/* mix toward white or black: a lit pole and a dark limb are most of what
+   tells the eye a circle is a sphere */
+function tint(hex,to,t){
+  const n=parseInt(hex.slice(1),16);
+  const f=v=>Math.round(v+(to-v)*t);
+  return "rgb("+f(n>>16&255)+","+f(n>>8&255)+","+f(n&255)+")";
 }
 function lum(hex){
   const n=parseInt(hex.slice(1),16);
@@ -561,8 +571,9 @@ function spillOut(){
     return {t:t, r:r, ink:t.c||"#15161A", pale:lum(t.c||"#15161A")>0.45,
       x:q?Math.max(r,Math.min(innerWidth-r,q.left+q.width*0.30)):innerWidth*0.5,
       y:q?q.top+q.height*0.5:-r-i*6,
-      vx:(Math.random()-0.5)*300, vy:-40-Math.random()*260};
+      vx:(Math.random()-0.5)*300, vy:-40-Math.random()*260, a:0};
   });
+  makeSprites();
   spilling=true; outro=0; age=0;
   document.body.classList.add("spilling");
   /* the pit is decorative play and the list is the real navigation, so
@@ -617,6 +628,13 @@ function integrate(h){
   age+=h;
   const q=(!outro&&age>2.0)?0.985:DRAG;
   for(const b of balls){
+    /* Standing the name back up happens whether or not the ball is still in
+       the simulation: one that falls asleep mid-turn would otherwise keep its
+       name lying on its side for good. */
+    if(!b.held&&!outro){
+      const up=Math.round(b.a/TAU2)*TAU2;
+      if(Math.abs(up-b.a)>0.0004) b.a+=(up-b.a)*Math.min(1,h*7);
+    }
     if(b.held||b.asleep) continue;
     b.vy+=g*h; b.vx*=q; b.vy*=q;
     b.x+=b.vx*h; b.y+=b.vy*h;
@@ -624,6 +642,12 @@ function integrate(h){
     if(b.x>W-b.r){b.x=W-b.r;b.vx=-Math.abs(b.vx)*WALL;}
     if(!outro&&b.y>H-b.r){b.y=H-b.r;b.vy=-Math.abs(b.vy)*BOUNCE;b.vx*=0.90;}
     if(!outro&&b.y<-b.r*5){b.y=-b.r*5;b.vy=Math.abs(b.vy)*0.25;}
+    /* Rolling. The shading stays fixed to the light, because a real sphere's
+       does — only its markings turn — so it is the name that rides round with
+       the surface, and that alone stops a disc reading as a sticker. It comes
+       to rest upright above, because a heap of names at 32 random angles is
+       unreadable and these are still the way you open a tool. */
+    b.a+=(b.vx/b.r)*h;
     /* a heap that never quite stops reads as a rendering fault rather than
        as a heap, so anything barely moving is brought to rest */
     if(!outro&&Math.abs(b.vx)+Math.abs(b.vy)<26){ b.vx*=0.78; b.vy*=0.78; }
@@ -664,25 +688,94 @@ function integrate(h){
         if(wb){ b.vx+=imp*nx; b.vy+=imp*ny; }
       }
 }
+/* ---- sprites ----------------------------------------------------------
+   A ball's shading never changes: the light is fixed, and a real sphere's
+   highlight stays put while only its markings turn. So each one is shaded
+   once into its own little canvas and blitted from then on. Building those
+   gradients live every frame cost more than half the frame rate. */
+let shadowSprite=null;
+function makeShadow(){
+  const S=160;
+  const c=document.createElement("canvas"); c.width=S; c.height=S;
+  const x=c.getContext("2d");
+  const g=x.createRadialGradient(S/2,S/2,S*0.10,S/2,S/2,S*0.5);
+  g.addColorStop(0,"rgba(21,22,26,.88)");
+  g.addColorStop(0.55,"rgba(21,22,26,.34)");
+  g.addColorStop(1,"rgba(21,22,26,0)");
+  x.fillStyle=g; x.fillRect(0,0,S,S);
+  shadowSprite=c;
+}
+function makeSprite(b){
+  const R=b.r, px=Math.max(8,Math.ceil(R*2*dpr));
+  const c=document.createElement("canvas"); c.width=px; c.height=px;
+  const x=c.getContext("2d");
+  x.setTransform(px/(R*2),0,0,px/(R*2),0,0);
+  const cx=R, cy=R;
+  const lx=cx-R*0.40, ly=cy-R*0.44;
+  const g=x.createRadialGradient(lx,ly,R*0.04,cx,cy,R*1.02);
+  g.addColorStop(0,tint(b.ink,255,0.40));
+  g.addColorStop(0.34,tint(b.ink,255,0.10));
+  g.addColorStop(0.62,b.ink);
+  g.addColorStop(0.88,tint(b.ink,0,0.22));
+  g.addColorStop(1,tint(b.ink,0,0.45));
+  x.beginPath(); x.arc(cx,cy,R,0,TAU2); x.fillStyle=g; x.fill();
+  x.save();
+  x.beginPath(); x.arc(cx,cy,R,0,TAU2); x.clip();
+  /* light bouncing back off the page onto the underside — without it the
+     shadowed limb goes dead and the ball reads as a hole */
+  const bo=x.createRadialGradient(cx+R*0.30,cy+R*0.66,R*0.05,
+                                  cx+R*0.30,cy+R*0.66,R*0.95);
+  bo.addColorStop(0,tint(b.ink,255,0.30));
+  bo.addColorStop(1,"rgba(255,255,255,0)");
+  x.globalAlpha=0.34; x.fillStyle=bo; x.fillRect(0,0,R*2,R*2);
+  /* and a soft highlight where the light hits square on */
+  x.globalAlpha=1;
+  const sp=x.createRadialGradient(lx,ly,0,lx,ly,R*0.52);
+  sp.addColorStop(0,"rgba(255,255,255,.34)");
+  sp.addColorStop(0.55,"rgba(255,255,255,.10)");
+  sp.addColorStop(1,"rgba(255,255,255,0)");
+  x.fillStyle=sp; x.fillRect(0,0,R*2,R*2);
+  x.restore();
+  b.sprite=c;
+  /* the name turns with the ball, which is the only reason it was being laid
+     out again every frame; rasterise it once and turn the picture instead */
+  const label=b.t.name.toUpperCase();
+  let fs=Math.round(R*0.30), font="";
+  for(;fs>5;fs--){
+    font="700 "+fs+"px "+FACE;
+    pctx.font=font; pctx.letterSpacing="0.08em";
+    if(pctx.measureText(label).width<=R*1.45) break;
+  }
+  pctx.font=font;
+  const tw=Math.ceil(pctx.measureText(label).width)+6, th=Math.ceil(fs*1.9);
+  const lc=document.createElement("canvas");
+  lc.width=Math.max(2,Math.ceil(tw*dpr)); lc.height=Math.max(2,Math.ceil(th*dpr));
+  const lx2=lc.getContext("2d");
+  lx2.setTransform(lc.width/tw,0,0,lc.height/th,0,0);
+  lx2.font=font; lx2.letterSpacing="0.08em";
+  lx2.textAlign="center"; lx2.textBaseline="middle";
+  lx2.fillStyle=b.pale?"rgba(21,22,26,.86)":"rgba(255,255,255,.92)";
+  lx2.fillText(label,tw/2,th/2);
+  pctx.letterSpacing="0px";
+  b.text=lc; b.tw=tw; b.th=th;
+}
+function makeSprites(){ makeShadow(); for(const b of balls) makeSprite(b); }
+
 function draw(){
   pctx.setTransform(dpr,0,0,dpr,0,0);
   pctx.clearRect(0,0,innerWidth,innerHeight);
   for(const b of balls){
-    pctx.beginPath();
-    pctx.arc(b.x,b.y,b.r,0,Math.PI*2);
-    pctx.fillStyle=b.ink; pctx.fill();
-    const label=b.t.name.toUpperCase();
-    pctx.fillStyle=b.pale?"#15161A":"#EFEFEC";
-    pctx.textAlign="center"; pctx.textBaseline="middle";
-    let fs=Math.round(b.r*0.30);
-    for(;fs>5;fs--){
-      pctx.font='700 '+fs+'px '+FACE;
-      if(pctx.measureText(label).width<=b.r*1.55) break;
-    }
+    /* the contact shadow goes down before its own ball, so one stacked on
+       another drops a shadow on it rather than everything floating */
+    const sw=b.r*2.36, sh=sw*0.28;
+    pctx.globalAlpha=0.26;
+    pctx.drawImage(shadowSprite,b.x+b.r*0.14-sw/2,b.y+b.r*0.94-sh/2,sw,sh);
+    pctx.globalAlpha=1;
+    pctx.drawImage(b.sprite,b.x-b.r,b.y-b.r,b.r*2,b.r*2);
     pctx.save();
     pctx.translate(b.x,b.y);
-    pctx.letterSpacing="0.08em";
-    pctx.fillText(label,0,0);
+    pctx.rotate(b.a||0);
+    pctx.drawImage(b.text,-b.tw/2,-b.th/2,b.tw,b.th);
     pctx.restore();
   }
 }
@@ -743,7 +836,7 @@ pit.addEventListener("pointercancel",()=>{
 $("#spill").addEventListener("click",()=>{ spilling?spillBack():spillOut(); });
 addEventListener("resize",()=>{
   if(!spilling) return;
-  fitPit(); placeNote();
+  fitPit(); placeNote(); makeSprites();
   for(const b of balls){
     b.x=Math.max(b.r,Math.min(innerWidth-b.r,b.x));
     b.y=Math.min(innerHeight-b.r,b.y);
