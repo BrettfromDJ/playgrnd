@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Quilt — playgrnd</title>
-<meta name="description" content="Generate woven pixel patterns — brick bands, plaid, checker motifs, dithered diagonals and staircase ramps on a chunky grid. Exports SVG, PNG and video.">
+<title>Mosh — playgrnd</title>
+<meta name="description" content="Generate datamosh backgrounds — stacked bands of corrupted signal: pixel confetti, torn block mosaics, horizontal smear, dead scanlines and chevron tearing. Exports vector, image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -399,19 +399,24 @@ input[type=range]{accent-color:var(--ink)}
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
         <span class="slash">&frasl;</span>
-        <span class="tool">Quilt</span>
+        <span class="tool">Mosh</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">05 / 32</span>
-        <span class="k">Type</span><span class="v">Pixel blanket</span>
+        <span class="k">Index</span><span class="v">32 / 32</span>
+        <span class="k">Type</span><span class="v">Corrupted signal</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Pattern</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Style</span></span><span class="mval"><div class="chips" id="styles"></div></span></div>
-        <div class="pr"><div class="top"><span class="k">Cells</span><span class="v" id="cellsVal">44</span></div><div class="track"><input type="range" id="cells" min="28" max="72" step="2" value="44"></div></div>
-        <div class="pr"><div class="top"><span class="k">Chunk</span><span class="v" id="chunkVal">1.00</span></div><div class="track"><input type="range" id="chunk" min="0.7" max="1.8" step="0.05" value="1"></div></div></div></details></div>
-    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Palette</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+    <div class="l-scroll"><details class="grp" open><summary>Signal</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Bands</span><span class="v" id="bandsVal">6</span></div><div class="track"><input type="range" id="bands" min="1" max="14" step="1" value="6"></div></div>
+        <div class="pr"><div class="top"><span class="k">Resolution</span><span class="v" id="colsVal">150</span></div><div class="track"><input type="range" id="cols" min="24" max="420" step="2" value="150"></div></div>
+        <div class="pr"><div class="top"><span class="k">Colour spread</span><span class="v" id="mixVal">62%</span></div><div class="track"><input type="range" id="mix" min="0" max="1" step="0.01" value="0.62"></div></div>
+        <div class="note">Bands stack down the page, each one broken a different way. Five kinds are dealt before any repeats.</div></div></details>
+    <details class="grp" open><summary>Damage</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Tears</span><span class="v" id="tearsVal">55%</span></div><div class="track"><input type="range" id="tears" min="0" max="1" step="0.01" value="0.55"></div></div>
+        <div class="pr"><div class="top"><span class="k">Smear</span><span class="v" id="runsVal">50%</span></div><div class="track"><input type="range" id="runs" min="0" max="1" step="0.01" value="0.5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Flashes</span><span class="v" id="brightVal">30%</span></div><div class="track"><input type="range" id="bright" min="0" max="1" step="0.01" value="0.3"></div></div></div></details></div>
+    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">8</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
         
+        <div class="note">The darkest ink is what a torn block falls back to. The rest are dealt straight from the row.</div>
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
@@ -448,17 +453,15 @@ input[type=range]{accent-color:var(--ink)}
       <h2 class="h frame-h">Frame</h2><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span>
     </div>
     <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
-          <div class="pr"><div class="top"><span class="k">Intensity</span><span class="v" id="amtVal">0.80</span></div><div class="track"><input type="range" id="amt" min="0.1" max="2" step="0.05" value="0.8"></div></div>
-          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">10 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="10"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">60 frames</span></div><div class="track"><input type="range" id="frames" min="12" max="180" step="4" value="60"></div></div>
-          <div class="note">Scroll marches the weave along its grain; Cycle flashes the colours in steps. Every loop closes exactly.</div></div></div>
+          <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
+          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="12"></div></div>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">24 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="24"></div></div></div></div>
     <div class="r-bot">
       <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
           <button class="lnk" id="expSvg">SVG</button>
-          <button class="lnk" id="expSvgLoop">SVG loop</button>
           <button class="lnk" id="expVid">Video</button></span></div>
-        <div class="note">The SVG is true vectors — every run of cells becomes a crisp rectangle, ready for print or textile mockups.</div></div>
+        <div class="note" id="expNote">Every band is rectangles, so the SVG is the picture itself rather than a trace of it.</div></div>
       <div class="tbl" style="margin-top:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>
@@ -499,346 +502,261 @@ function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const MODES=[["scroll","Scroll"],["cycle","Cycle"]];
-const STYLES=[["auto","Auto"],["bands","Bands"],["tabs","Tabs"],["plaid","Plaid"],
- ["dither","Dither"],["steps","Steps"],["zigzag","Zigzag"],["diamond","Diamond"],
- ["cross","Cross"],["basket","Basket"],["rings","Rings"],["star","Star"],
- ["waves","Waves"],["gingham","Gingham"],["burst","Burst"]];
-const STYLE_POOL=["bands","tabs","plaid","dither","steps","zigzag","diamond","cross",
- "basket","rings","star","waves","gingham","burst"];
-/* four roles: base cloth, two weave colours, one pop accent */
+const MODES=[["shuffle","Shuffle"],["roll","Roll"]];
+
+/* Every band is built from filled rectangles and nothing else. That is not a
+   shortcut: it is what lets the same paint() drive the canvas and the vector
+   export with no second implementation to drift out of step, and it is what a
+   corrupted framebuffer actually is. */
+const KINDS=["confetti","mosaic","smear","scan","chevron"];
+
+/* The colour cube's corners at full strength. Broken data does not fade. */
 const PALETTES=[
-  ["#4A7DD1","#8A2A50","#E85B3A","#F2D53B"],
-  ["#E86A2E","#2E6B54","#D9442E","#F2D53B"],
-  ["#2B49B8","#2E6B44","#E8622E","#F2D53B"],
-  ["#D8D6D2","#D9A93B","#E85B25","#F2E04A"],
-  ["#EFE9DC","#D9A93B","#C9822E","#E8622E"],
-  ["#DEDEDA","#5B93D8","#2B49B8","#E85B25"],
-  ["#141414","#3B4A2E","#E87A2E","#E040E0"],
-  ["#C2B26B","#8B2456","#E8762E","#F2EFE8"]
+  ["#000000","#FFFFFF","#FF0000","#00FF00","#0000FF","#00FFFF","#FF00FF","#FFFF00"],
+  ["#050505","#F2F2F2","#FF1E3C","#19E65A","#1E3CFF","#19E6E6","#FF19C8","#FFE619"],
+  ["#000000","#E8E8E8","#E0202A","#00A650","#1B4FE0","#00C8D2","#EC1E79","#F5D000"],
+  ["#0A0A0A","#FFFFFF","#FF4A00","#7CE860","#2B4FD8","#41C6F0","#F03C8C","#F0D82C"],
+  ["#101010","#FAFAF5","#D6006E","#12B074","#3B4FE0","#00E0E0","#FF6B00","#EFEF20"]
 ];
-const BAYER=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];
 
 const S={
-  seed:7, ratio:"1:1",
-  pattern:"auto", cells:44, chunk:1,
+  seed:5, ratio:"4:5",
+  bands:6, cols:150, mix:0.62,
+  tears:0.55, runs:0.5, bright:0.3,
   pal:PALETTES[0].slice(),
-  motion:{on:false,mode:"scroll",amount:.8,fps:10,frames:60},
+  motion:{on:false,mode:"shuffle",amount:0.6,fps:12,frames:24},
   size:2400
 };
 
-function gridDims(){
-  const r=RATIOS.find(x=>x.id===S.ratio);
-  const gw=S.cells|0;
-  const gh=Math.max(8,Math.round(gw*r.h/r.w));
-  return{gw,gh};
+function hshM(x,y,s){
+  let n=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1274126177);
+  n=Math.imul(n^(n>>>13),1274126177);
+  n^=n>>>16;
+  return (n>>>0)/4294967296;
+}
+function hex2rgbM(h){h=String(h).replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
+  const n=parseInt(h,16);return[(n>>16)&255,(n>>8)&255,n&255];}
+function lumM(h){const[r,g,b]=hex2rgbM(h);return r*.299+g*.587+b*.114;}
+
+/* ---- ink roles ---------------------------------------------------------
+   Only the darkest is singled out, for the torn wedges and the dead rows.
+   Everything else is picked out of the row by index, so Rotate genuinely
+   re-deals which colour lands where instead of doing nothing. */
+function rolesM(){
+  const pal=S.pal.length?S.pal:["#000000","#FFFFFF"];
+  let dark=pal[0];
+  for(const c of pal) if(lumM(c)<lumM(dark)) dark=c;
+  return {dark:dark, inks:pal};
 }
 
-/* ============================================================
-   Pattern build — one engine per style, all on a chunky grid.
-   Every cell resolves to a palette index 0–3.
-============================================================ */
-function buildPattern(){
-  const r=rng(S.seed*2654435761>>>0);
-  let type=S.pattern;
-  if(type==="auto")type=STYLE_POOL[(r()*STYLE_POOL.length)|0];
-  const ch=S.chunk;
-  const P={type,rs:(r()*1e9)|0};
-  /* bands */
-  P.bh=Math.max(2,Math.round(2.2*ch));
-  P.L=Math.max(4,Math.round((6+r()*4)*ch));
-  /* tabs */
-  P.tw=Math.max(2,Math.round((3+r()*2)*ch));
-  P.th=Math.max(1,Math.round(1.6*ch));
-  P.gx=Math.max(1,Math.round(2*ch));
-  P.gy=Math.max(1,Math.round(1.4*ch));
-  /* plaid */
-  P.per=Math.max(6,Math.round((9+r()*4)*ch));
-  P.pw=Math.max(1,Math.round(1.8*ch));
-  /* dither */
-  P.f1=0.22+r()*0.25;P.f2=0.09+r()*0.08;P.warp=1.2+r()*2.2;P.ph0=r()*TAU;
-  /* steps: cyclic diagonal band sequence — one wide base band + thin pop + mids */
-  P.rw=Math.max(2,Math.round((3+r()*2)*ch));
-  P.rh=Math.max(1,Math.round(2*ch));
-  P.off=(r()*97)|0;
-  const wide=Math.max(5,Math.round((7+r()*5)*ch));
-  const t1=Math.max(1,Math.round(1.2*ch));
-  const w2=Math.max(2,Math.round((2.5+r()*2)*ch));
-  const w3=Math.max(2,Math.round((2+r()*2)*ch));
-  const seq=r()<0.5?[[0,wide],[3,t1],[2,w2],[1,w3],[3,t1]]:[[0,wide],[1,w3],[2,w2],[3,t1]];
-  P.lut=[];
-  for(const[ci,w]of seq)for(let i=0;i<w;i++)P.lut.push(ci);
-  P.PT=P.lut.length;
-  /* zigzag: chevron rows cycling a colour sequence */
-  P.zper=Math.max(6,Math.round((10+r()*6)*ch));
-  P.zslope=0.5+r()*0.5;
-  const zrh=Math.max(2,Math.round(2.5*ch));
-  const zseq=r()<0.5?[[1,zrh],[0,zrh],[2,zrh],[0,zrh]]:[[1,zrh],[0,zrh],[2,zrh],[3,t1],[0,zrh]];
-  P.zlut=[];
-  for(const[ci,w]of zseq)for(let i=0;i<w;i++)P.zlut.push(ci);
-  P.zPT=P.zlut.length;
-  /* diamond */
-  P.dw=Math.max(6,Math.round((9+r()*5)*ch));
-  P.dh=Math.max(6,Math.round((7+r()*4)*ch));
-  /* cross */
-  P.ct=Math.max(5,Math.round((7+r()*3)*ch));
-  P.ca=Math.max(1,Math.round(1.1*ch));
-  /* basket */
-  P.bb=Math.max(4,Math.round((5+r()*3)*ch));
-  P.bs=Math.max(1,Math.round(1.4*ch));
-  /* rings: concentric frame sequence, cyclic like steps */
-  const rw1=Math.max(2,Math.round((2+r()*2)*ch));
-  const rseq=r()<0.5?[[0,rw1+1],[1,rw1],[0,rw1],[2,rw1],[3,t1]]:[[0,rw1+1],[2,rw1],[3,t1],[1,rw1]];
-  P.rlut=[];
-  for(const[ci,w]of rseq)for(let i=0;i<w;i++)P.rlut.push(ci);
-  P.rPT=P.rlut.length;
-  /* star */
-  P.stt=Math.max(7,Math.round((10+r()*4)*ch));
-  /* waves: scalloped row sequence */
-  P.wper=Math.max(6,Math.round((8+r()*5)*ch));
-  P.wamp=Math.max(2,Math.round(2.6*ch));
-  const wh=Math.max(2,Math.round(2.4*ch));
-  const wseq=r()<0.5?[[1,wh],[0,wh],[2,wh],[0,wh]]:[[1,wh],[0,wh],[3,t1],[2,wh],[0,wh]];
-  P.wlut=[];
-  for(const[ci,w]of wseq)for(let i=0;i<w;i++)P.wlut.push(ci);
-  P.wPT=P.wlut.length;
-  /* gingham */
-  P.gg=Math.max(2,Math.round((3+r()*2)*ch));
-  /* burst */
-  P.bn=3+((r()*3)|0);
-  P.bcore=Math.max(2,Math.round(3*ch));
-  return P;
-}
-
-function renderGrid(gw,gh,f){
-  const M=S.motion;
-  const t=M.on?f/M.frames:0;
-  const scroll=M.on&&M.mode==="scroll";
-  const cycle=M.on&&M.mode==="cycle";
-  const perLoop=Math.max(1,Math.round(M.amount*3));
-  const stepN=Math.max(2,Math.round(M.amount*4));
-  const st=cycle?Math.floor(t*stepN)%stepN:0;
-  const sh=p=>scroll?Math.floor(t*perLoop*p):0;
-  const P=buildPattern();
-  const ix=new Uint8Array(gw*gh);
-  /* everything is measured from the centre of the frame, so the whole
-     composition is mirror-symmetric and motifs sit inside the edges */
-  const midX=(gw-1)/2, midY=(gh-1)/2;
-  for(let v=0;v<gh;v++)for(let u=0;u<gw;u++){
-    const ux=Math.abs(u-midX), vy=Math.abs(v-midY);
-    let ci;
-    switch(P.type){
-      case"bands":{
-        const b=Math.floor(vy/P.bh);
-        const ph=Math.floor(hashi(0,b,2,P.rs)*P.L);
-        const uu=ux+sh(P.L)+ph;
-        const k=Math.floor(uu/P.L);
-        ci=Math.floor(hashi(k,b,5,P.rs)*3);
-        if(hashi(k,b,9,P.rs)<0.22){
-          const lx=((uu%P.L)+P.L)%P.L, s0=(P.L-P.bh)>>1;
-          if(lx>=s0&&lx<s0+P.bh)ci=3;
-        }
-        break;
-      }
-      case"tabs":{
-        const py=P.th+P.gy, px=P.tw+P.gx;
-        const row=Math.floor(vy/py);
-        if((vy-row*py)>=P.th){ci=0;break;}
-        const off=(row&1)?(px>>1):0;
-        const uu=ux+sh(px)+off;
-        if(((uu%px)+px)%px>=P.tw){ci=0;break;}
-        ci=hashi(Math.floor(uu/px),row,3,P.rs)<0.12?2:1;
-        break;
-      }
-      case"zigzag":{
-        const per=P.zper,s=sh(per);
-        const uu=((ux+s)%per+per)%per;
-        const tri=Math.abs(uu*2-per)/2;
-        const d=Math.floor(vy+tri*P.zslope);
-        ci=P.zlut[((d%P.zPT)+P.zPT)%P.zPT];
-        break;
-      }
-      case"diamond":{
-        const tw=P.dw,th2=P.dh;
-        const key=scroll?Math.floor(t*Math.max(1,perLoop*4)):0;
-        const ax=u-midX, ay=v-midY;
-        const tX=Math.round(ax/tw), tY=Math.round(ay/th2);
-        const cx=midX+tX*tw, cy=midY+tY*th2;
-        /* whole motifs only — anything that would spill past the frame is ground */
-        if(cx-tw/2<-0.5||cx+tw/2>gw-0.5||cy-th2/2<-0.5||cy+th2/2>gh-0.5){ci=0;break;}
-        const du=Math.abs(ax-tX*tw)/(tw/2), dv=Math.abs(ay-tY*th2)/(th2/2);
-        const md=du+dv,p=(tX+tY+key)&1;
-        if(md<=0.4)ci=p?3:1;
-        else if(md<=0.95)ci=p?1:2;
-        else ci=0;
-        break;
-      }
-      case"cross":{
-        const T=P.ct;
-        const key=scroll?Math.floor(t*Math.max(1,perLoop*4)):0;
-        const ax=u-midX, ay=v-midY;
-        const tX=Math.round(ax/T), tY=Math.round(ay/T);
-        const L=Math.max(2,Math.floor(T*0.38)),aw=P.ca;
-        const cx=midX+tX*T, cy=midY+tY*T;
-        if(cx-L<-0.5||cx+L>gw-0.5||cy-L<-0.5||cy+L>gh-0.5){ci=0;break;}
-        const du=Math.abs(ax-tX*T), dv=Math.abs(ay-tY*T);
-        if((du<aw&&dv<=L)||(dv<aw&&du<=L))
-          ci=hashi(Math.abs(tX),Math.abs(tY),4+key,P.rs)<0.15?3:(((tX+tY)&1)?1:2);
-        else ci=0;
-        break;
-      }
-      case"basket":{
-        const B=P.bb,sw=P.bs,s=sh(B*2);
-        const bx=Math.floor((ux+s)/B),by=Math.floor(vy/B);
-        if((bx+by)&1)ci=(Math.floor(vy)%(sw*2))<sw?1:0;
-        else ci=(Math.floor(ux+s)%(sw*2))<sw?2:0;
-        break;
-      }
-      case"rings":{
-        /* concentric frames that follow the frame's own proportions */
-        const q=Math.max(ux*(gh/gw),vy);
-        const d=Math.floor(q)-sh(P.rPT);
-        ci=P.rlut[((d%P.rPT)+P.rPT)%P.rPT];
-        break;
-      }
-      case"star":{
-        const T=P.stt;
-        const key=scroll?Math.floor(t*Math.max(1,perLoop*4)):0;
-        const ax=u-midX, ay=v-midY;
-        const tX=Math.round(ax/T), tY=Math.round(ay/T);
-        const cx=midX+tX*T, cy=midY+tY*T;
-        const R=T*0.46;
-        if(cx-R<-0.5||cx+R>gw-0.5||cy-R<-0.5||cy+R>gh-0.5){ci=0;break;}
-        const du=Math.abs(ax-tX*T), dv=Math.abs(ay-tY*T);
-        const p=(tX+tY+key)&1;
-        /* pixel star = diamond union square, with a small centre */
-        if(du+dv<=R*0.95||Math.max(du,dv)<=R*0.55)
-          ci=(du+dv<=R*0.4&&Math.max(du,dv)<=R*0.4)?(p?3:2):(p?1:2);
-        else ci=0;
-        break;
-      }
-      case"waves":{
-        const per=P.wper, s=sh(per);
-        const uu=((ux+s)%per+per)%per;
-        const x=uu/per*2-1;
-        const bump=Math.sqrt(Math.max(0,1-x*x))*P.wamp;
-        const d=Math.floor(vy+bump);
-        ci=P.wlut[((d%P.wPT)+P.wPT)%P.wPT];
-        break;
-      }
-      case"gingham":{
-        const w=P.gg, s=sh(w*2);
-        const hs=Math.floor(vy/w)&1, vs=Math.floor((ux+s)/w)&1;
-        ci=hs&&vs?2:(hs||vs?1:0);
-        break;
-      }
-      case"burst":{
-        const q=Math.max(ux*(gh/gw),vy);
-        if(q<P.bcore){ci=3;break;}
-        const ang=Math.atan2(vy+0.5,ux+0.5);
-        const shift=scroll?Math.floor(t*Math.max(1,perLoop)*4):0;
-        const kk=Math.floor(ang/(Math.PI/2)*P.bn)+shift;
-        ci=[1,0,2,0][((kk%4)+4)%4];
-        break;
-      }
-      case"plaid":{
-        const per=P.per,w=P.pw,s=sh(per);
-        const uu=(ux+s)%per, vv=vy%per;
-        const hs=vv<w, vs=uu<w;
-        if(hs&&vs)ci=2;
-        else if(hs||vs)ci=1;
-        else{
-          const mid=w+((per-w)>>1);
-          ci=(Math.floor(uu)===mid||Math.floor(vv)===mid)?3:0;
-        }
-        break;
-      }
-      case"dither":{
-        const ph=scroll?t*TAU*perLoop:0;
-        const s=0.5+0.5*Math.sin((ux+vy)*P.f1+Math.sin(ux*P.f2+ph)*P.warp+P.ph0);
-        ci=s>(BAYER[(Math.floor(vy)&3)*4+(Math.floor(ux)&3)]+0.5)/16?1:0;
-        break;
-      }
-      default:{ /* steps */
-        const d=Math.floor(vy+sh(P.PT)+Math.floor((ux+P.off)/P.rw)*P.rh);
-        ci=P.lut[((d%P.PT)+P.PT)%P.PT];
-      }
-    }
-    if(cycle&&ci>0)ci=1+((ci-1+st)%3);
-    ix[v*gw+u]=ci;
-  }
-  return ix;
-}
-
-/* ============================================================
-   Paint — tiny indexed buffer, scaled up with hard pixels
-============================================================ */
-let tiny=null,tctx=null;
 function paint(c,W,H,f){
-  const {gw,gh}=gridDims();
-  if(!tiny||tiny.width!==gw||tiny.height!==gh){
-    tiny=document.createElement("canvas");tiny.width=gw;tiny.height=gh;
-    tctx=tiny.getContext("2d");
-  }
-  const ix=renderGrid(gw,gh,f);
-  const pal=S.pal.map(hex2rgb);
-  const img=tctx.createImageData(gw,gh);
-  const d=img.data;
-  for(let i=0;i<ix.length;i++){
-    const p=pal[ix[i]];
-    d[i*4]=p[0];d[i*4+1]=p[1];d[i*4+2]=p[2];d[i*4+3]=255;
-  }
-  tctx.putImageData(img,0,0);
-  c.imageSmoothingEnabled=false;
-  c.clearRect(0,0,W,H);
-  c.drawImage(tiny,0,0,W,H);
-}
+  const R=rolesM();
+  const M=S.motion;
+  const mseed=(M.on&&M.mode==="shuffle")?S.seed+f*7919:S.seed;
+  const N=Math.max(6,S.cols|0);
+  const cw=W/N;
+  /* Roll wraps at the column count, so a whole revolution lands back on the
+     first frame. Shifting an unwrapped hash would never close the loop. */
+  const roll=(M.on&&M.mode==="roll")
+    ? Math.round((f/M.frames)*N*Math.max(1,Math.round(M.amount*2))) : 0;
+  const wrap=i=>(((i+roll)%N)+N)%N;
+  const ink=v=>R.inks[Math.floor(v*R.inks.length)%R.inks.length];
+  /* mix widens how much of the row a band draws from: low and a band keeps to
+     a few colours, high and every ink is in play */
+  const pick=(v,bias)=>{
+    /* A sixth of everything falls to the darkest ink. Dealing evenly from the
+       row gives a uniformly hot page; broken data has dead patches in it, and
+       it is the dead patches that let the colour read. */
+    if(v<0.16) return R.dark;
+    const n=Math.max(1,Math.round(R.inks.length*(0.25+S.mix*0.75)));
+    return R.inks[(Math.floor(v*n)+bias)%R.inks.length];
+  };
 
-/* ============================================================
-   SVG — base rect + one crisp rect per run of same-colour cells
-============================================================ */
-function svgFrame(f){
-  const {gw,gh}=gridDims();
-  const ix=renderGrid(gw,gh,f);
-  const shapes=["","",""];
-  for(let v=0;v<gh;v++){
-    let run=-1,rc=0;
-    for(let u=0;u<=gw;u++){
-      const c=u<gw?ix[v*gw+u]:0;
-      if(c!==rc){
-        if(rc>0)shapes[rc-1]+=`<rect x="${run}" y="${v}" width="${u-run}" height="1"/>`;
-        run=u;rc=c;
+  /* ---- the bands ------------------------------------------------------
+     Heights are uneven and the kinds are dealt from a shuffled deck rather
+     than drawn one at a time, so a page carries every kind once before it
+     repeats any — the reference stacks five different failures, it does not
+     roll the same die five times. */
+  const nb=Math.max(1,S.bands|0);
+  const wts=[]; let tot=0;
+  for(let i=0;i<nb;i++){ const w=0.4+hshM(i,3,S.seed+11)*1.6; wts.push(w); tot+=w; }
+  const deck=KINDS.slice();
+  for(let i=deck.length-1;i>0;i--){
+    const j=Math.floor(hshM(i,7,S.seed+13)*(i+1));
+    const t=deck[i]; deck[i]=deck[j]; deck[j]=t;
+  }
+
+  let y=0;
+  for(let b=0;b<nb;b++){
+    const h=wts[b]/tot*H;
+    const y0=Math.round(y), y1=(b===nb-1)?H:Math.round(y+h);
+    y=y+h;
+    band(c,W,y0,y1-y0,deck[b%deck.length],b);
+  }
+
+  function band(c,W,by,bh,kind,b){
+    const bs=mseed+b*101;
+    const put=(x0,yy,w,hh,col)=>{ c.fillStyle=col; c.fillRect(x0,yy,w,hh); };
+
+    if(kind==="confetti"){
+      /* Short horizontal runs, not single cells. Corrupted data repeats a
+         value for a few samples before it changes; dealing every cell on its
+         own gives television snow instead. */
+      const rows=Math.max(1,Math.round(bh/cw));
+      const rh=bh/rows;
+      for(let j=0;j<rows;j++){
+        let i=0;
+        while(i<N){
+          const r=hshM(wrap(i),j,bs+17);
+          const long=hshM(wrap(i),j,bs+101);
+          const run=long<0.10 ? 5+Math.floor(long*260) : 1+Math.floor(r*3);
+          const col=pick(hshM(wrap(i),j,bs+19),j);
+          const x0=Math.round(i*cw), x1=Math.round(Math.min(N,i+run)*cw);
+          put(x0,Math.round(by+j*rh),x1-x0,Math.ceil(rh)+1,col);
+          i+=run;
+        }
+      }
+
+    }else if(kind==="mosaic"){
+      /* Coarse blocks with spatial coherence, then hard diagonal tears. The
+         torn side keeps its grid but loses its colour: that is what makes the
+         wedge read as data gone missing rather than as a black triangle drawn
+         on top. */
+      const step=Math.max(2,Math.round(4+hshM(b,5,bs+23)*5));
+      const cols2=Math.ceil(N/step), rows=Math.max(1,Math.round(bh/(cw*step)));
+      const rh=bh/rows;
+      /* At least one tear whenever the slider is off zero. Scaling a hash by
+         the slider instead meant most bands rounded down to none, and the
+         control did nothing on most variations. */
+      const nt=S.tears<=0?0:1+Math.floor(hshM(b,9,bs+29)*S.tears*2.6);
+      const tear=[];
+      for(let t=0;t<nt;t++)
+        tear.push({a:hshM(t,11,bs+31)*rows, k:(hshM(t,13,bs+37)*2-1)*rows/cols2*1.8,
+                   up:hshM(t,15,bs+41)<0.5});
+      for(let j=0;j<rows;j++){
+        for(let i=0;i<cols2;i++){
+          /* A block is torn only where every cut agrees. One cut gives the
+             half-plane the reference has; two give the wedge between them.
+             Taking whichever cut says so instead let two opposed cuts cover
+             the whole band, and the mosaic came out solid black. */
+          let torn=tear.length>0;
+          for(const t of tear){
+            const edge=t.a+t.k*i;
+            if(!(t.up ? (j<edge) : (j>edge))){ torn=false; break; }
+          }
+          const v=hshM(wrap(i*step),j,bs+43);
+          const col=torn ? (v<0.82?R.dark:pick(v,b)) : pick(v,b+j);
+          const x0=Math.round(i*step*cw), x1=Math.round(Math.min(N,(i+1)*step)*cw);
+          put(x0,Math.round(by+j*rh),x1-x0,Math.ceil(rh)+1,col);
+        }
+      }
+
+    }else if(kind==="smear"){
+      /* Long runs on thin rows: a value held far past where it should have
+         changed, which is what a dropped frame looks like when it is dragged
+         sideways. */
+      const rows=Math.max(2,Math.round(bh/Math.max(2,cw*0.6)));
+      const rh=bh/rows;
+      const long=6+S.runs*46;
+      for(let j=0;j<rows;j++){
+        let i=0;
+        while(i<N){
+          const r=hshM(wrap(i),j*3,bs+47);
+          const run=Math.max(1,Math.round(long*(0.25+r*1.5)));
+          const v=hshM(wrap(i),j,bs+53);
+          const col=(hshM(wrap(i),j,bs+59)<S.bright*0.35) ? R.inks[1%R.inks.length] : pick(v,j);
+          const x0=Math.round(i*cw), x1=Math.round(Math.min(N,i+run)*cw);
+          put(x0,Math.round(by+j*rh),x1-x0,Math.ceil(rh)+1,col);
+          i+=run;
+        }
+      }
+
+    }else if(kind==="scan"){
+      /* Whole rows of one value, a few of them cut by a short bright segment. */
+      let yy=by;
+      let j=0;
+      while(yy<by+bh){
+        const r=hshM(0,j,bs+61);
+        const rh=Math.max(1,Math.round(cw*(0.4+r*3.2)));
+        const hh=Math.min(rh,by+bh-yy);
+        put(0,Math.round(yy),W,Math.ceil(hh)+1,pick(hshM(1,j,bs+67),j));
+        if(hshM(2,j,bs+71)<S.bright*0.8){
+          const w=W*(0.08+hshM(3,j,bs+73)*0.5);
+          const x0=W*hshM(4,j,bs+79)*(1-0.08);
+          put(Math.round(x0),Math.round(yy),Math.round(Math.min(w,W-x0)),
+              Math.ceil(hh)+1,R.inks[1%R.inks.length]);
+        }
+        yy+=hh; j++;
+      }
+
+    }else{
+      /* Chevrons: the column index is offset by a triangle wave of the row, so
+         one deck of colours shears into a herringbone. A repeating motif, not
+         noise — the reference has a band of it and it is what stops the page
+         reading as uniformly random. */
+      const rows=Math.max(1,Math.round(bh/cw));
+      const rh=bh/rows;
+      const per=Math.max(3,Math.round(4+hshM(b,17,bs+83)*10));
+      const amp=Math.max(1,Math.round(2+hshM(b,19,bs+89)*6));
+      for(let j=0;j<rows;j++){
+        const t=j%(per*2);
+        const zz=Math.round((t<per ? t : per*2-t)/per*amp);
+        for(let i=0;i<N;i++){
+          /* the colour follows the shifted column alone; biasing it by the row
+             as well re-dealt the motif every line and the band came out as
+             noise with a slight lean rather than as a zigzag */
+          const col=pick(hshM((wrap(i)+zz)%per,0,bs+97),b);
+          put(Math.round(i*cw),Math.round(by+j*rh),
+              Math.ceil(cw)+1,Math.ceil(rh)+1,col);
+        }
       }
     }
   }
-  const groups=shapes.map((s,i)=>s?`<g fill="${S.pal[i+1]}">${s}</g>`:"").join("");
-  return `<rect width="${gw}" height="${gh}" fill="${S.pal[0]}"/>`+groups;
 }
-function svgWrap(inner){
-  const {gw,gh}=gridDims();
+
+/* ---- vector ------------------------------------------------------------
+   The same paint() against a recorder. Every band is rectangles already, so
+   the export is the picture itself rather than a trace of it, and it cannot
+   drift from the screen. */
+function SvgSurfaceM(){
+  this.fillStyle="#000"; this.imageSmoothingEnabled=false; this._b=[];
+}
+SvgSurfaceM.prototype.save=function(){};
+SvgSurfaceM.prototype.restore=function(){};
+SvgSurfaceM.prototype.translate=function(){};
+SvgSurfaceM.prototype.scale=function(){};
+SvgSurfaceM.prototype.rotate=function(){};
+SvgSurfaceM.prototype.clearRect=function(){};
+SvgSurfaceM.prototype.beginPath=function(){};
+SvgSurfaceM.prototype.moveTo=function(){};
+SvgSurfaceM.prototype.lineTo=function(){};
+SvgSurfaceM.prototype.closePath=function(){};
+SvgSurfaceM.prototype.arc=function(){};
+SvgSurfaceM.prototype.fill=function(){};
+SvgSurfaceM.prototype.stroke=function(){};
+SvgSurfaceM.prototype.fillRect=function(x,y,w,h){
+  if(w<=0||h<=0) return;
+  this._b.push('<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+w.toFixed(1)+
+               '" height="'+h.toFixed(1)+'" fill="'+this.fillStyle+'"/>');
+};
+SvgSurfaceM.prototype.markup=function(){return this._b.join("");};
+
+function svgFrame(f){
   const r=RATIOS.find(x=>x.id===S.ratio);
   const W=S.size,H=Math.round(S.size*r.h/r.w);
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${gw} ${gh}" shape-rendering="crispEdges">`+inner+`</svg>`;
+  const s=new SvgSurfaceM();
+  paint(s,W,H,f);
+  return s.markup();
+}
+function svgWrap(inner){
+  const r=RATIOS.find(x=>x.id===S.ratio);
+  const W=S.size,H=Math.round(S.size*r.h/r.w);
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+
+         '" viewBox="0 0 '+W+' '+H+'" shape-rendering="crispEdges">'+
+         '<clipPath id="m"><rect width="'+W+'" height="'+H+'"/></clipPath>'+
+         '<g clip-path="url(#m)">'+inner+'</g></svg>';
 }
 function buildSVG(){return svgWrap(svgFrame(curFrame));}
-
-/* animated loop: every frame goes into the file as a hidden group, and a
-   discrete visibility animation flips through them on the tool's own clock */
-function buildLoopSVG(){
-  const M=S.motion;
-  const F=M.frames;
-  const dur=(F/M.fps).toFixed(3);
-  let groups="";
-  for(let f=0;f<F;f++){
-    const t0=(f/F).toFixed(5), t1=((f+1)/F).toFixed(5);
-    const anim=f===0
-      ?`<animate attributeName="visibility" values="visible;hidden" keyTimes="0;${t1}" dur="${dur}s" calcMode="discrete" repeatCount="indefinite"/>`
-      :`<animate attributeName="visibility" values="hidden;visible;hidden" keyTimes="0;${t0};${t1}" dur="${dur}s" calcMode="discrete" repeatCount="indefinite"/>`;
-    groups+=`<g visibility="${f===0?"visible":"hidden"}">${anim}${svgFrame(f)}</g>`;
-  }
-  
-  return svgWrap(groups);
-}
 
 const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
 function fitCanvas(){
@@ -907,7 +825,7 @@ function save(blob,name){
   a.href=url;a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
-function stamp(){return `quilt-${S.seed}-${S.ratio.replace(":","x")}`;}
+function stamp(){return `mosh-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
   const a=$("#expVid"),sc=$("#scrub"),l=$("#expSvgLoop");
   if(a)a.disabled=!S.motion.on;
@@ -927,14 +845,6 @@ $("#expPng").addEventListener("click",()=>{
 $("#expSvg").addEventListener("click",()=>{
   save(new Blob([buildSVG()],{type:"image/svg+xml"}),stamp()+".svg");
   toast("SVG saved");
-});
-$("#expSvgLoop").addEventListener("click",()=>{
-  if(!S.motion.on)return toast("Turn on motion first");
-  toast("Building loop\u2026",true);
-  setTimeout(()=>{
-    save(new Blob([buildLoopSVG()],{type:"image/svg+xml"}),stamp()+"-loop.svg");
-    toast("Animated SVG saved");
-  },30);
 });
 function pickVideoType(){
   const t=["video/mp4;codecs=avc1.42E01E","video/mp4","video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"];
@@ -972,7 +882,7 @@ $("#expVid").addEventListener("click",()=>{
    UI
 ============================================================ */
 function accent(){
-  let best=S.pal[3],bl=-1;
+  let best=S.pal[S.pal.length-1],bl=-1;
   for(const c of S.pal){const l=relLum(c);if(l>bl&&l>0.12){bl=l;best=c;}}
   document.documentElement.style.setProperty("--accent",bl>0?best:"#F5C21B");
   $("#strip").innerHTML=S.pal.map(c=>`<span style="background:${c}"></span>`).join("");
@@ -1005,21 +915,39 @@ function buildRatios(){
     host.appendChild(b);
   });
 }
-const ROLES=["Base","Weave A","Weave B","Pop"];
 function buildSwatches(){
   const host=$("#swatches");
   host.innerHTML="";
+  const lock=S.pal.length<=2;
   S.pal.forEach((c,i)=>{
     const b=document.createElement("button");
-    b.className="sw";b.type="button";b.setAttribute("aria-label",ROLES[i]+" color");
-    b.innerHTML=`<span class="fill" style="background:${c}"></span><input type="color" value="${c}">`;
+    b.className="sw"+(lock?" locked":"");b.type="button";
+    b.setAttribute("aria-label","Ink "+(i+1)+" color");
+    b.innerHTML=`<span class="fill" style="background:${c}"></span>`+
+      `<input type="color" value="${c}"><span class="x" aria-hidden="true">\u00d7</span>`;
     b.querySelector("input").addEventListener("input",e=>{
       S.pal[i]=e.target.value;
       b.querySelector(".fill").style.background=e.target.value;
       accent();reframe();
     });
+    b.addEventListener("click",e=>{
+      if(e.target.classList.contains("x")&&S.pal.length>2){
+        e.preventDefault();e.stopPropagation();
+        S.pal.splice(i,1);buildSwatches();accent();reframe();
+      }
+    },true);
     host.appendChild(b);
   });
+  const add=document.createElement("button");
+  add.className="sw-add";add.type="button";add.textContent="+";
+  add.setAttribute("aria-label","Add color");
+  add.addEventListener("click",()=>{
+    const commit=hex=>{S.pal.push(hex);buildSwatches();accent();reframe();};
+    if(window.__pickColour) window.__pickColour(add,commit);
+    else commit(PALETTES[0][(Math.random()*PALETTES[0].length)|0]);
+  });
+  host.appendChild(add);
+  const n=$("#swCountVal"); if(n) n.textContent=S.pal.length;
 }
 function setPalette(p){S.pal=p.slice();buildSwatches();accent();reframe();}
 function bindRange(id,fmt,set,after){
@@ -1033,16 +961,27 @@ function bindRange(id,fmt,set,after){
 }
 
 buildRatios();buildSwatches();accent();
-segmented($("#styles"),STYLES,()=>S.pattern,v=>{S.pattern=v;reframe();});
 segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
 $("#shufColors").addEventListener("click",()=>{
   setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
 });
 $("#rotColors").addEventListener("click",()=>{
-  setPalette([S.pal[1],S.pal[2],S.pal[3],S.pal[0]]);
+  if(S.pal.length<3){setPalette(S.pal.slice(1).concat(S.pal[0]));return;}
+  let di=0;
+  for(let i=1;i<S.pal.length;i++) if(lumM(S.pal[i])<lumM(S.pal[di])) di=i;
+  const rest=S.pal.filter((c,i)=>i!==di);
+  rest.push(rest.shift());
+  const out=S.pal.slice();
+  let k=0;
+  for(let i=0;i<out.length;i++) if(i!==di) out[i]=rest[k++];
+  setPalette(out);
 });
-bindRange("cells",v=>v,v=>S.cells=v|0);
-bindRange("chunk",v=>v.toFixed(2),v=>S.chunk=v);
+bindRange("bands",v=>v|0,v=>S.bands=v|0);
+bindRange("cols",v=>v|0,v=>S.cols=v|0);
+bindRange("mix",v=>Math.round(v*100)+"%",v=>S.mix=v);
+bindRange("tears",v=>Math.round(v*100)+"%",v=>S.tears=v);
+bindRange("runs",v=>Math.round(v*100)+"%",v=>S.runs=v);
+bindRange("bright",v=>Math.round(v*100)+"%",v=>S.bright=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
