@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Warp — playgrnd</title>
-<meta name="description" content="Generate warped op-art patterns — checkerboards, slashes and rings in neon on black, bent through waves, tapers and bulges. Exports SVG, PNG and video.">
+<meta name="description" content="Generate warped op-art patterns — checkerboards and slashes in neon on black, bent through waves, tapers and bulges. Exports SVG, PNG and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -486,7 +486,7 @@ function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"1:1",w:1,h:1},{id:"4:3",w:4,h:3},
  {id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9},{id:"2:1",w:2,h:1},{id:"3:1",w:3,h:1}];
 const MODES=[["bend","Bend"],["march","March"]];
-const STYLES=[["auto","Auto"],["checker","Checker"],["slash","Slash"],["rings","Rings"]];
+const STYLES=[["auto","Auto"],["checker","Checker"],["slash","Slash"]];
 /* black base + four neon inks, one per panel */
 const PALETTES=[
   ["#0A0A0C","#2B4FD8","#7CE860","#6A2BE0","#F03C8C"],
@@ -522,10 +522,11 @@ const fract=x=>x-Math.floor(x);
 function buildSpec(){
   const r=rng(S.seed*2654435761>>>0);
   SW=(S.seed^0x2c1b3c6d)>>>0;
-  const kinds=["checker","slash","rings"];
-  const kpick=(r()*kinds.length)|0;
+  const kinds=["checker","slash"];
+  const kpick=(r()*3)|0;
+  const kchoice=kpick<2?kinds[kpick]:kinds[SW&1];
   return{
-    kind:S.style==="auto"?kinds[kpick]:S.style,
+    kind:S.style==="auto"?kchoice:S.style,
     ink:1+((r()*4)|0),
     cell:0.09+r()*0.09,
     ang:(r()<0.5?-1:1)*(0.35+r()*0.55),
@@ -576,7 +577,7 @@ function buildPolys(p,W,H,mo){
       const x=i*cs+off,y=j*cs;
       quad([x,y],[x+cs,y],[x+cs,y+cs],[x,y+cs]);
     }
-  }else if(p.kind==="slash"){
+  }else{                       /* anything that is not a checker */
     const ca=Math.cos(p.ang),sa=Math.sin(p.ang);
     const bs=cs*p.brk;
     const R=Math.hypot(W,H)+mrg;
@@ -589,26 +590,6 @@ function buildPolys(p,W,H,mo){
       for(let k=k0;k<k1;k++){
         const q0=k*cs+shift,q1=q0+cs*p.duty;
         quad(uv(q0,s0),uv(q1,s0),uv(q1,s1),uv(q0,s1));
-      }
-    }
-  }else{
-    const cx=p.ccx*W,cy=p.ccy*H;
-    const rmax=Math.hypot(Math.max(cx,W-cx),Math.max(cy,H-cy))+mrg;
-    const nR=Math.ceil(rmax/cs)+1;
-    for(let n=Math.floor(-mt)-1;n<nR;n++){
-      const r0=(n+mt)*cs, r1=r0+cs*p.duty;
-      if(r1<=cs*0.05)continue;
-      const ri=Math.max(0.001,r0);
-      const m=Math.max(4,Math.round(p.brk*2.5));
-      const a00=hashi(n,5,9,SW)*TAU;
-      for(let s=0;s<m;s++){
-        if(hashi(s,n,11,SW)<0.25)continue;
-        const a0=a00+s/m*TAU, a1=a00+(s+1)/m*TAU-TAU/m*0.06;
-        const steps=Math.max(3,Math.ceil((a1-a0)*r1/(md*0.03)));
-        const o=[];
-        for(let i=0;i<=steps;i++){const a=a0+(a1-a0)*i/steps;o.push(wp(cx+Math.cos(a)*r1,cy+Math.sin(a)*r1));}
-        for(let i=steps;i>=0;i--){const a=a0+(a1-a0)*i/steps;o.push(wp(cx+Math.cos(a)*ri,cy+Math.sin(a)*ri));}
-        polys.push(o);
       }
     }
   }
