@@ -373,6 +373,11 @@ input[type=range]{accent-color:var(--ink)}
   .z-right .chips,.expmenu,.z-right .tbl,.z-br .tbl{justify-content:start}
   .btnrow{justify-content:flex-start}
   .rightblock{width:auto}
+  /* Stacked, the right rail's three blocks fall into ordinary flow and the
+     Animate and Export pills end up edge to edge — on the desktop rig it is
+     the auto margins centring Animate that hold them apart, and those collapse
+     to nothing here. */
+  .r-mid,.r-bot{margin-top:26px}
   .z-bottom{justify-self:stretch;text-align:left}
   .caps,.tport{justify-content:flex-start}
   .mark{display:none}

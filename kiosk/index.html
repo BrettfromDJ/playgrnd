@@ -373,6 +373,11 @@ input[type=range]{accent-color:var(--ink)}
   .z-right .chips,.expmenu,.z-right .tbl,.z-br .tbl{justify-content:start}
   .btnrow{justify-content:flex-start}
   .rightblock{width:auto}
+  /* Stacked, the right rail's three blocks fall into ordinary flow and the
+     Animate and Export pills end up edge to edge — on the desktop rig it is
+     the auto margins centring Animate that hold them apart, and those collapse
+     to nothing here. */
+  .r-mid,.r-bot{margin-top:26px}
   .z-bottom{justify-self:stretch;text-align:left}
   .caps,.tport{justify-content:flex-start}
   .mark{display:none}
@@ -411,7 +416,7 @@ input[type=range]{accent-color:var(--ink)}
                  autocomplete="off" aria-label="Your own characters"
                  placeholder="type any characters"></span></div>
         <div class="pr"><div class="top"><span class="k">Columns</span><span class="v" id="gridVal">13</span></div><div class="track"><input type="range" id="grid" min="4" max="30" step="1" value="13"></div></div>
-        <div class="pr"><div class="top"><span class="k">Large size</span><span class="v" id="bigSizeVal">102%</span></div><div class="track"><input type="range" id="bigSize" min="0.3" max="1.6" step="0.01" value="1.02"></div></div>
+        <div class="pr"><div class="top"><span class="k">Large size</span><span class="v" id="bigSizeVal">50%</span></div><div class="track"><input type="range" id="bigSize" min="0.3" max="1.6" step="0.01" value="0.5"></div></div>
         <div class="pr"><div class="top"><span class="k">How many large</span><span class="v" id="densityVal">84%</span></div><div class="track"><input type="range" id="density" min="0" max="1" step="0.01" value="0.84"></div></div>
         <div class="pr"><div class="top"><span class="k">Small size</span><span class="v" id="smallSizeVal">44%</span></div><div class="track"><input type="range" id="smallSize" min="0.1" max="0.9" step="0.01" value="0.44"></div></div>
         <div class="pr"><div class="top"><span class="k">How many small</span><span class="v" id="smallVal">60%</span></div><div class="track"><input type="range" id="small" min="0" max="1" step="0.01" value="0.6"></div></div></div></details>
@@ -547,7 +552,7 @@ const PALETTES=[
 const S={
   seed:7, ratio:"4:5", set:"dos", custom:CUSTOM_DEFAULT,
   split:0.62, rings:15, stripes:9,
-  grid:13, density:0.84, small:0.60, bigSize:1.02, smallSize:0.44,
+  grid:13, density:0.84, small:0.60, bigSize:0.50, smallSize:0.44,
   blocks:0.62,
   pal:PALETTES[0].slice(),
   motion:{on:false,mode:"shuffle",amount:0.6,fps:6,frames:24},
