@@ -190,23 +190,6 @@ input{font:inherit;color:inherit}
    than left as a broken-image box. */
 .slide{display:block;width:88%;max-width:212px;height:auto;margin:0 0 26px}
 
-/* ---------------- the pit ---------------- */
-/* The canvas covers the window and the frame carries on showing underneath:
-   the point is that the index falls out of the page, not that it replaces it. */
-.pit{position:fixed;inset:0;z-index:60;display:none;touch-action:none;cursor:grab;
-  opacity:1;transition:opacity .34s ease}
-.pit.leaving{opacity:0}
-.pit.holding{cursor:grabbing}
-body.spilling .pit{display:block}
-.list{transition:opacity .16s ease}
-body.spilling .list{opacity:0;pointer-events:none}
-body.spilling .thead{opacity:.3;transition:opacity .16s ease}
-.pitnote{position:fixed;left:50%;top:0;translate:-50% 0;z-index:61;display:none;
-  pointer-events:none;font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;
-  color:var(--key);background:var(--gnd);border:1px solid var(--hair);
-  border-radius:999px;padding:7px 16px;white-space:nowrap}
-body.spilling .pitnote{display:block}
-@media (prefers-reduced-motion:reduce){.pit,.list{transition:none}}
 .hint{display:block;font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key)}
 .kbd{color:var(--ink)}
 
@@ -300,8 +283,7 @@ body.spilling .pitnote{display:block}
         <input class="q" id="q" type="search" placeholder="All tools" aria-label="Filter tools"
                autocomplete="off" spellcheck="false">
         <button class="pbtn" id="clear" type="button">Clear</button>
-        <button class="pbtn" id="lucky" type="button">Random</button>
-        <button class="pbtn go" id="spill" type="button" aria-pressed="false">Spill</button>
+        <button class="pbtn go" id="lucky" type="button">Random</button>
       </div>
     </div>
 
@@ -355,16 +337,10 @@ body.spilling .pitnote{display:block}
   <div class="zone z-bottom">
     <span class="hint"><span class="kbd">Type</span> &mdash; filter &middot;
       <span class="kbd">Enter</span> &mdash; open first &middot;
-      <span class="kbd">Spill</span> &mdash; tip the index out &middot;
       <span class="kbd">Esc</span> &mdash; clear</span>
   </div>
 
 </div>
-
-<!-- The index, tipped out. Sits over the whole page: the chassis stays put and
-     only the contents fall out of it. -->
-<canvas class="pit" id="pit" aria-hidden="true"></canvas>
-<div class="pitnote" id="pitnote" aria-hidden="true">Throw them about &middot; tap one to open &middot; Esc to stop</div>
 
 <script>
 (() => {
@@ -377,38 +353,38 @@ const pad=n=>String(n).padStart(2,"0");
    tools go on the end. `cat` is what the tool makes, and it drives the rail on
    the left as well as the Kind column. */
 const TOOLS=[
-  {slug:"oddgrid", name:"Oddgrid", year:2026, cat:"Patterns", desc:"generative pixel compositions", c:"#FF7A1A"},
-  {slug:"terrain", name:"Terrain", year:2026, cat:"Backgrounds", desc:"layered contour landscapes", c:"#FFC02E"},
-  {slug:"filament", name:"Filament", year:2026, cat:"Backgrounds", desc:"flowing thread fields", c:"#FF4A17"},
-  {slug:"zig", name:"Zig", year:2026, cat:"Patterns", desc:"rounded zigzag patterns", c:"#F5A81C"},
-  {slug:"quilt", name:"Quilt", year:2026, cat:"Patterns", desc:"pixel blanket patterns", c:"#F2D53B"},
-  {slug:"aura", name:"Aura", year:2026, cat:"Backgrounds", desc:"soft vibrant gradients", c:"#3EC9F2"},
-  {slug:"warp", name:"Warp", year:2026, cat:"Patterns", desc:"warped op-art patterns", c:"#F03C8C"},
-  {slug:"specimen", name:"Specimen", year:2026, cat:"Posters", desc:"type specimen posters", c:"#FF4A17"},
-  {slug:"tokens", name:"Tokens", year:2026, cat:"Badges", desc:"geometric badge sets", c:"#1E90FF"},
-  {slug:"vee", name:"Vee", year:2026, cat:"Patterns", desc:"mirrored chevron stripes", c:"#8A49FF"},
-  {slug:"fete", name:"Fete", year:2026, cat:"Posters", desc:"festival patch posters", c:"#FF5B1E"},
-  {slug:"parcel", name:"Parcel", year:2026, cat:"Posters", desc:"pixel parcel posters", c:"#DFF23C"},
-  {slug:"weave", name:"Weave", year:2026, cat:"Patterns", desc:"striped ribbon bands", c:"#4F6BE8"},
-  {slug:"stipple", name:"Stipple", year:2026, cat:"Textures", desc:"halftone dot portraits of light", c:"#1B27FF"},
-  {slug:"modular", name:"Modular", year:2026, cat:"Posters", desc:"rounded modular grid posters", c:"#FF5B1E"},
-  {slug:"static", name:"Static", year:2026, cat:"Posters", desc:"glitch pixel posters", c:"#F5C21B"},
-  {slug:"optic", name:"Optic", year:2026, cat:"Posters", desc:"striped counterchange posters", c:"#161616"},
-  {slug:"rise", name:"Rise", year:2026, cat:"Backgrounds", desc:"radial stripe arcs", c:"#4A50DE"},
-  {slug:"prism", name:"Prism", year:2026, cat:"Backgrounds", desc:"pixel aurora backdrops", c:"#FF2D55"},
-  {slug:"riso", name:"Riso", year:2026, cat:"Posters", desc:"torn paper collage", c:"#F26B1D"},
-  {slug:"delta", name:"Delta", year:2026, cat:"Backgrounds", desc:"corrupted satellite mosaics", c:"#F0602A"},
-  {slug:"mist", name:"Mist", year:2026, cat:"Backgrounds", desc:"sprayed neon washes", c:"#DCFF1E"},
-  {slug:"totem", name:"Totem", year:2026, cat:"Posters", desc:"mirrored pixel banners", c:"#F01E2C"},
-  {slug:"atlas", name:"Atlas", year:2026, cat:"Textures", desc:"text-mode terrain maps", c:"#E0452C"},
-  {slug:"sampler", name:"Sampler", year:2026, cat:"Patterns", desc:"modular tile samplers", c:"#F09018"},
-  {slug:"relief", name:"Relief", year:2026, cat:"Patterns", desc:"isometric block lattices", c:"#FF8A00"},
-  {slug:"emblem", name:"Emblem", year:2026, cat:"Patterns", desc:"mirrored emblem panels", c:"#2E6BFF"},
-  {slug:"kiosk", name:"Kiosk", year:2026, cat:"Posters", desc:"typographic fly-posters", c:"#F5D000"},
-  {slug:"mosh", name:"Mosh", year:2026, cat:"Textures", desc:"corrupted signal", c:"#FF0000"},
-  {slug:"pane", name:"Pane", year:2026, cat:"Backgrounds", desc:"gradient panels", c:"#FF4A0A"},
-  {slug:"sonar", name:"Sonar", year:2026, cat:"Backgrounds", desc:"dithered landmasses", c:"#3A3AFF"},
-  {slug:"bloom", name:"Bloom", year:2026, cat:"Backgrounds", desc:"symmetrical pixel fields", c:"#FF522E"}
+  {slug:"oddgrid", name:"Oddgrid", year:2026, cat:"Patterns", desc:"generative pixel compositions"},
+  {slug:"terrain", name:"Terrain", year:2026, cat:"Backgrounds", desc:"layered contour landscapes"},
+  {slug:"filament", name:"Filament", year:2026, cat:"Backgrounds", desc:"flowing thread fields"},
+  {slug:"zig", name:"Zig", year:2026, cat:"Patterns", desc:"rounded zigzag patterns"},
+  {slug:"quilt", name:"Quilt", year:2026, cat:"Patterns", desc:"pixel blanket patterns"},
+  {slug:"aura", name:"Aura", year:2026, cat:"Backgrounds", desc:"soft vibrant gradients"},
+  {slug:"warp", name:"Warp", year:2026, cat:"Patterns", desc:"warped op-art patterns"},
+  {slug:"specimen", name:"Specimen", year:2026, cat:"Posters", desc:"type specimen posters"},
+  {slug:"tokens", name:"Tokens", year:2026, cat:"Badges", desc:"geometric badge sets"},
+  {slug:"vee", name:"Vee", year:2026, cat:"Patterns", desc:"mirrored chevron stripes"},
+  {slug:"fete", name:"Fete", year:2026, cat:"Posters", desc:"festival patch posters"},
+  {slug:"parcel", name:"Parcel", year:2026, cat:"Posters", desc:"pixel parcel posters"},
+  {slug:"weave", name:"Weave", year:2026, cat:"Patterns", desc:"striped ribbon bands"},
+  {slug:"stipple", name:"Stipple", year:2026, cat:"Textures", desc:"halftone dot portraits of light"},
+  {slug:"modular", name:"Modular", year:2026, cat:"Posters", desc:"rounded modular grid posters"},
+  {slug:"static", name:"Static", year:2026, cat:"Posters", desc:"glitch pixel posters"},
+  {slug:"optic", name:"Optic", year:2026, cat:"Posters", desc:"striped counterchange posters"},
+  {slug:"rise", name:"Rise", year:2026, cat:"Backgrounds", desc:"radial stripe arcs"},
+  {slug:"prism", name:"Prism", year:2026, cat:"Backgrounds", desc:"pixel aurora backdrops"},
+  {slug:"riso", name:"Riso", year:2026, cat:"Posters", desc:"torn paper collage"},
+  {slug:"delta", name:"Delta", year:2026, cat:"Backgrounds", desc:"corrupted satellite mosaics"},
+  {slug:"mist", name:"Mist", year:2026, cat:"Backgrounds", desc:"sprayed neon washes"},
+  {slug:"totem", name:"Totem", year:2026, cat:"Posters", desc:"mirrored pixel banners"},
+  {slug:"atlas", name:"Atlas", year:2026, cat:"Textures", desc:"text-mode terrain maps"},
+  {slug:"sampler", name:"Sampler", year:2026, cat:"Patterns", desc:"modular tile samplers"},
+  {slug:"relief", name:"Relief", year:2026, cat:"Patterns", desc:"isometric block lattices"},
+  {slug:"emblem", name:"Emblem", year:2026, cat:"Patterns", desc:"mirrored emblem panels"},
+  {slug:"kiosk", name:"Kiosk", year:2026, cat:"Posters", desc:"typographic fly-posters"},
+  {slug:"mosh", name:"Mosh", year:2026, cat:"Textures", desc:"corrupted signal"},
+  {slug:"pane", name:"Pane", year:2026, cat:"Backgrounds", desc:"gradient panels"},
+  {slug:"sonar", name:"Sonar", year:2026, cat:"Backgrounds", desc:"dithered landmasses"},
+  {slug:"bloom", name:"Bloom", year:2026, cat:"Backgrounds", desc:"symmetrical pixel fields"}
 ];
 
 const numbered=TOOLS.map((t,i)=>({...t,no:i+1}));
@@ -445,7 +421,6 @@ function matches(t){
 }
 let shown=[];
 function render(){
-  if(spilling) endSpill();
   shown=sorted().filter(matches);
   listEl.innerHTML = shown.length ? shown.map(t=>
     `<a class="row" href="${t.slug}/index.html" aria-label="${t.name} — ${t.desc}">`+
@@ -505,342 +480,10 @@ $("#lucky").addEventListener("click",()=>{
    hit a key without hunting for the control first */
 addEventListener("keydown",e=>{
   if(e.metaKey||e.ctrlKey||e.altKey) return;
-  /* while the index is on the floor, the keyboard belongs to the pit */
-  if(spilling){ if(e.key==="Escape") spillBack(); return; }
   const t=e.target;
   if(t&&(t.tagName==="INPUT"||t.tagName==="TEXTAREA")) return;
   if(e.key==="Escape"){$("#clear").click();return;}
   if(e.key.length===1&&/\S/.test(e.key)){ q.focus(); }
-});
-
-
-/* ---- the pit ---------------------------------------------------------
-   Spill tips the index out of the page. Every row you can currently see
-   becomes a disc in that tool's own colour, dropped from exactly where the
-   row was sitting, and from there it is a toy: shove them, pick one up and
-   throw it, tap one to open the tool. The chassis around it never moves —
-   only the contents fall out. */
-const pit=$("#pit"), pctx=pit.getContext("2d");
-const REDUCE=matchMedia("(prefers-reduced-motion: reduce)").matches;
-const G=2600, BOUNCE=0.30, WALL=0.44, PAIR=0.24, DRAG=0.9985;
-/* Pushing every overlap fully apart every frame never converges: three
-   discs leaning on each other take turns being moved and the heap
-   shivers for ever. A little tolerated overlap and a correction short
-   of the whole gap lets it come to rest. */
-const SLOP=0.7, BIAS=0.6;
-let balls=[], raf=0, spilling=false, outro=0, dpr=1, last=0, acc=0;
-let grabbed=null, gdx=0, gdy=0, px0=0, py0=0, pt0=0, moved=0, age=0;
-const FACE='"DM Mono",ui-monospace,SFMono-Regular,Menlo,monospace';
-
-function placeNote(){
-  const n=$("#pitnote"), b=$("#spill");
-  if(n&&b) n.style.top=Math.round(b.getBoundingClientRect().bottom+16)+"px";
-}
-function fitPit(){
-  /* a shaded ball is forgiving, and the pit is the one thing on the page
-     redrawing every frame, so it takes fewer pixels than the page does */
-  dpr=Math.min(1.6,devicePixelRatio||1);
-  pit.width=Math.round(innerWidth*dpr);
-  pit.height=Math.round(innerHeight*dpr);
-  pit.style.width=innerWidth+"px";
-  pit.style.height=innerHeight+"px";
-}
-const TAU2=Math.PI*2;
-/* mix toward white or black: a lit pole and a dark limb are most of what
-   tells the eye a circle is a sphere */
-function tint(hex,to,t){
-  const n=parseInt(hex.slice(1),16);
-  const f=v=>Math.round(v+(to-v)*t);
-  return "rgb("+f(n>>16&255)+","+f(n>>8&255)+","+f(n&255)+")";
-}
-function lum(hex){
-  const n=parseInt(hex.slice(1),16);
-  const f=v=>{v/=255;return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4);};
-  return 0.2126*f(n>>16&255)+0.7152*f(n>>8&255)+0.0722*f(n&255);
-}
-function spillOut(){
-  if(spilling) return;
-  const pool=shown.length?shown:numbered;
-  fitPit();
-  pit.classList.remove("leaving");
-  const rows=[...listEl.querySelectorAll(".row")];
-  const base=Math.max(24,Math.min(52,Math.min(innerWidth,innerHeight)/15));
-  balls=pool.map((t,i)=>{
-    const q=rows[i]?rows[i].getBoundingClientRect():null;
-    const r=base*(0.84+((i*7)%5)/13);
-    return {t:t, r:r, ink:t.c||"#15161A", pale:lum(t.c||"#15161A")>0.45,
-      x:q?Math.max(r,Math.min(innerWidth-r,q.left+q.width*0.30)):innerWidth*0.5,
-      y:q?q.top+q.height*0.5:-r-i*6,
-      vx:(Math.random()-0.5)*300, vy:-40-Math.random()*260, a:0};
-  });
-  makeSprites();
-  spilling=true; outro=0; age=0;
-  document.body.classList.add("spilling");
-  /* the pit is decorative play and the list is the real navigation, so
-     while the discs are out the rows leave the tab order rather than
-     sitting there invisible and still focusable */
-  listEl.inert=true;
-  $("#spill").setAttribute("aria-pressed","true");
-  /* the caption hangs off the button that opened the pit, so it lands
-     clear of the discs whatever the layout has done with the pill */
-  placeNote();
-  if(REDUCE){ for(let k=0;k<420;k++) integrate(1/120); draw(); return; }
-  last=performance.now(); acc=0;
-  raf=requestAnimationFrame(step);
-}
-function spillBack(){
-  if(!spilling||outro) return;
-  outro=performance.now();
-  pit.classList.add("leaving");
-  /* they leave the way they came in, upward: a pile that simply vanishes
-     reads as a bug rather than as the toy being put away */
-  for(const b of balls){ b.vy=-460-Math.random()*420; b.vx*=0.6;
-                         b.held=false; b.asleep=false; b.rest=0; }
-  grabbed=null; pit.classList.remove("holding");
-  if(REDUCE) endSpill();
-}
-function endSpill(){
-  spilling=false; outro=0;
-  cancelAnimationFrame(raf); raf=0;
-  document.body.classList.remove("spilling");
-  listEl.inert=false;
-  $("#spill").setAttribute("aria-pressed","false");
-  pit.classList.remove("leaving","holding");
-  pctx.setTransform(1,0,0,1,0,0);
-  pctx.clearRect(0,0,pit.width,pit.height);
-  balls=[];
-}
-function step(now){
-  if(!spilling) return;
-  const dt=Math.min(0.05,(now-last)/1000); last=now;
-  acc+=dt;
-  let guard=0;
-  while(acc>=1/120 && guard++<8){ integrate(1/120); acc-=1/120; }
-  draw();
-  if(outro && now-outro>560){ endSpill(); return; }
-  raf=requestAnimationFrame(step);
-}
-function integrate(h){
-  const W=innerWidth, H=innerHeight, g=outro?-G*1.35:G;
-  /* Left alone the heap thickens and comes to rest; touch it and it is
-     thin again. Without this a pile of discs never quite stops rolling,
-     and a picture that will not hold still reads as broken. */
-  age+=h;
-  const q=(!outro&&age>2.0)?0.985:DRAG;
-  for(const b of balls){
-    /* Standing the name back up happens whether or not the ball is still in
-       the simulation: one that falls asleep mid-turn would otherwise keep its
-       name lying on its side for good. */
-    if(!b.held&&!outro){
-      const up=Math.round(b.a/TAU2)*TAU2;
-      if(Math.abs(up-b.a)>0.0004) b.a+=(up-b.a)*Math.min(1,h*7);
-    }
-    if(b.held||b.asleep) continue;
-    b.vy+=g*h; b.vx*=q; b.vy*=q;
-    b.x+=b.vx*h; b.y+=b.vy*h;
-    if(b.x<b.r){b.x=b.r;b.vx=Math.abs(b.vx)*WALL;}
-    if(b.x>W-b.r){b.x=W-b.r;b.vx=-Math.abs(b.vx)*WALL;}
-    if(!outro&&b.y>H-b.r){b.y=H-b.r;b.vy=-Math.abs(b.vy)*BOUNCE;b.vx*=0.90;}
-    if(!outro&&b.y<-b.r*5){b.y=-b.r*5;b.vy=Math.abs(b.vy)*0.25;}
-    /* Rolling. The shading stays fixed to the light, because a real sphere's
-       does — only its markings turn — so it is the name that rides round with
-       the surface, and that alone stops a disc reading as a sticker. It comes
-       to rest upright above, because a heap of names at 32 random angles is
-       unreadable and these are still the way you open a tool. */
-    b.a+=(b.vx/b.r)*h;
-    /* a heap that never quite stops reads as a rendering fault rather than
-       as a heap, so anything barely moving is brought to rest */
-    if(!outro&&Math.abs(b.vx)+Math.abs(b.vy)<26){ b.vx*=0.78; b.vy*=0.78; }
-    /* and once it has been still for a while it is taken out of the
-       simulation entirely, so the heap is genuinely static rather than
-       shivering a fraction of a pixel for ever */
-    if(!outro&&Math.abs(b.vx)+Math.abs(b.vy)<20){
-      if((b.rest=(b.rest||0)+1)>70){ b.asleep=true; b.vx=0; b.vy=0; }
-    } else b.rest=0;
-  }
-  /* Several passes. One leaves a pile jittering, because a disc resolved
-     against the one below it is immediately pushed back by the one above. */
-  for(let pass=0;pass<3;pass++)
-    for(let i=0;i<balls.length;i++)
-      for(let j=i+1;j<balls.length;j++){
-        const a=balls[i], b=balls[j];
-        let dx=b.x-a.x, dy=b.y-a.y;
-        const rr=a.r+b.r, d2=dx*dx+dy*dy;
-        if(d2>=rr*rr) continue;
-        let d=Math.sqrt(d2);
-        if(d<0.0001){ dx=0; dy=1; d=0.0001; }
-        const nx=dx/d, ny=dy/d, over=Math.max(0,rr-d-SLOP)*BIAS;
-        if(over<=0&&(b.vx-a.vx)*(dx/d)+(b.vy-a.vy)*(dy/d)>=0) continue;
-        const wa=(a.held||a.asleep)?0:1, wb=(b.held||b.asleep)?0:1;
-        /* only something actually travelling wakes a sleeper. Waking on
-           mere contact has two resting discs wake each other for ever. */
-        const amov=a.held||(wa&&Math.abs(a.vx)+Math.abs(a.vy)>60);
-        const bmov=b.held||(wb&&Math.abs(b.vx)+Math.abs(b.vy)>60);
-        if(amov&&b.asleep){ b.asleep=false; b.rest=0; }
-        if(bmov&&a.asleep){ a.asleep=false; a.rest=0; }
-        const wt=(wa+wb)||1;
-        a.x-=nx*over*(wa/wt); a.y-=ny*over*(wa/wt);
-        b.x+=nx*over*(wb/wt); b.y+=ny*over*(wb/wt);
-        const vn=(b.vx-a.vx)*nx+(b.vy-a.vy)*ny;
-        if(vn>=0) continue;
-        const imp=-(1+PAIR)*vn/wt;
-        if(wa){ a.vx-=imp*nx; a.vy-=imp*ny; }
-        if(wb){ b.vx+=imp*nx; b.vy+=imp*ny; }
-      }
-}
-/* ---- sprites ----------------------------------------------------------
-   A ball's shading never changes: the light is fixed, and a real sphere's
-   highlight stays put while only its markings turn. So each one is shaded
-   once into its own little canvas and blitted from then on. Building those
-   gradients live every frame cost more than half the frame rate. */
-let shadowSprite=null;
-function makeShadow(){
-  const S=160;
-  const c=document.createElement("canvas"); c.width=S; c.height=S;
-  const x=c.getContext("2d");
-  const g=x.createRadialGradient(S/2,S/2,S*0.10,S/2,S/2,S*0.5);
-  g.addColorStop(0,"rgba(21,22,26,.88)");
-  g.addColorStop(0.55,"rgba(21,22,26,.34)");
-  g.addColorStop(1,"rgba(21,22,26,0)");
-  x.fillStyle=g; x.fillRect(0,0,S,S);
-  shadowSprite=c;
-}
-function makeSprite(b){
-  const R=b.r, px=Math.max(8,Math.ceil(R*2*dpr));
-  const c=document.createElement("canvas"); c.width=px; c.height=px;
-  const x=c.getContext("2d");
-  x.setTransform(px/(R*2),0,0,px/(R*2),0,0);
-  const cx=R, cy=R;
-  const lx=cx-R*0.40, ly=cy-R*0.44;
-  const g=x.createRadialGradient(lx,ly,R*0.04,cx,cy,R*1.02);
-  g.addColorStop(0,tint(b.ink,255,0.40));
-  g.addColorStop(0.34,tint(b.ink,255,0.10));
-  g.addColorStop(0.62,b.ink);
-  g.addColorStop(0.88,tint(b.ink,0,0.22));
-  g.addColorStop(1,tint(b.ink,0,0.45));
-  x.beginPath(); x.arc(cx,cy,R,0,TAU2); x.fillStyle=g; x.fill();
-  x.save();
-  x.beginPath(); x.arc(cx,cy,R,0,TAU2); x.clip();
-  /* light bouncing back off the page onto the underside — without it the
-     shadowed limb goes dead and the ball reads as a hole */
-  const bo=x.createRadialGradient(cx+R*0.30,cy+R*0.66,R*0.05,
-                                  cx+R*0.30,cy+R*0.66,R*0.95);
-  bo.addColorStop(0,tint(b.ink,255,0.30));
-  bo.addColorStop(1,"rgba(255,255,255,0)");
-  x.globalAlpha=0.34; x.fillStyle=bo; x.fillRect(0,0,R*2,R*2);
-  /* and a soft highlight where the light hits square on */
-  x.globalAlpha=1;
-  const sp=x.createRadialGradient(lx,ly,0,lx,ly,R*0.52);
-  sp.addColorStop(0,"rgba(255,255,255,.34)");
-  sp.addColorStop(0.55,"rgba(255,255,255,.10)");
-  sp.addColorStop(1,"rgba(255,255,255,0)");
-  x.fillStyle=sp; x.fillRect(0,0,R*2,R*2);
-  x.restore();
-  b.sprite=c;
-  /* the name turns with the ball, which is the only reason it was being laid
-     out again every frame; rasterise it once and turn the picture instead */
-  const label=b.t.name.toUpperCase();
-  let fs=Math.round(R*0.30), font="";
-  for(;fs>5;fs--){
-    font="700 "+fs+"px "+FACE;
-    pctx.font=font; pctx.letterSpacing="0.08em";
-    if(pctx.measureText(label).width<=R*1.45) break;
-  }
-  pctx.font=font;
-  const tw=Math.ceil(pctx.measureText(label).width)+6, th=Math.ceil(fs*1.9);
-  const lc=document.createElement("canvas");
-  lc.width=Math.max(2,Math.ceil(tw*dpr)); lc.height=Math.max(2,Math.ceil(th*dpr));
-  const lx2=lc.getContext("2d");
-  lx2.setTransform(lc.width/tw,0,0,lc.height/th,0,0);
-  lx2.font=font; lx2.letterSpacing="0.08em";
-  lx2.textAlign="center"; lx2.textBaseline="middle";
-  lx2.fillStyle=b.pale?"rgba(21,22,26,.86)":"rgba(255,255,255,.92)";
-  lx2.fillText(label,tw/2,th/2);
-  pctx.letterSpacing="0px";
-  b.text=lc; b.tw=tw; b.th=th;
-}
-function makeSprites(){ makeShadow(); for(const b of balls) makeSprite(b); }
-
-function draw(){
-  pctx.setTransform(dpr,0,0,dpr,0,0);
-  pctx.clearRect(0,0,innerWidth,innerHeight);
-  for(const b of balls){
-    /* the contact shadow goes down before its own ball, so one stacked on
-       another drops a shadow on it rather than everything floating */
-    const sw=b.r*2.36, sh=sw*0.28;
-    pctx.globalAlpha=0.26;
-    pctx.drawImage(shadowSprite,b.x+b.r*0.14-sw/2,b.y+b.r*0.94-sh/2,sw,sh);
-    pctx.globalAlpha=1;
-    pctx.drawImage(b.sprite,b.x-b.r,b.y-b.r,b.r*2,b.r*2);
-    pctx.save();
-    pctx.translate(b.x,b.y);
-    pctx.rotate(b.a||0);
-    pctx.drawImage(b.text,-b.tw/2,-b.th/2,b.tw,b.th);
-    pctx.restore();
-  }
-}
-function ballAt(x,y){
-  for(let i=balls.length-1;i>=0;i--){
-    const b=balls[i];
-    if((x-b.x)**2+(y-b.y)**2<=b.r*b.r) return b;
-  }
-  return null;
-}
-pit.addEventListener("pointerdown",e=>{
-  if(!spilling||outro) return;
-  pit.setPointerCapture(e.pointerId);
-  px0=e.clientX; py0=e.clientY; pt0=performance.now(); moved=0; age=0;
-  for(const b of balls){ b.asleep=false; b.rest=0; }
-  const b=ballAt(e.clientX,e.clientY);
-  if(!b) return;
-  grabbed=b; b.held=true; gdx=b.x-e.clientX; gdy=b.y-e.clientY;
-  b.vx=b.vy=0;
-  pit.classList.add("holding");
-});
-pit.addEventListener("pointermove",e=>{
-  if(!spilling||outro) return;
-  moved=Math.max(moved,Math.hypot(e.clientX-px0,e.clientY-py0));
-  age=0;
-  if(grabbed){
-    const nx=e.clientX+gdx, ny=e.clientY+gdy;
-    /* the throw comes from how fast the pointer was travelling, so a flick
-       actually flicks rather than dropping the disc where it was let go */
-    /* capped: an uncapped flick sends a disc so far above the window that it
-       is gone for seconds, and a toy you can lose is not a toy */
-    const cap=v=>Math.max(-1800,Math.min(1800,v));
-    grabbed.vx=cap((nx-grabbed.x)*26); grabbed.vy=cap((ny-grabbed.y)*26);
-    grabbed.x=nx; grabbed.y=ny;
-    return;
-  }
-  for(const b of balls){
-    const dx=b.x-e.clientX, dy=b.y-e.clientY, d=Math.hypot(dx,dy);
-    if(d<b.r*2.4&&d>0.01){
-      const k=(1-d/(b.r*2.4))*900;
-      b.vx+=dx/d*k*0.016; b.vy+=dy/d*k*0.016;
-      b.asleep=false; b.rest=0;
-    }
-  }
-});
-function release(e){
-  if(grabbed){ grabbed.held=false; grabbed=null; pit.classList.remove("holding"); }
-  if(!spilling||outro) return;
-  if(moved<7&&performance.now()-pt0<500){
-    const b=ballAt(e.clientX,e.clientY);
-    if(b){ location.href=b.t.slug+"/index.html"; }
-  }
-}
-pit.addEventListener("pointerup",release);
-pit.addEventListener("pointercancel",()=>{
-  if(grabbed){ grabbed.held=false; grabbed=null; pit.classList.remove("holding"); }
-});
-$("#spill").addEventListener("click",()=>{ spilling?spillBack():spillOut(); });
-addEventListener("resize",()=>{
-  if(!spilling) return;
-  fitPit(); placeNote(); makeSprites();
-  for(const b of balls){
-    b.x=Math.max(b.r,Math.min(innerWidth-b.r,b.x));
-    b.y=Math.min(innerHeight-b.r,b.y);
-  }
 });
 
 /* ---- soft fade at the foot of anything that scrolls ------------------ */
