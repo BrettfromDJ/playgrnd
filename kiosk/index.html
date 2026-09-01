@@ -397,7 +397,8 @@ input[type=range]{accent-color:var(--ink)}
         <div class="pr"><div class="top"><span class="k">Sweep bands</span><span class="v" id="ringsVal">15</span></div><div class="track"><input type="range" id="rings" min="4" max="40" step="1" value="15"></div></div>
         <div class="pr"><div class="top"><span class="k">Stripes</span><span class="v" id="stripesVal">9</span></div><div class="track"><input type="range" id="stripes" min="2" max="24" step="1" value="9"></div></div>
         <div class="note">Split sets how much of the page the sweep keeps before the stripes take over.</div></div></details>
-    <details class="grp" open><summary>Type</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Columns</span><span class="v" id="gridVal">13</span></div><div class="track"><input type="range" id="grid" min="4" max="30" step="1" value="13"></div></div>
+    <details class="grp" open><summary>Type</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Character set</span></span><span class="mval"><div class="chips" id="sets"></div></span></div>
+        <div class="pr"><div class="top"><span class="k">Columns</span><span class="v" id="gridVal">13</span></div><div class="track"><input type="range" id="grid" min="4" max="30" step="1" value="13"></div></div>
         <div class="pr"><div class="top"><span class="k">Large</span><span class="v" id="densityVal">84%</span></div><div class="track"><input type="range" id="density" min="0" max="1" step="0.01" value="0.84"></div></div>
         <div class="pr"><div class="top"><span class="k">Small</span><span class="v" id="smallVal">60%</span></div><div class="track"><input type="range" id="small" min="0" max="1" step="0.01" value="0.6"></div></div></div></details>
     <details class="grp" open><summary>Blocks</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">How many</span><span class="v" id="blocksVal">62%</span></div><div class="track"><input type="range" id="blocks" min="0" max="1" step="0.01" value="0.62"></div></div>
@@ -492,19 +493,27 @@ const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
 const MODES=[["shuffle","Shuffle"],["bloom","Bloom"]];
 
-/* A bold gothic, centred cell by cell. The face is proportional, not a
-   monospace: the reference sets real letters on a grid, and forcing them to a
-   fixed advance would give a typewriter rather than a fly-poster. */
-/* Single quotes around the family names, not double: the same string is set on
+/* The same monospace stack and the same six character sets Atlas uses, so the
+   two text tools speak one vocabulary rather than each inventing its own. */
+/* Single quotes around the family name, not double. The same string is set on
    the canvas and written into an SVG attribute, and a double quote inside a
-   double-quoted attribute ends it early and takes the whole export with it. */
-const FACE="'Helvetica Neue',Helvetica,Arial,'Liberation Sans',sans-serif";
+   double-quoted attribute closes it early and takes the whole export with it —
+   silently, because a broken SVG still downloads. */
+const MONO="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace";
+const FACE=MONO;
 
-/* Weighted towards the consonants and brackets the reference leans on, so a
-   page reads like set type rather than like a random dump of the alphabet. */
-const GLYPHS=("ABCDEFGHIJKLMNOPQRSTUVWXYZ"+
-              "ACEHMNPSU"+"ACEHMNPSU"+"ACEHMNPSU"+"ACEHMNPSU"+
-              "()()()-:-:./"+"0123456789").split("");
+const SETS=[
+  ["dos","DOS","0369#%&@!;,'()"],
+  ["stipple","Stipple",".,;:'\"^~*"],
+  ["blocks","Blocks","\u2591\u2592\u2593\u2588\u25a0\u25aa\u00b7"],
+  ["code","Code","/\\|_-+=<>[]{}"],
+  ["digits","Digits","0123456789"],
+  ["runes","Runes","\u2020\u2021\u00a7\u00b6\u00ae\u00a9\u2260\u221e\u2248"]
+];
+function curSetK(){
+  const s=SETS.find(x=>x[0]===S.set)||SETS[0];
+  return s[2];
+}
 
 const PALETTES=[
   ["#0A0A0A","#E8B84B","#F4F4F2","#E8202A","#00A650","#1B7FE0","#F5D000","#EC1E79"],
@@ -515,7 +524,7 @@ const PALETTES=[
 ];
 
 const S={
-  seed:7, ratio:"4:5",
+  seed:7, ratio:"4:5", set:"dos",
   split:0.62, rings:15, stripes:9,
   grid:13, density:0.84, small:0.60,
   blocks:0.62,
@@ -636,18 +645,19 @@ function paint(c,W,H,f){
   c.textAlign="center"; c.textBaseline="middle";
 
   const put=(i,j,gx,gy,sz,salt)=>{
-    const ch=GLYPHS[Math.floor(hshK(i,j,kseed+salt+3)*GLYPHS.length)];
+    const G=curSetK();
+    const ch=G.charAt(Math.floor(hshK(i,j,kseed+salt+3)*G.length));
     c.fillStyle=hshK(i,j,kseed+salt+7)<0.28?R.dark:R.ink;
     c.font="700 "+sz.toFixed(1)+"px "+FACE;
     c.fillText(ch,gx,gy);
   };
   for(let j=0;j<rows;j++) for(let i=0;i<cols;i++){
     if(hshK(i,j,kseed+71)>S.density) continue;
-    put(i,j,(i+0.5)*cw,(j+0.53)*rh,rh*0.92,71);
+    put(i,j,(i+0.5)*cw,(j+0.52)*rh,rh*1.02,71);
   }
   for(let j=0;j<rows;j++) for(let i=0;i<cols;i++){
     if(hshK(i,j,kseed+91)>S.small) continue;
-    put(i,j,(i+1)*cw,(j+1)*rh,rh*0.40,91);
+    put(i,j,(i+1)*cw,(j+1)*rh,rh*0.44,91);
   }
 }
 
@@ -720,8 +730,8 @@ SvgSurfaceK.prototype.fillText=function(t,x,y){
     '" font-size="'+sz.toFixed(1)+'" fill="'+this.fillStyle+'">'+escK(t)+'</text>');
 };
 SvgSurfaceK.prototype.markup=function(){
-  return '<g font-family="'+FACE+'" font-weight="700" text-anchor="middle">'+
-         this._b.join("")+'</g>';
+  return '<g font-family="'+FACE.replace(/"/g,"'")+'" font-weight="700" '+
+         'text-anchor="middle">'+this._b.join("")+'</g>';
 };
 
 function svgFrame(f){
@@ -944,6 +954,7 @@ function bindRange(id,fmt,set,after){
 }
 
 buildRatios();buildSwatches();accent();
+segmented($("#sets"),SETS.map(x=>[x[0],x[1]]),()=>S.set,v=>{S.set=v;reframe();});
 segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
 $("#shufColors").addEventListener("click",()=>{
   setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
