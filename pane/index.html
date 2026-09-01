@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Kiosk — playgrnd</title>
-<meta name="description" content="Generate fly-poster backgrounds — a sweep of colour bands running into hard vertical stripes, halftone and solid blocks punched over the top, and a dense grid of type across the whole page. Exports vector, image and video.">
+<title>Pane — playgrnd</title>
+<meta name="description" content="Generate gradient panel backgrounds — rows of uneven panes, each ramping between two inks along one of eight directions. Exports live vector gradients, image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -399,32 +399,25 @@ input[type=range]{accent-color:var(--ink)}
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
         <span class="slash">&frasl;</span>
-        <span class="tool">Kiosk</span>
+        <span class="tool">Pane</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">31 / 33</span>
-        <span class="k">Type</span><span class="v">Typographic poster</span>
+        <span class="k">Index</span><span class="v">33 / 33</span>
+        <span class="k">Type</span><span class="v">Gradient panels</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Ground</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Split</span><span class="v" id="splitVal">62%</span></div><div class="track"><input type="range" id="split" min="0.15" max="0.95" step="0.01" value="0.62"></div></div>
-        <div class="pr"><div class="top"><span class="k">Sweep bands</span><span class="v" id="ringsVal">15</span></div><div class="track"><input type="range" id="rings" min="4" max="40" step="1" value="15"></div></div>
-        <div class="pr"><div class="top"><span class="k">Stripes</span><span class="v" id="stripesVal">9</span></div><div class="track"><input type="range" id="stripes" min="2" max="24" step="1" value="9"></div></div>
-        <div class="note">Split sets how much of the page the sweep keeps before the stripes take over.</div></div></details>
-    <details class="grp"><summary>Type</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Character set</span></span><span class="mval"><div class="chips" id="sets"></div></span></div>
-        <div class="misc stack" id="customRow" hidden><span class="mhead"><span class="k">Your characters</span></span><span class="mval"><input type="text" id="customSet" value=".:-=+*#%@" spellcheck="false"
-                 autocomplete="off" aria-label="Your own characters"
-                 placeholder="type any characters"></span></div>
-        <div class="pr"><div class="top"><span class="k">Columns</span><span class="v" id="gridVal">13</span></div><div class="track"><input type="range" id="grid" min="4" max="30" step="1" value="13"></div></div>
-        <div class="pr"><div class="top"><span class="k">Large size</span><span class="v" id="bigSizeVal">50%</span></div><div class="track"><input type="range" id="bigSize" min="0.3" max="1.6" step="0.01" value="0.5"></div></div>
-        <div class="pr"><div class="top"><span class="k">How many large</span><span class="v" id="densityVal">84%</span></div><div class="track"><input type="range" id="density" min="0" max="1" step="0.01" value="0.84"></div></div>
-        <div class="pr"><div class="top"><span class="k">Small size</span><span class="v" id="smallSizeVal">44%</span></div><div class="track"><input type="range" id="smallSize" min="0.1" max="0.9" step="0.01" value="0.44"></div></div>
-        <div class="pr"><div class="top"><span class="k">How many small</span><span class="v" id="smallVal">60%</span></div><div class="track"><input type="range" id="small" min="0" max="1" step="0.01" value="0.6"></div></div></div></details>
-    <details class="grp"><summary>Blocks</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">How many</span><span class="v" id="blocksVal">62%</span></div><div class="track"><input type="range" id="blocks" min="0" max="1" step="0.01" value="0.62"></div></div>
-        <div class="note">Halftone and solid squares down the right edge, plus one panel dropped over the page.</div></div></details></div>
+    <div class="l-scroll"><details class="grp" open><summary>Panes</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Rows</span><span class="v" id="rowsVal">3</span></div><div class="track"><input type="range" id="rows" min="1" max="10" step="1" value="3"></div></div>
+        <div class="pr"><div class="top"><span class="k">Across</span><span class="v" id="cellsVal">6</span></div><div class="track"><input type="range" id="cells" min="1" max="16" step="1" value="6"></div></div>
+        <div class="pr"><div class="top"><span class="k">Unevenness</span><span class="v" id="varyVal">55%</span></div><div class="track"><input type="range" id="vary" min="0" max="1" step="0.01" value="0.55"></div></div>
+        <div class="note">Every row is divided on its own, so no edge runs the whole height of the page.</div></div></details>
+    <details class="grp" open><summary>Ramps</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Diagonals</span><span class="v" id="diagVal">45%</span></div><div class="track"><input type="range" id="diag" min="0" max="1" step="0.01" value="0.45"></div></div>
+        <div class="pr"><div class="top"><span class="k">Softness</span><span class="v" id="softVal">85%</span></div><div class="track"><input type="range" id="soft" min="0" max="1" step="0.01" value="0.85"></div></div>
+        <div class="pr"><div class="top"><span class="k">Contrast</span><span class="v" id="spreadVal">55%</span></div><div class="track"><input type="range" id="spread" min="0" max="1" step="0.01" value="0.55"></div></div>
+        <div class="note">Each pane ramps between two inks along one of eight directions. Contrast is how far apart in the row those two are drawn from.</div></div></details></div>
     <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">8</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
         
-        <div class="note">The darkest ink prints the panels and dots, the lightest is the paper under them, and the next sets the type.</div>
+        <div class="note">Every ink is a gradient stop. A tight row is what holds the page together.</div>
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
@@ -462,14 +455,14 @@ input[type=range]{accent-color:var(--ink)}
     </div>
     <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
           <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
-          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">6 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="6"></div></div>
+          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">8 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="8"></div></div>
           <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">24 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="24"></div></div></div></div>
     <div class="r-bot">
       <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
           <button class="lnk" id="expSvg">SVG</button>
           <button class="lnk" id="expVid">Video</button></span></div>
-        <div class="note" id="expNote">The letters stay real text in the SVG, so the export opens as editable type.</div></div>
+        <div class="note" id="expNote">The SVG carries real gradients, so every pane stays a live ramp you can edit.</div></div>
       <div class="tbl" style="margin-top:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>
@@ -510,260 +503,212 @@ function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const MODES=[["shuffle","Shuffle"],["bloom","Bloom"]];
+const MODES=[["shuffle","Shuffle"],["turn","Turn"]];
 
-/* The same monospace stack and the same six character sets Atlas uses, so the
-   two text tools speak one vocabulary rather than each inventing its own. */
-/* Single quotes around the family name, not double. The same string is set on
-   the canvas and written into an SVG attribute, and a double quote inside a
-   double-quoted attribute closes it early and takes the whole export with it —
-   silently, because a broken SVG still downloads. */
-const MONO="ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace";
-const FACE=MONO;
-
-const SETS=[
-  ["dos","DOS","0369#%&@!;,'()"],
-  ["stipple","Stipple",".,;:'\"^~*"],
-  ["blocks","Blocks","\u2591\u2592\u2593\u2588\u25a0\u25aa\u00b7"],
-  ["code","Code","/\\|_-+=<>[]{}"],
-  ["digits","Digits","0123456789"],
-  ["runes","Runes","\u2020\u2021\u00a7\u00b6\u00ae\u00a9\u2260\u221e\u2248"],
-  ["custom","Custom",""]
-];
-
-/* The classic density ramp, as a starting point to edit rather than a set to
-   use as it is. An empty field falls back to the first set rather than drawing
-   nothing at all. */
-const CUSTOM_DEFAULT=".:-=+*#%@";
-function curSetK(){
-  if(S.set==="custom") return S.custom&&S.custom.length?S.custom:SETS[0][2];
-  const s=SETS.find(x=>x[0]===S.set)||SETS[0];
-  return s[2]||SETS[0][2];
-}
+/* Eight directions and no others: horizontal, vertical, and the four corner
+   diagonals. Every gradient then lands on a corner or an edge of its cell,
+   which is what makes the reference read as drawn rather than as dealt. A free
+   angle meets the cell wherever it happens to and the crispness goes. */
+const DIRS=[[0,0,1,0],[0,0,1,1],[0,0,0,1],[1,0,0,1],
+            [1,0,0,0],[1,1,0,0],[0,1,0,0],[0,1,1,0]];
 
 const PALETTES=[
-  ["#0A0A0A","#E8B84B","#F4F4F2","#E8202A","#00A650","#1B7FE0","#F5D000","#EC1E79"],
-  ["#080808","#D9A83E","#F2F0EA","#D81E2C","#0E9B6C","#2A5FD6","#F0C400","#E0187A"],
-  ["#0B0B0D","#F0C860","#FFFFFF","#FF3B1F","#12B074","#0F6BE0","#FFD400","#FF3D9A"],
-  ["#101010","#C9A227","#EFEFE8","#C4161C","#2E8B57","#1E4FA0","#E8C000","#C2185B"],
-  ["#060606","#EFC050","#F7F5EF","#F04A10","#7CE860","#2CC8F0","#F0D82C","#F03C8C"]
+  ["#FF3BD4","#0B62F0","#FF4A0A","#D6B4FA","#FFC9F2","#FFFFFF","#8B5CF6","#4FA8FF"],
+  ["#FF2FA8","#1E4FE0","#FF6A00","#C7B2F5","#FFD6EE","#FBF8FF","#7A3BE0","#38C6FF"],
+  ["#E8207A","#0A3FD6","#F55A1E","#B9A6F0","#FFC0DE","#FFFFFF","#6D28D9","#22B8F0"],
+  ["#FF4FA0","#2B4FD8","#FFA02C","#A8D8F5","#FFE0F0","#FFFDF7","#5B2BD6","#41E0C8"],
+  ["#F0308C","#1B2FA8","#FF7A1E","#D8C4F0","#FFE8F4","#FFFFFF","#9B4FE0","#2CC8F0"]
 ];
 
 const S={
-  seed:7, ratio:"4:5", set:"dos", custom:CUSTOM_DEFAULT,
-  split:0.62, rings:15, stripes:9,
-  grid:13, density:0.84, small:0.60, bigSize:0.50, smallSize:0.44,
-  blocks:0.62,
+  seed:9, ratio:"16:9",
+  rows:3, cells:6, vary:0.55,
+  diag:0.45, soft:0.85, spread:0.55,
   pal:PALETTES[0].slice(),
-  motion:{on:false,mode:"shuffle",amount:0.6,fps:6,frames:24},
+  motion:{on:false,mode:"shuffle",amount:0.6,fps:8,frames:24},
   size:2400
 };
 
-function hshK(x,y,s){
+function hshP(x,y,s){
   let n=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1274126177);
   n=Math.imul(n^(n>>>13),1274126177);
   n^=n>>>16;
   return (n>>>0)/4294967296;
 }
-function hex2rgbK(h){h=String(h).replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
-  const n=parseInt(h,16);return[(n>>16)&255,(n>>8)&255,n&255];}
-function lumK(h){const[r,g,b]=hex2rgbK(h);return r*.299+g*.587+b*.114;}
 
-/* ---- ink roles ---------------------------------------------------------
-   The darkest ink prints the panels and the halftone dots, the lightest is the
-   paper those dots sit on, and the first of what is left sets the type. The
-   rest are the bands. Only the two extremes are found by scanning, so Rotate
-   still moves the type colour and re-deals the bands — assigning every role by
-   property would leave the button doing nothing at all. */
-function rolesK(){
-  const pal=S.pal.length?S.pal:["#0A0A0A","#E8B84B","#F4F4F2","#E8202A"];
-  let dark=pal[0], paper=pal[0];
-  for(const c of pal){ if(lumK(c)<lumK(dark)) dark=c; if(lumK(c)>lumK(paper)) paper=c; }
-  const rest=pal.filter(c=>c!==dark&&c!==paper);
-  if(!rest.length) rest.push(paper);
-  const ink=rest[0];
-  const bands=rest.length>1?rest.slice(1):rest;
-  return {dark:dark, paper:paper, ink:ink, bands:bands};
+/* ---- the cells ---------------------------------------------------------
+   Every row is divided on its own, so no vertical edge ever runs from the top
+   of the page to the bottom. Splitting one grid and merging cells afterwards
+   leaves those long seams behind, and the page reads as a table. */
+function hex2rgbP(h){h=String(h).replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
+  const n=parseInt(h,16);return[(n>>16)&255,(n>>8)&255,n&255];}
+function rgb2hslP(hex){
+  const [r0,g0,b0]=hex2rgbP(hex), r=r0/255,g=g0/255,b=b0/255;
+  const mx=Math.max(r,g,b), mn=Math.min(r,g,b), d=mx-mn;
+  let h=0,s=0,l=(mx+mn)/2;
+  if(d){
+    s=l>0.5?d/(2-mx-mn):d/(mx+mn);
+    if(mx===r)h=((g-b)/d+(g<b?6:0)); else if(mx===g)h=(b-r)/d+2; else h=(r-g)/d+4;
+    h*=60;
+  }
+  return [h,s,l];
+}
+function hsl2hexP(h,s,l){
+  h=((h%360)+360)%360; s=Math.min(1,Math.max(0,s)); l=Math.min(1,Math.max(0,l));
+  const a=s*Math.min(l,1-l);
+  const f=n=>{const k=(n+h/30)%12;
+    const v=l-a*Math.max(-1,Math.min(k-3,9-k,1));
+    return Math.round(v*255).toString(16).padStart(2,"0");};
+  return "#"+f(0)+f(8)+f(4);
+}
+
+/* ---- the ramp ----------------------------------------------------------
+   Stops laid down by hand along the short way round the colour wheel, rather
+   than left to the renderer. A straight blend from orange to blue passes
+   through grey — the two are opposites and their midpoint has no colour left
+   in it — and a page of that reads as muddy where it should read as electric.
+   Walking the hue keeps the middle saturated.
+
+   Writing the stops out also keeps the two renderings honest: the canvas and
+   the SVG are handed the same numbers rather than each interpolating between
+   two endpoints in whatever space it prefers. */
+function rampP(g,ca,cb,p0,p1){
+  const A=rgb2hslP(ca), B=rgb2hslP(cb);
+  /* a white or black end has no hue of its own; borrow the other's, or the
+     walk sets off towards red on the way to nothing */
+  if(A[1]<0.04) A[0]=B[0];
+  if(B[1]<0.04) B[0]=A[0];
+  let dh=B[0]-A[0];
+  if(dh>180) dh-=360; else if(dh<-180) dh+=360;
+  g.addColorStop(0,ca);
+  if(p0>0) g.addColorStop(p0,ca);
+  const N=8;
+  for(let i=1;i<N;i++){
+    const t=i/N;
+    g.addColorStop(p0+(p1-p0)*t,
+      hsl2hexP(A[0]+dh*t, A[1]+(B[1]-A[1])*t, A[2]+(B[2]-A[2])*t));
+  }
+  if(p1<1) g.addColorStop(p1,cb);
+  g.addColorStop(1,cb);
 }
 
 function paint(c,W,H,f){
-  const R=rolesK();
   const M=S.motion;
-  const kseed=(M.on&&M.mode==="shuffle")?S.seed+f*7919:S.seed;
-  /* Bloom steps the band colours outward a whole ring at a time. A whole
-     number of steps over the loop brings the colours back to where they
-     started, so the last frame meets the first. */
-  const nb=R.bands.length;
-  const bloom=(M.on&&M.mode==="bloom")
-    ? Math.round((f/M.frames)*nb*Math.max(1,Math.round(M.amount*2))) : 0;
-  const band=i=>R.bands[(((i+bloom)%nb)+nb)%nb];
+  const pseed=(M.on&&M.mode==="shuffle")?S.seed+f*7919:S.seed;
+  const turn=(M.on&&M.mode==="turn")
+    ? Math.round((f/M.frames)*8*Math.max(1,Math.round(M.amount*2))) : 0;
 
-  /* ---- the swirl ------------------------------------------------------
-     Concentric rings around a centre held off the left edge, drawn largest
-     first so each smaller disc leaves the one beneath it as a band. From a
-     centre off the page they arrive as big arcs sweeping across, which is what
-     the reference does; a centre on the page would give a bullseye. */
-  c.fillStyle=band(0); c.fillRect(0,0,W,H);
-  const cx=W*(-0.22+hshK(1,1,S.seed+11)*0.30);
-  const cy=H*(-0.06+hshK(2,2,S.seed+13)*0.36);
-  const nR=Math.max(4,S.rings|0);
-  const rmax=Math.hypot(Math.max(Math.abs(cx),Math.abs(W-cx)),
-                        Math.max(Math.abs(cy),Math.abs(H-cy)))*1.02;
-  const stepR=rmax/nR;
-  for(let k=nR;k>=1;k--){
-    c.fillStyle=band(k);
-    c.beginPath(); c.arc(cx,cy,k*stepR,0,Math.PI*2); c.closePath(); c.fill();
-  }
+  const pal=S.pal.length?S.pal:["#FF3BD4","#0B62F0"];
+  const nr=Math.max(1,S.rows|0);
 
-  /* ---- the stripe half ------------------------------------------------
-     Painted straight over the swirl rather than clipped away from it: the
-     same paint() has to run against the SVG recorder, which has no clip, and
-     an opaque band does the same job in both. */
-  const sx=Math.round(W*Math.min(0.95,Math.max(0.15,S.split)));
-  const ns=Math.max(2,S.stripes|0);
-  const wts=[]; let tot=0;
-  for(let i=0;i<ns;i++){ const w=0.45+hshK(i,7,S.seed+31); wts.push(w); tot+=w; }
-  let x=sx;
-  for(let i=0;i<ns;i++){
-    const w=wts[i]/tot*(W-sx);
-    const x0=Math.round(x), x1=Math.round(x+w);
-    c.fillStyle=band(Math.floor(hshK(i,9,S.seed+37)*nb));
-    c.fillRect(x0,0,x1-x0,H);
-    x+=w;
-  }
+  /* uneven weights, with vary setting how uneven; at zero every row is equal */
+  const weights=(n,salt)=>{
+    const w=[]; let t=0;
+    for(let i=0;i<n;i++){ const v=1+(hshP(i,salt,S.seed+salt)*2-1)*S.vary*0.85; w.push(v); t+=v; }
+    return w.map(v=>v/t);
+  };
 
-  /* ---- blocks ---------------------------------------------------------
-     A column of halftone and solid squares down the right edge, plus one large
-     panel dropped over the composition. These are what stop the page reading
-     as a plain field of colour behind type. */
-  const colW=W*0.115, colX=W-colW, nbk=8, bh=H/nbk;
-  for(let i=0;i<nbk;i++){
-    if(hshK(i,13,S.seed+41)>S.blocks) continue;
-    const y0=Math.round(i*bh), y1=Math.round((i+1)*bh);
-    if(((i+(hshK(0,19,S.seed+47)<0.5?1:0))&1)===0){
-      c.fillStyle=R.paper; c.fillRect(colX,y0,colW,y1-y0);
-      const d=colW/6;
-      c.fillStyle=R.dark;
-      const dr=Math.ceil((y1-y0)/d);
-      for(let jy=0;jy<dr;jy++) for(let jx=0;jx<6;jx++){
-        const dy=y0+(jy+0.5)*d;
-        if(dy>y1) continue;
-        c.beginPath(); c.arc(colX+(jx+0.5)*d,dy,d*0.23,0,Math.PI*2); c.closePath(); c.fill();
-      }
-    }else{
-      c.fillStyle=R.dark; c.fillRect(colX,y0,colW,y1-y0);
+  const rh=weights(nr,3);
+  let y=0;
+  for(let j=0;j<nr;j++){
+    const y0=Math.round(y*H), y1=(j===nr-1)?H:Math.round((y+rh[j])*H);
+    y+=rh[j];
+    /* the cell count varies row to row, which is most of what stops the rows
+       lining up with one another */
+    const nc=Math.max(1,Math.round(S.cells*(0.55+hshP(j,5,S.seed+7)*0.9)));
+    const cwt=weights(nc,11+j*7);
+    let x=0;
+    for(let i=0;i<nc;i++){
+      const x0=Math.round(x*W), x1=(i===nc-1)?W:Math.round((x+cwt[i])*W);
+      x+=cwt[i];
+      cell(c,x0,y0,x1-x0,y1-y0,i,j);
     }
   }
-  const pw=W*(0.26+hshK(3,3,S.seed+53)*0.18), ph=H*(0.14+hshK(4,4,S.seed+59)*0.11);
-  const px=W*(0.26+hshK(5,5,S.seed+61)*0.26), py=H*(0.56+hshK(6,6,S.seed+67)*0.22);
-  c.fillStyle=R.dark;
-  c.fillRect(Math.round(px),Math.round(py),Math.round(pw),Math.round(ph));
 
-  /* ---- the type -------------------------------------------------------
-     Two passes on the same grid: the full cells, then the corners between
-     them at under half the size. One pass at one size gives an even mesh; the
-     reference has a coarse rank of large letters with smaller ones packed into
-     the gaps, and it is that second pass that makes it read as dense. */
-  const cols=Math.max(4,S.grid|0);
-  const cw=W/cols;
-  const rows=Math.max(2,Math.round(H/cw));
-  const rh=H/rows;
-  c.textAlign="center"; c.textBaseline="middle";
+  function cell(c,x,y,w,h,i,j){
+    if(w<=0||h<=0) return;
+    /* Diagonals sit at the odd indices, flats at the even ones, so one hash
+       chooses the family and another the member. Picking a direction outright
+       and then trying to bias it towards diagonals takes two draws to say the
+       same thing and leaves the slider fighting the deal. */
+    const wantD=hshP(i,j,pseed+13)<S.diag;
+    const k=Math.floor(hshP(i,j,pseed+17)*4)*2+(wantD?1:0);
+    const d=DIRS[(k+turn)&7];
+    const g=c.createLinearGradient(x+d[0]*w, y+d[1]*h, x+d[2]*w, y+d[3]*h);
 
-  const put=(i,j,gx,gy,sz,salt)=>{
-    const G=curSetK();
-    const ch=G.charAt(Math.floor(hshK(i,j,kseed+salt+3)*G.length));
-    c.fillStyle=hshK(i,j,kseed+salt+7)<0.28?R.dark:R.ink;
-    c.font="700 "+sz.toFixed(1)+"px "+FACE;
-    c.fillText(ch,gx,gy);
-  };
-  for(let j=0;j<rows;j++) for(let i=0;i<cols;i++){
-    if(hshK(i,j,kseed+71)>S.density) continue;
-    put(i,j,(i+0.5)*cw,(j+0.52)*rh,rh*S.bigSize,71);
-  }
-  for(let j=0;j<rows;j++) for(let i=0;i<cols;i++){
-    if(hshK(i,j,kseed+91)>S.small) continue;
-    put(i,j,(i+1)*cw,(j+1)*rh,rh*S.smallSize,91);
+    /* spread sets how far apart in the row the two inks are drawn from: low
+       and a cell is two neighbours, so it barely shifts; high and it is a
+       collision. Both are in the reference. */
+    const n=pal.length;
+    const a=Math.floor(hshP(i,j,pseed+19)*n);
+    const step=1+Math.floor(hshP(i,j,pseed+23)*Math.max(1,Math.round(1+S.spread*(n-2))));
+    const b=(a+step)%n;
+
+    /* soft is how much of the cell is the blend; at zero the two inks meet on
+       a hard line, at one the whole cell is the ramp */
+    const sp=0.5*(1-S.soft);
+    const p0=Math.min(0.49,sp*(0.4+hshP(i,j,pseed+29)*1.2));
+    const p1=Math.max(0.51,1-sp*(0.4+hshP(i,j,pseed+31)*1.2));
+    rampP(g,pal[a],pal[b],p0,p1);
+
+    c.fillStyle=g;
+    c.fillRect(x,y,w,h);
   }
 }
 
 /* ---- vector ------------------------------------------------------------
-   The same paint() against a recorder. Discs stay circles and the letters stay
-   real <text>, so the export opens as editable type rather than as outlines —
-   and it cannot drift from what is on screen. */
-function escK(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
-function SvgSurfaceK(){
-  this.fillStyle="#000"; this.font=""; this.textAlign="center"; this.textBaseline="middle";
-  this.imageSmoothingEnabled=false;
-  this._b=[]; this._c=null;
+   The same paint() against a recorder. The gradients are the picture here, so
+   the recorder has to speak createLinearGradient too — each one becomes a real
+   <linearGradient> in userSpaceOnUse, which takes the very coordinates the
+   canvas was handed. Anything less and the export would be a flat
+   approximation of a page that is nothing but ramps. */
+function SvgSurfaceP(){
+  this.fillStyle="#000"; this.imageSmoothingEnabled=false;
+  this._b=[]; this._d=[]; this._n=0;
 }
-SvgSurfaceK.prototype.save=function(){};
-SvgSurfaceK.prototype.restore=function(){};
-SvgSurfaceK.prototype.translate=function(){};
-SvgSurfaceK.prototype.scale=function(){};
-SvgSurfaceK.prototype.rotate=function(){};
-SvgSurfaceK.prototype.clearRect=function(){};
-SvgSurfaceK.prototype.fillRect=function(x,y,w,h){
+function GradP(x0,y0,x1,y1){
+  this.x0=x0; this.y0=y0; this.x1=x1; this.y1=y1; this.stops=[];
+}
+GradP.prototype.addColorStop=function(o,c){ this.stops.push([o,c]); };
+SvgSurfaceP.prototype.createLinearGradient=function(x0,y0,x1,y1){
+  return new GradP(x0,y0,x1,y1);
+};
+SvgSurfaceP.prototype.save=function(){};
+SvgSurfaceP.prototype.restore=function(){};
+SvgSurfaceP.prototype.translate=function(){};
+SvgSurfaceP.prototype.scale=function(){};
+SvgSurfaceP.prototype.rotate=function(){};
+SvgSurfaceP.prototype.clearRect=function(){};
+SvgSurfaceP.prototype.beginPath=function(){};
+SvgSurfaceP.prototype.moveTo=function(){};
+SvgSurfaceP.prototype.lineTo=function(){};
+SvgSurfaceP.prototype.closePath=function(){};
+SvgSurfaceP.prototype.arc=function(){};
+SvgSurfaceP.prototype.fill=function(){};
+SvgSurfaceP.prototype.stroke=function(){};
+SvgSurfaceP.prototype.fillRect=function(x,y,w,h){
+  if(w<=0||h<=0) return;
+  let paint=this.fillStyle;
+  if(paint instanceof GradP){
+    const id="p"+(this._n++);
+    this._d.push('<linearGradient id="'+id+'" gradientUnits="userSpaceOnUse" x1="'+
+      paint.x0.toFixed(1)+'" y1="'+paint.y0.toFixed(1)+'" x2="'+paint.x1.toFixed(1)+
+      '" y2="'+paint.y1.toFixed(1)+'">'+
+      paint.stops.map(s=>'<stop offset="'+s[0].toFixed(3)+'" stop-color="'+s[1]+'"/>').join("")+
+      '</linearGradient>');
+    paint="url(#"+id+")";
+  }
   this._b.push('<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+w.toFixed(1)+
-               '" height="'+h.toFixed(1)+'" fill="'+this.fillStyle+'"/>');
+               '" height="'+h.toFixed(1)+'" fill="'+paint+'"/>');
 };
-SvgSurfaceK.prototype.beginPath=function(){this._c=null;};
-SvgSurfaceK.prototype.moveTo=function(){};
-SvgSurfaceK.prototype.lineTo=function(){};
-SvgSurfaceK.prototype.closePath=function(){};
-SvgSurfaceK.prototype.arc=function(x,y,r){this._c={x:x,y:y,r:r};};
-SvgSurfaceK.prototype.fill=function(){
-  if(!this._c) return;
-  this._b.push('<circle cx="'+this._c.x.toFixed(1)+'" cy="'+this._c.y.toFixed(1)+
-    '" r="'+this._c.r.toFixed(1)+'" fill="'+this.fillStyle+'"/>');
-  this._c=null;
-};
-SvgSurfaceK.prototype.stroke=function(){};
-/* Canvas centres a glyph on its em box when textBaseline is "middle". SVG's
-   dominant-baseline="central" is a near neighbour of that, not the same thing,
-   and across a page of ninety-pixel letters the few pixels between them put a
-   tenth of the export out of register with the screen. So the offset is
-   measured from the font itself, once, and the text is written on the ordinary
-   alphabetic baseline where both renderers agree. */
-let BASEK=null;
-function baseOffK(){
-  if(BASEK!==null) return BASEK;
-  BASEK=0.32;                       /* a sane fallback if metrics are absent */
-  try{
-    /* Ask the canvas itself how far it moves a glyph for "middle", rather than
-       deriving it from the font's ascent and descent: the em square a browser
-       centres on is not the same as the span between those two, and the couple
-       of percent between the guess and the truth is three pixels on a
-       hundred-pixel letter. measureText reports its box relative to whichever
-       baseline is set, so the difference between the two readings is the shift
-       itself, in pixels, for whatever face actually resolved. */
-    const c=document.createElement("canvas").getContext("2d");
-    c.font="700 200px "+FACE;
-    c.textBaseline="alphabetic";
-    const a=c.measureText("H").actualBoundingBoxAscent;
-    c.textBaseline="middle";
-    const m=c.measureText("H").actualBoundingBoxAscent;
-    if(isFinite(a)&&isFinite(m)) BASEK=(a-m)/200;
-  }catch(e){}
-  return BASEK;
-}
-SvgSurfaceK.prototype.fillText=function(t,x,y){
-  /* the size is read back off the same font string the canvas was given, so
-     the two can never be set to different numbers */
-  const m=/([\d.]+)px/.exec(this.font);
-  const sz=m?parseFloat(m[1]):16;
-  this._b.push('<text x="'+x.toFixed(1)+'" y="'+(y+sz*baseOffK()).toFixed(1)+
-    '" font-size="'+sz.toFixed(1)+'" fill="'+this.fillStyle+'">'+escK(t)+'</text>');
-};
-SvgSurfaceK.prototype.markup=function(){
-  return '<g font-family="'+FACE.replace(/"/g,"'")+'" font-weight="700" '+
-         'text-anchor="middle">'+this._b.join("")+'</g>';
+SvgSurfaceP.prototype.markup=function(){
+  return '<defs>'+this._d.join("")+'</defs>'+this._b.join("");
 };
 
 function svgFrame(f){
   const r=RATIOS.find(x=>x.id===S.ratio);
   const W=S.size,H=Math.round(S.size*r.h/r.w);
-  const s=new SvgSurfaceK();
+  const s=new SvgSurfaceP();
   paint(s,W,H,f);
   return s.markup();
 }
@@ -772,8 +717,8 @@ function svgWrap(inner){
   const W=S.size,H=Math.round(S.size*r.h/r.w);
   return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+
          '" viewBox="0 0 '+W+' '+H+'">'+
-         '<clipPath id="k"><rect width="'+W+'" height="'+H+'"/></clipPath>'+
-         '<g clip-path="url(#k)">'+inner+'</g></svg>';
+         '<clipPath id="pc"><rect width="'+W+'" height="'+H+'"/></clipPath>'+
+         '<g clip-path="url(#pc)">'+inner+'</g></svg>';
 }
 function buildSVG(){return svgWrap(svgFrame(curFrame));}
 
@@ -844,7 +789,7 @@ function save(blob,name){
   a.href=url;a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
-function stamp(){return `kiosk-${S.seed}-${S.ratio.replace(":","x")}`;}
+function stamp(){return `pane-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
   const a=$("#expVid"),sc=$("#scrub"),l=$("#expSvgLoop");
   if(a)a.disabled=!S.motion.on;
@@ -980,45 +925,19 @@ function bindRange(id,fmt,set,after){
 }
 
 buildRatios();buildSwatches();accent();
-segmented($("#sets"),SETS.map(x=>[x[0],x[1]]),()=>S.set,v=>{S.set=v;syncCustomSet();reframe();});
-/* The field only means anything under Custom, so it only appears there. The
-   chassis states [hidden] loudly enough to beat its own display rules. */
-function syncCustomSet(){
-  const row=$("#customRow");
-  if(row) row.hidden=(S.set!=="custom");
-}
-{
-  const el=$("#customSet");
-  if(el){
-    el.value=S.custom;
-    el.addEventListener("input",()=>{S.custom=el.value;reframe();});
-  }
-  syncCustomSet();
-}
 segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
 $("#shufColors").addEventListener("click",()=>{
   setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
 });
 $("#rotColors").addEventListener("click",()=>{
-  if(S.pal.length<3){setPalette(S.pal.slice(1).concat(S.pal[0]));return;}
-  let di=0;
-  for(let i=1;i<S.pal.length;i++) if(lumK(S.pal[i])<lumK(S.pal[di])) di=i;
-  const rest=S.pal.filter((c,i)=>i!==di);
-  rest.push(rest.shift());
-  const out=S.pal.slice();
-  let k=0;
-  for(let i=0;i<out.length;i++) if(i!==di) out[i]=rest[k++];
-  setPalette(out);
+  setPalette(S.pal.slice(1).concat(S.pal[0]));
 });
-bindRange("split",v=>Math.round(v*100)+"%",v=>S.split=v);
-bindRange("rings",v=>v|0,v=>S.rings=v|0);
-bindRange("stripes",v=>v|0,v=>S.stripes=v|0);
-bindRange("grid",v=>v|0,v=>S.grid=v|0);
-bindRange("bigSize",v=>Math.round(v*100)+"%",v=>S.bigSize=v);
-bindRange("density",v=>Math.round(v*100)+"%",v=>S.density=v);
-bindRange("smallSize",v=>Math.round(v*100)+"%",v=>S.smallSize=v);
-bindRange("small",v=>Math.round(v*100)+"%",v=>S.small=v);
-bindRange("blocks",v=>Math.round(v*100)+"%",v=>S.blocks=v);
+bindRange("rows",v=>v|0,v=>S.rows=v|0);
+bindRange("cells",v=>v|0,v=>S.cells=v|0);
+bindRange("vary",v=>Math.round(v*100)+"%",v=>S.vary=v);
+bindRange("diag",v=>Math.round(v*100)+"%",v=>S.diag=v);
+bindRange("soft",v=>Math.round(v*100)+"%",v=>S.soft=v);
+bindRange("spread",v=>Math.round(v*100)+"%",v=>S.spread=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
