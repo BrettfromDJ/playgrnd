@@ -3,24 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Oddgrid — playgrnd</title>
+<title>Bloom — playgrnd</title>
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/favicon.png" sizes="180x180" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="description" content="Generate pixelated grid artwork. Adjust pattern, colour and motion, then export as PNG, vector SVG, animated SVG or video.">
-<meta property="og:title" content="Oddgrid">
-<meta property="og:description" content="Generate pixelated grid artwork and export it as vector, animation or video.">
-<meta property="og:type" content="website">
-<!-- SWAP THE DOMAIN on the four lines below once your live URL is set -->
-<meta property="og:url" content="https://oddgrid.vercel.app/">
-<meta property="og:image" content="https://oddgrid.vercel.app/og.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Generative pixel grid artwork in blue, pink, olive and orange">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Oddgrid">
-<meta name="twitter:description" content="Generate pixelated grid artwork and export it as vector, animation or video.">
-<meta name="twitter:image" content="https://oddgrid.vercel.app/og.png">
+<meta name="description" content="Generate symmetrical pixel-field banners — soft rings spreading from the centre, quantised into big square pixels and mirrored on both axes, with a quiet middle for a headline. Exports vector, image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -431,46 +418,26 @@ input[type=range]{accent-color:var(--ink)}
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
         <span class="slash">&frasl;</span>
-        <span class="tool">Oddgrid</span>
+        <span class="tool">Bloom</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">01 / 35</span>
-        <span class="k">Type</span><span class="v">Pixel compositions</span>
+        <span class="k">Index</span><span class="v">35 / 35</span>
+        <span class="k">Type</span><span class="v">Symmetrical pixel field</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Shape</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Grid detail</span><span class="v" id="colsVal">44</span></div><div class="track"><input type="range" id="cols" min="12" max="110" step="1" value="44"></div></div></div></details>
-    <details class="grp"><summary>Pattern</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Look</span></span><span class="mval"><div class="chips" id="presets"></div></span></div>
-        <div class="pr"><div class="top"><span class="k">Zoom</span><span class="v" id="scaleVal">10</span></div><div class="track"><input type="range" id="scale" min="2" max="60" step="0.5" value="10"></div></div>
-        <div class="pr"><div class="top"><span class="k">Fill</span><span class="v" id="densityVal">55%</span></div><div class="track"><input type="range" id="density" min="0" max="1" step="0.01" value="0.55"></div></div>
-        <div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">35%</span></div><div class="track"><input type="range" id="grain" min="0" max="1.4" step="0.01" value="0.35"></div></div>
-        <div class="pr"><div class="top"><span class="k">Patchiness</span><span class="v" id="varietyVal">50%</span></div><div class="track"><input type="range" id="variety" min="0" max="1.6" step="0.01" value="0.5"></div></div>
-        <div class="pr"><div class="top"><span class="k">Blockiness</span><span class="v" id="blockVal">40%</span></div><div class="track"><input type="range" id="block" min="0" max="1" step="0.01" value="0.4"></div></div>
-        <div class="pr"><div class="top"><span class="k">Block size</span><span class="v" id="bsizeVal">6</span></div><div class="track"><input type="range" id="bsize" min="2" max="16" step="1" value="6"></div></div>
-        <div class="pr"><div class="top"><span class="k">Speckle</span><span class="v" id="speckVal">8%</span></div><div class="track"><input type="range" id="speck" min="0" max="0.6" step="0.01" value="0.08"></div></div></div></details>
-    <details class="grp"><summary>Detail</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Cell marks</span></span><span class="mval"><div class="chips" id="motifs"></div></span></div>
-        <div class="pr"><div class="top"><span class="k">Mark amount</span><span class="v" id="motifVal">0%</span></div><div class="track"><input type="range" id="motifAmt" min="0" max="1" step="0.01" value="0"></div></div>
-        <div class="pr"><div class="top"><span class="k">Mark size</span><span class="v" id="markSizeVal">52%</span></div><div class="track"><input type="range" id="markSize" min="0.15" max="1" step="0.01" value="0.52"></div></div>
-        <div class="misc" id="customRow"><span class="mhead"><span class="k">Your own shape</span></span><span class="mval"><div id="customSlot">
-            <button class="drop" id="drop" type="button">Drop an SVG here<br>or click to choose a file</button>
-          </div>
-          <input type="file" id="svgFile" accept=".svg,image/svg+xml" hidden></span></div>
-        <div class="misc" id="inkRow" hidden><span class="mhead"><span class="k">Recolor to ink</span></span><span class="mval"></span>
-          <button class="switch" id="inkTog" aria-pressed="true" aria-label="Recolor the shape to the ink color"></button></span></div></div></details></div>
-    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Colors</span><span class="v" id="countVal">5</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
-        <div class="pr"><div class="top"><span class="k">Spread</span><span class="v" id="balanceVal">Even</span></div><div class="track"><input type="range" id="balance" min="-1.2" max="1.2" step="0.05" value="0"></div></div>
-        <div class="pair">
-          <div>
-            <div class="lab"><span>Background</span></div>
-            <button class="sw" id="bgSw"><span class="fill"></span><input type="color" id="bgIn" aria-label="Background color"></button>
-          </div>
-          <div>
-            <div class="lab"><span>Ink</span></div>
-            <button class="sw" id="inkSw"><span class="fill"></span><input type="color" id="inkIn" aria-label="Ink color"></button>
-          </div>
-        </div>
+    <div class="l-scroll"><details class="grp" open><summary>Field</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Pixels across</span><span class="v" id="colsVal">40</span></div><div class="track"><input type="range" id="cols" min="8" max="96" step="1" value="40"></div></div>
+        <div class="pr"><div class="top"><span class="k">Rings</span><span class="v" id="ringsVal">7</span></div><div class="track"><input type="range" id="rings" min="1" max="14" step="1" value="7"></div></div>
+        <div class="pr"><div class="top"><span class="k">Distortion</span><span class="v" id="warpVal">50%</span></div><div class="track"><input type="range" id="warp" min="0" max="1" step="0.01" value="0.5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">30%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.3"></div></div>
+        <div class="note">Rings spread from the middle, pushed off true so they read as organic rather than as targets.</div></div></details>
+    <details class="grp" open><summary>Levels</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Steps</span><span class="v" id="stepsVal">6</span></div><div class="track"><input type="range" id="steps" min="2" max="14" step="1" value="6"></div></div>
+        <div class="pr"><div class="top"><span class="k">Quiet centre</span><span class="v" id="calmVal">35%</span></div><div class="track"><input type="range" id="calm" min="0" max="1" step="0.01" value="0.35"></div></div>
+        <div class="note">The quiet centre grows the innermost band, so a headline has somewhere flat to sit. Wind it to zero and the field runs edge to edge.</div></div></details></div>
+    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">6</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
         
-      <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotInks">Rotate</button></span></div></div></details>
+        <div class="note">The row is read as a ramp: first ink is the deepest band, last is the palest.</div>
+      <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
     </div>
@@ -488,7 +455,7 @@ input[type=range]{accent-color:var(--ink)}
     </div>
     <span class="ring"></span><span class="xh hz"></span><span class="xh vt"></span>
     <span class="holder">
-      <canvas id="art" width="800" height="800" title="Click for a new variation"></canvas>
+      <canvas id="art" width="800" height="800"></canvas>
       <span class="corner a"></span><span class="corner b"></span>
       <span class="corner c"></span><span class="corner d"></span>
     </span>
@@ -506,17 +473,15 @@ input[type=range]{accent-color:var(--ink)}
       <h2 class="h frame-h">Frame</h2><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span>
     </div>
     <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
-          <div class="pr"><div class="top"><span class="k">Intensity</span><span class="v" id="amtVal">0.8</span></div><div class="track"><input type="range" id="amt" min="0.1" max="3" step="0.05" value="0.8"></div></div>
-          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">8 fps</span></div><div class="track"><input type="range" id="fps" min="1" max="30" step="1" value="8"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">32 frames</span></div><div class="track"><input type="range" id="frames" min="6" max="90" step="1" value="32"></div></div>
-          <div class="note">The loop is seamless — it ends exactly where it started.</div></div></div>
+          <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
+          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">8 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="8"></div></div>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">24 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="24"></div></div></div></div>
     <div class="r-bot">
-      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2000 px</span></div><div class="track"><input type="range" id="size" min="500" max="6000" step="100" value="2000"></div></div>
+      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
-          <button class="lnk" id="expSvg">SVG</button></span></div>
-        <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expSvgAnim">Animated SVG</button>
+          <button class="lnk" id="expSvg">SVG</button>
           <button class="lnk" id="expVid">Video</button></span></div>
-        <div class="note" id="expNote">Animated exports need motion turned on.</div></div>
+        <div class="note" id="expNote">Every pixel is a rectangle, so the SVG is the picture itself rather than a trace of it.</div></div>
       <div class="tbl" style="margin-top:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>
@@ -540,936 +505,426 @@ input[type=range]{accent-color:var(--ink)}
 <script>
 (() => {
 "use strict";
-
-/* ============================================================
-   Small helpers
-============================================================ */
-const $ = s => document.querySelector(s);
-const TAU = Math.PI * 2;
-const clamp = (v,a,b) => v<a?a:v>b?b:v;
-const lerp = (a,b,t) => a + (b-a)*t;
-const fade = t => t*t*(3-2*t);
-const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-function hashi(x,y,z,w,seed){
-  let n = Math.imul(x|0,374761393) ^ Math.imul(y|0,668265263) ^ Math.imul(z|0,1440662683)
-        ^ Math.imul(w|0,1274126177) ^ Math.imul(seed|0,1013904223);
-  n = Math.imul(n ^ (n>>>15), 2246822519);
-  n = Math.imul(n ^ (n>>>13), 3266489917);
-  n ^= n>>>16;
-  return (n>>>0) / 4294967296;
+const $=s=>document.querySelector(s);
+const TAU=Math.PI*2;
+const clamp=(v,a,b)=>v<a?a:v>b?b:v;
+const reduceMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function rng(s){let a=(s>>>0)||1;return()=>{a^=a<<13;a>>>=0;a^=a>>17;a^=a<<5;a>>>=0;return a/4294967296;};}
+function hashi(x,y,z,s){
+  let n=Math.imul(x|0,374761393)^Math.imul(y|0,668265263)^Math.imul(z|0,1440662683)^Math.imul(s|0,1013904223);
+  n=Math.imul(n^(n>>>15),2246822519);n=Math.imul(n^(n>>>13),3266489917);n^=n>>>16;
+  return (n>>>0)/4294967296;
 }
-/* 4-D value noise — the 4th axis lets an animation return to its exact start */
-function vnoise(x,y,z,w,seed){
-  const xi=Math.floor(x), yi=Math.floor(y), zi=Math.floor(z), wi=Math.floor(w);
-  const u=fade(x-xi), v=fade(y-yi), s=fade(z-zi), t=fade(w-wi);
-  const face = (dz,dw) => {
-    const a=hashi(xi,yi,zi+dz,wi+dw,seed),   b=hashi(xi+1,yi,zi+dz,wi+dw,seed);
-    const c=hashi(xi,yi+1,zi+dz,wi+dw,seed), d=hashi(xi+1,yi+1,zi+dz,wi+dw,seed);
-    return lerp(lerp(a,b,u), lerp(c,d,u), v);
-  };
-  return lerp(lerp(face(0,0),face(0,1),t), lerp(face(1,0),face(1,1),t), s);
-}
-function fbm(x,y,z,w,seed,oct){
-  let a=0.5,f=1,sum=0,norm=0;
-  for(let i=0;i<oct;i++){ sum += a*vnoise(x*f,y*f,z,w,seed+i*1319); norm+=a; a*=0.5; f*=2; }
-  return sum/norm;
-}
-function rng(s){ let a=(s>>>0)||1; return ()=>{ a^=a<<13;a>>>=0;a^=a>>17;a^=a<<5;a>>>=0; return a/4294967296; }; }
+function hex2rgb(h){h=h.replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
+  return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];}
+function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4);});
+  return .2126*r+.7152*g+.0722*b;}
 
-/* color utils */
-function hex2rgb(h){ h=h.replace("#",""); if(h.length===3) h=h.split("").map(c=>c+c).join("");
-  return [parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)]; }
-function rgb2hex(r,g,b){ return "#"+[r,g,b].map(v=>clamp(Math.round(v),0,255).toString(16).padStart(2,"0")).join(""); }
-function hsl2hex(h,s,l){
-  h=((h%360)+360)%360; s/=100; l/=100;
-  const c=(1-Math.abs(2*l-1))*s, x=c*(1-Math.abs((h/60)%2-1)), m=l-c/2;
-  let r,g,b;
-  if(h<60)[r,g,b]=[c,x,0]; else if(h<120)[r,g,b]=[x,c,0]; else if(h<180)[r,g,b]=[0,c,x];
-  else if(h<240)[r,g,b]=[0,x,c]; else if(h<300)[r,g,b]=[x,0,c]; else [r,g,b]=[c,0,x];
-  return rgb2hex((r+m)*255,(g+m)*255,(b+m)*255);
-}
-function relLum(hex){ const [r,g,b]=hex2rgb(hex).map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4);});
-  return .2126*r+.7152*g+.0722*b; }
-function chroma(hex){ const [r,g,b]=hex2rgb(hex); return (Math.max(r,g,b)-Math.min(r,g,b))/255; }
+const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
+ {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
+const MODES=[["ripple","Ripple"],["breathe","Breathe"]];
 
-/* ============================================================
-   State
-============================================================ */
-const RATIOS = [
-  {id:"9:16", w:9,  h:16, label:"9:16"},
-  {id:"3:4",  w:3,  h:4,  label:"3:4"},
-  {id:"4:5",  w:4,  h:5,  label:"4:5"},
-  {id:"1:1",  w:1,  h:1,  label:"1:1"},
-  {id:"5:4",  w:5,  h:4,  label:"5:4"},
-  {id:"4:3",  w:4,  h:3,  label:"4:3"},
-  {id:"3:2",  w:3,  h:2,  label:"3:2"},
-  {id:"16:9", w:16, h:9,  label:"16:9"}
+/* A ramp, in order: slot 0 is the deepest band and the last is the palest.
+   Because the ramp is the row's own order, Rotate genuinely re-deals which
+   colour sits at which depth instead of doing nothing. */
+const PALETTES=[
+  ["#0A8FE8","#17BEF2","#5FD4F7","#A9E6F9","#9FDE7C","#C9EEA6"],
+  ["#0B6FD6","#12A8EC","#4FC8F5","#9EE0F7","#8AD46A","#BCEA98"],
+  ["#7A1FD6","#B23BE8","#E06AF0","#F0A8F5","#F5D06A","#FAE7A8"],
+  ["#E0452C","#F07A2C","#F5A94A","#FAD08A","#7ACBB0","#B6E4D6"],
+  ["#12143A","#2B3F8A","#3F79D6","#6FB0EC","#A8D8F5","#DCEFFA"]
 ];
-const PALETTES = {
-  Riso:   {bg:"#F1EBE1", ink:"#0E2A8C", colors:["#1B4FA0","#0E2A8C","#FF87C3","#8E9A24","#FF5B1E"]},
-  Bloom:  {bg:"#000000", ink:"#000000", colors:["#FFF04D","#FF7A1A","#FF2CB0","#D9F3F0","#F0D8D4"]},
-  Pool:   {bg:"#C9F7F2", ink:"#0A0A0A", colors:["#FFF04D","#FF7A1A","#FF2CB0","#111111","#EFD4CE"]},
-  Quilt:  {bg:"#EFEBE3", ink:"#1F3A1C", colors:["#E23B26","#F58FB0","#F2C33C","#3B6FB5","#1F3A1C","#C9C9C1"]},
-  Acid:   {bg:"#E4E7DC", ink:"#101010", colors:["#101010","#C6FF3D","#FF2E63","#4D5DFF"]},
-  Mono:   {bg:"#09090B", ink:"#09090B", colors:["#101116","#191B21","#26292F","#3A3E46","#767C86"]}
-};
-const LOOKS = {
-  Patchwork:{scale:13, density:.82,block:.75,bsize:6, grain:.75,variety:.55,speck:.1, balance:0,  motif:"none",  motifAmt:0},
-  Bloom:    {scale:9,  density:.52,block:.1, bsize:4, grain:.28,variety:.15,speck:.04,balance:.1, motif:"dot",   motifAmt:.9},
-  Quilt:    {scale:8,  density:.95,block:.28,bsize:5, grain:.55,variety:.2, speck:.12,balance:.6, motif:"diag",  motifAmt:.12},
-  Scatter:  {scale:12, density:.32,block:.05,bsize:4, grain:.5, variety:.4, speck:.1, balance:0,  motif:"dot",   motifAmt:.55},
-  Drift:    {scale:16, density:.65,block:.6, bsize:9, grain:.18,variety:.5, speck:.03,balance:.2, motif:"none",  motifAmt:0}
-};
-const MOTIFS = [["none","None"],["dot","Dot"],["ring","Ring"],["square","Square"],["diag","Wedge"],["mixed","Mixed"],["custom","Custom"]];
-const MODES  = [["flow","Flow"],["scan","Scan"],["pulse","Pulse"],["shimmer","Shimmer"]];
 
-const S = {
-  seed: 1, ratio:"1:1", cols:44, look:"Patchwork", paletteName:"Riso",
-  scale:10, density:.55, block:.4, bsize:6, speck:.08, grain:.35, variety:.5,
-  motif:"none", motifAmt:0, markSize:.52, custom:null, inkMark:true,
-  palette:["#EA337B","#EA33CA","#510BF5","#75FBFA","#78FC4C","#EAFE53","#EE7F31","#EA3323"],
-  bg:"#F1EBE1", ink:"#0E2A8C", balance:0,
-  motion:{on:false, mode:"flow", amount:.8, fps:8, frames:32},
-  size:2000
+const S={
+  seed:8, ratio:"16:9",
+  cols:40, rings:7, warp:0.5,
+  grain:0.3, steps:6, calm:0.35,
+  pal:PALETTES[0].slice(),
+  motion:{on:false,mode:"ripple",amount:0.6,fps:8,frames:24},
+  size:2400
 };
 
-/* ============================================================
-   Generator
-============================================================ */
-let cache = new Map();
-
-function dims(){
-  const r = RATIOS.find(x=>x.id===S.ratio);
-  const cols = S.cols;
-  const rows = Math.max(4, Math.round(cols * r.h / r.w));
-  return {cols, rows};
+function hshB(x,y,s){
+  let n=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1274126177);
+  n=Math.imul(n^(n>>>13),1274126177);
+  n^=n>>>16;
+  return (n>>>0)/4294967296;
 }
-function invalidate(){ cache.clear(); requestDraw(); updateExportNote(); }
-
-function updateExportNote(){
-  const note = document.getElementById("expNote");
-  if(!note) return;
-  const anim = document.getElementById("expSvgAnim"), vid = document.getElementById("expVid");
-  const scrub = document.getElementById("scrub");
-  if(anim) anim.disabled = !S.motion.on;
-  if(vid)  vid.disabled  = !S.motion.on;
-  if(scrub) scrub.disabled = !S.motion.on;
-  if(!S.motion.on){ note.textContent = "Turn on motion to export a loop."; return; }
-  const {cols,rows} = dims();
-  const bytes = cols*rows*S.motion.frames*16;
-  const size = bytes > 1048576 ? (bytes/1048576).toFixed(1)+" MB" : Math.round(bytes/1024)+" KB";
-  note.textContent = `Animated SVG lands around ${size}. Fewer frames or less grid detail makes it smaller.`;
+function vnoiseB(x,y,s){
+  const xi=Math.floor(x), yi=Math.floor(y);
+  const xf=x-xi, yf=y-yi;
+  const u=xf*xf*(3-2*xf), v=yf*yf*(3-2*yf);
+  const a=hshB(xi,yi,s), b=hshB(xi+1,yi,s), c=hshB(xi,yi+1,s), d=hshB(xi+1,yi+1,s);
+  return (a*(1-u)+b*u)*(1-v)+(c*(1-u)+d*u)*v;
+}
+function fbmB(x,y,s,oct){
+  let v=0,a=0.5,f=1,t=0;
+  for(let i=0;i<oct;i++){ v+=a*vnoiseB(x*f,y*f,s+i*131); t+=a; f*=2; a*=0.5; }
+  return v/t;
 }
 
-function computeFrame(f){
-  if(cache.has(f)) return cache.get(f);
-  const {cols,rows} = dims();
-  const n = cols*rows;
-  const col = new Uint8Array(n).fill(255);   // 255 = empty (background shows through)
-  const mot = new Uint8Array(n);
-  const M = S.motion;
-  const t = M.on ? f / M.frames : 0;
-  const R = M.on ? M.amount : 0;
-  const z = Math.cos(TAU*t)*R, w = Math.sin(TAU*t)*R;
-  const B = Math.max(2, S.bsize|0);
-  const sc = S.scale;
-  const nC = S.palette.length;
-  const pw = Math.pow(2, -S.balance);
-  const shimmerFrame = (M.on && M.mode==="shimmer") ? f+1 : 0;
+function paint(c,W,H,f){
+  const M=S.motion;
+  const T=M.on ? f/M.frames : 0;
+  const turns=Math.max(1,Math.round(M.amount*2));
+  const pal=S.pal.length?S.pal:["#0A8FE8","#C9EEA6"];
+  const steps=Math.max(2,S.steps|0);
+  /* Every level lands somewhere in the row whatever the step count is. Reading
+     pal[k] straight would leave the later inks unused the moment steps fell
+     below the number of colours — a palette with dead swatches in it. */
+  const ramp=k=>pal[Math.floor(((k%steps)+steps)%steps/steps*pal.length)%pal.length];
 
-  const stretch = (v,k) => clamp((v-0.5)*k + 0.5, 0, 1);
+  const cols=Math.max(4,S.cols|0);
+  const cw=W/cols;
+  const rows=Math.max(3,Math.round(H/cw));
+  const ch=H/rows;
+  const asp=W/H;
 
-  for(let y=0;y<rows;y++){
-    const ry = Math.floor(y/B);
-    for(let x=0;x<cols;x++){
-      const i = y*cols + x;
-      const rx = Math.floor(x/B);
-      // coordinates slide toward block centres, so regions square off as blockiness rises
-      const bx = lerp(x+0.5, rx*B + B/2, S.block);
-      const by = lerp(y+0.5, ry*B + B/2, S.block);
-
-      // colour field — few octaves so areas stay coherent
-      let smooth = fbm(bx/sc, by/sc, z, w, S.seed, 2);
-      // as blockiness rises each block takes on its own colour while still drifting with the field
-      const blockTone = smooth*0.5 + hashi(rx,ry,0,13,S.seed+404)*0.5;
-      let base = stretch(lerp(smooth, blockTone, S.block), 2.0);
-      // coverage field — decides what is filled at all
-      let mask = stretch(fbm((x+0.5)/(sc*1.15)+91, (y+0.5)/(sc*1.15)-17, z*0.8, w*0.8, S.seed+9111, 3), 1.8);
-      // fine field — breaks up edges into pixels
-      let det  = fbm((x+0.5)/(sc*0.26)+37, (y+0.5)/(sc*0.26)-11, z*0.45, w*0.45, S.seed+7717, 2);
-
-      if(M.on){
-        if(M.mode==="scan"){
-          const ph = (x/cols)*0.75 + (y/rows)*0.25;
-          const s2 = Math.sin(TAU*(ph - t));
-          mask += 0.20*s2; base = clamp(base + 0.14*s2, 0, 1);
-        } else if(M.mode==="pulse"){
-          const s2 = Math.sin(TAU*t);
-          mask += 0.15*s2; base = clamp(base + 0.13*s2, 0, 1);
-        } else if(M.mode==="shimmer"){
-          det  += (hashi(x,y,shimmerFrame,1,S.seed+55)-0.5)*0.6;
-          base  = clamp(base + (hashi(x,y,shimmerFrame,2,S.seed+56)-0.5)*0.3, 0, 1);
-        }
-      }
-
-      // each block gets its own coverage and texture — that's what makes a patchwork
-      const bias = (hashi(rx,ry,0,11,S.seed+808) - 0.5) * S.variety * 0.6;
-      const level = 0.5 + (S.density-0.5)*1.1 + bias;
-      const grainLocal = S.grain * lerp(1, 0.15 + hashi(rx,ry,0,17,S.seed+909)*2.1, clamp(S.variety*0.8,0,1));
-
-      if(mask + (det-0.5)*grainLocal*1.15 < level){
-        let v = Math.pow(base, pw);
-        let ci = Math.min(nC-1, Math.floor(v*nC));
-        if(S.speck>0 && hashi(x,y,shimmerFrame,3,S.seed+21) < S.speck){
-          ci = Math.floor(hashi(x,y,shimmerFrame,4,S.seed+33)*nC) % nC;
-        }
-        col[i] = ci;
-        if(S.motif!=="none" && S.motifAmt>0 && hashi(x,y,0,5,S.seed+64) < S.motifAmt) mot[i] = 1;
-      }
+  /* Cell edges are mirrored, not rounded twice. Rounding each edge on its own
+     lets a column and its opposite number land a pixel apart — the decisions
+     were already symmetric, but the geometry drawing them was not, and the
+     page failed a left-to-right flip by a hairline down every boundary. */
+  const edges=(n,total)=>{
+    const step=total/n, e=new Array(n+1);
+    for(let k=0;k<=n;k++){
+      const m=Math.min(k,n-k);
+      const v=Math.round(m*step);
+      e[k]=(k<=n-k)?v:total-v;
     }
-  }
-  const frame = {col,mot};
-  if(cache.size > 200) cache.clear();
-  cache.set(f, frame);
-  return frame;
-}
-
-/* which shape a cell uses — stable across frames so animation stays clean */
-function shapeOf(x,y){
-  if(S.motif!=="mixed") return S.motif;
-  const k = hashi(x,y,0,9,S.seed+404);
-  return k<0.4 ? "dot" : k<0.65 ? "square" : k<0.85 ? "ring" : "diag";
-}
-
-/* ============================================================
-   Custom cell marks — the user's own SVG
-============================================================ */
-function parseSVG(text){
-  let doc;
-  try { doc = new DOMParser().parseFromString(text, "image/svg+xml"); }
-  catch(err){ return null; }
-  if(doc.querySelector("parsererror")) return null;
-  const svg = doc.querySelector("svg");
-  if(!svg) return null;
-  svg.querySelectorAll("script,foreignObject,image,a").forEach(n=>n.remove());
-  let x=0, y=0, w=0, h=0;
-  const vb = svg.getAttribute("viewBox");
-  if(vb){
-    const p = vb.trim().split(/[\s,]+/).map(Number);
-    if(p.length===4 && p.every(Number.isFinite)) [x,y,w,h] = p;
-  }
-  if(!w || !h){
-    w = parseFloat(svg.getAttribute("width")) || 0;
-    h = parseFloat(svg.getAttribute("height")) || 0;
-  }
-  if(!w || !h) return null;
-  const ser = new XMLSerializer();
-  const inner = Array.from(svg.childNodes).map(n=>ser.serializeToString(n)).join("").trim();
-  if(!inner) return null;
-  return {x,y,w,h,inner};
-}
-
-/* swap the shape's own colours for the ink colour, leaving "none" alone */
-function inkify(src, ink){
-  return src
-    .replace(/\sfill\s*=\s*"(?!none")[^"]*"/gi, "")
-    .replace(/\sfill\s*=\s*'(?!none')[^']*'/gi, "")
-    .replace(/\sstroke\s*=\s*"(?!none")[^"]*"/gi, ` stroke="${ink}"`)
-    .replace(/\sstroke\s*=\s*'(?!none')[^']*'/gi, ` stroke="${ink}"`)
-    .replace(/fill\s*:\s*(?!none)[^;"']+/gi, `fill:${ink}`)
-    .replace(/stroke\s*:\s*(?!none)[^;"']+/gi, `stroke:${ink}`);
-}
-
-/* the shape normalised into a single 1×1 cell */
-function customGroup(id){
-  const cu = S.custom; if(!cu) return "";
-  const s = S.markSize / Math.max(cu.w, cu.h);
-  const dx = (1 - cu.w*s)/2 - cu.x*s;
-  const dy = (1 - cu.h*s)/2 - cu.y*s;
-  const body = S.inkMark ? inkify(cu.inner, S.ink) : cu.inner;
-  const fill = S.inkMark ? ` fill="${S.ink}"` : "";
-  const idAttr = id ? ` id="${id}"` : "";
-  return `<g${idAttr} transform="translate(${dx.toFixed(4)} ${dy.toFixed(4)}) scale(${s.toFixed(5)})"${fill} shape-rendering="geometricPrecision">${body}</g>`;
-}
-function customDefs(){
-  return (usesCustom() ? `<defs>${customGroup("mk")}</defs>` : "");
-}
-function usesCustom(){ return S.motif==="custom" && !!S.custom && S.motifAmt>0; }
-
-/* raster copy of the shape, so the live canvas can draw it fast */
-let markCache = {key:"", img:null, ready:Promise.resolve()};
-function ensureMark(px){
-  if(!usesCustom()) return null;
-  const key = [S.custom.inner.length, S.custom.x, S.custom.y, S.custom.w, S.custom.h,
-               S.ink, S.inkMark, S.markSize, px].join("|");
-  if(markCache.key === key) return markCache.img;
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${px}" height="${px}" viewBox="0 0 1 1">${customGroup()}</svg>`;
-  const url = URL.createObjectURL(new Blob([svg], {type:"image/svg+xml"}));
-  const img = new Image();
-  markCache = {
-    key, img,
-    ready: new Promise(res => {
-      img.onload = () => { URL.revokeObjectURL(url); res(); if(markCache.img===img) draw(); };
-      img.onerror = () => { URL.revokeObjectURL(url); res(); };
-    })
+    return e;
   };
-  img.src = url;
-  return img;
-}
-const art = $("#art"), ctx = art.getContext("2d", {alpha:false});
 
-function paint(target, frame, W, H){
-  const {cols,rows} = dims();
-  const c = target;
-  c.fillStyle = S.bg;
-  c.fillRect(0,0,W,H);
-  const {col,mot} = frame;
+  /* Ripple marches the bands outward a whole level at a time, so a full loop
+     lands back on the first frame. Breathe swells the quiet centre instead. */
+  const march=(M.on&&M.mode==="ripple") ? T*steps*turns : 0;
+  const swell=(M.on&&M.mode==="breathe")
+    ? 1+Math.sin(T*Math.PI*2*turns)*0.35*Math.min(1.6,M.amount) : 1;
 
-  // cell edges snapped to whole pixels — keeps every boundary hard, whatever the canvas size
-  const xs = new Int32Array(cols+1), ys = new Int32Array(rows+1);
-  for(let i=0;i<=cols;i++) xs[i] = Math.round(i*W/cols);
-  for(let j=0;j<=rows;j++) ys[j] = Math.round(j*H/rows);
+  const EX=edges(cols,W), EY=edges(rows,H);
+  for(let j=0;j<rows;j++){
+    for(let i=0;i<cols;i++){
+      /* The mirror is structural: each cell reads the field at its own
+         quadrant's coordinates, so the four quadrants are one decision read
+         four times. Flipping the finished pixels instead leaves the middle
+         row and column half a cell out whenever the count is odd. */
+      const mi=Math.min(i,cols-1-i), mj=Math.min(j,rows-1-j);
+      const u=(mi+0.5)/cols, v=(mj+0.5)/rows;
+      const dx=(0.5-u)*asp, dy=0.5-v;
+      let r=Math.hypot(dx,dy)/Math.hypot(0.5*asp,0.5);
 
-  for(let y=0;y<rows;y++){
-    const y0 = ys[y], ch = ys[y+1]-ys[y];
-    let x = 0;
-    while(x < cols){
-      const i = y*cols + x, v = col[i];
-      if(v === 255){ x++; continue; }
-      if(mot[i] === 1){
-        c.fillStyle = S.palette[v] || S.bg;
-        c.fillRect(xs[x], y0, xs[x+1]-xs[x], ch);
-        drawMark(c, x, y, xs[x], y0, xs[x+1]-xs[x], ch);
-        x++; continue;
+      /* The rings are pushed off true by two fields read at the same mirrored
+         coordinates — a slow one that swings whole lobes out of round and a
+         quicker one that roughens their edges. One gentle field left the bands
+         as clean ovals, and the page read as a target rather than as weather. */
+      const slow=fbmB(u*3.2+3.1, v*3.2+7.7, S.seed+11, 3)-0.5;
+      const fast=fbmB(u*9.5+13.7, v*9.5+2.3, S.seed+17, 2)-0.5;
+      r+=(slow*1.35+fast*0.5)*S.warp;
+
+      const calmR=S.calm*0.55*swell;
+      let lvl;
+      if(r<=calmR){
+        /* the innermost band simply grows: the quiet middle is part of the
+           pattern rather than a panel dropped on top of it */
+        lvl=0;
+      }else{
+        /* grain works in whole levels, not in radius: a tenth of a level never
+           crosses a boundary, so the control did nothing you could see */
+        const g=(fbmB(u*21+1.3, v*21+9.1, S.seed+29, 2)-0.5)*S.grain*2.4;
+        lvl=(r-calmR)/(1-calmR)*Math.max(1,S.rings)+g+march;
       }
-      let run = 1;
-      while(x+run < cols && col[y*cols+x+run] === v && mot[y*cols+x+run] === 0) run++;
-      c.fillStyle = S.palette[v] || S.bg;
-      c.fillRect(xs[x], y0, xs[x+run]-xs[x], ch);
-      x += run;
+      c.fillStyle=ramp(Math.floor(lvl));
+      c.fillRect(EX[i], EY[j], EX[i+1]-EX[i], EY[j+1]-EY[j]);
     }
   }
 }
 
-function drawMark(c, x, y, px, py, cw, ch){
-  const cs = Math.min(cw,ch), ms = S.markSize;
-  const mx = px + cw/2, my = py + ch/2;
-  const sh = shapeOf(x,y);
-  if(sh === "custom"){
-    const img = ensureMark(Math.max(4, Math.round(cs*3)));
-    if(img && img.complete && img.naturalWidth){
-      const prev = c.imageSmoothingEnabled;
-      c.imageSmoothingEnabled = true;
-      c.drawImage(img, px, py, cw, ch);
-      c.imageSmoothingEnabled = prev;
-    }
-    return;
-  }
-  c.fillStyle = S.ink; c.strokeStyle = S.ink;
-  switch(sh){
-    case "dot":
-      c.beginPath(); c.arc(mx, my, cs*ms/2, 0, TAU); c.fill(); break;
-    case "ring": {
-      const lw = Math.max(1, cs*ms*0.28);
-      c.lineWidth = lw;
-      c.beginPath(); c.arc(mx, my, Math.max(lw*0.6, cs*ms/2 - lw/2), 0, TAU); c.stroke(); break;
-    }
-    case "square": {
-      const side = cs*ms;
-      c.fillRect(mx-side/2, my-side/2, side, side); break;
-    }
-    case "diag":
-      c.beginPath(); c.moveTo(px,py+ch); c.lineTo(px+cw,py+ch); c.lineTo(px+cw,py); c.closePath(); c.fill(); break;
-  }
+/* ---- vector ------------------------------------------------------------
+   The same paint() against a recorder. Every pixel is already a rectangle, so
+   the export is the picture itself and cannot drift from the screen. */
+function SvgSurfaceB(){ this.fillStyle="#000"; this.imageSmoothingEnabled=false; this._b=[]; }
+SvgSurfaceB.prototype.save=function(){};
+SvgSurfaceB.prototype.restore=function(){};
+SvgSurfaceB.prototype.translate=function(){};
+SvgSurfaceB.prototype.scale=function(){};
+SvgSurfaceB.prototype.rotate=function(){};
+SvgSurfaceB.prototype.clearRect=function(){};
+SvgSurfaceB.prototype.beginPath=function(){};
+SvgSurfaceB.prototype.moveTo=function(){};
+SvgSurfaceB.prototype.lineTo=function(){};
+SvgSurfaceB.prototype.closePath=function(){};
+SvgSurfaceB.prototype.arc=function(){};
+SvgSurfaceB.prototype.fill=function(){};
+SvgSurfaceB.prototype.stroke=function(){};
+SvgSurfaceB.prototype.fillRect=function(x,y,w,h){
+  if(w<=0||h<=0) return;
+  this._b.push('<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+w.toFixed(1)+
+               '" height="'+h.toFixed(1)+'" fill="'+this.fillStyle+'"/>');
+};
+SvgSurfaceB.prototype.markup=function(){return this._b.join("");};
+
+function svgFrame(f){
+  const r=RATIOS.find(x=>x.id===S.ratio);
+  const W=S.size,H=Math.round(S.size*r.h/r.w);
+  const s=new SvgSurfaceB();
+  paint(s,W,H,f);
+  return s.markup();
 }
+function svgWrap(inner){
+  const r=RATIOS.find(x=>x.id===S.ratio);
+  const W=S.size,H=Math.round(S.size*r.h/r.w);
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+
+         '" viewBox="0 0 '+W+' '+H+'" shape-rendering="crispEdges">'+
+         '<clipPath id="bl"><rect width="'+W+'" height="'+H+'"/></clipPath>'+
+         '<g clip-path="url(#bl)">'+inner+'</g></svg>';
+}
+function buildSVG(){return svgWrap(svgFrame(curFrame));}
 
-let curFrame = 0;
-
-/* The displayed size depends only on the aspect ratio and the window — never on
-   grid detail — so the artwork holds still while you drag the sliders. */
+const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
 function fitCanvas(){
-  const r = RATIOS.find(x=>x.id===S.ratio);
-  const box = document.querySelector(".stage-inner");
-  const dpr = Math.min(2, window.devicePixelRatio || 1);
-  let availW = 800, availH = 800;
-  if(box && box.clientWidth){
-    const bs = getComputedStyle(box);
-    availW = box.clientWidth  - parseFloat(bs.paddingLeft) - parseFloat(bs.paddingRight);
-    availH = box.clientHeight - parseFloat(bs.paddingTop)  - parseFloat(bs.paddingBottom);
+  const r=RATIOS.find(x=>x.id===S.ratio);
+  const box=$(".stage-inner");
+  let dpr=Math.min(2,window.devicePixelRatio||1);
+  let availW=700,availH=700;
+  if(box&&box.clientWidth){
+    const bs=getComputedStyle(box);
+    availW=box.clientWidth-parseFloat(bs.paddingLeft)-parseFloat(bs.paddingRight);
+    availH=box.clientHeight-parseFloat(bs.paddingTop)-parseFloat(bs.paddingBottom);
   }
-  availW = Math.max(80, availW); availH = Math.max(80, availH);
-  const s = Math.min(availW / r.w, availH / r.h);
-  const dispW = Math.max(40, Math.floor(r.w * s));
-  const dispH = Math.max(40, Math.floor(r.h * s));
-  const w = Math.round(dispW*dpr), h = Math.round(dispH*dpr);
-  if(art.width !== w || art.height !== h){ art.width = w; art.height = h; }
-  if(art.style.width !== dispW+"px" || art.style.height !== dispH+"px"){
-    art.style.width = dispW+"px"; art.style.height = dispH+"px";
+  availW=Math.max(80,availW);availH=Math.max(80,availH);
+  const s=Math.min(availW/r.w,availH/r.h);
+  const dispW=Math.max(40,Math.floor(r.w*s)),dispH=Math.max(40,Math.floor(r.h*s));
+  const w=Math.round(dispW*dpr),h=Math.round(dispH*dpr);
+  if(art.width!==w||art.height!==h){art.width=w;art.height=h;}
+  if(art.style.width!==dispW+"px"||art.style.height!==dispH+"px"){
+    art.style.width=dispW+"px";art.style.height=dispH+"px";
   }
-  return {w,h};
+  return{w,h};
 }
-
+let curFrame=0,queued=false;
 function draw(){
-  const {cols,rows} = dims();
-  const {w,h} = fitCanvas();
-  paint(ctx, computeFrame(curFrame), w, h);
-  $("#dims").textContent = cols + " × " + rows;
-  const F = S.motion.on ? S.motion.frames : 1;
-  $("#frameno").textContent = String(curFrame+1).padStart(2,"0") + " / " + String(F).padStart(2,"0");
+  const{w,h}=fitCanvas();
+  const t0=performance.now();
+  paint(ctx,w,h,curFrame);
+  const ms=Math.round(performance.now()-t0);
+  $("#dims").textContent=w+"×"+h+" · "+ms+"ms";
+  const F=S.motion.on?S.motion.frames:1;
+  $("#frameno").textContent=String(curFrame+1).padStart(2,"0")+" / "+String(F).padStart(2,"0");
 }
-
-/* never more than one redraw per animation frame, however fast a slider moves */
-let drawQueued = false;
-function requestDraw(){
-  if(drawQueued) return;
-  drawQueued = true;
-  requestAnimationFrame(() => { drawQueued = false; draw(); });
-}
-
+function requestDraw(){if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;draw();});}
+const reframe=requestDraw;
 if(window.ResizeObserver){
-  let pending = false;
-  const stageBox = document.querySelector(".stage-inner");
-  if(stageBox) new ResizeObserver(() => {
-    if(pending) return;
-    pending = true;
-    requestAnimationFrame(() => { pending = false; draw(); });
-  }).observe(stageBox);
+  const box=$(".stage-inner");
+  if(box){let p=false;new ResizeObserver(()=>{if(p)return;p=true;requestAnimationFrame(()=>{p=false;draw();});}).observe(box);}
 }
-
-/* ============================================================
-   Playback
-============================================================ */
-let playing = false, t0 = 0, raf = 0;
+let playing=false,t0=0,raf=0;
 function tick(now){
-  if(!playing) return;
-  const M = S.motion;
-  const dur = (M.frames / M.fps) * 1000;
-  const f = Math.floor(((now - t0) % dur) / dur * M.frames) % M.frames;
-  if(f !== curFrame){ curFrame = f; $("#scrub").value = f; draw(); }
-  raf = requestAnimationFrame(tick);
+  if(!playing)return;
+  const M=S.motion,dur=(M.frames/M.fps)*1000;
+  const f=Math.floor(((now-t0)%dur)/dur*M.frames)%M.frames;
+  if(f!==curFrame){curFrame=f;$("#scrub").value=f;draw();}
+  raf=requestAnimationFrame(tick);
 }
 function setPlaying(v){
-  playing = v && S.motion.on;
-  $("#playIcon").innerHTML = playing
-    ? '<rect x="0" y="0" width="3.5" height="11"/><rect x="6.5" y="0" width="3.5" height="11"/>'
-    : '<path d="M0 0l10 5.5L0 11z"/>';
+  playing=v&&S.motion.on;
+  $("#playIcon").innerHTML=playing
+    ?'<rect x="0" y="0" width="3.5" height="11"/><rect x="6.5" y="0" width="3.5" height="11"/>'
+    :'<path d="M0 0l10 5.5L0 11z"/>';
   cancelAnimationFrame(raf);
-  if(playing){ t0 = performance.now() - (curFrame / S.motion.frames) * (S.motion.frames/S.motion.fps*1000); raf = requestAnimationFrame(tick); }
+  if(playing){t0=performance.now()-(curFrame/S.motion.frames)*(S.motion.frames/S.motion.fps*1000);raf=requestAnimationFrame(tick);}
 }
 
 /* ============================================================
-   SVG output
+   Export
 ============================================================ */
-function svgHeader(cols,rows,px){
-  const h = Math.round(px * rows/cols);
-  return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${px}" height="${h}" viewBox="0 0 ${cols} ${rows}">`;
-}
-function markSvg(x,y,fill,children,opacity){
-  const m = 0.5, sh = shapeOf(x,y), ms = S.markSize;
-  const op = opacity !== undefined ? ` opacity="${opacity}"` : "";
-  let open, tag;
-  if(sh === "custom"){
-    if(!S.custom) return "";
-    tag="use"; open=`<use href="#mk" xlink:href="#mk" x="${x}" y="${y}"${op}`;
-  }
-  else if(sh === "dot"){        tag="circle"; open=`<circle cx="${x+m}" cy="${y+m}" r="${(ms/2).toFixed(3)}" fill="${fill}"${op}`; }
-  else if(sh === "ring"){       tag="circle"; open=`<circle cx="${x+m}" cy="${y+m}" r="${(ms/2 - ms*0.14).toFixed(3)}" fill="none" stroke="${fill}" stroke-width="${(ms*0.28).toFixed(3)}"${op}`; }
-  else if(sh === "square"){     tag="rect";   open=`<rect x="${(x+(1-ms)/2).toFixed(3)}" y="${(y+(1-ms)/2).toFixed(3)}" width="${ms.toFixed(3)}" height="${ms.toFixed(3)}" fill="${fill}"${op}`; }
-  else if(sh === "diag"){       tag="path";   open=`<path d="M${x} ${y+1}H${x+1}V${y}Z" fill="${fill}"${op}`; }
-  else return "";
-  return children ? `${open}>${children}</${tag}>` : `${open}/>`;
-}
-
-function buildStaticSVG(){
-  const {cols,rows} = dims();
-  const {col,mot} = computeFrame(curFrame);
-  let out = svgHeader(cols,rows,S.size);
-  out += customDefs();
-  out += `<g shape-rendering="crispEdges"><rect width="${cols}" height="${rows}" fill="${S.bg}"/>`;
-  const marks = [];
-  for(let y=0;y<rows;y++){
-    let x=0;
-    while(x<cols){
-      const i=y*cols+x, v=col[i];
-      if(v===255){ x++; continue; }
-      if(mot[i]===1){
-        out += `<rect x="${x}" y="${y}" width="1" height="1" fill="${S.palette[v]}"/>`;
-        marks.push(markSvg(x,y,S.ink));
-        x++; continue;
-      }
-      let run=1;
-      while(x+run<cols && col[y*cols+x+run]===v && mot[y*cols+x+run]===0) run++;
-      out += `<rect x="${x}" y="${y}" width="${run}" height="1" fill="${S.palette[v]}"/>`;
-      x += run;
-    }
-  }
-  out += `</g><g shape-rendering="geometricPrecision">${marks.join("")}</g>`;
-  out += "</svg>";
-  return out;
-}
-
-function buildAnimatedSVG(){
-  const {cols,rows} = dims();
-  const F = S.motion.frames;
-  const dur = (F / S.motion.fps).toFixed(3) + "s";
-  const frames = [];
-  for(let f=0;f<F;f++) frames.push(computeFrame(f));
-
-  let out = svgHeader(cols,rows,S.size);
-  out += customDefs();
-  out += `<g shape-rendering="crispEdges"><rect width="${cols}" height="${rows}" fill="${S.bg}"/>`;
-  const marks = [];
-  const anim = (attr,vals) =>
-    `<animate attributeName="${attr}" values="${vals.join(";")};${vals[0]}" dur="${dur}" calcMode="discrete" repeatCount="indefinite"/>`;
-
-  for(let y=0;y<rows;y++){
-    for(let x=0;x<cols;x++){
-      const i = y*cols+x;
-      const fills = frames.map(fr => fr.col[i]===255 ? S.bg : S.palette[fr.col[i]]);
-      const same = fills.every(v => v===fills[0]);
-      if(same){
-        if(fills[0]!==S.bg) out += `<rect x="${x}" y="${y}" width="1" height="1" fill="${fills[0]}"/>`;
-      } else {
-        out += `<rect x="${x}" y="${y}" width="1" height="1" fill="${fills[0]}">${anim("fill",fills)}</rect>`;
-      }
-      if(S.motif!=="none" && S.motifAmt>0){
-        const on = frames.map(fr => fr.mot[i]===1 ? "1" : "0");
-        if(on.some(v => v === "1")){
-          if(on.every(v => v === "1")) marks.push(markSvg(x,y,S.ink));
-          else marks.push(markSvg(x,y,S.ink, anim("opacity",on), on[0]));
-        }
-      }
-    }
-  }
-  out += `</g><g shape-rendering="geometricPrecision">${marks.join("")}</g>`;
-  out += "</svg>";
-  return out;
-}
-
-/* ============================================================
-   Downloads
-============================================================ */
-function save(blob, name){
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url; a.download = name; document.body.appendChild(a); a.click();
-  setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); }, 1500);
-}
 let toastTimer;
-function toast(msg, busy){
-  const el = $("#toast");
-  el.textContent = msg;
-  el.classList.toggle("busy", !!busy);
-  el.classList.add("show");
-  clearTimeout(toastTimer);
-  if(!busy) toastTimer = setTimeout(()=>el.classList.remove("show"), 2200);
+function toast(msg,busy){
+  const el=$("#toast");el.textContent=msg;el.classList.toggle("busy",!!busy);el.classList.add("show");
+  clearTimeout(toastTimer);if(!busy)toastTimer=setTimeout(()=>el.classList.remove("show"),2400);
 }
-function stamp(){ return `oddgrid-${S.seed}-${S.ratio.replace(":","x")}`; }
-
-async function exportPNG(){
-  const {cols,rows} = dims();
-  const cs = Math.max(1, Math.round(S.size / cols));
-  ensureMark(Math.max(4, Math.round(cs*3)));
-  await markCache.ready;
-  const c = document.createElement("canvas");
-  c.width = cols*cs; c.height = rows*cs;
-  const cc = c.getContext("2d");
-  cc.imageSmoothingEnabled = false;
-  paint(cc, computeFrame(curFrame), c.width, c.height);
-  c.toBlob(b => { save(b, stamp()+".png"); toast("PNG saved"); });
+function save(blob,name){
+  const url=URL.createObjectURL(blob),a=document.createElement("a");
+  a.href=url;a.download=name;document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
-function exportSVG(){
-  save(new Blob([buildStaticSVG()],{type:"image/svg+xml"}), stamp()+".svg");
-  toast("Vector SVG saved");
+function stamp(){return `bloom-${S.seed}-${S.ratio.replace(":","x")}`;}
+function updateExportNote(){
+  const a=$("#expVid"),sc=$("#scrub"),l=$("#expSvgLoop");
+  if(a)a.disabled=!S.motion.on;
+  if(l)l.disabled=!S.motion.on;
+  if(sc)sc.disabled=!S.motion.on;
 }
-function exportSVGAnim(){
-  if(!S.motion.on) return toast("Turn on motion first");
-  toast("Building animated SVG…", true);
+$("#expPng").addEventListener("click",()=>{
+  toast("Rendering…",true);
   setTimeout(()=>{
-    const svg = buildAnimatedSVG();
-    save(new Blob([svg],{type:"image/svg+xml"}), stamp()+"-loop.svg");
-    const kb = Math.round(svg.length/1024);
-    toast(`Animated SVG saved · ${kb} KB`);
-  }, 30);
-}
-
+    const r=RATIOS.find(x=>x.id===S.ratio);
+    const W=S.size,H=Math.round(S.size*r.h/r.w);
+    const c=document.createElement("canvas");c.width=W;c.height=H;
+    paint(c.getContext("2d"),W,H,curFrame);
+    c.toBlob(b=>{save(b,stamp()+".png");toast(`PNG saved · ${W}×${H}`);});
+  },30);
+});
+$("#expSvg").addEventListener("click",()=>{
+  save(new Blob([buildSVG()],{type:"image/svg+xml"}),stamp()+".svg");
+  toast("SVG saved");
+});
 function pickVideoType(){
-  const types = ["video/mp4;codecs=avc1.42E01E","video/mp4","video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"];
-  for(const t of types) if(window.MediaRecorder && MediaRecorder.isTypeSupported(t)) return t;
+  const t=["video/mp4;codecs=avc1.42E01E","video/mp4","video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"];
+  for(const x of t)if(window.MediaRecorder&&MediaRecorder.isTypeSupported(x))return x;
   return null;
 }
-async function exportVideo(){
-  if(!S.motion.on) return toast("Turn on motion first");
-  const type = pickVideoType();
-  if(!type) return toast("This browser can't record video");
-  const ext = type.startsWith("video/mp4") ? "mp4" : "webm";
-  const {cols,rows} = dims();
-  const target = Math.min(1920, S.size);
-  let cs = Math.max(1, Math.round(target / cols));
-  if((cols*cs)%2) cs = Math.max(1, cs+1);           // even dimensions keep encoders happy
-  ensureMark(Math.max(4, Math.round(cs*3)));
-  await markCache.ready;
-  const c = document.createElement("canvas");
-  c.width = cols*cs - ((cols*cs)%2); c.height = rows*cs - ((rows*cs)%2);
-  const cc = c.getContext("2d"); cc.imageSmoothingEnabled = false;
-
-  const F = S.motion.frames, loops = 3;
-  const stream = c.captureStream(60);
-  const rec = new MediaRecorder(stream, {mimeType:type, videoBitsPerSecond: 12000000});
-  const chunks = [];
-  rec.ondataavailable = e => { if(e.data.size) chunks.push(e.data); };
-  rec.onstop = () => {
-    save(new Blob(chunks,{type}), stamp()+"-loop."+ext);
-    toast(ext.toUpperCase()+" saved · 3 loops");
-  };
-
-  const wasPlaying = playing; setPlaying(false);
-  toast("Recording…", true);
-  const start = performance.now();
-  const total = (F/S.motion.fps)*1000*loops;
-  paint(cc, computeFrame(0), c.width, c.height);
+$("#expVid").addEventListener("click",()=>{
+  if(!S.motion.on)return toast("Turn on motion first");
+  const type=pickVideoType();
+  if(!type)return toast("This browser can't record video");
+  const ext=type.startsWith("video/mp4")?"mp4":"webm";
+  const r=RATIOS.find(x=>x.id===S.ratio);
+  let W=Math.min(1280,S.size);W-=W%2;
+  let H=Math.round(W*r.h/r.w);H-=H%2;
+  const c=document.createElement("canvas");c.width=W;c.height=H;
+  const cc=c.getContext("2d");
+  const F=S.motion.frames,loops=1;
+  const rec=new MediaRecorder(c.captureStream(60),{mimeType:type,videoBitsPerSecond:16000000});
+  const chunks=[];
+  rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
+  rec.onstop=()=>{save(new Blob(chunks,{type}),stamp()+"-loop."+ext);toast(ext.toUpperCase()+" saved");};
+  const was=playing;setPlaying(false);
+  toast("Recording…",true);
+  let n=0;
   rec.start();
-  let last = -1;
-  (function step(now){
-    const el = now - start;
-    const f = Math.min(F*loops-1, Math.floor(el / (total/(F*loops))));
-    const fi = f % F;
-    if(fi !== last){ last = fi; paint(cc, computeFrame(fi), c.width, c.height); }
-    if(el < total) requestAnimationFrame(step);
-    else setTimeout(()=>{ rec.stop(); if(wasPlaying) setPlaying(true); }, 120);
-  })(performance.now());
-}
+  (function step(){
+    paint(cc,W,H,n%F);
+    n++;
+    if(n<F*loops) setTimeout(()=>requestAnimationFrame(step), Math.max(0,1000/S.motion.fps-4));
+    else setTimeout(()=>{rec.stop();if(was)setPlaying(true);},200);
+  })();
+});
 
 /* ============================================================
-   UI wiring
+   UI
 ============================================================ */
 function accent(){
-  // the interface borrows its accent from whatever you're making
-  let best = S.palette[0], score = -1;
-  for(const c of S.palette){ const k = chroma(c)*0.7 + relLum(c)*0.5; if(k>score){score=k;best=c;} }
-  if(relLum(best) < 0.12) best = S.palette.reduce((a,b)=>relLum(b)>relLum(a)?b:a, S.palette[0]);
-  document.documentElement.style.setProperty("--accent", best);
-  $("#strip").innerHTML = S.palette.map(c=>`<span style="background:${c}"></span>`).join("");
-  const g = $("#glyph");
-  if(g.children.length !== 9) g.innerHTML = Array.from({length:9},()=>"<i></i>").join("");
-  [...g.children].forEach((el,i)=> el.classList.toggle("on", [0,2,4,5,7].includes(i)));
+  let best=S.pal[S.pal.length-1],bl=-1;
+  for(const c of S.pal){const l=relLum(c);if(l>bl&&l>0.12){bl=l;best=c;}}
+  document.documentElement.style.setProperty("--accent",bl>0?best:"#F5C21B");
+  $("#strip").innerHTML=S.pal.map(c=>`<span style="background:${c}"></span>`).join("");
+  const g=$("#glyph");
+  if(g.children.length!==9)g.innerHTML=Array.from({length:9},()=>"<i></i>").join("");
+  [...g.children].forEach((el,i)=>el.classList.toggle("on",[0,2,4,6,8].includes(i)));
 }
-
-function segmented(host, items, get, set){
-  host.innerHTML = "";
+function segmented(host,items,get,set){
+  if(!host)return;
+  host.innerHTML="";
   items.forEach(([id,label])=>{
-    const b = document.createElement("button");
-    b.className = "chip"; b.textContent = label; b.type = "button";
-    b.setAttribute("aria-pressed", String(get()===id));
-    b.onclick = () => { set(id); [...host.children].forEach(c=>c.setAttribute("aria-pressed", String(c===b))); };
+    const b=document.createElement("button");
+    b.className="chip";b.type="button";b.textContent=label;
+    b.setAttribute("aria-pressed",String(get()===id));
+    b.onclick=()=>{set(id);[...host.children].forEach(c=>c.setAttribute("aria-pressed",String(c===b)));};
     host.appendChild(b);
   });
 }
-
 function buildRatios(){
-  const host = $("#ratios"); host.innerHTML = "";
+  const host=$("#ratios");if(!host)return;
+  host.innerHTML="";
   RATIOS.forEach(r=>{
-    const b = document.createElement("button");
-    b.className="ratio"; b.type="button";
-    b.setAttribute("aria-pressed", String(S.ratio===r.id));
-    const scale=Math.min(20/r.w,20/r.h);
-    b.innerHTML = `<span class="box" style="width:${(r.w*scale).toFixed(1)}px;height:${(r.h*scale).toFixed(1)}px"></span><span class="t">${r.label}</span>`;
-    b.onclick = () => {
-      S.ratio = r.id; $("#ratioVal").textContent = r.label;
-      [...host.children].forEach(c=>c.setAttribute("aria-pressed", String(c===b)));
-      invalidate();
-    };
+    const b=document.createElement("button");
+    b.className="ratio";b.type="button";
+    b.setAttribute("aria-pressed",String(S.ratio===r.id));
+    const sc=Math.min(20/r.w,20/r.h);
+    b.innerHTML=`<span class="box" style="width:${(r.w*sc).toFixed(1)}px;height:${(r.h*sc).toFixed(1)}px"></span><span class="t">${r.id}</span>`;
+    b.onclick=()=>{S.ratio=r.id;$("#ratioVal").textContent=r.id;
+      [...host.children].forEach(c=>c.setAttribute("aria-pressed",String(c===b)));reframe();};
     host.appendChild(b);
   });
 }
-
 function buildSwatches(){
-  const host = $("#swatches"); host.innerHTML = "";
-  S.palette.forEach((c,i)=>{
-    const b = document.createElement("button");
-    b.className="sw"; b.type="button";
-    b.innerHTML = `<span class="fill" style="background:${c}"></span>
-      <input type="color" value="${c}" aria-label="Color ${i+1}">
-      ${S.palette.length>2 ? '<span class="x" title="Remove">×</span>' : ''}`;
-    const input = b.querySelector("input");
-    input.oninput = e => { S.palette[i] = e.target.value; b.querySelector(".fill").style.background = e.target.value; accent(); invalidate(); };
-    b.onclick = e => {
-      if(e.target.classList.contains("x")){ e.preventDefault(); e.stopPropagation();
-        S.palette.splice(i,1); S.paletteName = null;
-        buildSwatches(); accent(); refreshChips(); invalidate(); return; }
-      if(e.target !== input) input.click();
-    };
+  const host=$("#swatches");
+  host.innerHTML="";
+  const lock=S.pal.length<=2;
+  S.pal.forEach((c,i)=>{
+    const b=document.createElement("button");
+    b.className="sw"+(lock?" locked":"");b.type="button";
+    b.setAttribute("aria-label","Ink "+(i+1)+" color");
+    b.innerHTML=`<span class="fill" style="background:${c}"></span>`+
+      `<input type="color" value="${c}"><span class="x" aria-hidden="true">\u00d7</span>`;
+    b.querySelector("input").addEventListener("input",e=>{
+      S.pal[i]=e.target.value;
+      b.querySelector(".fill").style.background=e.target.value;
+      accent();reframe();
+    });
+    b.addEventListener("click",e=>{
+      if(e.target.classList.contains("x")&&S.pal.length>2){
+        e.preventDefault();e.stopPropagation();
+        S.pal.splice(i,1);buildSwatches();accent();reframe();
+      }
+    },true);
     host.appendChild(b);
   });
-  if(S.palette.length < 10){
-    const add = document.createElement("button");
-    add.className="sw-add"; add.type="button"; add.textContent="+"; add.title="Add a color";
-    add.onclick = () => {
-      S.palette.push(hsl2hex(Math.random()*360, 55+Math.random()*35, 40+Math.random()*30));
-      buildSwatches(); accent(); invalidate();
-    };
-    host.appendChild(add);
-  }
-  $("#countVal").textContent = S.palette.length;
-  $("#bgSw").querySelector(".fill").style.background = S.bg;
-  $("#inkSw").querySelector(".fill").style.background = S.ink;
-  $("#bgIn").value = S.bg; $("#inkIn").value = S.ink;
+  const add=document.createElement("button");
+  add.className="sw-add";add.type="button";add.textContent="+";
+  add.setAttribute("aria-label","Add color");
+  add.addEventListener("click",()=>{
+    const commit=hex=>{S.pal.push(hex);buildSwatches();accent();reframe();};
+    if(window.__pickColour) window.__pickColour(add,commit);
+    else commit(PALETTES[0][(Math.random()*PALETTES[0].length)|0]);
+  });
+  host.appendChild(add);
+  const n=$("#swCountVal"); if(n) n.textContent=S.pal.length;
 }
-
-function shuffleColors(){
-  const n = S.palette.length;
-  const r = rng((Math.random()*1e9)|0);
-  const h0 = r()*360;
-  const scheme = r();
-  const dark = r() < 0.4;
-  const out = [];
-  for(let i=0;i<n;i++){
-    let h;
-    if(scheme<0.34) h = h0 + i*(18+r()*16);                    // analogous
-    else if(scheme<0.67) h = h0 + (i%3)*120 + (r()-0.5)*22;    // triadic
-    else h = h0 + (i%2 ? 180 : 0) + (r()-0.5)*46;              // complementary
-    const s = 45 + r()*50;
-    const l = dark ? 40 + r()*45 : 34 + r()*46;
-    out.push(hsl2hex(h,s,l));
-  }
-  S.palette = out;
-  S.bg  = dark ? hsl2hex(h0+r()*40, 8+r()*10, 5+r()*7) : hsl2hex(h0+r()*40, 12+r()*16, 88+r()*8);
-  S.ink = dark ? S.bg : hsl2hex(h0, 30+r()*30, 8+r()*10);
-  S.paletteName = null;
-  buildSwatches(); accent(); refreshChips(); invalidate();
-}
-
-function refreshChips(){
-  segmented($("#presets"), Object.keys(LOOKS).map(k=>[k,k]), ()=>S.look, v=>applyLook(v));
-}
-function applyLook(name){
-  const L = LOOKS[name]; if(!L) return;
-  S.look = name;
-  Object.assign(S, {scale:L.scale, density:L.density, block:L.block, bsize:L.bsize,
-                    grain:L.grain, variety:L.variety, speck:L.speck, balance:L.balance,
-                    motif:L.motif, motifAmt:L.motifAmt});
-  syncControls();
-  refreshChips();
-  invalidate();
-}
-function applyPalette(name, quiet){
-  const P = PALETTES[name]; if(!P) return;
-  S.paletteName = name;
-  S.palette = P.colors.slice();
-  S.bg = P.bg; S.ink = P.ink;
-  buildSwatches(); accent();
-  if(!quiet){ refreshChips(); invalidate(); }
-}
-
-function bindRange(id, key, fmt, opts={}){
-  const el = $("#"+id);
-  const label = document.getElementById(opts.valId || id+"Val");
-  el.addEventListener("input", () => {
-    const v = parseFloat(el.value);
-    if(opts.set) opts.set(v); else S[key] = v;
-    if(label) label.textContent = fmt(v);
-    invalidate();
+function setPalette(p){S.pal=p.slice();buildSwatches();accent();reframe();}
+function bindRange(id,fmt,set,after){
+  const el=$("#"+id),label=$("#"+id+"Val");
+  if(!el)return;
+  el.addEventListener("input",()=>{
+    const v=parseFloat(el.value);set(v);
+    if(label)label.textContent=fmt(v);
+    (after||reframe)();
   });
 }
 
-/* build controls */
-buildRatios();
-buildSwatches();
-accent();
-refreshChips();
-function setMotif(v){
-  if(v === "custom" && !S.custom){
-    const f = document.getElementById("svgFile");
-    if(f) f.click();
-    return;
-  }
-  S.motif = v;
-  if(v !== "none" && S.motifAmt === 0){
-    S.motifAmt = .6; $("#motifAmt").value = .6; $("#motifVal").textContent = "60%";
-  }
-  invalidate();
-}
-segmented($("#motifs"), MOTIFS, ()=>S.motif, setMotif);
-segmented($("#modes"),  MODES,  ()=>S.motion.mode, v=>{ S.motion.mode=v; invalidate(); });
-
-const pct = v => Math.round(v*100)+"%";
-bindRange("cols","cols", v=>v, {valId:"colsVal", set:v=>S.cols=v|0});
-bindRange("scale","scale", v=>v, {valId:"scaleVal"});
-bindRange("density","density", pct, {valId:"densityVal"});
-bindRange("grain","grain", pct, {valId:"grainVal"});
-bindRange("variety","variety", pct, {valId:"varietyVal"});
-bindRange("block","block", pct, {valId:"blockVal", set:v=>S.block=v});
-bindRange("bsize","bsize", v=>v, {valId:"bsizeVal", set:v=>S.bsize=v|0});
-bindRange("speck","speck", pct, {valId:"speckVal"});
-bindRange("motifAmt","motifAmt", pct, {valId:"motifVal"});
-bindRange("markSize","markSize", pct, {valId:"markSizeVal"});
-bindRange("balance","balance",
-  v => v<-0.35 ? "Favors last" : v>0.35 ? "Favors first" : "Even",
-  {valId:"balanceVal"});
-bindRange("amt","motion.amount", v=>v.toFixed(2), {valId:"amtVal", set:v=>S.motion.amount=v});
-bindRange("size","size", v=>v+" px", {valId:"sizeVal", set:v=>S.size=v|0});
-
-$("#fps").addEventListener("input", e=>{
-  S.motion.fps = parseInt(e.target.value,10);
-  $("#fpsVal").textContent = S.motion.fps + " fps";
-  if(playing) setPlaying(true);
+buildRatios();buildSwatches();accent();
+segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
+$("#shufColors").addEventListener("click",()=>{
+  setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
 });
-$("#frames").addEventListener("input", e=>{
-  S.motion.frames = parseInt(e.target.value,10);
-  $("#framesVal").textContent = S.motion.frames + " frames";
-  $("#scrub").max = S.motion.frames-1;
-  curFrame = Math.min(curFrame, S.motion.frames-1);
-  invalidate(); if(playing) setPlaying(true);
+$("#rotColors").addEventListener("click",()=>{
+  setPalette(S.pal.slice(1).concat(S.pal[0]));
 });
-
-$("#bgIn").addEventListener("input", e=>{ S.bg=e.target.value; $("#bgSw").querySelector(".fill").style.background=S.bg; invalidate(); });
-$("#inkIn").addEventListener("input", e=>{ S.ink=e.target.value; $("#inkSw").querySelector(".fill").style.background=S.ink; invalidate(); });
-$("#bgSw").addEventListener("click", e=>{ if(e.target !== $("#bgIn")) $("#bgIn").click(); });
-$("#inkSw").addEventListener("click", e=>{ if(e.target !== $("#inkIn")) $("#inkIn").click(); });
-$("#shufColors").addEventListener("click", shuffleColors);
-
-function renderCustomSlot(){
-  const slot = $("#customSlot");
-  $("#inkRow").hidden = !S.custom;
-  if(!S.custom){
-    slot.innerHTML = `<button class="drop" id="drop" type="button">Drop an SVG here<br>or click to choose a file</button>`;
-    $("#drop").onclick = () => $("#svgFile").click();
-    return;
-  }
-  const cu = S.custom;
-  slot.innerHTML = `<div class="loaded">
-    <span class="prev"><svg viewBox="${cu.x} ${cu.y} ${cu.w} ${cu.h}" xmlns="http://www.w3.org/2000/svg">${inkify(cu.inner,"#0b0b0d")}</svg></span>
-    <span class="nm">${(cu.name||"shape.svg").replace(/[<>&]/g,"")}</span>
-    <button class="rm" type="button" id="rmShape">Remove</button>
-  </div>`;
-  $("#rmShape").onclick = () => {
-    S.custom = null; markCache = {key:"", img:null, ready:Promise.resolve()};
-    if(S.motif==="custom") setMotif("dot");
-    renderCustomSlot(); refreshChips(); invalidate();
-  };
-}
-
-function loadSVGText(text, name){
-  const parsed = parseSVG(text);
-  if(!parsed){ toast("That file isn't a shape I can read"); return; }
-  parsed.name = name;
-  S.custom = parsed;
-  markCache = {key:"", img:null, ready:Promise.resolve()};
-  renderCustomSlot();
-  setMotif("custom");
-  refreshChips();
-}
-
-function readFile(file){
-  if(!file) return;
-  if(!/svg/i.test(file.type) && !/\.svg$/i.test(file.name)){ toast("SVG files only"); return; }
-  const fr = new FileReader();
-  fr.onload = () => loadSVGText(String(fr.result), file.name);
-  fr.onerror = () => toast("Couldn't read that file");
-  fr.readAsText(file);
-}
-
-$("#svgFile").addEventListener("change", e => { readFile(e.target.files[0]); e.target.value = ""; });
-renderCustomSlot();
-
-/* drop anywhere on the panel slot or the artwork */
-(function dropZones(){
-  const stage = document.querySelector(".stage");
-  const over = (el,on) => el.classList.toggle("over", on);
-  ["dragenter","dragover"].forEach(ev => {
-    document.addEventListener(ev, e => {
-      if(!e.dataTransfer || ![...e.dataTransfer.types].includes("Files")) return;
-      e.preventDefault();
-      const d = document.getElementById("drop");
-      if(d && d.contains(e.target)) over(d, true); else if(d) over(d, false);
-      over(stage, stage.contains(e.target));
-    });
-  });
-  document.addEventListener("dragleave", e => {
-    if(e.relatedTarget) return;
-    const d = document.getElementById("drop"); if(d) over(d,false); over(stage,false);
-  });
-  document.addEventListener("drop", e => {
-    if(!e.dataTransfer || !e.dataTransfer.files.length) return;
-    e.preventDefault();
-    const d = document.getElementById("drop"); if(d) over(d,false); over(stage,false);
-    readFile(e.dataTransfer.files[0]);
-  });
-})();
-
-$("#inkTog").addEventListener("click", e => {
-  S.inkMark = !S.inkMark;
-  e.currentTarget.setAttribute("aria-pressed", String(S.inkMark));
-  markCache = {key:"", img:null, ready:Promise.resolve()};
-  invalidate();
+bindRange("cols",v=>v|0,v=>S.cols=v|0);
+bindRange("rings",v=>v|0,v=>S.rings=v|0);
+bindRange("warp",v=>Math.round(v*100)+"%",v=>S.warp=v);
+bindRange("grain",v=>Math.round(v*100)+"%",v=>S.grain=v);
+bindRange("steps",v=>v|0,v=>S.steps=v|0);
+bindRange("calm",v=>Math.round(v*100)+"%",v=>S.calm=v);
+bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
+$("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
+  $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
+$("#frames").addEventListener("input",e=>{S.motion.frames=parseInt(e.target.value,10);
+  $("#framesVal").textContent=S.motion.frames+" frames";$("#scrub").max=S.motion.frames-1;
+  curFrame=Math.min(curFrame,S.motion.frames-1);reframe();if(playing)setPlaying(true);});
+$("#size").addEventListener("input",e=>{S.size=parseInt(e.target.value,10);$("#sizeVal").textContent=S.size+" px";});
+$("#motionTog").addEventListener("click",e=>{
+  S.motion.on=!S.motion.on;
+  e.currentTarget.setAttribute("aria-pressed",String(S.motion.on));
+  $("#motionBody").hidden=!S.motion.on;
+  curFrame=0;$("#scrub").value=0;
+  reframe();updateExportNote();
+  setPlaying(S.motion.on&&!reduceMotion);
 });
-
-$("#motionTog").addEventListener("click", e=>{
-  S.motion.on = !S.motion.on;
-  e.currentTarget.setAttribute("aria-pressed", String(S.motion.on));
-  $("#motionBody").hidden = !S.motion.on;
-  curFrame = 0; $("#scrub").value = 0;
-  invalidate();
-  setPlaying(S.motion.on && !reduceMotion);
+$("#play").addEventListener("click",()=>{if(!S.motion.on){$("#motionTog").click();return;}setPlaying(!playing);});
+$("#scrub").addEventListener("input",e=>{setPlaying(false);curFrame=parseInt(e.target.value,10)%Math.max(1,S.motion.frames);draw();});
+function newSeed(v){S.seed=(v!==undefined)?v:(Math.random()*99999|0)+1;$("#seed").value=S.seed;reframe();}
+$("#shuf").addEventListener("click",()=>newSeed());
+$("#seed").addEventListener("change",e=>{const v=parseInt(e.target.value,10);newSeed(Number.isFinite(v)?Math.abs(v):1);});
+art.addEventListener("click",()=>newSeed());
+document.addEventListener("keydown",e=>{
+  if(e.target.matches("input,textarea"))return;
+  if(e.code==="Space"){e.preventDefault();newSeed();}
+  if(e.key==="p"||e.key==="P"){if(S.motion.on)setPlaying(!playing);}
 });
-$("#play").addEventListener("click", ()=>{
-  if(!S.motion.on){ $("#motionTog").click(); return; }
-  setPlaying(!playing);
-});
-$("#scrub").addEventListener("input", e=>{
-  setPlaying(false);
-  curFrame = parseInt(e.target.value,10) % Math.max(1,S.motion.frames);
-  draw();
-});
-
-function newSeed(v){
-  S.seed = (v!==undefined) ? v : (Math.random()*99999|0)+1;
-  $("#seed").value = S.seed;
-  invalidate();
-}
-$("#shuf").addEventListener("click", ()=>newSeed());
-$("#seed").addEventListener("change", e=>{
-  const v = parseInt(e.target.value,10);
-  newSeed(Number.isFinite(v) ? Math.abs(v) : 1);
-});
-art.addEventListener("click", ()=>newSeed());
-
-$("#expPng").addEventListener("click", exportPNG);
-$("#expSvg").addEventListener("click", exportSVG);
-$("#expSvgAnim").addEventListener("click", exportSVGAnim);
-$("#expVid").addEventListener("click", exportVideo);
-
-document.addEventListener("keydown", e=>{
-  if(e.target.matches("input,textarea")) return;
-  if(e.code==="Space"){ e.preventDefault(); newSeed(); }
-  if(e.key==="p"||e.key==="P"){ if(S.motion.on) setPlaying(!playing); }
-});
-
-function syncControls(){
-  $("#cols").value=S.cols;        $("#colsVal").textContent=S.cols;
-  $("#scale").value=S.scale;      $("#scaleVal").textContent=S.scale;
-  $("#density").value=S.density;  $("#densityVal").textContent=pct(S.density);
-  $("#grain").value=S.grain;      $("#grainVal").textContent=pct(S.grain);
-  $("#variety").value=S.variety;  $("#varietyVal").textContent=pct(S.variety);
-  $("#block").value=S.block;      $("#blockVal").textContent=pct(S.block);
-  $("#balance").value=S.balance;
-  $("#balanceVal").textContent = S.balance<-0.35 ? "Favors last" : S.balance>0.35 ? "Favors first" : "Even";
-  $("#bsize").value=S.bsize;      $("#bsizeVal").textContent=S.bsize;
-  $("#speck").value=S.speck;      $("#speckVal").textContent=pct(S.speck);
-  $("#motifAmt").value=S.motifAmt;$("#motifVal").textContent=pct(S.motifAmt);
-  $("#markSize").value=S.markSize;$("#markSizeVal").textContent=pct(S.markSize);
-  segmented($("#motifs"), MOTIFS, ()=>S.motif, setMotif);
-}
-
-/* first run */
-const vt = pickVideoType();
-$("#expVid").textContent = vt ? (vt.startsWith("video/mp4") ? "MP4" : "WebM") : "Video";
-applyLook("Patchwork");
-newSeed(4821);
-if(!reduceMotion){ /* start still — motion is opt-in */ }
+newSeed(7);
+$("#scrub").max=S.motion.frames-1;
+updateExportNote();
 draw();
-
 })();
 </script>
 <!-- Embed mode: open with ?embed to render just the artwork full-viewport
