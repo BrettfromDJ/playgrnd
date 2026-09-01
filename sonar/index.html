@@ -522,7 +522,7 @@ function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const MODES=[["drift","Drift"],["tide","Tide"]];
+const MODES=[["tide","Tide"]];
 
 const PALETTES=[
   ["#0D0E1A","#B93FD6","#3A3AFF","#B6F542","#7A1FA8","#E8E4F0"],
@@ -537,7 +537,7 @@ const S={
   grid:150, scale:2.2, warp:0.4,
   level:0.5, fringe:0.45, spark:0.6, depth:0.7,
   pal:PALETTES[0].slice(),
-  motion:{on:false,mode:"drift",amount:0.6,fps:10,frames:24},
+  motion:{on:false,mode:"tide",amount:0.6,fps:10,frames:24},
   size:2400
 };
 
@@ -580,15 +580,10 @@ function paint(c,W,H,f){
   const R=rolesS();
   const M=S.motion;
   const T=M.on ? f/M.frames : 0;
-  /* Drift walks the field along a circle, so a whole turn arrives back where
-     it started. Sliding it in a straight line never would — noise has no
-     period, and the last frame would never meet the first. */
+  /* Tide breathes the cut level, so the coastline advances and retreats over
+     the loop without the land itself changing shape. A whole number of cycles
+     brings it back to where it started, so the last frame meets the first. */
   const turns=Math.max(1,Math.round(M.amount*2));
-  const ang=(M.on&&M.mode==="drift") ? T*Math.PI*2*turns : 0;
-  const rad=(M.on&&M.mode==="drift") ? 0.6+M.amount*0.9 : 0;
-  const ox=Math.cos(ang)*rad, oy=Math.sin(ang)*rad;
-  /* Tide breathes the cut level instead, so the coastline advances and
-     retreats over the loop without the land itself changing shape. */
   const tide=(M.on&&M.mode==="tide")
     ? Math.sin(T*Math.PI*2*turns)*0.10*Math.min(1.6,M.amount) : 0;
 
@@ -608,7 +603,7 @@ function paint(c,W,H,f){
   for(let j=0;j<rows;j++){
     for(let i=0;i<cols;i++){
       const u=(i+0.5)/cols, v=(j+0.5)/rows;
-      const x=u*sc*asp+ox, y=v*sc+oy;
+      const x=u*sc*asp, y=v*sc;
       /* the field is pushed around by a second field, which is what turns
          concentric blobs into something that flows */
       const wx=fbmS(x*0.6+11.3, y*0.6+3.7, seed+7, 3)-0.5;
