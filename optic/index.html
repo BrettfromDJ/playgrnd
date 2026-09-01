@@ -318,20 +318,36 @@ input[type=range]{accent-color:var(--ink)}
 .z-right .pr .top,.z-br .pr .top{flex-direction:row}
 .rightblock{width:196px}
 
-/* ---------------- add-colour popover ---------------- */
-.addpop{position:fixed;z-index:80;display:flex;align-items:center;gap:9px;
-  background:var(--gnd);border:1px solid var(--ink);border-radius:0;padding:9px}
-.addpop .ap-sw{position:relative;width:22px;height:22px;border-radius:50%;overflow:hidden;
-  display:block;cursor:pointer;box-shadow:inset 0 0 0 1px rgba(21,22,26,.3)}
-.addpop .ap-sw input{position:absolute;inset:-4px;width:calc(100% + 8px);height:calc(100% + 8px);
-  border:0;padding:0;background:none;opacity:0;cursor:pointer}
-.addpop .ap-sw .fill{position:absolute;inset:0}
-.addpop .ap-hex{width:96px;height:22px;background:none;border:0;border-bottom:1px solid var(--hair);
-  padding:0 2px;font-size:9px;letter-spacing:.14em;text-transform:lowercase}
-.addpop .ap-hex:focus{outline:none;border-bottom-color:var(--ink)}
-.addpop .ap-hex.bad{border-bottom-color:#c8484d;color:#c8484d}
-.addpop .ap-add{height:22px;padding:0 10px;font-size:8.5px;letter-spacing:.19em;
-  text-transform:uppercase;background:var(--ink);color:var(--gnd)}
+/* ---------------- colour picker ----------------
+   One box, one click: the field of colour, the hue, the hex and the confirm
+   are all in it at once. The old one put the wheel behind a button that
+   opened the operating system's own dialog, which is neither one click nor
+   part of this instrument. */
+.cpick{position:fixed;z-index:80;width:198px;padding:11px;background:var(--gnd);
+  border:1px solid var(--ink);box-shadow:0 18px 44px rgba(21,22,26,.18)}
+.cpick .sv{position:relative;height:116px;cursor:crosshair;touch-action:none;
+  outline:1px solid var(--hair2)}
+.cpick .sv .lay{position:absolute;inset:0}
+.cpick .dot{position:absolute;width:11px;height:11px;border-radius:50%;
+  border:1.5px solid #fff;box-shadow:0 0 0 1px rgba(21,22,26,.55);
+  translate:-50% -50%;pointer-events:none}
+.cpick .hue{position:relative;height:11px;margin-top:10px;cursor:ew-resize;touch-action:none;
+  outline:1px solid var(--hair2);
+  background:linear-gradient(to right,#f00 0%,#ff0 17%,#0f0 33%,#0ff 50%,
+             #00f 67%,#f0f 83%,#f00 100%)}
+.cpick .hue .hnd{position:absolute;top:-2px;width:5px;height:15px;background:var(--gnd);
+  border:1px solid var(--ink);translate:-50% 0;pointer-events:none}
+.cpick .cprow{display:flex;align-items:center;gap:8px;margin-top:11px}
+.cpick .cpsw{flex:none;width:20px;height:20px;border-radius:50%;
+  box-shadow:inset 0 0 0 1px rgba(21,22,26,.3)}
+.cpick .cphex{flex:1 1 auto;min-width:0;height:20px;background:none;border:0;
+  border-bottom:1px solid var(--hair);padding:0;color:var(--ink);
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.10em;text-transform:lowercase}
+.cpick .cphex:focus{outline:none;border-bottom-color:var(--ink)}
+.cpick .cphex.bad{border-bottom-color:#c8484d;color:#c8484d}
+.cpick .cpok{flex:none;height:20px;padding:0 11px;background:var(--ink);color:var(--gnd);
+  font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;font-weight:700}
+.cpick .cpok:hover{opacity:.85}
 
 /* ---------------- toast ---------------- */
 .toast{position:fixed;left:50%;bottom:26px;translate:-50% 8px;background:var(--ink);
@@ -1054,75 +1070,8 @@ html.embed body{overflow:hidden!important}
 <!-- Hex entry for colour swatches: tap a swatch, type a hex code.
      One shared layer for every colour input on the page. -->
 <style>
-.hexpop{position:fixed;z-index:70;display:flex;gap:6px;align-items:center;
-  background:var(--panel-2,#15151a);border:1px solid var(--line,#22222a);border-radius:6px;
-  padding:8px;box-shadow:0 14px 40px rgba(0,0,0,.55)}
-.hexpop .hexfield{font-family:var(--mono,ui-monospace,monospace);font-size:12px;letter-spacing:.06em;
-  width:96px;background:var(--panel,#101013);color:var(--text,#EFEDE8);
-  border:1px solid var(--line,#22222a);border-radius:4px;padding:7px 8px;text-transform:lowercase}
-.hexpop .hexfield:focus{outline:none;border-color:var(--accent,#F0621E)}
-.hexpop .hexfield.bad{border-color:#c8484d}
-.hexpop .hexwheel{font-family:var(--mono,ui-monospace,monospace);font-size:9.5px;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--muted,#7c7c88);background:none;border:1px solid var(--line,#22222a);
-  border-radius:4px;padding:7px 9px;cursor:pointer}
-.hexpop .hexwheel:hover{color:var(--text,#EFEDE8)}
 </style>
-<script>
-(function(){
-  "use strict";
-  var pop=null,bypass=false;
-  function close(){if(pop){pop.remove();pop=null;}}
-  function openFor(inp){
-    close();
-    pop=document.createElement("div");
-    pop.className="hexpop";
-    pop.innerHTML='<input class="hexfield" spellcheck="false" autocomplete="off" inputmode="text" value="'+inp.value+'">'+
-      '<button class="hexwheel" type="button">Wheel</button>';
-    document.body.appendChild(pop);
-    var anchor=(inp.closest&&(inp.closest(".sw")||inp.closest("label")))||inp;
-    var r=anchor.getBoundingClientRect();
-    var w=pop.offsetWidth||170,h=pop.offsetHeight||38;
-    var x=Math.min(Math.max(8,r.left),innerWidth-w-8);
-    var y=r.bottom+6; if(y+h>innerHeight-8)y=r.top-h-6;
-    pop.style.left=x+"px";pop.style.top=y+"px";
-    var f=pop.querySelector(".hexfield");
-    function norm(){
-      var v=f.value.trim().replace(/^#/,"");
-      if(/^[0-9a-fA-F]{3}$/.test(v))v=v.replace(/./g,function(c){return c+c;});
-      return /^[0-9a-fA-F]{6}$/.test(v)?"#"+v.toLowerCase():null;
-    }
-    function apply(){
-      var hex=norm();
-      f.classList.toggle("bad",!hex);
-      if(!hex)return false;
-      inp.value=hex;
-      inp.dispatchEvent(new Event("input",{bubbles:true}));
-      inp.dispatchEvent(new Event("change",{bubbles:true}));
-      return true;
-    }
-    f.addEventListener("input",apply);
-    f.addEventListener("keydown",function(e){
-      if(e.key==="Enter"){e.preventDefault();if(apply())close();}
-      if(e.key==="Escape")close();
-    });
-    pop.querySelector(".hexwheel").addEventListener("click",function(){
-      close();bypass=true;inp.click();bypass=false;
-    });
-    f.focus();f.select();
-  }
-  document.addEventListener("click",function(e){
-    if(pop&&pop.contains(e.target))return;
-    var t=e.target;
-    var inp=t&&t.matches&&t.matches('input[type=color]')?t:null;
-    if(inp&&!bypass){
-      e.preventDefault();e.stopPropagation();
-      openFor(inp);
-      return;
-    }
-    if(pop)close();
-  },true);
-})();
-</script>
+
 
 <!-- Instrument chassis runtime: hairline slider fills, capture dots, the corner
      readouts and the Animate / Export disclosures. The tool's own code is untouched. -->
@@ -1435,48 +1384,113 @@ html.embed body{overflow:hidden!important}
   /* opts.start  — open on an existing colour instead of a fresh hue
      opts.label  — the confirm button's word
      opts.live   — apply every change as it is made, so the artwork previews */
+  function hsv2hexC(h,sa,v){
+    h=((h%360)+360)%360;
+    var c=v*sa, x=c*(1-Math.abs((h/60)%2-1)), m=v-c, r=0,g=0,b=0;
+    if(h<60){r=c;g=x;} else if(h<120){r=x;g=c;} else if(h<180){g=c;b=x;}
+    else if(h<240){g=x;b=c;} else if(h<300){r=x;b=c;} else {r=c;b=x;}
+    function p(n){return Math.round((n+m)*255).toString(16).padStart(2,"0");}
+    return "#"+p(r)+p(g)+p(b);
+  }
+  function hex2hsvC(hex){
+    var v=String(hex).replace("#","");
+    if(v.length===3) v=v.replace(/./g,function(c){return c+c;});
+    var n=parseInt(v,16);
+    var r=((n>>16)&255)/255, g=((n>>8)&255)/255, b=(n&255)/255;
+    var mx=Math.max(r,g,b), mn=Math.min(r,g,b), d=mx-mn, h=0;
+    if(d){
+      if(mx===r) h=((g-b)/d+(g<b?6:0));
+      else if(mx===g) h=(b-r)/d+2;
+      else h=(r-g)/d+4;
+      h*=60;
+    }
+    return [h, mx?d/mx:0, mx];
+  }
+  /* opts.start  — open on an existing colour instead of a fresh hue
+     opts.label  — the confirm button's word
+     opts.live   — apply every change as it is made, so the artwork previews */
   window.__pickColour=function(anchor,commit,opts){
     closePop();
     opts=opts||{};
     var hex=opts.start||freshHue();
+    var hsv=hex2hsvC(hex);
     pop=document.createElement("div");
-    pop.className="addpop";
+    pop.className="cpick";
     pop.innerHTML=
-      '<label class="ap-sw"><input type="color" data-nohex value="'+hex+'" aria-label="Pick a colour">'+
-      '<span class="fill" style="background:'+hex+'"></span></label>'+
-      '<input class="ap-hex" spellcheck="false" autocomplete="off" value="'+hex+'" aria-label="Hex value">'+
-      '<button class="ap-add" type="button">'+(opts.label||"Add")+'</button>';
+      '<div class="sv"><div class="lay" data-hue></div>'+
+        '<div class="lay" style="background:linear-gradient(to right,#fff,rgba(255,255,255,0))"></div>'+
+        '<div class="lay" style="background:linear-gradient(to top,#000,rgba(0,0,0,0))"></div>'+
+        '<span class="dot"></span></div>'+
+      '<div class="hue"><span class="hnd"></span></div>'+
+      '<div class="cprow"><span class="cpsw"></span>'+
+        '<input class="cphex" spellcheck="false" autocomplete="off" aria-label="Hex value">'+
+        '<button class="cpok" type="button">'+(opts.label||"Add")+'</button></div>';
     document.body.appendChild(pop);
     var r=anchor.getBoundingClientRect();
-    var w=pop.offsetWidth||210, h=pop.offsetHeight||40;
+    var w=pop.offsetWidth||198, h=pop.offsetHeight||210;
     var x=Math.min(Math.max(8,r.left-6),innerWidth-w-8);
-    var y=r.bottom+8; if(y+h>innerHeight-8) y=r.top-h-8;
+    var y=r.bottom+8; if(y+h>innerHeight-8) y=Math.max(8,r.top-h-8);
     pop.style.left=x+"px"; pop.style.top=y+"px";
-    var wheel=pop.querySelector("input[type=color]");
-    var fill=pop.querySelector(".fill");
-    var field=pop.querySelector(".ap-hex");
+
+    var sv=pop.querySelector(".sv"), hueBar=pop.querySelector(".hue");
+    var hueLay=pop.querySelector("[data-hue]"), dot=pop.querySelector(".dot");
+    var hnd=pop.querySelector(".hnd"), sw=pop.querySelector(".cpsw");
+    var field=pop.querySelector(".cphex");
+
     function norm(v){
       v=String(v).trim().replace(/^#/,"");
       if(/^[0-9a-f]{3}$/i.test(v)) v=v.replace(/./g,function(c){return c+c;});
       return /^[0-9a-f]{6}$/i.test(v) ? "#"+v.toLowerCase() : null;
     }
-    /* live edits arrive as fast as the wheel can drag; one apply per frame is
+    /* live edits arrive as fast as the pointer can drag; one apply per frame is
        plenty and keeps the heavier tools from stuttering under the cursor */
     var queued=null, ticking=false;
     function flush(){ ticking=false; if(queued!==null){ var v=queued; queued=null; commit(v); } }
-    function show(v){
-      hex=v; fill.style.background=v;
+    function push(v){
+      hex=v;
       if(!opts.live) return;
       queued=v;
       if(!ticking){ ticking=true; requestAnimationFrame(flush); }
     }
-    wheel.addEventListener("input",function(){ show(wheel.value); field.value=wheel.value; field.classList.remove("bad"); });
+    /* one place paints the whole box, so the field, the swatch, the dot and
+       the hue handle can never disagree about what colour is selected */
+    function render(typing){
+      var v=hsv2hexC(hsv[0],hsv[1],hsv[2]);
+      hueLay.style.background=hsv2hexC(hsv[0],1,1);
+      dot.style.left=(hsv[1]*100)+"%";
+      dot.style.top=((1-hsv[2])*100)+"%";
+      hnd.style.left=(hsv[0]/360*100)+"%";
+      sw.style.background=v;
+      if(!typing){ field.value=v; field.classList.remove("bad"); }
+      push(v);
+    }
+    function drag(el,move){
+      el.addEventListener("pointerdown",function(e){
+        el.setPointerCapture(e.pointerId);
+        var go=function(ev){
+          var b=el.getBoundingClientRect();
+          move(Math.min(1,Math.max(0,(ev.clientX-b.left)/b.width)),
+               Math.min(1,Math.max(0,(ev.clientY-b.top)/b.height)));
+          render();
+        };
+        go(e);
+        var up=function(){ el.removeEventListener("pointermove",go);
+          el.removeEventListener("pointerup",up); el.removeEventListener("pointercancel",up); };
+        el.addEventListener("pointermove",go);
+        el.addEventListener("pointerup",up);
+        el.addEventListener("pointercancel",up);
+        e.preventDefault();
+      });
+    }
+    drag(sv,function(px,py){ hsv[1]=px; hsv[2]=1-py; });
+    drag(hueBar,function(px){ hsv[0]=px*360; });
+
     field.addEventListener("input",function(){
       var v=norm(field.value);
       field.classList.toggle("bad",!v);
-      if(v){ show(v); wheel.value=v; }
+      if(v){ hsv=hex2hsvC(v); render(true); }
     });
-    function add(){
+    function done(){
       var v=norm(field.value);
       if(!v){field.classList.add("bad");field.focus();return;}
       closePop();
@@ -1485,11 +1499,12 @@ html.embed body{overflow:hidden!important}
       if(opts.live){ if(queued!==null||v!==hex) commit(v); }
       else commit(v);
     }
-    pop.querySelector(".ap-add").addEventListener("click",add);
+    pop.querySelector(".cpok").addEventListener("click",done);
     field.addEventListener("keydown",function(e){
-      if(e.key==="Enter"){ e.preventDefault(); add(); }
+      if(e.key==="Enter"){ e.preventDefault(); done(); }
       if(e.key==="Escape"){ closePop(); }
     });
+    render();
     setTimeout(function(){ field.focus(); field.select(); },0);
   };
   /* ---- editing an ink --------------------------------------------------
@@ -1513,7 +1528,7 @@ html.embed body{overflow:hidden!important}
   function claimInks(){
     var col=document.querySelector(".z-left")||document.body;
     col.querySelectorAll('input[type=color]').forEach(function(input){
-      if(input.closest(".addpop")) return;
+      if(input.closest(".cpick")) return;
       var host=inkHost(input);
       if(!host||host.hasAttribute("data-ink")) return;
       host.setAttribute("data-ink","");
@@ -1529,7 +1544,7 @@ html.embed body{overflow:hidden!important}
     /* the corner badge is the tool's own delete; let it through untouched */
     if(e.target.closest(".x")) return;
     var host=e.target.closest("[data-ink]");
-    if(!host||e.target.closest(".addpop")) return;
+    if(!host||e.target.closest(".cpick")) return;
     var input=host.querySelector('input[type=color]');
     if(!input) return;
     e.preventDefault(); e.stopPropagation();
