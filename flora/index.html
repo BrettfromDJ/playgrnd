@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Riso — playgrnd</title>
+<title>Flora — playgrnd</title>
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/favicon.png" sizes="180x180" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="description" content="Generate torn-paper riso collages — stacked bands of ragged two-colour patterns, wandering scribbles, big dots and grain. Exports SVG, PNG and video.">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=DM+Mono&display=swap">
+<meta name="description" content="Generate risograph plant posters — a bloom, a stem and a vessel built from arcs and wedges on a ruled grid, mirrored down the middle with a little drift. Exports vector, image and video.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
   --gnd:#EFEFEC;
@@ -418,24 +418,29 @@ input[type=range]{accent-color:var(--ink)}
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
         <span class="slash">&frasl;</span>
-        <span class="tool">Riso</span>
+        <span class="tool">Flora</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">22 / 36</span>
-        <span class="k">Type</span><span class="v">Duotone print</span>
+        <span class="k">Index</span><span class="v">36 / 36</span>
+        <span class="k">Type</span><span class="v">Riso plant poster</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Artwork</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Bands</span><span class="v" id="bandsVal">3</span></div><div class="track"><input type="range" id="bands" min="2" max="5" step="1" value="3" aria-label="Bands"></div></div>
-        <div class="pr"><div class="top"><span class="k">Rough</span><span class="v" id="roughVal">50%</span></div><div class="track"><input type="range" id="rough" min="0.1" max="1" step="0.01" value="0.5" aria-label="Rough"></div></div>
-        <div class="pr"><div class="top"><span class="k">Scribbles</span><span class="v" id="scribVal">60%</span></div><div class="track"><input type="range" id="scrib" min="0" max="1" step="0.01" value="0.6" aria-label="Scribbles"></div></div>
-        <div class="pr"><div class="top"><span class="k">Dot</span><span class="v" id="dotpVal">50%</span></div><div class="track"><input type="range" id="dotp" min="0" max="1" step="0.01" value="0.5" aria-label="Dot"></div></div>
-        <div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">50%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.5" aria-label="Grain"></div></div></div></details></div>
-    <div class="l-bot"><details class="grp" open><summary>Colors</summary><div class="grp-b"><div class="sw-grid" id="swatches"></div>
-        <div class="btn-row">
-          
-          
-        </div>
+    <div class="l-scroll"><details class="grp" open><summary>Plant</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Bloom</span></span><span class="mval"><div class="chips" id="heads"></div></span></div>
+        <div class="pr"><div class="top"><span class="k">Bloom size</span><span class="v" id="bloomVal">60%</span></div><div class="track"><input type="range" id="bloom" min="0" max="1" step="0.01" value="0.6"></div></div>
+        <div class="pr"><div class="top"><span class="k">Petals</span><span class="v" id="partsVal">7</span></div><div class="track"><input type="range" id="parts" min="3" max="16" step="1" value="7"></div></div>
+        <div class="pr"><div class="top"><span class="k">Leaves</span><span class="v" id="leavesVal">55%</span></div><div class="track"><input type="range" id="leaves" min="0" max="1" step="0.01" value="0.55"></div></div>
+        <div class="misc stack"><span class="mhead"><span class="k">Vessel</span></span><span class="mval"><div class="chips" id="vessels"></div></span></div>
+        <div class="note">The plant is mirrored down the middle. Drift is what stops it being a perfect mirror.</div></div></details>
+    <details class="grp" open><summary>Sheet</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Backdrop</span></span><span class="mval"><div class="chips" id="backs"></div></span></div>
+        <div class="pr"><div class="top"><span class="k">Grid</span><span class="v" id="colsVal">17</span></div><div class="track"><input type="range" id="cols" min="9" max="49" step="2" value="17"></div></div>
+        <div class="pr"><div class="top"><span class="k">Arch rows</span><span class="v" id="canopyVal">1</span></div><div class="track"><input type="range" id="canopy" min="0" max="4" step="1" value="1"></div></div>
+        <div class="pr"><div class="top"><span class="k">Ruling</span><span class="v" id="ruleVal">45%</span></div><div class="track"><input type="range" id="rule" min="0" max="1" step="0.01" value="0.45"></div></div>
+        <div class="pr"><div class="top"><span class="k">Drift</span><span class="v" id="driftVal">18%</span></div><div class="track"><input type="range" id="drift" min="0" max="1" step="0.01" value="0.18"></div></div>
+        <div class="note">Ruling draws the printer's grid back over the finished sheet. Wind it to zero for clean shapes.</div></div></details></div>
+    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">6</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+        
+        <div class="note">First ink is the paper, last ink rules the grid, the rest are printing inks in order.</div>
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
@@ -471,10 +476,10 @@ input[type=range]{accent-color:var(--ink)}
       </div>
       <h2 class="h frame-h">Frame</h2><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span>
     </div>
-    <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><span class="chips" id="modes" style="display:flex;gap:6px"></span></span></div>
-          <div class="pr"><div class="top"><span class="k">Intensity</span><span class="v" id="amtVal">0.80</span></div><div class="track"><input type="range" id="amt" min="0.1" max="2" step="0.05" value="0.8" aria-label="Intensity"></div></div>
-          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">8 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="8" aria-label="Speed"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">16 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="48" step="2" value="16" aria-label="Loop length"></div></div></div><div class="group" id="ditherBody" hidden>
+    <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
+          <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
+          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">8 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="8"></div></div>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">24 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="24"></div></div></div><div class="group" id="ditherBody" hidden>
   <div class="misc stack"><span class="mhead"><span class="k">Pattern</span></span><span class="mval"><div class="chips" id="dthKinds"></div></span></div>
   <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
   <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
@@ -482,13 +487,11 @@ input[type=range]{accent-color:var(--ink)}
   <div class="note">Cuts the picture down to a few tones and scatters the difference as a pattern, the way old print and early screens did. It rides along with the PNG and the video; the SVG export stays smooth.</div>
 </div></div>
     <div class="r-bot">
-      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400" aria-label="Size"></div></div>
-          <div class="expmenu">
-            <button class="lnk" id="expPng">PNG</button>
-            <button class="lnk" id="expSvg">SVG</button>
-            <button class="lnk" id="expSvgLoop">SVG loop</button>
-            <button class="lnk" id="expVid">Video</button>
-          </div></div>
+      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
+        <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
+          <button class="lnk" id="expSvg">SVG</button>
+          <button class="lnk" id="expVid">Video</button></span></div>
+        <div class="note" id="expNote">Every shape is already a rectangle, a circle or an arc, so the SVG is the poster itself rather than a trace of it.</div></div>
       <div class="tbl" style="margin-top:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>
@@ -527,296 +530,391 @@ function hex2rgb(h){h=h.replace("#","");if(h.length===3)h=h.split("").map(c=>c+c
 function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4);});
   return .2126*r+.7152*g+.0722*b;}
 
-const RATIOS=[{id:"1:1",w:1,h:1},{id:"4:5",w:4,h:5},{id:"3:4",w:3,h:4},{id:"9:16",w:9,h:16},{id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const MODES=[["tear","Tear"],["scribble","Scribble"],["flicker","Flicker"]];
-/* riso ink sets: mids, one hot, one dark, one pale */
+const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
+ {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
+const MODES=[["sway","Sway"],["grow","Grow"],["cycle","Cycle"]];
+const HEADS=[["auto","Auto"],["lobes","Lobes"],["fan","Fan"],["rosette","Rosette"],["spikes","Spikes"]];
+const VESSELS=[["auto","Auto"],["goblet","Goblet"],["urn","Urn"],["cone","Cone"],["column","Column"]];
+const BACKS=[["auto","Auto"],["plain","Plain"],["bands","Bands"],["block","Block"],["arch","Arch"]];
+
+/* Every slot is a part, not a shade: the first ink is the paper the poster is
+   printed on, the last one rules the grid, and everything between is a
+   printing ink taken in order. Rotate therefore re-casts the whole poster
+   instead of shuffling shades of the same picture. */
 const PALETTES=[
-  ["#9B7FD4","#F26B1D","#FF4FA0","#556135","#E0402A","#9A97C9"],
-  ["#F2A0C8","#2B3AD8","#F5C518","#1E4A2E","#F0480F","#EFE9D4"],
-  ["#63D8C2","#E0402A","#F5C518","#2B2B8C","#FF87C3","#E8E4DC"],
-  ["#FF9E3D","#1B4FA0","#FF4FA0","#3A4A1E","#8A5CF0","#F2EFE8"],
-  ["#C9E265","#8A2BE2","#F0621E","#1E3A5A","#FF3DA6","#F5F0E8"],
-  ["#F5C518","#E22BC3","#2AAE9E","#4A2010","#2E7CFF","#EFE9D4"]
+  ["#EFEAE2","#FF2D8B","#00B2A9","#FF6B2C","#C9F24D","#26303A"],
+  ["#F2EFE6","#D8232A","#FF4FA3","#7FD4C1","#C9F24D","#2A2622"],
+  ["#EDE9DF","#0B5FD9","#FF5A1F","#00A0A8","#FF2D8B","#1C2340"],
+  ["#F0ECE2","#C9F24D","#00A3E0","#FF2D8B","#F4B32B","#242424"],
+  ["#EFE9DC","#FF2D8B","#C9F24D","#00B2A9","#1B2A6B","#2B2B2B"]
 ];
-const INK="#1A1A1A";
 
 const S={
-  seed:11, ratio:"1:1",
-  bands:3, rough:.5, scrib:.6, dotp:.5, grain:.5,
+  seed:3, ratio:"3:4",
+  cols:17, bloom:0.6, parts:7, canopy:1, leaves:0.55, drift:0.18, rule:0.45,
+  head:"auto", vessel:"auto", back:"auto",
   pal:PALETTES[0].slice(),
-  motion:{on:false,mode:"tear",amount:.8,fps:8,frames:16},
+  motion:{on:false,mode:"sway",amount:0.6,fps:8,frames:24},
   size:2400
 };
 
-function motionState(f){
-  const M=S.motion;
-  const t=M.on?f/M.frames:0;
-  return{t,mode:M.on?M.mode:"",amp:M.amount,f};
+const TAUF=Math.PI*2;
+
+function rngF(s){
+  let a=(s>>>0)||1;
+  return function(){
+    a=(a+0x6D2B79F5)|0;
+    let t=Math.imul(a^(a>>>15),1|a);
+    t=(t+Math.imul(t^(t>>>7),61|t))^t;
+    return ((t^(t>>>14))>>>0)/4294967296;
+  };
 }
 
-/* ============================================================
-   The collage engine — stacked bands of ragged two-colour
-   patterns, cut with jittered polygon edges so every shape
-   reads as torn paper. Canvas and SVG walk the same polygons.
-============================================================ */
-const VB=1000;
-function vbH(){const r=RATIOS.find(x=>x.id===S.ratio);return VB*r.h/r.w;}
-function buildSpec(){
-  const r=rng(S.seed*2654435761>>>0);
-  const H=vbH();
-  const n=S.bands|0;
-  /* band heights: uneven but never slivers */
-  const ws=[];let sum=0;
-  for(let i=0;i<n;i++){const v=0.6+r()*1.2;ws.push(v);sum+=v;}
-  const kinds=["blocks","streaks","static","blocks","streaks"];
-  for(let i=kinds.length-1;i>0;i--){const j=(r()*(i+1))|0;const t2=kinds[i];kinds[i]=kinds[j];kinds[j]=t2;}
-  const nc=S.pal.length;
-  /* pick a second ink that actually reads against the first */
-  const against=(base,r2)=>{
-    let fg=(r2*nc)|0;
-    for(let q=0;q<nc;q++){
-      const c2=(fg+q)%nc;
-      if(c2!==base&&Math.abs(relLum(S.pal[c2])-relLum(S.pal[base]))>0.09)return c2;
-    }
-    return (base+1)%nc;
-  };
-  const bands=[];let y=0;
-  for(let i=0;i<n;i++){
-    const h=ws[i]/sum*H;
-    const bg=(r()*nc)|0;
-    const fg=against(bg,r());
-    bands.push({y0:y,y1:y+h,kind:kinds[i%kinds.length],bg,fg,v:r(),v2:r(),id:i});
-    y+=h;
+/* Cell edges are mirrored rather than rounded twice: rounding each edge on its
+   own lets a column and its opposite number land a pixel apart, and the poster
+   then fails a left-to-right flip down every boundary. */
+function edgesF(n,total){
+  const step=total/n, e=new Array(n+1);
+  for(let k=0;k<=n;k++){
+    const m=Math.min(k,n-k);
+    const v=Math.round(m*step);
+    e[k]=(k<=n-k)?v:total-v;
   }
-  const scribs=[];
-  const ns=Math.round(S.scrib*3);
-  for(let i=0;i<ns;i++){
-    const pts=[];
-    let px=r()*VB*0.3, py=r()*H*0.5;
-    let ang=r()*TAU, sp=VB*0.02+r()*VB*0.02;
-    for(let q=0;q<70;q++){
-      pts.push([px,py]);
-      ang+=(hashi(i,q,3,S.seed)-0.5)*1.4;
-      /* the pen loops back if it wanders off the page */
-      if(px<0||px>VB)ang=Math.PI-ang;
-      if(py<0||py>H)ang=-ang;
-      px+=Math.cos(ang)*sp;py+=Math.sin(ang)*sp;
-    }
-    /* smooth the walk so it reads as a hand line */
-    const sm=[pts[0]];
-    for(let q=1;q<pts.length-1;q++)
-      sm.push([(pts[q-1][0]+pts[q][0]*2+pts[q+1][0])/4,(pts[q-1][1]+pts[q][1]*2+pts[q+1][1])/4]);
-    sm.push(pts[pts.length-1]);
-    scribs.push(sm);
-  }
-  let dot=null;
-  if(r()<S.dotp){
-    const b=bands[(r()*bands.length)|0];
-    const rr=Math.min(VB,H)*(0.14+r()*0.10);
-    dot={cx:VB*(0.3+r()*0.4),cy:Math.min(b.y1-rr*0.3,Math.max(b.y0+rr*0.3,b.y0+(b.y1-b.y0)*r())),
-      rr,ci:against(b.bg,r()),ph:r()};
-  }
-  return{bands,scribs,dot,H,SW:(r()*1e9)|0};
+  return e;
 }
-/* a ragged polygon: rectangle edges subdivided and jittered */
-function tornPoly(x,y,w,h,rough,k1,k2,SW,mo,mid){
-  const pts=[];
-  const wob=(q,ed)=>{
-    let j=(hashi(k1,q,ed+k2*7,SW)-0.5)*rough;
-    if(mo.mode==="tear")
-      j+=rough*0.45*Math.min(1.6,mo.amp)*Math.sin(TAU*(mo.t+hashi(k1,q,ed+50,SW)));
-    return j;
-  };
-  const n=5;
-  for(let q=0;q<=n;q++)pts.push([x+w*q/n,y+wob(q,1)]);
-  for(let q=1;q<=n;q++)pts.push([x+w+wob(q,2),y+h*q/n]);
-  for(let q=n-1;q>=0;q--)pts.push([x+w*q/n,y+h+wob(q,3)]);
-  for(let q=n-1;q>=1;q--)pts.push([x+wob(q,4),y+h*q/n]);
-  return pts;
+
+/* ---- primitives ---------------------------------------------------------
+   The poster is a list of flat shapes rather than a pixel field, so the mirror
+   has to be built into the geometry: every shape is described once and the
+   opposite number is derived from it. Reflecting a finished bitmap instead
+   leaves the centre column half a cell out and cannot survive the vector
+   export at all. */
+function mirF(p,W){
+  if(p.t==="r"){
+    const x=W-(p.x+p.w);
+    if(Math.abs(x-p.x)<1e-9) return null;
+    return {t:"r",x:x,y:p.y,w:p.w,h:p.h,f:p.f,a:p.a};
+  }
+  if(p.t==="d"){
+    const x=W-p.x;
+    if(Math.abs(x-p.x)<1e-9) return null;
+    return {t:"d",x:x,y:p.y,r:p.r,f:p.f,a:p.a};
+  }
+  if(p.t==="w"||p.t==="g"){
+    const x=W-p.x;
+    const a0=Math.PI-p.a1, a1=Math.PI-p.a0;
+    if(Math.abs(x-p.x)<1e-9&&Math.abs(a0-p.a0)<1e-9&&Math.abs(a1-p.a1)<1e-9) return null;
+    return {t:p.t,x:x,y:p.y,r:p.r,r0:p.r0,r1:p.r1,a0:a0,a1:a1,f:p.f,a:p.a};
+  }
+  const q=p.p.slice();
+  for(let i=0;i<q.length;i+=2) q[i]=W-q[i];
+  return {t:"t",p:q,f:p.f,a:p.a};
 }
-/* everything on the sheet, one frame, as layered polygon lists */
-function sceneParts(f){
-  const mo=motionState(f);
-  const sp=buildSpec();
-  const H=sp.H;
-  const rough=S.rough;
-  const flickState=mo.mode==="flicker"?mo.f%S.motion.frames:0;
-  const bandsOut=[];
-  for(const b of sp.bands){
-    const bh=b.y1-b.y0;
-    const shapes=[];
-    const rg=VB*0.016*(0.4+rough*1.6);
-    if(b.kind==="blocks"){
-      const cols=5+((b.v*3)|0);
-      const rows=Math.max(1,Math.round(bh/(VB*0.16)));
-      const cw2=VB/cols, ch2=bh/rows;
-      for(let cy2=0;cy2<rows;cy2++)for(let cx2=0;cx2<cols;cx2++){
-        let on=hashi(cx2,cy2,b.id*3+1,sp.SW)<0.58;
-        if(mo.mode==="flicker"&&hashi(cx2,cy2,b.id*5+flickState,sp.SW)<0.05)on=!on;
-        if(!on)continue;
-        const jx=(hashi(cx2,cy2,b.id+11,sp.SW)-0.5)*cw2*0.4;
-        const jy=(hashi(cx2,cy2,b.id+12,sp.SW)-0.5)*ch2*0.3;
-        const w2=cw2*(0.7+hashi(cx2,cy2,b.id+13,sp.SW)*0.55);
-        const h2=ch2*(0.75+hashi(cx2,cy2,b.id+14,sp.SW)*0.5);
-        shapes.push(tornPoly(cx2*cw2+jx,b.y0+cy2*ch2+jy,w2,h2,rg,cx2+cy2*31,b.id,sp.SW,mo));
-      }
-    }else if(b.kind==="streaks"){
-      const cols=7+((b.v*3)|0);
-      const cw2=VB/cols;
-      for(let i=0;i<cols;i++){
-        if(hashi(i,0,b.id*7+2,sp.SW)<0.16)continue;
-        const seg=6;
-        const L=[],R=[];
-        for(let q=0;q<=seg;q++){
-          const yy=b.y0+bh*q/seg;
-          let wb=(hashi(i,q,b.id*7+3,sp.SW)-0.5)*cw2*1.1*(0.4+rough);
-          if(mo.mode==="tear")
-            wb+=cw2*0.3*Math.min(1.6,mo.amp)*Math.sin(TAU*(mo.t+hashi(i,q,b.id+60,sp.SW)));
-          const wd=cw2*(0.34+hashi(i,q,b.id*7+4,sp.SW)*0.5);
-          L.push([i*cw2+cw2/2+wb-wd/2,yy]);
-          R.push([i*cw2+cw2/2+wb+wd/2,yy]);
-        }
-        shapes.push(L.concat(R.reverse()));
-      }
-    }else{ /* static: rows of scratchy dashes */
-      const rows=Math.max(3,Math.round(bh/(VB*0.028)));
-      const rh=bh/rows;
-      for(let ry=0;ry<rows;ry++){
-        const nd=2+((hashi(ry,1,b.id*9+1,sp.SW)*6)|0);
-        for(let d2=0;d2<nd;d2++){
-          if(mo.mode==="flicker"&&hashi(ry,d2*3+flickState,b.id,sp.SW)<0.08)continue;
-          const x0=hashi(ry,d2*2,b.id*9+2,sp.SW)*VB;
-          const ln=VB*(0.03+hashi(ry,d2*2+1,b.id*9+3,sp.SW)*0.16);
-          shapes.push(tornPoly(x0,b.y0+ry*rh+rh*0.2,ln,rh*0.55,rg*0.5,ry*17+d2,b.id,sp.SW,mo));
-        }
-      }
-    }
-    bandsOut.push({b,shapes});
-  }
-  /* the big dot, edge gently torn */
-  let dotPoly=null;
-  if(sp.dot){
-    const d2=sp.dot,pts=[];
-    for(let q=0;q<36;q++){
-      const a2=q/36*TAU;
-      let rr=d2.rr*(1+(hashi(q,1,77,sp.SW)-0.5)*0.05*rough);
-      pts.push([d2.cx+Math.cos(a2)*rr,d2.cy+Math.sin(a2)*rr]);
-    }
-    dotPoly={pts,col:S.pal[d2.ci%S.pal.length]};
-  }
-  /* scribbles, optionally drawing themselves */
-  const scribsOut=sp.scribs.map(sm=>{
-    if(mo.mode==="scribble"){
-      const k=Math.max(2,Math.ceil(sm.length*((mo.f+1)/S.motion.frames)));
-      return sm.slice(0,k);
-    }
-    return sm;
-  });
-  /* grain specks over everything */
-  const specks=[];
-  const ns=Math.round(S.grain*700);
-  for(let i=0;i<ns;i++){
-    const gk=mo.mode==="flicker"?flickState:0;
-    specks.push([hashi(i,1,gk+91,sp.SW)*VB,hashi(i,2,gk+92,sp.SW)*H,
-      hashi(i,3,gk+93,sp.SW)<0.55]);
-  }
-  return{bandsOut,dotPoly,scribsOut,specks,H,sp};
+function shiftF(p,dx){
+  if(p.t==="t"){ for(let i=0;i<p.p.length;i+=2) p.p[i]+=dx; }
+  else p.x+=dx;
 }
-function paint(c,W,Hpx,f){
-  const P=sceneParts(f);
-  const k=W/VB;
-  c.setTransform(1,0,0,1,0,0);
-  for(const{b,shapes}of P.bandsOut){
-    c.save();
-    c.beginPath();c.rect(0,b.y0*k-0.5,W,(b.y1-b.y0)*k+1);c.clip();
-    c.fillStyle=S.pal[b.bg%S.pal.length];c.fillRect(0,b.y0*k-1,W,(b.y1-b.y0)*k+2);
-    c.fillStyle=S.pal[b.fg%S.pal.length];
-    for(const pts of shapes){
-      c.beginPath();
-      pts.forEach((p,i)=>i?c.lineTo(p[0]*k,p[1]*k):c.moveTo(p[0]*k,p[1]*k));
-      c.closePath();c.fill();
-    }
-    c.restore();
+function drawF(c,p){
+  c.globalAlpha=(p.a===undefined)?1:p.a;
+  c.fillStyle=p.f;
+  if(p.t==="r"){ c.fillRect(p.x,p.y,p.w,p.h); }
+  else if(p.t==="d"){ c.beginPath(); c.arc(p.x,p.y,p.r,0,TAUF); c.fill(); }
+  else if(p.t==="w"){
+    c.beginPath(); c.moveTo(p.x,p.y); c.arc(p.x,p.y,p.r,p.a0,p.a1); c.closePath(); c.fill();
   }
-  if(P.dotPoly){
+  else if(p.t==="g"){
     c.beginPath();
-    P.dotPoly.pts.forEach((p,i)=>i?c.lineTo(p[0]*k,p[1]*k):c.moveTo(p[0]*k,p[1]*k));
-    c.closePath();c.fillStyle=P.dotPoly.col;c.fill();
+    c.arc(p.x,p.y,p.r1,p.a0,p.a1);
+    c.arc(p.x,p.y,p.r0,p.a1,p.a0,true);
+    c.closePath(); c.fill();
   }
-  c.strokeStyle=INK;c.lineWidth=Math.max(1,VB*0.0035*k);c.lineCap="round";c.lineJoin="round";
-  for(const sm of P.scribsOut){
-    c.beginPath();
-    sm.forEach((p,i)=>i?c.lineTo(p[0]*k,p[1]*k):c.moveTo(p[0]*k,p[1]*k));
-    c.stroke();
+  else if(p.t==="t"){
+    c.beginPath(); c.moveTo(p.p[0],p.p[1]);
+    for(let i=2;i<p.p.length;i+=2) c.lineTo(p.p[i],p.p[i+1]);
+    c.closePath(); c.fill();
   }
-  const sr=Math.max(1,VB*0.0016*k);
-  for(const[x,y,dk]of P.specks){
-    c.fillStyle=dk?"rgba(10,10,10,0.5)":"rgba(255,255,255,0.4)";
-    c.fillRect(x*k,y*k,sr,sr);
+  c.globalAlpha=1;
+}
+
+function profF(kind,t){
+  if(kind==="cone")   return 0.26+0.74*t;
+  if(kind==="column") return t>0.90?1:0.68;
+  if(kind==="urn"){
+    if(t<0.14) return 0.42+0.10*(t/0.14);
+    if(t<0.45) return 0.52+0.48*Math.sin(Math.PI*0.5*((t-0.14)/0.31));
+    if(t<0.86) return 1-0.46*((t-0.45)/0.41);
+    return 0.54+0.46*((t-0.86)/0.14);
+  }
+  /* goblet: a bowl, a narrow stem, a flared foot */
+  if(t<0.34) return 1-0.14*(t/0.34);
+  if(t<0.46) return 0.86-0.60*((t-0.34)/0.12);
+  if(t<0.84) return 0.26;
+  return 0.26+0.72*((t-0.84)/0.16);
+}
+
+function paint(c,W,H,f){
+  const M=S.motion, T=M.on?f/M.frames:0;
+  const pal=S.pal.length>=2?S.pal:["#EFEAE2","#FF2D8B"];
+  const gnd=pal[0];
+  /* the last slot rules the grid; if there is only one ink it does both jobs */
+  const inks=pal.length>=3?pal.slice(1,-1):pal.slice(1);
+  const ruleC=pal[pal.length-1];
+  const turns=Math.max(1,Math.round(M.amount*2));
+  const shift=(M.on&&M.mode==="cycle")?Math.floor(T*inks.length*turns):0;
+  const ink=k=>inks[((((k|0)+shift)%inks.length)+inks.length)%inks.length];
+
+  let cols=Math.max(9,S.cols|0); if(cols%2===0) cols++;
+  const cw=W/cols;
+  const rows=Math.max(11,Math.round(H/cw));
+  const ch=H/rows;
+  const EX=edgesF(cols,W), EY=edgesF(rows,H);
+  const gx=i=>EX[Math.max(0,Math.min(cols,i|0))];
+  const gy=j=>EY[Math.max(0,Math.min(rows,j|0))];
+  const cm=(cols-1)/2, mid=W/2;
+
+  const R=rngF(Math.imul(S.seed|0,7919)+13);
+  const pick=a=>a[(R()*a.length)|0];
+  const headK  = S.head!=="auto"   ? S.head   : pick(["lobes","fan","rosette","spikes"]);
+  const vesK   = S.vessel!=="auto" ? S.vessel : pick(["goblet","urn","cone","column"]);
+  const backK  = S.back!=="auto"   ? S.back   : pick(["plain","bands","block","arch"]);
+
+  /* The backdrop takes the first ink and the plant is dealt from the rest.
+     Merely starting the plant one ink later was not enough: the count wrapped,
+     the last part came back round to the field's own colour, and a vase lost
+     its middle to an invisible stripe. */
+  const plant=(backK!=="plain"&&inks.length>1)?inks.slice(1):inks;
+  const pi=k=>plant[((((k|0)+shift)%plant.length)+plant.length)%plant.length];
+
+  const B=[], P=[], V=[];
+  const push=(L,p)=>{ L.push(p); const q=mirF(p,W); if(q) L.push(q); };
+  const rect =(L,x,y,w,h,fl)=>{ if(w>0.01&&h>0.01) push(L,{t:"r",x:x,y:y,w:w,h:h,f:fl}); };
+  const disc =(L,x,y,r,fl)=>{ if(r>0.01) push(L,{t:"d",x:x,y:y,r:r,f:fl}); };
+  const wedge=(L,x,y,r,a0,a1,fl)=>{ if(r>0.01&&a1>a0) push(L,{t:"w",x:x,y:y,r:r,a0:a0,a1:a1,f:fl}); };
+  const poly =(L,pts,fl)=>push(L,{t:"t",p:pts,f:fl});
+
+  /* ---- where the plant sits, in whole grid rows ------------------------
+     Each part gets its own band of rows rather than being placed and hoped
+     for: sized off a shared centre, a big bloom simply grew down through the
+     stem and sat in the vase. */
+  const canN=Math.max(0,Math.min(4,S.canopy|0));
+  const canH=Math.max(2,Math.round(rows*0.07));
+  const canEnd=canN*canH;
+  const vTop=Math.min(rows-3,Math.max(canEnd+8,Math.round(rows*(0.65+R()*0.06))));
+  const headTop=canEnd+1;
+  const headBot=headTop+Math.max(4,Math.round((vTop-headTop)*0.80));
+  const grow=(M.on&&M.mode==="grow")?1+Math.sin(T*TAUF*turns)*0.20*Math.min(2,M.amount):1;
+  const hcy=(gy(headTop)+gy(headBot))/2;
+  const Rh=Math.max(cw,Math.min(W*0.46,(gy(headBot)-gy(headTop))*0.58)*(0.62+S.bloom*0.60)*grow);
+  const sway=(M.on&&M.mode==="sway")?Math.sin(T*TAUF*turns)*cw*1.4*Math.min(2,M.amount):0;
+
+  /* ---- backdrop -------------------------------------------------------- */
+  if(backK==="block"){
+    rect(B,0,0,W,H,ink(0));
+  }else if(backK==="bands"){
+    const sw=2+((R()*3)|0);
+    rect(B,gx(cm),0,gx(cm+1)-gx(cm),H,ink(0));
+    for(let i=cm+1,j=1;i<cols;i+=sw,j++) rect(B,gx(i),0,gx(Math.min(cols,i+sw))-gx(i),H,ink(j));
+  }else if(backK==="arch"){
+    const hw=Math.max(2,Math.round(cols*(0.15+R()*0.09)));
+    const x0=gx(cm-hw), x1=gx(cm+hw+1);
+    const ay=gy(Math.max(canEnd+1,Math.round(rows*0.26)));
+    rect(B,x0,ay,x1-x0,H-ay,ink(0));
+    wedge(B,mid,ay,(x1-x0)/2,Math.PI,TAUF,ink(0));
+  }
+
+  /* ---- canopy: rows of arcs across the top ----------------------------- */
+  for(let k=0;k<canN;k++){
+    const y1=gy((k+1)*canH), bandH=y1-gy(k*canH);
+    const sc=Math.max(2,Math.round(cols/(3+k*2+((R()*3)|0))));
+    const s=Math.min(sc*cw,bandH*2);
+    const start=(R()<0.5)?0:s/2;
+    for(let j=0;j*s<W/2+s;j++){
+      const cx=mid+start+j*s;
+      wedge(B,cx,y1,s/2,Math.PI,TAUF,pi(k+j));
+      wedge(B,cx,y1,s*0.28,Math.PI,TAUF,pi(k+j+1));
+    }
+  }
+
+  /* ---- head ------------------------------------------------------------ */
+  const n=Math.max(3,S.parts|0);
+  if(headK==="lobes"){
+    const orb=Rh*0.60, rr=Rh*0.46;
+    for(let k=0;k<=Math.floor(n/2);k++){
+      const th=-Math.PI/2+k*TAUF/n;
+      const px=mid+Math.cos(th)*orb, py=hcy+Math.sin(th)*orb;
+      disc(P,px,py,rr,pi(k+1));
+      disc(P,px,py,rr*0.48,pi(k+2));
+    }
+    disc(P,mid,hcy,Rh*0.52,pi(0));
+    disc(P,mid,hcy,Rh*0.20,pi(2));
+  }else if(headK==="fan"){
+    const base=hcy+Rh*0.85;
+    for(let k=0;k<n;k++) wedge(P,mid,base,Rh*1.28*(1-k/n),Math.PI,TAUF,pi(k));
+  }else if(headK==="rosette"){
+    /* concentric rings, the outer one scalloped — a bloom seen head on */
+    for(let k=0;k<=Math.floor(n/2);k++){
+      const th=-Math.PI/2+k*TAUF/n;
+      disc(P,mid+Math.cos(th)*Rh*0.86,hcy+Math.sin(th)*Rh*0.86,Rh*0.30,pi(1));
+    }
+    const rings=Math.max(2,Math.min(6,Math.round(n/2)));
+    for(let k=0;k<rings;k++) disc(P,mid,hcy,Rh*(1-k/rings),pi(k));
+  }else{
+    disc(P,mid,hcy,Rh*0.72,pi(0));
+    for(let k=0;k<=Math.floor(n/2);k++){
+      const th=-Math.PI/2+k*TAUF/n, w=TAUF/n*0.40;
+      poly(P,[mid+Math.cos(th)*Rh*1.22, hcy+Math.sin(th)*Rh*1.22,
+              mid+Math.cos(th-w)*Rh*0.66, hcy+Math.sin(th-w)*Rh*0.66,
+              mid+Math.cos(th+w)*Rh*0.66, hcy+Math.sin(th+w)*Rh*0.66],pi(k+1));
+    }
+    disc(P,mid,hcy,Rh*0.26,pi(2));
+  }
+
+  /* ---- stem and leaves ------------------------------------------------- */
+  const sTop=hcy+Rh*0.55, sBot=gy(vTop)+ch*0.8;
+  const wide=R()<0.4;
+  const x0=gx(wide?cm-1:cm), x1=gx(wide?cm+2:cm+1);
+  rect(P,x0,sTop,x1-x0,sBot-sTop,pi(1));
+  /* a narrow stem gets a pair of parallel lines beside it, as a printed one
+     does; a wide stem is already the whole width and would only be cluttered */
+  if(!wide&&R()<0.6) rect(P,gx(cm+2),sTop,gx(cm+3)-gx(cm+2),sBot-sTop,pi(3));
+  const lv=Math.round(S.leaves*2.4);
+  for(let k=0;k<lv;k++){
+    const ly=sTop+(sBot-sTop)*(0.34+0.54*(lv===1?0.5:k/(lv-1)));
+    const lr=cw*(1.0+R()*1.3)*(0.6+S.leaves*0.7);
+    /* leaves lift away from the stem. Drawn level, a mirrored pair reads as a
+       bowl slung under the bloom rather than as foliage. */
+    if(R()<0.5) wedge(P,x1,ly,lr,-Math.PI*0.72,Math.PI*0.16,pi(k+2));
+    else poly(P,[x1,ly+lr*0.30, x1+lr,ly-lr*0.58, x1+lr*0.30,ly-lr*0.30],pi(k+2));
+  }
+  if(sway) for(let i=0;i<P.length;i++) shiftF(P[i],sway);
+
+  /* ---- vessel ---------------------------------------------------------- */
+  const maxK=Math.max(3,Math.round(cols*0.26));
+  const span=Math.max(1,rows-vTop-1);
+  const kAt=j=>Math.max(1,Math.round(profF(vesK,(j-vTop)/span)*maxK));
+  {const k0=kAt(vTop+1);   /* the rim is a change of ink, not of width: widening
+       it turned every vessel into a table with a top */
+   rect(V,gx(cm-k0),gy(vTop),gx(cm+k0+1)-gx(cm-k0),gy(vTop+1)-gy(vTop),pi(2));}
+  for(let j=vTop+1;j<rows;j++){
+    const k=kAt(j);
+    rect(V,gx(cm-k),gy(j),gx(cm+k+1)-gx(cm-k),gy(j+1)-gy(j),pi(0));
+  }
+  for(let j=vTop+1;j<rows;j++){
+    const k=kAt(j);
+    /* a stripe needs body either side of it. Run down a three-cell stem and it
+       is not a stripe any more, it is a gap, and the vase reads as two legs. */
+    if(k>=2) rect(V,gx(cm),gy(j),gx(cm+1)-gx(cm),gy(j+1)-gy(j),pi(3));
+    if(k>=4) rect(V,gx(cm+2),gy(j),gx(cm+3)-gx(cm+2),gy(j+1)-gy(j),pi(2));
+  }
+  {const kf=kAt(rows-1);
+   rect(V,gx(cm-kf),gy(rows-1),gx(cm+kf+1)-gx(cm-kf),gy(rows)-gy(rows-1),pi(2));}
+
+  /* ---- paint ----------------------------------------------------------- */
+  c.fillStyle=gnd; c.fillRect(0,0,W,H);
+  for(let i=0;i<B.length;i++) drawF(c,B[i]);
+  for(let i=0;i<P.length;i++) drawF(c,P[i]);
+  for(let i=0;i<V.length;i++) drawF(c,V[i]);
+
+  /* ---- drift: the mirror is the rule, these are what break it ---------- */
+  const nd=Math.round(S.drift*9);
+  for(let k=0;k<nd;k++){
+    const i=1+((R()*(cols-2))|0), j=1+((R()*(rows-2))|0);
+    const x=gx(i), y=gy(j), w=gx(i+1)-x, h=gy(j+1)-y;
+    const fl=pi(1+((R()*inks.length)|0)), kind=(R()*3)|0;
+    if(kind===0)      drawF(c,{t:"d",x:x+w/2,y:y+h/2,r:Math.min(w,h)*0.28,f:fl});
+    else if(kind===1) drawF(c,{t:"t",p:[x,y+h,x+w,y+h,x+w/2,y],f:fl});
+    else              drawF(c,{t:"w",x:x,y:y+h,r:Math.min(w,h),a0:-Math.PI/2,a1:0,f:fl});
+  }
+
+  /* ---- the ruled grid, over everything --------------------------------- */
+  if(S.rule>0.004){
+    const lw=Math.max(0.5,cw*0.030), al=0.10+S.rule*0.40;
+    for(let i=1;i<cols;i++) drawF(c,{t:"r",x:EX[i]-lw/2,y:0,w:lw,h:H,f:ruleC,a:al});
+    for(let j=1;j<rows;j++) drawF(c,{t:"r",x:0,y:EY[j]-lw/2,w:W,h:lw,f:ruleC,a:al});
   }
 }
-/* ---------- SVG: the same parts as strings, per layer ---------- */
-function svgLayers(f,uid){
-  const P=sceneParts(f);
-  const f1=x=>x.toFixed(1);
-  const poly=pts=>`<polygon points="${pts.map(p=>f1(p[0])+","+f1(p[1])).join(" ")}"/>`;
-  let bands="",defs="";
-  P.bandsOut.forEach(({b,shapes},i)=>{
-    const cid=`c${uid}_${i}`;
-    defs+=`<clipPath id="${cid}"><rect x="0" y="${f1(b.y0-0.5)}" width="${VB}" height="${f1(b.y1-b.y0+1)}"/></clipPath>`;
-    bands+=`<g clip-path="url(#${cid})"><rect x="0" y="${f1(b.y0-1)}" width="${VB}" height="${f1(b.y1-b.y0+2)}" fill="${S.pal[b.bg%S.pal.length]}"/>`+
-      `<g fill="${S.pal[b.fg%S.pal.length]}">${shapes.map(poly).join("")}</g></g>`;
-  });
-  const dot=P.dotPoly?`<g fill="${P.dotPoly.col}">${poly(P.dotPoly.pts)}</g>`:"";
-  const scrib=P.scribsOut.length
-    ?`<g fill="none" stroke="${INK}" stroke-width="${(VB*0.0035).toFixed(2)}" stroke-linecap="round" stroke-linejoin="round">`+
-      P.scribsOut.map(sm=>`<polyline points="${sm.map(p=>f1(p[0])+","+f1(p[1])).join(" ")}"/>`).join("")+`</g>`:"";
-  let g1="",g2="";
-  for(const[x,y,dk]of P.specks){
-    const r2=`<rect x="${f1(x)}" y="${f1(y)}" width="1.6" height="1.6"/>`;
-    if(dk)g1+=r2;else g2+=r2;
-  }
-  const grain=(g1||g2)?`<g fill="#0A0A0A" opacity="0.5">${g1}</g><g fill="#FFFFFF" opacity="0.4">${g2}</g>`:"";
-  return{defs,bands,dot,scrib,grain,H:P.H};
+
+/* ---- vector ------------------------------------------------------------
+   The same paint() run against a recorder, so the export is the poster rather
+   than a trace of it. Every shape is already a rectangle, a circle or an arc,
+   which is exactly what SVG is made of. */
+function fF(v){return (Math.round(v*10)/10).toString();}
+function SvgSurfaceF(){
+  this.fillStyle="#000"; this.globalAlpha=1;
+  this.imageSmoothingEnabled=false;
+  this._b=[]; this._p=null; this._open=false;
 }
-function svgWrap(defs,inner){
+SvgSurfaceF.prototype.save=function(){};
+SvgSurfaceF.prototype.restore=function(){};
+SvgSurfaceF.prototype.translate=function(){};
+SvgSurfaceF.prototype.scale=function(){};
+SvgSurfaceF.prototype.rotate=function(){};
+SvgSurfaceF.prototype.clearRect=function(){};
+SvgSurfaceF.prototype.stroke=function(){};
+SvgSurfaceF.prototype._op=function(){
+  return this.globalAlpha>=1?"":' fill-opacity="'+(Math.round(this.globalAlpha*1000)/1000)+'"';
+};
+SvgSurfaceF.prototype.fillRect=function(x,y,w,h){
+  if(w<=0||h<=0)return;
+  this._b.push('<rect x="'+fF(x)+'" y="'+fF(y)+'" width="'+fF(w)+'" height="'+fF(h)+
+               '" fill="'+this.fillStyle+'"'+this._op()+'/>');
+};
+SvgSurfaceF.prototype.beginPath=function(){this._p=[];this._open=false;};
+SvgSurfaceF.prototype.moveTo=function(x,y){
+  if(!this._p)this._p=[];
+  this._p.push("M"+fF(x)+" "+fF(y)); this._open=true;
+};
+SvgSurfaceF.prototype.lineTo=function(x,y){
+  if(!this._p)return;
+  if(!this._open){this.moveTo(x,y);return;}
+  this._p.push("L"+fF(x)+" "+fF(y));
+};
+/* canvas draws a straight line from the current point to the arc's start
+   before sweeping; the annulus sectors here rely on that, so the recorder
+   has to do the same rather than jumping */
+SvgSurfaceF.prototype.arc=function(cx,cy,r,a0,a1,ccw){
+  if(!this._p)this._p=[];
+  let d=a1-a0;
+  if(ccw){ if(d>0)d-=Math.ceil(d/TAUF)*TAUF; if(d<-TAUF)d=-TAUF; }
+  else   { if(d<0)d+=Math.ceil(-d/TAUF)*TAUF; if(d>TAUF)d=TAUF; }
+  const x0=cx+Math.cos(a0)*r, y0=cy+Math.sin(a0)*r;
+  if(this._open) this._p.push("L"+fF(x0)+" "+fF(y0));
+  else { this._p.push("M"+fF(x0)+" "+fF(y0)); this._open=true; }
+  if(Math.abs(d)>=TAUF-1e-9){
+    const sw=(d>0)?1:0;
+    const xm=cx-Math.cos(a0)*r, ym=cy-Math.sin(a0)*r;
+    this._p.push("A"+fF(r)+" "+fF(r)+" 0 0 "+sw+" "+fF(xm)+" "+fF(ym));
+    this._p.push("A"+fF(r)+" "+fF(r)+" 0 0 "+sw+" "+fF(x0)+" "+fF(y0));
+    return;
+  }
+  const x1=cx+Math.cos(a0+d)*r, y1=cy+Math.sin(a0+d)*r;
+  this._p.push("A"+fF(r)+" "+fF(r)+" 0 "+(Math.abs(d)>Math.PI?1:0)+" "+((d>0)?1:0)+
+               " "+fF(x1)+" "+fF(y1));
+};
+SvgSurfaceF.prototype.closePath=function(){ if(this._p&&this._p.length)this._p.push("Z"); };
+SvgSurfaceF.prototype.fill=function(){
+  if(!this._p||this._p.length<2){this._p=null;this._open=false;return;}
+  this._b.push('<path d="'+this._p.join("")+'" fill="'+this.fillStyle+'"'+this._op()+'/>');
+  this._p=null; this._open=false;
+};
+SvgSurfaceF.prototype.markup=function(){return this._b.join("");};
+
+function svgFrame(f){
   const r=RATIOS.find(x=>x.id===S.ratio);
   const W=S.size,H=Math.round(S.size*r.h/r.w);
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${VB} ${vbH().toFixed(1)}">`+
-    (defs?`<defs>${defs}</defs>`:"")+inner+`</svg>`;
+  const s=new SvgSurfaceF();
+  paint(s,W,H,f);
+  return s.markup();
 }
-function buildSVG(){
-  const L=svgLayers(curFrame,0);
-  return svgWrap(L.defs,L.bands+L.dot+L.scrib+L.grain);
+function svgWrap(inner){
+  const r=RATIOS.find(x=>x.id===S.ratio);
+  const W=S.size,H=Math.round(S.size*r.h/r.w);
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+
+         '" viewBox="0 0 '+W+' '+H+'">'+
+         '<clipPath id="fl"><rect width="'+W+'" height="'+H+'"/></clipPath>'+
+         '<g clip-path="url(#fl)">'+inner+'</g></svg>';
 }
-/* the loop stacks only the layers the current movement changes */
-function buildLoopSVG(){
-  const M=S.motion,F=M.frames,dur=(F/M.fps).toFixed(3);
-  const moving=M.mode==="tear"?["bands"]:M.mode==="scribble"?["scrib"]:["bands","grain"];
-  const perFrame=[];let defs="";
-  for(let f=0;f<F;f++){const L=svgLayers(f,f);perFrame.push(L);if(f===0)defs="";defs+=L.defs;}
-  const stack=key=>{
-    const segs=[];
-    for(let f=0;f<F;f++){
-      const s2=perFrame[f][key];
-      const cmp=s2.replace(/c\d+_/g,"c_");
-      if(segs.length&&segs[segs.length-1].cmp===cmp)segs[segs.length-1].n++;
-      else segs.push({cmp,c:s2,f0:f,n:1});
-    }
-    let out2="";
-    segs.forEach((sg,i)=>{
-      const t0=(sg.f0/F).toFixed(5),t1=((sg.f0+sg.n)/F).toFixed(5);
-      const anim=i===0
-        ?`<animate attributeName="visibility" values="visible;hidden" keyTimes="0;${t1}" dur="${dur}s" calcMode="discrete" repeatCount="indefinite"/>`
-        :`<animate attributeName="visibility" values="hidden;visible;hidden" keyTimes="0;${t0};${t1}" dur="${dur}s" calcMode="discrete" repeatCount="indefinite"/>`;
-      out2+=`<g visibility="${i===0?"visible":"hidden"}">${anim}${sg.c}</g>`;
-    });
-    return out2;
-  };
-  const L0=perFrame[0];
-  const part=key=>moving.includes(key)?stack(key):L0[key];
-  return svgWrap(defs,part("bands")+part("dot")+part("scrib")+part("grain"));
-}
+function buildSVG(){return svgWrap(svgFrame(curFrame));}
 
 const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
 function fitCanvas(){
@@ -870,21 +968,13 @@ function setPlaying(v){
     :'<path d="M0 0l10 5.5L0 11z"/>';
   cancelAnimationFrame(raf);
   if(playing){t0=performance.now()-(curFrame/S.motion.frames)*(S.motion.frames/S.motion.fps*1000);raf=requestAnimationFrame(tick);}
-  else requestDraw();
 }
 
 /* ============================================================
    Export
 ============================================================ */
 let toastTimer;
-window.__toast=toast;
-window.__toast=toast;
-window.__toast=toast;
-window.__toast=toast;
-window.__toast=toast;
-window.__toast=toast;
 function toast(msg,busy){
-  window.__toast=toast;
   const el=$("#toast");el.textContent=msg;el.classList.toggle("busy",!!busy);el.classList.add("show");
   clearTimeout(toastTimer);if(!busy)toastTimer=setTimeout(()=>el.classList.remove("show"),2400);
 }
@@ -893,7 +983,7 @@ function save(blob,name){
   a.href=url;a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
-function stamp(){return `riso-${S.seed}-${S.ratio.replace(":","x")}`;}
+function stamp(){return `flora-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
   const a=$("#expVid"),sc=$("#scrub"),l=$("#expSvgLoop");
   if(a)a.disabled=!S.motion.on;
@@ -914,14 +1004,6 @@ $("#expSvg").addEventListener("click",()=>{
   save(new Blob([buildSVG()],{type:"image/svg+xml"}),stamp()+".svg");
   toast("SVG saved");
 });
-$("#expSvgLoop").addEventListener("click",()=>{
-  if(!S.motion.on)return toast("Turn on motion first");
-  toast("Building loop\u2026",true);
-  setTimeout(()=>{
-    save(new Blob([buildLoopSVG()],{type:"image/svg+xml"}),stamp()+"-loop.svg");
-    toast("Animated SVG saved");
-  },30);
-});
 function pickVideoType(){
   const t=["video/mp4;codecs=avc1.42E01E","video/mp4","video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"];
   for(const x of t)if(window.MediaRecorder&&MediaRecorder.isTypeSupported(x))return x;
@@ -933,7 +1015,7 @@ $("#expVid").addEventListener("click",()=>{
   if(!type)return toast("This browser can't record video");
   const ext=type.startsWith("video/mp4")?"mp4":"webm";
   const r=RATIOS.find(x=>x.id===S.ratio);
-  let W=Math.min(1120,S.size);W-=W%2;
+  let W=Math.min(1280,S.size);W-=W%2;
   let H=Math.round(W*r.h/r.w);H-=H%2;
   const c=document.createElement("canvas");c.width=W;c.height=H;
   const cc=c.getContext("2d");
@@ -958,13 +1040,13 @@ $("#expVid").addEventListener("click",()=>{
    UI
 ============================================================ */
 function accent(){
-  let best=S.pal[1],bl=-1;
-  for(const c of S.pal){const l=relLum(c);if(l>bl&&l>0.1&&l<0.85){bl=l;best=c;}}
-  /* UI accent stays constant — the artwork supplies the colour */
+  let best=S.pal[S.pal.length-1],bl=-1;
+  for(const c of S.pal){const l=relLum(c);if(l>bl&&l>0.12){bl=l;best=c;}}
+  document.documentElement.style.setProperty("--accent",bl>0?best:"#F5C21B");
   $("#strip").innerHTML=S.pal.map(c=>`<span style="background:${c}"></span>`).join("");
   const g=$("#glyph");
   if(g.children.length!==9)g.innerHTML=Array.from({length:9},()=>"<i></i>").join("");
-  [...g.children].forEach((el,i)=>el.classList.toggle("on",[1,3,4,5,7].includes(i)));
+  [...g.children].forEach((el,i)=>el.classList.toggle("on",[0,2,4,6,8].includes(i)));
 }
 function segmented(host,items,get,set){
   if(!host)return;
@@ -991,7 +1073,6 @@ function buildRatios(){
     host.appendChild(b);
   });
 }
-const ROLES=["Ink 1","Ink 2","Ink 3","Ink 4","Ink 5","Ink 6"];
 function buildSwatches(){
   const host=$("#swatches");
   host.innerHTML="";
@@ -999,9 +1080,9 @@ function buildSwatches(){
   S.pal.forEach((c,i)=>{
     const b=document.createElement("button");
     b.className="sw"+(lock?" locked":"");b.type="button";
-    b.setAttribute("aria-label","Ink "+(i+1)+" colour");
+    b.setAttribute("aria-label","Ink "+(i+1)+" color");
     b.innerHTML=`<span class="fill" style="background:${c}"></span>`+
-      `<input type="color" value="${c}"><span class="x" aria-hidden="true">×</span>`;
+      `<input type="color" value="${c}"><span class="x" aria-hidden="true">\u00d7</span>`;
     b.querySelector("input").addEventListener("input",e=>{
       S.pal[i]=e.target.value;
       b.querySelector(".fill").style.background=e.target.value;
@@ -1017,13 +1098,14 @@ function buildSwatches(){
   });
   const add=document.createElement("button");
   add.className="sw-add";add.type="button";add.textContent="+";
-  add.setAttribute("aria-label","Add colour");
+  add.setAttribute("aria-label","Add color");
   add.addEventListener("click",()=>{
     const commit=hex=>{S.pal.push(hex);buildSwatches();accent();reframe();};
     if(window.__pickColour) window.__pickColour(add,commit);
-    else commit(hsl2hex(Math.random()*360,45+Math.random()*45,42+Math.random()*30));
+    else commit(PALETTES[0][(Math.random()*PALETTES[0].length)|0]);
   });
   host.appendChild(add);
+  const n=$("#swCountVal"); if(n) n.textContent=S.pal.length;
 }
 function setPalette(p){S.pal=p.slice();buildSwatches();accent();reframe();}
 function bindRange(id,fmt,set,after){
@@ -1035,45 +1117,25 @@ function bindRange(id,fmt,set,after){
     (after||reframe)();
   });
 }
-const pct=v=>Math.round(v*100)+"%";
 
 buildRatios();buildSwatches();accent();
+segmented($("#heads"),HEADS,()=>S.head,v=>{S.head=v;reframe();});
+segmented($("#vessels"),VESSELS,()=>S.vessel,v=>{S.vessel=v;reframe();});
+segmented($("#backs"),BACKS,()=>S.back,v=>{S.back=v;reframe();});
 segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
-function hsl2hex(h,sa,l){
-  h=((h%360)+360)%360;sa/=100;l/=100;
-  const a=sa*Math.min(l,1-l);
-  const f=n=>{const k=(n+h/30)%12;const c=l-a*Math.max(-1,Math.min(k-3,9-k,1));
-    return Math.round(c*255).toString(16).padStart(2,"0");};
-  return "#"+f(0)+f(8)+f(4);
-}
-/* New set mixes fresh riso ink sets with the curated list */
-function newPalette(){
-  const R=Math.random;
-  if(R()<0.25)return window.__freshPalette(PALETTES[(R()*PALETTES.length)|0]);
-  const h=R()*360;
-  return[
-    hsl2hex(h,45+R()*25,60+R()*10),
-    hsl2hex(h+120+R()*60,70+R()*25,52+R()*10),
-    hsl2hex(h+200+R()*60,80+R()*20,58+R()*8),
-    hsl2hex(h+60+R()*40,30+R()*20,24+R()*10),
-    hsl2hex(h+300+R()*40,75+R()*25,50+R()*10),
-    hsl2hex(h+30,20+R()*20,84+R()*8)
-  ];
-}
 $("#shufColors").addEventListener("click",()=>{
-  let p;do{p=newPalette();}while(p[0]===S.pal[0]&&p[1]===S.pal[1]);
-  const n=S.pal.length;
-  while(p.length<n) p.push(hsl2hex(Math.random()*360,45+Math.random()*45,42+Math.random()*30));
-  setPalette(p.slice(0,n));
+  setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
 });
 $("#rotColors").addEventListener("click",()=>{
-  setPalette(S.pal.slice(1).concat([S.pal[0]]));
+  setPalette(S.pal.slice(1).concat(S.pal[0]));
 });
-bindRange("bands",v=>v,v=>S.bands=v|0);
-bindRange("rough",pct,v=>S.rough=v);
-bindRange("scrib",pct,v=>S.scrib=v);
-bindRange("dotp",pct,v=>S.dotp=v);
-bindRange("grain",pct,v=>S.grain=v);
+bindRange("cols",v=>v|0,v=>S.cols=v|0);
+bindRange("bloom",v=>Math.round(v*100)+"%",v=>S.bloom=v);
+bindRange("parts",v=>v|0,v=>S.parts=v|0);
+bindRange("leaves",v=>Math.round(v*100)+"%",v=>S.leaves=v);
+bindRange("canopy",v=>v|0,v=>S.canopy=v|0);
+bindRange("rule",v=>Math.round(v*100)+"%",v=>S.rule=v);
+bindRange("drift",v=>Math.round(v*100)+"%",v=>S.drift=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
@@ -1091,22 +1153,7 @@ $("#motionTog").addEventListener("click",e=>{
 });
 $("#play").addEventListener("click",()=>{if(!S.motion.on){$("#motionTog").click();return;}setPlaying(!playing);});
 $("#scrub").addEventListener("input",e=>{setPlaying(false);curFrame=parseInt(e.target.value,10)%Math.max(1,S.motion.frames);draw();});
-/* the seed deals the whole collage inside the engine; here it deals
-   the layout numbers */
-function applySeed(){
-  const r=rng((S.seed^0x9e3779b9)>>>0);
-  const pick=a=>a[(r()*a.length)|0];
-  S.bands=pick([2,3,3,3,4,5]);
-  S.rough=pick([0.35,0.5,0.5,0.65,0.8]);
-  S.scrib=pick([0.3,0.6,0.6,0.9]);
-}
-function syncControls(){
-  const set=(id,v,txt)=>{const el=$("#"+id);if(el)el.value=v;const l=$("#"+id+"Val");if(l)l.textContent=txt;};
-  set("bands",S.bands,S.bands);
-  set("rough",S.rough,pct(S.rough));
-  set("scrib",S.scrib,pct(S.scrib));
-}
-function newSeed(v){S.seed=(v!==undefined)?v:(Math.random()*99999|0)+1;$("#seed").value=S.seed;applySeed();syncControls();reframe();}
+function newSeed(v){S.seed=(v!==undefined)?v:(Math.random()*99999|0)+1;$("#seed").value=S.seed;reframe();}
 $("#shuf").addEventListener("click",()=>newSeed());
 $("#seed").addEventListener("change",e=>{const v=parseInt(e.target.value,10);newSeed(Number.isFinite(v)?Math.abs(v):1);});
 art.addEventListener("click",()=>newSeed());
@@ -1115,7 +1162,7 @@ document.addEventListener("keydown",e=>{
   if(e.code==="Space"){e.preventDefault();newSeed();}
   if(e.key==="p"||e.key==="P"){if(S.motion.on)setPlaying(!playing);}
 });
-newSeed(11);
+newSeed(7);
 $("#scrub").max=S.motion.frames-1;
 updateExportNote();
 
@@ -1273,16 +1320,6 @@ html.embed body{overflow:hidden!important}
      One shared layer for every colour input on the page. -->
 <style>
 </style>
-
-
-
-
-
-
-
-
-
-
 
 
 <!-- Instrument chassis runtime: hairline slider fills, capture dots, the corner
