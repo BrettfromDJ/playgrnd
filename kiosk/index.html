@@ -70,6 +70,13 @@ input{font:inherit;color:inherit}
 .lnk svg,.misc svg,.grp-b svg{width:11px;height:11px;flex:none;display:block}
 .lnk:hover{background:rgba(21,22,26,.07);color:var(--ink)}
 .lnk[aria-pressed=true],.lnk.on{background:var(--ink);color:var(--gnd);text-decoration:none}
+/* Video and SVG loop switch themselves off until Animate is on. The chassis
+   styled a disabled scrub bar and disabled capture arrows but never a
+   disabled .lnk, so those two buttons looked exactly like working ones,
+   swallowed the click, and read as broken. */
+.lnk[disabled]{opacity:.3;cursor:not-allowed}
+.lnk[disabled]:hover{background:none;color:var(--ink)}
+.vidhint{margin-top:14px}
 
 /* ---------------- rig ---------------- */
 .rig{height:100dvh;display:grid;
@@ -508,7 +515,7 @@ input[type=range]{accent-color:var(--ink)}
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
           <button class="lnk" id="expSvg">SVG</button>
           <button class="lnk" id="expVid">Video</button></span></div>
-        <div class="note" id="expNote">The letters stay real text in the SVG, so the export opens as editable type.</div></div>
+        <div class="note" id="expNote">The letters stay real text in the SVG, so the export opens as editable type.</div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
       <div class="tbl" style="margin-top:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>
@@ -1826,6 +1833,16 @@ html.embed body{overflow:hidden!important}
        && !e.target.closest("#exportTog")) closeExport();
   },true);
   document.addEventListener("keydown",function(e){ if(e.key==="Escape") closeExport(); });
+
+  /* the hint belongs with the greyed-out buttons, so it comes and goes with
+     them rather than sitting there once Animate is on */
+  (function(){
+    var vid=$("#expVid"), tip=$(".vidhint");
+    if(!vid||!tip) return;
+    var sync=function(){ tip.hidden=!vid.disabled; };
+    new MutationObserver(sync).observe(vid,{attributes:true,attributeFilter:["disabled"]});
+    sync();
+  })();
 
   var mot=$("#motionTog");
   if(mot) mot.addEventListener("click",function(){
