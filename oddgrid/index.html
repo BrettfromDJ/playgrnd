@@ -402,7 +402,14 @@ input[type=range]{accent-color:var(--ink)}
   .l-top{order:0} .z-stage{order:1} .l-scroll{order:2} .l-bot{order:3}
   .z-bottom{order:4} .z-right{order:5}
   .l-top{padding-top:30px}
+  /* The blanket display:block above is for the rails, but it lands on the
+     stage too and takes its place-items:center with it, so the artwork stacked
+     against the top of a fixed-height stage with the slack all below it. Worst
+     on a wide ratio, where the artwork is short and the gap is most of the
+     stage. Everything else in here is absolutely positioned, so the grid has
+     one item to centre and centres it. */
   .z-stage{height:52dvh;padding:64px 26px 26px;overflow:hidden;
+    display:grid;place-items:center;
     position:sticky;top:0;z-index:20;background:#F3F3F1;
     margin:0 -30px;padding-left:30px;padding-right:30px}
   .z-bottom{justify-self:stretch;text-align:left}
