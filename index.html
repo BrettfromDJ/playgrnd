@@ -76,9 +76,22 @@ input{font:inherit;color:inherit}
 .z-left,.z-right{align-self:stretch;min-height:0;max-height:100%;
   display:flex;flex-direction:column}
 .l-scroll,.z-right{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;
-  scrollbar-width:none;-ms-overflow-style:none;--fade:0px;
+  padding-right:13px;
+  --fade:0px;
   -webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - var(--fade)),transparent 100%);
   mask-image:linear-gradient(to bottom,#000 calc(100% - var(--fade)),transparent 100%)}
+/* Scrollbars are hidden, and a Mac hides its own until you happen to scroll,
+   so a column with more below it read as finished. This is the chassis' own
+   scroll indicator: a hairline track with a thumb sized to how much there is
+   and moved to where you are. Drawn rather than left to the browser, because
+   ::-webkit-scrollbar styling is quietly ignored where overlay scrollbars are
+   in force, which is most Macs. */
+.scue{position:absolute;width:3px;border-radius:99px;background:rgba(21,22,26,.09);
+  pointer-events:none;z-index:6;opacity:0;transition:opacity .2s ease}
+.scue.on{opacity:1}
+.scue i{display:block;width:100%;border-radius:99px;background:var(--ink);opacity:.34;
+  transition:transform .06s linear}
+.l-scroll,.z-right{scrollbar-width:none;-ms-overflow-style:none}
 .l-scroll::-webkit-scrollbar,.z-right::-webkit-scrollbar{width:0;height:0;display:none}
 .l-top,.l-bot{flex:none}
 .l-scroll{padding-top:8px}
@@ -162,10 +175,12 @@ input{font:inherit;color:inherit}
 .thead .s.flip svg{transform:rotate(180deg)}
 .thead .r{justify-self:end;text-align:right}
 
-.list{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;padding-left:20px;
-  scrollbar-width:none;-ms-overflow-style:none;--fade:0px;
+.list{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;
+  padding-left:20px;padding-right:15px;
+  --fade:0px;
   -webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - var(--fade)),transparent 100%);
   mask-image:linear-gradient(to bottom,#000 calc(100% - var(--fade)),transparent 100%)}
+.list{scrollbar-width:none;-ms-overflow-style:none}
 .list::-webkit-scrollbar{width:0;height:0;display:none}
 
 .row{display:grid;grid-template-columns:34px minmax(0,1.05fr) minmax(0,1.5fr) 104px;
@@ -494,11 +509,34 @@ addEventListener("keydown",e=>{
 /* ---- soft fade at the foot of anything that scrolls ------------------ */
 /* The mask is only worth showing when there is something below the fold; a
    permanent fade over a short list just looks like the text is broken. */
+/* ---- scroll cue: a hairline bar beside anything with more below -------- */
+function cue(el){
+  if(!el) return;
+  var host=el.parentNode; if(!host) return;
+  if(getComputedStyle(host).position==="static") host.style.position="relative";
+  var c=el.__cue;
+  if(!c){ c=document.createElement("span"); c.className="scue";
+          c.appendChild(document.createElement("i")); host.appendChild(c); el.__cue=c; }
+  var over=el.scrollHeight-el.clientHeight;
+  if(over<=2){ c.classList.remove("on"); return; }
+  c.classList.add("on");
+  c.style.top=el.offsetTop+"px";
+  /* inside the column, never outside it: the scroll boxes carry a little
+       right padding so the text stops short of the bar rather than running
+       under it */
+    c.style.left=(el.offsetLeft+el.clientWidth-3)+"px";
+  c.style.height=el.clientHeight+"px";
+  var th=Math.max(30,el.clientHeight*(el.clientHeight/el.scrollHeight));
+  c.firstChild.style.height=th+"px";
+  c.firstChild.style.transform="translateY("+
+    ((el.scrollTop/over)*(el.clientHeight-th)).toFixed(1)+"px)";
+}
 function fade(el){
   if(!el) return;
   const over=el.scrollHeight-el.clientHeight;
   const left=over-el.scrollTop;
   el.style.setProperty("--fade", (over>4&&left>4) ? "58px" : "0px");
+  cue(el);
 }
 /* after a frame as well as inline: a mask set in the same tick as the innerHTML
    that produced the overflow can be measured before the rows have laid out, and
