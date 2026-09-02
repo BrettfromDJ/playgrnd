@@ -1904,6 +1904,82 @@ html.embed body{overflow:hidden!important}
   });
   addEventListener("resize",function(){ place(expBody,exp); });
 
+  /* ---- the palette follows you from tool to tool ------------------------
+     Tools keep their colours in wildly different shapes — some in S.pal, some
+     not, anywhere between two and nine of them — so this drives the swatch
+     controls instead, which every tool has and every tool already listens to.
+     Setting a swatch here is indistinguishable from you setting it. */
+  (function(){
+    var PK="playgrnd.palette", CK="playgrnd.palette.carry";
+    var host=$("#swatches");
+    if(!host) return;                    /* two tools have no editable inks */
+    var applying=false;
+    function ok(h){ return typeof h==="string" && /^#[0-9a-f]{6}$/i.test(h); }
+    function inputs(){
+      return [].slice.call(host.querySelectorAll('input[type="color"]'));
+    }
+    function stored(){
+      try{ var v=JSON.parse(localStorage.getItem(PK));
+           return (v&&v.length&&v.every(ok)) ? v : null; }catch(e){ return null; }
+    }
+    function on(){ try{ return localStorage.getItem(CK)!=="off"; }catch(e){ return true; } }
+    function keep(){
+      /* switched off, the link is suspended rather than half-alive: nothing is
+         written either, so turning it back on restores what you had */
+      if(applying||!on()) return;
+      var v=inputs().map(function(i){return i.value.toLowerCase();}).filter(ok);
+      if(v.length) try{ localStorage.setItem(PK,JSON.stringify(v)); }catch(e){}
+    }
+    /* Fitting a long palette into few slots by taking the first of them can
+       hand a two-ink tool two near-identical colours and so no picture at all;
+       spreading the pick across the row keeps the contrast. */
+    function fit(list,n){
+      var out=[],i;
+      if(list.length>=n){
+        for(i=0;i<n;i++) out.push(list[Math.round(i*(list.length-1)/Math.max(1,n-1))]);
+        return out;
+      }
+      for(i=0;i<n;i++) out.push(list[i%list.length]);
+      return out;
+    }
+    function apply(){
+      var list=stored(), ins=inputs();
+      if(!list||!ins.length) return;
+      var want=fit(list,ins.length);
+      applying=true;
+      ins.forEach(function(inp,i){
+        if(inp.value.toLowerCase()===want[i].toLowerCase()) return;
+        inp.value=want[i];
+        inp.dispatchEvent(new Event("input",{bubbles:true}));
+      });
+      applying=false;
+    }
+    host.addEventListener("input",function(){ keep(); });
+    new MutationObserver(function(){ keep(); }).observe(host,{childList:true});
+
+    var anchor=$("#shufColors");
+    if(anchor&&anchor.parentNode){
+      var b=document.createElement("button");
+      b.className="lnk"; b.type="button"; b.id="carryPal"; b.textContent="Carry";
+      b.title="Keep these colours when you open another tool";
+      b.setAttribute("aria-pressed", on()?"true":"false");
+      b.addEventListener("click",function(){
+        var next=!on();
+        try{ localStorage.setItem(CK, next?"on":"off"); }catch(e){}
+        b.setAttribute("aria-pressed", String(next));
+        /* on means take my colours back, not overwrite them with this tool's:
+           adopting what was on screen quietly destroyed the saved palette */
+        if(next) apply();
+      });
+      anchor.parentNode.appendChild(b);
+    }
+    /* after the tool has painted its own defaults, not before */
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){
+      if(on()) apply();
+    });});
+  })();
+
+
   requestAnimationFrame(function(){requestAnimationFrame(record);});
 })();
 </script>
