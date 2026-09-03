@@ -238,6 +238,22 @@ input{font:inherit;color:inherit}
   .pbtn{padding:0 9px}
   .pbtn.go{margin-left:6px}
 }
+
+/* ---------------- hover thumbnail ----------------
+   A framed preview that trails the cursor down the index. Each tool's frames
+   stack and cross-fade, so a tool given more than one image reads as a
+   flipbook rather than a still. Fine pointers only: there is no hover on a
+   phone, and the whole thing would only sit in the way. */
+#peek{
+  position:fixed;z-index:60;width:clamp(230px,21vw,380px);aspect-ratio:1200/630;
+  border:1px solid var(--ink);background:var(--gnd);
+  box-shadow:0 10px 34px rgba(21,22,26,.14);
+  pointer-events:none;overflow:hidden;display:none}
+#peek img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  display:block;opacity:0;transition:opacity .2s linear}
+#peek img.show{opacity:1}
+@media (hover:hover) and (pointer:fine){ #peek.on{display:block} }
+@media (prefers-reduced-motion:reduce){ #peek img{transition:none} }
 </style>
 </head>
 <body>
@@ -347,6 +363,8 @@ input{font:inherit;color:inherit}
 
 </div>
 
+<div id="peek" aria-hidden="true"></div>
+
 <script>
 (() => {
 "use strict";
@@ -358,39 +376,39 @@ const pad=n=>String(n).padStart(2,"0");
    tools go on the end. `cat` is what the tool makes, and it drives the rail on
    the left as well as the Kind column. */
 const TOOLS=[
-  {slug:"oddgrid", name:"Oddgrid", year:2026, cat:"Patterns", desc:"generative pixel compositions"},
-  {slug:"terrain", name:"Terrain", year:2026, cat:"Backgrounds", desc:"layered contour landscapes"},
-  {slug:"filament", name:"Filament", year:2026, cat:"Backgrounds", desc:"flowing thread fields"},
-  {slug:"zig", name:"Zig", year:2026, cat:"Patterns", desc:"rounded zigzag patterns"},
-  {slug:"quilt", name:"Quilt", year:2026, cat:"Patterns", desc:"pixel blanket patterns"},
-  {slug:"aura", name:"Aura", year:2026, cat:"Backgrounds", desc:"soft vibrant gradients"},
-  {slug:"warp", name:"Warp", year:2026, cat:"Patterns", desc:"warped op-art patterns"},
-  {slug:"specimen", name:"Specimen", year:2026, cat:"Posters", desc:"type specimen posters"},
-  {slug:"tokens", name:"Tokens", year:2026, cat:"Badges", desc:"geometric badge sets"},
-  {slug:"vee", name:"Vee", year:2026, cat:"Patterns", desc:"mirrored chevron stripes"},
-  {slug:"fete", name:"Fete", year:2026, cat:"Posters", desc:"festival patch posters"},
-  {slug:"parcel", name:"Parcel", year:2026, cat:"Posters", desc:"pixel parcel posters"},
-  {slug:"weave", name:"Weave", year:2026, cat:"Patterns", desc:"striped ribbon bands"},
-  {slug:"stipple", name:"Stipple", year:2026, cat:"Textures", desc:"halftone dot portraits of light"},
-  {slug:"modular", name:"Modular", year:2026, cat:"Posters", desc:"rounded modular grid posters"},
-  {slug:"static", name:"Static", year:2026, cat:"Posters", desc:"glitch pixel posters"},
-  {slug:"optic", name:"Optic", year:2026, cat:"Posters", desc:"striped counterchange posters"},
-  {slug:"rise", name:"Rise", year:2026, cat:"Backgrounds", desc:"radial stripe arcs"},
-  {slug:"prism", name:"Prism", year:2026, cat:"Backgrounds", desc:"pixel aurora backdrops"},
-  {slug:"riso", name:"Riso", year:2026, cat:"Posters", desc:"torn paper collage"},
-  {slug:"delta", name:"Delta", year:2026, cat:"Backgrounds", desc:"corrupted satellite mosaics"},
-  {slug:"mist", name:"Mist", year:2026, cat:"Backgrounds", desc:"sprayed neon washes"},
-  {slug:"totem", name:"Totem", year:2026, cat:"Posters", desc:"mirrored pixel banners"},
-  {slug:"atlas", name:"Atlas", year:2026, cat:"Textures", desc:"text-mode terrain maps"},
-  {slug:"sampler", name:"Sampler", year:2026, cat:"Patterns", desc:"modular tile samplers"},
-  {slug:"relief", name:"Relief", year:2026, cat:"Patterns", desc:"isometric block lattices"},
-  {slug:"emblem", name:"Emblem", year:2026, cat:"Patterns", desc:"mirrored emblem panels"},
-  {slug:"kiosk", name:"Kiosk", year:2026, cat:"Posters", desc:"typographic fly-posters"},
-  {slug:"mosh", name:"Mosh", year:2026, cat:"Textures", desc:"corrupted signal"},
-  {slug:"pane", name:"Pane", year:2026, cat:"Backgrounds", desc:"gradient panels"},
-  {slug:"sonar", name:"Sonar", year:2026, cat:"Backgrounds", desc:"dithered landmasses"},
-  {slug:"bloom", name:"Bloom", year:2026, cat:"Backgrounds", desc:"symmetrical pixel fields"},
-  {slug:"sear", name:"Sear", year:2026, cat:"Backgrounds", desc:"smeared thermal fields"}
+  {slug:"oddgrid", name:"Oddgrid", year:2026, cat:"Patterns", desc:"generative pixel compositions", art:"oddgrid/og.png"},
+  {slug:"terrain", name:"Terrain", year:2026, cat:"Backgrounds", desc:"layered contour landscapes", art:"terrain/og.jpg"},
+  {slug:"filament", name:"Filament", year:2026, cat:"Backgrounds", desc:"flowing thread fields", art:"filament/og.jpg"},
+  {slug:"zig", name:"Zig", year:2026, cat:"Patterns", desc:"rounded zigzag patterns", art:"zig/og.jpg"},
+  {slug:"quilt", name:"Quilt", year:2026, cat:"Patterns", desc:"pixel blanket patterns", art:"quilt/og.png"},
+  {slug:"aura", name:"Aura", year:2026, cat:"Backgrounds", desc:"soft vibrant gradients", art:"aura/og.jpg"},
+  {slug:"warp", name:"Warp", year:2026, cat:"Patterns", desc:"warped op-art patterns", art:"warp/og.jpg"},
+  {slug:"specimen", name:"Specimen", year:2026, cat:"Posters", desc:"type specimen posters", art:"specimen/og.jpg"},
+  {slug:"tokens", name:"Tokens", year:2026, cat:"Badges", desc:"geometric badge sets", art:"tokens/og.jpg"},
+  {slug:"vee", name:"Vee", year:2026, cat:"Patterns", desc:"mirrored chevron stripes", art:"vee/og.png"},
+  {slug:"fete", name:"Fete", year:2026, cat:"Posters", desc:"festival patch posters", art:"fete/og.jpg"},
+  {slug:"parcel", name:"Parcel", year:2026, cat:"Posters", desc:"pixel parcel posters", art:"parcel/og.jpg"},
+  {slug:"weave", name:"Weave", year:2026, cat:"Patterns", desc:"striped ribbon bands", art:"weave/og.png"},
+  {slug:"stipple", name:"Stipple", year:2026, cat:"Textures", desc:"halftone dot portraits of light", art:"stipple/og.jpg"},
+  {slug:"modular", name:"Modular", year:2026, cat:"Posters", desc:"rounded modular grid posters", art:"modular/og.jpg"},
+  {slug:"static", name:"Static", year:2026, cat:"Posters", desc:"glitch pixel posters", art:"static/og.png"},
+  {slug:"optic", name:"Optic", year:2026, cat:"Posters", desc:"striped counterchange posters", art:"optic/og.png"},
+  {slug:"rise", name:"Rise", year:2026, cat:"Backgrounds", desc:"radial stripe arcs", art:"rise/og.png"},
+  {slug:"prism", name:"Prism", year:2026, cat:"Backgrounds", desc:"pixel aurora backdrops", art:"prism/og.png"},
+  {slug:"riso", name:"Riso", year:2026, cat:"Posters", desc:"torn paper collage", art:"riso/og.jpg"},
+  {slug:"delta", name:"Delta", year:2026, cat:"Backgrounds", desc:"corrupted satellite mosaics", art:"delta/og.jpg"},
+  {slug:"mist", name:"Mist", year:2026, cat:"Backgrounds", desc:"sprayed neon washes", art:"mist/og.jpg"},
+  {slug:"totem", name:"Totem", year:2026, cat:"Posters", desc:"mirrored pixel banners", art:"totem/og.png"},
+  {slug:"atlas", name:"Atlas", year:2026, cat:"Textures", desc:"text-mode terrain maps", art:"atlas/og.jpg"},
+  {slug:"sampler", name:"Sampler", year:2026, cat:"Patterns", desc:"modular tile samplers", art:"sampler/og.png"},
+  {slug:"relief", name:"Relief", year:2026, cat:"Patterns", desc:"isometric block lattices", art:"relief/og.png"},
+  {slug:"emblem", name:"Emblem", year:2026, cat:"Patterns", desc:"mirrored emblem panels", art:"emblem/og.jpg"},
+  {slug:"kiosk", name:"Kiosk", year:2026, cat:"Posters", desc:"typographic fly-posters", art:"kiosk/og.jpg"},
+  {slug:"mosh", name:"Mosh", year:2026, cat:"Textures", desc:"corrupted signal", art:"mosh/og.png"},
+  {slug:"pane", name:"Pane", year:2026, cat:"Backgrounds", desc:"gradient panels", art:"pane/og.jpg"},
+  {slug:"sonar", name:"Sonar", year:2026, cat:"Backgrounds", desc:"dithered landmasses", art:"sonar/og.png"},
+  {slug:"bloom", name:"Bloom", year:2026, cat:"Backgrounds", desc:"symmetrical pixel fields", art:"bloom/og.png"},
+  {slug:"sear", name:"Sear", year:2026, cat:"Backgrounds", desc:"smeared thermal fields", art:"sear/og.jpg"}
 ];
 
 const numbered=TOOLS.map((t,i)=>({...t,no:i+1}));
@@ -429,7 +447,7 @@ let shown=[];
 function render(){
   shown=sorted().filter(matches);
   listEl.innerHTML = shown.length ? shown.map(t=>
-    `<a class="row" href="${t.slug}/index.html" aria-label="${t.name} — ${t.desc}">`+
+    `<a class="row" href="${t.slug}/index.html" data-art="${[].concat(t.art||[]).join("|")}" aria-label="${t.name} — ${t.desc}">`+
     `<span class="no">${pad(t.no)}</span>`+
     `<span class="nm">${t.name}</span>`+
     `<span class="mk">${t.desc}</span>`+
@@ -442,6 +460,69 @@ function render(){
   $("#sortName").classList.toggle("on",ord==="az");
   $("#sortCat").classList.toggle("on",cat!=="All");
   fades();
+}
+
+/* ---- hover thumbnail --------------------------------------------------
+   Wired once on the list rather than per row, so it keeps working after a
+   filter or a re-sort throws the rows away and builds them again. */
+const peek=$("#peek");
+const finePointer=window.matchMedia("(hover:hover) and (pointer:fine)");
+const FRAME_MS=620;
+let peekKey="",flipTimer=0;
+function stopFlip(){ if(flipTimer){clearInterval(flipTimer);flipTimer=0;} }
+function hidePeek(){ peek.classList.remove("on"); stopFlip(); peekKey=""; }
+function showThumb(key){
+  if(key===peekKey)return;
+  peekKey=key; stopFlip();
+  const srcs=key.split("|").filter(Boolean);
+  /* the first frame fades in once it has actually arrived, so a slow image
+     shows the frame filling rather than a blank box */
+  peek.innerHTML=srcs.map(s=>`<img src="${s}" alt="" onload="this.classList.add('show')">`).join("");
+  if(srcs.length<2)return;
+  const imgs=[...peek.children];
+  let i=0;
+  flipTimer=setInterval(()=>{
+    imgs[i].classList.remove("show");
+    i=(i+1)%imgs.length;
+    imgs[i].classList.add("show");
+  },FRAME_MS);
+}
+function placePeek(e){
+  const w=peek.offsetWidth||300,h=peek.offsetHeight||158;
+  let x=e.clientX+26,y=e.clientY+20;
+  /* near an edge it swaps to the other side of the cursor rather than
+     hanging off the page */
+  if(x+w>innerWidth-14)x=e.clientX-w-26;
+  if(y+h>innerHeight-14)y=e.clientY-h-20;
+  peek.style.left=x+"px";peek.style.top=y+"px";
+}
+/* One handler for entering a row and for moving inside it: a move has to be
+   able to bring the thumbnail back, or a wheel scroll with the pointer sat
+   still over a row would hide it until the cursor crossed into another one. */
+let lastX=-1,lastY=-1;
+function overRow(e){
+  lastX=e.clientX; lastY=e.clientY;
+  const row=e.target.closest(".row");
+  if(!row||!row.dataset.art){hidePeek();return;}
+  showThumb(row.dataset.art);
+  placePeek(e);
+  peek.classList.add("on");
+}
+/* Scrolling slides a different row under a cursor that has not moved. Hiding
+   the thumbnail would blink it out on every trackpad nudge, so look up
+   whatever is under the cursor now and swap the picture instead. */
+function afterScroll(){
+  if(!peek.classList.contains("on"))return;
+  const el=document.elementFromPoint(lastX,lastY);
+  const row=el&&el.closest?el.closest(".row"):null;
+  if(!row||!row.dataset.art){hidePeek();return;}
+  showThumb(row.dataset.art);
+}
+if(finePointer.matches){
+  listEl.addEventListener("mouseover",overRow);
+  listEl.addEventListener("mousemove",overRow);
+  listEl.addEventListener("mouseleave",hidePeek);
+  window.addEventListener("scroll",afterScroll,true);
 }
 
 /* ---- order ----------------------------------------------------------- */
