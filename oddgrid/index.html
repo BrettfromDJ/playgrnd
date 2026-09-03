@@ -141,6 +141,10 @@ input{font:inherit;color:inherit}
 .pr{margin-bottom:17px}
 .pr .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
 .track{position:relative;height:16px}
+/* The two hairlines are drawn on the wrapper, and a wrapper's ::after paints
+   on top of its own children — so without this the fill line covered the
+   middle of the range input and ate the click that landed on it. */
+.track::before,.track::after,.scrubwrap::before{pointer-events:none}
 .track::before{content:"";position:absolute;left:0;right:0;top:7px;height:1px;background:var(--hair2)}
 .track{--tw:10px}
 .track::after{content:"";position:absolute;left:0;top:7px;height:1px;background:var(--ink);
