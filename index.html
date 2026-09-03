@@ -219,6 +219,12 @@ input{font:inherit;color:inherit}
      three blocks in a row, so the auto margin that centred it has to go or the
      Order pills ride up into the About heading */
   .z-right,.z-right .tbl{text-align:left;justify-content:start}
+  /* Stacked, these spec tables are the full width of the page instead of a
+     narrow rail, and two auto columns split all of it between them — which
+     threw the values into the middle of the page, a long way from their
+     labels. Size the columns to their contents and let the slack sit after
+     them. */
+  .tbl{justify-content:start}
   .r-top,.r-mid,.r-bot{margin:0}
   .r-mid,.r-bot{margin-top:30px}
   .mark{display:none}

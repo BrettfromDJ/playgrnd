@@ -441,6 +441,12 @@ input[type=range]{accent-color:var(--ink)}
   .z-right .rack,.z-right .tbl,.z-right .pr,.z-right .chips{margin-left:0}
   .rack{justify-content:start}
   .z-right .chips,.expmenu,.z-right .tbl,.z-br .tbl{justify-content:start}
+  /* Stacked, these spec tables are the full width of the page instead of a
+     narrow rail, and two auto columns split all of it between them — which
+     threw the values into the middle of the page, a long way from their
+     labels. Size the columns to their contents and let the slack sit after
+     them. */
+  .tbl{justify-content:start}
   .btnrow{justify-content:flex-start}
   .rightblock{width:auto}
   /* Stacked, the right rail's three blocks fall into ordinary flow and the
