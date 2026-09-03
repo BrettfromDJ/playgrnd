@@ -211,6 +211,13 @@ input{font:inherit;color:inherit}
   .l-scroll{order:2} .l-bot{order:3} .z-right{order:4} .z-bottom{order:5}
   /* the filter pill leaves its absolute slot and becomes the first row */
   .z-top{position:static;translate:none;margin-bottom:26px}
+  /* Stacked, the pill stops being a centred capsule and runs the width of
+     the page, but the search field stayed 150px wide, so Clear and Random
+     sat bunched on the left with up to 700px of empty pill after them.
+     The field takes the slack instead, which puts Random back on the
+     right-hand end where it belongs — and on a phone the same rule keeps
+     the pill from running off the side. */
+  .q{width:auto;flex:1 1 0;min-width:0}
   .z-stage{padding:0}
   .list{overflow:visible;max-height:none;-webkit-mask-image:none;mask-image:none}
   .slide{max-width:168px;margin-top:10px}
@@ -235,12 +242,8 @@ input{font:inherit;color:inherit}
   .row::before{display:none} .row:hover{padding-left:2px}
   .thead .mk,.row .mk{display:none}
   .idline .brand{width:100px}
-  /* the filter pill is the one fixed-width thing on the page: a 150px input
-     plus a label and two buttons runs past a phone and takes the whole page
-     sideways with it. Let the input give way instead. */
   .pill{max-width:100%;padding-left:14px}
   .pill .sep{margin:0 10px}
-  .q{width:auto;flex:1 1 0;min-width:0}
   .pbtn{padding:0 9px}
   .pbtn.go{margin-left:6px}
 }
