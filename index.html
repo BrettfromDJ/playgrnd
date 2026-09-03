@@ -248,6 +248,17 @@ input{font:inherit;color:inherit}
   .pbtn.go{margin-left:6px}
 }
 
+/* ---------------- new badge ----------------
+   The one filled thing in a page of hairlines, which is the whole point of
+   it. Sized off the row's own type so it sits on the name's baseline rather
+   than pushing the row taller. */
+.tag{flex:none;height:15px;padding:0 7px;border-radius:999px;
+  background:var(--ink);color:var(--gnd);
+  font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;
+  display:inline-flex;align-items:center}
+.row .nm{display:flex;align-items:center;gap:10px;min-width:0}
+.row .nm .t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
 /* ---------------- scroll cue ----------------
    Sits under the index and only while there is more of it below. The
    scrollbars are hidden everywhere on this page, so without it a list that
@@ -446,10 +457,25 @@ const TOOLS=[
   {slug:"pane", name:"Pane", year:2026, cat:"Backgrounds", desc:"gradient panels", art:"pane/og.jpg"},
   {slug:"sonar", name:"Sonar", year:2026, cat:"Backgrounds", desc:"dithered landmasses", art:"sonar/og.png"},
   {slug:"bloom", name:"Bloom", year:2026, cat:"Backgrounds", desc:"symmetrical pixel fields", art:"bloom/og.png"},
-  {slug:"sear", name:"Sear", year:2026, cat:"Backgrounds", desc:"smeared thermal fields", art:"sear/og.jpg"}
+  {slug:"sear", name:"Sear", year:2026, cat:"Backgrounds", desc:"smeared thermal fields", art:"sear/og.jpg", added:"2026-09-03"}
 ];
 
 const numbered=TOOLS.map((t,i)=>({...t,no:i+1}));
+
+/* A tool carries the day it went up, and the badge works itself out from that
+   against the reader's own calendar — so it appears the day a tool ships and
+   is gone a fortnight later without anyone editing anything. Both dates are
+   reduced to a plain day first, so the hour someone visits cannot flip it. */
+const NEW_DAYS=14;
+function isNew(t){
+  if(!t.added) return false;
+  const p=t.added.split("-").map(Number);
+  if(p.length!==3 || p.some(isNaN)) return false;
+  const then=Date.UTC(p[0],p[1]-1,p[2]);
+  const n=new Date();
+  const today=Date.UTC(n.getFullYear(),n.getMonth(),n.getDate());
+  return Math.floor((today-then)/86400000) < NEW_DAYS;
+}
 const CATS=[...new Set(TOOLS.map(t=>t.cat))].sort();
 
 let ord="new", cat="All", term="";
@@ -485,9 +511,10 @@ let shown=[];
 function render(){
   shown=sorted().filter(matches);
   listEl.innerHTML = shown.length ? shown.map(t=>
-    `<a class="row" href="${t.slug}/index.html" data-art="${[].concat(t.art||[]).join("|")}" aria-label="${t.name} — ${t.desc}">`+
+    `<a class="row" href="${t.slug}/index.html" data-art="${[].concat(t.art||[]).join("|")}" aria-label="${t.name}${isNew(t)?", new":""} — ${t.desc}">`+
     `<span class="no">${pad(t.no)}</span>`+
-    `<span class="nm">${t.name}</span>`+
+    `<span class="nm"><span class="t">${t.name}</span>`+
+    (isNew(t)?`<span class="tag">New</span>`:``)+`</span>`+
     `<span class="mk">${t.desc}</span>`+
     `<span class="ct">${t.cat}</span></a>`).join("")
     : `<p class="empty">Nothing matches that.</p>`;
