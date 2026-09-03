@@ -207,6 +207,25 @@ input[type=range]{accent-color:var(--ink)}
 .mval input[type=text]:focus{outline:none;border-bottom-color:var(--ink)}
 .mval input[type=text]::placeholder{color:var(--key)}
 
+/* ---------------- first run ---------------- */
+/* The one thing a newcomer has to discover is that New deals a whole new
+   picture. Everything else can be found by poking about; that cannot, because
+   the button looks like a form control. Shown once, ever. */
+.firstrun{position:fixed;z-index:40;padding:9px 15px;border:1px solid var(--ink);
+  border-radius:999px;background:var(--gnd);color:var(--ink);
+  font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;white-space:nowrap;
+  opacity:0;translate:0 -6px;transition:opacity .32s ease,translate .32s ease;
+  pointer-events:none;box-shadow:0 8px 26px rgba(21,22,26,.10)}
+.firstrun.on{opacity:1;translate:0 0}
+.firstrun::before{content:"";position:absolute;left:var(--ax,50%);top:-4px;width:6px;height:6px;
+  margin-left:-3px;background:var(--gnd);border-left:1px solid var(--ink);
+  border-top:1px solid var(--ink);rotate:45deg}
+.pbtn.go.nudge{animation:nudge 1.8s ease-in-out 3}
+@keyframes nudge{0%,100%{transform:none}12%{transform:translateY(-2px)}24%{transform:none}}
+@media (prefers-reduced-motion:reduce){
+  .firstrun{transition:none}
+  .pbtn.go.nudge{animation:none}
+}
 /* ---------------- inks ---------------- */
 .sw-grid{display:flex;flex-wrap:wrap;gap:13px;align-items:center;max-width:210px}
 .l-bot .sw-grid{max-width:none}
@@ -1819,6 +1838,65 @@ html.embed body{overflow:hidden!important}
     if(on) syncSliders();
   });
   addEventListener("resize",function(){ place(expBody,exp); });
+
+  /* ---- first run: point out the New button ------------------------------
+     Shown once per person, not once per tool, and it goes the moment they do
+     the thing it is asking for. */
+  (function(){
+    var KEY="playgrnd.seen.new";
+    var btn=$("#randomize");
+    if(!btn) return;
+    try{ if(localStorage.getItem(KEY)) return; }catch(e){ return; }
+    var tip=document.createElement("div");
+    tip.className="firstrun";
+    tip.setAttribute("role","status");
+    /* no point telling a phone about the space bar, and the line has to be
+       short enough not to run the width of one */
+    var touch=matchMedia("(pointer:coarse)").matches;
+    tip.textContent=touch ? "Tap New for a different one"
+                          : "Press New for a different one · or hit space";
+    document.body.appendChild(tip);
+    function place(){
+      var r=btn.getBoundingClientRect();
+      tip.style.left=Math.round(r.left+r.width/2-tip.offsetWidth/2)+"px";
+      tip.style.top=Math.round(r.bottom+12)+"px";
+      /* a narrow phone would push it off the side */
+      var t=tip.getBoundingClientRect();
+      if(t.left<10) tip.style.left="10px";
+      if(t.right>innerWidth-10) tip.style.left=Math.round(innerWidth-10-t.width)+"px";
+      /* clamped against an edge it is no longer centred under the button, so
+         the arrow has to be moved to keep pointing at it */
+      var f=tip.getBoundingClientRect();
+      tip.style.setProperty("--ax",
+        Math.max(10,Math.min(f.width-10,(r.left+r.width/2)-f.left))+"px");
+    }
+    var done=false;
+    function dismiss(){
+      if(done) return;
+      done=true;
+      try{ localStorage.setItem(KEY,"1"); }catch(e){}
+      tip.classList.remove("on");
+      btn.classList.remove("nudge");
+      setTimeout(function(){ if(tip.parentNode) tip.parentNode.removeChild(tip); },400);
+      removeEventListener("resize",place);
+    }
+    /* the moment they use it, or the moment they get on with something else */
+    btn.addEventListener("click",dismiss);
+    addEventListener("keydown",function(e){
+      if(e.code==="Space"||e.key==="Escape") dismiss();
+    });
+    document.addEventListener("pointerdown",function(e){
+      if(e.target!==btn) dismiss();
+    },true);
+    addEventListener("resize",place);
+    setTimeout(function(){
+      if(done) return;
+      place(); tip.classList.add("on"); btn.classList.add("nudge");
+      place();
+    },1400);
+    setTimeout(dismiss,14000);
+  })();
+
 
   requestAnimationFrame(function(){requestAnimationFrame(record);});
 })();
