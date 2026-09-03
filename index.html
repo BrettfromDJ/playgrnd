@@ -249,11 +249,12 @@ input{font:inherit;color:inherit}
   border:1px solid var(--ink);background:var(--gnd);
   box-shadow:0 10px 34px rgba(21,22,26,.14);
   pointer-events:none;overflow:hidden;display:none}
+/* every picture stays in the frame, only one is shown, and the swap is a
+   hard cut: a fade here reads as a flicker when you run down the list */
 #peek img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  display:block;opacity:0;transition:opacity .2s linear}
-#peek img.show{opacity:1}
+  display:none}
+#peek img.show{display:block}
 @media (hover:hover) and (pointer:fine){ #peek.on{display:block} }
-@media (prefers-reduced-motion:reduce){ #peek img{transition:none} }
 </style>
 </head>
 <body>
@@ -468,24 +469,53 @@ function render(){
 const peek=$("#peek");
 const finePointer=window.matchMedia("(hover:hover) and (pointer:fine)");
 const FRAME_MS=620;
-let peekKey="",flipTimer=0;
+let peekKey="",flipTimer=0,preloaded=false;
+
+/* One <img> per picture, built once and kept for the life of the page.
+   Rebuilding the frame's contents on every row threw the old picture away
+   before the new one had arrived, and the empty frame behind it is what
+   flashed white. */
+const frames=new Map();
+function frameFor(src){
+  let im=frames.get(src);
+  if(!im){
+    im=new Image(); im.alt=""; im.decoding="async"; im.src=src;
+    frames.set(src,im); peek.appendChild(im);
+  }
+  return im;
+}
+function drawn(im){ return im.complete && im.naturalWidth>0; }
+function reveal(im){
+  frames.forEach(f=>{ if(f!==im) f.classList.remove("show"); });
+  im.classList.add("show");
+  peek.classList.add("on");
+}
 function stopFlip(){ if(flipTimer){clearInterval(flipTimer);flipTimer=0;} }
 function hidePeek(){ peek.classList.remove("on"); stopFlip(); peekKey=""; }
 function showThumb(key){
   if(key===peekKey)return;
   peekKey=key; stopFlip();
-  const srcs=key.split("|").filter(Boolean);
-  /* the first frame fades in once it has actually arrived, so a slow image
-     shows the frame filling rather than a blank box */
-  peek.innerHTML=srcs.map(s=>`<img src="${s}" alt="" onload="this.classList.add('show')">`).join("");
-  if(srcs.length<2)return;
-  const imgs=[...peek.children];
+  const list=key.split("|").filter(Boolean).map(frameFor);
+  if(!list.length)return;
+  const first=list[0];
+  /* Whatever is on screen stays there until the new picture can actually be
+     drawn, so the frame is never empty. On the very first hover there is
+     nothing to hold, so the frame stays hidden rather than opening blank. */
+  if(drawn(first)) reveal(first);
+  else first.addEventListener("load",()=>{ if(peekKey===key) reveal(first); },{once:true});
+  if(list.length<2)return;
   let i=0;
   flipTimer=setInterval(()=>{
-    imgs[i].classList.remove("show");
-    i=(i+1)%imgs.length;
-    imgs[i].classList.add("show");
+    i=(i+1)%list.length;
+    if(peekKey===key&&drawn(list[i])) reveal(list[i]);
   },FRAME_MS);
+}
+/* The moment someone starts running down the index, fetch the rest quietly
+   so every row after the first is instant. Never runs on a phone, which has
+   no hover and would only be paying for pictures it cannot show. */
+function preloadThumbs(){
+  if(preloaded)return; preloaded=true;
+  TOOLS.forEach(t=>[].concat(t.art||[]).forEach(frameFor));
 }
 function placePeek(e){
   const w=peek.offsetWidth||300,h=peek.offsetHeight||158;
@@ -501,12 +531,13 @@ function placePeek(e){
    still over a row would hide it until the cursor crossed into another one. */
 let lastX=-1,lastY=-1;
 function overRow(e){
-  lastX=e.clientX; lastY=e.clientY;
+  lastX=e.clientX; lastY=e.clientY; preloadThumbs();
   const row=e.target.closest(".row");
   if(!row||!row.dataset.art){hidePeek();return;}
   showThumb(row.dataset.art);
   placePeek(e);
-  peek.classList.add("on");
+  /* opening the frame is reveal()'s job, and it only does it once there is
+     a picture to put in it */
 }
 /* Scrolling slides a different row under a cursor that has not moved. Hiding
    the thumbnail would blink it out on every trackpad nudge, so look up
