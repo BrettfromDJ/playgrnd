@@ -91,22 +91,9 @@ input{font:inherit;color:inherit}
   display:flex;flex-direction:column}
 /* one soft-edged scroll box: no scrollbar, no border, just a fade at the foot */
 .l-scroll,.z-right{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;
-  padding-right:13px;
-  --fade:0px;
+  scrollbar-width:none;-ms-overflow-style:none;--fade:0px;
   -webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - var(--fade)),transparent 100%);
   mask-image:linear-gradient(to bottom,#000 calc(100% - var(--fade)),transparent 100%)}
-/* Scrollbars are hidden, and a Mac hides its own until you happen to scroll,
-   so a column with more below it read as finished. This is the chassis' own
-   scroll indicator: a hairline track with a thumb sized to how much there is
-   and moved to where you are. Drawn rather than left to the browser, because
-   ::-webkit-scrollbar styling is quietly ignored where overlay scrollbars are
-   in force, which is most Macs. */
-.scue{position:absolute;width:3px;border-radius:99px;background:rgba(21,22,26,.09);
-  pointer-events:none;z-index:6;opacity:0;transition:opacity .2s ease}
-.scue.on{opacity:1}
-.scue i{display:block;width:100%;border-radius:99px;background:var(--ink);opacity:.34;
-  transition:transform .06s linear}
-.l-scroll,.z-right{scrollbar-width:none;-ms-overflow-style:none}
 .l-scroll::-webkit-scrollbar,.z-right::-webkit-scrollbar{width:0;height:0;display:none}
 .l-top,.l-bot{flex:none}
 .l-bot{padding-top:26px}
@@ -1172,33 +1159,9 @@ html.embed body{overflow:hidden!important}
 
   /* ---- the columns fade out at the foot while there is more to scroll -- */
   var boxes=[$(".l-scroll"),$(".z-right")].filter(Boolean);
-
-  /* ---- scroll cue: a hairline bar beside anything with more below -------- */
-  function cue(el){
-    if(!el) return;
-    var host=el.parentNode; if(!host) return;
-    if(getComputedStyle(host).position==="static") host.style.position="relative";
-    var c=el.__cue;
-    if(!c){ c=document.createElement("span"); c.className="scue";
-            c.appendChild(document.createElement("i")); host.appendChild(c); el.__cue=c; }
-    var over=el.scrollHeight-el.clientHeight;
-    if(over<=2){ c.classList.remove("on"); return; }
-    c.classList.add("on");
-    c.style.top=el.offsetTop+"px";
-    /* inside the column, never outside it: the scroll boxes carry a little
-       right padding so the text stops short of the bar rather than running
-       under it */
-    c.style.left=(el.offsetLeft+el.clientWidth-3)+"px";
-    c.style.height=el.clientHeight+"px";
-    var th=Math.max(30,el.clientHeight*(el.clientHeight/el.scrollHeight));
-    c.firstChild.style.height=th+"px";
-    c.firstChild.style.transform="translateY("+
-      ((el.scrollTop/over)*(el.clientHeight-th)).toFixed(1)+"px)";
-  }
   function fade(el){
     var more=el.scrollHeight-el.clientHeight-el.scrollTop;
     el.style.setProperty("--fade", more>2 ? "56px" : "0px");
-    cue(el);
   }
   function fadeAll(){ boxes.forEach(fade); }
   boxes.forEach(function(el){
@@ -1717,82 +1680,6 @@ html.embed body{overflow:hidden!important}
     if(on) syncSliders();
   });
   addEventListener("resize",function(){ place(expBody,exp); });
-
-  /* ---- the palette follows you from tool to tool ------------------------
-     Tools keep their colours in wildly different shapes — some in S.pal, some
-     not, anywhere between two and nine of them — so this drives the swatch
-     controls instead, which every tool has and every tool already listens to.
-     Setting a swatch here is indistinguishable from you setting it. */
-  (function(){
-    var PK="playgrnd.palette", CK="playgrnd.palette.carry";
-    var host=$("#swatches");
-    if(!host) return;                    /* two tools have no editable inks */
-    var applying=false;
-    function ok(h){ return typeof h==="string" && /^#[0-9a-f]{6}$/i.test(h); }
-    function inputs(){
-      return [].slice.call(host.querySelectorAll('input[type="color"]'));
-    }
-    function stored(){
-      try{ var v=JSON.parse(localStorage.getItem(PK));
-           return (v&&v.length&&v.every(ok)) ? v : null; }catch(e){ return null; }
-    }
-    function on(){ try{ return localStorage.getItem(CK)!=="off"; }catch(e){ return true; } }
-    function keep(){
-      /* switched off, the link is suspended rather than half-alive: nothing is
-         written either, so turning it back on restores what you had */
-      if(applying||!on()) return;
-      var v=inputs().map(function(i){return i.value.toLowerCase();}).filter(ok);
-      if(v.length) try{ localStorage.setItem(PK,JSON.stringify(v)); }catch(e){}
-    }
-    /* Fitting a long palette into few slots by taking the first of them can
-       hand a two-ink tool two near-identical colours and so no picture at all;
-       spreading the pick across the row keeps the contrast. */
-    function fit(list,n){
-      var out=[],i;
-      if(list.length>=n){
-        for(i=0;i<n;i++) out.push(list[Math.round(i*(list.length-1)/Math.max(1,n-1))]);
-        return out;
-      }
-      for(i=0;i<n;i++) out.push(list[i%list.length]);
-      return out;
-    }
-    function apply(){
-      var list=stored(), ins=inputs();
-      if(!list||!ins.length) return;
-      var want=fit(list,ins.length);
-      applying=true;
-      ins.forEach(function(inp,i){
-        if(inp.value.toLowerCase()===want[i].toLowerCase()) return;
-        inp.value=want[i];
-        inp.dispatchEvent(new Event("input",{bubbles:true}));
-      });
-      applying=false;
-    }
-    host.addEventListener("input",function(){ keep(); });
-    new MutationObserver(function(){ keep(); }).observe(host,{childList:true});
-
-    var anchor=$("#shufColors");
-    if(anchor&&anchor.parentNode){
-      var b=document.createElement("button");
-      b.className="lnk"; b.type="button"; b.id="carryPal"; b.textContent="Carry";
-      b.title="Keep these colours when you open another tool";
-      b.setAttribute("aria-pressed", on()?"true":"false");
-      b.addEventListener("click",function(){
-        var next=!on();
-        try{ localStorage.setItem(CK, next?"on":"off"); }catch(e){}
-        b.setAttribute("aria-pressed", String(next));
-        /* on means take my colours back, not overwrite them with this tool's:
-           adopting what was on screen quietly destroyed the saved palette */
-        if(next) apply();
-      });
-      anchor.parentNode.appendChild(b);
-    }
-    /* after the tool has painted its own defaults, not before */
-    requestAnimationFrame(function(){ requestAnimationFrame(function(){
-      if(on()) apply();
-    });});
-  })();
-
 
   requestAnimationFrame(function(){requestAnimationFrame(record);});
 })();
