@@ -324,8 +324,6 @@ input[type=range]{accent-color:var(--ink)}
 .pair>*{display:flex;flex-direction:column;gap:9px}
 .pair .lab{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key);
   display:block;margin:0}
-.note{font-size:8.5px;letter-spacing:.06em;line-height:1.7;color:var(--key);margin:2px 0 14px;
-  text-transform:none}
 .sec-h{font-size:10px;letter-spacing:.32em;text-transform:uppercase;margin:0 0 12px}
 .lab{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key)}
 .val{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase}
@@ -489,20 +487,15 @@ input[type=range]{accent-color:var(--ink)}
     <div class="l-scroll"><details class="grp" open><summary>Scatter</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Blades</span><span class="v" id="countVal">40</span></div><div class="track"><input type="range" id="count" min="4" max="400" step="1" value="40"></div></div>
         <div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">50%</span></div><div class="track"><input type="range" id="size" min="0" max="1" step="0.01" value="0.5"></div></div>
         <div class="pr"><div class="top"><span class="k">Variation</span><span class="v" id="varyVal">55%</span></div><div class="track"><input type="range" id="vary" min="0" max="1" step="0.01" value="0.55"></div></div>
-        <div class="pr"><div class="top"><span class="k">Separation</span><span class="v" id="apartVal">0%</span></div><div class="track"><input type="range" id="apart" min="0" max="1" step="0.01" value="0"></div></div>
-        <div class="note">Blades are thrown at the paper with no regard for each other, and the big ones are allowed to run off the edges. Variation is how much they differ in size: at nothing they are all one size, wound up a few run away large. Separation is what happens where they land on each other: at nothing they merge into one silhouette, wound up each one clears a margin of bare ground around itself and the pile reads as separate pieces.</div></div></details>
+        <div class="pr"><div class="top"><span class="k">Separation</span><span class="v" id="apartVal">0%</span></div><div class="track"><input type="range" id="apart" min="0" max="1" step="0.01" value="0"></div></div></div></details>
     <details class="grp"><summary>Blade</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Shape</span></span><span class="mval"><div class="chips" id="shapes"></div></span></div>
         <div class="pr"><div class="top"><span class="k">Curve</span><span class="v" id="curveVal">70%</span></div><div class="track"><input type="range" id="curve" min="0" max="1" step="0.01" value="0.7"></div></div>
         <div class="pr"><div class="top"><span class="k">Width</span><span class="v" id="slimVal">45%</span></div><div class="track"><input type="range" id="slim" min="0" max="1" step="0.01" value="0.45"></div></div>
-        <div class="pr"><div class="top"><span class="k">Taper</span><span class="v" id="taperVal">30%</span></div><div class="track"><input type="range" id="taper" min="0" max="1" step="0.01" value="0.3"></div></div>
-        <div class="note">Crescent comes to a point at both ends, Leaf is blunt at one end and pointed at the other, Bar keeps its width the whole way. Curve bends the blade round: at nothing it is a straight stroke, wound up it closes towards a ring. Taper sharpens or blunts whichever ends the shape has.</div></div></details>
+        <div class="pr"><div class="top"><span class="k">Taper</span><span class="v" id="taperVal">30%</span></div><div class="track"><input type="range" id="taper" min="0" max="1" step="0.01" value="0.3"></div></div></div></details>
     <details class="grp"><summary>Print</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Mottle</span><span class="v" id="mottleVal">62%</span></div><div class="track"><input type="range" id="mottle" min="0" max="1" step="0.01" value="0.62"></div></div>
         <div class="pr"><div class="top"><span class="k">Coarseness</span><span class="v" id="coarseVal">40%</span></div><div class="track"><input type="range" id="coarse" min="0" max="1" step="0.01" value="0.4"></div></div>
-        <div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">30%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.3"></div></div>
-        <div class="note">Mottle is a rough sheet taking the ink unevenly. It chews the edge of every blade, and past a certain point it starts leaving pale flecks out in the open ground and dark ones in the middle of a blade, the way a coarse paper does. Coarseness is how fine that is. Grain roughens the colour on top of it.</div></div></details></div>
+        <div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">30%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.3"></div></div></div></details></div>
     <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">2</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
-        
-        <div class="note">Two roles: the ground, and the one ink thrown across it.</div>
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
@@ -541,19 +534,16 @@ input[type=range]{accent-color:var(--ink)}
     <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
           <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
           <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="12"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="36"></div></div>
-          <div class="note">Drift slides the whole handful round a small circle, Spin turns every blade on its own middle, Swell grows them and lets them back down. The mottle stays put through all three, the way a screen sits still over the paper while the artwork moves.</div></div><div class="group" id="ditherBody" hidden>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="36"></div></div></div><div class="group" id="ditherBody" hidden>
   <div class="misc stack"><span class="mhead"><span class="k">Pattern</span></span><span class="mval"><div class="chips" id="dthKinds"></div></span></div>
   <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
   <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
   <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="dthAmountVal">100%</span></div><div class="track"><input type="range" id="dthAmount" min="0" max="1" step="0.05" value="1"></div></div>
-  <div class="note">Cuts the picture down to a few tones and scatters the difference as a pattern, the way old print and early screens did. It rides along with the PNG and the video; the SVG export stays smooth.</div>
 </div></div>
     <div class="r-bot">
       <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizePxVal">2400 px</span></div><div class="track"><input type="range" id="sizePx" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
-          <button class="lnk" id="expVid">Video</button></span></div>
-        <div class="note" id="expNote">The rough edge is made of grain rather than of shapes, so this exports as an image, not as vector.</div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
+          <button class="lnk" id="expVid">Video</button></span></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
       <div class="tbl" style="margin-top:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>

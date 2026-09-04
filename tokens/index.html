@@ -324,8 +324,6 @@ input[type=range]{accent-color:var(--ink)}
 .pair>*{display:flex;flex-direction:column;gap:9px}
 .pair .lab{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key);
   display:block;margin:0}
-.note{font-size:8.5px;letter-spacing:.06em;line-height:1.7;color:var(--key);margin:2px 0 14px;
-  text-transform:none}
 .sec-h{font-size:10px;letter-spacing:.32em;text-transform:uppercase;margin:0 0 12px}
 .lab{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key)}
 .val{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase}
@@ -557,21 +555,18 @@ input[type=range]{accent-color:var(--ink)}
           <div class="pr"><div class="top"><span class="k">Moving share</span><span class="v" id="activeVal">45%</span></div><div class="track"><input type="range" id="active" min="0" max="1" step="0.01" value="0.45"></div></div>
           <div class="pr"><div class="top"><span class="k">Stagger</span><span class="v" id="stagVal">0.55</span></div><div class="track"><input type="range" id="stag" min="0" max="1" step="0.02" value="0.55"></div></div>
           <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">14</span></div><div class="track"><input type="range" id="fps" min="1" max="30" step="1" value="14"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="6" max="90" step="1" value="36"></div></div>
-          <div class="note">Playback is continuous; the frame count only sets how the loop is sampled on export.</div></div><div class="group" id="ditherBody" hidden>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="6" max="90" step="1" value="36"></div></div></div><div class="group" id="ditherBody" hidden>
   <div class="misc stack"><span class="mhead"><span class="k">Pattern</span></span><span class="mval"><div class="chips" id="dthKinds"></div></span></div>
   <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
   <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
   <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="dthAmountVal">100%</span></div><div class="track"><input type="range" id="dthAmount" min="0" max="1" step="0.05" value="1"></div></div>
-  <div class="note">Cuts the picture down to a few tones and scatters the difference as a pattern, the way old print and early screens did. It rides along with the PNG and the video; the SVG export stays smooth.</div>
 </div></div>
     <div class="r-bot">
       <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
           <button class="lnk" id="expSvg">SVG</button></span></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expSvgAnim">Animated SVG</button>
-          <button class="lnk" id="expVid">Video</button></span></div>
-        <div class="note" id="expNote">Turn on motion to export a loop.</div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
+          <button class="lnk" id="expVid">Video</button></span></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
       <div class="tbl" style="margin-top:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>
@@ -942,7 +937,7 @@ function save(blob,name){
 }
 function stamp(){return `tokens-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
-  const n=$("#expNote"),a=$("#expSvgAnim"),v=$("#expVid"),sc=$("#scrub");
+  const n=($("#expNote")||{}),a=$("#expSvgAnim"),v=$("#expVid"),sc=$("#scrub");
   if(a)a.disabled=!S.motion.on;
   if(v)v.disabled=!S.motion.on;
   if(sc)sc.disabled=!S.motion.on;

@@ -324,8 +324,6 @@ input[type=range]{accent-color:var(--ink)}
 .pair>*{display:flex;flex-direction:column;gap:9px}
 .pair .lab{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key);
   display:block;margin:0}
-.note{font-size:8.5px;letter-spacing:.06em;line-height:1.7;color:var(--key);margin:2px 0 14px;
-  text-transform:none}
 .sec-h{font-size:10px;letter-spacing:.32em;text-transform:uppercase;margin:0 0 12px}
 .lab{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key)}
 .val{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase}
@@ -489,22 +487,17 @@ input[type=range]{accent-color:var(--ink)}
     <div class="l-scroll"><details class="grp" open><summary>Chains</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Chains</span><span class="v" id="countVal">8</span></div><div class="track"><input type="range" id="count" min="1" max="40" step="1" value="8"></div></div>
         <div class="pr"><div class="top"><span class="k">Length</span><span class="v" id="lenVal">22</span></div><div class="track"><input type="range" id="len" min="3" max="90" step="1" value="22"></div></div>
         <div class="pr"><div class="top"><span class="k">Wander</span><span class="v" id="wanderVal">60%</span></div><div class="track"><input type="range" id="wander" min="0" max="1" step="0.01" value="0.6"></div></div>
-        <div class="pr"><div class="top"><span class="k">Branching</span><span class="v" id="branchVal">22%</span></div><div class="track"><input type="range" id="branch" min="0" max="1" step="0.01" value="0.22"></div></div>
-        <div class="note">A chain turns a little at every rod. Branching is how often it splits, and each arm carries on from where the split happened.</div></div></details>
+        <div class="pr"><div class="top"><span class="k">Branching</span><span class="v" id="branchVal">22%</span></div><div class="track"><input type="range" id="branch" min="0" max="1" step="0.01" value="0.22"></div></div></div></details>
     <details class="grp"><summary>Rods</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Thickness</span><span class="v" id="thickVal">42%</span></div><div class="track"><input type="range" id="thick" min="0" max="1" step="0.01" value="0.42"></div></div>
         <div class="pr"><div class="top"><span class="k">Rod length</span><span class="v" id="rodVal">50%</span></div><div class="track"><input type="range" id="rod" min="0" max="1" step="0.01" value="0.5"></div></div>
         <div class="pr"><div class="top"><span class="k">Notch</span><span class="v" id="notchVal">18%</span></div><div class="track"><input type="range" id="notch" min="0" max="1" step="0.01" value="0.18"></div></div>
-        <div class="pr"><div class="top"><span class="k">Roughness</span><span class="v" id="roughVal">55%</span></div><div class="track"><input type="range" id="rough" min="0" max="1" step="0.01" value="0.55"></div></div>
-        <div class="note">Rods are laid end to end along the chain. Notch is the hair left between them: at nothing they fuse into one ribbon, wound up they separate into beads. Roughness swells and pinches each rod along its length: at nothing they are clean capsules, wound up they are brush strokes.</div></div></details>
+        <div class="pr"><div class="top"><span class="k">Roughness</span><span class="v" id="roughVal">55%</span></div><div class="track"><input type="range" id="rough" min="0" max="1" step="0.01" value="0.55"></div></div></div></details>
     <details class="grp"><summary>Print</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Off-register</span><span class="v" id="offsetVal">50%</span></div><div class="track"><input type="range" id="offset" min="0" max="1" step="0.01" value="0.5"></div></div>
         <div class="pr"><div class="top"><span class="k">Plate spread</span><span class="v" id="edgeVal">35%</span></div><div class="track"><input type="range" id="edge" min="0" max="1" step="0.01" value="0.35"></div></div>
         <div class="misc stack"><span class="mhead"><span class="k">Ink texture</span></span><span class="mval"><div class="chips" id="texKinds"></div></span></div>
         <div class="pr"><div class="top"><span class="k">Coverage</span><span class="v" id="texVal">40%</span></div><div class="track"><input type="range" id="tex" min="0" max="1" step="0.01" value="0.4"></div></div>
-        <div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">42%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.42"></div></div>
-        <div class="note">The second ink is the same chain printed a little off true. Spread fattens that plate so a hairline of it shows all the way round, not only where it slid. Coverage is how badly the fill ink fails to take: it breaks up at the edge of each rod first and holds longest down the middle, so at nothing the rods are solid and wound up they are barely there. Grain roughens the edges as well as the colour.</div></div></details></div>
+        <div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">42%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.42"></div></div></div></details></div>
     <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">3</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
-        
-        <div class="note">Three roles: the ground, the plate that missed, and the fill on top of it.</div>
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
@@ -543,19 +536,16 @@ input[type=range]{accent-color:var(--ink)}
     <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
           <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
           <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="12"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="36"></div></div>
-          <div class="note">Drift wanders the whole tangle, Shift walks the missed plate around the chains, Pulse swells the rods and lets them back down.</div></div><div class="group" id="ditherBody" hidden>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="36"></div></div></div><div class="group" id="ditherBody" hidden>
   <div class="misc stack"><span class="mhead"><span class="k">Pattern</span></span><span class="mval"><div class="chips" id="dthKinds"></div></span></div>
   <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
   <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
   <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="dthAmountVal">100%</span></div><div class="track"><input type="range" id="dthAmount" min="0" max="1" step="0.05" value="1"></div></div>
-  <div class="note">Cuts the picture down to a few tones and scatters the difference as a pattern, the way old print and early screens did. It rides along with the PNG and the video; the SVG export stays smooth.</div>
 </div></div>
     <div class="r-bot">
       <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizePxVal">2400 px</span></div><div class="track"><input type="range" id="sizePx" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
-          <button class="lnk" id="expVid">Video</button></span></div>
-        <div class="note" id="expNote">The rough edge is made of grain rather than of shapes, so this exports as an image, not as vector.</div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
+          <button class="lnk" id="expVid">Video</button></span></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
       <div class="tbl" style="margin-top:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>

@@ -324,8 +324,6 @@ input[type=range]{accent-color:var(--ink)}
 .pair>*{display:flex;flex-direction:column;gap:9px}
 .pair .lab{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key);
   display:block;margin:0}
-.note{font-size:8.5px;letter-spacing:.06em;line-height:1.7;color:var(--key);margin:2px 0 14px;
-  text-transform:none}
 .sec-h{font-size:10px;letter-spacing:.32em;text-transform:uppercase;margin:0 0 12px}
 .lab{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key)}
 .val{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase}
@@ -488,15 +486,12 @@ input[type=range]{accent-color:var(--ink)}
     </div>
     <div class="l-scroll"><details class="grp" open><summary>Land</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Coverage</span><span class="v" id="levelVal">50%</span></div><div class="track"><input type="range" id="level" min="0" max="1" step="0.01" value="0.5"></div></div>
         <div class="pr"><div class="top"><span class="k">Feature size</span><span class="v" id="scaleVal">2.2</span></div><div class="track"><input type="range" id="scale" min="1" max="10" step="0.1" value="2.2"></div></div>
-        <div class="pr"><div class="top"><span class="k">Distortion</span><span class="v" id="warpVal">40%</span></div><div class="track"><input type="range" id="warp" min="0" max="1" step="0.01" value="0.4"></div></div>
-        <div class="note">The shape is a single level cut through a noise field, so bays and holes are found rather than placed.</div></div></details>
+        <div class="pr"><div class="top"><span class="k">Distortion</span><span class="v" id="warpVal">40%</span></div><div class="track"><input type="range" id="warp" min="0" max="1" step="0.01" value="0.4"></div></div></div></details>
     <details class="grp" open><summary>Halftone</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Resolution</span><span class="v" id="gridVal">150</span></div><div class="track"><input type="range" id="grid" min="40" max="320" step="2" value="150"></div></div>
         <div class="pr"><div class="top"><span class="k">Depth</span><span class="v" id="depthVal">70%</span></div><div class="track"><input type="range" id="depth" min="0" max="1" step="0.01" value="0.7"></div></div></div></details>
     <details class="grp" open><summary>Coast</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Fringe</span><span class="v" id="fringeVal">45%</span></div><div class="track"><input type="range" id="fringe" min="0" max="1" step="0.01" value="0.45"></div></div>
         <div class="pr"><div class="top"><span class="k">Specks</span><span class="v" id="sparkVal">60%</span></div><div class="track"><input type="range" id="spark" min="0" max="1" step="0.01" value="0.6"></div></div></div></details></div>
     <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">6</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
-        
-        <div class="note">First ink is the ground, second the land, third and fourth the two colours of the coast.</div>
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
@@ -540,14 +535,12 @@ input[type=range]{accent-color:var(--ink)}
   <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
   <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
   <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="dthAmountVal">100%</span></div><div class="track"><input type="range" id="dthAmount" min="0" max="1" step="0.05" value="1"></div></div>
-  <div class="note">Cuts the picture down to a few tones and scatters the difference as a pattern, the way old print and early screens did. It rides along with the PNG and the video; the SVG export stays smooth.</div>
 </div></div>
     <div class="r-bot">
       <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
           <button class="lnk" id="expSvg">SVG</button>
-          <button class="lnk" id="expVid">Video</button></span></div>
-        <div class="note" id="expNote">Every dot is a rectangle, so the SVG is the picture itself rather than a trace of it.</div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
+          <button class="lnk" id="expVid">Video</button></span></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
       <div class="tbl" style="margin-top:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>

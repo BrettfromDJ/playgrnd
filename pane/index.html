@@ -324,8 +324,6 @@ input[type=range]{accent-color:var(--ink)}
 .pair>*{display:flex;flex-direction:column;gap:9px}
 .pair .lab{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key);
   display:block;margin:0}
-.note{font-size:8.5px;letter-spacing:.06em;line-height:1.7;color:var(--key);margin:2px 0 14px;
-  text-transform:none}
 .sec-h{font-size:10px;letter-spacing:.32em;text-transform:uppercase;margin:0 0 12px}
 .lab{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key)}
 .val{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase}
@@ -488,15 +486,11 @@ input[type=range]{accent-color:var(--ink)}
     </div>
     <div class="l-scroll"><details class="grp" open><summary>Panes</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Rows</span><span class="v" id="rowsVal">3</span></div><div class="track"><input type="range" id="rows" min="1" max="10" step="1" value="3"></div></div>
         <div class="pr"><div class="top"><span class="k">Across</span><span class="v" id="cellsVal">6</span></div><div class="track"><input type="range" id="cells" min="1" max="16" step="1" value="6"></div></div>
-        <div class="pr"><div class="top"><span class="k">Unevenness</span><span class="v" id="varyVal">55%</span></div><div class="track"><input type="range" id="vary" min="0" max="1" step="0.01" value="0.55"></div></div>
-        <div class="note">Every row is divided on its own, so no edge runs the whole height of the page.</div></div></details>
+        <div class="pr"><div class="top"><span class="k">Unevenness</span><span class="v" id="varyVal">55%</span></div><div class="track"><input type="range" id="vary" min="0" max="1" step="0.01" value="0.55"></div></div></div></details>
     <details class="grp" open><summary>Ramps</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Diagonals</span><span class="v" id="diagVal">45%</span></div><div class="track"><input type="range" id="diag" min="0" max="1" step="0.01" value="0.45"></div></div>
         <div class="pr"><div class="top"><span class="k">Softness</span><span class="v" id="softVal">85%</span></div><div class="track"><input type="range" id="soft" min="0" max="1" step="0.01" value="0.85"></div></div>
-        <div class="pr"><div class="top"><span class="k">Contrast</span><span class="v" id="spreadVal">55%</span></div><div class="track"><input type="range" id="spread" min="0" max="1" step="0.01" value="0.55"></div></div>
-        <div class="note">Each pane ramps between two inks along one of eight directions. Contrast is how far apart in the row those two are drawn from.</div></div></details></div>
+        <div class="pr"><div class="top"><span class="k">Contrast</span><span class="v" id="spreadVal">55%</span></div><div class="track"><input type="range" id="spread" min="0" max="1" step="0.01" value="0.55"></div></div></div></details></div>
     <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">8</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
-        
-        <div class="note">Every ink is a gradient stop. A tight row is what holds the page together.</div>
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
@@ -540,14 +534,12 @@ input[type=range]{accent-color:var(--ink)}
   <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
   <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
   <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="dthAmountVal">100%</span></div><div class="track"><input type="range" id="dthAmount" min="0" max="1" step="0.05" value="1"></div></div>
-  <div class="note">Cuts the picture down to a few tones and scatters the difference as a pattern, the way old print and early screens did. It rides along with the PNG and the video; the SVG export stays smooth.</div>
 </div></div>
     <div class="r-bot">
       <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
           <button class="lnk" id="expSvg">SVG</button>
-          <button class="lnk" id="expVid">Video</button></span></div>
-        <div class="note" id="expNote">The SVG carries real gradients, so every pane stays a live ramp you can edit.</div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
+          <button class="lnk" id="expVid">Video</button></span></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
       <div class="tbl" style="margin-top:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>

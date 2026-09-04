@@ -324,8 +324,6 @@ input[type=range]{accent-color:var(--ink)}
 .pair>*{display:flex;flex-direction:column;gap:9px}
 .pair .lab{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key);
   display:block;margin:0}
-.note{font-size:8.5px;letter-spacing:.06em;line-height:1.7;color:var(--key);margin:2px 0 14px;
-  text-transform:none}
 .sec-h{font-size:10px;letter-spacing:.32em;text-transform:uppercase;margin:0 0 12px}
 .lab{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key)}
 .val{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase}
@@ -488,18 +486,13 @@ input[type=range]{accent-color:var(--ink)}
     </div>
     <div class="l-scroll"><details class="grp" open><summary>Field</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Blob size</span><span class="v" id="scaleVal">62%</span></div><div class="track"><input type="range" id="scale" min="0" max="1" step="0.01" value="0.62"></div></div>
         <div class="pr"><div class="top"><span class="k">Bend</span><span class="v" id="warpVal">35%</span></div><div class="track"><input type="range" id="warp" min="0" max="1" step="0.01" value="0.35"></div></div>
-        <div class="pr"><div class="top"><span class="k">Detail</span><span class="v" id="detailVal">4</span></div><div class="track"><input type="range" id="detail" min="1" max="5" step="1" value="4"></div></div>
-        <div class="note">Bend pushes the field through itself so the shapes lean and fold instead of sitting in even lumps.</div></div></details>
+        <div class="pr"><div class="top"><span class="k">Detail</span><span class="v" id="detailVal">4</span></div><div class="track"><input type="range" id="detail" min="1" max="5" step="1" value="4"></div></div></div></details>
     <details class="grp" open><summary>Smear</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Streak</span><span class="v" id="smearVal">35%</span></div><div class="track"><input type="range" id="smear" min="0" max="1" step="0.01" value="0.35"></div></div>
         <div class="pr"><div class="top"><span class="k">Drag</span><span class="v" id="dragVal">22%</span></div><div class="track"><input type="range" id="drag" min="0" max="1" step="0.01" value="0.22"></div></div>
-        <div class="pr"><div class="top"><span class="k">Tear</span><span class="v" id="tearVal">30%</span></div><div class="track"><input type="range" id="tear" min="0" max="1" step="0.01" value="0.3"></div></div>
-        <div class="note">Each row holds its colour until the heat under it moves enough. Streak is how long it will hold; Tear slides whole bands sideways, like a dropped frame.</div></div></details>
+        <div class="pr"><div class="top"><span class="k">Tear</span><span class="v" id="tearVal">30%</span></div><div class="track"><input type="range" id="tear" min="0" max="1" step="0.01" value="0.3"></div></div></div></details>
     <details class="grp" open><summary>Levels</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Steps</span><span class="v" id="stepsVal">6</span></div><div class="track"><input type="range" id="steps" min="2" max="24" step="1" value="6"></div></div>
-        <div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">10%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.1"></div></div>
-        <div class="note">Fewer steps gives hard poster bands; more gives a smooth gradient. Grain roughens the joins between them.</div></div></details></div>
+        <div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">10%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.1"></div></div></div></details></div>
     <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">6</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
-        
-        <div class="note">The row is read as a ramp: first ink is the coolest part of the field, last is the hottest.</div>
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
@@ -538,19 +531,16 @@ input[type=range]{accent-color:var(--ink)}
     <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
           <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
           <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="12"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="36"></div></div>
-          <div class="note">Drift moves the heat, Sort slides the streaks along the rows, Cycle runs the inks through the ramp.</div></div><div class="group" id="ditherBody" hidden>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="36"></div></div></div><div class="group" id="ditherBody" hidden>
   <div class="misc stack"><span class="mhead"><span class="k">Pattern</span></span><span class="mval"><div class="chips" id="dthKinds"></div></span></div>
   <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
   <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
   <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="dthAmountVal">100%</span></div><div class="track"><input type="range" id="dthAmount" min="0" max="1" step="0.05" value="1"></div></div>
-  <div class="note">Cuts the picture down to a few tones and scatters the difference as a pattern, the way old print and early screens did. It rides along with the PNG and the video; the SVG export stays smooth.</div>
 </div></div>
     <div class="r-bot">
       <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
-          <button class="lnk" id="expVid">Video</button></span></div>
-        <div class="note" id="expNote">This one is a photograph rather than a drawing, so it exports as an image, not as vector.</div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
+          <button class="lnk" id="expVid">Video</button></span></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
       <div class="tbl" style="margin-top:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>

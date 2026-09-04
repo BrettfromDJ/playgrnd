@@ -324,8 +324,6 @@ input[type=range]{accent-color:var(--ink)}
 .pair>*{display:flex;flex-direction:column;gap:9px}
 .pair .lab{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key);
   display:block;margin:0}
-.note{font-size:8.5px;letter-spacing:.06em;line-height:1.7;color:var(--key);margin:2px 0 14px;
-  text-transform:none}
 .sec-h{font-size:10px;letter-spacing:.32em;text-transform:uppercase;margin:0 0 12px}
 .lab{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key)}
 .val{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase}
@@ -488,8 +486,7 @@ input[type=range]{accent-color:var(--ink)}
     </div>
     <div class="l-scroll"><details class="grp" open><summary>Ground</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Split</span><span class="v" id="splitVal">62%</span></div><div class="track"><input type="range" id="split" min="0.15" max="0.95" step="0.01" value="0.62"></div></div>
         <div class="pr"><div class="top"><span class="k">Sweep bands</span><span class="v" id="ringsVal">15</span></div><div class="track"><input type="range" id="rings" min="4" max="40" step="1" value="15"></div></div>
-        <div class="pr"><div class="top"><span class="k">Stripes</span><span class="v" id="stripesVal">9</span></div><div class="track"><input type="range" id="stripes" min="2" max="24" step="1" value="9"></div></div>
-        <div class="note">Split sets how much of the page the sweep keeps before the stripes take over.</div></div></details>
+        <div class="pr"><div class="top"><span class="k">Stripes</span><span class="v" id="stripesVal">9</span></div><div class="track"><input type="range" id="stripes" min="2" max="24" step="1" value="9"></div></div></div></details>
     <details class="grp"><summary>Type</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Character set</span></span><span class="mval"><div class="chips" id="sets"></div></span></div>
         <div class="misc stack" id="customRow" hidden><span class="mhead"><span class="k">Your characters</span></span><span class="mval"><input type="text" id="customSet" value=".:-=+*#%@" spellcheck="false"
                  autocomplete="off" aria-label="Your own characters"
@@ -499,11 +496,8 @@ input[type=range]{accent-color:var(--ink)}
         <div class="pr"><div class="top"><span class="k">How many large</span><span class="v" id="densityVal">84%</span></div><div class="track"><input type="range" id="density" min="0" max="1" step="0.01" value="0.84"></div></div>
         <div class="pr"><div class="top"><span class="k">Small size</span><span class="v" id="smallSizeVal">44%</span></div><div class="track"><input type="range" id="smallSize" min="0.1" max="0.9" step="0.01" value="0.44"></div></div>
         <div class="pr"><div class="top"><span class="k">How many small</span><span class="v" id="smallVal">60%</span></div><div class="track"><input type="range" id="small" min="0" max="1" step="0.01" value="0.6"></div></div></div></details>
-    <details class="grp"><summary>Blocks</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">How many</span><span class="v" id="blocksVal">62%</span></div><div class="track"><input type="range" id="blocks" min="0" max="1" step="0.01" value="0.62"></div></div>
-        <div class="note">Halftone and solid squares down the right edge, plus one panel dropped over the page.</div></div></details></div>
+    <details class="grp"><summary>Blocks</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">How many</span><span class="v" id="blocksVal">62%</span></div><div class="track"><input type="range" id="blocks" min="0" max="1" step="0.01" value="0.62"></div></div></div></details></div>
     <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">8</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
-        
-        <div class="note">The darkest ink prints the panels and dots, the lightest is the paper under them, and the next sets the type.</div>
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
@@ -547,14 +541,12 @@ input[type=range]{accent-color:var(--ink)}
   <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
   <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
   <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="dthAmountVal">100%</span></div><div class="track"><input type="range" id="dthAmount" min="0" max="1" step="0.05" value="1"></div></div>
-  <div class="note">Cuts the picture down to a few tones and scatters the difference as a pattern, the way old print and early screens did. It rides along with the PNG and the video; the SVG export stays smooth.</div>
 </div></div>
     <div class="r-bot">
       <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
           <button class="lnk" id="expSvg">SVG</button>
-          <button class="lnk" id="expVid">Video</button></span></div>
-        <div class="note" id="expNote">The letters stay real text in the SVG, so the export opens as editable type.</div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
+          <button class="lnk" id="expVid">Video</button></span></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
       <div class="tbl" style="margin-top:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>
