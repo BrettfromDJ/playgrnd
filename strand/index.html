@@ -494,7 +494,8 @@ input[type=range]{accent-color:var(--ink)}
     <details class="grp"><summary>Rods</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Thickness</span><span class="v" id="thickVal">42%</span></div><div class="track"><input type="range" id="thick" min="0" max="1" step="0.01" value="0.42"></div></div>
         <div class="pr"><div class="top"><span class="k">Rod length</span><span class="v" id="rodVal">50%</span></div><div class="track"><input type="range" id="rod" min="0" max="1" step="0.01" value="0.5"></div></div>
         <div class="pr"><div class="top"><span class="k">Notch</span><span class="v" id="notchVal">18%</span></div><div class="track"><input type="range" id="notch" min="0" max="1" step="0.01" value="0.18"></div></div>
-        <div class="note">Rods are laid end to end along the chain. Notch is the hair left between them: at nothing they fuse into one ribbon, wound up they separate into beads.</div></div></details>
+        <div class="pr"><div class="top"><span class="k">Roughness</span><span class="v" id="roughVal">55%</span></div><div class="track"><input type="range" id="rough" min="0" max="1" step="0.01" value="0.55"></div></div>
+        <div class="note">Rods are laid end to end along the chain. Notch is the hair left between them: at nothing they fuse into one ribbon, wound up they separate into beads. Roughness swells and pinches each rod along its length: at nothing they are clean capsules, wound up they are brush strokes.</div></div></details>
     <details class="grp"><summary>Print</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Off-register</span><span class="v" id="offsetVal">50%</span></div><div class="track"><input type="range" id="offset" min="0" max="1" step="0.01" value="0.5"></div></div>
         <div class="pr"><div class="top"><span class="k">Plate spread</span><span class="v" id="edgeVal">35%</span></div><div class="track"><input type="range" id="edge" min="0" max="1" step="0.01" value="0.35"></div></div>
         <div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">42%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.42"></div></div>
@@ -607,7 +608,7 @@ const PALETTES=[
 const S={
   seed:4, ratio:"3:4",
   count:8, len:22, wander:0.6, branch:0.22,
-  thick:0.42, rod:0.5, notch:0.18,
+  thick:0.42, rod:0.5, notch:0.18, rough:0.55,
   offset:0.5, edge:0.35, grain:0.42,
   pal:PALETTES[0].slice(),
   motion:{on:false,mode:"drift",amount:0.6,fps:12,frames:36},
@@ -671,8 +672,7 @@ function rodsS(aspect){
     let {x,y,a,left,d}=c;
     while(left-->0 && rods.length<ROD_CAP){
       const ca=Math.cos(a), sa=Math.sin(a);
-      const hx=ca*seg/2, hy=sa*seg/2;
-      rods.push([x-hx,y-hy,x+hx,y+hy]);
+      rods.push([x,y,a,seg,(rnd()*9973)|0]);
       const nx=x+ca*step, ny=y+sa*step;
       x=nx; y=ny;
       a+=(rnd()-0.5)*S.wander*0.9;
@@ -695,6 +695,43 @@ function rodsS(aspect){
      back the wrong one made every chain a single fat blob */
   rodCache={rods,wide:wid,fw,fh}; rodKey=key;
   return rodCache;
+}
+
+/* A rod is drawn as its own outline rather than as a stroked line, because a
+   stroke can only ever be one width the whole way along and comes out looking
+   machined. The two edges are walked down the axis separately, each with its
+   own wobble, so the shape is never symmetric about its own middle — that
+   lopsidedness is most of what reads as laid down by hand rather than
+   computed. The ends are not alike either: one is stubbed off where the brush
+   landed, the other drags out where it lifted. At Roughness zero all of it
+   falls away and it is a plain capsule again. */
+function rodPath(g,x,y,a,seg,sd,wid,rough,grow){
+  /* the rod is also nudged off the chain's axis, so a run of them reads as a
+     hand following a line rather than beads threaded onto one */
+  a+=(hshS(sd,17,3)-0.5)*0.42*rough;
+  const ca=Math.cos(a), sa=Math.sin(a), px=-sa, py=ca;
+  const full=seg+wid, half=wid*0.5+grow;
+  const N=18, L=[], R=[];
+  const e0=0.06+hshS(sd,3,7)*0.34*rough;      /* how fast each end opens out */
+  const e1=0.06+hshS(sd,9,7)*0.60*rough;
+  for(let i=0;i<=N;i++){
+    const u=i/N;
+    let cap=Math.min(u/e0,(1-u)/e1,1);
+    cap=Math.pow(cap<0?0:cap,0.45);
+    /* each edge gets its own noise, at a frequency high enough to tear it */
+    const wl=1+(vnS(u*6.1+sd*0.11,sd*0.07,sd)-0.5)*rough*1.3;
+    const wr=1+(vnS(u*5.3+sd*0.17,sd*0.05,sd+911)-0.5)*rough*1.3;
+    const off=(vnS(u*2.2+sd*0.09,7.3,sd+41)-0.5)*wid*0.55*rough;
+    const t=u*full-wid*0.5;
+    const bx=x+ca*t+px*off, by=y+sa*t+py*off;
+    const hl=half*cap*wl, hr=half*cap*wr;
+    L.push([bx+px*hl,by+py*hl]);
+    R.push([bx-px*hr,by-py*hr]);
+  }
+  g.moveTo(L[0][0],L[0][1]);
+  for(let i=1;i<=N;i++) g.lineTo(L[i][0],L[i][1]);
+  for(let i=N;i>=0;i--) g.lineTo(R[i][0],R[i][1]);
+  g.closePath();
 }
 
 let maskCv=null, maskCx=null;
@@ -747,26 +784,28 @@ function paint(c,W,H,f){
   /* the plate first, then the fill straight over it: where both land the fill
      wins, which leaves the plate showing as a thick edge on the side it slid
      towards and a hairline on the other */
-  mx.strokeStyle="#f00"; mx.lineWidth=fat*MS;
+  const rough=S.rough;
+  const grow=(fat-wide)*0.5*MS;
+  mx.fillStyle="#f00";
   mx.beginPath();
   for(const r of rods){
-    const a=put(r[0],r[1],ox,oy), b=put(r[2],r[3],ox,oy);
-    mx.moveTo(a[0],a[1]); mx.lineTo(b[0],b[1]);
+    const p=put(r[0],r[1],ox,oy);
+    rodPath(mx,p[0],p[1],r[2],r[3]*MU,r[4],wide*MS,rough,grow);
   }
-  mx.stroke();
-  mx.strokeStyle="#0f0"; mx.lineWidth=wide*MS;
+  mx.fill();
+  mx.fillStyle="#0f0";
   mx.beginPath();
   for(const r of rods){
-    const a=put(r[0],r[1],0,0), b=put(r[2],r[3],0,0);
-    mx.moveTo(a[0],a[1]); mx.lineTo(b[0],b[1]);
+    const p=put(r[0],r[1],0,0);
+    rodPath(mx,p[0],p[1],r[2],r[3]*MU,r[4],wide*MS,rough,0);
   }
-  mx.stroke();
+  mx.fill();
 
   const src=mx.getImageData(0,0,MW,MH).data;
   const img=c.createImageData(W,H), d=img.data;
   const seed=S.seed|0;
   const g=S.grain;
-  const cut=0.5, spread=0.55*g+0.05;
+  const cut=0.5, spread=0.8*g+0.06;
   const gl=g*46;
   /* the edge noise is sized off the picture, not off the pixel, so a 6000px
      export is the same picture as the preview rather than a finer one */
@@ -1017,6 +1056,7 @@ bindRange("branch",v=>Math.round(v*100)+"%",v=>S.branch=v);
 bindRange("thick",v=>Math.round(v*100)+"%",v=>S.thick=v);
 bindRange("rod",v=>Math.round(v*100)+"%",v=>S.rod=v);
 bindRange("notch",v=>Math.round(v*100)+"%",v=>S.notch=v);
+bindRange("rough",v=>Math.round(v*100)+"%",v=>S.rough=v);
 bindRange("offset",v=>Math.round(v*100)+"%",v=>S.offset=v);
 bindRange("edge",v=>Math.round(v*100)+"%",v=>S.edge=v);
 bindRange("grain",v=>Math.round(v*100)+"%",v=>S.grain=v);
