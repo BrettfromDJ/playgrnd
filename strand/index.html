@@ -3,25 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Carve — playgrnd</title>
+<title>Strand — playgrnd</title>
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/favicon.png" sizes="180x180" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="canonical" href="https://playgrnd.tools/carve">
+<link rel="canonical" href="https://playgrnd.tools/strand">
 <meta property="og:site_name" content="playgrnd">
-<meta property="og:title" content="Carve — playgrnd">
-<meta property="og:description" content="Generate panel-collage backgrounds — the frame carves itself into rectangles and each one is dealt flat colour, hard stripes, stacked chevrons, a grainy ramp or a drawn grid. Exports vector, image and video.">
+<meta property="og:title" content="Strand — playgrnd">
+<meta property="og:description" content="Generate chained-rod backgrounds — branching chains of rods that wander and fork across a ground, with a second ink printed a little off true so the black shows as a thick edge on one side. Exports image and video.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://playgrnd.tools/carve">
-<meta property="og:image" content="https://playgrnd.tools/carve/og.jpg">
+<meta property="og:url" content="https://playgrnd.tools/strand">
+<meta property="og:image" content="https://playgrnd.tools/strand/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Artwork made with Carve.">
+<meta property="og:image:alt" content="Artwork made with Strand.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Carve — playgrnd">
-<meta name="twitter:description" content="Generate panel-collage backgrounds — the frame carves itself into rectangles and each one is dealt flat colour, hard stripes, stacked chevrons, a grainy ramp or a drawn grid.">
-<meta name="twitter:image" content="https://playgrnd.tools/carve/og.jpg">
-<meta name="description" content="Generate panel-collage backgrounds — the frame carves itself into rectangles and each one is dealt flat colour, hard stripes, stacked chevrons, a grainy ramp or a drawn grid. Exports vector, image and video.">
+<meta name="twitter:title" content="Strand — playgrnd">
+<meta name="twitter:description" content="Generate chained-rod backgrounds — branching chains of rods that wander and fork across a ground, with a second ink printed a little off true so the black shows as a thick edge on one side.">
+<meta name="twitter:image" content="https://playgrnd.tools/strand/og.jpg">
+<meta name="description" content="Generate chained-rod backgrounds — branching chains of rods that wander and fork across a ground, with a second ink printed a little off true so the black shows as a thick edge on one side. Exports image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -478,26 +478,30 @@ input[type=range]{accent-color:var(--ink)}
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
         <span class="slash">&frasl;</span>
-        <span class="tool">Carve</span>
+        <span class="tool">Strand</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">34 / 37</span>
-        <span class="k">Type</span><span class="v">Panel collage</span>
+        <span class="k">Index</span><span class="v">37 / 37</span>
+        <span class="k">Type</span><span class="v">Rod chains</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Carve</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Cuts</span><span class="v" id="cutsVal">7</span></div><div class="track"><input type="range" id="cuts" min="1" max="16" step="1" value="7"></div></div>
-        <div class="pr"><div class="top"><span class="k">Unevenness</span><span class="v" id="unevenVal">55%</span></div><div class="track"><input type="range" id="uneven" min="0" max="1" step="0.01" value="0.55"></div></div>
-        <div class="pr"><div class="top"><span class="k">Gap</span><span class="v" id="gapVal">0%</span></div><div class="track"><input type="range" id="gap" min="0" max="1" step="0.01" value="0"></div></div>
-        <div class="note">Each cut takes one of the bigger panels and splits it the long way. Unevenness is how far off centre it may cut.</div></div></details>
-    <details class="grp" open><summary>Treatments</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Patterned</span><span class="v" id="mixVal">70%</span></div><div class="track"><input type="range" id="mix" min="0" max="1" step="0.01" value="0.7"></div></div>
-        <div class="pr"><div class="top"><span class="k">Stripe pitch</span><span class="v" id="pitchVal">40%</span></div><div class="track"><input type="range" id="pitch" min="0" max="1" step="0.01" value="0.4"></div></div>
-        <div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">50%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.5"></div></div>
-        <div class="pr"><div class="top"><span class="k">Grid detail</span><span class="v" id="nodesVal">50%</span></div><div class="track"><input type="range" id="nodes" min="0" max="1" step="0.01" value="0.5"></div></div>
-        <div class="note">Panels are dealt flat colour, stripes, chevrons, a grainy ramp, or the drawn grid. Wind Patterned to nothing and it is all flat blocks.</div></div></details></div>
-    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">6</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+    <div class="l-scroll"><details class="grp" open><summary>Chains</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Chains</span><span class="v" id="countVal">8</span></div><div class="track"><input type="range" id="count" min="1" max="40" step="1" value="8"></div></div>
+        <div class="pr"><div class="top"><span class="k">Length</span><span class="v" id="lenVal">22</span></div><div class="track"><input type="range" id="len" min="3" max="90" step="1" value="22"></div></div>
+        <div class="pr"><div class="top"><span class="k">Wander</span><span class="v" id="wanderVal">60%</span></div><div class="track"><input type="range" id="wander" min="0" max="1" step="0.01" value="0.6"></div></div>
+        <div class="pr"><div class="top"><span class="k">Branching</span><span class="v" id="branchVal">22%</span></div><div class="track"><input type="range" id="branch" min="0" max="1" step="0.01" value="0.22"></div></div>
+        <div class="note">A chain turns a little at every rod. Branching is how often it splits, and each arm carries on from where the split happened.</div></div></details>
+    <details class="grp"><summary>Rods</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Thickness</span><span class="v" id="thickVal">42%</span></div><div class="track"><input type="range" id="thick" min="0" max="1" step="0.01" value="0.42"></div></div>
+        <div class="pr"><div class="top"><span class="k">Rod length</span><span class="v" id="rodVal">50%</span></div><div class="track"><input type="range" id="rod" min="0" max="1" step="0.01" value="0.5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Notch</span><span class="v" id="notchVal">18%</span></div><div class="track"><input type="range" id="notch" min="0" max="1" step="0.01" value="0.18"></div></div>
+        <div class="note">Rods are laid end to end along the chain. Notch is the hair left between them: at nothing they fuse into one ribbon, wound up they separate into beads.</div></div></details>
+    <details class="grp"><summary>Print</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Off-register</span><span class="v" id="offsetVal">50%</span></div><div class="track"><input type="range" id="offset" min="0" max="1" step="0.01" value="0.5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Plate spread</span><span class="v" id="edgeVal">35%</span></div><div class="track"><input type="range" id="edge" min="0" max="1" step="0.01" value="0.35"></div></div>
+        <div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">42%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.42"></div></div>
+        <div class="note">The second ink is the same chain printed a little off true. Spread fattens that plate so a hairline of it shows all the way round, not only where it slid. Grain roughens the edges as well as the colour.</div></div></details></div>
+    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">3</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
         
-        <div class="note">The first ink is the ground behind everything. The rest are dealt to the panels.</div>
+        <div class="note">Three roles: the ground, the plate that missed, and the fill on top of it.</div>
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
@@ -509,7 +513,7 @@ input[type=range]{accent-color:var(--ink)}
       <div class="pill">
         <span class="lb">Variation</span>
         <span class="sep"></span>
-        <input class="seed" id="seed" value="12" inputmode="numeric" aria-label="Variation number">
+        <input class="seed" id="seed" value="4" inputmode="numeric" aria-label="Variation number">
         <button class="pbtn copy" id="copySeed" aria-label="Copy variation number">Copy</button>
         <button class="pbtn go" id="randomize">New</button>
       </div>
@@ -537,7 +541,7 @@ input[type=range]{accent-color:var(--ink)}
           <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
           <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="12"></div></div>
           <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="36"></div></div>
-          <div class="note">Drift slides the ramps and stripes, Cycle runs the inks through the panels, Deal lays the composition out one panel at a time.</div></div><div class="group" id="ditherBody" hidden>
+          <div class="note">Drift wanders the whole tangle, Shift walks the missed plate around the chains, Pulse swells the rods and lets them back down.</div></div><div class="group" id="ditherBody" hidden>
   <div class="misc stack"><span class="mhead"><span class="k">Pattern</span></span><span class="mval"><div class="chips" id="dthKinds"></div></span></div>
   <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
   <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
@@ -545,11 +549,10 @@ input[type=range]{accent-color:var(--ink)}
   <div class="note">Cuts the picture down to a few tones and scatters the difference as a pattern, the way old print and early screens did. It rides along with the PNG and the video; the SVG export stays smooth.</div>
 </div></div>
     <div class="r-bot">
-      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
+      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizePxVal">2400 px</span></div><div class="track"><input type="range" id="sizePx" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
-          <button class="lnk" id="expSvg">SVG</button>
           <button class="lnk" id="expVid">Video</button></span></div>
-        <div class="note" id="expNote">The panels are real rectangles and polygons in the SVG. The grainy ones go out as their gradient with a noise filter over it, so the ramp survives anywhere and the grain comes along wherever filters are supported.</div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
+        <div class="note" id="expNote">The rough edge is made of grain rather than of shapes, so this exports as an image, not as vector.</div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
       <div class="tbl" style="margin-top:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>
@@ -590,334 +593,216 @@ function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const MODES=[["drift","Drift"],["cycle","Cycle"],["deal","Deal"]];
+const MODES=[["drift","Drift"],["shift","Shift"],["pulse","Pulse"]];
 
-/* Report-cover colour: two neutrals to hold the composition down and four
-   loud inks to spend on the panels that shout. */
+/* Three roles: the ground, the plate that missed, and the fill on top. */
 const PALETTES=[
-  ["#0B0B0B","#E9E9E7","#EF0A2B","#FF2ECC","#16216E","#F5851F"],
-  ["#101010","#EFEDE6","#F5003C","#00C2A0","#1B1BE0","#FFD400"],
-  ["#0A0A0A","#F2F0EA","#FF5A1F","#7CE860","#2B2B8F","#FF2D8B"],
-  ["#141414","#E4E2DC","#D6006E","#00A6A6","#243B7A","#F0B429"],
-  ["#0C0C0C","#EAE8E1","#3B2FE0","#FF7A00","#00B24A","#F20D3E"]
+  ["#A794C8","#0B0B0B","#A8DCEF"],
+  ["#EFE9DC","#141414","#F0402F"],
+  ["#0E1626","#F2F0E6","#F5C542"],
+  ["#1B1B1B","#EDEAE0","#7CE860"],
+  ["#F3D9E8","#181818","#3B5BDB"]
 ];
 
 const S={
-  seed:12, ratio:"1:1",
-  cuts:7, uneven:0.55, gap:0,
-  mix:0.7, pitch:0.4, grain:0.5, nodes:0.5,
+  seed:4, ratio:"3:4",
+  count:8, len:22, wander:0.6, branch:0.22,
+  thick:0.42, rod:0.5, notch:0.18,
+  offset:0.5, edge:0.35, grain:0.42,
   pal:PALETTES[0].slice(),
   motion:{on:false,mode:"drift",amount:0.6,fps:12,frames:36},
-  size:2400
+  size_px:2400
 };
 
-/* one stream per picture, so a panel keeps its treatment while a slider that
-   has nothing to do with the layout moves */
-function rngC(seed){
-  let s=(seed>>>0)||1;
-  return function(){ s^=s<<13; s>>>=0; s^=s>>>17; s^=s<<5; s>>>=0; return s/4294967296; };
-}
-function hshC(x,y,s){
+function hshS(x,y,s){
   let n=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1274126177);
   n=Math.imul(n^(n>>>13),1274126177); n^=n>>>16;
   return (n>>>0)/4294967296;
 }
-function hex2rgbC(h){
+function vnS(x,y,s){
+  const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi;
+  const u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);
+  const a=hshS(xi,yi,s),b=hshS(xi+1,yi,s),c=hshS(xi,yi+1,s),d=hshS(xi+1,yi+1,s);
+  return (a*(1-u)+b*u)*(1-v)+(c*(1-u)+d*u)*v;
+}
+function rngS(seed){
+  let s=(seed>>>0)||1;
+  return function(){ s^=s<<13; s>>>=0; s^=s>>>17; s^=s<<5; s>>>=0; return s/4294967296; };
+}
+function hex2rgbS(h){
   h=(h||"#000").replace("#","");
   if(h.length===3) h=h.split("").map(c=>c+c).join("");
   return [parseInt(h.slice(0,2),16)||0,parseInt(h.slice(2,4),16)||0,parseInt(h.slice(4,6),16)||0];
 }
-function mixC(a,b,t){ return [a[0]+(b[0]-a[0])*t, a[1]+(b[1]-a[1])*t, a[2]+(b[2]-a[2])*t]; }
-function rgbCss(c){ return "rgb("+(c[0]|0)+","+(c[1]|0)+","+(c[2]|0)+")"; }
-
-const KINDS=["flat","stripe","chev","grain","grid"];
 
 /* ------------------------------------------------------------------
-   The carve. The frame is one rectangle; each cut takes a panel and
-   splits it, favouring whichever is biggest so the composition keeps
-   filling itself in rather than shredding one corner. Panels are held in
-   0..1 of the frame so the same layout drives the canvas and the SVG.
+   A chain is a walk that turns a little at every step and now and then
+   splits, each arm carrying on from where the split happened. Rods are
+   laid along the walk butted end to end with a hair between them, which
+   is what puts the notch at every joint and lets you count the cells.
+   Everything is measured in units of the root of the frame's area, so a
+   variation is the same picture whatever size it is drawn at, and a wide
+   frame is not a busier frame.
 ------------------------------------------------------------------- */
-function layoutC(aspect){
-  const rnd=rngC(Math.imul(S.seed|0,2654435761));
-  let rects=[{x:0,y:0,w:1,h:1}];
-  const cuts=Math.max(1,Math.round(S.cuts));
-  for(let i=0;i<cuts;i++){
-    /* pick among the largest few rather than always the largest: always the
-       largest lays out like a spreadsheet */
-    const order=rects.map((r,k)=>({k,a:r.w*r.h})).sort((p,q)=>q.a-p.a);
-    const pick=order[Math.min(order.length-1,(rnd()*rnd()*3)|0)].k;
-    const r=rects[pick];
-    /* split across the long way, in real proportions rather than 0..1 ones */
-    const wide=r.w>=r.h*aspect;
-    const flip=rnd()<0.18;
-    const vertical=flip?!wide:wide;
-    const t=0.5+(rnd()-0.5)*Math.min(0.92,S.uneven)*0.86;
-    rects.splice(pick,1);
-    if(vertical){
-      rects.push({x:r.x,y:r.y,w:r.w*t,h:r.h},{x:r.x+r.w*t,y:r.y,w:r.w*(1-t),h:r.h});
-    }else{
-      rects.push({x:r.x,y:r.y,w:r.w,h:r.h*t},{x:r.x,y:r.y+r.h*t,w:r.w,h:r.h*(1-t)});
-    }
-  }
-  /* a stable order so a panel does not change treatment when the list is
-     rebuilt in a different sequence */
-  rects.sort((a,b)=> (a.y-b.y) || (a.x-b.x));
+const ROD_CAP=7000;
+let rodCache=null, rodKey="";
+function rodsS(aspect){
+  const key=[S.seed,S.count,S.len,S.wander,S.branch,S.rod,S.notch,S.thick,aspect.toFixed(4)].join("|");
+  if(rodKey===key && rodCache) return rodCache;
 
-  const n=S.pal.length;
-  let gridLeft=1;                      /* the drawn grid is a guest, not a tenant */
-  rects.forEach((r,i)=>{
-    const p=rngC(Math.imul(S.seed+i*7919,2246822519));
-    const patterned=p()<S.mix;
-    let kind="flat";
-    if(patterned){
-      const roll=p();
-      if(gridLeft>0 && roll>0.86 && r.w*r.h<0.3){ kind="grid"; gridLeft--; }
-      else if(roll<0.34) kind="stripe";
-      else if(roll<0.6) kind="chev";
-      else kind="grain";
-    }
-    r.kind=kind;
-    r.a=(p()*n)|0;
-    r.b=(r.a+1+((p()*(n-1))|0))%n;
-    r.dir=p()<0.5?0:1;                 /* stripes and chevrons run either way */
-    r.brk=0.3+p()*0.45;                /* where a stripe panel changes pitch */
-    r.seed=(p()*99999)|0;
-  });
-  return rects;
-}
+  const fw=1/Math.sqrt(aspect), fh=Math.sqrt(aspect);   /* frame in area units */
+  const rnd=rngS(Math.imul(S.seed|0,2654435761));
+  /* A round-capped stroke runs half its own width past each end, so a rod is
+     really seg + wid long. Spacing the rods by the segment alone let the caps
+     swallow the gap whole and the chain came out as one smooth wire with no
+     joints in it. The stride has to clear the caps before the notch shows. */
+  const wid=0.02+S.thick*0.09;
+  const seg=wid*(0.4+S.rod*2.2);
+  const step=seg+wid+S.notch*wid*0.95;
+  const rods=[];
+  const stack=[];
+  const n=Math.max(1,Math.round(S.count));
+  for(let i=0;i<n;i++)
+    stack.push({x:(-0.12+rnd()*1.24)*fw, y:(-0.12+rnd()*1.24)*fh,
+                a:rnd()*Math.PI*2, left:Math.max(1,Math.round(S.len)), d:0});
 
-/* ---------------- the five treatments, on canvas ---------------- */
-function panelFlat(c,x,y,w,h,ink){ c.fillStyle=ink; c.fillRect(x,y,w,h); }
-
-function panelStripe(c,x,y,w,h,r,A,B,ph){
-  c.fillStyle=A; c.fillRect(x,y,w,h);
-  c.fillStyle=B;
-  const span=r.dir?h:w;
-  const base=Math.max(3,(0.006+S.pitch*0.075)*Math.min(w,h)+2);
-  const brk=(r.dir?w:h)*r.brk;
-  /* the band across the panel where the pitch changes — the dropped-signal
-     look the reference gets from switching stripe frequency partway down */
-  for(let pass=0;pass<2;pass++){
-    const p=base*(pass?1.9:1);
-    const n=Math.ceil(span/(p*2))+2;
-    /* Whole periods per loop: the stripes travel the whole time and still land
-       exactly where they started, so nothing jumps at the seam. Starting one
-       period early keeps the leading edge covered as they move in. */
-    const off=ph*p*2;
-    for(let i=-1;i<n;i++){
-      const o=i*p*2+((r.seed%7)/7)*p+off;
-      if(o+p<0) continue;
-      if(r.dir){
-        const yy=y+o; if(yy>y+h) break;
-        const x0=pass?x+brk:x, x1=pass?x+w:x+brk;
-        if(x1>x0) c.fillRect(x0,yy,x1-x0,Math.min(p,y+h-yy));
-      }else{
-        const xx=x+o; if(xx>x+w) break;
-        const y0=pass?y+brk:y, y1=pass?y+h:y+brk;
-        if(y1>y0) c.fillRect(xx,y0,Math.min(p,x+w-xx),y1-y0);
+  while(stack.length && rods.length<ROD_CAP){
+    const c=stack.pop();
+    let {x,y,a,left,d}=c;
+    while(left-->0 && rods.length<ROD_CAP){
+      const ca=Math.cos(a), sa=Math.sin(a);
+      const hx=ca*seg/2, hy=sa*seg/2;
+      rods.push([x-hx,y-hy,x+hx,y+hy]);
+      const nx=x+ca*step, ny=y+sa*step;
+      x=nx; y=ny;
+      a+=(rnd()-0.5)*S.wander*0.9;
+      if(d<3 && left>4 && rnd()<S.branch*0.22)
+        stack.push({x,y,a:a+(rnd()<0.5?-1:1)*(0.5+rnd()*0.6),
+                    left:Math.max(3,(left*(0.4+rnd()*0.5))|0), d:d+1});
+      /* A chain that walks off the paper used to stop there, which made
+         Length do nothing past about thirty: the extra rods were all being
+         laid outside the frame. Steer it home instead, gently enough that the
+         turn reads as the chain meandering rather than as a wall. */
+      if(x<-0.32*fw||x>1.32*fw||y<-0.32*fh||y>1.32*fh){
+        let da=Math.atan2(fh*0.5-y,fw*0.5-x)-a;
+        while(da>Math.PI)da-=Math.PI*2;
+        while(da<-Math.PI)da+=Math.PI*2;
+        a+=da*0.2;
       }
     }
   }
+  /* the rod's width and the rod's length are different numbers, and handing
+     back the wrong one made every chain a single fat blob */
+  rodCache={rods,wide:wid,fw,fh}; rodKey=key;
+  return rodCache;
 }
 
-/* the stacked arrow motif: a thick angle repeated down the panel */
-function chevPath(x,y,w,h,rows,dir,t){
-  const out=[];
-  const step=h/rows;
-  for(let i=0;i<rows;i++){
-    const y0=y+i*step;
-    const a=dir? x : x+w, b=dir? x+w : x;
-    out.push([[a,y0],[b,y0+step*0.5],[a,y0+step],[a,y0+step*(1-t)],
-              [b-(b-a)*(1-t),y0+step*0.5],[a,y0+step*t]]);
+let maskCv=null, maskCx=null;
+function maskFor(W,H){
+  if(!maskCv){
+    maskCv=document.createElement("canvas");
+    maskCx=maskCv.getContext("2d",{willReadFrequently:true});
   }
-  return out;
-}
-function panelChev(c,x,y,w,h,r,A,B){
-  c.fillStyle=A; c.fillRect(x,y,w,h);
-  /* off the short side, and never fewer than two: a single chevron across a
-     wide panel reads as one arrowhead rather than the stacked motif */
-  const rows=Math.max(2,Math.round(h/Math.max(14,Math.min(w,h)*0.55)));
-  c.save(); c.beginPath(); c.rect(x,y,w,h); c.clip();
-  c.fillStyle=B;
-  chevPath(x,y,w,h,rows,r.dir,0.42).forEach(poly=>{
-    c.beginPath(); poly.forEach((p,i)=>i?c.lineTo(p[0],p[1]):c.moveTo(p[0],p[1]));
-    c.closePath(); c.fill();
-  });
-  c.restore();
-}
-
-/* the photographic-looking panels: a ramp between two inks, roughened, with
-   a few soft diagonal streaks through it */
-function panelGrain(c,x,y,w,h,r,A,B,ph){
-  const W=Math.max(1,Math.round(w)), H=Math.max(1,Math.round(h));
-  const X=Math.round(x), Y=Math.round(y);
-  const img=c.createImageData(W,H), d=img.data;
-  const ca=hex2rgbC(A), cb=hex2rgbC(B);
-  const g=S.grain, sd=r.seed;
-  const ang=(r.seed%360)*Math.PI/180;
-  const ux=Math.cos(ang), uy=Math.sin(ang);
-  for(let j=0,p=0;j<H;j++){
-    for(let i=0;i<W;i++,p+=4){
-      const u=(i/W-0.5), v=(j/H-0.5);
-      let t=0.5+(u*ux+v*uy)+ph;
-      /* streaks: a slow sine across the ramp direction, the glitter smear */
-      t+=Math.sin((u*uy-v*ux)*11+sd+ph*Math.PI*2)*0.06;
-      t=Math.max(0,Math.min(1,t));
-      const col=mixC(ca,cb,t);
-      if(g>0.002){
-        /* taper towards both ends of the ramp: full strength there burns the
-           pale end out to paper and blocks the dark end up */
-        const n=(hshC(i,j,sd)-0.5)*g*104*(1-Math.abs(t-0.5)*1.1);
-        col[0]+=n; col[1]+=n; col[2]+=n;
-      }
-      d[p]=col[0]<0?0:col[0]>255?255:col[0];
-      d[p+1]=col[1]<0?0:col[1]>255?255:col[1];
-      d[p+2]=col[2]<0?0:col[2]>255?255:col[2];
-      d[p+3]=255;
-    }
-  }
-  c.putImageData(img,X,Y);
-}
-
-function gridLines(x,y,w,h,step){
-  const xs=[],ys=[];
-  for(let gx=x;gx<=x+w+0.5;gx+=step) xs.push(gx);
-  for(let gy=y;gy<=y+h+0.5;gy+=step) ys.push(gy);
-  return {xs,ys};
-}
-function panelGrid(c,x,y,w,h,r,A,B){
-  c.fillStyle=A; c.fillRect(x,y,w,h);
-  const step=Math.max(14,Math.min(w,h)/(2+Math.round(S.nodes*6)));
-  const {xs,ys}=gridLines(x,y,w,h,step);
-  c.save(); c.beginPath(); c.rect(x,y,w,h); c.clip();
-  c.strokeStyle=B; c.lineWidth=Math.max(1,Math.min(w,h)*0.004);
-  c.beginPath();
-  xs.forEach(gx=>{c.moveTo(gx,y);c.lineTo(gx,y+h);});
-  ys.forEach(gy=>{c.moveTo(x,gy);c.lineTo(x+w,gy);});
-  c.stroke();
-  c.fillStyle=B;
-  const rad=Math.max(1.6,Math.min(w,h)*0.016);
-  xs.forEach((gx,i)=>ys.forEach((gy,j)=>{
-    if(hshC(i,j,r.seed)>0.82){ c.beginPath(); c.arc(gx,gy,rad,0,Math.PI*2); c.fill(); }
-  }));
-  c.restore();
+  if(maskCv.width!==W||maskCv.height!==H){ maskCv.width=W; maskCv.height=H; }
+  return maskCx;
 }
 
 function paint(c,W,H,f){
-  const M=S.motion, T=M.on ? f/M.frames : 0;
-  const pal=S.pal.length?S.pal:["#0B0B0B","#E9E9E7"];
-  /* floor, not round: rounding reaches a whole rotation a frame before the
-     loop ends, so the last frame repeated the first and the cycle stuttered
-     at the seam */
-  const roll=(M.on&&M.mode==="cycle") ? Math.floor(T*pal.length*Math.max(1,Math.round(M.amount*2))) : 0;
-  /* a phase that climbs across the loop and lands on a whole number of
-     periods, rather than a sine that is back at its start halfway round */
-  const turns=Math.max(1,Math.round(M.amount*2));
-  const ph=(M.on&&M.mode==="drift") ? T*turns : 0;
-  const ink=i=>pal[(i+roll+pal.length*4)%pal.length];
+  const M=S.motion, T=M.on ? f/M.frames : 0, ph=T*Math.PI*2;
+  const raw=S.pal.length?S.pal:["#A794C8","#0B0B0B","#A8DCEF"];
+  const ground=hex2rgbS(raw[0]);
+  const plate=hex2rgbS(raw[1]||raw[0]);
+  const fill=hex2rgbS(raw[2]||raw[1]||raw[0]);
 
-  c.fillStyle=pal[0]; c.fillRect(0,0,W,H);
-  const rects=layoutC(H/W);
-  const gap=S.gap*Math.min(W,H)*0.02;
-  /* Deal reveals the panels in turn, so a loop lays the poster out in front
-     of you and starts again */
-  const shown=(M.on&&M.mode==="deal") ? Math.round(T*rects.length)+1 : rects.length;
+  const {rods,wide:rodWide,fw,fh}=rodsS(H/W);
+  const U=Math.sqrt(W*H);                    /* one area unit, in pixels */
+  /* swells to its fullest halfway round and back down by the end. A plain
+     sine is back at its starting width at the half-loop, so the middle
+     frame matched the first and half the loop was wasted. */
+  const pulse=(M.on&&M.mode==="pulse") ? 1+(1-Math.cos(ph))*0.5*M.amount*0.4 : 1;
+  const wide=rodWide*U*pulse;
+  const drift=(M.on&&M.mode==="drift") ? M.amount*0.035*U : 0;
+  const dx=Math.cos(ph)*drift, dy=Math.sin(ph)*drift;
 
-  rects.forEach((r,i)=>{
-    if(i>=shown) return;
-    const x=r.x*W+gap/2, y=r.y*H+gap/2;
-    const w=Math.max(1,r.w*W-gap), h=Math.max(1,r.h*H-gap);
-    const A=ink(r.a), B=ink(r.b);
-    if(r.kind==="stripe") panelStripe(c,x,y,w,h,r,A,B,ph);
-    else if(r.kind==="chev") panelChev(c,x,y,w,h,r,A,B);
-    else if(r.kind==="grain") panelGrain(c,x,y,w,h,r,A,B,ph);
-    else if(r.kind==="grid") panelGrid(c,x,y,w,h,r,A,B);
-    else panelFlat(c,x,y,w,h,A);
-  });
-}
+  /* the plate that missed: same shape, a little fatter and slid off true */
+  const ang=(M.on&&M.mode==="shift") ? ph : Math.PI*0.75;
+  const off=S.offset*0.055*U;
+  const ox=Math.cos(ang)*off, oy=Math.sin(ang)*off;
+  const fat=wide*(1+S.edge*0.55);
 
-/* ---------------- the same layout, as vector ----------------
-   Every panel but one is rectangles and polygons, so the file is the picture
-   rather than a trace of it. The grainy panels go out as their ramp with a
-   noise filter over it: the ramp is what survives anywhere, the grain is
-   there for anything that renders SVG filters. */
-function buildSVG(){
-  const r=RATIOS.find(x=>x.id===S.ratio);
-  const W=S.size, H=Math.round(S.size*r.h/r.w);
-  const pal=S.pal.length?S.pal:["#0B0B0B","#E9E9E7"];
-  const rects=layoutC(H/W);
-  const gap=S.gap*Math.min(W,H)*0.02;
-  let defs="", body="";
-  const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
-  rects.forEach((r0,i)=>{
-    const x=r0.x*W+gap/2, y=r0.y*H+gap/2;
-    const w=Math.max(1,r0.w*W-gap), h=Math.max(1,r0.h*H-gap);
-    const A=esc(pal[r0.a%pal.length]), B=esc(pal[r0.b%pal.length]);
-    const cid="c"+i;
-    if(r0.kind==="stripe"){
-      body+=`<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${w.toFixed(2)}" height="${h.toFixed(2)}" fill="${A}"/>`;
-      const base=Math.max(3,(0.006+S.pitch*0.075)*Math.min(w,h)+2);
-      const span=r0.dir?h:w, brk=(r0.dir?w:h)*r0.brk;
-      let bars="";
-      for(let pass=0;pass<2;pass++){
-        const p=base*(pass?1.9:1), n=Math.ceil(span/(p*2))+1;
-        for(let k=0;k<n;k++){
-          const o=k*p*2+((r0.seed%7)/7)*p;
-          if(r0.dir){
-            const yy=y+o; if(yy>y+h) break;
-            const x0=pass?x+brk:x, x1=pass?x+w:x+brk;
-            if(x1>x0) bars+=`<rect x="${x0.toFixed(2)}" y="${yy.toFixed(2)}" width="${(x1-x0).toFixed(2)}" height="${Math.min(p,y+h-yy).toFixed(2)}"/>`;
-          }else{
-            const xx=x+o; if(xx>x+w) break;
-            const y0=pass?y+brk:y, y1=pass?y+h:y+brk;
-            if(y1>y0) bars+=`<rect x="${xx.toFixed(2)}" y="${y0.toFixed(2)}" width="${Math.min(p,x+w-xx).toFixed(2)}" height="${(y1-y0).toFixed(2)}"/>`;
-          }
-        }
+  /* The shape is drawn at half size on purpose. A full-size mask has hard
+     edges, so roughening it could only ever nibble the one anti-aliased pixel
+     at the boundary and the result read as plotted. Half size gives the edge a
+     ramp a few pixels wide for the noise to bite into, and costs a quarter of
+     the drawing and a quarter of the reading back. */
+  const MS=0.5;
+  const MW=Math.max(2,Math.round(W*MS)), MH=Math.max(2,Math.round(H*MS));
+  const MU=Math.sqrt(MW*MH);
+  const mx=maskFor(MW,MH);
+  mx.setTransform(1,0,0,1,0,0);
+  mx.fillStyle="#000"; mx.fillRect(0,0,MW,MH);
+  mx.lineCap="round";
+  const put=(x,y,ax,ay)=>[x*MU+(dx+ax)*MS,y*MU+(dy+ay)*MS];
+
+  /* the plate first, then the fill straight over it: where both land the fill
+     wins, which leaves the plate showing as a thick edge on the side it slid
+     towards and a hairline on the other */
+  mx.strokeStyle="#f00"; mx.lineWidth=fat*MS;
+  mx.beginPath();
+  for(const r of rods){
+    const a=put(r[0],r[1],ox,oy), b=put(r[2],r[3],ox,oy);
+    mx.moveTo(a[0],a[1]); mx.lineTo(b[0],b[1]);
+  }
+  mx.stroke();
+  mx.strokeStyle="#0f0"; mx.lineWidth=wide*MS;
+  mx.beginPath();
+  for(const r of rods){
+    const a=put(r[0],r[1],0,0), b=put(r[2],r[3],0,0);
+    mx.moveTo(a[0],a[1]); mx.lineTo(b[0],b[1]);
+  }
+  mx.stroke();
+
+  const src=mx.getImageData(0,0,MW,MH).data;
+  const img=c.createImageData(W,H), d=img.data;
+  const seed=S.seed|0;
+  const g=S.grain;
+  const cut=0.5, spread=0.55*g+0.05;
+  const gl=g*46;
+  /* the edge noise is sized off the picture, not off the pixel, so a 6000px
+     export is the same picture as the preview rather than a finer one */
+  const cell=Math.max(1.4,Math.sqrt(W*H)*0.0026);
+
+  for(let y=0;y<H;y++){
+    const gy=y*MS;
+    let y0=gy|0; if(y0>MH-1)y0=MH-1;
+    const fy=gy-y0; let y1=y0+1; if(y1>MH-1)y1=MH-1;
+    const r0=y0*MW*4, r1=y1*MW*4;
+    let p=y*W*4;
+    for(let x=0;x<W;x++,p+=4){
+      const gx=x*MS;
+      let x0=gx|0; if(x0>MW-1)x0=MW-1;
+      const fx=gx-x0; let x1=x0+1; if(x1>MW-1)x1=0;
+      const i00=r0+x0*4, i01=r0+x1*4, i10=r1+x0*4, i11=r1+x1*4;
+      const Ra=src[i00]+(src[i01]-src[i00])*fx, Rb=src[i10]+(src[i11]-src[i10])*fx;
+      const Ga=src[i00+1]+(src[i01+1]-src[i00+1])*fx, Gb=src[i10+1]+(src[i11+1]-src[i10+1])*fx;
+      const R=(Ra+(Rb-Ra)*fy)/255, G=(Ga+(Gb-Ga)*fy)/255;
+      const n=(vnS(x/cell,y/cell,seed+29)-0.5)*spread;
+      let col;
+      if(G>cut+n) col=fill;
+      else if(R>cut+n) col=plate;
+      else col=ground;
+      let r2=col[0],g2=col[1],b2=col[2];
+      if(gl>0.002){
+        const q=(hshS(x,y,seed+71)-0.5)*gl;
+        r2+=q; g2+=q; b2+=q;
       }
-      body+=`<g fill="${B}">${bars}</g>`;
-    }else if(r0.kind==="chev"){
-      body+=`<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${w.toFixed(2)}" height="${h.toFixed(2)}" fill="${A}"/>`;
-      defs+=`<clipPath id="${cid}"><rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${w.toFixed(2)}" height="${h.toFixed(2)}"/></clipPath>`;
-      const rows=Math.max(2,Math.round(h/Math.max(14,Math.min(w,h)*0.55)));
-      const polys=chevPath(x,y,w,h,rows,r0.dir,0.42)
-        .map(p=>`<polygon points="${p.map(q=>q[0].toFixed(1)+","+q[1].toFixed(1)).join(" ")}"/>`).join("");
-      body+=`<g clip-path="url(#${cid})" fill="${B}">${polys}</g>`;
-    }else if(r0.kind==="grain"){
-      const ang=(r0.seed%360)*Math.PI/180;
-      const gid="g"+i, fid="f"+i;
-      defs+=`<linearGradient id="${gid}" x1="${(0.5-Math.cos(ang)/2).toFixed(3)}" y1="${(0.5-Math.sin(ang)/2).toFixed(3)}" x2="${(0.5+Math.cos(ang)/2).toFixed(3)}" y2="${(0.5+Math.sin(ang)/2).toFixed(3)}">`+
-            `<stop offset="0" stop-color="${A}"/><stop offset="1" stop-color="${B}"/></linearGradient>`;
-      if(S.grain>0.002)
-        defs+=`<filter id="${fid}" x="0" y="0" width="100%" height="100%">`+
-              `<feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="n"/>`+
-              `<feColorMatrix in="n" type="saturate" values="0" result="m"/>`+
-              `<feComponentTransfer in="m" result="a"><feFuncA type="linear" slope="${(S.grain*0.5).toFixed(3)}" intercept="0"/></feComponentTransfer>`+
-              `<feComposite in="a" in2="SourceGraphic" operator="in" result="g"/>`+
-              `<feBlend in="SourceGraphic" in2="g" mode="overlay"/></filter>`;
-      body+=`<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${w.toFixed(2)}" height="${h.toFixed(2)}" fill="url(#${gid})"${S.grain>0.002?` filter="url(#${fid})"`:""}/>`;
-    }else if(r0.kind==="grid"){
-      body+=`<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${w.toFixed(2)}" height="${h.toFixed(2)}" fill="${A}"/>`;
-      defs+=`<clipPath id="${cid}"><rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${w.toFixed(2)}" height="${h.toFixed(2)}"/></clipPath>`;
-      const step=Math.max(14,Math.min(w,h)/(2+Math.round(S.nodes*6)));
-      const {xs,ys}=gridLines(x,y,w,h,step);
-      const lw=Math.max(1,Math.min(w,h)*0.004);
-      let d="";
-      xs.forEach(gx=>{d+=`M${gx.toFixed(2)} ${y.toFixed(2)}V${(y+h).toFixed(2)}`;});
-      ys.forEach(gy=>{d+=`M${x.toFixed(2)} ${gy.toFixed(2)}H${(x+w).toFixed(2)}`;});
-      let dots="";
-      const rad=Math.max(1.6,Math.min(w,h)*0.016);
-      xs.forEach((gx,a)=>ys.forEach((gy,b)=>{
-        if(hshC(a,b,r0.seed)>0.82) dots+=`<circle cx="${gx.toFixed(2)}" cy="${gy.toFixed(2)}" r="${rad.toFixed(2)}"/>`;
-      }));
-      body+=`<g clip-path="url(#${cid})"><path d="${d}" stroke="${B}" stroke-width="${lw.toFixed(2)}" fill="none"/><g fill="${B}">${dots}</g></g>`;
-    }else{
-      body+=`<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${w.toFixed(2)}" height="${h.toFixed(2)}" fill="${A}"/>`;
+      d[p]  =r2<0?0:r2>255?255:r2;
+      d[p+1]=g2<0?0:g2>255?255:g2;
+      d[p+2]=b2<0?0:b2>255?255:b2;
+      d[p+3]=255;
     }
-  });
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`+
-         (defs?`<defs>${defs}</defs>`:"")+
-         `<rect width="${W}" height="${H}" fill="${esc(pal[0])}"/>${body}</svg>`;
+  }
+  c.putImageData(img,0,0);
 }
 
 const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
@@ -987,7 +872,7 @@ function save(blob,name){
   a.href=url;a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
-function stamp(){return `carve-${S.seed}-${S.ratio.replace(":","x")}`;}
+function stamp(){return `strand-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
   const a=$("#expVid"),sc=$("#scrub");
   if(a)a.disabled=!S.motion.on;
@@ -997,15 +882,11 @@ $("#expPng").addEventListener("click",()=>{
   toast("Rendering…",true);
   setTimeout(()=>{
     const r=RATIOS.find(x=>x.id===S.ratio);
-    const W=S.size,H=Math.round(S.size*r.h/r.w);
+    const W=S.size_px,H=Math.round(S.size_px*r.h/r.w);
     const c=document.createElement("canvas");c.width=W;c.height=H;
     paint(c.getContext("2d"),W,H,curFrame);
     c.toBlob(b=>{save(b,stamp()+".png");toast(`PNG saved · ${W}×${H}`);});
   },30);
-});
-$("#expSvg").addEventListener("click",()=>{
-  save(new Blob([buildSVG()],{type:"image/svg+xml"}),stamp()+".svg");
-  toast("SVG saved");
 });
 function pickVideoType(){
   const t=["video/mp4;codecs=avc1.42E01E","video/mp4","video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"];
@@ -1018,7 +899,7 @@ $("#expVid").addEventListener("click",()=>{
   if(!type)return toast("This browser can't record video");
   const ext=type.startsWith("video/mp4")?"mp4":"webm";
   const r=RATIOS.find(x=>x.id===S.ratio);
-  let W=Math.min(1280,S.size);W-=W%2;
+  let W=Math.min(1280,S.size_px);W-=W%2;
   let H=Math.round(W*r.h/r.w);H-=H%2;
   const c=document.createElement("canvas");c.width=W;c.height=H;
   const cc=c.getContext("2d");
@@ -1083,7 +964,7 @@ function buildSwatches(){
   S.pal.forEach((c,i)=>{
     const b=document.createElement("button");
     b.className="sw"+(lock?" locked":"");b.type="button";
-    b.setAttribute("aria-label","Ink "+(i+1)+" color");
+    b.setAttribute("aria-label",["Ground","Plate","Fill"][i]||("Ink "+(i+1)));
     b.innerHTML=`<span class="fill" style="background:${c}"></span>`+
       `<input type="color" value="${c}"><span class="x" aria-hidden="true">\u00d7</span>`;
     b.querySelector("input").addEventListener("input",e=>{
@@ -1129,21 +1010,24 @@ $("#shufColors").addEventListener("click",()=>{
 $("#rotColors").addEventListener("click",()=>{
   setPalette(S.pal.slice(1).concat(S.pal[0]));
 });
-bindRange("cuts",v=>v|0,v=>S.cuts=v|0);
-bindRange("uneven",v=>Math.round(v*100)+"%",v=>S.uneven=v);
-bindRange("gap",v=>Math.round(v*100)+"%",v=>S.gap=v);
-bindRange("mix",v=>Math.round(v*100)+"%",v=>S.mix=v);
-bindRange("pitch",v=>Math.round(v*100)+"%",v=>S.pitch=v);
+bindRange("count",v=>v|0,v=>S.count=v|0);
+bindRange("len",v=>v|0,v=>S.len=v|0);
+bindRange("wander",v=>Math.round(v*100)+"%",v=>S.wander=v);
+bindRange("branch",v=>Math.round(v*100)+"%",v=>S.branch=v);
+bindRange("thick",v=>Math.round(v*100)+"%",v=>S.thick=v);
+bindRange("rod",v=>Math.round(v*100)+"%",v=>S.rod=v);
+bindRange("notch",v=>Math.round(v*100)+"%",v=>S.notch=v);
+bindRange("offset",v=>Math.round(v*100)+"%",v=>S.offset=v);
+bindRange("edge",v=>Math.round(v*100)+"%",v=>S.edge=v);
 bindRange("grain",v=>Math.round(v*100)+"%",v=>S.grain=v);
-bindRange("nodes",v=>Math.round(v*100)+"%",v=>S.nodes=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
 $("#frames").addEventListener("input",e=>{S.motion.frames=parseInt(e.target.value,10);
   $("#framesVal").textContent=S.motion.frames+" frames";$("#scrub").max=S.motion.frames-1;
   curFrame=Math.min(curFrame,S.motion.frames-1);reframe();if(playing)setPlaying(true);});
-$("#size").addEventListener("input",e=>{S.size=parseInt(e.target.value,10);$("#sizeVal").textContent=S.size+" px";});
-$("#motionTog").addEventListener("click",e=>{
+$("#sizePx").addEventListener("input",e=>{S.size_px=parseInt(e.target.value,10);
+  $("#sizePxVal").textContent=S.size_px+" px";});$("#motionTog").addEventListener("click",e=>{
   S.motion.on=!S.motion.on;
   e.currentTarget.setAttribute("aria-pressed",String(S.motion.on));
   $("#motionBody").hidden=!S.motion.on;
