@@ -498,8 +498,10 @@ input[type=range]{accent-color:var(--ink)}
         <div class="note">Rods are laid end to end along the chain. Notch is the hair left between them: at nothing they fuse into one ribbon, wound up they separate into beads. Roughness swells and pinches each rod along its length: at nothing they are clean capsules, wound up they are brush strokes.</div></div></details>
     <details class="grp"><summary>Print</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Off-register</span><span class="v" id="offsetVal">50%</span></div><div class="track"><input type="range" id="offset" min="0" max="1" step="0.01" value="0.5"></div></div>
         <div class="pr"><div class="top"><span class="k">Plate spread</span><span class="v" id="edgeVal">35%</span></div><div class="track"><input type="range" id="edge" min="0" max="1" step="0.01" value="0.35"></div></div>
+        <div class="misc stack"><span class="mhead"><span class="k">Ink texture</span></span><span class="mval"><div class="chips" id="texKinds"></div></span></div>
+        <div class="pr"><div class="top"><span class="k">Coverage</span><span class="v" id="texVal">40%</span></div><div class="track"><input type="range" id="tex" min="0" max="1" step="0.01" value="0.4"></div></div>
         <div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">42%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.42"></div></div>
-        <div class="note">The second ink is the same chain printed a little off true. Spread fattens that plate so a hairline of it shows all the way round, not only where it slid. Grain roughens the edges as well as the colour.</div></div></details></div>
+        <div class="note">The second ink is the same chain printed a little off true. Spread fattens that plate so a hairline of it shows all the way round, not only where it slid. Coverage is how badly the fill ink fails to take: it breaks up at the edge of each rod first and holds longest down the middle, so at nothing the rods are solid and wound up they are barely there. Grain roughens the edges as well as the colour.</div></div></details></div>
     <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">3</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
         
         <div class="note">Three roles: the ground, the plate that missed, and the fill on top of it.</div>
@@ -595,6 +597,9 @@ function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
 const MODES=[["drift","Drift"],["shift","Shift"],["pulse","Pulse"]];
+/* How the fill ink fails to cover: as loose grain, as marks dragged in one
+   direction, or as a printer's dot screen. */
+const TEXKINDS=[["stipple","Stipple"],["drag","Drag"],["screen","Screen"]];
 
 /* Three roles: the ground, the plate that missed, and the fill on top. */
 const PALETTES=[
@@ -610,6 +615,7 @@ const S={
   count:8, len:22, wander:0.6, branch:0.22,
   thick:0.42, rod:0.5, notch:0.18, rough:0.55,
   offset:0.5, edge:0.35, grain:0.42,
+  tex:0.4, texKind:"stipple",
   pal:PALETTES[0].slice(),
   motion:{on:false,mode:"drift",amount:0.6,fps:12,frames:36},
   size_px:2400
@@ -710,7 +716,10 @@ function rodPath(g,x,y,a,seg,sd,wid,rough,grow){
      hand following a line rather than beads threaded onto one */
   a+=(hshS(sd,17,3)-0.5)*0.42*rough;
   const ca=Math.cos(a), sa=Math.sin(a), px=-sa, py=ca;
-  const full=seg+wid, half=wid*0.5+grow;
+  const full=seg+wid;
+  /* grow runs negative when this is the eroded core, so it is floored
+     rather than allowed to pass through zero and turn inside out */
+  const half=Math.max(wid*0.05,wid*0.5+grow);
   const N=18, L=[], R=[];
   const e0=0.06+hshS(sd,3,7)*0.34*rough;      /* how fast each end opens out */
   const e1=0.06+hshS(sd,9,7)*0.60*rough;
@@ -801,6 +810,28 @@ function paint(c,W,H,f){
   }
   mx.fill();
 
+  /* The same rods once more, eaten in from the edge and then blurred, written
+     into the channel the other two passes leave alone. That gives every pixel
+     a reading of how deep inside a rod it sits, which is what lets the ink
+     break up at the rim and pool solid down the middle rather than sit as an
+     even wash of dots over the whole shape. */
+  if(S.tex>0.004){
+    /* a fraction of the half-width, not of the width: eaten any deeper than
+       this and there is no solid core left for the ink to pool in */
+    const eat=wide*MS*0.5*0.38;
+    mx.globalCompositeOperation="lighter";
+    mx.filter="blur("+(eat*0.8).toFixed(2)+"px)";
+    mx.fillStyle="#00f";
+    mx.beginPath();
+    for(const r of rods){
+      const p=put(r[0],r[1],0,0);
+      rodPath(mx,p[0],p[1],r[2],r[3]*MU,r[4],wide*MS,rough,-eat);
+    }
+    mx.fill();
+    mx.filter="none";
+    mx.globalCompositeOperation="source-over";
+  }
+
   const src=mx.getImageData(0,0,MW,MH).data;
   const img=c.createImageData(W,H), d=img.data;
   const seed=S.seed|0;
@@ -810,6 +841,13 @@ function paint(c,W,H,f){
   /* the edge noise is sized off the picture, not off the pixel, so a 6000px
      export is the same picture as the preview rather than a finer one */
   const cell=Math.max(1.4,Math.sqrt(W*H)*0.0026);
+  /* the texture is laid in the picture's own frame rather than on each rod,
+     the way a screen sits still over the paper while the artwork moves */
+  const tex=S.tex, texOn=tex>0.004, tk=S.texKind;
+  const tc=cell*1.7;                       /* stipple: one speck */
+  const dAc=cell*13, dCr=cell*1.5;         /* drag: along, and across */
+  const sPitch=cell*4.4;                   /* screen: dot to dot */
+  const tCa=Math.cos(1.75), tSa=Math.sin(1.75);
 
   for(let y=0;y<H;y++){
     const gy=y*MS;
@@ -826,8 +864,32 @@ function paint(c,W,H,f){
       const Ga=src[i00+1]+(src[i01+1]-src[i00+1])*fx, Gb=src[i10+1]+(src[i11+1]-src[i10+1])*fx;
       const R=(Ra+(Rb-Ra)*fy)/255, G=(Ga+(Gb-Ga)*fy)/255;
       const n=(vnS(x/cell,y/cell,seed+29)-0.5)*spread;
+      let ink=G>cut+n;
+      if(ink&&texOn){
+        const Ba=src[i00+2]+(src[i01+2]-src[i00+2])*fx;
+        const Bb=src[i10+2]+(src[i11+2]-src[i10+2])*fx;
+        const dep=(Ba+(Bb-Ba)*fy)/255;      /* 0 at the rim, 1 in the core */
+        const miss=tex*(0.12+0.88*(1-dep));   /* how much ink fails to take */
+        let gap;
+        if(tk==="screen"){
+          const u=(x*tCa+y*tSa)/sPitch, v=(y*tCa-x*tSa)/sPitch;
+          const fu=u-Math.floor(u)-0.5, fv=v-Math.floor(v)-0.5;
+          const cov=1-miss;
+          /* 0.72 reaches the corners of the cell, so a full dot is solid */
+          const rad=0.72*Math.sqrt(cov>0?cov:0);
+          gap=(fu*fu+fv*fv)>rad*rad;
+        }else if(tk==="drag"){
+          const u=(x*tCa+y*tSa)/dAc, v=(y*tCa-x*tSa)/dCr;
+          gap=hshS(Math.floor(u),Math.floor(v),seed+17)<miss;
+        }else{
+          gap=hshS(Math.floor(x/tc),Math.floor(y/tc),seed+13)<miss;
+        }
+        /* where the fill drops out, whatever is under it shows through — the
+           plate if it reaches this far, otherwise the bare ground */
+        if(gap) ink=false;
+      }
       let col;
-      if(G>cut+n) col=fill;
+      if(ink) col=fill;
       else if(R>cut+n) col=plate;
       else col=ground;
       let r2=col[0],g2=col[1],b2=col[2];
@@ -1042,6 +1104,7 @@ function bindRange(id,fmt,set,after){
 }
 
 buildRatios();buildSwatches();accent();
+segmented($("#texKinds"),TEXKINDS,()=>S.texKind,v=>{S.texKind=v;reframe();});
 segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
 $("#shufColors").addEventListener("click",()=>{
   setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
@@ -1059,6 +1122,7 @@ bindRange("notch",v=>Math.round(v*100)+"%",v=>S.notch=v);
 bindRange("rough",v=>Math.round(v*100)+"%",v=>S.rough=v);
 bindRange("offset",v=>Math.round(v*100)+"%",v=>S.offset=v);
 bindRange("edge",v=>Math.round(v*100)+"%",v=>S.edge=v);
+bindRange("tex",v=>Math.round(v*100)+"%",v=>S.tex=v);
 bindRange("grain",v=>Math.round(v*100)+"%",v=>S.grain=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
