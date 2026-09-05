@@ -479,7 +479,7 @@ input[type=range]{accent-color:var(--ink)}
         <span class="tool">Vee</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">10 / 38</span>
+        <span class="k">Index</span><span class="v">10 / 39</span>
         <span class="k">Type</span><span class="v">Chevron stripes</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
@@ -1335,6 +1335,15 @@ html.embed body{overflow:hidden!important}
       sizeEcho=$("#sizeEcho"), sizeVal=$("#sizeVal"),
       inkEcho=$("#inkEcho"), swatches=$("#swatches");
   function put(el,v){ if(el && el.textContent!==v) el.textContent=v; }
+  /* Not every tool has a single Size to mirror: some spell it as several
+     sizes of different things, some have none at all. Rather than leave the
+     placeholder em-dash sitting in the corner readout for good, take the row
+     out. */
+  if(!sizeVal && sizeEcho){
+    var sizeKey=sizeEcho.previousElementSibling;
+    if(sizeKey) sizeKey.style.display="none";
+    sizeEcho.style.display="none";
+  }
   /* the hidden mirror ships with a placeholder and is only rewritten on click,
      so seed it from whichever ratio tile starts pressed */
   if(ratioVal){
