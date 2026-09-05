@@ -150,7 +150,12 @@ input{font:inherit;color:inherit}
   width:calc(var(--tw)/2 + (100% - var(--tw)) * var(--p,0) / 100)}
 .pr:hover .track::after{height:2px;top:6.5px}
 .track input[type=range]{position:absolute;inset:0;width:100%;height:16px;margin:0;
-  -webkit-appearance:none;appearance:none;background:none;cursor:pointer}
+  -webkit-appearance:none;appearance:none;background:none;cursor:pointer;
+  /* A finger dragging sideways along a slider looks a lot like a finger
+     swiping the panel, and the browser resolves that in favour of the scroll
+     unless it is told otherwise. pan-y keeps the vertical swipe for the panel
+     and hands every sideways drag to the control. */
+  touch-action:pan-y}
 .track input[type=range]:active{cursor:grabbing}
 .track input[type=range]::-webkit-slider-runnable-track{height:16px;background:none}
 /* the dot stays one size — its width is baked into the fill and notch maths above */
@@ -164,6 +169,23 @@ input{font:inherit;color:inherit}
   background:var(--ink);cursor:grab}
 .track input[type=range]:active::-moz-range-thumb{cursor:grabbing}
 .notch{position:absolute;top:5px;width:1px;height:5px;background:var(--hair2)}
+/* A sixteen-pixel band is a hard thing to land a fingertip on: Apple asks for
+   forty-four and a finger covers most of the row either way. Under a coarse
+   pointer the input grows to forty and hangs over the row above and below its
+   own hairline. Nothing moves — the drawn slider is exactly where it was, the
+   target around it is simply bigger than what you can see. The rows are far
+   enough apart that two of these never overlap. */
+@media (pointer:coarse){
+  .track input[type=range]{top:-12px;bottom:-12px;height:auto}
+  .track input[type=range]::-webkit-slider-runnable-track{height:40px}
+  /* webkit hangs the thumb from the top of the runnable track, so this is what
+     re-centres the dot on the hairline now that the track is forty tall */
+  .track input[type=range]::-webkit-slider-thumb{margin-top:15px}
+  #scrub{height:38px;margin:-12px 0}
+  #scrub::-webkit-slider-runnable-track{height:38px}
+  #scrub::-webkit-slider-thumb{margin-top:13.5px}
+  .scrubwrap{position:relative;z-index:1}
+}
 /* safety net: if a range control ever escapes the converter it still reads in
    ink rather than the browser's blue */
 input[type=range]{accent-color:var(--ink)}
@@ -271,7 +293,8 @@ input[type=range]{accent-color:var(--ink)}
 .tport{display:flex;align-items:center;gap:12px;margin-top:16px;justify-content:center}
 .play{width:18px;height:18px;display:grid;place-items:center}
 .play svg{fill:var(--ink);width:8px;height:9px}
-#scrub{width:150px;height:14px;-webkit-appearance:none;appearance:none;background:none;margin:0}
+#scrub{width:150px;height:14px;-webkit-appearance:none;appearance:none;background:none;margin:0;
+  touch-action:pan-y}
 #scrub::-webkit-slider-runnable-track{height:14px;background:none}
 #scrub::-webkit-slider-thumb{-webkit-appearance:none;width:3px;height:11px;border:0;
   border-radius:0;background:var(--ink)}
@@ -1201,6 +1224,62 @@ html.embed body{overflow:hidden!important}
     syncSliders(); notches(); fadeAll(); syncDisabled();
   },true);
   fadeAll();
+
+  /* ---- dragging a slider with a finger ---------------------------------
+     A range input on a phone is the browser's to interpret, and the browser
+     would rather scroll. A finger does not travel in a straight line, so a
+     drag along a slider that wanders twenty pixels off horizontal gets taken
+     for a swipe: the page does not move, the slider does not move, and the
+     control reads as broken. Take the gesture over instead. Once a finger has
+     travelled further sideways than up or down the slider claims it, and from
+     then on the value is read straight off the x position — which is also
+     truer to the finger than the browser's own handling. A drag that starts
+     out vertical is handed straight back, so the panel still scrolls when you
+     swipe it. The mouse is left alone: it was never the problem. */
+  function slideTo(el,x){
+    var r=el.getBoundingClientRect();
+    /* the dot has width, and its centre can only reach half of that in from
+       either end -- the same inset the drawn fill line is built on */
+    var tw=parseFloat(getComputedStyle(el.parentNode).getPropertyValue("--tw"))||10;
+    var lo=r.left+tw/2, hi=r.right-tw/2;
+    if(hi<=lo) return;
+    var p=(x-lo)/(hi-lo); p=p<0?0:p>1?1:p;
+    var min=parseFloat(el.min)||0, max=parseFloat(el.max);
+    var step=parseFloat(el.step)||1;
+    if(!isFinite(max)) return;
+    var v=min+Math.round((min+(max-min)*p-min)/step)*step;
+    v=Math.max(min,Math.min(max,v));
+    /* a step of 0.05 lands on 0.30000000000000004 without this */
+    var dp=(String(step).split(".")[1]||"").length;
+    var out=dp?v.toFixed(dp):String(v);
+    if(out!==el.value){ el.value=out; el.dispatchEvent(new Event("input",{bubbles:true})); }
+  }
+  document.querySelectorAll(".pr input[type=range], #scrub").forEach(function(el){
+    var id=null, held=false, sx=0, sy=0;
+    el.addEventListener("pointerdown",function(e){
+      if(e.pointerType==="mouse"||el.disabled) return;
+      id=e.pointerId; held=false; sx=e.clientX; sy=e.clientY;
+    });
+    el.addEventListener("pointermove",function(e){
+      if(e.pointerId!==id) return;
+      if(!held){
+        var dx=Math.abs(e.clientX-sx), dy=Math.abs(e.clientY-sy);
+        if(dx<4&&dy<4) return;
+        if(dy>dx){ id=null; return; }   /* a swipe -- let the page have it */
+        held=true;
+        try{ el.setPointerCapture(e.pointerId); }catch(_){}
+      }
+      e.preventDefault();
+      slideTo(el,e.clientX);
+    });
+    function done(e){
+      if(e.pointerId!==id) return;
+      if(held){ try{ el.releasePointerCapture(e.pointerId); }catch(_){} }
+      id=null; held=false;
+    }
+    el.addEventListener("pointerup",done);
+    el.addEventListener("pointercancel",done);
+  });
 
   /* ---- inert rows ------------------------------------------------------
      A tool may drive one control from another and disable the passenger --
