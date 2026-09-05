@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://playgrnd.tools/slip">
 <meta property="og:site_name" content="playgrnd">
 <meta property="og:title" content="Slip — playgrnd">
-<meta property="og:description" content="Generate smeared-colour backgrounds — bands of colour dragged sideways into long streaks, torn line by line, under a scanner's stripe and a bleaching wash. Exports image and video.">
+<meta property="og:description" content="Generate stippled-colour backgrounds — bands of colour that meet in a spray of specks rather than a fade, slipping line by line, under a scanner's stripe and a bleaching wash. Exports image and video.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://playgrnd.tools/slip">
 <meta property="og:image" content="https://playgrnd.tools/slip/og.jpg">
@@ -19,9 +19,9 @@
 <meta property="og:image:alt" content="Artwork made with Slip.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Slip — playgrnd">
-<meta name="twitter:description" content="Generate smeared-colour backgrounds — bands of colour dragged sideways into long streaks, torn line by line, under a scanner's stripe and a bleaching wash.">
+<meta name="twitter:description" content="Generate stippled-colour backgrounds — bands of colour that meet in a spray of specks rather than a fade, slipping line by line, under a scanner's stripe and a bleaching wash.">
 <meta name="twitter:image" content="https://playgrnd.tools/slip/og.jpg">
-<meta name="description" content="Generate smeared-colour backgrounds — bands of colour dragged sideways into long streaks, torn line by line, under a scanner's stripe and a bleaching wash. Exports image and video.">
+<meta name="description" content="Generate stippled-colour backgrounds — bands of colour that meet in a spray of specks rather than a fade, slipping line by line, under a scanner's stripe and a bleaching wash. Exports image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -503,17 +503,16 @@ input[type=range]{accent-color:var(--ink)}
       </a>
       <div class="tbl">
         <span class="k">Index</span><span class="v">40 / 40</span>
-        <span class="k">Type</span><span class="v">Dragged colour</span>
+        <span class="k">Type</span><span class="v">Stippled colour</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
     <div class="l-scroll"><details class="grp" open><summary>Field</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Bands</span><span class="v" id="bandsVal">5</span></div><div class="track"><input type="range" id="bands" min="2" max="14" step="1" value="5"></div></div>
         <div class="pr"><div class="top"><span class="k">Patches</span><span class="v" id="patchesVal">6</span></div><div class="track"><input type="range" id="patches" min="0" max="24" step="1" value="6"></div></div>
-        <div class="pr"><div class="top"><span class="k">Strength</span><span class="v" id="blendVal">55%</span></div><div class="track"><input type="range" id="blend" min="0" max="1" step="0.01" value="0.55"></div></div>
-        <div class="pr"><div class="top"><span class="k">Detail</span><span class="v" id="detailVal">55%</span></div><div class="track"><input type="range" id="detail" min="0" max="1" step="0.01" value="0.55"></div></div></div></details>
-    <details class="grp"><summary>Drag</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Direction</span></span><span class="mval"><div class="chips" id="dirs"></div></span></div>
-        <div class="pr"><div class="top"><span class="k">Smear</span><span class="v" id="smearVal">50%</span></div><div class="track"><input type="range" id="smear" min="0" max="1" step="0.01" value="0.5"></div></div>
-        <div class="pr"><div class="top"><span class="k">Variation</span><span class="v" id="varyVal">60%</span></div><div class="track"><input type="range" id="vary" min="0" max="1" step="0.01" value="0.6"></div></div>
+        <div class="pr"><div class="top"><span class="k">Strength</span><span class="v" id="blendVal">55%</span></div><div class="track"><input type="range" id="blend" min="0" max="1" step="0.01" value="0.55"></div></div></div></details>
+    <details class="grp"><summary>Stipple</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Scatter</span></span><span class="mval"><div class="chips" id="dirs"></div></span></div>
+        <div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">25%</span></div><div class="track"><input type="range" id="size" min="0" max="1" step="0.01" value="0.25"></div></div>
+        <div class="pr"><div class="top"><span class="k">Spread</span><span class="v" id="spreadVal">40%</span></div><div class="track"><input type="range" id="spread" min="0" max="1" step="0.01" value="0.4"></div></div>
         <div class="pr"><div class="top"><span class="k">Slip</span><span class="v" id="slipVal">35%</span></div><div class="track"><input type="range" id="slip" min="0" max="1" step="0.01" value="0.35"></div></div></div></details>
     <details class="grp"><summary>Curves</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Curves</span><span class="v" id="curvesVal">4</span></div><div class="track"><input type="range" id="curves" min="0" max="20" step="1" value="4"></div></div>
         <div class="pr"><div class="top"><span class="k">Weight</span><span class="v" id="weightVal">30%</span></div><div class="track"><input type="range" id="weight" min="0" max="1" step="0.01" value="0.3"></div></div>
@@ -612,11 +611,10 @@ function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const MODES=[["drift","Drift"],["tear","Tear"],["pulse","Pulse"]];
-/* Which way the picture is dragged. The colour bands are laid at right angles
-   to it, because a band running the same way as the smear is the one thing
-   the smear would rub out. */
-const DIRS=[["across","Across"],["down","Down"],["diag","Diagonal"]];
+const MODES=[["drift","Drift"],["tear","Tear"],["crawl","Crawl"]];
+/* How the specks are dealt: evenly, clumped into clouds the way an airbrush
+   spatters, or on a fixed grid like a printer's screen. */
+const DIRS=[["even","Even"],["cloud","Cloud"],["grid","Grid"]];
 
 /* The first ink is the paper the wash bleaches towards and the curves are
    scratched back to; the rest are the colours in the field. */
@@ -630,8 +628,8 @@ const PALETTES=[
 
 const S={
   seed:12, ratio:"9:16",
-  bands:5, patches:6, blend:0.55, detail:0.55,
-  dir:"across", smear:0.5, vary:0.6, slip:0.35,
+  bands:5, patches:6, blend:0.55,
+  dir:"even", size:0.25, spread:0.4, slip:0.35,
   scan:0.3, pitch:0.3, grain:0.3, wash:0.4,
   curves:4, weight:0.3, bend:0.55,
   pal:PALETTES[0].slice(),
@@ -659,13 +657,15 @@ function hex2rgbP(h){
   if(h.length===3) h=h.split("").map(c=>c+c).join("");
   return [parseInt(h.slice(0,2),16)||0,parseInt(h.slice(2,4),16)||0,parseInt(h.slice(4,6),16)||0];
 }
+/* a printer's screen in four by four: the order the cells of a block fill in */
+const BAYER=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];
 
 /* ------------------------------------------------------------------
-   Everything here lives in a frame that turns with the smear: u runs
-   along the drag and v runs across it, so the same code makes a
-   sideways smear of stacked bands and a downward smear of upright ones
-   without a second path through it. Both are 0 to 1, which is what
-   keeps a band layout proportional to whatever frame it is asked for.
+   The field is a stack of colour bands with patches laid over them,
+   and nothing about it is smooth: every boundary is dealt out as
+   specks of one colour into the other rather than faded. Which is what
+   an airbrush does, and what a stipple engraving does, and neither of
+   them can make a gradient any other way.
 ------------------------------------------------------------------- */
 let slipCache=null, slipKey="";
 function slipP(){
@@ -708,6 +708,9 @@ function slipP(){
   return slipCache;
 }
 
+/* the round falloff of a patch, before the spread has its say */
+function w0(dd){ const w=1-dd; return w*w; }
+
 function paint(c,W,H,f){
   const M=S.motion, T=M.on ? f/M.frames : 0, ph=T*Math.PI*2;
   const raw=S.pal.length?S.pal:PALETTES[0];
@@ -719,15 +722,14 @@ function paint(c,W,H,f){
   for(const s of stops) s.c=inks[s.k%inks.length];
   for(const q of patches) q.c=inks[q.k%inks.length];
 
-  const across=S.dir!=="down";
-  const NU=across?W:H, NV=across?H:W;
-  const shear=S.dir==="diag"?0.55:0;
   const seed=S.seed|0;
+  const U=Math.sqrt(W*H);
+  const kind=S.dir;
 
-  /* swells to its fullest halfway round and back down by the end: a plain
-     sine is already back where it started at the half-loop, which spends half
-     of every loop repeating the first half */
-  const pulse=(M.on&&M.mode==="pulse") ? 1+(1-Math.cos(ph))*0.5*M.amount*0.8 : 1;
+  /* opens and closes rather than swelling and shrinking: a plain sine is
+     already back where it started at the half-loop, which spends half of
+     every loop repeating the first half */
+  const open=(M.on&&M.mode==="crawl") ? 1+(1-Math.cos(ph))*0.5*M.amount*0.9 : 1;
   const glide=(M.on&&M.mode==="drift") ? M.amount*0.12 : 0;
   const gu=Math.cos(ph)*glide, gv=Math.sin(ph)*glide*0.35;
   /* the tear crawls by walking the noise round a circle, which is the only
@@ -735,155 +737,112 @@ function paint(c,W,H,f){
   const tr=(M.on&&M.mode==="tear") ? M.amount*1.6 : 0;
   const tu=Math.cos(ph)*tr, tv=Math.sin(ph)*tr;
 
-  const spanU=NU, spanV=NV;
-  /* A drag can only smear what is already there. Bands on their own are so
-     smooth along the drag that blurring them changes nothing at all — it took
-     a picture with detail in it to make streaks. So the field is roughened
-     before it is dragged, at a scale sized off the picture rather than off the
-     pixel: fine grain going in, long strands of colour coming out. */
-  /* The roughening is coarse along the drag and fine across it, on purpose.
-     A drag is an average, and averaging kills whatever varies along it: sixty
-     specks averaged into one leave almost nothing behind, which is why an even
-     grain going in came out as a faint haze. Long across the drag and thin at
-     right angles to it, the same grain survives as strands. */
-  const UU=Math.sqrt(W*H);
-  const dcU=Math.max(2,UU*0.026), dcV=Math.max(1.2,UU*0.0055);
-  const dfu=spanU/dcU, dfv=spanV/dcV;
-  const det=S.detail;
-  const rad=S.smear*0.24*pulse;            /* in u, as a fraction of the run */
+  /* one speck, in pixels, sized off the picture rather than off the pixel so
+     a 6000px export is the same picture as the preview and not a finer one */
+  const cell=Math.max(1,U*(0.0011+S.size*0.013));
+  const inv=1/cell;
+  const clumpF=1/Math.max(2,cell*11);
+  /* how much of the way between two bands is dealt out as specks: at nothing
+     the change is an edge, wound up it is a wide spray of one into the other */
+  const wide=Math.max(0.02,S.spread*open);
   const slipAmt=S.slip*0.16;
   const blend=S.blend;
 
   const img=c.createImageData(W,H), d=img.data;
-  const line=new Float32Array(NU*3);
-  const sum=new Float32Array((NU+1)*3);
+  const scanA=S.scan*0.5, wash=S.wash*0.8, gl=S.grain*46;
+  const pitch=Math.max(1.2,U*(0.0016+S.pitch*0.028));
 
-  for(let v=0;v<NV;v++){
-    const vn=(v+0.5)/NV;
-    /* how far this line is dragged, and how far it has slipped sideways from
-       the one above it -- the second is what tears the picture apart */
-    const wob=vnP(vn*7.3+tu,2.7+tv,seed+5);
-    const r=Math.max(0,rad*(1-S.vary*0.85+S.vary*1.7*wob))*NU;
-    /* The slip moves each line across the bands rather than along the drag.
-       Along the drag it did nothing worth seeing: a drag long enough to smear
-       a band leaves nothing with an edge for a sideways shift to break, so
-       the control was dead at every setting anyone would use. Across the
-       bands it is the thing you can actually see -- every line reads the
-       colour from slightly the wrong height, and the edges come apart. Two
-       shifts, one that slides whole runs of lines off true together and one
-       that is different on every single line. */
+  for(let y=0;y<H;y++){
+    const vn=(y+0.5)/H;
+    /* every row reads the bands from a slightly wrong height, which is what
+       leaves the edges ragged instead of ruled */
     const sl=(vnP(vn*23.1+tu,9.4+tv,seed+61)-0.5)*slipAmt
-            +(hshP(v,(tu*97)|0,seed+131)-0.5)*slipAmt*0.9;
+            +(hshP(y,(tu*97)|0,seed+131)-0.5)*slipAmt*0.9;
+    const vf=vn+gv+sl;
 
-    for(let u=0;u<NU;u++){
-      const un=(u+0.5)/NU;
-      const uf=un+gu;
-      /* the diagonal is the sideways smear of a field that has been sheared,
-         which comes to the same picture as dragging the field on the slant
-         and costs nothing extra */
-      const vf=vn+gv+sl+shear*(un-0.5);
+    /* the band this row falls in, and how far across it -- the same for the
+       whole row, so it is worth finding once */
+    let i=0; while(i<stops.length-2 && vf>stops[i+1].p) i++;
+    const A=stops[i], B=stops[i+1<stops.length?i+1:i];
+    const gap=B.p-A.p;
+    let t=gap>1e-6?(vf-A.p)/gap:0;
+    /* the change happens across the middle of the gap rather than all of it,
+       so a band has some body before it starts turning into its neighbour */
+    t=(t-0.5)/wide+0.5;
+    const gy=y*inv, cy=gy|0, fy=gy-cy-0.5;
+    let p=y*W*4;
 
-      /* the roughening: it moves this sample a little way across the bands
-         rather than only lightening it, so a smear pulls threads of the
-         neighbouring colour through instead of a grey blur */
-      let vd=vf, lift=0;
-      if(det>0.004){
-        vd+=det*0.36*((vnP(un*dfu,vf*dfv,seed+13)-0.5)
-                     +(vnP(un*dfu*2.3,vf*dfv*2.3,seed+91)-0.5)*0.5);
-        lift=det*96*(vnP(un*dfu*1.4+11.3,vf*dfv*1.4,seed+37)-0.5);
+    for(let x=0;x<W;x++,p+=4){
+      const un=(x+0.5)/W+gu;
+      const gx=x*inv, cx=gx|0, fx=gx-cx-0.5;
+      /* how far this pixel sits from the middle of its own cell. Mixed into
+         the draw it turns each cell from a square that flips all at once into
+         a dot that opens from the centre out — which is the difference
+         between a stipple and a screenshot of a low-colour GIF. */
+      const rad=Math.sqrt(fx*fx+fy*fy)*1.35;
+
+      /* the speck: one draw per cell, so a run of pixels takes the same
+         colour together and the result reads as a dot rather than as noise */
+      let r;
+      if(kind==="grid"){
+        /* a fixed order within each block of sixteen, which is a screen
+           rather than a scatter -- and it needs no randomness at all */
+        r=(BAYER[(cy&3)*4+(cx&3)]+0.5)/16;
+      }else{
+        r=hshP(cx,cy,seed+13);
+        if(kind==="cloud"){
+          /* the odds change slowly across the picture, so the specks gather
+             into drifts instead of lying evenly */
+          const dens=0.30+1.4*vnP(x*clumpF+tu,y*clumpF+tv,seed+7);
+          r=r/dens;
+        }
       }
+      r=r*0.62+rad*0.38;
 
-      /* the band ramp, read at this point across the field */
-      let i=0; while(i<stops.length-2 && vd>stops[i+1].p) i++;
-      const a=stops[i], b=stops[i+1<stops.length?i+1:i];
-      const gap=b.p-a.p;
-      let t=gap>1e-6?(vd-a.p)/gap:0;
-      /* the change happens across the middle two thirds of the gap rather than
-         all of it, so a band has some body to it before it starts turning into
-         its neighbour */
-      t=(t-0.17)/0.66;
-      t=t<0?0:t>1?1:t;
-      t=t*t*(3-2*t);
-      let R=a.c[0]+(b.c[0]-a.c[0])*t;
-      let G=a.c[1]+(b.c[1]-a.c[1])*t;
-      let B=a.c[2]+(b.c[2]-a.c[2])*t;
+      let col = r<t ? B.c : A.c;
 
-      /* patches of colour laid over the ramp, stretched along the drag */
+      /* patches, dealt the same way: a second draw so their speckle does not
+         line up with the band's */
       for(let j=0;j<patches.length;j++){
         const q=patches[j];
-        const du=(uf-q.u)/(q.r*q.stretch*spanV/spanU), dv=(vd-q.v)/q.r;
+        const du=(un-q.u)/(q.r*q.stretch*H/W), dv=(vf-q.v)/q.r;
         const dd=du*du+dv*dv;
         if(dd>=1) continue;
-        const w=1-dd;
-        const k=q.a*blend*w*w;
-        R+=(q.c[0]-R)*k; G+=(q.c[1]-G)*k; B+=(q.c[2]-B)*k;
+        /* Spread sharpens a patch's edge as well as a band's, or the one
+           control would mean two different things depending on which of them
+           you were looking at. */
+        let w=(w0(dd)-0.5)/wide+0.5;
+        w=w<0?0:w>1?1:w;
+        const k=q.a*blend*w;
+        let r2;
+        if(kind==="grid") r2=(BAYER[((cy+2)&3)*4+((cx+1)&3)]+0.5)/16;
+        else r2=hshP(cx+7919,cy+104729,seed+211+j*37)*0.62+rad*0.38;
+        if(r2<k) col=q.c;
       }
-      const o=u*3; line[o]=R+lift; line[o+1]=G+lift; line[o+2]=B+lift;
-    }
 
-    /* Running totals along the line, so an average over any width at all is
-       two subtractions instead of a loop -- which is what lets the drag be a
-       different length on every line without the picture taking minutes. */
-    sum[0]=sum[1]=sum[2]=0;
-    for(let u=0;u<NU;u++){
-      const o=u*3, s=o+3;
-      sum[s]=sum[o]+line[o];
-      sum[s+1]=sum[o+1]+line[o+1];
-      sum[s+2]=sum[o+2]+line[o+2];
-    }
-
-    const ri=Math.round(r);
-    for(let u=0;u<NU;u++){
-      let lo=u-ri; if(lo<0)lo=0;
-      let hi=u+ri+1; if(hi>NU)hi=NU;
-      const n=hi-lo, li=lo*3, hi3=hi*3;
-      let R=(sum[hi3]-sum[li])/n;
-      let G=(sum[hi3+1]-sum[li+1])/n;
-      let B=(sum[hi3+2]-sum[li+2])/n;
-
-      const x=across?u:v, y=across?v:u;
-      const p=(y*W+x)*4;
-      d[p]=R; d[p+1]=G; d[p+2]=B; d[p+3]=255;
-    }
-  }
-
-  /* --------------------------------------------------------------
-     The scan and the grain go on after the drag, not before it: a
-     drag long enough to smear a band would rub out a hairline scan
-     entirely, and on a real sheet the scan is the machine that read
-     the picture rather than anything in it.
-  ----------------------------------------------------------------- */
-  const scanA=S.scan*0.5, wash=S.wash*0.8, gl=S.grain*46;
-  const U=Math.sqrt(W*H);
-  const pitch=Math.max(1.2,U*(0.0016+S.pitch*0.028));
-  for(let y=0;y<H;y++){
-    let p=y*W*4;
-    for(let x=0;x<W;x++,p+=4){
-      let R=d[p], G=d[p+1], B=d[p+2];
+      let R=col[0], G=col[1], Bl=col[2];
       if(scanA>0.002){
-        /* the stripe runs at right angles to the drag, so it survives it */
-        const w=across?x:y;
-        const s=((vnP(w/pitch,0.5,seed+29)-0.5)
-                +(vnP(w/(pitch*3.7),7.5,seed+53)-0.5)*0.7)*scanA*0.62;
-        const k=1+s;
-        R*=k; G*=k; B*=k;
+        const s=((vnP(x/pitch,0.5,seed+29)-0.5)
+                +(vnP(x/(pitch*3.7),7.5,seed+53)-0.5)*0.7)*scanA*0.62;
+        const k=1+s; R*=k; G*=k; Bl*=k;
       }
       if(wash>0.002){
-        R+=(paper[0]-R)*wash; G+=(paper[1]-G)*wash; B+=(paper[2]-B)*wash;
+        R+=(paper[0]-R)*wash; G+=(paper[1]-G)*wash; Bl+=(paper[2]-Bl)*wash;
       }
       if(gl>0.002){
         const q=(hshP(x,y,seed+71)-0.5)*gl;
-        R+=q; G+=q; B+=q;
+        R+=q; G+=q; Bl+=q;
       }
       d[p]  =R<0?0:R>255?255:R;
       d[p+1]=G<0?0:G>255?255:G;
-      d[p+2]=B<0?0:B>255?255:B;
+      d[p+2]=Bl<0?0:Bl>255?255:Bl;
+      d[p+3]=255;
     }
   }
   c.putImageData(img,0,0);
 
   /* the curves last of all, drawn rather than computed: they are the one
-     crisp thing on the sheet and the grain has no business on them */
+     crisp thing on the sheet and the speckle has no business on them */
   if(curves.length && S.weight>0.004){
     c.setTransform(1,0,0,1,0,0);
     c.globalCompositeOperation="source-over";
@@ -1109,9 +1068,8 @@ $("#rotColors").addEventListener("click",()=>{
 bindRange("bands",v=>v|0,v=>S.bands=v|0);
 bindRange("patches",v=>v|0,v=>S.patches=v|0);
 bindRange("blend",v=>Math.round(v*100)+"%",v=>S.blend=v);
-bindRange("detail",v=>Math.round(v*100)+"%",v=>S.detail=v);
-bindRange("smear",v=>Math.round(v*100)+"%",v=>S.smear=v);
-bindRange("vary",v=>Math.round(v*100)+"%",v=>S.vary=v);
+bindRange("size",v=>Math.round(v*100)+"%",v=>S.size=v);
+bindRange("spread",v=>Math.round(v*100)+"%",v=>S.spread=v);
 bindRange("slip",v=>Math.round(v*100)+"%",v=>S.slip=v);
 bindRange("curves",v=>v|0,v=>S.curves=v|0);
 bindRange("weight",v=>Math.round(v*100)+"%",v=>S.weight=v);
