@@ -3,25 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Terrain — playgrnd</title>
+<title>Slip — playgrnd</title>
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/favicon.png" sizes="180x180" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="canonical" href="https://playgrnd.tools/terrain">
+<link rel="canonical" href="https://playgrnd.tools/slip">
 <meta property="og:site_name" content="playgrnd">
-<meta property="og:title" content="Terrain — playgrnd">
-<meta property="og:description" content="Generate posterised colour fields with dithered edges — organic regions of flat colour. Exports PNG and video.">
+<meta property="og:title" content="Slip — playgrnd">
+<meta property="og:description" content="Generate smeared-colour backgrounds — bands of colour dragged sideways into long streaks, torn line by line, under a scanner's stripe and a bleaching wash. Exports image and video.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://playgrnd.tools/terrain">
-<meta property="og:image" content="https://playgrnd.tools/terrain/og.jpg">
+<meta property="og:url" content="https://playgrnd.tools/slip">
+<meta property="og:image" content="https://playgrnd.tools/slip/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Artwork made with Terrain.">
+<meta property="og:image:alt" content="Artwork made with Slip.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Terrain — playgrnd">
-<meta name="twitter:description" content="Generate posterised colour fields with dithered edges — organic regions of flat colour.">
-<meta name="twitter:image" content="https://playgrnd.tools/terrain/og.jpg">
-<meta name="description" content="Generate posterised colour fields with dithered edges — organic regions of flat colour. Exports PNG and video.">
+<meta name="twitter:title" content="Slip — playgrnd">
+<meta name="twitter:description" content="Generate smeared-colour backgrounds — bands of colour dragged sideways into long streaks, torn line by line, under a scanner's stripe and a bleaching wash.">
+<meta name="twitter:image" content="https://playgrnd.tools/slip/og.jpg">
+<meta name="description" content="Generate smeared-colour backgrounds — bands of colour dragged sideways into long streaks, torn line by line, under a scanner's stripe and a bleaching wash. Exports image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -499,24 +499,32 @@ input[type=range]{accent-color:var(--ink)}
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
         <span class="slash">&frasl;</span>
-        <span class="tool">Terrain</span>
+        <span class="tool">Slip</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">02 / 40</span>
-        <span class="k">Type</span><span class="v">Contour landscape</span>
+        <span class="k">Index</span><span class="v">40 / 40</span>
+        <span class="k">Type</span><span class="v">Dragged colour</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Field</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Field scale</span><span class="v" id="scaleVal">2.6</span></div><div class="track"><input type="range" id="scale" min="0.6" max="9" step="0.1" value="2.6"></div></div>
-        <div class="pr"><div class="top"><span class="k">Warp</span><span class="v" id="warpVal">110%</span></div><div class="track"><input type="range" id="warp" min="0" max="3" step="0.02" value="1.1"></div></div>
-        <div class="pr"><div class="top"><span class="k">Detail</span><span class="v" id="octVal">5</span></div><div class="track"><input type="range" id="oct" min="1" max="7" step="1" value="5"></div></div>
-        <div class="pr"><div class="top"><span class="k">Contrast</span><span class="v" id="contrastVal">170%</span></div><div class="track"><input type="range" id="contrast" min="0.5" max="4" step="0.05" value="1.7"></div></div>
-        <div class="pr"><div class="top"><span class="k">Spread</span><span class="v" id="balanceVal">Even</span></div><div class="track"><input type="range" id="balance" min="-1.2" max="1.2" step="0.05" value="0"></div></div></div></details>
-    <details class="grp" open><summary>Grain</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Dither</span><span class="v" id="grainVal">30%</span></div><div class="track"><input type="range" id="grain" min="0" max="1.2" step="0.01" value="0.3"></div></div>
-        <div class="pr"><div class="top"><span class="k">Blockiness</span><span class="v" id="blockVal">0</span></div><div class="track"><input type="range" id="block" min="0" max="14" step="1" value="0"></div></div></div></details></div>
-    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Bands</span><span class="v" id="swCountVal">6</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+    <div class="l-scroll"><details class="grp" open><summary>Field</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Bands</span><span class="v" id="bandsVal">5</span></div><div class="track"><input type="range" id="bands" min="2" max="14" step="1" value="5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Patches</span><span class="v" id="patchesVal">6</span></div><div class="track"><input type="range" id="patches" min="0" max="24" step="1" value="6"></div></div>
+        <div class="pr"><div class="top"><span class="k">Strength</span><span class="v" id="blendVal">55%</span></div><div class="track"><input type="range" id="blend" min="0" max="1" step="0.01" value="0.55"></div></div>
+        <div class="pr"><div class="top"><span class="k">Detail</span><span class="v" id="detailVal">55%</span></div><div class="track"><input type="range" id="detail" min="0" max="1" step="0.01" value="0.55"></div></div></div></details>
+    <details class="grp"><summary>Drag</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Direction</span></span><span class="mval"><div class="chips" id="dirs"></div></span></div>
+        <div class="pr"><div class="top"><span class="k">Smear</span><span class="v" id="smearVal">50%</span></div><div class="track"><input type="range" id="smear" min="0" max="1" step="0.01" value="0.5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Variation</span><span class="v" id="varyVal">60%</span></div><div class="track"><input type="range" id="vary" min="0" max="1" step="0.01" value="0.6"></div></div>
+        <div class="pr"><div class="top"><span class="k">Slip</span><span class="v" id="slipVal">35%</span></div><div class="track"><input type="range" id="slip" min="0" max="1" step="0.01" value="0.35"></div></div></div></details>
+    <details class="grp"><summary>Curves</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Curves</span><span class="v" id="curvesVal">4</span></div><div class="track"><input type="range" id="curves" min="0" max="20" step="1" value="4"></div></div>
+        <div class="pr"><div class="top"><span class="k">Weight</span><span class="v" id="weightVal">30%</span></div><div class="track"><input type="range" id="weight" min="0" max="1" step="0.01" value="0.3"></div></div>
+        <div class="pr"><div class="top"><span class="k">Bend</span><span class="v" id="bendVal">55%</span></div><div class="track"><input type="range" id="bend" min="0" max="1" step="0.01" value="0.55"></div></div></div></details>
+    <details class="grp"><summary>Print</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Scan</span><span class="v" id="scanVal">30%</span></div><div class="track"><input type="range" id="scan" min="0" max="1" step="0.01" value="0.3"></div></div>
+        <div class="pr"><div class="top"><span class="k">Pitch</span><span class="v" id="pitchVal">30%</span></div><div class="track"><input type="range" id="pitch" min="0" max="1" step="0.01" value="0.3"></div></div>
+        <div class="pr"><div class="top"><span class="k">Wash</span><span class="v" id="washVal">40%</span></div><div class="track"><input type="range" id="wash" min="0" max="1" step="0.01" value="0.4"></div></div>
+        <div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">30%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.3"></div></div></div></details></div>
+    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">6</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
         
-      <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotInks">Rotate</button></span></div></div></details>
+      <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
     </div>
@@ -527,7 +535,7 @@ input[type=range]{accent-color:var(--ink)}
       <div class="pill">
         <span class="lb">Variation</span>
         <span class="sep"></span>
-        <input class="seed" id="seed" value="1" inputmode="numeric" aria-label="Variation number">
+        <input class="seed" id="seed" value="12" inputmode="numeric" aria-label="Variation number">
         <button class="pbtn copy" id="copySeed" aria-label="Copy variation number">Copy</button>
         <button class="pbtn go" id="randomize">New</button>
       </div>
@@ -552,16 +560,16 @@ input[type=range]{accent-color:var(--ink)}
       <h2 class="h frame-h">Frame</h2><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span>
     </div>
     <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
-          <div class="pr"><div class="top"><span class="k">Intensity</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2.5" step="0.05" value="0.6"></div></div>
-          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="1" max="30" step="1" value="12"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">30 frames</span></div><div class="track"><input type="range" id="frames" min="6" max="90" step="1" value="30"></div></div></div><div class="group" id="ditherBody" hidden>
+          <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
+          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="12"></div></div>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="36"></div></div></div><div class="group" id="ditherBody" hidden>
   <div class="misc stack"><span class="mhead"><span class="k">Pattern</span></span><span class="mval"><div class="chips" id="dthKinds"></div></span></div>
   <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
   <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
   <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="dthAmountVal">100%</span></div><div class="track"><input type="range" id="dthAmount" min="0" max="1" step="0.05" value="1"></div></div>
 </div></div>
     <div class="r-bot">
-      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
+      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizePxVal">2400 px</span></div><div class="track"><input type="range" id="sizePx" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
           <button class="lnk" id="expVid">Video</button></span></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
       <div class="tbl" style="margin-top:20px">
@@ -590,140 +598,309 @@ input[type=range]{accent-color:var(--ink)}
 const $=s=>document.querySelector(s);
 const TAU=Math.PI*2;
 const clamp=(v,a,b)=>v<a?a:v>b?b:v;
-const lerp=(a,b,t)=>a+(b-a)*t;
-const fade=t=>t*t*(3-2*t);
 const reduceMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
 function rng(s){let a=(s>>>0)||1;return()=>{a^=a<<13;a>>>=0;a^=a>>17;a^=a<<5;a>>>=0;return a/4294967296;};}
-function hashi(x,y,z,w,seed){
-  let n=Math.imul(x|0,374761393)^Math.imul(y|0,668265263)^Math.imul(z|0,1440662683)
-       ^Math.imul(w|0,1274126177)^Math.imul(seed|0,1013904223);
+function hashi(x,y,z,s){
+  let n=Math.imul(x|0,374761393)^Math.imul(y|0,668265263)^Math.imul(z|0,1440662683)^Math.imul(s|0,1013904223);
   n=Math.imul(n^(n>>>15),2246822519);n=Math.imul(n^(n>>>13),3266489917);n^=n>>>16;
   return (n>>>0)/4294967296;
 }
-function vnoise(x,y,z,w,seed){
-  const xi=Math.floor(x),yi=Math.floor(y),zi=Math.floor(z),wi=Math.floor(w);
-  const u=fade(x-xi),v=fade(y-yi),s=fade(z-zi),t=fade(w-wi);
-  const face=(dz,dw)=>{
-    const a=hashi(xi,yi,zi+dz,wi+dw,seed),b=hashi(xi+1,yi,zi+dz,wi+dw,seed);
-    const c=hashi(xi,yi+1,zi+dz,wi+dw,seed),d=hashi(xi+1,yi+1,zi+dz,wi+dw,seed);
-    return lerp(lerp(a,b,u),lerp(c,d,u),v);
-  };
-  return lerp(lerp(face(0,0),face(0,1),t),lerp(face(1,0),face(1,1),t),s);
-}
-function fbm(x,y,z,w,seed,oct){
-  let a=0.5,f=1,sum=0,norm=0;
-  for(let i=0;i<oct;i++){sum+=a*vnoise(x*f,y*f,z,w,seed+i*1319);norm+=a;a*=0.5;f*=2;}
-  return sum/norm;
-}
-function vnoise2(x,y,seed){
-  const xi=Math.floor(x),yi=Math.floor(y),u=fade(x-xi),v=fade(y-yi);
-  const a=hashi(xi,yi,0,0,seed),b=hashi(xi+1,yi,0,0,seed);
-  const c=hashi(xi,yi+1,0,0,seed),d=hashi(xi+1,yi+1,0,0,seed);
-  return lerp(lerp(a,b,u),lerp(c,d,u),v);
-}
-function fbm2(x,y,z,w,seed,oct){
-  let a=0.5,f=1,sum=0,norm=0;
-  for(let i=0;i<oct;i++){sum+=a*vnoise2(x*f,y*f,seed+i*1319);norm+=a;a*=0.5;f*=2;}
-  return sum/norm;
-}
 function hex2rgb(h){h=h.replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
   return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];}
-function rgb2hex(r,g,b){return"#"+[r,g,b].map(v=>clamp(Math.round(v),0,255).toString(16).padStart(2,"0")).join("");}
-function hsl2hex(h,s,l){h=((h%360)+360)%360;s/=100;l/=100;
-  const c=(1-Math.abs(2*l-1))*s,x=c*(1-Math.abs((h/60)%2-1)),m=l-c/2;let r,g,b;
-  if(h<60)[r,g,b]=[c,x,0];else if(h<120)[r,g,b]=[x,c,0];else if(h<180)[r,g,b]=[0,c,x];
-  else if(h<240)[r,g,b]=[0,x,c];else if(h<300)[r,g,b]=[x,0,c];else[r,g,b]=[c,0,x];
-  return rgb2hex((r+m)*255,(g+m)*255,(b+m)*255);}
 function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4);});
   return .2126*r+.7152*g+.0722*b;}
-function chroma(h){const[r,g,b]=hex2rgb(h);return(Math.max(r,g,b)-Math.min(r,g,b))/255;}
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const PALETTES={
-  Reef:  {colors:["#17A9BE","#7FC9D4","#F5A3AE","#F79A57","#F6C21B","#FFD84D"]},
-  Bloom: {colors:["#1FA9C6","#F49CA8","#FFC02E","#F8E9C9","#FF6B4A"]},
-  Riso:  {colors:["#1B4FA0","#FF87C3","#8E9A24","#FF5B1E","#F1EBE1"]},
-  Ash:   {colors:["#E8E4DC","#B9B3A6","#7C7668","#4A463C","#211F1A"]},
-  Acid:  {colors:["#C6FF3D","#FFE800","#A97BF5","#00C48C","#FF2CB0"]}
-};
-const MODES=[["drift","Drift"],["tide","Tide"],["shimmer","Shimmer"],["warp","Warp"]];
+const MODES=[["drift","Drift"],["tear","Tear"],["pulse","Pulse"]];
+/* Which way the picture is dragged. The colour bands are laid at right angles
+   to it, because a band running the same way as the smear is the one thing
+   the smear would rub out. */
+const DIRS=[["across","Across"],["down","Down"],["diag","Diagonal"]];
+
+/* The first ink is the paper the wash bleaches towards and the curves are
+   scratched back to; the rest are the colours in the field. */
+const PALETTES=[
+  ["#E9E7DE","#4E5A28","#8A9A5B","#E8571E","#E8207A","#B9BCA8"],
+  ["#F0EDE6","#123A4A","#2E8B8B","#F2B33D","#D94F2B","#9FB8B0"],
+  ["#141414","#F2F0E8","#C9452F","#E0B33A","#5C7C8A","#8A8578"],
+  ["#EDE8F2","#3B2A6B","#8E5BD0","#E86BA8","#4FC3D9","#C4B8DE"],
+  ["#F4EFE4","#6B2020","#C4562C","#D9A441","#7A8450","#CBBFA4"]
+];
 
 const S={
-  seed:7, ratio:"1:1",
-  scale:2.6, warp:1.1, oct:5, contrast:1.7, balance:0,
-  grain:.3, block:0,
-  paletteName:"Reef",
-  palette:["#510BF5","#75FBFA","#78FC4C","#EAFE53","#EE7F31","#EA337B"],
-  motion:{on:false,mode:"drift",amount:.6,fps:12,frames:30},
-  size:2400
+  seed:12, ratio:"9:16",
+  bands:5, patches:6, blend:0.55, detail:0.55,
+  dir:"across", smear:0.5, vary:0.6, slip:0.35,
+  scan:0.3, pitch:0.3, grain:0.3, wash:0.4,
+  curves:4, weight:0.3, bend:0.55,
+  pal:PALETTES[0].slice(),
+  motion:{on:false,mode:"drift",amount:0.6,fps:12,frames:36},
+  size_px:2400
 };
 
-/* ============================================================
-   Render — the smooth field is computed coarse and interpolated;
-   only the dither is evaluated per pixel.
-============================================================ */
-let STEP=5;
-function renderInto(data,W,H,f){
-  const M=S.motion;
-  // playback trades a little field resolution for a watchable frame rate
-  STEP = playing ? 7 : 5;
-  const t=M.on?f/M.frames:0;
-  const A=M.on?M.amount:0;
-  let z=0,w4=0, warp=S.warp;
-  if(M.on){
-    if(M.mode==="drift"||M.mode==="tide"){z=Math.cos(TAU*t)*A;w4=Math.sin(TAU*t)*A;}
-    if(M.mode==="warp"){warp=S.warp*(1+0.6*A*Math.sin(TAU*t));z=Math.cos(TAU*t)*A*0.35;w4=Math.sin(TAU*t)*A*0.35;}
-  }
-  const NZ=(z===0&&w4===0)?fbm2:fbm;      // still fields skip the time axis entirely
-  const fw=Math.ceil(W/STEP)+2, fh=Math.ceil(H/STEP)+2;
-  const field=new Float32Array(fw*fh);
-  const ar=H/W;
-  const oct=S.oct|0;
-  for(let j=0;j<fh;j++){
-    const v=(j*STEP)/H*S.scale*ar;
-    for(let i=0;i<fw;i++){
-      const u=(i*STEP)/W*S.scale;
-      const wx=NZ(u+5.2,v+1.3,z,w4,S.seed+11,2);
-      const wy=NZ(u+9.1,v+7.7,z,w4,S.seed+29,2);
-      let val=NZ(u+warp*(wx-0.5)*2, v+warp*(wy-0.5)*2, z, w4, S.seed, oct);
-      field[j*fw+i]=clamp((val-0.5)*S.contrast+0.5,0,1);
-    }
-  }
-  const nB=S.palette.length;
-  const rgb=new Uint8Array(nB*3);
-  S.palette.forEach((c,i)=>{const[r,g,b]=hex2rgb(c);rgb[i*3]=r;rgb[i*3+1]=g;rgb[i*3+2]=b;});
-  const pw=Math.pow(2,-S.balance);
-  const blk=S.block|0;
-  const shimmer=(M.on&&M.mode==="shimmer")?f+1:0;
-  let tideShift=0;
-  if(M.on&&M.mode==="tide") tideShift=0.28*A*Math.sin(TAU*t);
+function hshP(x,y,s){
+  let n=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1274126177);
+  n=Math.imul(n^(n>>>13),1274126177); n^=n>>>16;
+  return (n>>>0)/4294967296;
+}
+function vnP(x,y,s){
+  const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi;
+  const u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);
+  const a=hshP(xi,yi,s),b=hshP(xi+1,yi,s),c=hshP(xi,yi+1,s),d=hshP(xi+1,yi+1,s);
+  return (a*(1-u)+b*u)*(1-v)+(c*(1-u)+d*u)*v;
+}
+function rngP(seed){
+  let s=(seed>>>0)||1;
+  return function(){ s^=s<<13; s>>>=0; s^=s>>>17; s^=s<<5; s>>>=0; return s/4294967296; };
+}
+function hex2rgbP(h){
+  h=(h||"#000").replace("#","");
+  if(h.length===3) h=h.split("").map(c=>c+c).join("");
+  return [parseInt(h.slice(0,2),16)||0,parseInt(h.slice(2,4),16)||0,parseInt(h.slice(4,6),16)||0];
+}
 
-  const sample=(arr,px,py)=>{
-    const fx=px/STEP, fy=py/STEP;
-    const i0=fx|0, j0=fy|0, sx=fx-i0, sy=fy-j0;
-    const a=arr[j0*fw+i0], b=arr[j0*fw+i0+1], c=arr[(j0+1)*fw+i0], d=arr[(j0+1)*fw+i0+1];
-    return lerp(lerp(a,b,sx),lerp(c,d,sx),sy);
-  };
-  let p=0;
+/* ------------------------------------------------------------------
+   Everything here lives in a frame that turns with the smear: u runs
+   along the drag and v runs across it, so the same code makes a
+   sideways smear of stacked bands and a downward smear of upright ones
+   without a second path through it. Both are 0 to 1, which is what
+   keeps a band layout proportional to whatever frame it is asked for.
+------------------------------------------------------------------- */
+let slipCache=null, slipKey="";
+function slipP(){
+  const key=[S.seed,S.bands,S.patches,S.curves,S.bend,S.pal.length].join("|");
+  if(slipKey===key && slipCache) return slipCache;
+  const rnd=rngP(Math.imul(S.seed|0,2654435761));
+  const n=Math.max(2,Math.round(S.bands));
+
+  /* Stops are spaced by drawing gaps and then normalising them, rather than
+     by dropping points at random and sorting: random points clump, and two
+     stops on top of each other are a hard edge in something that should have
+     none. */
+  const gaps=[]; let tot=0;
+  for(let i=0;i<n-1;i++){ const g=0.35+rnd(); gaps.push(g); tot+=g; }
+  const stops=[]; let at=0;
+  for(let i=0;i<n;i++){
+    stops.push({p:at, k:(rnd()*997)|0});
+    if(i<n-1) at+=gaps[i]/tot;
+  }
+  stops[n-1].p=1;
+
+  const patches=[];
+  for(let i=0,m=Math.max(0,Math.round(S.patches));i<m;i++)
+    patches.push({u:-0.2+rnd()*1.4, v:rnd(),
+                  r:0.10+rnd()*0.22, stretch:1.6+rnd()*2.6,
+                  a:0.45+rnd()*0.5, k:(rnd()*997)|0});
+
+  /* A curve is a long shallow arc across the whole frame rather than a shape:
+     three control points on a line, the middle one pushed off it. */
+  const curves=[];
+  for(let i=0,m=Math.max(0,Math.round(S.curves));i<m;i++){
+    const ax=-0.25+rnd()*1.5, ay=-0.3+rnd()*0.55;
+    const bx=-0.25+rnd()*1.5, by=0.75+rnd()*0.55;
+    const push=(rnd()-0.5)*2*S.bend;
+    curves.push({ax:ax,ay:ay,bx:bx,by:by,
+                 cx:(ax+bx)/2+(by-ay)*push, cy:(ay+by)/2-(bx-ax)*push});
+  }
+
+  slipCache={stops,patches,curves}; slipKey=key;
+  return slipCache;
+}
+
+function paint(c,W,H,f){
+  const M=S.motion, T=M.on ? f/M.frames : 0, ph=T*Math.PI*2;
+  const raw=S.pal.length?S.pal:PALETTES[0];
+  const paper=hex2rgbP(raw[0]);
+  let inks=raw.slice(1).map(hex2rgbP);
+  if(!inks.length) inks=[paper];
+
+  const {stops,patches,curves}=slipP();
+  for(const s of stops) s.c=inks[s.k%inks.length];
+  for(const q of patches) q.c=inks[q.k%inks.length];
+
+  const across=S.dir!=="down";
+  const NU=across?W:H, NV=across?H:W;
+  const shear=S.dir==="diag"?0.55:0;
+  const seed=S.seed|0;
+
+  /* swells to its fullest halfway round and back down by the end: a plain
+     sine is already back where it started at the half-loop, which spends half
+     of every loop repeating the first half */
+  const pulse=(M.on&&M.mode==="pulse") ? 1+(1-Math.cos(ph))*0.5*M.amount*0.8 : 1;
+  const glide=(M.on&&M.mode==="drift") ? M.amount*0.12 : 0;
+  const gu=Math.cos(ph)*glide, gv=Math.sin(ph)*glide*0.35;
+  /* the tear crawls by walking the noise round a circle, which is the only
+     way a noise field comes back to where it started at the end of a loop */
+  const tr=(M.on&&M.mode==="tear") ? M.amount*1.6 : 0;
+  const tu=Math.cos(ph)*tr, tv=Math.sin(ph)*tr;
+
+  const spanU=NU, spanV=NV;
+  /* A drag can only smear what is already there. Bands on their own are so
+     smooth along the drag that blurring them changes nothing at all — it took
+     a picture with detail in it to make streaks. So the field is roughened
+     before it is dragged, at a scale sized off the picture rather than off the
+     pixel: fine grain going in, long strands of colour coming out. */
+  /* The roughening is coarse along the drag and fine across it, on purpose.
+     A drag is an average, and averaging kills whatever varies along it: sixty
+     specks averaged into one leave almost nothing behind, which is why an even
+     grain going in came out as a faint haze. Long across the drag and thin at
+     right angles to it, the same grain survives as strands. */
+  const UU=Math.sqrt(W*H);
+  const dcU=Math.max(2,UU*0.026), dcV=Math.max(1.2,UU*0.0055);
+  const dfu=spanU/dcU, dfv=spanV/dcV;
+  const det=S.detail;
+  const rad=S.smear*0.24*pulse;            /* in u, as a fraction of the run */
+  const slipAmt=S.slip*0.16;
+  const blend=S.blend;
+
+  const img=c.createImageData(W,H), d=img.data;
+  const line=new Float32Array(NU*3);
+  const sum=new Float32Array((NU+1)*3);
+
+  for(let v=0;v<NV;v++){
+    const vn=(v+0.5)/NV;
+    /* how far this line is dragged, and how far it has slipped sideways from
+       the one above it -- the second is what tears the picture apart */
+    const wob=vnP(vn*7.3+tu,2.7+tv,seed+5);
+    const r=Math.max(0,rad*(1-S.vary*0.85+S.vary*1.7*wob))*NU;
+    /* The slip moves each line across the bands rather than along the drag.
+       Along the drag it did nothing worth seeing: a drag long enough to smear
+       a band leaves nothing with an edge for a sideways shift to break, so
+       the control was dead at every setting anyone would use. Across the
+       bands it is the thing you can actually see -- every line reads the
+       colour from slightly the wrong height, and the edges come apart. Two
+       shifts, one that slides whole runs of lines off true together and one
+       that is different on every single line. */
+    const sl=(vnP(vn*23.1+tu,9.4+tv,seed+61)-0.5)*slipAmt
+            +(hshP(v,(tu*97)|0,seed+131)-0.5)*slipAmt*0.9;
+
+    for(let u=0;u<NU;u++){
+      const un=(u+0.5)/NU;
+      const uf=un+gu;
+      /* the diagonal is the sideways smear of a field that has been sheared,
+         which comes to the same picture as dragging the field on the slant
+         and costs nothing extra */
+      const vf=vn+gv+sl+shear*(un-0.5);
+
+      /* the roughening: it moves this sample a little way across the bands
+         rather than only lightening it, so a smear pulls threads of the
+         neighbouring colour through instead of a grey blur */
+      let vd=vf, lift=0;
+      if(det>0.004){
+        vd+=det*0.36*((vnP(un*dfu,vf*dfv,seed+13)-0.5)
+                     +(vnP(un*dfu*2.3,vf*dfv*2.3,seed+91)-0.5)*0.5);
+        lift=det*96*(vnP(un*dfu*1.4+11.3,vf*dfv*1.4,seed+37)-0.5);
+      }
+
+      /* the band ramp, read at this point across the field */
+      let i=0; while(i<stops.length-2 && vd>stops[i+1].p) i++;
+      const a=stops[i], b=stops[i+1<stops.length?i+1:i];
+      const gap=b.p-a.p;
+      let t=gap>1e-6?(vd-a.p)/gap:0;
+      /* the change happens across the middle two thirds of the gap rather than
+         all of it, so a band has some body to it before it starts turning into
+         its neighbour */
+      t=(t-0.17)/0.66;
+      t=t<0?0:t>1?1:t;
+      t=t*t*(3-2*t);
+      let R=a.c[0]+(b.c[0]-a.c[0])*t;
+      let G=a.c[1]+(b.c[1]-a.c[1])*t;
+      let B=a.c[2]+(b.c[2]-a.c[2])*t;
+
+      /* patches of colour laid over the ramp, stretched along the drag */
+      for(let j=0;j<patches.length;j++){
+        const q=patches[j];
+        const du=(uf-q.u)/(q.r*q.stretch*spanV/spanU), dv=(vd-q.v)/q.r;
+        const dd=du*du+dv*dv;
+        if(dd>=1) continue;
+        const w=1-dd;
+        const k=q.a*blend*w*w;
+        R+=(q.c[0]-R)*k; G+=(q.c[1]-G)*k; B+=(q.c[2]-B)*k;
+      }
+      const o=u*3; line[o]=R+lift; line[o+1]=G+lift; line[o+2]=B+lift;
+    }
+
+    /* Running totals along the line, so an average over any width at all is
+       two subtractions instead of a loop -- which is what lets the drag be a
+       different length on every line without the picture taking minutes. */
+    sum[0]=sum[1]=sum[2]=0;
+    for(let u=0;u<NU;u++){
+      const o=u*3, s=o+3;
+      sum[s]=sum[o]+line[o];
+      sum[s+1]=sum[o+1]+line[o+1];
+      sum[s+2]=sum[o+2]+line[o+2];
+    }
+
+    const ri=Math.round(r);
+    for(let u=0;u<NU;u++){
+      let lo=u-ri; if(lo<0)lo=0;
+      let hi=u+ri+1; if(hi>NU)hi=NU;
+      const n=hi-lo, li=lo*3, hi3=hi*3;
+      let R=(sum[hi3]-sum[li])/n;
+      let G=(sum[hi3+1]-sum[li+1])/n;
+      let B=(sum[hi3+2]-sum[li+2])/n;
+
+      const x=across?u:v, y=across?v:u;
+      const p=(y*W+x)*4;
+      d[p]=R; d[p+1]=G; d[p+2]=B; d[p+3]=255;
+    }
+  }
+
+  /* --------------------------------------------------------------
+     The scan and the grain go on after the drag, not before it: a
+     drag long enough to smear a band would rub out a hairline scan
+     entirely, and on a real sheet the scan is the machine that read
+     the picture rather than anything in it.
+  ----------------------------------------------------------------- */
+  const scanA=S.scan*0.5, wash=S.wash*0.8, gl=S.grain*46;
+  const U=Math.sqrt(W*H);
+  const pitch=Math.max(1.2,U*(0.0016+S.pitch*0.028));
   for(let y=0;y<H;y++){
-    for(let x=0;x<W;x++){
-      const px=blk?Math.floor(x/blk)*blk:x, py=blk?Math.floor(y/blk)*blk:y;
-      let val=sample(field,px,py)+tideShift;
-      val+=(hashi(x,y,shimmer,1,S.seed)-0.5)*S.grain;
-      val=clamp(val,0,1);
-      const q=Math.pow(val,pw);
-      let idx=clamp(Math.floor(q*nB),0,nB-1);
-      data[p++]=rgb[idx*3];data[p++]=rgb[idx*3+1];data[p++]=rgb[idx*3+2];data[p++]=255;
+    let p=y*W*4;
+    for(let x=0;x<W;x++,p+=4){
+      let R=d[p], G=d[p+1], B=d[p+2];
+      if(scanA>0.002){
+        /* the stripe runs at right angles to the drag, so it survives it */
+        const w=across?x:y;
+        const s=((vnP(w/pitch,0.5,seed+29)-0.5)
+                +(vnP(w/(pitch*3.7),7.5,seed+53)-0.5)*0.7)*scanA*0.62;
+        const k=1+s;
+        R*=k; G*=k; B*=k;
+      }
+      if(wash>0.002){
+        R+=(paper[0]-R)*wash; G+=(paper[1]-G)*wash; B+=(paper[2]-B)*wash;
+      }
+      if(gl>0.002){
+        const q=(hshP(x,y,seed+71)-0.5)*gl;
+        R+=q; G+=q; B+=q;
+      }
+      d[p]  =R<0?0:R>255?255:R;
+      d[p+1]=G<0?0:G>255?255:G;
+      d[p+2]=B<0?0:B>255?255:B;
+    }
+  }
+  c.putImageData(img,0,0);
+
+  /* the curves last of all, drawn rather than computed: they are the one
+     crisp thing on the sheet and the grain has no business on them */
+  if(curves.length && S.weight>0.004){
+    c.setTransform(1,0,0,1,0,0);
+    c.globalCompositeOperation="source-over";
+    c.globalAlpha=1;
+    c.lineCap="round";
+    c.strokeStyle=raw[0];
+    c.lineWidth=Math.max(0.7,U*(0.0004+S.weight*0.0022));
+    for(const q of curves){
+      c.beginPath();
+      c.moveTo(q.ax*W,q.ay*H);
+      c.quadraticCurveTo(q.cx*W,q.cy*H,q.bx*W,q.by*H);
+      c.stroke();
     }
   }
 }
+
 const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
-function paint(c,W,H,f){
-  const img=c.createImageData(W,H);
-  renderInto(img.data,W,H,f);
-  c.putImageData(img,0,0);
-}
 function fitCanvas(){
   const r=RATIOS.find(x=>x.id===S.ratio);
   const box=$(".stage-inner");
@@ -737,9 +914,6 @@ function fitCanvas(){
   availW=Math.max(80,availW);availH=Math.max(80,availH);
   const s=Math.min(availW/r.w,availH/r.h);
   const dispW=Math.max(40,Math.floor(r.w*s)),dispH=Math.max(40,Math.floor(r.h*s));
-  // every pixel costs work here, so cap the backing store — harder while playing
-  const cap = playing ? 900 : 1500;
-  while(dispW*dpr>cap && dpr>0.35) dpr-=0.05;
   const w=Math.round(dispW*dpr),h=Math.round(dispH*dpr);
   if(art.width!==w||art.height!==h){art.width=w;art.height=h;}
   if(art.style.width!==dispW+"px"||art.style.height!==dispH+"px"){
@@ -758,7 +932,6 @@ function draw(){
   $("#frameno").textContent=String(curFrame+1).padStart(2,"0")+" / "+String(F).padStart(2,"0");
 }
 function requestDraw(){if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;draw();});}
-function invalidate(){requestDraw();updateExportNote();}
 const reframe=requestDraw;
 if(window.ResizeObserver){
   const box=$(".stage-inner");
@@ -794,7 +967,7 @@ function save(blob,name){
   a.href=url;a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
-function stamp(){return `terrain-${S.seed}-${S.ratio.replace(":","x")}`;}
+function stamp(){return `slip-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
   const a=$("#expVid"),sc=$("#scrub");
   if(a)a.disabled=!S.motion.on;
@@ -804,7 +977,7 @@ $("#expPng").addEventListener("click",()=>{
   toast("Rendering…",true);
   setTimeout(()=>{
     const r=RATIOS.find(x=>x.id===S.ratio);
-    const W=S.size,H=Math.round(S.size*r.h/r.w);
+    const W=S.size_px,H=Math.round(S.size_px*r.h/r.w);
     const c=document.createElement("canvas");c.width=W;c.height=H;
     paint(c.getContext("2d"),W,H,curFrame);
     c.toBlob(b=>{save(b,stamp()+".png");toast(`PNG saved · ${W}×${H}`);});
@@ -821,18 +994,17 @@ $("#expVid").addEventListener("click",()=>{
   if(!type)return toast("This browser can't record video");
   const ext=type.startsWith("video/mp4")?"mp4":"webm";
   const r=RATIOS.find(x=>x.id===S.ratio);
-  let W=Math.min(1280,S.size);W-=W%2;
+  let W=Math.min(1280,S.size_px);W-=W%2;
   let H=Math.round(W*r.h/r.w);H-=H%2;
   const c=document.createElement("canvas");c.width=W;c.height=H;
   const cc=c.getContext("2d");
-  const F=S.motion.frames,loops=2;
+  const F=S.motion.frames,loops=1;
   const rec=new MediaRecorder(c.captureStream(60),{mimeType:type,videoBitsPerSecond:16000000});
   const chunks=[];
   rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
   rec.onstop=()=>{save(new Blob(chunks,{type}),stamp()+"-loop."+ext);toast(ext.toUpperCase()+" saved");};
   const was=playing;setPlaying(false);
   toast("Recording…",true);
-  // frames are expensive here, so step them rather than chase the clock
   let n=0;
   rec.start();
   (function step(){
@@ -847,13 +1019,13 @@ $("#expVid").addEventListener("click",()=>{
    UI
 ============================================================ */
 function accent(){
-  let best=S.palette[0],score=-1;
-  for(const c of S.palette){const k=chroma(c)*0.8+relLum(c)*0.3;if(k>score){score=k;best=c;}}
-  document.documentElement.style.setProperty("--accent",best);
-  $("#strip").innerHTML=S.palette.map(c=>`<span style="background:${c}"></span>`).join("");
+  let best=S.pal[S.pal.length-1],bl=-1;
+  for(const c of S.pal){const l=relLum(c);if(l>bl&&l>0.12){bl=l;best=c;}}
+  document.documentElement.style.setProperty("--accent",bl>0?best:"#F5C21B");
+  $("#strip").innerHTML=S.pal.map(c=>`<span style="background:${c}"></span>`).join("");
   const g=$("#glyph");
   if(g.children.length!==9)g.innerHTML=Array.from({length:9},()=>"<i></i>").join("");
-  [...g.children].forEach((el,i)=>el.classList.toggle("on",[0,1,2,4,5,8].includes(i)));
+  [...g.children].forEach((el,i)=>el.classList.toggle("on",[0,2,4,6,8].includes(i)));
 }
 function segmented(host,items,get,set){
   if(!host)return;
@@ -866,7 +1038,6 @@ function segmented(host,items,get,set){
     host.appendChild(b);
   });
 }
-function refreshPalettes(){}   // palette presets removed; colours are edited by swatch
 function buildRatios(){
   const host=$("#ratios");if(!host)return;
   host.innerHTML="";
@@ -882,46 +1053,40 @@ function buildRatios(){
   });
 }
 function buildSwatches(){
-  const host=$("#swatches");if(!host)return;
+  const host=$("#swatches");
   host.innerHTML="";
-  S.palette.forEach((c,i)=>{
+  const lock=S.pal.length<=2;
+  S.pal.forEach((c,i)=>{
     const b=document.createElement("button");
-    b.className="sw";b.type="button";
-    b.innerHTML=`<span class="fill" style="background:${c}"></span><input type="color" value="${c}" aria-label="Band ${i+1}">${S.palette.length>2?'<span class="x">×</span>':''}`;
-    const input=b.querySelector("input");
-    input.oninput=e=>{S.palette[i]=e.target.value;b.querySelector(".fill").style.background=e.target.value;
-      S.paletteName=null;refreshPalettes();accent();reframe();};
-    b.onclick=e=>{
-      if(e.target.classList.contains("x")){e.preventDefault();e.stopPropagation();
-        S.palette.splice(i,1);S.paletteName=null;buildSwatches();refreshPalettes();accent();reframe();return;}
-      if(e.target!==input)input.click();
-    };
+    b.className="sw"+(lock?" locked":"");b.type="button";
+    b.setAttribute("aria-label",["Paper"][i]||("Ink "+(i+1)));
+    b.innerHTML=`<span class="fill" style="background:${c}"></span>`+
+      `<input type="color" value="${c}"><span class="x" aria-hidden="true">\u00d7</span>`;
+    b.querySelector("input").addEventListener("input",e=>{
+      S.pal[i]=e.target.value;
+      b.querySelector(".fill").style.background=e.target.value;
+      accent();reframe();
+    });
+    b.addEventListener("click",e=>{
+      if(e.target.classList.contains("x")&&S.pal.length>2){
+        e.preventDefault();e.stopPropagation();
+        S.pal.splice(i,1);buildSwatches();accent();reframe();
+      }
+    },true);
     host.appendChild(b);
   });
-  if(S.palette.length<12){
-    const add=document.createElement("button");
-    add.className="sw-add";add.type="button";add.textContent="+";
-    add.onclick=()=>{S.palette.push(hsl2hex(Math.random()*360,60+Math.random()*35,55+Math.random()*25));
-      S.paletteName=null;buildSwatches();refreshPalettes();accent();reframe();};
-    host.appendChild(add);
-  }
-  const cv=$("#swCountVal");if(cv)cv.textContent=S.palette.length;
+  const add=document.createElement("button");
+  add.className="sw-add";add.type="button";add.textContent="+";
+  add.setAttribute("aria-label","Add color");
+  add.addEventListener("click",()=>{
+    const commit=hex=>{S.pal.push(hex);buildSwatches();accent();reframe();};
+    if(window.__pickColour) window.__pickColour(add,commit);
+    else commit(PALETTES[0][(Math.random()*PALETTES[0].length)|0]);
+  });
+  host.appendChild(add);
+  const n=$("#swCountVal"); if(n) n.textContent=S.pal.length;
 }
-function shuffleColors(){
-  const n=S.palette.length,r=rng((Math.random()*1e9)|0);
-  const h0=r()*360,scheme=r();
-  const out=[];
-  for(let i=0;i<n;i++){
-    let h;
-    if(scheme<0.45)h=h0+i*(26+r()*24);
-    else if(scheme<0.78)h=h0+(i%3)*120+(r()-0.5)*30;
-    else h=h0+(i%2?180:0)+(r()-0.5)*56;
-    out.push(hsl2hex(h,55+r()*40,52+r()*30));
-  }
-  S.palette=out;
-  S.paletteName=null;
-  buildSwatches();refreshPalettes();accent();reframe();
-}
+function setPalette(p){S.pal=p.slice();buildSwatches();accent();reframe();}
 function bindRange(id,fmt,set,after){
   const el=$("#"+id),label=$("#"+id+"Val");
   if(!el)return;
@@ -931,26 +1096,38 @@ function bindRange(id,fmt,set,after){
     (after||reframe)();
   });
 }
-const pct=v=>Math.round(v*100)+"%";
 
-buildRatios();buildSwatches();refreshPalettes();accent();
+buildRatios();buildSwatches();accent();
+segmented($("#dirs"),DIRS,()=>S.dir,v=>{S.dir=v;reframe();});
 segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
-bindRange("scale",v=>v.toFixed(1),v=>S.scale=v);
-bindRange("warp",pct,v=>S.warp=v);
-bindRange("oct",v=>v,v=>S.oct=v|0);
-bindRange("contrast",pct,v=>S.contrast=v);
-bindRange("balance",v=>v<-0.35?"Later bands":v>0.35?"Earlier bands":"Even",v=>S.balance=v);
-bindRange("grain",pct,v=>S.grain=v);
-bindRange("block",v=>v,v=>S.block=v|0);
+$("#shufColors").addEventListener("click",()=>{
+  setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
+});
+$("#rotColors").addEventListener("click",()=>{
+  setPalette(S.pal.slice(1).concat(S.pal[0]));
+});
+bindRange("bands",v=>v|0,v=>S.bands=v|0);
+bindRange("patches",v=>v|0,v=>S.patches=v|0);
+bindRange("blend",v=>Math.round(v*100)+"%",v=>S.blend=v);
+bindRange("detail",v=>Math.round(v*100)+"%",v=>S.detail=v);
+bindRange("smear",v=>Math.round(v*100)+"%",v=>S.smear=v);
+bindRange("vary",v=>Math.round(v*100)+"%",v=>S.vary=v);
+bindRange("slip",v=>Math.round(v*100)+"%",v=>S.slip=v);
+bindRange("curves",v=>v|0,v=>S.curves=v|0);
+bindRange("weight",v=>Math.round(v*100)+"%",v=>S.weight=v);
+bindRange("bend",v=>Math.round(v*100)+"%",v=>S.bend=v);
+bindRange("scan",v=>Math.round(v*100)+"%",v=>S.scan=v);
+bindRange("pitch",v=>Math.round(v*100)+"%",v=>S.pitch=v);
+bindRange("wash",v=>Math.round(v*100)+"%",v=>S.wash=v);
+bindRange("grain",v=>Math.round(v*100)+"%",v=>S.grain=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
 $("#frames").addEventListener("input",e=>{S.motion.frames=parseInt(e.target.value,10);
   $("#framesVal").textContent=S.motion.frames+" frames";$("#scrub").max=S.motion.frames-1;
   curFrame=Math.min(curFrame,S.motion.frames-1);reframe();if(playing)setPlaying(true);});
-$("#size").addEventListener("input",e=>{S.size=parseInt(e.target.value,10);$("#sizeVal").textContent=S.size+" px";});
-$("#shufColors").addEventListener("click",shuffleColors);
-$("#motionTog").addEventListener("click",e=>{
+$("#sizePx").addEventListener("input",e=>{S.size_px=parseInt(e.target.value,10);
+  $("#sizePxVal").textContent=S.size_px+" px";});$("#motionTog").addEventListener("click",e=>{
   S.motion.on=!S.motion.on;
   e.currentTarget.setAttribute("aria-pressed",String(S.motion.on));
   $("#motionBody").hidden=!S.motion.on;
@@ -970,6 +1147,7 @@ document.addEventListener("keydown",e=>{
   if(e.key==="p"||e.key==="P"){if(S.motion.on)setPlaying(!playing);}
 });
 newSeed(7);
+$("#scrub").max=S.motion.frames-1;
 updateExportNote();
 
 /* ============================================================
