@@ -76,7 +76,14 @@ input{font:inherit;color:inherit}
    swallowed the click, and read as broken. */
 .lnk[disabled]{opacity:.3;cursor:not-allowed}
 .lnk[disabled]:hover{background:none;color:var(--ink)}
-.vidhint{margin-top:14px}
+/* The one standing line of text that stays, because it is not documentation:
+   it says why the Video button is dead, which is the difference between a
+   control that is disabled and one that looks broken. It carries its own size
+   and colour rather than sharing a rule with the notes, which went — left
+   leaning on that rule it fell back to the browser's default paragraph and
+   came out at twice the size of everything around it. */
+.vidhint{margin:14px 0 0;font-size:8.5px;letter-spacing:.06em;line-height:1.7;
+  color:var(--key);text-transform:none}
 
 /* ---------------- rig ---------------- */
 .rig{height:100dvh;display:grid;
