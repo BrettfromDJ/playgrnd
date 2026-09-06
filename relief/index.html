@@ -514,11 +514,11 @@ input[type=range]{accent-color:var(--ink)}
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Blocks</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Cube size</span><span class="v" id="scaleVal">52</span></div><div class="track"><input type="range" id="scale" min="12" max="180" step="1" value="52"></div></div>
-        <div class="pr"><div class="top"><span class="k">Repeat</span><span class="v" id="repeatVal">5</span></div><div class="track"><input type="range" id="repeat" min="1" max="12" step="1" value="5"></div></div>
+    <div class="l-scroll"><details class="grp" open><summary>Blocks</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Cube size</span><span class="v" id="scaleVal">180</span></div><div class="track"><input type="range" id="scale" min="12" max="180" step="1" value="180"></div></div>
+        <div class="pr"><div class="top"><span class="k">Repeat</span><span class="v" id="repeatVal">1</span></div><div class="track"><input type="range" id="repeat" min="1" max="12" step="1" value="1"></div></div>
         <div class="pr"><div class="top"><span class="k">Interlock</span><span class="v" id="varietyVal">100%</span></div><div class="track"><input type="range" id="variety" min="0" max="1" step="0.01" value="1"></div></div>
-        <div class="pr"><div class="top"><span class="k">Flats</span><span class="v" id="solidsVal">10%</span></div><div class="track"><input type="range" id="solids" min="0" max="1" step="0.01" value="0.1"></div></div></div></details>
-    <details class="grp" open><summary>Light</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Relief</span><span class="v" id="reliefVal">80%</span></div><div class="track"><input type="range" id="relief" min="0" max="1" step="0.01" value="0.8"></div></div>
+        <div class="pr"><div class="top"><span class="k">Flats</span><span class="v" id="solidsVal">0%</span></div><div class="track"><input type="range" id="solids" min="0" max="1" step="0.01" value="0"></div></div></div></details>
+    <details class="grp" open><summary>Light</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Relief</span><span class="v" id="reliefVal">68%</span></div><div class="track"><input type="range" id="relief" min="0" max="1" step="0.01" value="0.68"></div></div>
         <div class="pr"><div class="top"><span class="k">Accent cubes</span><span class="v" id="accentVal">0%</span></div><div class="track"><input type="range" id="accent" min="0" max="1" step="0.01" value="0"></div></div></div></details></div>
     <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">6</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
@@ -613,7 +613,7 @@ const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:
 const MODES=[["shuffle","Shuffle"]];
 
 const PALETTES=[
-  ["#FF8A00","#F21D0A","#FFDD00","#2AA7E0","#12B07A","#E03B8C"],
+  ["#6C22EE","#7DF0BE","#FADCC2","#1B3ACF","#22D62F","#E2555F"],
   ["#F07000","#E01020","#FFC800","#1E7FD6","#0FA07A","#C42BC4"],
   ["#D6006E","#F0407A","#FF9EC0","#2AB7A0","#F0A202","#3B4FE0"],
   ["#2E7CFF","#1B3FA8","#8AC4FF","#F0532A","#F2C500","#0FA958"],
@@ -622,8 +622,8 @@ const PALETTES=[
 
 const S={
   seed:19, ratio:"3:4",
-  scale:52, repeat:5, variety:1, solids:0.1,
-  relief:0.8, accent:0,
+  scale:180, repeat:1, variety:1, solids:0,
+  relief:0.68, accent:0,
   pal:PALETTES[0].slice(),
   motion:{on:false,mode:"shuffle",amount:0.6,fps:6,frames:24},
   size:2400
