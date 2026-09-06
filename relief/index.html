@@ -13,14 +13,14 @@
 <meta property="og:description" content="Generate seamless relief-board backgrounds — columns of pattern blocks under routed traces that wrap at every edge, so the tile repeats forever. Exports vector, image and video.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://playgrnd.tools/relief">
-<meta property="og:image" content="https://playgrnd.tools/relief/og.png">
+<meta property="og:image" content="https://playgrnd.tools/relief/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Artwork made with Relief.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Relief — playgrnd">
 <meta name="twitter:description" content="Generate seamless relief-board backgrounds — columns of pattern blocks under routed traces that wrap at every edge, so the tile repeats forever.">
-<meta name="twitter:image" content="https://playgrnd.tools/relief/og.png">
+<meta name="twitter:image" content="https://playgrnd.tools/relief/og.jpg">
 <meta name="description" content="Generate seamless relief-board backgrounds — columns of pattern blocks under routed traces that wrap at every edge, so the tile repeats forever. Exports vector, image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
@@ -514,12 +514,12 @@ input[type=range]{accent-color:var(--ink)}
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Blocks</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Cube size</span><span class="v" id="scaleVal">180</span></div><div class="track"><input type="range" id="scale" min="12" max="180" step="1" value="180"></div></div>
-        <div class="pr"><div class="top"><span class="k">Repeat</span><span class="v" id="repeatVal">1</span></div><div class="track"><input type="range" id="repeat" min="1" max="12" step="1" value="1"></div></div>
-        <div class="pr"><div class="top"><span class="k">Interlock</span><span class="v" id="varietyVal">100%</span></div><div class="track"><input type="range" id="variety" min="0" max="1" step="0.01" value="1"></div></div>
-        <div class="pr"><div class="top"><span class="k">Flats</span><span class="v" id="solidsVal">0%</span></div><div class="track"><input type="range" id="solids" min="0" max="1" step="0.01" value="0"></div></div></div></details>
-    <details class="grp" open><summary>Light</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Relief</span><span class="v" id="reliefVal">68%</span></div><div class="track"><input type="range" id="relief" min="0" max="1" step="0.01" value="0.68"></div></div>
-        <div class="pr"><div class="top"><span class="k">Accent cubes</span><span class="v" id="accentVal">0%</span></div><div class="track"><input type="range" id="accent" min="0" max="1" step="0.01" value="0"></div></div></div></details></div>
+    <div class="l-scroll"><details class="grp" open><summary>Blocks</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Cube size</span><span class="v" id="scaleVal">89</span></div><div class="track"><input type="range" id="scale" min="12" max="180" step="1" value="89"></div></div>
+        <div class="pr"><div class="top"><span class="k">Repeat</span><span class="v" id="repeatVal">3</span></div><div class="track"><input type="range" id="repeat" min="1" max="12" step="1" value="3"></div></div>
+        <div class="pr"><div class="top"><span class="k">Interlock</span><span class="v" id="varietyVal">38%</span></div><div class="track"><input type="range" id="variety" min="0" max="1" step="0.01" value="0.38"></div></div>
+        <div class="pr"><div class="top"><span class="k">Flats</span><span class="v" id="solidsVal">14%</span></div><div class="track"><input type="range" id="solids" min="0" max="1" step="0.01" value="0.14"></div></div></div></details>
+    <details class="grp" open><summary>Light</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Relief</span><span class="v" id="reliefVal">90%</span></div><div class="track"><input type="range" id="relief" min="0" max="1" step="0.01" value="0.9"></div></div>
+        <div class="pr"><div class="top"><span class="k">Accent cubes</span><span class="v" id="accentVal">34%</span></div><div class="track"><input type="range" id="accent" min="0" max="1" step="0.01" value="0.34"></div></div></div></details></div>
     <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">6</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
@@ -622,8 +622,8 @@ const PALETTES=[
 
 const S={
   seed:19, ratio:"3:4",
-  scale:180, repeat:1, variety:1, solids:0,
-  relief:0.68, accent:0,
+  scale:89, repeat:3, variety:0.38, solids:0.14,
+  relief:0.9, accent:0.34,
   pal:PALETTES[0].slice(),
   motion:{on:false,mode:"shuffle",amount:0.6,fps:6,frames:24},
   size:2400
