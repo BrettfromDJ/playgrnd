@@ -3,25 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Strand — playgrnd</title>
+<title>Mirage — playgrnd</title>
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/favicon.png" sizes="180x180" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="canonical" href="https://playgrnd.tools/strand">
+<link rel="canonical" href="https://playgrnd.tools/mirage">
 <meta property="og:site_name" content="playgrnd">
-<meta property="og:title" content="Strand — playgrnd">
-<meta property="og:description" content="Generate chained-rod backgrounds — branching chains of rods that wander and fork across a ground, with a second ink printed a little off true so the black shows as a thick edge on one side. Exports image and video.">
+<meta property="og:title" content="Mirage — playgrnd">
+<meta property="og:description" content="Generate mirrored-landscape backgrounds — a skyline and its reflection cut down to a few flat inks, sprayed at the edges and dragged into streaks. Exports image and video.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://playgrnd.tools/strand">
-<meta property="og:image" content="https://playgrnd.tools/strand/og.jpg">
+<meta property="og:url" content="https://playgrnd.tools/mirage">
+<meta property="og:image" content="https://playgrnd.tools/mirage/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Artwork made with Strand.">
+<meta property="og:image:alt" content="Artwork made with Mirage.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Strand — playgrnd">
-<meta name="twitter:description" content="Generate chained-rod backgrounds — branching chains of rods that wander and fork across a ground, with a second ink printed a little off true so the black shows as a thick edge on one side.">
-<meta name="twitter:image" content="https://playgrnd.tools/strand/og.jpg">
-<meta name="description" content="Generate chained-rod backgrounds — branching chains of rods that wander and fork across a ground, with a second ink printed a little off true so the black shows as a thick edge on one side. Exports image and video.">
+<meta name="twitter:title" content="Mirage — playgrnd">
+<meta name="twitter:description" content="Generate mirrored-landscape backgrounds — a skyline and its reflection cut down to a few flat inks, sprayed at the edges and dragged into streaks.">
+<meta name="twitter:image" content="https://playgrnd.tools/mirage/og.jpg">
+<meta name="description" content="Generate mirrored-landscape backgrounds — a skyline and its reflection cut down to a few flat inks, sprayed at the edges and dragged into streaks. Exports image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -506,28 +506,30 @@ input[type=range]{accent-color:var(--ink)}
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
         <span class="slash">&frasl;</span>
-        <span class="tool">Strand</span>
+        <span class="tool">Mirage</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">36 / 39</span>
-        <span class="k">Type</span><span class="v">Rod chains</span>
+        <span class="k">Index</span><span class="v">39 / 39</span>
+        <span class="k">Type</span><span class="v">Mirrored skylines</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Chains</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Chains</span><span class="v" id="countVal">8</span></div><div class="track"><input type="range" id="count" min="1" max="40" step="1" value="8"></div></div>
-        <div class="pr"><div class="top"><span class="k">Length</span><span class="v" id="lenVal">22</span></div><div class="track"><input type="range" id="len" min="3" max="90" step="1" value="22"></div></div>
-        <div class="pr"><div class="top"><span class="k">Wander</span><span class="v" id="wanderVal">60%</span></div><div class="track"><input type="range" id="wander" min="0" max="1" step="0.01" value="0.6"></div></div>
-        <div class="pr"><div class="top"><span class="k">Branching</span><span class="v" id="branchVal">22%</span></div><div class="track"><input type="range" id="branch" min="0" max="1" step="0.01" value="0.22"></div></div></div></details>
-    <details class="grp"><summary>Rods</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Thickness</span><span class="v" id="thickVal">42%</span></div><div class="track"><input type="range" id="thick" min="0" max="1" step="0.01" value="0.42"></div></div>
-        <div class="pr"><div class="top"><span class="k">Rod length</span><span class="v" id="rodVal">50%</span></div><div class="track"><input type="range" id="rod" min="0" max="1" step="0.01" value="0.5"></div></div>
-        <div class="pr"><div class="top"><span class="k">Notch</span><span class="v" id="notchVal">18%</span></div><div class="track"><input type="range" id="notch" min="0" max="1" step="0.01" value="0.18"></div></div>
-        <div class="pr"><div class="top"><span class="k">Roughness</span><span class="v" id="roughVal">55%</span></div><div class="track"><input type="range" id="rough" min="0" max="1" step="0.01" value="0.55"></div></div></div></details>
-    <details class="grp"><summary>Print</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Off-register</span><span class="v" id="offsetVal">50%</span></div><div class="track"><input type="range" id="offset" min="0" max="1" step="0.01" value="0.5"></div></div>
-        <div class="pr"><div class="top"><span class="k">Plate spread</span><span class="v" id="edgeVal">35%</span></div><div class="track"><input type="range" id="edge" min="0" max="1" step="0.01" value="0.35"></div></div>
-        <div class="misc stack"><span class="mhead"><span class="k">Ink texture</span></span><span class="mval"><div class="chips" id="texKinds"></div></span></div>
-        <div class="pr"><div class="top"><span class="k">Coverage</span><span class="v" id="texVal">40%</span></div><div class="track"><input type="range" id="tex" min="0" max="1" step="0.01" value="0.4"></div></div>
-        <div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">42%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.42"></div></div></div></details></div>
-    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">3</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+    <div class="l-scroll"><details class="grp" open><summary>Land</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Skyline</span></span><span class="mval"><div class="chips" id="dirs"></div></span></div>
+        <div class="pr"><div class="top"><span class="k">Layers</span><span class="v" id="layersVal">5</span></div><div class="track"><input type="range" id="layers" min="0" max="9" step="1" value="5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Ridge</span><span class="v" id="ridgeVal">55%</span></div><div class="track"><input type="range" id="ridge" min="0" max="1" step="0.01" value="0.55"></div></div>
+        <div class="pr"><div class="top"><span class="k">Glow</span><span class="v" id="glowVal">60%</span></div><div class="track"><input type="range" id="glow" min="0" max="1" step="0.01" value="0.6"></div></div></div></details>
+    <details class="grp"><summary>Water</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Waterline</span><span class="v" id="waterVal">62%</span></div><div class="track"><input type="range" id="water" min="0.15" max="0.95" step="0.01" value="0.62"></div></div>
+        <div class="pr"><div class="top"><span class="k">Reflect</span><span class="v" id="reflectVal">85%</span></div><div class="track"><input type="range" id="reflect" min="0" max="1" step="0.01" value="0.85"></div></div>
+        <div class="pr"><div class="top"><span class="k">Ripple</span><span class="v" id="rippleVal">35%</span></div><div class="track"><input type="range" id="ripple" min="0" max="1" step="0.01" value="0.35"></div></div>
+        <div class="pr"><div class="top"><span class="k">Fold</span><span class="v" id="foldVal">0%</span></div><div class="track"><input type="range" id="fold" min="0" max="1" step="0.01" value="0"></div></div></div></details>
+    <details class="grp"><summary>Drag</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Band</span><span class="v" id="bandVal">18%</span></div><div class="track"><input type="range" id="band" min="0" max="1" step="0.01" value="0.18"></div></div>
+        <div class="pr"><div class="top"><span class="k">Place</span><span class="v" id="placeVal">22%</span></div><div class="track"><input type="range" id="place" min="0" max="1" step="0.01" value="0.22"></div></div>
+        <div class="pr"><div class="top"><span class="k">Pull</span><span class="v" id="dragVal">75%</span></div><div class="track"><input type="range" id="drag" min="0" max="1" step="0.01" value="0.75"></div></div></div></details>
+    <details class="grp"><summary>Print</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="tonesVal">6</span></div><div class="track"><input type="range" id="tones" min="2" max="12" step="1" value="6"></div></div>
+        <div class="pr"><div class="top"><span class="k">Spray</span><span class="v" id="sprayVal">40%</span></div><div class="track"><input type="range" id="spray" min="0" max="1" step="0.01" value="0.4"></div></div>
+        <div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">35%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.35"></div></div></div></details></div>
+    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">6</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+        
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
@@ -539,7 +541,7 @@ input[type=range]{accent-color:var(--ink)}
       <div class="pill">
         <span class="lb">Variation</span>
         <span class="sep"></span>
-        <input class="seed" id="seed" value="4" inputmode="numeric" aria-label="Variation number">
+        <input class="seed" id="seed" value="31" inputmode="numeric" aria-label="Variation number">
         <button class="pbtn copy" id="copySeed" aria-label="Copy variation number">Copy</button>
         <button class="pbtn go" id="randomize">New</button>
       </div>
@@ -616,310 +618,228 @@ function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const MODES=[["drift","Drift"],["shift","Shift"],["pulse","Pulse"]];
-/* How the fill ink fails to cover: as loose grain, as marks dragged in one
-   direction, or as a printer's dot screen. */
-const TEXKINDS=[["stipple","Stipple"],["drag","Drag"],["screen","Screen"]];
+const MODES=[["drift","Drift"],["swell","Swell"],["ripple","Ripple"]];
+/* What the skyline is made of. */
+const DIRS=[["cliffs","Cliffs"],["dunes","Dunes"],["peaks","Peaks"]];
 
-/* Three roles: the ground, the plate that missed, and the fill on top. */
+/* Ordered dark to bright: the tones are read off the picture in that order,
+   so the first ink is the near land and the last is the glow on the horizon. */
 const PALETTES=[
-  ["#A794C8","#0B0B0B","#A8DCEF"],
-  ["#EFE9DC","#141414","#F0402F"],
-  ["#0E1626","#F2F0E6","#F5C542"],
-  ["#1B1B1B","#EDEAE0","#7CE860"],
-  ["#F3D9E8","#181818","#3B5BDB"]
+  ["#120A24","#331A63","#6A3FBF","#9E8AE0","#FF6A15","#FFA828"],
+  ["#0A0F1C","#123A4A","#1F7A6E","#5FCFA8","#F2E85C","#FFFFFF"],
+  ["#1A0810","#5C1030","#B02455","#E86A8A","#FFB03A","#FFE9A8"],
+  ["#08110E","#143A2E","#2E7A4F","#7ABF6A","#E8E04A","#FFF3C4"],
+  ["#101014","#2B2B3A","#5C5C72","#9A9AB0","#E86A2B","#FFD08A"]
 ];
 
 const S={
-  seed:4, ratio:"3:4",
-  count:8, len:22, wander:0.6, branch:0.22,
-  thick:0.42, rod:0.5, notch:0.18, rough:0.55,
-  offset:0.5, edge:0.35, grain:0.42,
-  tex:0.4, texKind:"stipple",
+  seed:31, ratio:"3:4",
+  kind:"cliffs", layers:5, ridge:0.55, glow:0.6,
+  water:0.62, reflect:0.85, ripple:0.35, fold:0,
+  band:0.18, place:0.22, drag:0.75,
+  tones:6, spray:0.4, grain:0.35,
   pal:PALETTES[0].slice(),
   motion:{on:false,mode:"drift",amount:0.6,fps:12,frames:36},
   size_px:2400
 };
 
-function hshS(x,y,s){
+function hshM(x,y,s){
   let n=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1274126177);
   n=Math.imul(n^(n>>>13),1274126177); n^=n>>>16;
   return (n>>>0)/4294967296;
 }
-function vnS(x,y,s){
+function vnM(x,y,s){
   const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi;
   const u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);
-  const a=hshS(xi,yi,s),b=hshS(xi+1,yi,s),c=hshS(xi,yi+1,s),d=hshS(xi+1,yi+1,s);
+  const a=hshM(xi,yi,s),b=hshM(xi+1,yi,s),c=hshM(xi,yi+1,s),d=hshM(xi+1,yi+1,s);
   return (a*(1-u)+b*u)*(1-v)+(c*(1-u)+d*u)*v;
 }
-function rngS(seed){
+function rngM(seed){
   let s=(seed>>>0)||1;
   return function(){ s^=s<<13; s>>>=0; s^=s>>>17; s^=s<<5; s>>>=0; return s/4294967296; };
 }
-function hex2rgbS(h){
+function hex2rgbM(h){
   h=(h||"#000").replace("#","");
   if(h.length===3) h=h.split("").map(c=>c+c).join("");
   return [parseInt(h.slice(0,2),16)||0,parseInt(h.slice(2,4),16)||0,parseInt(h.slice(4,6),16)||0];
 }
 
 /* ------------------------------------------------------------------
-   A chain is a walk that turns a little at every step and now and then
-   splits, each arm carrying on from where the split happened. Rods are
-   laid along the walk butted end to end with a hair between them, which
-   is what puts the notch at every joint and lets you count the cells.
-   Everything is measured in units of the root of the frame's area, so a
-   variation is the same picture whatever size it is drawn at, and a wide
-   frame is not a busier frame.
+   A skyline is only ever a function of how far across the picture you
+   are, so each layer's is worked out once for every column and then
+   read back for every row. That is the difference between five noise
+   lookups per pixel and five per column, and on a six-thousand-pixel
+   export it is the difference between a second and most of a minute.
 ------------------------------------------------------------------- */
-const ROD_CAP=7000;
-let rodCache=null, rodKey="";
-function rodsS(aspect){
-  const key=[S.seed,S.count,S.len,S.wander,S.branch,S.rod,S.notch,S.thick,aspect.toFixed(4)].join("|");
-  if(rodKey===key && rodCache) return rodCache;
-
-  const fw=1/Math.sqrt(aspect), fh=Math.sqrt(aspect);   /* frame in area units */
-  const rnd=rngS(Math.imul(S.seed|0,2654435761));
-  /* A round-capped stroke runs half its own width past each end, so a rod is
-     really seg + wid long. Spacing the rods by the segment alone let the caps
-     swallow the gap whole and the chain came out as one smooth wire with no
-     joints in it. The stride has to clear the caps before the notch shows. */
-  const wid=0.02+S.thick*0.09;
-  const seg=wid*(0.4+S.rod*2.2);
-  const step=seg+wid+S.notch*wid*0.95;
-  const rods=[];
-  const stack=[];
-  const n=Math.max(1,Math.round(S.count));
-  for(let i=0;i<n;i++)
-    stack.push({x:(-0.12+rnd()*1.24)*fw, y:(-0.12+rnd()*1.24)*fh,
-                a:rnd()*Math.PI*2, left:Math.max(1,Math.round(S.len)), d:0});
-
-  while(stack.length && rods.length<ROD_CAP){
-    const c=stack.pop();
-    let {x,y,a,left,d}=c;
-    while(left-->0 && rods.length<ROD_CAP){
-      const ca=Math.cos(a), sa=Math.sin(a);
-      rods.push([x,y,a,seg,(rnd()*9973)|0]);
-      const nx=x+ca*step, ny=y+sa*step;
-      x=nx; y=ny;
-      a+=(rnd()-0.5)*S.wander*0.9;
-      if(d<3 && left>4 && rnd()<S.branch*0.22)
-        stack.push({x,y,a:a+(rnd()<0.5?-1:1)*(0.5+rnd()*0.6),
-                    left:Math.max(3,(left*(0.4+rnd()*0.5))|0), d:d+1});
-      /* A chain that walks off the paper used to stop there, which made
-         Length do nothing past about thirty: the extra rods were all being
-         laid outside the frame. Steer it home instead, gently enough that the
-         turn reads as the chain meandering rather than as a wall. */
-      if(x<-0.32*fw||x>1.32*fw||y<-0.32*fh||y>1.32*fh){
-        let da=Math.atan2(fh*0.5-y,fw*0.5-x)-a;
-        while(da>Math.PI)da-=Math.PI*2;
-        while(da<-Math.PI)da+=Math.PI*2;
-        a+=da*0.2;
-      }
-    }
+function ridgeM(n,kind){
+  if(kind==="peaks") return 1-Math.abs(n*2-1);
+  if(kind==="cliffs"){
+    /* stepped, so the skyline drops in flat-topped slabs with a sheer face
+       between them rather than rolling */
+    const q=Math.round(n*5)/5;
+    return q*0.86+n*0.14;
   }
-  /* the rod's width and the rod's length are different numbers, and handing
-     back the wrong one made every chain a single fat blob */
-  rodCache={rods,wide:wid,fw,fh}; rodKey=key;
-  return rodCache;
-}
-
-/* A rod is drawn as its own outline rather than as a stroked line, because a
-   stroke can only ever be one width the whole way along and comes out looking
-   machined. The two edges are walked down the axis separately, each with its
-   own wobble, so the shape is never symmetric about its own middle — that
-   lopsidedness is most of what reads as laid down by hand rather than
-   computed. The ends are not alike either: one is stubbed off where the brush
-   landed, the other drags out where it lifted. At Roughness zero all of it
-   falls away and it is a plain capsule again. */
-function rodPath(g,x,y,a,seg,sd,wid,rough,grow){
-  /* the rod is also nudged off the chain's axis, so a run of them reads as a
-     hand following a line rather than beads threaded onto one */
-  a+=(hshS(sd,17,3)-0.5)*0.42*rough;
-  const ca=Math.cos(a), sa=Math.sin(a), px=-sa, py=ca;
-  const full=seg+wid;
-  /* grow runs negative when this is the eroded core, so it is floored
-     rather than allowed to pass through zero and turn inside out */
-  const half=Math.max(wid*0.05,wid*0.5+grow);
-  const N=18, L=[], R=[];
-  const e0=0.06+hshS(sd,3,7)*0.34*rough;      /* how fast each end opens out */
-  const e1=0.06+hshS(sd,9,7)*0.60*rough;
-  for(let i=0;i<=N;i++){
-    const u=i/N;
-    let cap=Math.min(u/e0,(1-u)/e1,1);
-    cap=Math.pow(cap<0?0:cap,0.45);
-    /* each edge gets its own noise, at a frequency high enough to tear it */
-    const wl=1+(vnS(u*6.1+sd*0.11,sd*0.07,sd)-0.5)*rough*1.3;
-    const wr=1+(vnS(u*5.3+sd*0.17,sd*0.05,sd+911)-0.5)*rough*1.3;
-    const off=(vnS(u*2.2+sd*0.09,7.3,sd+41)-0.5)*wid*0.55*rough;
-    const t=u*full-wid*0.5;
-    const bx=x+ca*t+px*off, by=y+sa*t+py*off;
-    const hl=half*cap*wl, hr=half*cap*wr;
-    L.push([bx+px*hl,by+py*hl]);
-    R.push([bx-px*hr,by-py*hr]);
-  }
-  g.moveTo(L[0][0],L[0][1]);
-  for(let i=1;i<=N;i++) g.lineTo(L[i][0],L[i][1]);
-  for(let i=N;i>=0;i--) g.lineTo(R[i][0],R[i][1]);
-  g.closePath();
-}
-
-let maskCv=null, maskCx=null;
-function maskFor(W,H){
-  if(!maskCv){
-    maskCv=document.createElement("canvas");
-    maskCx=maskCv.getContext("2d",{willReadFrequently:true});
-  }
-  if(maskCv.width!==W||maskCv.height!==H){ maskCv.width=W; maskCv.height=H; }
-  return maskCx;
+  return n;                                   /* dunes: left rolling */
 }
 
 function paint(c,W,H,f){
   const M=S.motion, T=M.on ? f/M.frames : 0, ph=T*Math.PI*2;
-  const raw=S.pal.length?S.pal:["#A794C8","#0B0B0B","#A8DCEF"];
-  const ground=hex2rgbS(raw[0]);
-  const plate=hex2rgbS(raw[1]||raw[0]);
-  const fill=hex2rgbS(raw[2]||raw[1]||raw[0]);
+  const raw=S.pal.length?S.pal:PALETTES[0];
+  const inks=raw.map(hex2rgbM);
+  const nI=inks.length;
 
-  const {rods,wide:rodWide,fw,fh}=rodsS(H/W);
-  const U=Math.sqrt(W*H);                    /* one area unit, in pixels */
-  /* swells to its fullest halfway round and back down by the end. A plain
-     sine is back at its starting width at the half-loop, so the middle
-     frame matched the first and half the loop was wasted. */
-  const pulse=(M.on&&M.mode==="pulse") ? 1+(1-Math.cos(ph))*0.5*M.amount*0.4 : 1;
-  const wide=rodWide*U*pulse;
-  const drift=(M.on&&M.mode==="drift") ? M.amount*0.035*U : 0;
-  const dx=Math.cos(ph)*drift, dy=Math.sin(ph)*drift;
-
-  /* the plate that missed: same shape, a little fatter and slid off true */
-  const ang=(M.on&&M.mode==="shift") ? ph : Math.PI*0.75;
-  const off=S.offset*0.055*U;
-  const ox=Math.cos(ang)*off, oy=Math.sin(ang)*off;
-  const fat=wide*(1+S.edge*0.55);
-
-  /* The shape is drawn at half size on purpose. A full-size mask has hard
-     edges, so roughening it could only ever nibble the one anti-aliased pixel
-     at the boundary and the result read as plotted. Half size gives the edge a
-     ramp a few pixels wide for the noise to bite into, and costs a quarter of
-     the drawing and a quarter of the reading back. */
-  const MS=0.5;
-  const MW=Math.max(2,Math.round(W*MS)), MH=Math.max(2,Math.round(H*MS));
-  const MU=Math.sqrt(MW*MH);
-  const mx=maskFor(MW,MH);
-  mx.setTransform(1,0,0,1,0,0);
-  mx.fillStyle="#000"; mx.fillRect(0,0,MW,MH);
-  mx.lineCap="round";
-  const put=(x,y,ax,ay)=>[x*MU+(dx+ax)*MS,y*MU+(dy+ay)*MS];
-
-  /* the plate first, then the fill straight over it: where both land the fill
-     wins, which leaves the plate showing as a thick edge on the side it slid
-     towards and a hairline on the other */
-  const rough=S.rough;
-  const grow=(fat-wide)*0.5*MS;
-  mx.fillStyle="#f00";
-  mx.beginPath();
-  for(const r of rods){
-    const p=put(r[0],r[1],ox,oy);
-    rodPath(mx,p[0],p[1],r[2],r[3]*MU,r[4],wide*MS,rough,grow);
-  }
-  mx.fill();
-  mx.fillStyle="#0f0";
-  mx.beginPath();
-  for(const r of rods){
-    const p=put(r[0],r[1],0,0);
-    rodPath(mx,p[0],p[1],r[2],r[3]*MU,r[4],wide*MS,rough,0);
-  }
-  mx.fill();
-
-  /* The same rods once more, eaten in from the edge and then blurred, written
-     into the channel the other two passes leave alone. That gives every pixel
-     a reading of how deep inside a rod it sits, which is what lets the ink
-     break up at the rim and pool solid down the middle rather than sit as an
-     even wash of dots over the whole shape. */
-  if(S.tex>0.004){
-    /* a fraction of the half-width, not of the width: eaten any deeper than
-       this and there is no solid core left for the ink to pool in */
-    const eat=wide*MS*0.5*0.38;
-    mx.globalCompositeOperation="lighter";
-    mx.filter="blur("+(eat*0.8).toFixed(2)+"px)";
-    mx.fillStyle="#00f";
-    mx.beginPath();
-    for(const r of rods){
-      const p=put(r[0],r[1],0,0);
-      rodPath(mx,p[0],p[1],r[2],r[3]*MU,r[4],wide*MS,rough,-eat);
-    }
-    mx.fill();
-    mx.filter="none";
-    mx.globalCompositeOperation="source-over";
-  }
-
-  const src=mx.getImageData(0,0,MW,MH).data;
-  const img=c.createImageData(W,H), d=img.data;
   const seed=S.seed|0;
-  const g=S.grain;
-  const cut=0.5, spread=0.8*g+0.06;
-  const gl=g*46;
-  /* the edge noise is sized off the picture, not off the pixel, so a 6000px
-     export is the same picture as the preview rather than a finer one */
-  const cell=Math.max(1.4,Math.sqrt(W*H)*0.0026);
-  /* the texture is laid in the picture's own frame rather than on each rod,
-     the way a screen sits still over the paper while the artwork moves */
-  const tex=S.tex, texOn=tex>0.004, tk=S.texKind;
-  const tc=cell*1.7;                       /* stipple: one speck */
-  const dAc=cell*13, dCr=cell*1.5;         /* drag: along, and across */
-  const sPitch=cell*4.4;                   /* screen: dot to dot */
-  const tCa=Math.cos(1.75), tSa=Math.sin(1.75);
+  const U=Math.sqrt(W*H);
+  const nL=Math.max(0,Math.round(S.layers));
+  const kind=S.kind;
+  const wl=S.water;
+
+  const slide=(M.on&&M.mode==="drift") ? M.amount*0.25*Math.cos(ph) : 0;
+  /* rises to its brightest halfway round and back down: a plain sine is
+     already back where it started at the half-loop, which spends half of
+     every loop repeating the first half */
+  const swell=(M.on&&M.mode==="swell") ? 1+(1-Math.cos(ph))*0.5*M.amount*0.9 : 1;
+  /* the water walks the noise round a circle, which is the only way a noise
+     field comes back to where it started at the end of a loop */
+  const rpx=(M.on&&M.mode==="ripple") ? Math.cos(ph)*M.amount*2.2 : 0;
+  const rpy=(M.on&&M.mode==="ripple") ? Math.sin(ph)*M.amount*2.2 : 0;
+
+  const glow=S.glow*swell;
+  /* How deep the lit strip is that the land stands on. It has to be its own
+     band rather than a bloom in the sky: land drawn as "everything below the
+     skyline" fills the picture all the way down, so a glow laid at the horizon
+     is buried in every column and the brightest inks are never reached — the
+     first build of this came out one flat purple for exactly that reason. */
+  const gap=0.05+glow*0.11;
+
+  /* every layer's skyline, one reading per column */
+  const HZ=[];
+  for(let k=0;k<nL;k++){
+    const a=new Float32Array(W+2);
+    const fq=(1.1+k*0.85)*2.2;
+    /* k counts from the far skyline to the near bank: the far ones sit high
+       and barely move, the near ones sit low and are the roughest */
+    const q=nL>1?k/(nL-1):0;
+    const amp=(0.03+S.ridge*0.16)*(0.4+q*1.5);
+    const base=wl-gap-0.30*(1-q)-0.012;
+    for(let x=0;x<=W+1;x++){
+      const u=(x+0.5)/W+slide;
+      a[x]=base+amp*(0.5-ridgeM(vnM(u*fq,k*13.7,seed+k*7+5),kind));
+    }
+    HZ.push(a);
+  }
+
+  /* how bright the picture is at any point of the sky-and-land, before the
+     water gets hold of it */
+  /* The picture is laid out so that its brightness actually reaches both ends
+     of the scale: land in the bottom third, sky in the middle, and the glow on
+     the horizon at the very top. Squeezed into the middle instead — which is
+     what a first pass at this does — the palette's brightest inks are never
+     reached and the whole thing comes out one colour. */
+  function land(u,v){
+    /* The lit strip's top edge wanders, and the strip darkens as it goes down.
+       Ruled straight and filled flat it came out as a stripe on a flag: one
+       edge, one colour, nothing to read. */
+    const gTop=wl-gap+(vnM(u*4.3,11.7,seed+97)-0.5)*gap*0.95;
+    if(v>=gTop){
+      const dd=(v-gTop)/Math.max(1e-6,wl-gTop+1e-4);
+      const e=dd<0?0:dd>1?1:dd;
+      return 0.99-0.26*e;
+    }
+    const t=v<=0?0:v/gTop;
+    let g=0.30+0.21*Math.pow(t,1.9);
+    g+=glow*0.26*Math.pow(t,7);            /* a lift right behind the skyline */
+    g+=(vnM(u*3.1,v*2.4+7.7,seed+61)-0.5)*0.09;
+    /* near land over far, so the nearest ridge is the one you see */
+    const fx=u*W-0.5;
+    let i=fx|0; if(i<0)i=0; if(i>W)i=W;
+    const fr=fx-i;
+    for(let k=nL-1;k>=0;k--){
+      const h=HZ[k][i]+(HZ[k][i+1]-HZ[k][i])*fr;
+      if(v>h){
+        const q=nL>1?k/(nL-1):0;
+        g=0.27*(1-q);
+        break;
+      }
+    }
+    return g;
+  }
+
+  const img=c.createImageData(W,H), d=img.data;
+  const tones=Math.max(2,Math.round(S.tones));
+  const wide=Math.max(0.02,S.spray);
+  const gl=S.grain*58;
+  /* The fold line sweeps from the left edge to the middle rather than all the
+     way across. Run to the far edge it had nothing to its right to overwrite,
+     so the slider's top end did exactly what its bottom end did — a control
+     that is off at both ends and only works in the middle. */
+  const fold=S.fold*0.5;
+  const b0=S.place*(1-S.band), b1=b0+S.band;
+  const drag=S.drag;
+  const rip=S.ripple;
 
   for(let y=0;y<H;y++){
-    const gy=y*MS;
-    let y0=gy|0; if(y0>MH-1)y0=MH-1;
-    const fy=gy-y0; let y1=y0+1; if(y1>MH-1)y1=MH-1;
-    const r0=y0*MW*4, r1=y1*MW*4;
+    const vy=(y+0.5)/H;
     let p=y*W*4;
     for(let x=0;x<W;x++,p+=4){
-      const gx=x*MS;
-      let x0=gx|0; if(x0>MW-1)x0=MW-1;
-      const fx=gx-x0; let x1=x0+1; if(x1>MW-1)x1=0;
-      const i00=r0+x0*4, i01=r0+x1*4, i10=r1+x0*4, i11=r1+x1*4;
-      const Ra=src[i00]+(src[i01]-src[i00])*fx, Rb=src[i10]+(src[i11]-src[i10])*fx;
-      const Ga=src[i00+1]+(src[i01+1]-src[i00+1])*fx, Gb=src[i10+1]+(src[i11+1]-src[i10+1])*fx;
-      const R=(Ra+(Rb-Ra)*fy)/255, G=(Ga+(Gb-Ga)*fy)/255;
-      const n=(vnS(x/cell,y/cell,seed+29)-0.5)*spread;
-      let ink=G>cut+n;
-      if(ink&&texOn){
-        const Ba=src[i00+2]+(src[i01+2]-src[i00+2])*fx;
-        const Bb=src[i10+2]+(src[i11+2]-src[i10+2])*fx;
-        const dep=(Ba+(Bb-Ba)*fy)/255;      /* 0 at the rim, 1 in the core */
-        const miss=tex*(0.12+0.88*(1-dep));   /* how much ink fails to take */
-        let gap;
-        if(tk==="screen"){
-          const u=(x*tCa+y*tSa)/sPitch, v=(y*tCa-x*tSa)/sPitch;
-          const fu=u-Math.floor(u)-0.5, fv=v-Math.floor(v)-0.5;
-          const cov=1-miss;
-          /* 0.72 reaches the corners of the cell, so a full dot is solid */
-          const rad=0.72*Math.sqrt(cov>0?cov:0);
-          gap=(fu*fu+fv*fv)>rad*rad;
-        }else if(tk==="drag"){
-          const u=(x*tCa+y*tSa)/dAc, v=(y*tCa-x*tSa)/dCr;
-          gap=hshS(Math.floor(u),Math.floor(v),seed+17)<miss;
-        }else{
-          gap=hshS(Math.floor(x/tc),Math.floor(y/tc),seed+13)<miss;
-        }
-        /* where the fill drops out, whatever is under it shows through — the
-           plate if it reaches this far, otherwise the bare ground */
-        if(gap) ink=false;
+      let ux=(x+0.5)/W;
+
+      /* the fold: everything to the right of the line is the left of it read
+         backwards. At nothing the line sits on the left edge and there is
+         nothing on its left to reflect, so the picture is untouched. */
+      if(fold>0.002 && ux>fold){
+        ux=fold-(ux-fold);
+        if(ux<0) ux=-ux;
       }
-      let col;
-      if(ink) col=fill;
-      else if(R>cut+n) col=plate;
-      else col=ground;
-      let r2=col[0],g2=col[1],b2=col[2];
+
+      let vv=vy;
+      /* the drag band: a column of the picture pulled into streaks by pinching
+         every row towards one line, so at full drag a column is a single
+         colour all the way down */
+      if(S.band>0.002 && ux>=b0 && ux<b1){
+        /* A strip of the picture with every row pinched towards one line, so
+           at full pull a column is a single colour top to bottom. The edges
+           are cut, not faded: feathered, the band read as a funnel sucking the
+           middle of the picture into a point rather than as a torn strip. */
+        /* the row each column is pulled towards changes fast across the band,
+           so neighbouring columns take their colour from very different parts
+           of the picture -- slow, and the whole band collapsed to one flat bar */
+        const anchor=wl-0.10+(vnM(ux*44,3.1,seed+29)-0.5)*0.78;
+        vv=vy+(anchor-vy)*drag;
+      }
+
+      let g;
+      if(vv>wl && S.reflect>0.002){
+        /* the water: the same picture upside down, disturbed, and fading with
+           distance from the bank the way a real reflection does */
+        let ys=wl-(vv-wl);
+        const dep=(vv-wl)/Math.max(1e-6,1-wl);
+        ys+=(vnM(ux*9.4+rpx,vv*26+rpy,seed+83)-0.5)*rip*0.10*(0.25+dep);
+        g=land(ux,ys<0?-ys:ys);
+        const fade=S.reflect*(1-dep*0.55);
+        g=g*fade+0.12*(1-fade);
+      }else{
+        g=land(ux,vv);
+      }
+
+      /* posterise, with the step edges dealt out as specks rather than ruled */
+      const q=(g<0?0:g>1?1:g)*(tones-1);
+      let t=q|0; if(t>tones-2)t=Math.max(0,tones-2);
+      let fr=q-t;
+      fr=(fr-0.5)/wide+0.5;
+      const r=hshM(x,y,seed+13);
+      let i=(r<fr)?t+1:t;
+      if(i<0)i=0; if(i>nI-1)i=nI-1;
+      const ink=inks[i];
+
+      let R=ink[0],G=ink[1],B=ink[2];
       if(gl>0.002){
-        const q=(hshS(x,y,seed+71)-0.5)*gl;
-        r2+=q; g2+=q; b2+=q;
+        const n=(hshM(x,y,seed+71)-0.5)*gl;
+        R+=n; G+=n; B+=n;
       }
-      d[p]  =r2<0?0:r2>255?255:r2;
-      d[p+1]=g2<0?0:g2>255?255:g2;
-      d[p+2]=b2<0?0:b2>255?255:b2;
+      d[p]  =R<0?0:R>255?255:R;
+      d[p+1]=G<0?0:G>255?255:G;
+      d[p+2]=B<0?0:B>255?255:B;
       d[p+3]=255;
     }
   }
@@ -993,7 +913,7 @@ function save(blob,name){
   a.href=url;a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
-function stamp(){return `strand-${S.seed}-${S.ratio.replace(":","x")}`;}
+function stamp(){return `mirage-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
   const a=$("#expVid"),sc=$("#scrub");
   if(a)a.disabled=!S.motion.on;
@@ -1085,7 +1005,7 @@ function buildSwatches(){
   S.pal.forEach((c,i)=>{
     const b=document.createElement("button");
     b.className="sw"+(lock?" locked":"");b.type="button";
-    b.setAttribute("aria-label",["Ground","Plate","Fill"][i]||("Ink "+(i+1)));
+    b.setAttribute("aria-label",["Darkest"][i]||("Ink "+(i+1)));
     b.innerHTML=`<span class="fill" style="background:${c}"></span>`+
       `<input type="color" value="${c}"><span class="x" aria-hidden="true">\u00d7</span>`;
     b.querySelector("input").addEventListener("input",e=>{
@@ -1124,7 +1044,7 @@ function bindRange(id,fmt,set,after){
 }
 
 buildRatios();buildSwatches();accent();
-segmented($("#texKinds"),TEXKINDS,()=>S.texKind,v=>{S.texKind=v;reframe();});
+segmented($("#dirs"),DIRS,()=>S.kind,v=>{S.kind=v;reframe();});
 segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
 $("#shufColors").addEventListener("click",()=>{
   setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
@@ -1132,17 +1052,18 @@ $("#shufColors").addEventListener("click",()=>{
 $("#rotColors").addEventListener("click",()=>{
   setPalette(S.pal.slice(1).concat(S.pal[0]));
 });
-bindRange("count",v=>v|0,v=>S.count=v|0);
-bindRange("len",v=>v|0,v=>S.len=v|0);
-bindRange("wander",v=>Math.round(v*100)+"%",v=>S.wander=v);
-bindRange("branch",v=>Math.round(v*100)+"%",v=>S.branch=v);
-bindRange("thick",v=>Math.round(v*100)+"%",v=>S.thick=v);
-bindRange("rod",v=>Math.round(v*100)+"%",v=>S.rod=v);
-bindRange("notch",v=>Math.round(v*100)+"%",v=>S.notch=v);
-bindRange("rough",v=>Math.round(v*100)+"%",v=>S.rough=v);
-bindRange("offset",v=>Math.round(v*100)+"%",v=>S.offset=v);
-bindRange("edge",v=>Math.round(v*100)+"%",v=>S.edge=v);
-bindRange("tex",v=>Math.round(v*100)+"%",v=>S.tex=v);
+bindRange("layers",v=>v|0,v=>S.layers=v|0);
+bindRange("ridge",v=>Math.round(v*100)+"%",v=>S.ridge=v);
+bindRange("glow",v=>Math.round(v*100)+"%",v=>S.glow=v);
+bindRange("water",v=>Math.round(v*100)+"%",v=>S.water=v);
+bindRange("reflect",v=>Math.round(v*100)+"%",v=>S.reflect=v);
+bindRange("ripple",v=>Math.round(v*100)+"%",v=>S.ripple=v);
+bindRange("fold",v=>Math.round(v*100)+"%",v=>S.fold=v);
+bindRange("band",v=>Math.round(v*100)+"%",v=>S.band=v);
+bindRange("place",v=>Math.round(v*100)+"%",v=>S.place=v);
+bindRange("drag",v=>Math.round(v*100)+"%",v=>S.drag=v);
+bindRange("tones",v=>v|0,v=>S.tones=v|0);
+bindRange("spray",v=>Math.round(v*100)+"%",v=>S.spray=v);
 bindRange("grain",v=>Math.round(v*100)+"%",v=>S.grain=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
