@@ -3,25 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Strand — playgrnd</title>
+<title>Whorl — playgrnd</title>
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/favicon.png" sizes="180x180" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="canonical" href="https://playgrnd.tools/strand">
+<link rel="canonical" href="https://playgrnd.tools/whorl">
 <meta property="og:site_name" content="playgrnd">
-<meta property="og:title" content="Strand — playgrnd">
-<meta property="og:description" content="Generate chained-rod backgrounds — branching chains of rods that wander and fork across a ground, with a second ink printed a little off true so the black shows as a thick edge on one side. Exports image and video.">
+<meta property="og:title" content="Whorl — playgrnd">
+<meta property="og:description" content="Generate op-art backgrounds — stripes that bend around invisible centres into rings, eyes and saddles, in flat colour with no grain. Exports image and video.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://playgrnd.tools/strand">
-<meta property="og:image" content="https://playgrnd.tools/strand/og.jpg">
+<meta property="og:url" content="https://playgrnd.tools/whorl">
+<meta property="og:image" content="https://playgrnd.tools/whorl/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Artwork made with Strand.">
+<meta property="og:image:alt" content="Artwork made with Whorl.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Strand — playgrnd">
-<meta name="twitter:description" content="Generate chained-rod backgrounds — branching chains of rods that wander and fork across a ground, with a second ink printed a little off true so the black shows as a thick edge on one side.">
-<meta name="twitter:image" content="https://playgrnd.tools/strand/og.jpg">
-<meta name="description" content="Generate chained-rod backgrounds — branching chains of rods that wander and fork across a ground, with a second ink printed a little off true so the black shows as a thick edge on one side. Exports image and video.">
+<meta name="twitter:title" content="Whorl — playgrnd">
+<meta name="twitter:description" content="Generate op-art backgrounds — stripes that bend around invisible centres into rings, eyes and saddles, in flat colour with no grain.">
+<meta name="twitter:image" content="https://playgrnd.tools/whorl/og.jpg">
+<meta name="description" content="Generate op-art backgrounds — stripes that bend around invisible centres into rings, eyes and saddles, in flat colour with no grain. Exports image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -506,28 +506,24 @@ input[type=range]{accent-color:var(--ink)}
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
         <span class="slash">&frasl;</span>
-        <span class="tool">Strand</span>
+        <span class="tool">Whorl</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">36 / 39</span>
-        <span class="k">Type</span><span class="v">Rod chains</span>
+        <span class="k">Index</span><span class="v">39 / 39</span>
+        <span class="k">Type</span><span class="v">Warped op-art</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Chains</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Chains</span><span class="v" id="countVal">8</span></div><div class="track"><input type="range" id="count" min="1" max="40" step="1" value="8"></div></div>
-        <div class="pr"><div class="top"><span class="k">Length</span><span class="v" id="lenVal">22</span></div><div class="track"><input type="range" id="len" min="3" max="90" step="1" value="22"></div></div>
-        <div class="pr"><div class="top"><span class="k">Wander</span><span class="v" id="wanderVal">60%</span></div><div class="track"><input type="range" id="wander" min="0" max="1" step="0.01" value="0.6"></div></div>
-        <div class="pr"><div class="top"><span class="k">Branching</span><span class="v" id="branchVal">22%</span></div><div class="track"><input type="range" id="branch" min="0" max="1" step="0.01" value="0.22"></div></div></div></details>
-    <details class="grp"><summary>Rods</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Thickness</span><span class="v" id="thickVal">42%</span></div><div class="track"><input type="range" id="thick" min="0" max="1" step="0.01" value="0.42"></div></div>
-        <div class="pr"><div class="top"><span class="k">Rod length</span><span class="v" id="rodVal">50%</span></div><div class="track"><input type="range" id="rod" min="0" max="1" step="0.01" value="0.5"></div></div>
-        <div class="pr"><div class="top"><span class="k">Notch</span><span class="v" id="notchVal">18%</span></div><div class="track"><input type="range" id="notch" min="0" max="1" step="0.01" value="0.18"></div></div>
-        <div class="pr"><div class="top"><span class="k">Roughness</span><span class="v" id="roughVal">55%</span></div><div class="track"><input type="range" id="rough" min="0" max="1" step="0.01" value="0.55"></div></div></div></details>
-    <details class="grp"><summary>Print</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Off-register</span><span class="v" id="offsetVal">50%</span></div><div class="track"><input type="range" id="offset" min="0" max="1" step="0.01" value="0.5"></div></div>
-        <div class="pr"><div class="top"><span class="k">Plate spread</span><span class="v" id="edgeVal">35%</span></div><div class="track"><input type="range" id="edge" min="0" max="1" step="0.01" value="0.35"></div></div>
-        <div class="misc stack"><span class="mhead"><span class="k">Ink texture</span></span><span class="mval"><div class="chips" id="texKinds"></div></span></div>
-        <div class="pr"><div class="top"><span class="k">Coverage</span><span class="v" id="texVal">40%</span></div><div class="track"><input type="range" id="tex" min="0" max="1" step="0.01" value="0.4"></div></div>
-        <div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">42%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.42"></div></div></div></details></div>
-    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">3</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+    <div class="l-scroll"><details class="grp" open><summary>Field</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Centres</span><span class="v" id="centresVal">4</span></div><div class="track"><input type="range" id="centres" min="1" max="14" step="1" value="4"></div></div>
+        <div class="pr"><div class="top"><span class="k">Pull</span><span class="v" id="pullVal">62%</span></div><div class="track"><input type="range" id="pull" min="0" max="1" step="0.01" value="0.62"></div></div>
+        <div class="pr"><div class="top"><span class="k">Push</span><span class="v" id="pushVal">35%</span></div><div class="track"><input type="range" id="push" min="0" max="1" step="0.01" value="0.35"></div></div></div></details>
+    <details class="grp" open><summary>Stripes</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Count</span><span class="v" id="stripesVal">16</span></div><div class="track"><input type="range" id="stripes" min="2" max="90" step="1" value="16"></div></div>
+        <div class="pr"><div class="top"><span class="k">Weight</span><span class="v" id="weightVal">50%</span></div><div class="track"><input type="range" id="weight" min="0" max="1" step="0.01" value="0.5"></div></div></div></details>
+    <details class="grp" open><summary>Warp</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Kind</span></span><span class="mval"><div class="chips" id="dirs"></div></span></div>
+        <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="warpVal">50%</span></div><div class="track"><input type="range" id="warp" min="0" max="1" step="0.01" value="0.5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Detail</span><span class="v" id="detailVal">30%</span></div><div class="track"><input type="range" id="detail" min="0" max="1" step="0.01" value="0.3"></div></div></div></details></div>
+    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">2</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+        
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
@@ -539,7 +535,7 @@ input[type=range]{accent-color:var(--ink)}
       <div class="pill">
         <span class="lb">Variation</span>
         <span class="sep"></span>
-        <input class="seed" id="seed" value="4" inputmode="numeric" aria-label="Variation number">
+        <input class="seed" id="seed" value="14" inputmode="numeric" aria-label="Variation number">
         <button class="pbtn copy" id="copySeed" aria-label="Copy variation number">Copy</button>
         <button class="pbtn go" id="randomize">New</button>
       </div>
@@ -616,312 +612,179 @@ function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const MODES=[["drift","Drift"],["shift","Shift"],["pulse","Pulse"]];
-/* How the fill ink fails to cover: as loose grain, as marks dragged in one
-   direction, or as a printer's dot screen. */
-const TEXKINDS=[["stipple","Stipple"],["drag","Drag"],["screen","Screen"]];
+const MODES=[["flow","Flow"],["drift","Drift"],["breathe","Breathe"]];
+/* How the field is pushed out of true before the stripes are read off it. */
+const DIRS=[["smooth","Smooth"],["turbulent","Turbulent"],["ripple","Ripple"]];
 
-/* Three roles: the ground, the plate that missed, and the fill on top. */
+/* The first ink is the ground; every ink after it is a stripe colour, taken in
+   turn as the bands count outwards. Two of them is the duotone this is for. */
 const PALETTES=[
-  ["#A794C8","#0B0B0B","#A8DCEF"],
-  ["#EFE9DC","#141414","#F0402F"],
-  ["#0E1626","#F2F0E6","#F5C542"],
-  ["#1B1B1B","#EDEAE0","#7CE860"],
-  ["#F3D9E8","#181818","#3B5BDB"]
+  ["#E42B18","#E252E8"],
+  ["#1B22C4","#3E8CF0"],
+  ["#0E0E10","#F2F2F0"],
+  ["#12362B","#F2E85C"],
+  ["#F2EFE6","#E8431F"]
 ];
 
 const S={
-  seed:4, ratio:"3:4",
-  count:8, len:22, wander:0.6, branch:0.22,
-  thick:0.42, rod:0.5, notch:0.18, rough:0.55,
-  offset:0.5, edge:0.35, grain:0.42,
-  tex:0.4, texKind:"stipple",
+  seed:14, ratio:"9:16",
+  centres:4, pull:0.62, push:0.35,
+  stripes:16, weight:0.5,
+  kind:"smooth", warp:0.5, detail:0.3,
   pal:PALETTES[0].slice(),
-  motion:{on:false,mode:"drift",amount:0.6,fps:12,frames:36},
+  motion:{on:false,mode:"flow",amount:0.6,fps:12,frames:36},
   size_px:2400
 };
 
-function hshS(x,y,s){
+function hshW(x,y,s){
   let n=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1274126177);
   n=Math.imul(n^(n>>>13),1274126177); n^=n>>>16;
   return (n>>>0)/4294967296;
 }
-function vnS(x,y,s){
+function vnW(x,y,s){
   const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi;
   const u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);
-  const a=hshS(xi,yi,s),b=hshS(xi+1,yi,s),c=hshS(xi,yi+1,s),d=hshS(xi+1,yi+1,s);
+  const a=hshW(xi,yi,s),b=hshW(xi+1,yi,s),c=hshW(xi,yi+1,s),d=hshW(xi+1,yi+1,s);
   return (a*(1-u)+b*u)*(1-v)+(c*(1-u)+d*u)*v;
 }
-function rngS(seed){
+function rngW(seed){
   let s=(seed>>>0)||1;
   return function(){ s^=s<<13; s>>>=0; s^=s>>>17; s^=s<<5; s>>>=0; return s/4294967296; };
 }
-function hex2rgbS(h){
+function hex2rgbW(h){
   h=(h||"#000").replace("#","");
   if(h.length===3) h=h.split("").map(c=>c+c).join("");
   return [parseInt(h.slice(0,2),16)||0,parseInt(h.slice(2,4),16)||0,parseInt(h.slice(4,6),16)||0];
 }
 
 /* ------------------------------------------------------------------
-   A chain is a walk that turns a little at every step and now and then
-   splits, each arm carrying on from where the split happened. Rods are
-   laid along the walk butted end to end with a hair between them, which
-   is what puts the notch at every joint and lets you count the cells.
-   Everything is measured in units of the root of the frame's area, so a
-   variation is the same picture whatever size it is drawn at, and a wide
-   frame is not a busier frame.
+   The whole picture is the contour lines of one number. Add up the
+   distance from a point to a handful of centres — some counted
+   positive, some negative — and the lines of equal total are rings
+   round the pullers, hyperbolas between them, and the pinched eyes and
+   saddles where two families meet. That is the op-art figure, and it
+   costs a square root per centre rather than any drawing at all.
 ------------------------------------------------------------------- */
-const ROD_CAP=7000;
-let rodCache=null, rodKey="";
-function rodsS(aspect){
-  const key=[S.seed,S.count,S.len,S.wander,S.branch,S.rod,S.notch,S.thick,aspect.toFixed(4)].join("|");
-  if(rodKey===key && rodCache) return rodCache;
-
-  const fw=1/Math.sqrt(aspect), fh=Math.sqrt(aspect);   /* frame in area units */
-  const rnd=rngS(Math.imul(S.seed|0,2654435761));
-  /* A round-capped stroke runs half its own width past each end, so a rod is
-     really seg + wid long. Spacing the rods by the segment alone let the caps
-     swallow the gap whole and the chain came out as one smooth wire with no
-     joints in it. The stride has to clear the caps before the notch shows. */
-  const wid=0.02+S.thick*0.09;
-  const seg=wid*(0.4+S.rod*2.2);
-  const step=seg+wid+S.notch*wid*0.95;
-  const rods=[];
-  const stack=[];
-  const n=Math.max(1,Math.round(S.count));
-  for(let i=0;i<n;i++)
-    stack.push({x:(-0.12+rnd()*1.24)*fw, y:(-0.12+rnd()*1.24)*fh,
-                a:rnd()*Math.PI*2, left:Math.max(1,Math.round(S.len)), d:0});
-
-  while(stack.length && rods.length<ROD_CAP){
-    const c=stack.pop();
-    let {x,y,a,left,d}=c;
-    while(left-->0 && rods.length<ROD_CAP){
-      const ca=Math.cos(a), sa=Math.sin(a);
-      rods.push([x,y,a,seg,(rnd()*9973)|0]);
-      const nx=x+ca*step, ny=y+sa*step;
-      x=nx; y=ny;
-      a+=(rnd()-0.5)*S.wander*0.9;
-      if(d<3 && left>4 && rnd()<S.branch*0.22)
-        stack.push({x,y,a:a+(rnd()<0.5?-1:1)*(0.5+rnd()*0.6),
-                    left:Math.max(3,(left*(0.4+rnd()*0.5))|0), d:d+1});
-      /* A chain that walks off the paper used to stop there, which made
-         Length do nothing past about thirty: the extra rods were all being
-         laid outside the frame. Steer it home instead, gently enough that the
-         turn reads as the chain meandering rather than as a wall. */
-      if(x<-0.32*fw||x>1.32*fw||y<-0.32*fh||y>1.32*fh){
-        let da=Math.atan2(fh*0.5-y,fw*0.5-x)-a;
-        while(da>Math.PI)da-=Math.PI*2;
-        while(da<-Math.PI)da+=Math.PI*2;
-        a+=da*0.2;
-      }
-    }
+let whorlCache=null, whorlKey="";
+function whorlW(){
+  const key=[S.seed,S.centres,S.push].join("|");
+  if(whorlKey===key && whorlCache) return whorlCache;
+  const rnd=rngW(Math.imul(S.seed|0,2654435761));
+  const n=Math.max(1,Math.round(S.centres));
+  const cs=[];
+  for(let i=0;i<n;i++){
+    /* Push is the share of centres counted the other way. All one sign and
+       the field is a bowl with rings in it and nothing else happening; mixed,
+       the two families run into each other and pinch. */
+    const neg=i>0 && rnd()<S.push;
+    cs.push({x:-0.25+rnd()*1.5, y:-0.25+rnd()*1.5,
+             w:(neg?-1:1)*(0.45+rnd()*0.9),
+             ox:rnd()*Math.PI*2});
   }
-  /* the rod's width and the rod's length are different numbers, and handing
-     back the wrong one made every chain a single fat blob */
-  rodCache={rods,wide:wid,fw,fh}; rodKey=key;
-  return rodCache;
-}
-
-/* A rod is drawn as its own outline rather than as a stroked line, because a
-   stroke can only ever be one width the whole way along and comes out looking
-   machined. The two edges are walked down the axis separately, each with its
-   own wobble, so the shape is never symmetric about its own middle — that
-   lopsidedness is most of what reads as laid down by hand rather than
-   computed. The ends are not alike either: one is stubbed off where the brush
-   landed, the other drags out where it lifted. At Roughness zero all of it
-   falls away and it is a plain capsule again. */
-function rodPath(g,x,y,a,seg,sd,wid,rough,grow){
-  /* the rod is also nudged off the chain's axis, so a run of them reads as a
-     hand following a line rather than beads threaded onto one */
-  a+=(hshS(sd,17,3)-0.5)*0.42*rough;
-  const ca=Math.cos(a), sa=Math.sin(a), px=-sa, py=ca;
-  const full=seg+wid;
-  /* grow runs negative when this is the eroded core, so it is floored
-     rather than allowed to pass through zero and turn inside out */
-  const half=Math.max(wid*0.05,wid*0.5+grow);
-  const N=18, L=[], R=[];
-  const e0=0.06+hshS(sd,3,7)*0.34*rough;      /* how fast each end opens out */
-  const e1=0.06+hshS(sd,9,7)*0.60*rough;
-  for(let i=0;i<=N;i++){
-    const u=i/N;
-    let cap=Math.min(u/e0,(1-u)/e1,1);
-    cap=Math.pow(cap<0?0:cap,0.45);
-    /* each edge gets its own noise, at a frequency high enough to tear it */
-    const wl=1+(vnS(u*6.1+sd*0.11,sd*0.07,sd)-0.5)*rough*1.3;
-    const wr=1+(vnS(u*5.3+sd*0.17,sd*0.05,sd+911)-0.5)*rough*1.3;
-    const off=(vnS(u*2.2+sd*0.09,7.3,sd+41)-0.5)*wid*0.55*rough;
-    const t=u*full-wid*0.5;
-    const bx=x+ca*t+px*off, by=y+sa*t+py*off;
-    const hl=half*cap*wl, hr=half*cap*wr;
-    L.push([bx+px*hl,by+py*hl]);
-    R.push([bx-px*hr,by-py*hr]);
-  }
-  g.moveTo(L[0][0],L[0][1]);
-  for(let i=1;i<=N;i++) g.lineTo(L[i][0],L[i][1]);
-  for(let i=N;i>=0;i--) g.lineTo(R[i][0],R[i][1]);
-  g.closePath();
-}
-
-let maskCv=null, maskCx=null;
-function maskFor(W,H){
-  if(!maskCv){
-    maskCv=document.createElement("canvas");
-    maskCx=maskCv.getContext("2d",{willReadFrequently:true});
-  }
-  if(maskCv.width!==W||maskCv.height!==H){ maskCv.width=W; maskCv.height=H; }
-  return maskCx;
+  whorlCache={cs}; whorlKey=key;
+  return whorlCache;
 }
 
 function paint(c,W,H,f){
   const M=S.motion, T=M.on ? f/M.frames : 0, ph=T*Math.PI*2;
-  const raw=S.pal.length?S.pal:["#A794C8","#0B0B0B","#A8DCEF"];
-  const ground=hex2rgbS(raw[0]);
-  const plate=hex2rgbS(raw[1]||raw[0]);
-  const fill=hex2rgbS(raw[2]||raw[1]||raw[0]);
+  const raw=S.pal.length?S.pal:PALETTES[0];
+  const ground=hex2rgbW(raw[0]);
+  let inks=raw.slice(1).map(hex2rgbW);
+  if(!inks.length) inks=[hex2rgbW(raw[0])];
+  const nI=inks.length;
 
-  const {rods,wide:rodWide,fw,fh}=rodsS(H/W);
-  const U=Math.sqrt(W*H);                    /* one area unit, in pixels */
-  /* swells to its fullest halfway round and back down by the end. A plain
-     sine is back at its starting width at the half-loop, so the middle
-     frame matched the first and half the loop was wasted. */
-  const pulse=(M.on&&M.mode==="pulse") ? 1+(1-Math.cos(ph))*0.5*M.amount*0.4 : 1;
-  const wide=rodWide*U*pulse;
-  const drift=(M.on&&M.mode==="drift") ? M.amount*0.035*U : 0;
-  const dx=Math.cos(ph)*drift, dy=Math.sin(ph)*drift;
-
-  /* the plate that missed: same shape, a little fatter and slid off true */
-  const ang=(M.on&&M.mode==="shift") ? ph : Math.PI*0.75;
-  const off=S.offset*0.055*U;
-  const ox=Math.cos(ang)*off, oy=Math.sin(ang)*off;
-  const fat=wide*(1+S.edge*0.55);
-
-  /* The shape is drawn at half size on purpose. A full-size mask has hard
-     edges, so roughening it could only ever nibble the one anti-aliased pixel
-     at the boundary and the result read as plotted. Half size gives the edge a
-     ramp a few pixels wide for the noise to bite into, and costs a quarter of
-     the drawing and a quarter of the reading back. */
-  const MS=0.5;
-  const MW=Math.max(2,Math.round(W*MS)), MH=Math.max(2,Math.round(H*MS));
-  const MU=Math.sqrt(MW*MH);
-  const mx=maskFor(MW,MH);
-  mx.setTransform(1,0,0,1,0,0);
-  mx.fillStyle="#000"; mx.fillRect(0,0,MW,MH);
-  mx.lineCap="round";
-  const put=(x,y,ax,ay)=>[x*MU+(dx+ax)*MS,y*MU+(dy+ay)*MS];
-
-  /* the plate first, then the fill straight over it: where both land the fill
-     wins, which leaves the plate showing as a thick edge on the side it slid
-     towards and a hairline on the other */
-  const rough=S.rough;
-  const grow=(fat-wide)*0.5*MS;
-  mx.fillStyle="#f00";
-  mx.beginPath();
-  for(const r of rods){
-    const p=put(r[0],r[1],ox,oy);
-    rodPath(mx,p[0],p[1],r[2],r[3]*MU,r[4],wide*MS,rough,grow);
-  }
-  mx.fill();
-  mx.fillStyle="#0f0";
-  mx.beginPath();
-  for(const r of rods){
-    const p=put(r[0],r[1],0,0);
-    rodPath(mx,p[0],p[1],r[2],r[3]*MU,r[4],wide*MS,rough,0);
-  }
-  mx.fill();
-
-  /* The same rods once more, eaten in from the edge and then blurred, written
-     into the channel the other two passes leave alone. That gives every pixel
-     a reading of how deep inside a rod it sits, which is what lets the ink
-     break up at the rim and pool solid down the middle rather than sit as an
-     even wash of dots over the whole shape. */
-  if(S.tex>0.004){
-    /* a fraction of the half-width, not of the width: eaten any deeper than
-       this and there is no solid core left for the ink to pool in */
-    const eat=wide*MS*0.5*0.38;
-    mx.globalCompositeOperation="lighter";
-    mx.filter="blur("+(eat*0.8).toFixed(2)+"px)";
-    mx.fillStyle="#00f";
-    mx.beginPath();
-    for(const r of rods){
-      const p=put(r[0],r[1],0,0);
-      rodPath(mx,p[0],p[1],r[2],r[3]*MU,r[4],wide*MS,rough,-eat);
-    }
-    mx.fill();
-    mx.filter="none";
-    mx.globalCompositeOperation="source-over";
-  }
-
-  const src=mx.getImageData(0,0,MW,MH).data;
-  const img=c.createImageData(W,H), d=img.data;
+  const {cs}=whorlW();
   const seed=S.seed|0;
-  const g=S.grain;
-  const cut=0.5, spread=0.8*g+0.06;
-  const gl=g*46;
-  /* the edge noise is sized off the picture, not off the pixel, so a 6000px
-     export is the same picture as the preview rather than a finer one */
-  const cell=Math.max(1.4,Math.sqrt(W*H)*0.0026);
-  /* the texture is laid in the picture's own frame rather than on each rod,
-     the way a screen sits still over the paper while the artwork moves */
-  const tex=S.tex, texOn=tex>0.004, tk=S.texKind;
-  const tc=cell*1.7;                       /* stipple: one speck */
-  const dAc=cell*13, dCr=cell*1.5;         /* drag: along, and across */
-  const sPitch=cell*4.4;                   /* screen: dot to dot */
-  const tCa=Math.cos(1.75), tSa=Math.sin(1.75);
+  const A=Math.max(W,H), aspect=H/W;
+
+  /* The bands count outwards a whole number of turns over the loop, so the
+     last frame lands exactly where the first started — and an ODD number of
+     them, so the halfway frame lands on a half turn rather than a whole one.
+     An even count puts the middle of the loop back on the first frame and
+     wastes half of it repeating what has already been seen. */
+  const cyc=1+2*Math.floor(M.amount*1.5);
+  const flow=(M.on&&M.mode==="flow") ? T*cyc : 0;
+  const orbit=(M.on&&M.mode==="drift") ? M.amount*0.10 : 0;
+  /* swells and settles: a plain sine is already back where it started at the
+     half-loop, which spends half of every loop repeating the first half */
+  const breathe=(M.on&&M.mode==="breathe") ? 1+(1-Math.cos(ph))*0.5*M.amount*1.1 : 1;
+
+  const wamp=S.warp*0.42*breathe;
+  const wfrq=1.1+S.detail*5.5;
+  const kind=S.kind;
+  const freq=Math.max(1,S.stripes);
+  /* Pull softens the cone each centre makes. Scaling the centres' weights
+     instead only scaled the whole field, which is the same picture with the
+     stripes counted differently — Pull and Count were one control wearing two
+     labels. Softened, a centre spreads into a broad bowl and its rings open
+     out; sharp, it draws them into a tight whorl right at the point. */
+  const soft=0.36*(1-S.pull); const soft2=soft*soft;
+  const duty=0.06+S.weight*0.88;
+
+  /* the field, in frame units where x runs 0..1 and y runs 0..aspect */
+  function fieldW(x,y){
+    let wx=x, wy=y;
+    if(wamp>0.001){
+      if(kind==="ripple"){
+        wx+=wamp*0.30*Math.sin(y*wfrq*6.0+x*1.7);
+        wy+=wamp*0.30*Math.sin(x*wfrq*5.1+y*1.3);
+      }else{
+        wx+=wamp*(vnW(x*wfrq,y*wfrq,seed+11)-0.5);
+        wy+=wamp*(vnW(x*wfrq+7.3,y*wfrq+3.1,seed+29)-0.5);
+        if(kind==="turbulent"){
+          wx+=wamp*0.45*(vnW(x*wfrq*2.7+2.2,y*wfrq*2.7,seed+53)-0.5);
+          wy+=wamp*0.45*(vnW(x*wfrq*2.7,y*wfrq*2.7+5.5,seed+71)-0.5);
+        }
+      }
+    }
+    let s=0;
+    for(let i=0;i<cs.length;i++){
+      const q=cs[i];
+      let cx=q.x, cy=q.y;
+      if(orbit>0){ cx+=Math.cos(ph+q.ox)*orbit; cy+=Math.sin(ph+q.ox)*orbit; }
+      const dx=wx-cx, dy=wy-cy;
+      s+=q.w*Math.sqrt(dx*dx+dy*dy+soft2);
+    }
+    return s;
+  }
+
+  const img=c.createImageData(W,H), d=img.data;
+  /* the row above and the pixel to the left, kept so the field's slope can be
+     measured without evaluating it three times for every pixel */
+  const up=new Float32Array(W);
+  let haveUp=false;
 
   for(let y=0;y<H;y++){
-    const gy=y*MS;
-    let y0=gy|0; if(y0>MH-1)y0=MH-1;
-    const fy=gy-y0; let y1=y0+1; if(y1>MH-1)y1=MH-1;
-    const r0=y0*MW*4, r1=y1*MW*4;
+    const fy=(y+0.5)/H*aspect;
+    let left=0, haveLeft=false;
     let p=y*W*4;
     for(let x=0;x<W;x++,p+=4){
-      const gx=x*MS;
-      let x0=gx|0; if(x0>MW-1)x0=MW-1;
-      const fx=gx-x0; let x1=x0+1; if(x1>MW-1)x1=0;
-      const i00=r0+x0*4, i01=r0+x1*4, i10=r1+x0*4, i11=r1+x1*4;
-      const Ra=src[i00]+(src[i01]-src[i00])*fx, Rb=src[i10]+(src[i11]-src[i10])*fx;
-      const Ga=src[i00+1]+(src[i01+1]-src[i00+1])*fx, Gb=src[i10+1]+(src[i11+1]-src[i10+1])*fx;
-      const R=(Ra+(Rb-Ra)*fy)/255, G=(Ga+(Gb-Ga)*fy)/255;
-      const n=(vnS(x/cell,y/cell,seed+29)-0.5)*spread;
-      let ink=G>cut+n;
-      if(ink&&texOn){
-        const Ba=src[i00+2]+(src[i01+2]-src[i00+2])*fx;
-        const Bb=src[i10+2]+(src[i11+2]-src[i10+2])*fx;
-        const dep=(Ba+(Bb-Ba)*fy)/255;      /* 0 at the rim, 1 in the core */
-        const miss=tex*(0.12+0.88*(1-dep));   /* how much ink fails to take */
-        let gap;
-        if(tk==="screen"){
-          const u=(x*tCa+y*tSa)/sPitch, v=(y*tCa-x*tSa)/sPitch;
-          const fu=u-Math.floor(u)-0.5, fv=v-Math.floor(v)-0.5;
-          const cov=1-miss;
-          /* 0.72 reaches the corners of the cell, so a full dot is solid */
-          const rad=0.72*Math.sqrt(cov>0?cov:0);
-          gap=(fu*fu+fv*fv)>rad*rad;
-        }else if(tk==="drag"){
-          const u=(x*tCa+y*tSa)/dAc, v=(y*tCa-x*tSa)/dCr;
-          gap=hshS(Math.floor(u),Math.floor(v),seed+17)<miss;
-        }else{
-          gap=hshS(Math.floor(x/tc),Math.floor(y/tc),seed+13)<miss;
-        }
-        /* where the fill drops out, whatever is under it shows through — the
-           plate if it reaches this far, otherwise the bare ground */
-        if(gap) ink=false;
-      }
-      let col;
-      if(ink) col=fill;
-      else if(R>cut+n) col=plate;
-      else col=ground;
-      let r2=col[0],g2=col[1],b2=col[2];
-      if(gl>0.002){
-        const q=(hshS(x,y,seed+71)-0.5)*gl;
-        r2+=q; g2+=q; b2+=q;
-      }
-      d[p]  =r2<0?0:r2>255?255:r2;
-      d[p+1]=g2<0?0:g2>255?255:g2;
-      d[p+2]=b2<0?0:b2>255?255:b2;
+      const fx=(x+0.5)/W;
+      const u=fieldW(fx,fy)*freq+flow;
+
+      /* How fast the field is moving here, in bands per pixel. It is what
+         sets the width of the softened edge: without it the stripes come out
+         stepped where they run shallow and shimmer where they run steep,
+         because one fixed blur cannot suit both. */
+      let g=0.0025;
+      if(haveLeft){ const q=Math.abs(u-left); if(q>g)g=q; }
+      if(haveUp){ const q=Math.abs(u-up[x]); if(q>g)g=q; }
+      left=u; up[x]=u; haveLeft=true;
+
+      let v=u-Math.floor(u);
+      /* signed distance to the nearest edge of the band, in band units */
+      const sd=(v<duty) ? Math.min(v,duty-v) : -Math.min(v-duty,1-v);
+      let a=0.5+sd/g;
+      a=a<0?0:a>1?1:a;
+
+      const k=Math.floor(u);
+      const ink=inks[((k%nI)+nI)%nI];
+      d[p]  =ground[0]+(ink[0]-ground[0])*a;
+      d[p+1]=ground[1]+(ink[1]-ground[1])*a;
+      d[p+2]=ground[2]+(ink[2]-ground[2])*a;
       d[p+3]=255;
     }
+    haveUp=true;
   }
   c.putImageData(img,0,0);
 }
@@ -993,7 +856,7 @@ function save(blob,name){
   a.href=url;a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
-function stamp(){return `strand-${S.seed}-${S.ratio.replace(":","x")}`;}
+function stamp(){return `whorl-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
   const a=$("#expVid"),sc=$("#scrub");
   if(a)a.disabled=!S.motion.on;
@@ -1085,7 +948,7 @@ function buildSwatches(){
   S.pal.forEach((c,i)=>{
     const b=document.createElement("button");
     b.className="sw"+(lock?" locked":"");b.type="button";
-    b.setAttribute("aria-label",["Ground","Plate","Fill"][i]||("Ink "+(i+1)));
+    b.setAttribute("aria-label",["Ground"][i]||("Ink "+(i+1)));
     b.innerHTML=`<span class="fill" style="background:${c}"></span>`+
       `<input type="color" value="${c}"><span class="x" aria-hidden="true">\u00d7</span>`;
     b.querySelector("input").addEventListener("input",e=>{
@@ -1124,7 +987,7 @@ function bindRange(id,fmt,set,after){
 }
 
 buildRatios();buildSwatches();accent();
-segmented($("#texKinds"),TEXKINDS,()=>S.texKind,v=>{S.texKind=v;reframe();});
+segmented($("#dirs"),DIRS,()=>S.kind,v=>{S.kind=v;reframe();});
 segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
 $("#shufColors").addEventListener("click",()=>{
   setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
@@ -1132,18 +995,13 @@ $("#shufColors").addEventListener("click",()=>{
 $("#rotColors").addEventListener("click",()=>{
   setPalette(S.pal.slice(1).concat(S.pal[0]));
 });
-bindRange("count",v=>v|0,v=>S.count=v|0);
-bindRange("len",v=>v|0,v=>S.len=v|0);
-bindRange("wander",v=>Math.round(v*100)+"%",v=>S.wander=v);
-bindRange("branch",v=>Math.round(v*100)+"%",v=>S.branch=v);
-bindRange("thick",v=>Math.round(v*100)+"%",v=>S.thick=v);
-bindRange("rod",v=>Math.round(v*100)+"%",v=>S.rod=v);
-bindRange("notch",v=>Math.round(v*100)+"%",v=>S.notch=v);
-bindRange("rough",v=>Math.round(v*100)+"%",v=>S.rough=v);
-bindRange("offset",v=>Math.round(v*100)+"%",v=>S.offset=v);
-bindRange("edge",v=>Math.round(v*100)+"%",v=>S.edge=v);
-bindRange("tex",v=>Math.round(v*100)+"%",v=>S.tex=v);
-bindRange("grain",v=>Math.round(v*100)+"%",v=>S.grain=v);
+bindRange("centres",v=>v|0,v=>S.centres=v|0);
+bindRange("pull",v=>Math.round(v*100)+"%",v=>S.pull=v);
+bindRange("push",v=>Math.round(v*100)+"%",v=>S.push=v);
+bindRange("stripes",v=>v|0,v=>S.stripes=v|0);
+bindRange("weight",v=>Math.round(v*100)+"%",v=>S.weight=v);
+bindRange("warp",v=>Math.round(v*100)+"%",v=>S.warp=v);
+bindRange("detail",v=>Math.round(v*100)+"%",v=>S.detail=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
