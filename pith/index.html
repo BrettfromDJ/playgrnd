@@ -682,7 +682,13 @@ function segDP(px,py,x0,y0,x1,y1){
    shoulders and notches that make the reference's shapes look like letters
    somebody cut out of tissue.
 ------------------------------------------------------------------------ */
+/* Laying the cells out and growing their veins does not depend on any of the
+   colour, band, dither or grain controls, so moving one of those should not
+   pay for it again. */
+let PLANP=null, PLANKP="";
 function buildP(W,H){
+  const key=[S.seed,S.count,S.size,S.round,S.veins,W,H].join("|");
+  if(PLANKP===key && PLANP) return PLANP;
   const rnd=rngP(Math.imul((S.seed|0)+3,2654435761));
   const m=Math.min(W,H)*0.085;
   const IW=W-2*m, IH=H-2*m;
@@ -742,18 +748,25 @@ function buildP(W,H){
     }
     cells.push({rects,segs,bx0,by0,bx1,by1,sd:(rnd()*9973)|0});
   }
-  return {cells,cs:base};
+  PLANP={cells,cs:base}; PLANKP=key;
+  return PLANP;
 }
 
-/* The two fields the picture is read out of are big, and allocating them per
-   frame is what makes an animation stutter. */
-let BUFP=null, BUFNP=0;
-function bufP(n){
-  if(BUFNP!==n){ BUFP={d:new Float32Array(n), v:new Float32Array(n)}; BUFNP=n; }
-  return BUFP;
+/* The buffers the picture is read out of are big, and allocating them per
+   frame is what makes an animation stutter. Two slots, because the tool draws
+   at one size while a control is moving and at another when it settles, and a
+   single slot would throw both away and rebuild them on every switch. */
+const BUFSP=[];
+function bufP(W,H){
+  const n=W*H;
+  for(const b of BUFSP) if(b.n===n) return b;
+  const b={n:n, d:new Float32Array(n), v:new Float32Array(n), img:null, iw:0, fkey:""};
+  BUFSP.unshift(b);
+  BUFSP.length=Math.min(BUFSP.length,2);
+  return b;
 }
 
-function paint(c,W,H,f){
+function renderP(c,W,H,f){
   const M=S.motion, T=M.on ? f/M.frames : 0, ph=T*TAUP;
   const raw=S.pal.length?S.pal:PALETTES[0];
   const ground=rgbP(raw[0]), edge=rgbP(raw[1]||"#6FEFA8");
@@ -768,8 +781,14 @@ function paint(c,W,H,f){
   const flow=(M.on&&M.mode==="flow") ? Math.cos(ph)*M.amount*40 : 0;
 
   const plan=buildP(W,H), cells=plan.cells;
-  const N=W*H, B=bufP(N), DI=B.d, VE=B.v;
-  DI.fill(1e9); VE.fill(1e9);
+  const B=bufP(W,H), DI=B.d, VE=B.v;
+  /* The two fields say where the cells are and where the veins run. Nothing
+     about the colours, the band widths, the dither or the grain moves them,
+     so those controls read the fields back rather than working them out
+     again — which is most of the cost of a frame. */
+  const fkey=PLANKP+"|"+S.wobble+"|"+S.thick+"|"+grow.toFixed(5)+"|"+flow.toFixed(4);
+  const stale=(B.fkey!==fkey);
+  if(stale){ B.fkey=fkey; DI.fill(1e9); VE.fill(1e9); }
 
   /* ---- the two distance fields ---- */
   /* Everything about a cell is measured against the cell, not against the
@@ -782,7 +801,7 @@ function paint(c,W,H,f){
   const amp=cs*0.12*S.wobble;
   const pad=Math.ceil(amp*2.2+cs*0.04);
   const vt=cs*(0.0067+S.thick*0.033);
-  for(const cell of cells){
+  if(stale) for(const cell of cells){
     const x0=Math.max(0,Math.floor(cell.bx0-pad)), x1=Math.min(W-1,Math.ceil(cell.bx1+pad));
     const y0=Math.max(0,Math.floor(cell.by0-pad)), y1=Math.min(H-1,Math.ceil(cell.by1+pad));
     for(let y=y0;y<=y1;y++){
@@ -799,22 +818,31 @@ function paint(c,W,H,f){
           +(vnP((x+flow)/(ns*0.28),(y-flow)/(ns*0.28),cell.sd+31)-0.5)*amp*0.8;
         const i=row+x;
         if(d<DI[i]) DI[i]=d;
-        if(d<0){
-          let v=1e9;
-          for(const s of cell.segs){
-            const q=segDP(x,y,s[0],s[1],s[2],s[3]);
-            if(q<v) v=q;
-          }
-          v-=vt;
-          if(v<VE[i]) VE[i]=v;
+      }
+    }
+    /* Each vein segment writes its own neighbourhood rather than every pixel
+       of the cell asking every segment how far away it is. The answer is the
+       same; the work is the length of the veins instead of the area of the
+       cell times the number of them, which is what made this tool crawl. */
+    for(const g of cell.segs){
+      const gx0=Math.max(0,Math.floor(Math.min(g[0],g[2])-vt-1));
+      const gx1=Math.min(W-1,Math.ceil(Math.max(g[0],g[2])+vt+1));
+      const gy0=Math.max(0,Math.floor(Math.min(g[1],g[3])-vt-1));
+      const gy1=Math.min(H-1,Math.ceil(Math.max(g[1],g[3])+vt+1));
+      for(let y=gy0;y<=gy1;y++){
+        const row=y*W;
+        for(let x=gx0;x<=gx1;x++){
+          const q=segDP(x,y,g[0],g[1],g[2],g[3])-vt;
+          const i=row+x;
+          if(q<VE[i]) VE[i]=q;
         }
       }
     }
   }
 
   /* ---- read it out ---- */
-  const img=c.createImageData(W,H);
-  const px=img.data;
+  if(!B.img||B.iw!==W){ B.img=c.createImageData(W,H); B.iw=W; }
+  const img=B.img, px=img.data;
   const E=cs*(0.033+S.band*0.190);         /* the outer band */
   const R2=cs*(0.020+S.band*0.070);        /* the rim inside it */
   const nb=cs*0.31;                        /* how fast the band width varies */
@@ -864,7 +892,68 @@ function paint(c,W,H,f){
   c.globalCompositeOperation="source-over";
   c.globalAlpha=1;
   c.putImageData(img,0,0);
+}
 
+/* ---- how much of the picture to work out right now --------------------
+   Every pixel of this one is worked out in script, and on a screen that
+   doubles its pixels that is a million and a half of them for one frame.
+   Doing all of it on every step of a slider is what makes the tool feel
+   stuck: there is no way to produce that number sixty times a second. So
+   while something is moving it is drawn small and scaled up, and a moment
+   after it stops it is drawn again properly. Everything the render measures
+   comes off the size it is handed, so the small frame is the same picture
+   rather than a different one — only softer.
+------------------------------------------------------------------------ */
+/* The budget is not a fixed number: the tool watches how long its own rough
+   frame took and moves it until that lands near a frame's worth of time. A
+   quick machine ends up drawing the preview at full size and never sees the
+   scaling at all; a slow one drops further rather than going treacly. */
+let budgetP=330000;
+const BUDLOP=70000, BUDHIP=4000000;
+let SCRP=null, hiTimerP=0, hiQP=false;
+function scrP(w,h){
+  if(!SCRP) SCRP=document.createElement("canvas");
+  if(SCRP.width!==w||SCRP.height!==h){ SCRP.width=w; SCRP.height=h; }
+  return SCRP;
+}
+function paint(c,W,H,f){
+  /* Only the canvas on the page gets the rough pass. An export is asked for
+     once and wants every pixel of what it asked for. */
+  const live=!!(c.canvas&&c.canvas.id==="art");
+  let sc=1;
+  if(live&&!hiQP&&W*H>budgetP) sc=Math.sqrt(budgetP/(W*H));
+  const t0=live&&!hiQP?performance.now():0;
+  if(sc>0.995){
+    renderP(c,W,H,f);
+  }else{
+    const RW=Math.max(8,Math.round(W*sc)), RH=Math.max(8,Math.round(H*sc));
+    const s2=scrP(RW,RH);
+    renderP(s2.getContext("2d"),RW,RH,f);
+    c.setTransform(1,0,0,1,0,0);
+    c.globalCompositeOperation="source-over";
+    c.globalAlpha=1;
+    c.imageSmoothingEnabled=true;
+    c.imageSmoothingQuality="high";
+    c.drawImage(s2,0,0,RW,RH,0,0,W,H);
+  }
+  if(live&&!hiQP){
+    const el=performance.now()-t0;
+    /* Down quickly, up slowly, and a wide band in the middle where nothing
+       happens. Symmetrical steps hunt: the budget climbs until a frame runs
+       long, drops, climbs again, and the preview breathes between sharp and
+       soft while you are dragging. */
+    if(el>40) budgetP=Math.max(BUDLOP,budgetP*0.75);
+    else if(el<14) budgetP=Math.min(BUDHIP,budgetP*1.10);
+  }
+  if(live){
+    if(hiTimerP){ clearTimeout(hiTimerP); hiTimerP=0; }
+    if(sc<=0.995){
+      hiTimerP=setTimeout(function(){
+        hiTimerP=0; hiQP=true;
+        try{ draw(); } finally{ hiQP=false; }
+      },170);
+    }
+  }
 }
 
 const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
