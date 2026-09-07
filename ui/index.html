@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pith — interface options</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
+<style>
+:root{--gnd:#EFEFEC;--ink:#15161A;--hair:rgba(21,22,26,.28);--hair2:rgba(21,22,26,.13);
+  --key:rgba(21,22,26,.45);--mono:"DM Mono",ui-monospace,Menlo,monospace}
+*{box-sizing:border-box}
+body{margin:0;padding:64px 40px;background:radial-gradient(120% 80% at 50% 0%,#F5F5F3,#EAEAE7);
+  min-height:100dvh;color:var(--ink);font-family:var(--mono)}
+h1{font-size:13px;letter-spacing:.22em;text-transform:uppercase;font-weight:400;margin:0 0 6px}
+.sub{font-size:9.5px;letter-spacing:.1em;color:var(--key);margin:0 0 40px;line-height:1.8;max-width:640px}
+.list{display:grid;gap:14px;max-width:760px}
+a.opt{display:grid;grid-template-columns:44px 1fr;gap:18px;align-items:start;
+  text-decoration:none;color:inherit;border:1px solid var(--hair2);border-radius:4px;
+  padding:20px 22px;background:rgba(255,255,255,.4)}
+a.opt:hover{border-color:var(--ink)}
+.n{font-size:22px;opacity:.4}
+.t{display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px}
+.d{display:block;font-size:9.5px;letter-spacing:.06em;color:var(--key);line-height:1.95}
+</style></head><body>
+<h1>Pith &frasl; interface options</h1>
+<p class="sub">Five layouts, controls on the left and the artwork on the right. Each one is the
+working tool, not a picture of it &mdash; the sliders move and the artwork redraws. Nothing here is
+live on the site.</p>
+<div class="list"><a class="opt" href="1/"><span class="n">1</span><span><span class="t">Dock</span><span class="d">One column, one scroll. New at the top; Animate, Export and the two export buttons bolted to the foot so they never scroll away. The dials that go with them sit in the scroll, so the panel is not eaten by controls you are not using.</span></span></a>
+<a class="opt" href="2/"><span class="n">2</span><span><span class="t">Tabs</span><span class="d">Every group becomes a tab, Animate and Export among them, so nothing scrolls and each panel gets the full height. The three switches stay on show above the tabs.</span></span></a>
+<a class="opt" href="3/"><span class="n">3</span><span><span class="t">Dense</span><span class="d">Controls two to a row so far more of the panel is in view at once, with the variation number set large on the New button and the switches along the top.</span></span></a>
+<a class="opt" href="4/"><span class="n">4</span><span><span class="t">Rail</span><span class="d">A rail down the left picks the group and the panel beside it shows only that one, so nothing ever scrolls. Animate and Export are the last two entries on the rail and their switches sit under it, always on show.</span></span></a>
+<a class="opt" href="5/"><span class="n">5</span><span><span class="t">Card</span><span class="d">The artwork runs to the edges of its half and the controls sit on a card over the left of it. New is a single wide action at the head, the switches and the two export buttons a fixed bar at the foot.</span></span></a></div>
+</body></html>
