@@ -515,7 +515,8 @@ input[type=range]{accent-color:var(--ink)}
       <a class="lnk back" href="../index.html">&larr; All tools</a>
     </div>
     <div class="l-scroll"><details class="grp" open><summary>Field</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Cells</span><span class="v" id="countVal">28</span></div><div class="track"><input type="range" id="count" min="1" max="60" step="1" value="28"></div></div>
-        <div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">45%</span></div><div class="track"><input type="range" id="size" min="0" max="1" step="0.01" value="0.45"></div></div></div></details>
+        <div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">45%</span></div><div class="track"><input type="range" id="size" min="0" max="1" step="0.01" value="0.45"></div></div>
+        <div class="pr"><div class="top"><span class="k">Zoom</span><span class="v" id="zoomVal">1.0×</span></div><div class="track"><input type="range" id="zoom" min="1" max="8" step="0.1" value="1"></div></div></div></details>
     <details class="grp"><summary>Cells</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Roundness</span><span class="v" id="roundVal">55%</span></div><div class="track"><input type="range" id="round" min="0" max="1" step="0.01" value="0.55"></div></div>
         <div class="pr"><div class="top"><span class="k">Wobble</span><span class="v" id="wobbleVal">50%</span></div><div class="track"><input type="range" id="wobble" min="0" max="1" step="0.01" value="0.5"></div></div>
         <div class="pr"><div class="top"><span class="k">Band width</span><span class="v" id="bandVal">45%</span></div><div class="track"><input type="range" id="band" min="0" max="1" step="0.01" value="0.45"></div></div>
@@ -626,7 +627,7 @@ const PALETTES=[
 
 const S={
   seed:7, ratio:"3:4",
-  count:28, size:0.45,
+  count:28, size:0.45, zoom:1,
   round:0.55, wobble:0.5, band:0.45, dither:0.55,
   veins:0.5, thick:0.45,
   grain:0.4,
@@ -687,7 +688,7 @@ function segDP(px,py,x0,y0,x1,y1){
    pay for it again. */
 let PLANP=null, PLANKP="";
 function buildP(W,H){
-  const key=[S.seed,S.count,S.size,S.round,S.veins,W,H].join("|");
+  const key=[S.seed,S.count,S.size,S.round,S.veins,S.zoom,W,H].join("|");
   if(PLANKP===key && PLANP) return PLANP;
   const rnd=rngP(Math.imul((S.seed|0)+3,2654435761));
   const m=Math.min(W,H)*0.085;
@@ -704,6 +705,14 @@ function buildP(W,H){
      slider is mapped to put it across the middle rather than into the first
      quarter where none of it can be reached. */
   const base=Math.sqrt(IW*IH/n)*(0.28+S.size*0.95);
+  /* Zoom magnifies the sheet about its middle: the cells keep the places
+     they were dealt and everything about them is scaled up, so pushing in
+     shows fewer of them at a larger size. The share of the sheet they cover
+     stays put — a cell four times as wide covers sixteen times the area, and
+     a sixteenth as many of them are still in frame — so the picture fills the
+     same amount of paper at every magnification. */
+  const z=Math.max(1,S.zoom||1);
+  const zx=W*0.5, zy=H*0.5;
   const cells=[];
   for(let i=0;i<n;i++){
     const w=base*(0.75+rnd()*1.40), h=base*(0.75+rnd()*1.25);
@@ -721,34 +730,48 @@ function buildP(W,H){
       rects.push({cx:rx+rw*0.5, cy:ry+rh*0.5, hw:rw*0.5, hh:rh*0.5,
                   r:Math.min(rw,rh)*0.5*S.round});
     }
-    /* the veins: a few branches that fork and wander inside the shape */
-    const segs=[];
-    const nv=Math.round(S.veins*6);
-    const step=Math.min(w,h)*0.095;
-    for(let k=0;k<nv;k++){
-      const R=rects[(rnd()*rects.length)|0];
-      let x=R.cx+(rnd()-0.5)*R.hw*1.1, y=R.cy+(rnd()-0.5)*R.hh*1.1;
-      let a=rnd()*TAUP;
-      const walk=(x,y,a,nn,depth)=>{
-        for(let i=0;i<nn;i++){
-          const nx=x+Math.cos(a)*step, ny=y+Math.sin(a)*step;
-          segs.push([x,y,nx,ny]);
-          x=nx; y=ny;
-          a+=(rnd()-0.5)*0.9;
-          if(depth<2 && rnd()<0.42) walk(x,y,a+(rnd()<0.5?-1:1)*(0.6+rnd()*0.6),
-                                         Math.max(1,(nn*0.6)|0),depth+1);
-        }
-      };
-      walk(x,y,a,4+((rnd()*5)|0),0);
+    /* Veins are grown from their own stream of numbers, drawn from this one.
+       Grown from the shared stream they used a different quantity of it at
+       every setting of the Veins control, which shifted every cell after
+       this one along — so asking for more veins moved the whole sheet. It
+       also lets a cell be dropped below without disturbing the rest. */
+    const vr=rngP((rnd()*4294967295)>>>0);
+    const sd=(rnd()*9973)|0;
+    for(const R of rects){
+      R.cx=zx+(R.cx-zx)*z; R.cy=zy+(R.cy-zy)*z;
+      R.hw*=z; R.hh*=z; R.r*=z;
     }
     let bx0=1e9,by0=1e9,bx1=-1e9,by1=-1e9;
     for(const R of rects){
       if(R.cx-R.hw<bx0)bx0=R.cx-R.hw; if(R.cy-R.hh<by0)by0=R.cy-R.hh;
       if(R.cx+R.hw>bx1)bx1=R.cx+R.hw; if(R.cy+R.hh>by1)by1=R.cy+R.hh;
     }
-    cells.push({rects,segs,bx0,by0,bx1,by1,sd:(rnd()*9973)|0});
+    /* Pushed in far enough, most of what was dealt is off the paper. Growing
+       veins for those is work nobody sees. */
+    const slack=base*z;
+    if(bx1<-slack||bx0>W+slack||by1<-slack||by0>H+slack) continue;
+    const segs=[];
+    const nv=Math.round(S.veins*6);
+    const step=Math.min(w,h)*z*0.095;
+    for(let k=0;k<nv;k++){
+      const R=rects[(vr()*rects.length)|0];
+      let x=R.cx+(vr()-0.5)*R.hw*1.1, y=R.cy+(vr()-0.5)*R.hh*1.1;
+      let a=vr()*TAUP;
+      const walk=(x,y,a,nn,depth)=>{
+        for(let i=0;i<nn;i++){
+          const nx=x+Math.cos(a)*step, ny=y+Math.sin(a)*step;
+          segs.push([x,y,nx,ny]);
+          x=nx; y=ny;
+          a+=(vr()-0.5)*0.9;
+          if(depth<2 && vr()<0.42) walk(x,y,a+(vr()<0.5?-1:1)*(0.6+vr()*0.6),
+                                        Math.max(1,(nn*0.6)|0),depth+1);
+        }
+      };
+      walk(x,y,a,4+((vr()*5)|0),0);
+    }
+    cells.push({rects,segs,bx0,by0,bx1,by1,sd:sd});
   }
-  PLANP={cells,cs:base}; PLANKP=key;
+  PLANP={cells,cs:base*z}; PLANKP=key;
   return PLANP;
 }
 
@@ -800,6 +823,7 @@ function renderP(c,W,H,f){
   const ns=cs*(0.10+S.wobble*0.18);        /* how big the lumps in an edge are */
   const amp=cs*0.12*S.wobble;
   const pad=Math.ceil(amp*2.2+cs*0.04);
+  const far=amp*1.5+2;
   const vt=cs*(0.0067+S.thick*0.033);
   if(stale) for(const cell of cells){
     const x0=Math.max(0,Math.floor(cell.bx0-pad)), x1=Math.min(W-1,Math.ceil(cell.bx1+pad));
@@ -812,11 +836,17 @@ function renderP(c,W,H,f){
           const q=sdBoxP(x,y,R.cx,R.cy,R.hw*grow,R.hh*grow,R.r);
           if(q<d) d=q;
         }
+        const i=row+x;
+        /* The wobble can move an outline by so much and no more, so a pixel
+           further out than that is outside whatever the noise says and need
+           not ask. Pushed in, a cell is bigger than the paper and most of the
+           frame is well clear of any one of them, which is what made the far
+           end of the Zoom control the slow end. */
+        if(d>far){ if(d<DI[i]) DI[i]=d; continue; }
         /* Two octaves of wobble, so the outline is both lumpy at the scale of
            the shape and ragged at the scale of the grain. */
         d+=(vnP((x+flow)/ns,(y-flow)/ns,cell.sd)-0.5)*amp*2
           +(vnP((x+flow)/(ns*0.28),(y-flow)/(ns*0.28),cell.sd+31)-0.5)*amp*0.8;
-        const i=row+x;
         if(d<DI[i]) DI[i]=d;
       }
     }
@@ -1163,6 +1193,7 @@ $("#rotColors").addEventListener("click",()=>{
 });
 bindRange("count",v=>v|0,v=>S.count=v|0);
 bindRange("size",v=>Math.round(v*100)+"%",v=>S.size=v);
+bindRange("zoom",v=>v.toFixed(1)+"×",v=>S.zoom=v);
 bindRange("round",v=>Math.round(v*100)+"%",v=>S.round=v);
 bindRange("wobble",v=>Math.round(v*100)+"%",v=>S.wobble=v);
 bindRange("band",v=>Math.round(v*100)+"%",v=>S.band=v);
