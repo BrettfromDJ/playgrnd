@@ -490,6 +490,87 @@ input[type=range]{accent-color:var(--ink)}
 <!-- Vercel Web Analytics. Vercel serves this script itself on the live
      site; it 404s locally and on any other host, which is harmless. -->
 <script defer src="/_vercel/insights/script.js"></script>
+<style>
+
+/* The rail-to-column change is a desktop layout. Below the chassis's own
+   breakpoint the page already stacks into one flowing column, and these
+   rules would fight it, so they are kept above the same width and the
+   new wrappers are told to behave like ordinary blocks below it. */
+@media (min-width:1181px){
+/* ================= dock layout ================= */
+.rig{grid-template-columns:minmax(320px,20%) minmax(0,1fr);
+  grid-template-rows:minmax(0,1fr);column-gap:34px;padding:34px 38px}
+.lcol{grid-column:1;grid-row:1;min-height:0;display:flex;flex-direction:column;
+  text-align:left}
+.z-stage{grid-column:2;grid-row:1;padding:28px 18px}
+.lcol .zone{max-height:none;overflow:visible;display:block;text-align:left}
+.lcol .l-scroll{overflow:visible;max-height:none;-webkit-mask-image:none;mask-image:none}
+.lcol .z-right,.lcol .z-br{text-align:left}
+.lcol .z-right .rack,.lcol .z-right .tbl,.lcol .z-right .pr,.lcol .z-right .chips{margin-left:0}
+.lcol .z-right .tbl,.lcol .z-br .tbl{justify-content:start;column-gap:20px}
+.lcol .z-right .tbl .k{text-align:left}
+.lcol .z-right .tbl .v{text-align:left;max-width:none}
+.lcol .z-right .chips,.lcol .rack{justify-content:flex-start}
+.lcol .z-right .grp>summary{flex-direction:row;justify-content:space-between}
+.lcol .btnrow{justify-content:flex-start;margin:0 0 12px}
+.lcol .caps{justify-content:flex-start}
+.lcol .tport{justify-content:flex-start}
+.lcol .z-bottom{justify-self:stretch;text-align:left}
+.lcol .z-left .idblock{padding-bottom:22px}
+.lcol .r-mid{margin:0}
+
+/* one scroll for the lot, faded at the foot like the original rails */
+.lscroll{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;padding-bottom:20px;
+  scrollbar-width:none;-ms-overflow-style:none;
+  -webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 22px),transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 calc(100% - 22px),transparent 100%)}
+.lscroll::-webkit-scrollbar{width:0;height:0;display:none}
+}
+
+/* ---- the frame, above everything it applies to ---- */
+.framblk{flex:none;padding-bottom:14px;border-bottom:1px solid var(--hair2);margin-bottom:14px}
+.framblk .frame-h{margin-top:0}
+
+/* ---- the New control ---- */
+.newblk{flex:none;padding-bottom:15px;border-bottom:1px solid var(--hair2);margin-bottom:13px}
+.newlab{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.newlab .k{font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--key)}
+.newlab .seedwrap{display:flex;align-items:center;gap:6px}
+.newlab .seed{width:52px;background:none;border:0;border-bottom:1px solid var(--hair);
+  font-family:var(--mono);font-size:11px;color:var(--ink);text-align:right;padding:0 0 2px}
+.newlab .seed:focus{outline:none;border-bottom-color:var(--ink)}
+.newbtn{width:100%;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;
+  column-gap:12px;align-items:center;text-align:left;
+  background:var(--ink);color:var(--gnd);border:0;border-radius:3px;
+  padding:13px 16px;cursor:pointer;font-family:var(--mono);
+  transition:opacity .15s ease,transform .12s ease}
+.newbtn:hover{opacity:.87}
+.newbtn:active{transform:translateY(1px)}
+.newbtn .ico{grid-row:1/3;font-size:22px;line-height:1;opacity:.9}
+.newbtn .t{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase}
+.newbtn .sub{font-size:8.5px;letter-spacing:.1em;opacity:.62;margin-top:3px}
+
+/* the switch that turns an effect on, inside its own group */
+.grp-b>.btnrow .pillbtn{height:26px}
+
+/* Export is a popover in the rail layout — a mousedown anywhere on the page
+   shuts it, which is right for something floating over the artwork and wrong
+   for a panel that now lives inside its own group. Its own group decides
+   whether it shows, so the drawer's opinion is overruled here, and the
+   floating positioning is put back to normal flow in case it ever lands. */
+.lcol #exportBody[hidden]{display:block!important}   /* beats the chassis's own !important */
+.lcol #exportBody.pop{position:static;left:auto;top:auto;width:auto;
+  box-shadow:none;border:0;background:none;padding:0}
+#exportTog{display:none}
+.z-stage .ring,.z-stage .xh{opacity:.55}
+
+@media (max-width:1180px){
+  .lcol{display:block;min-height:0;overflow:visible}
+  .lscroll{overflow:visible;max-height:none;min-height:0;padding-bottom:0;
+    -webkit-mask-image:none;mask-image:none}
+  .framblk,.newblk{border-bottom:0;padding-bottom:0;margin-bottom:18px}
+}
+</style>
 </head>
 <body>
 
@@ -501,8 +582,7 @@ input[type=range]{accent-color:var(--ink)}
 <span class="mark edgetick" style="right:24px;top:50%"></span>
 
 <div class="rig">
-  <div class="zone z-left">
-    <div class="l-top idblock">
+<div class="lcol"><div class="l-top idblock">
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
         <span class="slash">&frasl;</span>
@@ -513,8 +593,8 @@ input[type=range]{accent-color:var(--ink)}
         <span class="k">Type</span><span class="v">Cell tissue</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
-    </div>
-    <div class="l-scroll"><details class="grp" open><summary>Field</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Cells</span><span class="v" id="countVal">28</span></div><div class="track"><input type="range" id="count" min="1" max="60" step="1" value="28"></div></div>
+    </div><div class="framblk"><div class="zone z-right"><h2 class="h frame-h">Frame</h2><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span>
+    </div></div><div class="newblk"><div class="newlab"><span class="k">Variation</span><span class="seedwrap"><input class="seed" id="seed" value="7" inputmode="numeric" aria-label="Variation number"><button class="pbtn copy" id="copySeed" aria-label="Copy variation number">Copy</button></span></div><button class="newbtn" id="randomize"><span class="ico" aria-hidden="true">&#8635;</span><span class="t">New variation</span><span class="sub">Reshuffle every shape</span></button></div><div class="lscroll"><details class="grp" open><summary>Field</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Cells</span><span class="v" id="countVal">28</span></div><div class="track"><input type="range" id="count" min="1" max="60" step="1" value="28"></div></div>
         <div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">45%</span></div><div class="track"><input type="range" id="size" min="0" max="1" step="0.01" value="0.45"></div></div>
         <div class="pr"><div class="top"><span class="k">Zoom</span><span class="v" id="zoomVal">1.0×</span></div><div class="track"><input type="range" id="zoom" min="1" max="8" step="0.1" value="1"></div></div></div></details>
     <details class="grp"><summary>Cells</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Roundness</span><span class="v" id="roundVal">55%</span></div><div class="track"><input type="range" id="round" min="0" max="1" step="0.01" value="0.55"></div></div>
@@ -523,64 +603,31 @@ input[type=range]{accent-color:var(--ink)}
         <div class="pr"><div class="top"><span class="k">Dither</span><span class="v" id="ditherVal">55%</span></div><div class="track"><input type="range" id="dither" min="0" max="1" step="0.01" value="0.55"></div></div></div></details>
     <details class="grp"><summary>Veins</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="veinsVal">50%</span></div><div class="track"><input type="range" id="veins" min="0" max="1" step="0.01" value="0.5"></div></div>
         <div class="pr"><div class="top"><span class="k">Thickness</span><span class="v" id="thickVal">45%</span></div><div class="track"><input type="range" id="thick" min="0" max="1" step="0.01" value="0.45"></div></div></div></details>
-    <details class="grp"><summary>Print</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">40%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.4"></div></div></div></details></div>
-    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">5</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+    <details class="grp"><summary>Print</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">40%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.4"></div></div></div></details><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">5</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
         
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
-    </div>
-  </div>
-
-  <main class="zone z-stage stage-inner">
-    <div class="z-top">
-      <div class="pill">
-        <span class="lb">Variation</span>
-        <span class="sep"></span>
-        <input class="seed" id="seed" value="7" inputmode="numeric" aria-label="Variation number">
-        <button class="pbtn copy" id="copySeed" aria-label="Copy variation number">Copy</button>
-        <button class="pbtn go" id="randomize">New</button>
-      </div>
-    </div>
-    <span class="ring"></span><span class="xh hz"></span><span class="xh vt"></span>
-    <span class="holder">
-      <canvas id="art" width="800" height="800"></canvas>
-      <span class="corner a"></span><span class="corner b"></span>
-      <span class="corner c"></span><span class="corner d"></span>
-    </span>
-  </main>
-
-  <div class="zone z-right">
-    <div class="r-top idblock">
-      <h2 class="h">Output</h2>
+    <details class="grp"><summary>Animate</summary><div class="grp-b"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
+          <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
+          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="12"></div></div>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="36"></div></div></div></div></details><details class="grp"><summary>Dither</summary><div class="grp-b"><div class="btnrow"><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither</button></div><div class="group" id="ditherBody" hidden>
+  <div class="misc stack"><span class="mhead"><span class="k">Pattern</span></span><span class="mval"><div class="chips" id="dthKinds"></div></span></div>
+  <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
+  <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
+  <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="dthAmountVal">100%</span></div><div class="track"><input type="range" id="dthAmount" min="0" max="1" step="0.05" value="1"></div></div>
+</div></div></details><details class="grp"><summary>Export</summary><div class="grp-b"><div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="true">Export</button></div><div class="group" id="exportBody"><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizePxVal">2400 px</span></div><div class="track"><input type="range" id="sizePx" min="600" max="6000" step="100" value="2400"></div></div>
+        <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
+          <button class="lnk" id="expVid">Video</button></span></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div></details><details class="grp"><summary>Output</summary><div class="grp-b"><div class="zone z-right">
       <div class="tbl">
         <span class="k">Ratio</span><span class="v" id="ratioEcho">1:1</span>
         <span class="k">Size</span><span class="v" id="sizeEcho">&mdash;</span>
         <span class="k">Inks</span><span class="v" id="inkEcho">&mdash;</span>
         <span class="k">Render</span><span class="v" id="dims">&mdash;</span>
       </div>
-      <h2 class="h frame-h">Frame</h2><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span>
-    </div>
-    <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
-          <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
-          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="12"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="36"></div></div></div><div class="group" id="ditherBody" hidden>
-  <div class="misc stack"><span class="mhead"><span class="k">Pattern</span></span><span class="mval"><div class="chips" id="dthKinds"></div></span></div>
-  <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
-  <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
-  <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="dthAmountVal">100%</span></div><div class="track"><input type="range" id="dthAmount" min="0" max="1" step="0.05" value="1"></div></div>
-</div></div>
-    <div class="r-bot">
-      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizePxVal">2400 px</span></div><div class="track"><input type="range" id="sizePx" min="600" max="6000" step="100" value="2400"></div></div>
-        <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
-          <button class="lnk" id="expVid">Video</button></span></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
       <div class="tbl" style="margin-top:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="zone z-bottom">
+      </div></div>  <div class="zone z-bottom">
     <h2 class="h">Captures</h2>
     <div class="caps" id="history"></div>
     <div class="tport">
@@ -589,7 +636,16 @@ input[type=range]{accent-color:var(--ink)}
       <span class="k frameno" id="frameno">01 / 01</span>
     </div>
     <span class="k hint">Space &mdash; new variation &middot; P &mdash; play</span>
-  </div>
+  </div></div></details></div></div>  <main class="zone z-stage stage-inner">
+    <span class="ring"></span><span class="xh hz"></span><span class="xh vt"></span>
+    <span class="holder">
+      <canvas id="art" width="800" height="800"></canvas>
+      <span class="corner a"></span><span class="corner b"></span>
+      <span class="corner c"></span><span class="corner d"></span>
+    </span>
+  </main>
+
+
 </div>
 <div class="toast" id="toast"></div>
 <button id="shuf" hidden aria-hidden="true"></button>
