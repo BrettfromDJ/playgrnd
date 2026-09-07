@@ -521,6 +521,13 @@ input[type=range]{accent-color:var(--ink)}
 .lcol .r-mid{margin:0}
 
 /* one scroll for the lot, faded at the foot like the original rails */
+/* The scroll clips anything that reaches its right edge, and the switch ends
+   0.2px short of it — so the moment its border darkens on hover the right side
+   of the track disappears and it reads as having grown. Everything that shares
+   the column's right edge is inset by the same few pixels, which keeps the
+   switch, the plus markers and the frame picker in one line and keeps all of
+   them clear of the clip. */
+.lscroll,.framblk,.newblk{padding-right:5px}
 .lscroll{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;padding-bottom:20px;
   scrollbar-width:none;-ms-overflow-style:none;
   -webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 22px),transparent 100%);
@@ -529,11 +536,10 @@ input[type=range]{accent-color:var(--ink)}
 }
 
 /* ---- the frame, above everything it applies to ---- */
-.framblk{flex:none;padding-bottom:14px;border-bottom:1px solid var(--hair2);margin-bottom:14px}
-.framblk .frame-h{margin-top:0}
+.framblk{flex:none;border-bottom:1px solid var(--hair2)}
 
 /* ---- the New control ---- */
-.newblk{flex:none;padding-bottom:15px;border-bottom:1px solid var(--hair2);margin-bottom:13px}
+.newblk{flex:none;border-bottom:1px solid var(--hair2)}
 .newlab{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
 .newlab .k{font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--key)}
 .newlab .seedwrap{display:flex;align-items:center;gap:6px}
@@ -555,12 +561,33 @@ input[type=range]{accent-color:var(--ink)}
    The row reads like every other group heading and the switch sits where the
    plus sits on the others, hard right. What it does is turn something on
    rather than reveal something, so it is a switch and not a disclosure. */
-.tog-grp{margin:0 0 4px}
-.tog-grp>.pillbtn{width:100%;height:auto;padding:15px 0 13px;border:0;border-radius:0;
-  background:none;color:var(--key);display:flex;align-items:center;gap:12px;
+.tog-grp{margin:0}
+
+/* ---- spacing ----
+   One rhythm for the whole column: a heading row of the same height whatever
+   is on it, controls at one step, and a slightly wider step where a section
+   ends. The chassis's own numbers were set for two short rails, and stacked
+   into one column they added up to a lot of air. */
+.lcol .grp>summary{padding:12px 0 10px}
+.lcol .grp-b{padding-bottom:0}
+.lcol .pr{margin-bottom:13px}
+.lcol .l-bot .misc{margin-bottom:11px}
+.lcol .l-bot .btn-row{margin-top:12px}
+.lcol .z-left .idblock{padding-bottom:16px}
+.lcol .tbl{row-gap:4px}
+.framblk .frame-h{margin:0 0 11px}
+.framblk .rack{gap:9px 10px;margin-bottom:0}
+.framblk .ratio{height:34px}
+.framblk{padding-bottom:16px;margin-bottom:15px}
+.newblk{padding-bottom:16px;margin-bottom:2px}
+/* Full ink, on or off: these read as headings like every other section, and a
+   greyed one looks like a control that has been taken away rather than one
+   that is merely switched off. The switch alone carries the state. */
+.tog-grp>.pillbtn{width:100%;height:auto;padding:12px 0 10px;border:0;border-radius:0;
+  background:none;color:var(--ink);display:flex;align-items:center;gap:12px;
   justify-content:space-between;cursor:pointer;
   font-size:10px;letter-spacing:.32em;text-transform:uppercase;font-weight:700}
-.tog-grp>.pillbtn:hover{background:none;color:var(--ink)}
+.tog-grp>.pillbtn:hover{background:none;color:var(--ink);opacity:.72}
 .tog-grp>.pillbtn[aria-pressed=true]{background:none;color:var(--ink)}
 .tog-grp .sw{position:relative;flex:none;width:28px;height:15px;border-radius:999px;
   border:1px solid var(--hair);background:none;
@@ -572,7 +599,7 @@ input[type=range]{accent-color:var(--ink)}
 .tog-grp>.pillbtn:hover .sw::after{background:var(--ink)}
 .tog-grp>.pillbtn[aria-pressed=true] .sw{background:var(--ink);border-color:var(--ink)}
 .tog-grp>.pillbtn[aria-pressed=true] .sw::after{transform:translateX(13px);background:var(--gnd)}
-.tog-grp>.group{padding-bottom:10px}
+.tog-grp>.group{padding-bottom:2px}
 
 /* ---- under the artwork ----
    The transport only means anything while something is animating, so it is
@@ -627,7 +654,6 @@ input[type=range]{accent-color:var(--ink)}
         <span class="tool">Pith</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">42 / 42</span>
         <span class="k">Type</span><span class="v">Cell tissue</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
