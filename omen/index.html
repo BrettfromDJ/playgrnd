@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://playgrnd.tools/omen">
 <meta property="og:site_name" content="playgrnd">
 <meta property="og:title" content="Omen — playgrnd">
-<meta property="og:description" content="Generate grainy geometric card backgrounds — warped bands, perspective checks, off-centre rings and soft stripes, with a dashed guide and a small line glyph. Every setting is a dial. Exports image and video.">
+<meta property="og:description" content="Generate grainy geometric card backgrounds — warped bands, perspective checks, off-centre rings and soft stripes. Deal a new variation or turn the dials. Exports image and video.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://playgrnd.tools/omen">
 <meta property="og:image" content="https://playgrnd.tools/omen/og.jpg">
@@ -19,10 +19,9 @@
 <meta property="og:image:alt" content="Artwork made with Omen.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Omen — playgrnd">
-<meta name="twitter:description" content="Generate grainy geometric card backgrounds — warped bands, perspective checks, off-centre rings and soft stripes, with a dashed guide and a small line glyph.">
+<meta name="twitter:description" content="Generate grainy geometric card backgrounds — warped bands, perspective checks, off-centre rings and soft stripes.">
 <meta name="twitter:image" content="https://playgrnd.tools/omen/og.jpg">
-<meta name="playgrnd-variation" content="none">
-<meta name="description" content="Generate grainy geometric card backgrounds — warped bands, perspective checks, off-centre rings and soft stripes, with a dashed guide and a small line glyph. Every setting is a dial. Exports image and video.">
+<meta name="description" content="Generate grainy geometric card backgrounds — warped bands, perspective checks, off-centre rings and soft stripes. Deal a new variation or turn the dials. Exports image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -527,6 +526,15 @@ input[type=range]{accent-color:var(--ink)}
         <span class="k">Type</span><span class="v">Grainy cards</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
+      <div class="newblk">
+        <div class="newlab"><span class="k">Variation</span>
+          <span class="seedwrap"><input class="seed" id="seed" value="7" inputmode="numeric" aria-label="Variation number"><button class="pbtn copy" id="copySeed"
+            aria-label="Copy variation number">Copy</button></span>
+        </div>
+        <button class="newbtn" id="randomize"><span class="ico" aria-hidden="true">&#8635;</span>
+          <span class="t">New variation</span>
+          <span class="sub">Reshuffle every shape</span></button>
+      </div>
     </div>
     <div class="l-scroll"><details class="grp" open><summary>Form</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Shape</span></span><span class="mval"><div class="chips" id="dirs"></div></span></div>
         <div class="pr"><div class="top"><span class="k">Count</span><span class="v" id="countVal">5</span></div><div class="track"><input type="range" id="count" min="1" max="24" step="1" value="5"></div></div>
@@ -535,12 +543,7 @@ input[type=range]{accent-color:var(--ink)}
         <div class="pr"><div class="top"><span class="k">Shift across</span><span class="v" id="shiftxVal">50%</span></div><div class="track"><input type="range" id="shiftx" min="0" max="1" step="0.01" value="0.5"></div></div>
         <div class="pr"><div class="top"><span class="k">Shift down</span><span class="v" id="shiftyVal">50%</span></div><div class="track"><input type="range" id="shifty" min="0" max="1" step="0.01" value="0.5"></div></div>
         <div class="pr"><div class="top"><span class="k">Softness</span><span class="v" id="softVal">8%</span></div><div class="track"><input type="range" id="soft" min="0" max="1" step="0.01" value="0.08"></div></div></div></details>
-    <details class="grp"><summary>Print</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">55%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.55"></div></div>
-        <div class="pr"><div class="top"><span class="k">Guide</span><span class="v" id="guideVal">10%</span></div><div class="track"><input type="range" id="guide" min="0" max="0.25" step="0.005" value="0.1"></div></div></div></details>
-    <details class="grp"><summary>Glyph</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Mark</span></span><span class="mval"><div class="chips" id="glyphs"></div></span></div>
-        <div class="pr"><div class="top"><span class="k">Across</span><span class="v" id="gxVal">82%</span></div><div class="track"><input type="range" id="gx" min="0" max="1" step="0.01" value="0.82"></div></div>
-        <div class="pr"><div class="top"><span class="k">Down</span><span class="v" id="gyVal">14%</span></div><div class="track"><input type="range" id="gy" min="0" max="1" step="0.01" value="0.14"></div></div>
-        <div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="gsizeVal">70%</span></div><div class="track"><input type="range" id="gsize" min="0" max="1" step="0.01" value="0.7"></div></div></div></details></div>
+    <details class="grp" open><summary>Print</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">55%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.55"></div></div></div></details></div>
     <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">5</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
         
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
@@ -589,17 +592,18 @@ input[type=range]{accent-color:var(--ink)}
   </div>
 
   <div class="zone z-bottom">
-
+    <h2 class="h">Captures</h2>
+    <div class="caps" id="history"></div>
     <div class="tport">
       <button class="play" id="play" aria-label="Play or pause"><svg width="8" height="9" viewBox="0 0 10 11" id="playIcon"><path d="M0 0l10 5.5L0 11z"/></svg></button>
       <span class="scrubwrap"><input type="range" id="scrub" min="0" max="15" step="1" value="0" aria-label="Timeline" disabled></span>
       <span class="k frameno" id="frameno">01 / 01</span>
     </div>
-    <span class="k hint">P &mdash; play</span>
+    <span class="k hint">Space &mdash; new variation &middot; P &mdash; play</span>
   </div>
 </div>
 <div class="toast" id="toast"></div>
-
+<button id="shuf" hidden aria-hidden="true"></button>
 
 <script>
 (() => {
@@ -624,27 +628,27 @@ const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:
 const MODES=[["drift","Drift"],["sway","Sway"],["boil","Boil"]];
 /* The four forms. */
 const DIRS=[["bands","Bands"],["checks","Checks"],["rings","Rings"],["stripe","Stripe"]];
-/* The mark that sits on the guide. */
-const GLYPHS=[["none","None"],["star","Star"],["peak","Peak"],["rings","Rings"],["rune","Rune"],["eye","Eye"]];
 
-/* The line the guide and the glyph are drawn in, then the inks the field is
-   printed in, cycled in order. */
+/* The inks the field is printed in, cycled in order. The first is the dark
+   ground the checks sit on. */
 const PALETTES=[
-  ["#F0EFEA","#0A0A0C","#F2F2F0","#2F6BFF","#6A1024"],
-  ["#F0EFEA","#0A0A0C","#FF3FA6","#FFA640"],
-  ["#F0EFEA","#0A0A0C","#FF9A2E","#7A3FE0","#3E6BFF"],
-  ["#F0EFEA","#2A0F0B","#1DDB6E","#0A0A0C"],
-  ["#F0EFEA","#0A0A0C","#FFE14D","#E8262B"]
+  ["#0A0A0C","#F2F2F0","#2F6BFF","#6A1024"],
+  ["#0A0A0C","#FF3FA6","#FFA640"],
+  ["#0A0A0C","#FF9A2E","#7A3FE0","#3E6BFF"],
+  ["#2A0F0B","#1DDB6E","#0A0A0C"],
+  ["#0A0A0C","#FFE14D","#E8262B"]
 ];
 
-/* No variation number: every setting is a dial and the same dials always
-   give the same picture. Nothing here is drawn from a random source. */
+/* Every setting is a dial and the same dials always give the same picture —
+   the grain included, which is a fixed pattern and not a sprinkle. The
+   variation number deals a fresh set of dials: the form, the inks and the
+   geometry. It never touches the grain, and the deal shows up on the dials
+   themselves, so a dealt card can be adjusted from where it landed. */
 const S={
-  ratio:"9:16",
+  seed:7, ratio:"9:16",
   kind:"bands",
   count:5, bend:0.55, twist:0, shiftx:0.5, shifty:0.5, soft:0.08,
-  grain:0.55, guide:0.1,
-  glyph:"star", gx:0.82, gy:0.14, gsize:0.7,
+  grain:0.55,
   pal:PALETTES[0].slice(),
   motion:{on:false,mode:"drift",amount:0.6,fps:12,frames:36},
   size_px:2400
@@ -661,6 +665,28 @@ function vnO(x,y,s){
   const u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);
   const a=hshO(xi,yi,s),b=hshO(xi+1,yi,s),c=hshO(xi,yi+1,s),d=hshO(xi+1,yi+1,s);
   return (a*(1-u)+b*u)*(1-v)+(c*(1-u)+d*u)*v;
+}
+function rngO(seed){
+  let a=(seed>>>0)||1;
+  return function(){ a^=a<<13; a>>>=0; a^=a>>>17; a^=a<<5; a>>>=0; return a/4294967296; };
+}
+/* The deal. Each form gets the count and softness that suit it — the stripe is
+   a wash of two or three inks, the checks want more cells than the bands — so
+   a fresh number lands on something like one of the reference cards rather
+   than on a corner of the settings nobody would choose. */
+function dealO(seed){
+  const r=rngO(Math.imul(seed|0,2654435761)^0x5bd1e995);
+  const kinds=["bands","checks","rings","stripe"];
+  S.kind=kinds[(r()*kinds.length)|0];
+  S.pal=PALETTES[(r()*PALETTES.length)|0].slice();
+  if(S.kind==="stripe"){ S.count=2+((r()*3)|0); S.soft=0.6+r()*0.35; }
+  else if(S.kind==="checks"){ S.count=3+((r()*6)|0); S.soft=r()*0.12; }
+  else if(S.kind==="rings"){ S.count=4+((r()*7)|0); S.soft=r()*0.15; }
+  else { S.count=3+((r()*6)|0); S.soft=r()*0.15; }
+  S.bend=0.2+r()*0.7;
+  S.twist=(r()-0.5)*0.9;
+  S.shiftx=0.3+r()*0.4;
+  S.shifty=0.25+r()*0.5;
 }
 function rgbO(h){
   h=(h||"#000").replace("#","");
@@ -688,46 +714,11 @@ function sampleO(p,inks,soft,out){
   out[2]=c0[2]+(c1[2]-c0[2])*w;
 }
 
-/* ---- the glyph -----------------------------------------------------------
-   A few small line marks, each drawn in its own unit box. */
-function glyphO(c,kind,x,y,s,lw){
-  c.save();
-  c.translate(x,y);
-  c.lineWidth=lw; c.lineCap="round"; c.lineJoin="round";
-  c.beginPath();
-  if(kind==="star"){
-    for(let i=0;i<8;i++){
-      const a=i/8*TAUO, r=(i&1)?s*0.55:s;
-      c.moveTo(0,0); c.lineTo(Math.cos(a)*r,Math.sin(a)*r);
-    }
-    c.stroke();
-    c.beginPath(); c.arc(0,0,s*0.22,0,TAUO); c.stroke();
-  }else if(kind==="peak"){
-    c.moveTo(-s,s*0.55); c.lineTo(-s*0.35,-s*0.35); c.lineTo(0,s*0.15);
-    c.lineTo(s*0.4,-s*0.6); c.lineTo(s,s*0.55); c.closePath(); c.stroke();
-  }else if(kind==="rings"){
-    for(let i=1;i<=4;i++){ c.beginPath(); c.arc(0,0,s*i/4,0,TAUO); c.stroke(); }
-  }else if(kind==="rune"){
-    c.moveTo(0,-s); c.lineTo(0,s);
-    c.moveTo(0,-s*0.45); c.lineTo(s*0.65,-s*0.05);
-    c.moveTo(0,s*0.1); c.lineTo(-s*0.65,s*0.5);
-    c.stroke();
-    c.beginPath(); c.arc(0,-s*0.6,s*0.2,0,TAUO); c.stroke();
-  }else if(kind==="eye"){
-    c.moveTo(-s,0); c.quadraticCurveTo(0,-s*0.95,s,0); c.quadraticCurveTo(0,s*0.95,-s,0);
-    c.stroke();
-    c.beginPath(); c.arc(0,0,s*0.28,0,TAUO); c.stroke();
-    c.beginPath(); c.arc(0,0,s*0.08,0,TAUO); c.fill();
-  }
-  c.restore();
-}
-
 let BUFO=null, BUFNO=0;
 function paint(c,W,H,f){
   const M=S.motion, T=M.on ? f/M.frames : 0, ph=T*TAUO;
   const raw=S.pal.length?S.pal:PALETTES[0];
-  const line=raw[0]||"#F0EFEA";
-  const inks=(raw.length>1?raw.slice(1):[raw[0]]).map(rgbO);
+  const inks=raw.map(rgbO);
   const U=Math.sqrt(W*H), aw=W/U, ah=H/U;
 
   /* one ink's worth of travel over the loop, so the last frame runs straight
@@ -793,8 +784,11 @@ function paint(c,W,H,f){
       }else{
         let p;
         if(kind==="bands"){
-          /* stripes seen through a cylinder: wider at the waist */
-          const w=1+bend*(1-4*vv*vv)*0.9;
+          /* stripes seen through a cylinder: wider at the waist. Past the
+             frame's edge (which a twist or shift can bring into view) the
+             width holds, rather than pinching to a fan. */
+          const vc=vv<-0.5?-0.5:vv>0.5?0.5:vv;
+          const w=1+bend*(1-4*vc*vc)*0.9;
           p=uu/w*count+phase+count*0.5;
         }else if(kind==="rings"){
           const rr=Math.sqrt(uu*uu+vv*vv*(1+bend*1.5)*(1+bend*1.5));
@@ -830,30 +824,6 @@ function paint(c,W,H,f){
   c.globalAlpha=1;
   c.putImageData(img,0,0);
 
-  /* ---- the guide and its mark ---- */
-  c.lineCap="butt"; c.lineJoin="miter"; c.setLineDash([]);
-  c.strokeStyle=line; c.fillStyle=line;
-  const lw=Math.max(1,U*0.0016);
-  if(S.guide>0.005){
-    const inset=Math.min(W,H)*S.guide;
-    const gx0=inset, gy0=inset, gw=W-inset*2, gh=H-inset*2;
-    c.globalAlpha=0.85;
-    c.lineWidth=lw;
-    c.setLineDash([U*0.011,U*0.0075]);
-    c.strokeRect(gx0+0.5,gy0+0.5,gw,gh);
-    /* the one tick that runs off the guide to the edge of the sheet */
-    c.beginPath();
-    const ty=gy0+gh*0.36;
-    c.moveTo(gx0+gw,ty); c.lineTo(W,ty);
-    c.stroke();
-    c.setLineDash([]);
-    c.globalAlpha=1;
-  }
-  if(S.glyph!=="none"){
-    c.globalAlpha=0.92;
-    glyphO(c,S.glyph,S.gx*W,S.gy*H,U*(0.018+S.gsize*0.05),Math.max(1,U*0.0018));
-    c.globalAlpha=1;
-  }
 }
 
 const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
@@ -923,7 +893,7 @@ function save(blob,name){
   a.href=url;a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
-function stamp(){return `omen-${S.kind}-${S.ratio.replace(":","x")}`;}
+function stamp(){return `omen-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
   const a=$("#expVid"),sc=$("#scrub");
   if(a)a.disabled=!S.motion.on;
@@ -1055,7 +1025,6 @@ function bindRange(id,fmt,set,after){
 
 buildRatios();buildSwatches();accent();
 segmented($("#dirs"),DIRS,()=>S.kind,v=>{S.kind=v;reframe();});
-segmented($("#glyphs"),GLYPHS,()=>S.glyph,v=>{S.glyph=v;reframe();});
 segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
 $("#shufColors").addEventListener("click",()=>{
   setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
@@ -1070,10 +1039,6 @@ bindRange("shiftx",v=>Math.round(v*100)+"%",v=>S.shiftx=v);
 bindRange("shifty",v=>Math.round(v*100)+"%",v=>S.shifty=v);
 bindRange("soft",v=>Math.round(v*100)+"%",v=>S.soft=v);
 bindRange("grain",v=>Math.round(v*100)+"%",v=>S.grain=v);
-bindRange("guide",v=>Math.round(v*100)+"%",v=>S.guide=v);
-bindRange("gx",v=>Math.round(v*100)+"%",v=>S.gx=v);
-bindRange("gy",v=>Math.round(v*100)+"%",v=>S.gy=v);
-bindRange("gsize",v=>Math.round(v*100)+"%",v=>S.gsize=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
@@ -1091,11 +1056,33 @@ $("#sizePx").addEventListener("input",e=>{S.size_px=parseInt(e.target.value,10);
 });
 $("#play").addEventListener("click",()=>{if(!S.motion.on){$("#motionTog").click();return;}setPlaying(!playing);});
 $("#scrub").addEventListener("input",e=>{setPlaying(false);curFrame=parseInt(e.target.value,10)%Math.max(1,S.motion.frames);draw();});
+function newSeed(v){
+  S.seed=(v!==undefined)?v:(Math.random()*99999|0)+1;
+  $("#seed").value=S.seed;
+  dealO(S.seed);
+  /* every dealt value onto its dial and its readout, so the card can be
+     adjusted from where it landed */
+  const put=(id,val,txt)=>{const e=$("#"+id),l=$("#"+id+"Val");if(e)e.value=val;if(l)l.textContent=txt;};
+  put("count",S.count,String(S.count));
+  put("bend",S.bend,Math.round(S.bend*100)+"%");
+  put("twist",S.twist,Math.round(S.twist*90)+"\u00b0");
+  put("shiftx",S.shiftx,Math.round(S.shiftx*100)+"%");
+  put("shifty",S.shifty,Math.round(S.shifty*100)+"%");
+  put("soft",S.soft,Math.round(S.soft*100)+"%");
+  const host=$("#dirs");
+  if(host) [...host.children].forEach((c,i)=>c.setAttribute("aria-pressed",String(DIRS[i][0]===S.kind)));
+  buildSwatches(); accent();
+  reframe();
+}
+$("#shuf").addEventListener("click",()=>newSeed());
+$("#seed").addEventListener("change",e=>{const v=parseInt(e.target.value,10);newSeed(Number.isFinite(v)?Math.abs(v):1);});
+art.addEventListener("click",()=>newSeed());
 document.addEventListener("keydown",e=>{
   if(e.target.matches("input,textarea"))return;
+  if(e.code==="Space"){e.preventDefault();newSeed();}
   if(e.key==="p"||e.key==="P"){if(S.motion.on)setPlaying(!playing);}
 });
-reframe();
+newSeed(7);
 $("#scrub").max=S.motion.frames-1;
 updateExportNote();
 
