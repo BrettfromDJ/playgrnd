@@ -502,7 +502,8 @@ input[type=range]{accent-color:var(--ink)}
   grid-template-rows:minmax(0,1fr);column-gap:34px;padding:34px 38px}
 .lcol{grid-column:1;grid-row:1;min-height:0;display:flex;flex-direction:column;
   text-align:left}
-.z-stage{grid-column:2;grid-row:1;padding:28px 18px}
+.z-stage{grid-column:2;grid-row:1;padding:28px 18px 52px}
+.rig:has(#motionTog[aria-pressed="true"]) .z-stage{padding-bottom:88px}
 .lcol .zone{max-height:none;overflow:visible;display:block;text-align:left}
 .lcol .l-scroll{overflow:visible;max-height:none;-webkit-mask-image:none;mask-image:none}
 .lcol .z-right,.lcol .z-br{text-align:left}
@@ -550,8 +551,35 @@ input[type=range]{accent-color:var(--ink)}
 .newbtn .t{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase}
 .newbtn .sub{font-size:8.5px;letter-spacing:.1em;opacity:.62;margin-top:3px}
 
-/* the switch that turns an effect on, inside its own group */
-.grp-b>.btnrow .pillbtn{height:26px}
+/* ---- Animate and Dither: a switch, not a drawer ----
+   The row reads like every other group heading, but the marker on it is a
+   radio rather than a plus, because the thing it does is turn something on
+   rather than reveal something. */
+.tog-grp{margin:0 0 4px}
+.tog-grp>.pillbtn{width:100%;height:auto;padding:15px 0 13px;border:0;border-radius:0;
+  background:none;color:var(--key);display:flex;align-items:center;gap:11px;
+  justify-content:flex-start;cursor:pointer;
+  font-size:10px;letter-spacing:.32em;text-transform:uppercase;font-weight:700}
+.tog-grp>.pillbtn::before{content:"";width:11px;height:11px;border-radius:50%;flex:none;
+  border:1px solid var(--hair);transition:background .12s ease,border-color .12s ease}
+.tog-grp>.pillbtn:hover{background:none;color:var(--ink)}
+.tog-grp>.pillbtn:hover::before{border-color:var(--ink)}
+.tog-grp>.pillbtn[aria-pressed=true]{background:none;color:var(--ink)}
+.tog-grp>.pillbtn[aria-pressed=true]::before{background:var(--ink);border-color:var(--ink);
+  box-shadow:inset 0 0 0 2px var(--gnd)}
+.tog-grp>.group{padding-bottom:10px}
+
+/* ---- under the artwork ----
+   The transport only means anything while something is animating, so it is
+   there then and not otherwise. The stage keeps room for it in its padding:
+   the canvas is fitted to the padding box, so reserving the space there is
+   what stops the artwork growing over the top of it. */
+.undercart{position:absolute;left:0;right:0;bottom:14px;display:grid;justify-items:center;
+  gap:10px;pointer-events:none}
+.undercart>*{pointer-events:auto}
+.undercart .tport{display:none;margin:0}
+.undercart .hint{opacity:.75}
+.rig:has(#motionTog[aria-pressed="true"]) .undercart .tport{display:flex}
 
 /* Export is a popover in the rail layout — a mousedown anywhere on the page
    shuts it, which is right for something floating over the artwork and wrong
@@ -565,6 +593,11 @@ input[type=range]{accent-color:var(--ink)}
 .z-stage .ring,.z-stage .xh{opacity:.55}
 
 @media (max-width:1180px){
+  /* the stage is a fixed slice of the screen here, so the room for the
+     transport has to be taken out of it rather than added under it */
+  .z-stage{padding-bottom:56px}
+  .rig:has(#motionTog[aria-pressed="true"]) .z-stage{padding-bottom:84px}
+  .undercart{bottom:10px;gap:7px}
   .lcol{display:block;min-height:0;overflow:visible}
   .lscroll{overflow:visible;max-height:none;min-height:0;padding-bottom:0;
     -webkit-mask-image:none;mask-image:none}
@@ -608,17 +641,17 @@ input[type=range]{accent-color:var(--ink)}
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
-    <details class="grp"><summary>Animate</summary><div class="grp-b"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
+    <div class="tog-grp"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
           <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
           <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="12"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="36"></div></div></div></div></details><details class="grp"><summary>Dither</summary><div class="grp-b"><div class="btnrow"><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither</button></div><div class="group" id="ditherBody" hidden>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="36"></div></div></div></div><div class="tog-grp"><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither</button><div class="group" id="ditherBody" hidden>
   <div class="misc stack"><span class="mhead"><span class="k">Pattern</span></span><span class="mval"><div class="chips" id="dthKinds"></div></span></div>
   <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
   <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
   <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="dthAmountVal">100%</span></div><div class="track"><input type="range" id="dthAmount" min="0" max="1" step="0.05" value="1"></div></div>
-</div></div></details><details class="grp"><summary>Export</summary><div class="grp-b"><div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="true">Export</button></div><div class="group" id="exportBody"><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizePxVal">2400 px</span></div><div class="track"><input type="range" id="sizePx" min="600" max="6000" step="100" value="2400"></div></div>
+</div></div><details class="grp"><summary>Export</summary><div class="grp-b"><div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="true">Export</button></div><div class="group" id="exportBody"><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizePxVal">2400 px</span></div><div class="track"><input type="range" id="sizePx" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
-          <button class="lnk" id="expVid">Video</button></span></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div></details><details class="grp"><summary>Output</summary><div class="grp-b"><div class="zone z-right">
+          <button class="lnk" id="expVid">Video</button></span></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div></details><div class="stowed" hidden><div class="zone z-right">
       <div class="tbl">
         <span class="k">Ratio</span><span class="v" id="ratioEcho">1:1</span>
         <span class="k">Size</span><span class="v" id="sizeEcho">&mdash;</span>
@@ -630,19 +663,20 @@ input[type=range]{accent-color:var(--ink)}
       </div></div>  <div class="zone z-bottom">
     <h2 class="h">Captures</h2>
     <div class="caps" id="history"></div>
-    <div class="tport">
-      <button class="play" id="play" aria-label="Play or pause"><svg width="8" height="9" viewBox="0 0 10 11" id="playIcon"><path d="M0 0l10 5.5L0 11z"/></svg></button>
-      <span class="scrubwrap"><input type="range" id="scrub" min="0" max="15" step="1" value="0" aria-label="Timeline" disabled></span>
-      <span class="k frameno" id="frameno">01 / 01</span>
-    </div>
-    <span class="k hint">Space &mdash; new variation &middot; P &mdash; play</span>
-  </div></div></details></div></div>  <main class="zone z-stage stage-inner">
+    
+    
+  </div></div></div></div>  <main class="zone z-stage stage-inner">
     <span class="ring"></span><span class="xh hz"></span><span class="xh vt"></span>
     <span class="holder">
       <canvas id="art" width="800" height="800"></canvas>
       <span class="corner a"></span><span class="corner b"></span>
       <span class="corner c"></span><span class="corner d"></span>
     </span>
+    <div class="undercart"><div class="tport">
+      <button class="play" id="play" aria-label="Play or pause"><svg width="8" height="9" viewBox="0 0 10 11" id="playIcon"><path d="M0 0l10 5.5L0 11z"/></svg></button>
+      <span class="scrubwrap"><input type="range" id="scrub" min="0" max="15" step="1" value="0" aria-label="Timeline" disabled></span>
+      <span class="k frameno" id="frameno">01 / 01</span>
+    </div><span class="k hint">Space &mdash; new variation &middot; P &mdash; play</span></div>
   </main>
 
 
