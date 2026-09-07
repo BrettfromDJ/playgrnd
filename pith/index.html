@@ -119,19 +119,12 @@ input{font:inherit;color:inherit}
 .back{margin-top:16px}
 
 /* ---------------- variation pill ---------------- */
-.z-top{position:absolute;left:50%;top:0;translate:-50% 0;z-index:12}
-.pill{display:flex;align-items:center;gap:0;height:28px;padding:0 4px 0 18px;
-  border:1px solid var(--ink);border-radius:999px;background:var(--gnd)}
-.pill .lb{font-size:8.5px;letter-spacing:.22em;text-transform:uppercase}
-.pill .sep{width:1px;height:11px;background:var(--hair);margin:0 14px}
 .seed{width:62px;border:0;background:none;text-align:center;font-size:9px;
   letter-spacing:.16em;padding:0}
 .seed:focus{outline:none;text-decoration:underline;text-underline-offset:4px}
 .pbtn{height:20px;padding:0 12px;border-radius:999px;font-size:8.5px;letter-spacing:.22em;
   text-transform:uppercase;font-weight:700;color:var(--key);transition:.12s}
 .pbtn:hover{color:var(--ink)}
-.pbtn.go{background:var(--ink);color:var(--gnd);margin-left:12px}
-.pbtn.go:hover{color:var(--gnd);opacity:.82}
 
 /* standalone pill button — same language as the variation pill */
 .pillbtn{height:28px;padding:0 18px;border-radius:999px;border:1px solid var(--ink);
@@ -198,7 +191,7 @@ input{font:inherit;color:inherit}
 input[type=range]{accent-color:var(--ink)}
 
 /* ---------------- stage ---------------- */
-.z-stage{position:relative;display:grid;place-items:center;padding:64px 46px 30px;min-height:0}
+.z-stage{position:relative;display:grid;place-items:center;padding:34px 46px 30px;min-height:0}
 .ring{position:absolute;left:50%;top:50%;translate:-50% -50%;
   width:var(--ring,100%);height:var(--ring,100%);aspect-ratio:1;
   border:1px solid var(--hair2);border-radius:50%;pointer-events:none}
@@ -253,11 +246,31 @@ input[type=range]{accent-color:var(--ink)}
 .firstrun::before{content:"";position:absolute;left:var(--ax,50%);top:-4px;width:6px;height:6px;
   margin-left:-3px;background:var(--gnd);border-left:1px solid var(--ink);
   border-top:1px solid var(--ink);rotate:45deg}
-.pbtn.go.nudge{animation:nudge 1.8s ease-in-out 3}
+/* ---- new variation ----------------------------------------------------
+   It used to float over the middle of the artwork's top edge, which put the
+   one control everybody reaches for somewhere nothing else lives, and cost
+   the artwork the space it sat in. It goes with the other controls now,
+   under the way back to the index, and says what it does.
+------------------------------------------------------------------------ */
+.newblk{margin-top:22px}
+.newlab{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.newlab .seedwrap{display:flex;align-items:center;gap:4px}
+.newlab .seed{width:auto;min-width:34px;text-align:right}
+.newbtn{width:100%;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;
+  column-gap:11px;align-items:center;text-align:left;
+  background:var(--ink);color:var(--gnd);border:0;border-radius:3px;
+  padding:12px 14px;cursor:pointer;font-family:var(--mono);
+  transition:opacity .15s ease,transform .12s ease}
+.newbtn:hover{opacity:.87}
+.newbtn:active{transform:translateY(1px)}
+.newbtn .ico{grid-row:1/3;font-size:21px;line-height:1;opacity:.9}
+.newbtn .t{font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.newbtn .sub{font-size:8px;letter-spacing:.1em;opacity:.62;margin-top:3px}
+.newbtn.nudge{animation:nudge 1.8s ease-in-out 3}
 @keyframes nudge{0%,100%{transform:none}12%{transform:translateY(-2px)}24%{transform:none}}
 @media (prefers-reduced-motion:reduce){
   .firstrun{transition:none}
-  .pbtn.go.nudge{animation:none}
+  .newbtn.nudge{animation:none}
 }
 /* ---------------- inks ---------------- */
 .sw-grid{display:flex;flex-wrap:wrap;gap:13px;align-items:center;max-width:210px}
@@ -458,7 +471,7 @@ input[type=range]{accent-color:var(--ink)}
      on a wide ratio, where the artwork is short and the gap is most of the
      stage. Everything else in here is absolutely positioned, so the grid has
      one item to centre and centres it. */
-  .z-stage{height:52dvh;padding:64px 26px 26px;overflow:hidden;
+  .z-stage{height:52dvh;padding:26px 26px 26px;overflow:hidden;
     display:grid;place-items:center;
     position:sticky;top:0;z-index:20;background:#F3F3F1;
     margin:0 -30px;padding-left:30px;padding-right:30px}
@@ -490,152 +503,6 @@ input[type=range]{accent-color:var(--ink)}
 <!-- Vercel Web Analytics. Vercel serves this script itself on the live
      site; it 404s locally and on any other host, which is harmless. -->
 <script defer src="/_vercel/insights/script.js"></script>
-<style>
-
-/* The rail-to-column change is a desktop layout. Below the chassis's own
-   breakpoint the page already stacks into one flowing column, and these
-   rules would fight it, so they are kept above the same width and the
-   new wrappers are told to behave like ordinary blocks below it. */
-@media (min-width:1181px){
-/* ================= dock layout ================= */
-.rig{grid-template-columns:minmax(320px,20%) minmax(0,1fr);
-  grid-template-rows:minmax(0,1fr);column-gap:34px;padding:34px 38px}
-.lcol{grid-column:1;grid-row:1;min-height:0;display:flex;flex-direction:column;
-  text-align:left}
-.z-stage{grid-column:2;grid-row:1;padding:28px 18px 52px}
-.rig:has(#motionTog[aria-pressed="true"]) .z-stage{padding-bottom:88px}
-.lcol .zone{max-height:none;overflow:visible;display:block;text-align:left}
-.lcol .l-scroll{overflow:visible;max-height:none;-webkit-mask-image:none;mask-image:none}
-.lcol .z-right,.lcol .z-br{text-align:left}
-.lcol .z-right .rack,.lcol .z-right .tbl,.lcol .z-right .pr,.lcol .z-right .chips{margin-left:0}
-.lcol .z-right .tbl,.lcol .z-br .tbl{justify-content:start;column-gap:20px}
-.lcol .z-right .tbl .k{text-align:left}
-.lcol .z-right .tbl .v{text-align:left;max-width:none}
-.lcol .z-right .chips,.lcol .rack{justify-content:flex-start}
-.lcol .z-right .grp>summary{flex-direction:row;justify-content:space-between}
-.lcol .btnrow{justify-content:flex-start;margin:0 0 12px}
-.lcol .caps{justify-content:flex-start}
-.lcol .tport{justify-content:flex-start}
-.lcol .z-bottom{justify-self:stretch;text-align:left}
-.lcol .z-left .idblock{padding-bottom:22px}
-.lcol .r-mid{margin:0}
-
-/* one scroll for the lot, faded at the foot like the original rails */
-/* The scroll clips anything that reaches its right edge, and the switch ends
-   0.2px short of it — so the moment its border darkens on hover the right side
-   of the track disappears and it reads as having grown. Everything that shares
-   the column's right edge is inset by the same few pixels, which keeps the
-   switch, the plus markers and the frame picker in one line and keeps all of
-   them clear of the clip. */
-.lscroll,.framblk,.newblk{padding-right:5px}
-.lscroll{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;padding-bottom:20px;
-  scrollbar-width:none;-ms-overflow-style:none;
-  -webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 22px),transparent 100%);
-  mask-image:linear-gradient(to bottom,#000 calc(100% - 22px),transparent 100%)}
-.lscroll::-webkit-scrollbar{width:0;height:0;display:none}
-}
-
-/* ---- the frame, above everything it applies to ---- */
-.framblk{flex:none;border-bottom:1px solid var(--hair2)}
-
-/* ---- the New control ---- */
-.newblk{flex:none;border-bottom:1px solid var(--hair2)}
-.newlab{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
-.newlab .k{font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--key)}
-.newlab .seedwrap{display:flex;align-items:center;gap:6px}
-.newlab .seed{width:52px;background:none;border:0;border-bottom:1px solid var(--hair);
-  font-family:var(--mono);font-size:11px;color:var(--ink);text-align:right;padding:0 0 2px}
-.newlab .seed:focus{outline:none;border-bottom-color:var(--ink)}
-.newbtn{width:100%;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;
-  column-gap:12px;align-items:center;text-align:left;
-  background:var(--ink);color:var(--gnd);border:0;border-radius:3px;
-  padding:13px 16px;cursor:pointer;font-family:var(--mono);
-  transition:opacity .15s ease,transform .12s ease}
-.newbtn:hover{opacity:.87}
-.newbtn:active{transform:translateY(1px)}
-.newbtn .ico{grid-row:1/3;font-size:22px;line-height:1;opacity:.9}
-.newbtn .t{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase}
-.newbtn .sub{font-size:8.5px;letter-spacing:.1em;opacity:.62;margin-top:3px}
-
-/* ---- Animate and Dither: a switch, not a drawer ----
-   The row reads like every other group heading and the switch sits where the
-   plus sits on the others, hard right. What it does is turn something on
-   rather than reveal something, so it is a switch and not a disclosure. */
-.tog-grp{margin:0}
-
-/* ---- spacing ----
-   One rhythm for the whole column: a heading row of the same height whatever
-   is on it, controls at one step, and a slightly wider step where a section
-   ends. The chassis's own numbers were set for two short rails, and stacked
-   into one column they added up to a lot of air. */
-.lcol .grp>summary{padding:12px 0 10px}
-.lcol .grp-b{padding-bottom:0}
-.lcol .pr{margin-bottom:13px}
-.lcol .l-bot .misc{margin-bottom:11px}
-.lcol .l-bot .btn-row{margin-top:12px}
-.lcol .z-left .idblock{padding-bottom:16px}
-.lcol .tbl{row-gap:4px}
-.framblk .frame-h{margin:0 0 11px}
-.framblk .rack{gap:9px 10px;margin-bottom:0}
-.framblk .ratio{height:34px}
-.framblk{padding-bottom:16px;margin-bottom:15px}
-.newblk{padding-bottom:16px;margin-bottom:2px}
-/* Full ink, on or off: these read as headings like every other section, and a
-   greyed one looks like a control that has been taken away rather than one
-   that is merely switched off. The switch alone carries the state. */
-.tog-grp>.pillbtn{width:100%;height:auto;padding:12px 0 10px;border:0;border-radius:0;
-  background:none;color:var(--ink);display:flex;align-items:center;gap:12px;
-  justify-content:space-between;cursor:pointer;
-  font-size:10px;letter-spacing:.32em;text-transform:uppercase;font-weight:700}
-.tog-grp>.pillbtn:hover{background:none;color:var(--ink);opacity:.72}
-.tog-grp>.pillbtn[aria-pressed=true]{background:none;color:var(--ink)}
-.tog-grp .sw{position:relative;flex:none;width:28px;height:15px;border-radius:999px;
-  border:1px solid var(--hair);background:none;
-  transition:background .16s ease,border-color .16s ease}
-.tog-grp .sw::after{content:"";position:absolute;top:2px;left:2px;width:9px;height:9px;
-  border-radius:50%;background:var(--key);
-  transition:transform .16s ease,background .16s ease}
-.tog-grp>.pillbtn:hover .sw{border-color:var(--ink)}
-.tog-grp>.pillbtn:hover .sw::after{background:var(--ink)}
-.tog-grp>.pillbtn[aria-pressed=true] .sw{background:var(--ink);border-color:var(--ink)}
-.tog-grp>.pillbtn[aria-pressed=true] .sw::after{transform:translateX(13px);background:var(--gnd)}
-.tog-grp>.group{padding-bottom:2px}
-
-/* ---- under the artwork ----
-   The transport only means anything while something is animating, so it is
-   there then and not otherwise. The stage keeps room for it in its padding:
-   the canvas is fitted to the padding box, so reserving the space there is
-   what stops the artwork growing over the top of it. */
-.undercart{position:absolute;left:0;right:0;bottom:14px;display:grid;justify-items:center;
-  gap:10px;pointer-events:none}
-.undercart>*{pointer-events:auto}
-.undercart .tport{display:none;margin:0}
-.undercart .hint{opacity:.75}
-.rig:has(#motionTog[aria-pressed="true"]) .undercart .tport{display:flex}
-
-/* Export is a popover in the rail layout — a mousedown anywhere on the page
-   shuts it, which is right for something floating over the artwork and wrong
-   for a panel that now lives inside its own group. Its own group decides
-   whether it shows, so the drawer's opinion is overruled here, and the
-   floating positioning is put back to normal flow in case it ever lands. */
-.lcol #exportBody[hidden]{display:block!important}   /* beats the chassis's own !important */
-.lcol #exportBody.pop{position:static;left:auto;top:auto;width:auto;
-  box-shadow:none;border:0;background:none;padding:0}
-#exportTog{display:none}
-.z-stage .ring,.z-stage .xh{opacity:.55}
-
-@media (max-width:1180px){
-  /* the stage is a fixed slice of the screen here, so the room for the
-     transport has to be taken out of it rather than added under it */
-  .z-stage{padding-bottom:56px}
-  .rig:has(#motionTog[aria-pressed="true"]) .z-stage{padding-bottom:84px}
-  .undercart{bottom:10px;gap:7px}
-  .lcol{display:block;min-height:0;overflow:visible}
-  .lscroll{overflow:visible;max-height:none;min-height:0;padding-bottom:0;
-    -webkit-mask-image:none;mask-image:none}
-  .framblk,.newblk{border-bottom:0;padding-bottom:0;margin-bottom:18px}
-}
-</style>
 </head>
 <body>
 
@@ -647,18 +514,29 @@ input[type=range]{accent-color:var(--ink)}
 <span class="mark edgetick" style="right:24px;top:50%"></span>
 
 <div class="rig">
-<div class="lcol"><div class="l-top idblock">
+  <div class="zone z-left">
+    <div class="l-top idblock">
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
         <span class="slash">&frasl;</span>
         <span class="tool">Pith</span>
       </a>
       <div class="tbl">
+        <span class="k">Index</span><span class="v">42 / 42</span>
         <span class="k">Type</span><span class="v">Cell tissue</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
-    </div><div class="framblk"><div class="zone z-right"><h2 class="h frame-h">Frame</h2><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span>
-    </div></div><div class="newblk"><div class="newlab"><span class="k">Variation</span><span class="seedwrap"><input class="seed" id="seed" value="7" inputmode="numeric" aria-label="Variation number"><button class="pbtn copy" id="copySeed" aria-label="Copy variation number">Copy</button></span></div><button class="newbtn" id="randomize"><span class="ico" aria-hidden="true">&#8635;</span><span class="t">New variation</span><span class="sub">Reshuffle every shape</span></button></div><div class="lscroll"><details class="grp" open><summary>Field</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Cells</span><span class="v" id="countVal">28</span></div><div class="track"><input type="range" id="count" min="1" max="60" step="1" value="28"></div></div>
+      <div class="newblk">
+        <div class="newlab"><span class="k">Variation</span>
+          <span class="seedwrap"><input class="seed" id="seed" value="7" inputmode="numeric" aria-label="Variation number"><button class="pbtn copy" id="copySeed"
+            aria-label="Copy variation number">Copy</button></span>
+        </div>
+        <button class="newbtn" id="randomize"><span class="ico" aria-hidden="true">&#8635;</span>
+          <span class="t">New variation</span>
+          <span class="sub">Reshuffle every shape</span></button>
+      </div>
+    </div>
+    <div class="l-scroll"><details class="grp" open><summary>Field</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Cells</span><span class="v" id="countVal">28</span></div><div class="track"><input type="range" id="count" min="1" max="60" step="1" value="28"></div></div>
         <div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">45%</span></div><div class="track"><input type="range" id="size" min="0" max="1" step="0.01" value="0.45"></div></div>
         <div class="pr"><div class="top"><span class="k">Zoom</span><span class="v" id="zoomVal">1.0×</span></div><div class="track"><input type="range" id="zoom" min="1" max="8" step="0.1" value="1"></div></div></div></details>
     <details class="grp"><summary>Cells</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Roundness</span><span class="v" id="roundVal">55%</span></div><div class="track"><input type="range" id="round" min="0" max="1" step="0.01" value="0.55"></div></div>
@@ -667,50 +545,64 @@ input[type=range]{accent-color:var(--ink)}
         <div class="pr"><div class="top"><span class="k">Dither</span><span class="v" id="ditherVal">55%</span></div><div class="track"><input type="range" id="dither" min="0" max="1" step="0.01" value="0.55"></div></div></div></details>
     <details class="grp"><summary>Veins</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="veinsVal">50%</span></div><div class="track"><input type="range" id="veins" min="0" max="1" step="0.01" value="0.5"></div></div>
         <div class="pr"><div class="top"><span class="k">Thickness</span><span class="v" id="thickVal">45%</span></div><div class="track"><input type="range" id="thick" min="0" max="1" step="0.01" value="0.45"></div></div></div></details>
-    <details class="grp"><summary>Print</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">40%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.4"></div></div></div></details><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">5</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+    <details class="grp"><summary>Print</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">40%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.4"></div></div></div></details></div>
+    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">5</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
         
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
-    <div class="tog-grp"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate<span class="sw"></span></button><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
-          <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
-          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="12"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="36"></div></div></div></div><div class="tog-grp"><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither<span class="sw"></span></button><div class="group" id="ditherBody" hidden>
-  <div class="misc stack"><span class="mhead"><span class="k">Pattern</span></span><span class="mval"><div class="chips" id="dthKinds"></div></span></div>
-  <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
-  <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
-  <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="dthAmountVal">100%</span></div><div class="track"><input type="range" id="dthAmount" min="0" max="1" step="0.05" value="1"></div></div>
-</div></div><details class="grp"><summary>Export</summary><div class="grp-b"><div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="true">Export</button></div><div class="group" id="exportBody"><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizePxVal">2400 px</span></div><div class="track"><input type="range" id="sizePx" min="600" max="6000" step="100" value="2400"></div></div>
-        <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
-          <button class="lnk" id="expVid">Video</button></span></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div></details><div class="stowed" hidden><div class="zone z-right">
-      <div class="tbl">
-        <span class="k">Ratio</span><span class="v" id="ratioEcho">1:1</span>
-        <span class="k">Size</span><span class="v" id="sizeEcho">&mdash;</span>
-        <span class="k">Inks</span><span class="v" id="inkEcho">&mdash;</span>
-        <span class="k">Render</span><span class="v" id="dims">&mdash;</span>
-      </div>
-      <div class="tbl" style="margin-top:20px">
-        <span class="k">Version</span><span class="v build" id="build">v1</span>
-      </div></div>  <div class="zone z-bottom">
-    <h2 class="h">Captures</h2>
-    <div class="caps" id="history"></div>
-    
-    
-  </div></div></div></div>  <main class="zone z-stage stage-inner">
+    </div>
+  </div>
+
+  <main class="zone z-stage stage-inner">
     <span class="ring"></span><span class="xh hz"></span><span class="xh vt"></span>
     <span class="holder">
       <canvas id="art" width="800" height="800"></canvas>
       <span class="corner a"></span><span class="corner b"></span>
       <span class="corner c"></span><span class="corner d"></span>
     </span>
-    <div class="undercart"><div class="tport">
+  </main>
+
+  <div class="zone z-right">
+    <div class="r-top idblock">
+      <h2 class="h">Output</h2>
+      <div class="tbl">
+        <span class="k">Ratio</span><span class="v" id="ratioEcho">1:1</span>
+        <span class="k">Size</span><span class="v" id="sizeEcho">&mdash;</span>
+        <span class="k">Inks</span><span class="v" id="inkEcho">&mdash;</span>
+        <span class="k">Render</span><span class="v" id="dims">&mdash;</span>
+      </div>
+      <h2 class="h frame-h">Frame</h2><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span>
+    </div>
+    <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
+          <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
+          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="12"></div></div>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="36"></div></div></div><div class="group" id="ditherBody" hidden>
+  <div class="misc stack"><span class="mhead"><span class="k">Pattern</span></span><span class="mval"><div class="chips" id="dthKinds"></div></span></div>
+  <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
+  <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
+  <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="dthAmountVal">100%</span></div><div class="track"><input type="range" id="dthAmount" min="0" max="1" step="0.05" value="1"></div></div>
+</div></div>
+    <div class="r-bot">
+      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizePxVal">2400 px</span></div><div class="track"><input type="range" id="sizePx" min="600" max="6000" step="100" value="2400"></div></div>
+        <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
+          <button class="lnk" id="expVid">Video</button></span></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
+      <div class="tbl" style="margin-top:20px">
+        <span class="k">Version</span><span class="v build" id="build">v1</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="zone z-bottom">
+    <h2 class="h">Captures</h2>
+    <div class="caps" id="history"></div>
+    <div class="tport">
       <button class="play" id="play" aria-label="Play or pause"><svg width="8" height="9" viewBox="0 0 10 11" id="playIcon"><path d="M0 0l10 5.5L0 11z"/></svg></button>
       <span class="scrubwrap"><input type="range" id="scrub" min="0" max="15" step="1" value="0" aria-label="Timeline" disabled></span>
       <span class="k frameno" id="frameno">01 / 01</span>
-    </div><span class="k hint">Space &mdash; new variation &middot; P &mdash; play</span></div>
-  </main>
-
-
+    </div>
+    <span class="k hint">Space &mdash; new variation &middot; P &mdash; play</span>
+  </div>
 </div>
 <div class="toast" id="toast"></div>
 <button id="shuf" hidden aria-hidden="true"></button>

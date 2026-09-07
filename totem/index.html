@@ -119,19 +119,12 @@ input{font:inherit;color:inherit}
 .back{margin-top:16px}
 
 /* ---------------- variation pill ---------------- */
-.z-top{position:absolute;left:50%;top:0;translate:-50% 0;z-index:12}
-.pill{display:flex;align-items:center;gap:0;height:28px;padding:0 4px 0 18px;
-  border:1px solid var(--ink);border-radius:999px;background:var(--gnd)}
-.pill .lb{font-size:8.5px;letter-spacing:.22em;text-transform:uppercase}
-.pill .sep{width:1px;height:11px;background:var(--hair);margin:0 14px}
 .seed{width:62px;border:0;background:none;text-align:center;font-size:9px;
   letter-spacing:.16em;padding:0}
 .seed:focus{outline:none;text-decoration:underline;text-underline-offset:4px}
 .pbtn{height:20px;padding:0 12px;border-radius:999px;font-size:8.5px;letter-spacing:.22em;
   text-transform:uppercase;font-weight:700;color:var(--key);transition:.12s}
 .pbtn:hover{color:var(--ink)}
-.pbtn.go{background:var(--ink);color:var(--gnd);margin-left:12px}
-.pbtn.go:hover{color:var(--gnd);opacity:.82}
 
 /* standalone pill button — same language as the variation pill */
 .pillbtn{height:28px;padding:0 18px;border-radius:999px;border:1px solid var(--ink);
@@ -198,7 +191,7 @@ input{font:inherit;color:inherit}
 input[type=range]{accent-color:var(--ink)}
 
 /* ---------------- stage ---------------- */
-.z-stage{position:relative;display:grid;place-items:center;padding:64px 46px 30px;min-height:0}
+.z-stage{position:relative;display:grid;place-items:center;padding:34px 46px 30px;min-height:0}
 .ring{position:absolute;left:50%;top:50%;translate:-50% -50%;
   width:var(--ring,100%);height:var(--ring,100%);aspect-ratio:1;
   border:1px solid var(--hair2);border-radius:50%;pointer-events:none}
@@ -253,11 +246,31 @@ input[type=range]{accent-color:var(--ink)}
 .firstrun::before{content:"";position:absolute;left:var(--ax,50%);top:-4px;width:6px;height:6px;
   margin-left:-3px;background:var(--gnd);border-left:1px solid var(--ink);
   border-top:1px solid var(--ink);rotate:45deg}
-.pbtn.go.nudge{animation:nudge 1.8s ease-in-out 3}
+/* ---- new variation ----------------------------------------------------
+   It used to float over the middle of the artwork's top edge, which put the
+   one control everybody reaches for somewhere nothing else lives, and cost
+   the artwork the space it sat in. It goes with the other controls now,
+   under the way back to the index, and says what it does.
+------------------------------------------------------------------------ */
+.newblk{margin-top:22px}
+.newlab{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.newlab .seedwrap{display:flex;align-items:center;gap:4px}
+.newlab .seed{width:auto;min-width:34px;text-align:right}
+.newbtn{width:100%;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;
+  column-gap:11px;align-items:center;text-align:left;
+  background:var(--ink);color:var(--gnd);border:0;border-radius:3px;
+  padding:12px 14px;cursor:pointer;font-family:var(--mono);
+  transition:opacity .15s ease,transform .12s ease}
+.newbtn:hover{opacity:.87}
+.newbtn:active{transform:translateY(1px)}
+.newbtn .ico{grid-row:1/3;font-size:21px;line-height:1;opacity:.9}
+.newbtn .t{font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.newbtn .sub{font-size:8px;letter-spacing:.1em;opacity:.62;margin-top:3px}
+.newbtn.nudge{animation:nudge 1.8s ease-in-out 3}
 @keyframes nudge{0%,100%{transform:none}12%{transform:translateY(-2px)}24%{transform:none}}
 @media (prefers-reduced-motion:reduce){
   .firstrun{transition:none}
-  .pbtn.go.nudge{animation:none}
+  .newbtn.nudge{animation:none}
 }
 /* ---------------- inks ---------------- */
 .sw-grid{display:flex;flex-wrap:wrap;gap:13px;align-items:center;max-width:210px}
@@ -458,7 +471,7 @@ input[type=range]{accent-color:var(--ink)}
      on a wide ratio, where the artwork is short and the gap is most of the
      stage. Everything else in here is absolutely positioned, so the grid has
      one item to centre and centres it. */
-  .z-stage{height:52dvh;padding:64px 26px 26px;overflow:hidden;
+  .z-stage{height:52dvh;padding:26px 26px 26px;overflow:hidden;
     display:grid;place-items:center;
     position:sticky;top:0;z-index:20;background:#F3F3F1;
     margin:0 -30px;padding-left:30px;padding-right:30px}
@@ -513,6 +526,15 @@ input[type=range]{accent-color:var(--ink)}
         <span class="k">Type</span><span class="v">Pixel banner</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
+      <div class="newblk">
+        <div class="newlab"><span class="k">Variation</span>
+          <span class="seedwrap"><input class="seed" id="seed" value="1" inputmode="numeric" aria-label="Variation number"><button class="pbtn copy" id="copySeed"
+            aria-label="Copy variation number">Copy</button></span>
+        </div>
+        <button class="newbtn" id="randomize"><span class="ico" aria-hidden="true">&#8635;</span>
+          <span class="t">New variation</span>
+          <span class="sub">Reshuffle every shape</span></button>
+      </div>
     </div>
     <div class="l-scroll"><details class="grp" open><summary>Border</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Width</span><span class="v" id="borderVal">15%</span></div><div class="track"><input type="range" id="border" min="0" max="0.4" step="0.005" value="0.15"></div></div>
         <div class="pr"><div class="top"><span class="k">Static</span><span class="v" id="matVal">36%</span></div><div class="track"><input type="range" id="mat" min="0" max="0.7" step="0.01" value="0.36"></div></div>
@@ -532,15 +554,6 @@ input[type=range]{accent-color:var(--ink)}
   </div>
 
   <main class="zone z-stage stage-inner">
-    <div class="z-top">
-      <div class="pill">
-        <span class="lb">Variation</span>
-        <span class="sep"></span>
-        <input class="seed" id="seed" value="1" inputmode="numeric" aria-label="Variation number">
-        <button class="pbtn copy" id="copySeed" aria-label="Copy variation number">Copy</button>
-        <button class="pbtn go" id="randomize">New</button>
-      </div>
-    </div>
     <span class="ring"></span><span class="xh hz"></span><span class="xh vt"></span>
     <span class="holder">
       <canvas id="art" width="800" height="800"></canvas>
