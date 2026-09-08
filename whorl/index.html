@@ -413,7 +413,21 @@ input[type=range]{accent-color:var(--ink)}
 .group.pop .pr{margin-bottom:0}
 .group.pop .expmenu{gap:14px 18px;margin-top:14px}
 .group.pop > :last-child{margin-bottom:0}
-.chips{display:flex;flex-wrap:wrap;gap:14px;margin-top:4px}
+.chips{display:flex;flex-wrap:wrap;gap:14px;margin-top:4px;flex:1 1 auto;min-width:0}
+/* ---- pickers: one dropdown, the same on every tool ----
+   A row of names side by side read as a menu that had been spilled out; a
+   list of fourteen styles took three lines. Every picker is now a dropdown,
+   drawn in the rail's own type with a small chevron, and the list itself is
+   the browser's, which is what a phone does best with it anyway. */
+.pick{appearance:none;-webkit-appearance:none;flex:1 1 auto;width:100%;min-width:0;
+  background:transparent;border:0;border-bottom:1px solid var(--ink);border-radius:0;
+  font-family:var(--mono);font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;
+  font-weight:700;color:var(--ink);padding:6px 20px 7px 0;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M1.5 3.5 5 7l3.5-3.5' fill='none' stroke='%2315161A' stroke-width='1.2'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 1px center;background-size:9px 9px}
+.pick:focus{outline:none}
+.pick:focus-visible{outline:1px solid var(--ink);outline-offset:3px}
+.pick option{font-family:var(--mono);text-transform:none;letter-spacing:0;font-size:12px}
 .chip{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;font-weight:700;
   color:var(--key);transition:color .12s}
 .chip:hover{color:var(--ink)}
@@ -963,13 +977,18 @@ function accent(){
 function segmented(host,items,get,set){
   if(!host)return;
   host.innerHTML="";
-  items.forEach(([id,label])=>{
-    const b=document.createElement("button");
-    b.className="chip";b.type="button";b.textContent=label;
-    b.setAttribute("aria-pressed",String(get()===id));
-    b.onclick=()=>{set(id);[...host.children].forEach(c=>c.setAttribute("aria-pressed",String(c===b)));};
-    host.appendChild(b);
+  const sel=document.createElement("select");
+  sel.className="pick";
+  const head=host.closest(".misc"), k=head&&head.querySelector(".k");
+  sel.setAttribute("aria-label",(k&&k.textContent.trim())||host.id);
+  items.forEach(([id,label],i)=>{
+    const o=document.createElement("option");
+    o.value=String(i); o.textContent=label;
+    if(get()===id) o.selected=true;
+    sel.appendChild(o);
   });
+  sel.addEventListener("change",()=>{ set(items[sel.selectedIndex][0]); });
+  host.appendChild(sel);
 }
 function buildRatios(){
   const host=$("#ratios");if(!host)return;
@@ -1512,7 +1531,7 @@ html.embed body{overflow:hidden!important}
   (function(){
     var modes=document.getElementById("modes");
     if(!modes) return;
-    var only=modes.querySelectorAll("button").length<2;
+    var only=modes.querySelectorAll("button,option").length<2;   /* chips or a dropdown */
     var row=modes.closest(".misc")||modes.parentElement;
     if(row&&only&&!row.hidden){ row.setAttribute("data-inert",""); row.hidden=true; }
   })();
