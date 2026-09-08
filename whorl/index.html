@@ -108,7 +108,7 @@ input{font:inherit;color:inherit}
 .z-bottom{grid-column:2;grid-row:2;justify-self:center;text-align:center}
 .z-right{text-align:right}
 .r-mid{margin:auto 0}          /* centred between the readout and the corner */
-.r-bot{flex:none}
+.r-bot{flex:none;margin-top:auto}   /* pinned to the foot of the column */
 
 /* ---------------- identity ---------------- */
 .idline{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;margin-bottom:14px}
@@ -145,18 +145,18 @@ input{font:inherit;color:inherit}
   background:none;color:var(--ink);display:flex;align-items:center;gap:12px;
   justify-content:space-between;cursor:pointer;
   font-size:10px;letter-spacing:.32em;text-transform:uppercase;font-weight:700}
-.tog-grp>.pillbtn:hover{background:none;color:var(--ink);opacity:.72}
-.tog-grp>.pillbtn[aria-pressed=true]{background:none;color:var(--ink);opacity:1}
-/* a pixel in from the scroll's clip edge, so the track's border never loses
-   its right side when it darkens on hover */
+.tog-grp>.pillbtn:hover,.tog-grp>.pillbtn[aria-pressed=true]{background:none;color:var(--ink);opacity:1}
+/* The scroll box clips at its own right edge, and the switch sits on that
+   edge; the moment its border darkens on hover, a browser that rounds the
+   box a fraction wide cuts the right side off the track. So the scroll's
+   clip edge is pushed six pixels out into the column gap while its content
+   stays exactly where it was: nothing moves, and there is room to spare. */
+.l-scroll{padding-right:6px;margin-right:-6px}
 .tog-grp .sw{position:relative;flex:none;width:28px;height:15px;border-radius:999px;
-  border:1px solid var(--hair);background:none;margin-right:1px;
-  transition:background .16s ease,border-color .16s ease}
+  border:1px solid var(--ink);background:none}
+/* nothing happens on hover; the knob slides only when the switch is thrown */
 .tog-grp .sw::after{content:"";position:absolute;top:2px;left:2px;width:9px;height:9px;
-  border-radius:50%;background:var(--key);
-  transition:transform .16s ease,background .16s ease}
-.tog-grp>.pillbtn:hover .sw{border-color:var(--ink)}
-.tog-grp>.pillbtn:hover .sw::after{background:var(--ink)}
+  border-radius:50%;background:var(--ink);transition:transform .16s ease}
 .tog-grp>.pillbtn[aria-pressed=true] .sw{background:var(--ink);border-color:var(--ink)}
 .tog-grp>.pillbtn[aria-pressed=true] .sw::after{transform:translateX(13px);background:var(--gnd)}
 .tog-grp>.group{margin-top:0;padding-bottom:8px}
@@ -284,7 +284,7 @@ input[type=range]{accent-color:var(--ink)}
 .newlab .seed{width:auto;min-width:34px;text-align:right}
 .newbtn{width:100%;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;
   column-gap:11px;align-items:center;text-align:left;
-  background:var(--ink);color:var(--gnd);border:0;border-radius:3px;
+  background:var(--ink);color:var(--gnd);border:0;border-radius:7px;
   padding:12px 14px;cursor:pointer;font-family:var(--mono);
   transition:opacity .15s ease,transform .12s ease}
 .newbtn:hover{opacity:.87}
@@ -613,12 +613,12 @@ input[type=range]{accent-color:var(--ink)}
       <h2 class="h frame-h">Frame</h2><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span>
     </div>
     <div class="r-bot">
+      <div class="tbl" style="margin-bottom:20px">
+        <span class="k">Version</span><span class="v build" id="build">v1</span>
+      </div>
       <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizePxVal">2400 px</span></div><div class="track"><input type="range" id="sizePx" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
           <button class="lnk" id="expVid">Video</button></span></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
-      <div class="tbl" style="margin-top:20px">
-        <span class="k">Version</span><span class="v build" id="build">v1</span>
-      </div>
     </div>
   </div>
 
