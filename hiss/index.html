@@ -3,25 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Totem — playgrnd</title>
+<title>Hiss — playgrnd</title>
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/favicon.png" sizes="180x180" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="canonical" href="https://playgrnd.tools/totem">
+<link rel="canonical" href="https://playgrnd.tools/hiss">
 <meta property="og:site_name" content="playgrnd">
-<meta property="og:title" content="Totem — playgrnd">
-<meta property="og:description" content="Generate symmetrical pixel banners — a static border around a mirrored panel of woven motifs, built on one grid. Exports vector, image and video.">
+<meta property="og:title" content="Hiss — playgrnd">
+<meta property="og:description" content="Generate television-snow poster backgrounds — a stack of pointed leaves filled with static over marbled colour, with checker lenses, stair-step edges, comb stripes and asterisk marks. Deal a new variation or turn the dials. Exports image and video.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://playgrnd.tools/totem">
-<meta property="og:image" content="https://playgrnd.tools/totem/og.png">
+<meta property="og:url" content="https://playgrnd.tools/hiss">
+<meta property="og:image" content="https://playgrnd.tools/hiss/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Artwork made with Totem.">
+<meta property="og:image:alt" content="Artwork made with Hiss.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Totem — playgrnd">
-<meta name="twitter:description" content="Generate symmetrical pixel banners — a static border around a mirrored panel of woven motifs, built on one grid.">
-<meta name="twitter:image" content="https://playgrnd.tools/totem/og.png">
-<meta name="description" content="Generate symmetrical pixel banners — a static border around a mirrored panel of woven motifs, built on one grid. Exports vector, image and video.">
+<meta name="twitter:title" content="Hiss — playgrnd">
+<meta name="twitter:description" content="Generate television-snow poster backgrounds — a stack of pointed leaves filled with static over marbled colour, with checker lenses, stair-step edges, comb stripes and asterisk marks.">
+<meta name="twitter:image" content="https://playgrnd.tools/hiss/og.jpg">
+<meta name="description" content="Generate television-snow poster backgrounds — a stack of pointed leaves filled with static over marbled colour, with checker lenses, stair-step edges, comb stripes and asterisk marks. Deal a new variation or turn the dials. Exports image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -519,16 +519,16 @@ input[type=range]{accent-color:var(--ink)}
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
         <span class="slash">&frasl;</span>
-        <span class="tool">Totem</span>
+        <span class="tool">Hiss</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">23 / 43</span>
-        <span class="k">Type</span><span class="v">Pixel banner</span>
+        <span class="k">Index</span><span class="v">43 / 43</span>
+        <span class="k">Type</span><span class="v">Static posters</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
       <div class="newblk">
         <div class="newlab"><span class="k">Variation</span>
-          <span class="seedwrap"><input class="seed" id="seed" value="1" inputmode="numeric" aria-label="Variation number"><button class="pbtn copy" id="copySeed"
+          <span class="seedwrap"><input class="seed" id="seed" value="7" inputmode="numeric" aria-label="Variation number"><button class="pbtn copy" id="copySeed"
             aria-label="Copy variation number">Copy</button></span>
         </div>
         <button class="newbtn" id="randomize"><span class="ico" aria-hidden="true">&#8635;</span>
@@ -536,17 +536,22 @@ input[type=range]{accent-color:var(--ink)}
           <span class="sub">Reshuffle every shape</span></button>
       </div>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Border</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Width</span><span class="v" id="borderVal">15%</span></div><div class="track"><input type="range" id="border" min="0" max="0.4" step="0.005" value="0.15"></div></div>
-        <div class="pr"><div class="top"><span class="k">Static</span><span class="v" id="matVal">36%</span></div><div class="track"><input type="range" id="mat" min="0" max="0.7" step="0.01" value="0.36"></div></div>
-        <div class="pr"><div class="top"><span class="k">Static size</span><span class="v" id="matGrainVal">2</span></div><div class="track"><input type="range" id="matGrain" min="1" max="6" step="1" value="2"></div></div>
-        <div class="pr"><div class="top"><span class="k">Rule</span><span class="v" id="keylineVal">3</span></div><div class="track"><input type="range" id="keyline" min="0" max="10" step="1" value="3"></div></div></div></details>
-    <details class="grp"><summary>Panel</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Regions</span><span class="v" id="regionsVal">14</span></div><div class="track"><input type="range" id="regions" min="1" max="30" step="1" value="14"></div></div>
-        <div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">110</span></div><div class="track"><input type="range" id="grain" min="16" max="220" step="1" value="110"></div></div>
-        <div class="pr"><div class="top"><span class="k">Mirror</span><span class="v" id="mirrorVal">100%</span></div><div class="track"><input type="range" id="mirror" min="0" max="1" step="0.01" value="1"></div></div>
-        <div class="pr"><div class="top"><span class="k">Variety</span><span class="v" id="varietyVal">70%</span></div><div class="track"><input type="range" id="variety" min="0" max="1" step="0.01" value="0.7"></div></div></div></details>
-    <details class="grp"><summary>Core</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="coreVal">22%</span></div><div class="track"><input type="range" id="core" min="0" max="0.6" step="0.01" value="0.22"></div></div>
-        <div class="pr"><div class="top"><span class="k">Rings</span><span class="v" id="coreRingsVal">3</span></div><div class="track"><input type="range" id="coreRings" min="0" max="8" step="1" value="3"></div></div></div></details></div>
+    <div class="l-scroll"><details class="grp" open><summary>Leaves</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Count</span><span class="v" id="leavesVal">3</span></div><div class="track"><input type="range" id="leaves" min="1" max="5" step="1" value="3"></div></div>
+        <div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">90%</span></div><div class="track"><input type="range" id="size" min="0.4" max="1.4" step="0.01" value="0.9"></div></div>
+        <div class="pr"><div class="top"><span class="k">Overlap</span><span class="v" id="overlapVal">15%</span></div><div class="track"><input type="range" id="overlap" min="0" max="0.5" step="0.01" value="0.15"></div></div>
+        <div class="pr"><div class="top"><span class="k">Tilt</span><span class="v" id="tiltVal">3°</span></div><div class="track"><input type="range" id="tilt" min="-1" max="1" step="0.01" value="0.2"></div></div>
+        <div class="pr"><div class="top"><span class="k">Shift</span><span class="v" id="shiftVal">50%</span></div><div class="track"><input type="range" id="shift" min="0" max="1" step="0.01" value="0.5"></div></div></div></details>
+    <details class="grp"><summary>Backdrop</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Swirl</span><span class="v" id="swirlVal">60%</span></div><div class="track"><input type="range" id="swirl" min="0" max="1" step="0.01" value="0.6"></div></div>
+        <div class="pr"><div class="top"><span class="k">Black</span><span class="v" id="blackVal">45%</span></div><div class="track"><input type="range" id="black" min="0" max="1" step="0.01" value="0.45"></div></div>
+        <div class="pr"><div class="top"><span class="k">Scale</span><span class="v" id="scaleVal">50%</span></div><div class="track"><input type="range" id="scale" min="0" max="1" step="0.01" value="0.5"></div></div></div></details>
+    <details class="grp"><summary>Details</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Checker lenses</span><span class="v" id="checkersVal">2</span></div><div class="track"><input type="range" id="checkers" min="0" max="4" step="1" value="2"></div></div>
+        <div class="pr"><div class="top"><span class="k">Stair-step</span><span class="v" id="stepsVal">35%</span></div><div class="track"><input type="range" id="steps" min="0" max="1" step="0.01" value="0.35"></div></div>
+        <div class="pr"><div class="top"><span class="k">Comb stripes</span><span class="v" id="combVal">40%</span></div><div class="track"><input type="range" id="comb" min="0" max="1" step="0.01" value="0.4"></div></div>
+        <div class="pr"><div class="top"><span class="k">Marks</span><span class="v" id="marksVal">8</span></div><div class="track"><input type="range" id="marks" min="0" max="24" step="1" value="8"></div></div></div></details>
+    <details class="grp"><summary>Static</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Colour flecks</span><span class="v" id="flecksVal">40%</span></div><div class="track"><input type="range" id="flecks" min="0" max="1" step="0.01" value="0.4"></div></div>
+        <div class="pr"><div class="top"><span class="k">Coarseness</span><span class="v" id="coarseVal">15%</span></div><div class="track"><input type="range" id="coarse" min="0" max="1" step="0.01" value="0.15"></div></div></div></details></div>
     <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">5</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+        
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
@@ -575,17 +580,16 @@ input[type=range]{accent-color:var(--ink)}
     </div>
     <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
           <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
-          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">8 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="8"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">24 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="24"></div></div></div><div class="group" id="ditherBody" hidden>
+          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="12"></div></div>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="36"></div></div></div><div class="group" id="ditherBody" hidden>
   <div class="misc stack"><span class="mhead"><span class="k">Pattern</span></span><span class="mval"><div class="chips" id="dthKinds"></div></span></div>
   <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
   <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
   <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="dthAmountVal">100%</span></div><div class="track"><input type="range" id="dthAmount" min="0" max="1" step="0.05" value="1"></div></div>
 </div></div>
     <div class="r-bot">
-      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
+      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizePxVal">2400 px</span></div><div class="track"><input type="range" id="sizePx" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
-          <button class="lnk" id="expSvg">SVG</button>
           <button class="lnk" id="expVid">Video</button></span></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
       <div class="tbl" style="margin-top:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
@@ -627,299 +631,268 @@ function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const MODES=[["shuffle","Shuffle"],["weave","Weave"]];
+const MODES=[["boil","Boil"],["drift","Drift"],["breathe","Breathe"]];
 
-/* Screenprint sets: one near-black for the rules, then inks that fight. */
+/* The inks the marbled backdrop is printed in. The first two also colour the
+   comb stripes in the corners. */
 const PALETTES=[
-  ["#1B1A6B","#2323E0","#7A1FD6","#F01E2C","#17C93B"],
-  ["#141344","#1E5BE0","#00B2A6","#FF3B30","#B9E01F"],
-  ["#2A0F3D","#E01E5A","#F5A623","#00C2A8","#3B2BE0"],
-  ["#101820","#F0532A","#F2C500","#1FB6E0","#0FA958"],
-  ["#1D0B2E","#8A2BE2","#FF2D95","#25D0C0","#FFE03D"],
-  ["#0E1A2B","#2F6BE0","#E8452C","#F0C93B","#5BD1A0"]
+  ["#FF1E8C","#FF7A1A","#2B4BFF","#FFD400","#E8262B"],
+  ["#00E5A8","#2B4BFF","#FF1E8C","#FFD400"],
+  ["#FF7A1A","#FFD400","#FF1E8C","#7A3FE0"],
+  ["#2B4BFF","#00C2FF","#FF1E8C","#F2F2F0"],
+  ["#E8262B","#FF7A1A","#FFD400","#2B4BFF"]
 ];
 
+/* A stack of pointed leaves filled with television snow, over a marbled
+   colour field. Every setting is a dial and the same dials always give the
+   same sheet. The variation number deals a fresh set of dials and shows the
+   deal on the dials, so a dealt sheet can be adjusted from where it landed. */
 const S={
-  seed:9, ratio:"3:4",
-  border:0.15, mat:0.36, matGrain:2, keyline:3,
-  regions:14, grain:110, mirror:1, variety:0.7,
-  core:0.22, coreRings:3,
+  seed:7, ratio:"9:16",
+  leaves:3, size:0.9, overlap:0.15, tilt:0.2, shift:0.5,
+  swirl:0.6, black:0.45, scale:0.5,
+  checkers:2, steps:0.35, comb:0.4, marks:8,
+  flecks:0.4, coarse:0.15,
   pal:PALETTES[0].slice(),
-  motion:{on:false,mode:"shuffle",amount:0.6,fps:8,frames:24},
-  size:2400
+  motion:{on:false,mode:"boil",amount:0.6,fps:12,frames:36},
+  size_px:2400
 };
 
-/* ---- ink roles ---------------------------------------------------------
-   The darkest ink prints the rules and the panel ground wherever it sits in
-   the row. Everything else keeps the order shown in the swatches, so Rotate
-   moves the mat and the motif inks: sorting the whole palette here would
-   make the rotation invisible, since a sort undoes any reordering. */
-function hex2rgbT(h){h=h.replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
-  const n=parseInt(h,16);return[(n>>16)&255,(n>>8)&255,n&255];}
-function lumT(h){const[r,g,b]=hex2rgbT(h);return r*.299+g*.587+b*.114;}
-function roles(){
-  const pal=(S.pal.length?S.pal:["#111111"]).slice();
-  let di=0;
-  for(let i=1;i<pal.length;i++) if(lumT(pal[i])<lumT(pal[di])) di=i;
-  const dark=pal[di];
-  const rest=pal.filter(function(c,i){return i!==di;});
-  if(!rest.length) rest.push(dark);
-  return {
-    dark:dark,
-    mat:rest[0],
-    mark:rest.length>1?rest[Math.max(0,rest.length-2)]:dark,
-    inks:rest
-  };
+const TAUH=Math.PI*2;
+function hshH(x,y,s){
+  let n=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1274126177);
+  n=Math.imul(n^(n>>>13),1274126177); n^=n>>>16;
+  return (n>>>0)/4294967296;
+}
+function vnH(x,y,s){
+  const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi;
+  const u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);
+  const a=hshH(xi,yi,s),b=hshH(xi+1,yi,s),c=hshH(xi,yi+1,s),d=hshH(xi+1,yi+1,s);
+  return (a*(1-u)+b*u)*(1-v)+(c*(1-u)+d*u)*v;
+}
+function rngH(seed){
+  let a=(seed>>>0)||1;
+  return function(){ a^=a<<13; a>>>=0; a^=a>>>17; a^=a<<5; a>>>=0; return a/4294967296; };
+}
+/* The deal: everything lands somewhere near one of the reference sheets
+   rather than on a corner of the settings nobody would choose. */
+function dealH(seed){
+  const r=rngH(Math.imul(seed|0,2654435761)^0x5bd1e995);
+  S.pal=PALETTES[(r()*PALETTES.length)|0].slice();
+  S.leaves=2+((r()*3)|0);
+  S.size=0.78+r()*0.27;
+  S.overlap=0.08+r()*0.17;
+  S.tilt=(r()-0.5)*0.7;
+  S.shift=0.35+r()*0.3;
+  S.swirl=0.3+r()*0.6;
+  S.black=0.3+r()*0.25;
+  S.scale=0.3+r()*0.5;
+  S.checkers=1+((r()*3)|0);
+  S.steps=0.2+r()*0.4;
+  S.comb=0.2+r()*0.4;
+  S.marks=4+((r()*10)|0);
+  S.flecks=0.2+r()*0.4;
+  S.coarse=0.05+r()*0.3;
+}
+/* the marble's colour: how far along the run of inks a point sits, the inks
+   blending into one another */
+function sampleH(p,inks,out){
+  const M=inks.length;
+  const k=Math.floor(p), f=p-k;
+  const i0=((k%M)+M)%M, i1=(i0+1)%M;
+  const c0=inks[i0], c1=inks[i1];
+  const w=f*f*(3-2*f);
+  out[0]=c0[0]+(c1[0]-c0[0])*w; out[1]=c0[1]+(c1[1]-c0[1])*w; out[2]=c0[2]+(c1[2]-c0[2])*w;
+}
+function rgbH(h){
+  h=(h||"#000").replace("#","");
+  if(h.length===3) h=h.split("").map(c=>c+c).join("");
+  return [parseInt(h.slice(0,2),16)||0,parseInt(h.slice(2,4),16)||0,parseInt(h.slice(4,6),16)||0];
 }
 
-/* ---- motifs ------------------------------------------------------------
-   Every motif is a two-colour rule over cell coordinates, so they all print
-   flat and align to the same grid however they are combined. */
-const MOTIFS=["solid","check","hline","vline","diag","diagB","brick","dash","grid","rings","noise"];
-
-function motifOn(kind,i,j,w,h,p,r){
-  switch(kind){
-    case "solid": return true;
-    case "check": return ((i+j+p)&1)===0;
-    case "hline": return ((j+p)&1)===0;
-    case "vline": return ((i+p)&1)===0;
-    case "diag":  return (((i+j+p)%4)+4)%4<2;
-    case "diagB": return (((i-j+p)%4)+4)%4<2;
-    case "brick": return ((((j&1)?i+2:i)+p)%4+4)%4<2;
-    case "dash":  return (j&1)===0 && (((i+p)%3)+3)%3<2;
-    case "grid":  return ((i+p)%3===0)||((j+p)%3===0);
-    case "rings": return (Math.min(i,j,w-1-i,h-1-j)&1)===0;
-    case "noise": return r()<0.5;
-  }
-  return true;
-}
-
-/* Fill a rect on the cell grid. cs is the cell size in device pixels, so a
-   region can run coarse or fine without leaving the shared grid. */
-function fillMotif(c,kind,x,y,w,h,cs,a,b,p,r){
-  c.fillStyle=b; c.fillRect(x,y,w,h);
-  if(kind==="blank") return;
-  const cols=Math.max(1,Math.round(w/cs)), rowsN=Math.max(1,Math.round(h/cs));
-  c.fillStyle=a;
-  if(kind==="solid"){ c.fillRect(x,y,w,h); return; }
-  for(let j=0;j<rowsN;j++){
-    for(let i=0;i<cols;i++){
-      if(!motifOn(kind,i,j,cols,rowsN,p,r)) continue;
-      const px=x+i*cs, py=y+j*cs;
-      c.fillRect(px,py,Math.min(cs,x+w-px),Math.min(cs,y+h-py));
-    }
-  }
-}
-
-/* ---- composition -------------------------------------------------------
-   Split the half-panel into rectangles by repeatedly cutting the largest one.
-   Cutting the largest (rather than recursing to a fixed depth) keeps the
-   region count a direct control and stops one corner shattering. */
-function carve(x,y,w,h,n,u,r){
-  let list=[{x:x,y:y,w:w,h:h}];
-  let guard=0;
-  while(list.length<n && guard++<400){
-    let bi=0,ba=-1;
-    for(let i=0;i<list.length;i++){const a=list[i].w*list[i].h;if(a>ba){ba=a;bi=i;}}
-    const t=list[bi];
-    const canV=t.w>=u*6, canH=t.h>=u*6;
-    if(!canV&&!canH) break;
-    const vert = canV&&canH ? (t.w/t.h>1.1?true:(t.h/t.w>1.1?false:r()<0.5)) : canV;
-    const frac=0.3+r()*0.4;
-    list.splice(bi,1);
-    if(vert){
-      const cut=Math.max(u*2,Math.round(t.w*frac/u)*u);
-      if(cut<=0||cut>=t.w){list.push(t);break;}
-      list.push({x:t.x,y:t.y,w:cut,h:t.h},{x:t.x+cut,y:t.y,w:t.w-cut,h:t.h});
-    }else{
-      const cut=Math.max(u*2,Math.round(t.h*frac/u)*u);
-      if(cut<=0||cut>=t.h){list.push(t);break;}
-      list.push({x:t.x,y:t.y,w:t.w,h:cut},{x:t.x,y:t.y+cut,w:t.w,h:t.h-cut});
-    }
-  }
-  return list;
-}
-
-function dealRegion(kinds,inks,dark,u,r){
-  /* Solid is drawn from the same bag as the patterns but wins too often at
-     this many regions, so it gets one re-roll — a poster wants a few flat
-     shapes resting between the woven ones, not half the panel. */
-  let kind=kinds[(r()*kinds.length)|0];
-  if(kind==="solid"&&r()<0.55) kind=kinds[(r()*kinds.length)|0];
-  const a=inks[(r()*inks.length)|0];
-  /* the ground must differ from the mark or the region prints blank; dark is
-     in the bag twice because the navy showing through is what reads as depth */
-  const pool=inks.concat([dark,dark]).filter(c=>c!==a);
-  const b=pool.length?pool[(r()*pool.length)|0]:dark;
-  return {kind:kind, cs:u*(r()<0.3?2:1), a:a, b:b};
-}
-
+let BUFH=null, BUFNH=0;
 function paint(c,W,H,f){
-  const M=S.motion;
-  const frameSeed=(M.on&&M.mode==="shuffle")?S.seed+f*7919:S.seed;
-  const r=rng(frameSeed);
-  const phase=(M.on&&M.mode==="weave")?Math.round((f/M.frames)*M.amount*16):0;
-  const R=roles();
+  const M=S.motion, T=M.on ? f/M.frames : 0, ph=T*TAUH;
+  const raw=S.pal.length?S.pal:PALETTES[0];
+  const inks=raw.map(rgbH), NI=inks.length;
+  const U=Math.sqrt(W*H);
+  /* the stack always runs down the sheet. On a tall sheet the leaves point
+     up and down; on a wide one they lie across it, pointed left and right,
+     the way the wide reference sheet is laid out. */
+  const port=H>=W;
+  const seed=S.seed|0;
 
-  c.imageSmoothingEnabled=false;
-  const u=Math.max(2,Math.round(Math.min(W,H)/S.grain));
-  const snap=v=>Math.round(v/u)*u;
+  /* ---- motion ---- */
+  const boil=(M.on&&M.mode==="boil") ? (f|0)*911 : 0;
+  /* the marble travels round a small circle in its own space, so the last
+     frame runs straight into the first */
+  const dr=(M.on&&(M.mode==="drift"||M.mode==="boil")) ? M.amount*(M.mode==="boil"?0.15:0.6) : 0;
+  const dx=Math.cos(ph)*dr, dy=Math.sin(ph)*dr;
+  const breathe=(M.on&&M.mode==="breathe") ? (1-Math.cos(ph))*0.5*M.amount*0.12 : 0;
 
-  /* ---- mat: a coarse random field, smoothed so the marks clot together
-     into shapes instead of reading as salt and pepper ------------------- */
-  c.fillStyle=R.mat; c.fillRect(0,0,W,H);
-  const bw=snap(Math.min(W,H)*S.border);
-  const px0=bw, py0=bw, pw0=snap(W-bw*2), ph0=snap(H-bw*2);
+  /* ---- the leaves: a stack down the long side of the sheet ---- */
+  const r=rngH(Math.imul(seed,2246822519)^0x27d4eb2f);
+  const n=Math.max(1,S.leaves|0), o=S.overlap;
+  /* the stack runs past both ends of the sheet, so the first and last tips
+     are cut by the edge the way the reference sheets are */
+  const h=H*1.32/(2*(n-o*(n-1)));
+  const leaves=[];
+  for(let i=0;i<n;i++){
+    const cy=-H*0.16+h+i*2*h*(1-o);
+    const cx=W*0.5+(S.shift-0.5)*W*0.4*(i%2?-1:1);
+    const sz=S.size*(0.9+r()*0.25)*(1+breathe*(i%2?-1:1));
+    const ang=S.tilt*0.25*(i%2?-1:1)*(0.6+r()*0.8);
+    /* ha is the half-length along the pointed axis, hb the half-width */
+    const ha=port ? h : W*0.62*sz, hb=port ? W*0.5*sz : h;
+    leaves.push({cx,cy,ha,hb,cs:Math.cos(ang),sn:Math.sin(ang)});
+  }
+  /* the checker lenses: one at each seam between two leaves first, then, if
+     more are asked for, one in the middle of a leaf */
+  const lenses=[];
+  const nc=Math.max(0,S.checkers|0);
+  for(let k=0;k<nc;k++){
+    let cx,cy,hl,wl;
+    if(k<n-1){
+      cy=(leaves[k].cy+leaves[k+1].cy)/2; cx=W*0.5+(r()-0.5)*W*0.2;
+      hl=h*(0.14+r()*0.1); wl=W*(0.22+r()*0.18);
+    }else{
+      const li=leaves[(k-(n-1))%n];
+      cy=li.cy+(r()-0.5)*h*0.3; cx=li.cx+(r()-0.5)*W*0.2;
+      hl=h*(0.1+r()*0.08); wl=W*(0.12+r()*0.12);
+    }
+    lenses.push({cx,cy,hl,wl});
+  }
+  /* which inks the comb stripes take */
+  const combA=inks[(r()*NI)|0], combB=inks[(r()*NI)|0];
+  const sd1=seed*7+1, sd2=seed*7+2, sd3=seed*7+3, sd4=seed*7+4;
 
-  if(bw>0 && S.mat>0.01){
-    const mu=u*Math.max(1,S.matGrain|0);
-    const gw=Math.ceil(W/mu)+1, gh=Math.ceil(H/mu)+1;
-    let g=new Uint8Array(gw*gh);
-    for(let i=0;i<g.length;i++) g[i]=r()<S.mat?1:0;
-    for(let pass=0;pass<2;pass++){
-      const n=new Uint8Array(g.length);
-      for(let y=0;y<gh;y++)for(let x=0;x<gw;x++){
-        let s=0;
-        for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){
-          const xx=x+dx, yy=y+dy;
-          if(xx<0||yy<0||xx>=gw||yy>=gh){s+=g[y*gw+x];continue;}
-          s+=g[yy*gw+xx];
-        }
-        n[y*gw+x]= s>4?1:(s<4?0:g[y*gw+x]);
+  /* ---- scales ---- */
+  /* the stair-step: every shape's edge is judged on a coarse grid */
+  const cell=S.steps>0 ? Math.max(1,S.steps*U*0.04) : 0;
+  /* the marble is sampled on its own coarse grid, like a low-resolution
+     picture blown up */
+  const mc=Math.max(1,U*0.008);
+  const sc=U*(0.3+S.scale*0.8);
+  const warp=S.swirl*1.4;
+  const blackAmt=S.black*0.85;
+  /* comb stripe pitch */
+  const sp=Math.max(1,U*0.007);
+  const combR=S.comb*0.9;
+  /* the checker cell */
+  const ch=Math.max(2,U*0.02);
+  /* the snow is sampled on a fixed grid so an export carries the snow that
+     was on screen rather than a much finer one */
+  const gsc=Math.max(1,U/640*(1+S.coarse*3));
+  const fleck=S.flecks*0.03;
+
+  const N=W*H;
+  if(BUFNH!==N){ BUFH=null; BUFNH=N; }
+  const img=BUFH&&BUFH.width===W ? BUFH : (BUFH=c.createImageData(W,H));
+  const px=img.data;
+  const col=[0,0,0];
+
+  for(let y=0,i=0;y<H;y++){
+    const qy=cell ? (Math.floor(y/cell)+0.5)*cell : y;
+    const my=Math.floor(y/mc)*mc;
+    for(let x=0;x<W;x++,i+=4){
+      const qx=cell ? (Math.floor(x/cell)+0.5)*cell : x;
+      let R,G,B;
+      /* ---- the backdrop: marbled colour and black ---- */
+      const mx=Math.floor(x/mc)*mc;
+      const p0=mx/sc, p1=my/sc;
+      const bn=vnH(p0*0.8+40+dx*0.5,p1*0.8+7+dy*0.5,sd4);
+      /* the noise is pushed apart first, so the dial runs from no black at
+         all to almost all black */
+      if((bn-0.5)*2.2+0.5<blackAmt){ R=8; G=8; B=10; }
+      else{
+        const q1=vnH(p0*2+1.7+dx,p1*2+9.1+dy,sd1), q2=vnH(p0*2+5.3-dy,p1*2+2.2+dx,sd2);
+        const m=vnH(p0*2+warp*(q1-0.5)*4+dx,p1*2+warp*(q2-0.5)*4+dy,sd3);
+        /* stepped, like the bands of a thermal picture */
+        sampleH(Math.floor(m*NI*1.25*6)/6,inks,col);
+        /* a little shading with the flow, so the marble has depth */
+        const sh=0.55+0.45*q1;
+        R=col[0]*sh; G=col[1]*sh; B=col[2]*sh;
       }
-      g=n;
-    }
-    c.fillStyle=R.mark;
-    for(let y=0;y<gh;y++)for(let x=0;x<gw;x++){
-      if(!g[y*gw+x]) continue;
-      const rx=x*mu, ry=y*mu;
-      /* the mat is the border only — the panel covers the middle anyway,
-         but skipping it keeps the export honest at low keyline widths */
-      if(rx+mu>px0 && rx<px0+pw0 && ry+mu>py0 && ry<py0+ph0) continue;
-      c.fillRect(rx,ry,mu,mu);
-    }
-  }
-
-  if(pw0<u*4||ph0<u*4) return;
-
-  /* ---- panel: printed rule, then the composition inside it ------------ */
-  c.fillStyle=R.dark;
-  c.fillRect(px0,py0,pw0,ph0);
-  const k=Math.max(0,S.keyline|0)*u;
-  const cx=px0+k, cy=py0+k, cw=Math.max(u,pw0-k*2), ch=Math.max(u,ph0-k*2);
-
-  const kinds=(()=>{
-    const n=Math.max(2,Math.round(2+S.variety*(MOTIFS.length-2)));
-    const pool=MOTIFS.slice();
-    const out=[];
-    for(let i=0;i<n&&pool.length;i++) out.push(pool.splice((r()*pool.length)|0,1)[0]);
-    return out;
-  })();
-
-  /* Compose the left half only and reflect it: the mirror is what makes the
-     thing read as an object rather than a scatter. */
-  const halfW=Math.max(u,Math.ceil(cw/u/2)*u);
-  const regions=carve(cx,cy,halfW,ch,Math.max(1,S.regions|0),u,r);
-  for(const g of regions){
-    const L=dealRegion(kinds,R.inks,R.dark,u,r);
-    const drawW=Math.min(g.w,cx+cw-g.x);
-    if(drawW>0) fillMotif(c,L.kind,g.x,g.y,drawW,g.h,L.cs,L.a,L.b,phase,r);
-    /* the twin keeps the mirrored footprint; Mirror decides whether it also
-       keeps the pattern or gets dealt its own */
-    const mx=cx+cw-(g.x-cx)-g.w;
-    const T=(r()<S.mirror)?L:dealRegion(kinds,R.inks,R.dark,u,r);
-    const clipX=Math.max(mx,cx+cw-halfW);
-    const tw=Math.min(g.w-(clipX-mx),cx+cw-clipX);
-    if(tw>0){
-      c.save();
-      c.translate(mx+g.w,0); c.scale(-1,1);
-      fillMotif(c,T.kind,0,g.y,g.w,g.h,T.cs,T.a,T.b,phase,r);
-      c.restore();
-      /* repaint the left half over the reflection so a wide twin can never
-         wipe out the original at odd panel widths */
-      if(drawW>0) fillMotif(c,L.kind,g.x,g.y,drawW,g.h,L.cs,L.a,L.b,phase,r);
+      /* ---- the comb: thin stripes fringing two corners ---- */
+      const ax=qx/W, ay=qy/H;
+      if(combR>0){
+        /* each stripe runs its own length, like the teeth of a comb */
+        const si=Math.floor(qx/sp), sj=Math.floor(qy/sp);
+        if(ax-ay>1-combR+(hshH(si,0,seed+5)-0.5)*0.14){ const on=(si&1)===0; if(on){R=combA[0];G=combA[1];B=combA[2];}else{R=8;G=8;B=10;} }
+        else if(ay-ax>1-combR+(hshH(sj,1,seed+6)-0.5)*0.14){ const on=(sj&1)===0; if(on){R=combB[0];G=combB[1];B=combB[2];}else{R=8;G=8;B=10;} }
+      }
+      /* ---- the leaves: television snow ---- */
+      let inLeaf=false;
+      for(let j=0;j<n;j++){
+        const lf=leaves[j];
+        const ex=qx-lf.cx, ey=qy-lf.cy;
+        const rx=ex*lf.cs-ey*lf.sn, ry=ex*lf.sn+ey*lf.cs;
+        const la=port?ry:rx, lb=port?rx:ry;
+        if(la>-lf.ha&&la<lf.ha){
+          const t=la/lf.ha;
+          /* a rounded diamond: sides that run nearly straight to the tips */
+          const at=t<0?-t:t;
+          const lim=lf.hb*Math.pow(1-at*Math.sqrt(at),0.6667);
+          if(lb>-lim&&lb<lim){ inLeaf=true; break; }
+        }
+      }
+      if(inLeaf){
+        const gx=(x/gsc)|0, gy=(y/gsc)|0;
+        const hv=hshH(gx,gy,boil+3);
+        const g=12+Math.pow(hv,1.6)*220;
+        R=g; G=g; B=g;
+        if(fleck>0){ const h2=hshH(gx,gy,boil+77); if(h2<fleck){ const k=inks[Math.floor(h2/fleck*NI)%NI]; R=k[0]; G=k[1]; B=k[2]; } }
+      }
+      /* ---- the checker lenses ---- */
+      for(let j=0;j<lenses.length;j++){
+        const ln=lenses[j];
+        const la=qy-ln.cy, lb=qx-ln.cx;
+        if(lb>-ln.wl&&lb<ln.wl){
+          const t=lb/ln.wl;
+          const at=t<0?-t:t;
+          const lim=ln.hl*Math.pow(1-at*Math.sqrt(at),0.6667);
+          if(la>-lim&&la<lim){
+            const on=((Math.floor(qx/ch)+Math.floor(qy/ch))&1)===0;
+            const g=on?245:10; R=g; G=g; B=g; break;
+          }
+        }
+      }
+      px[i]=R<0?0:(R>255?255:R);
+      px[i+1]=G<0?0:(G>255?255:G);
+      px[i+2]=B<0?0:(B>255?255:B);
+      px[i+3]=255;
     }
   }
+  c.setTransform(1,0,0,1,0,0);
+  c.globalCompositeOperation="source-over";
+  c.globalAlpha=1;
+  c.putImageData(img,0,0);
 
-  /* ---- core: the small nested emblem at dead centre -------------------- */
-  if(S.core>0.01){
-    let kw=snap(Math.min(cw,ch)*S.core), kh=snap(kw*(1.2+0.6*((S.seed%5)/5)));
-    kw=Math.max(u*2,Math.min(kw,cw-u*2)); kh=Math.max(u*2,Math.min(kh,ch-u*2));
-    let kx=snap(cx+(cw-kw)/2), ky=snap(cy+(ch-kh)/2);
-    const rings=Math.max(0,S.coreRings|0);
-    for(let i=0;i<rings;i++){
-      c.fillStyle=(i&1)?R.inks[(i+1)%R.inks.length]:R.dark;
-      c.fillRect(kx,ky,kw,kh);
-      kx+=u;ky+=u;kw-=u*2;kh-=u*2;
-      if(kw<u*2||kh<u*2){kw=Math.max(u,kw);kh=Math.max(u,kh);break;}
+  /* ---- the marks: small white asterisks sprinkled on the sheet ---- */
+  const nm=Math.max(0,S.marks|0);
+  if(nm>0){
+    const rm=rngH(Math.imul(seed,3266489917)^0x165667b1);
+    c.strokeStyle="#F4F4F2"; c.fillStyle="#F4F4F2"; c.lineCap="round";
+    for(let k=0;k<nm;k++){
+      const x=(0.04+rm()*0.92)*W, y=(0.04+rm()*0.92)*H;
+      const s=U*0.016*(0.7+rm()*0.8);
+      const arms=rm()<0.5?3:4;
+      c.lineWidth=Math.max(1,s*0.2);
+      c.beginPath();
+      for(let a=0;a<arms;a++){
+        const an=a/arms*Math.PI+Math.PI/2;
+        const cx=Math.cos(an)*s, cy=Math.sin(an)*s;
+        c.moveTo(x-cx,y-cy); c.lineTo(x+cx,y+cy);
+      }
+      c.stroke();
+      /* a dot at each tip, the way the reference marks are drawn */
+      for(let a=0;a<arms*2;a++){
+        const an=a/(arms*2)*TAUH+Math.PI/2;
+        c.beginPath(); c.arc(x+Math.cos(an)*s*1.05,y+Math.sin(an)*s*1.05,Math.max(0.8,s*0.16),0,TAUH); c.fill();
+      }
     }
-    const K=dealRegion(kinds,R.inks,R.dark,u,r);
-    fillMotif(c,K.kind,kx,ky,kw,kh,u,K.a,R.dark,phase,r);
   }
 }
-
-/* ---- vector surface ----------------------------------------------------
-   paint() only ever sets a fill and stamps axis-aligned rectangles, so the
-   SVG export runs that same routine against a recorder instead of a canvas.
-   One painting routine, two outputs — the vector can't drift from the pixels. */
-function SvgSurface(){
-  this.fillStyle="#000000";
-  this.imageSmoothingEnabled=false;
-  /* Batches in draw order, NOT one group per colour: paint() overdraws
-     constantly (ground, then marks, then the mirrored twin, then the core),
-     so collecting all of one colour together would float early fills above
-     later ones. A new batch opens whenever the fill changes. */
-  this._b=[];
-  this._t={a:1,d:1,e:0,f:0};
-  this._st=[];
-}
-SvgSurface.prototype.save=function(){this._st.push({a:this._t.a,d:this._t.d,e:this._t.e,f:this._t.f});};
-SvgSurface.prototype.restore=function(){if(this._st.length)this._t=this._st.pop();};
-SvgSurface.prototype.translate=function(x,y){this._t.e+=this._t.a*x;this._t.f+=this._t.d*y;};
-SvgSurface.prototype.scale=function(sx,sy){this._t.a*=sx;this._t.d*=sy;};
-SvgSurface.prototype.clearRect=function(){};
-SvgSurface.prototype.fillRect=function(x,y,w,h){
-  if(!(w>0)||!(h>0))return;
-  const t=this._t;
-  let x0=t.a*x+t.e, x1=t.a*(x+w)+t.e;
-  let y0=t.d*y+t.f, y1=t.d*(y+h)+t.f;
-  if(x1<x0){const q=x0;x0=x1;x1=q;}
-  if(y1<y0){const q=y0;y0=y1;y1=q;}
-  x0=Math.round(x0);y0=Math.round(y0);x1=Math.round(x1);y1=Math.round(y1);
-  const rw=x1-x0, rh=y1-y0;
-  if(rw<=0||rh<=0)return;
-  let e=this._b[this._b.length-1];
-  if(!e||e.col!==this.fillStyle){e={col:this.fillStyle,parts:[],last:null};this._b.push(e);}
-  /* merge runs that touch on the same row — solid and striped fills collapse
-     from thousands of cells into a handful of bars */
-  const L=e.last;
-  if(L&&L.y===y0&&L.h===rh&&L.x+L.w===x0){L.w+=rw;return;}
-  const rect={x:x0,y:y0,w:rw,h:rh};
-  e.parts.push(rect);e.last=rect;
-};
-SvgSurface.prototype.markup=function(){
-  let out="";
-  for(const e of this._b){
-    let d="";
-    for(const r of e.parts) d+='<rect x="'+r.x+'" y="'+r.y+'" width="'+r.w+'" height="'+r.h+'"/>';
-    if(d) out+='<g fill="'+e.col+'">'+d+'</g>';
-  }
-  return out;
-};
-
-function svgFrame(f){
-  const r=RATIOS.find(x=>x.id===S.ratio);
-  const W=S.size,H=Math.round(S.size*r.h/r.w);
-  const s=new SvgSurface();
-  paint(s,W,H,f);
-  return s.markup();
-}
-function svgWrap(inner){
-  const r=RATIOS.find(x=>x.id===S.ratio);
-  const W=S.size,H=Math.round(S.size*r.h/r.w);
-  return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" shape-rendering="crispEdges">'+inner+'</svg>';
-}
-function buildSVG(){return svgWrap(svgFrame(curFrame));}
 
 const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
 function fitCanvas(){
@@ -988,26 +961,21 @@ function save(blob,name){
   a.href=url;a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
-function stamp(){return `totem-${S.seed}-${S.ratio.replace(":","x")}`;}
+function stamp(){return `hiss-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
-  const a=$("#expVid"),sc=$("#scrub"),l=$("#expSvgLoop");
+  const a=$("#expVid"),sc=$("#scrub");
   if(a)a.disabled=!S.motion.on;
-  if(l)l.disabled=!S.motion.on;
   if(sc)sc.disabled=!S.motion.on;
 }
 $("#expPng").addEventListener("click",()=>{
   toast("Rendering…",true);
   setTimeout(()=>{
     const r=RATIOS.find(x=>x.id===S.ratio);
-    const W=S.size,H=Math.round(S.size*r.h/r.w);
+    const W=S.size_px,H=Math.round(S.size_px*r.h/r.w);
     const c=document.createElement("canvas");c.width=W;c.height=H;
     paint(c.getContext("2d"),W,H,curFrame);
     c.toBlob(b=>{save(b,stamp()+".png");toast(`PNG saved · ${W}×${H}`);});
   },30);
-});
-$("#expSvg").addEventListener("click",()=>{
-  save(new Blob([buildSVG()],{type:"image/svg+xml"}),stamp()+".svg");
-  toast("SVG saved");
 });
 function pickVideoType(){
   const t=["video/mp4;codecs=avc1.42E01E","video/mp4","video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"];
@@ -1020,7 +988,7 @@ $("#expVid").addEventListener("click",()=>{
   if(!type)return toast("This browser can't record video");
   const ext=type.startsWith("video/mp4")?"mp4":"webm";
   const r=RATIOS.find(x=>x.id===S.ratio);
-  let W=Math.min(1280,S.size);W-=W%2;
+  let W=Math.min(1280,S.size_px);W-=W%2;
   let H=Math.round(W*r.h/r.w);H-=H%2;
   const c=document.createElement("canvas");c.width=W;c.height=H;
   const cc=c.getContext("2d");
@@ -1045,7 +1013,7 @@ $("#expVid").addEventListener("click",()=>{
    UI
 ============================================================ */
 function accent(){
-  let best=S.pal[S.pal.length-1],bl=-1;
+  let best=S.pal[Math.min(2,S.pal.length-1)],bl=-1;
   for(const c of S.pal){const l=relLum(c);if(l>bl&&l>0.12){bl=l;best=c;}}
   document.documentElement.style.setProperty("--accent",bl>0?best:"#F5C21B");
   $("#strip").innerHTML=S.pal.map(c=>`<span style="background:${c}"></span>`).join("");
@@ -1085,7 +1053,7 @@ function buildSwatches(){
   S.pal.forEach((c,i)=>{
     const b=document.createElement("button");
     b.className="sw"+(lock?" locked":"");b.type="button";
-    b.setAttribute("aria-label","Ink "+(i+1)+" color");
+    b.setAttribute("aria-label","Ink "+(i+1));
     b.innerHTML=`<span class="fill" style="background:${c}"></span>`+
       `<input type="color" value="${c}"><span class="x" aria-hidden="true">\u00d7</span>`;
     b.querySelector("input").addEventListener("input",e=>{
@@ -1129,34 +1097,31 @@ $("#shufColors").addEventListener("click",()=>{
   setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
 });
 $("#rotColors").addEventListener("click",()=>{
-  if(S.pal.length<3){setPalette(S.pal.slice(1).concat(S.pal[0]));return;}
-  let di=0;
-  for(let i=1;i<S.pal.length;i++) if(lumT(S.pal[i])<lumT(S.pal[di])) di=i;
-  const rest=S.pal.filter((c,i)=>i!==di);
-  rest.push(rest.shift());
-  const out=S.pal.slice();
-  let k=0;
-  for(let i=0;i<out.length;i++) if(i!==di) out[i]=rest[k++];
-  setPalette(out);
+  setPalette([S.pal[0]].concat(S.pal.slice(2),[S.pal[1]]));
 });
-bindRange("border",v=>Math.round(v*100)+"%",v=>S.border=v);
-bindRange("mat",v=>Math.round(v*100)+"%",v=>S.mat=v);
-bindRange("matGrain",v=>v|0,v=>S.matGrain=v|0);
-bindRange("keyline",v=>v|0,v=>S.keyline=v|0);
-bindRange("regions",v=>v|0,v=>S.regions=v|0);
-bindRange("grain",v=>v|0,v=>S.grain=v|0);
-bindRange("mirror",v=>Math.round(v*100)+"%",v=>S.mirror=v);
-bindRange("variety",v=>Math.round(v*100)+"%",v=>S.variety=v);
-bindRange("core",v=>Math.round(v*100)+"%",v=>S.core=v);
-bindRange("coreRings",v=>v|0,v=>S.coreRings=v|0);
+const pc=v=>Math.round(v*100)+"%";
+bindRange("leaves",v=>v|0,v=>S.leaves=v|0);
+bindRange("size",pc,v=>S.size=v);
+bindRange("overlap",pc,v=>S.overlap=v);
+bindRange("tilt",v=>Math.round(v*15)+"°",v=>S.tilt=v);
+bindRange("shift",pc,v=>S.shift=v);
+bindRange("swirl",pc,v=>S.swirl=v);
+bindRange("black",pc,v=>S.black=v);
+bindRange("scale",pc,v=>S.scale=v);
+bindRange("checkers",v=>v|0,v=>S.checkers=v|0);
+bindRange("steps",pc,v=>S.steps=v);
+bindRange("comb",pc,v=>S.comb=v);
+bindRange("marks",v=>v|0,v=>S.marks=v|0);
+bindRange("flecks",pc,v=>S.flecks=v);
+bindRange("coarse",pc,v=>S.coarse=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
 $("#frames").addEventListener("input",e=>{S.motion.frames=parseInt(e.target.value,10);
   $("#framesVal").textContent=S.motion.frames+" frames";$("#scrub").max=S.motion.frames-1;
   curFrame=Math.min(curFrame,S.motion.frames-1);reframe();if(playing)setPlaying(true);});
-$("#size").addEventListener("input",e=>{S.size=parseInt(e.target.value,10);$("#sizeVal").textContent=S.size+" px";});
-$("#motionTog").addEventListener("click",e=>{
+$("#sizePx").addEventListener("input",e=>{S.size_px=parseInt(e.target.value,10);
+  $("#sizePxVal").textContent=S.size_px+" px";});$("#motionTog").addEventListener("click",e=>{
   S.motion.on=!S.motion.on;
   e.currentTarget.setAttribute("aria-pressed",String(S.motion.on));
   $("#motionBody").hidden=!S.motion.on;
@@ -1166,7 +1131,22 @@ $("#motionTog").addEventListener("click",e=>{
 });
 $("#play").addEventListener("click",()=>{if(!S.motion.on){$("#motionTog").click();return;}setPlaying(!playing);});
 $("#scrub").addEventListener("input",e=>{setPlaying(false);curFrame=parseInt(e.target.value,10)%Math.max(1,S.motion.frames);draw();});
-function newSeed(v){S.seed=(v!==undefined)?v:(Math.random()*99999|0)+1;$("#seed").value=S.seed;reframe();}
+function newSeed(v){
+  S.seed=(v!==undefined)?v:(Math.random()*99999|0)+1;
+  $("#seed").value=S.seed;
+  dealH(S.seed);
+  /* every dealt value onto its dial and its readout, so the sheet can be
+     adjusted from where it landed */
+  const put=(id,val,txt)=>{const e=$("#"+id),l=$("#"+id+"Val");if(e)e.value=val;if(l)l.textContent=txt;};
+  const pc=v=>Math.round(v*100)+"%";
+  put("leaves",S.leaves,String(S.leaves)); put("size",S.size,pc(S.size)); put("overlap",S.overlap,pc(S.overlap));
+  put("tilt",S.tilt,Math.round(S.tilt*15)+"\u00b0"); put("shift",S.shift,pc(S.shift));
+  put("swirl",S.swirl,pc(S.swirl)); put("black",S.black,pc(S.black)); put("scale",S.scale,pc(S.scale));
+  put("checkers",S.checkers,String(S.checkers)); put("steps",S.steps,pc(S.steps)); put("comb",S.comb,pc(S.comb)); put("marks",S.marks,String(S.marks));
+  put("flecks",S.flecks,pc(S.flecks)); put("coarse",S.coarse,pc(S.coarse));
+  buildSwatches(); accent();
+  reframe();
+}
 $("#shuf").addEventListener("click",()=>newSeed());
 $("#seed").addEventListener("change",e=>{const v=parseInt(e.target.value,10);newSeed(Number.isFinite(v)?Math.abs(v):1);});
 art.addEventListener("click",()=>newSeed());
