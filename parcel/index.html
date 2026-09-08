@@ -416,18 +416,33 @@ input[type=range]{accent-color:var(--ink)}
 .chips{display:flex;flex-wrap:wrap;gap:14px;margin-top:4px;flex:1 1 auto;min-width:0}
 /* ---- pickers: one dropdown, the same on every tool ----
    A row of names side by side read as a menu that had been spilled out; a
-   list of fourteen styles took three lines. Every picker is now a dropdown,
-   drawn in the rail's own type with a small chevron, and the list itself is
-   the browser's, which is what a phone does best with it anyway. */
-.pick{appearance:none;-webkit-appearance:none;flex:1 1 auto;width:100%;min-width:0;
-  background:transparent;border:0;border-bottom:1px solid var(--ink);border-radius:0;
-  font-family:var(--mono);font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;
-  font-weight:700;color:var(--ink);padding:6px 20px 7px 0;cursor:pointer;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M1.5 3.5 5 7l3.5-3.5' fill='none' stroke='%2315161A' stroke-width='1.2'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 1px center;background-size:9px 9px}
-.pick:focus{outline:none}
-.pick:focus-visible{outline:1px solid var(--ink);outline-offset:3px}
-.pick option{font-family:var(--mono);text-transform:none;letter-spacing:0;font-size:12px}
+   list of fourteen styles took three lines. Every picker is now a dropdown.
+   The browser's own menu draws its list in the system face and copies the
+   field's capitals into it, so the list is drawn here instead: a bordered
+   field with the current choice and a chevron, and a panel of choices in
+   the rail's own type that floats over the page. */
+.pick{position:relative;flex:1 1 auto;width:100%;min-width:0}
+.pick-btn{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  border:1px solid var(--ink);border-radius:4px;background:transparent;color:var(--ink);
+  padding:9px 11px 9px 12px;cursor:pointer;text-align:left;
+  font-family:var(--mono);font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;font-weight:700}
+.pick-btn:focus{outline:none}
+.pick-btn .chev{flex:none;width:9px;height:9px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M1.5 3.5 5 7l3.5-3.5' fill='none' stroke='%2315161A' stroke-width='1.2'/%3E%3C/svg%3E") no-repeat center/9px 9px;
+  transition:transform .15s ease}
+.pick-btn[aria-expanded=true] .chev{transform:rotate(180deg)}
+.pick-menu{position:fixed;z-index:80;margin:0;padding:5px 0;list-style:none;
+  background:var(--gnd);border:1px solid var(--ink);border-radius:4px;
+  max-height:min(60vh,420px);overflow-y:auto;box-shadow:0 10px 30px rgba(21,22,26,.12)}
+.pick-menu[hidden]{display:none}
+.pick-menu li{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:9px 12px;cursor:pointer;color:var(--ink);
+  font-family:var(--mono);font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;font-weight:700}
+.pick-menu li:hover,.pick-menu li.hi{background:rgba(21,22,26,.07)}
+.pick-menu li[aria-selected=true]::after{content:"\2713";font-size:10px;letter-spacing:0}
+/* the label sits close to its field, so the two read as one control */
+.misc.stack:has(.pick){gap:5px}
+.chips:has(.pick){margin-top:0}
 .chip{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;font-weight:700;
   color:var(--key);transition:color .12s}
 .chip:hover{color:var(--ink)}
@@ -1024,18 +1039,61 @@ function accent(){
 function segmented(host,items,get,set){
   if(!host)return;
   host.innerHTML="";
-  const sel=document.createElement("select");
-  sel.className="pick";
   const head=host.closest(".misc"), k=head&&head.querySelector(".k");
-  sel.setAttribute("aria-label",(k&&k.textContent.trim())||host.id);
-  items.forEach(([id,label],i)=>{
-    const o=document.createElement("option");
-    o.value=String(i); o.textContent=label;
-    if(get()===id) o.selected=true;
-    sel.appendChild(o);
+  const name=(k&&k.textContent.trim())||host.id;
+  const wrap=document.createElement("div"); wrap.className="pick";
+  const btn=document.createElement("button"); btn.type="button"; btn.className="pick-btn";
+  btn.setAttribute("aria-haspopup","listbox"); btn.setAttribute("aria-expanded","false");
+  btn.setAttribute("aria-label",name);
+  const val=document.createElement("span"); val.className="val";
+  const chev=document.createElement("span"); chev.className="chev"; chev.setAttribute("aria-hidden","true");
+  btn.appendChild(val); btn.appendChild(chev);
+  const menu=document.createElement("ul"); menu.className="pick-menu"; menu.setAttribute("role","listbox"); menu.hidden=true;
+  menu.setAttribute("aria-label",name);
+  /* a picker that is rebuilt replaces its old panel */
+  if(host.__pickMenu) host.__pickMenu.remove(); host.__pickMenu=menu;
+  const label=()=>{ const it=items.find(([id])=>id===get()); val.textContent=it?it[1]:""; };
+  const opts=items.map(([id,text])=>{
+    const li=document.createElement("li"); li.setAttribute("role","option"); li.textContent=text;
+    li.setAttribute("aria-selected",String(get()===id));
+    li.addEventListener("click",e=>{ e.stopPropagation(); set(id); label();
+      opts.forEach(o=>o.setAttribute("aria-selected",String(o===li))); close(); });
+    menu.appendChild(li); return li;
   });
-  sel.addEventListener("change",()=>{ set(items[sel.selectedIndex][0]); });
-  host.appendChild(sel);
+  label();
+  /* the panel floats over the page, under the field or above it when the
+     foot of the window is near, so the rail's own scroll never clips it */
+  function place(){
+    const r=btn.getBoundingClientRect();
+    menu.style.left=Math.round(r.left)+"px"; menu.style.width=Math.round(r.width)+"px";
+    menu.style.top="0px";
+    const h=menu.offsetHeight;
+    let y=r.bottom+4;
+    if(y+h>innerHeight-12) y=Math.max(12,r.top-h-4);
+    menu.style.top=Math.round(y)+"px";
+  }
+  function close(){ if(menu.hidden)return; menu.hidden=true; btn.setAttribute("aria-expanded","false");
+    document.removeEventListener("mousedown",away,true); document.removeEventListener("scroll",onScroll,true);
+    window.removeEventListener("resize",close); document.removeEventListener("keydown",keys,true); }
+  function open(){ if(window.__closePick&&window.__closePick!==close) window.__closePick();
+    window.__closePick=close; menu.hidden=false; btn.setAttribute("aria-expanded","true"); place();
+    const cur=opts.find(o=>o.getAttribute("aria-selected")==="true"); if(cur) cur.scrollIntoView({block:"nearest"});
+    document.addEventListener("mousedown",away,true); document.addEventListener("scroll",onScroll,true);
+    window.addEventListener("resize",close); document.addEventListener("keydown",keys,true); }
+  function away(e){ if(!menu.contains(e.target)&&e.target!==btn&&!btn.contains(e.target)) close(); }
+  function onScroll(e){ if(e.target!==menu) close(); }
+  function keys(e){
+    const i=opts.findIndex(o=>o.getAttribute("aria-selected")==="true");
+    if(e.key==="Escape"){ e.preventDefault(); close(); btn.focus(); }
+    else if(e.key==="ArrowDown"||e.key==="ArrowUp"){ e.preventDefault();
+      const j=Math.max(0,Math.min(opts.length-1,i+(e.key==="ArrowDown"?1:-1))); opts[j].click(); open(); }
+    else if(e.key==="Enter"||e.key===" "){ e.preventDefault(); close(); btn.focus(); }
+  }
+  btn.addEventListener("click",()=>{ menu.hidden?open():close(); });
+  btn.addEventListener("keydown",e=>{ if(menu.hidden&&(e.key==="ArrowDown"||e.key==="ArrowUp")){ e.preventDefault(); open(); } });
+  /* the panel lives at page level: the rail fades its own foot with a mask,
+     and that mask would fade the panel too if it hung inside the rail */
+  wrap.appendChild(btn); host.appendChild(wrap); document.body.appendChild(menu);
 }
 function buildRatios(){
   const host=$("#ratios");if(!host)return;
@@ -1558,7 +1616,7 @@ html.embed body{overflow:hidden!important}
   (function(){
     var modes=document.getElementById("modes");
     if(!modes) return;
-    var only=modes.querySelectorAll("button,option").length<2;   /* chips or a dropdown */
+    var only=modes.querySelectorAll(".chip,[role=option]").length<2;   /* chips or a dropdown */
     var row=modes.closest(".misc")||modes.parentElement;
     if(row&&only&&!row.hidden){ row.setAttribute("data-inert",""); row.hidden=true; }
   })();
