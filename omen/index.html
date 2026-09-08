@@ -543,7 +543,12 @@ input[type=range]{accent-color:var(--ink)}
         <div class="pr"><div class="top"><span class="k">Shift across</span><span class="v" id="shiftxVal">50%</span></div><div class="track"><input type="range" id="shiftx" min="0" max="1" step="0.01" value="0.5"></div></div>
         <div class="pr"><div class="top"><span class="k">Shift down</span><span class="v" id="shiftyVal">50%</span></div><div class="track"><input type="range" id="shifty" min="0" max="1" step="0.01" value="0.5"></div></div>
         <div class="pr"><div class="top"><span class="k">Softness</span><span class="v" id="softVal">8%</span></div><div class="track"><input type="range" id="soft" min="0" max="1" step="0.01" value="0.08"></div></div></div></details>
-    <details class="grp" open><summary>Print</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">55%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.55"></div></div></div></details></div>
+    <details class="grp"><summary>Composition</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Layout</span></span><span class="mval"><div class="chips" id="layouts"></div></span></div>
+        <div class="misc stack"><span class="mhead"><span class="k">Second shape</span></span><span class="mval"><div class="chips" id="dirs2"></div></span></div>
+        <div class="pr"><div class="top"><span class="k">Divide angle</span><span class="v" id="angleVal">27°</span></div><div class="track"><input type="range" id="angle" min="-1" max="1" step="0.01" value="0.3"></div></div>
+        <div class="pr"><div class="top"><span class="k">Divide position</span><span class="v" id="dposVal">50%</span></div><div class="track"><input type="range" id="dpos" min="0" max="1" step="0.01" value="0.5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Squeeze</span><span class="v" id="squeezeVal">0%</span></div><div class="track"><input type="range" id="squeeze" min="-1" max="1" step="0.01" value="0"></div></div></div></details>
+    <details class="grp"><summary>Print</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">55%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.55"></div></div></div></details></div>
     <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">5</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
         
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
@@ -628,6 +633,12 @@ const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:
 const MODES=[["drift","Drift"],["sway","Sway"],["boil","Boil"]];
 /* The four forms. */
 const DIRS=[["bands","Bands"],["checks","Checks"],["rings","Rings"],["stripe","Stripe"]];
+/* How the sheet is composed. Whole is one field. Split is two fields meeting
+   along a straight divide, the second turned a quarter. Fold mirrors the
+   field across the divide, so bands become chevrons and rings become arches.
+   Cut lifts a strip along the divide and slips it sideways, like a card cut
+   and reassembled a little off. */
+const LAYOUTS=[["whole","Whole"],["split","Split"],["fold","Fold"],["cut","Cut"]];
 
 /* The inks the field is printed in, cycled in order. The first is the dark
    ground the checks sit on. */
@@ -648,6 +659,7 @@ const S={
   seed:7, ratio:"9:16",
   kind:"bands",
   count:5, bend:0.55, twist:0, shiftx:0.5, shifty:0.5, soft:0.08,
+  layout:"whole", kind2:"rings", angle:0.3, dpos:0.5, squeeze:0,
   grain:0.55,
   pal:PALETTES[0].slice(),
   motion:{on:false,mode:"drift",amount:0.6,fps:12,frames:36},
@@ -687,6 +699,15 @@ function dealO(seed){
   S.twist=(r()-0.5)*0.9;
   S.shiftx=0.3+r()*0.4;
   S.shifty=0.25+r()*0.5;
+  /* the composition: most deals are one field, the rest are cut, split or
+     folded, and about half get a squeeze so the pattern tightens to one side */
+  const lay=r();
+  S.layout=lay<0.4?"whole":lay<0.62?"split":lay<0.8?"fold":"cut";
+  S.kind2=kinds[(r()*kinds.length)|0];
+  if(S.layout==="split"&&S.kind2===S.kind&&r()<0.5) S.kind2=kinds[(kinds.indexOf(S.kind)+1+((r()*3)|0))%4];
+  S.angle=(r()-0.5)*1.6;
+  S.dpos=0.3+r()*0.4;
+  S.squeeze=r()<0.5?0:(r()<0.5?-1:1)*(0.25+r()*0.6);
 }
 function rgbO(h){
   h=(h||"#000").replace("#","");
@@ -751,55 +772,99 @@ function paint(c,W,H,f){
   const M2=inks.length;
   const blackI=inks[0];
 
+  /* ---- one field: the colour of a point (uu,vv) in the given form ---- */
+  const field=(kd,uu,vv,cnt,out)=>{
+    if(kd==="checks"){
+      /* A plane seen at an angle and pulled at the corners. The pull is kept
+         gentle: past a point the squares on the far side shrink under a
+         pixel and the checker turns into moire, so where the warp has
+         squeezed a cell that small the pattern fades to its dark ink rather
+         than fizzing. */
+      const sx=1+bend*1.25*vv, sy=1+bend*1.25*uu;
+      const n2=cnt*2.6;
+      const X=uu*sx*n2, Y=vv*sy*n2;
+      const fx=X-Math.floor(X), fy=Y-Math.floor(Y);
+      const on=((Math.floor(X)+Math.floor(Y))&1)===0;
+      const edge=Math.min(fx,1-fx,fy,1-fy);
+      /* pixels per cell along the tighter axis */
+      const cellPx=Math.min(W/(Math.abs(sx)*n2*aw+1e-6), H/(Math.abs(sy)*n2*ah+1e-6));
+      const fine=cellPx<6 ? Math.max(0,(cellPx-2)/4) : 1;
+      /* the lit squares take a colour that runs across the sheet, drawn
+         from the inks after the first, which is the dark one */
+      if(M2>1){ const span=M2-1, q=((X+Y)*0.12+phase)%span;
+        sampleO(1+(q<0?q+span:q),inks,1,out); }
+      else { out[0]=blackI[0]; out[1]=blackI[1]; out[2]=blackI[2]; }
+      let w=on?1:0;
+      if(soft>0){ const e=Math.min(1,edge/(soft*0.5)); w=on?e:1-e; w=w*w*(3-2*w); }
+      w*=fine;
+      out[0]=blackI[0]+(out[0]-blackI[0])*w; out[1]=blackI[1]+(out[1]-blackI[1])*w; out[2]=blackI[2]+(out[2]-blackI[2])*w;
+      return;
+    }
+    let p;
+    if(kd==="bands"){
+      /* stripes seen through a cylinder: wider at the waist. Past the
+         frame's edge (which a twist or shift can bring into view) the
+         width holds, rather than pinching to a fan. */
+      const vc=vv<-0.5?-0.5:vv>0.5?0.5:vv;
+      const w=1+bend*(1-4*vc*vc)*0.9;
+      p=uu/w*cnt+phase+cnt*0.5;
+    }else if(kd==="rings"){
+      const rr=Math.sqrt(uu*uu+vv*vv*(1+bend*1.5)*(1+bend*1.5));
+      p=Math.pow(rr*1.9,0.85)*cnt+phase;
+    }else{
+      /* a soft wash: the same run of inks, with a gentle curve */
+      p=(uu+bend*0.35*vv*vv)*cnt*0.9+phase+cnt*0.45;
+    }
+    sampleO(p,inks,soft,out);
+  };
+
+  /* ---- the composition ---- */
+  const layout=S.layout||"whole", kind2=S.kind2||kind;
+  const da=(S.angle||0)*Math.PI/2, dn=Math.cos(da), ds=Math.sin(da);
+  /* the divide: a line at the chosen angle, slid across the sheet */
+  const doff=((S.dpos===undefined?0.5:S.dpos)-0.5)*(Math.abs(dn)*aw+Math.abs(ds)*ah);
+  const cutW=0.11, slip=0.16;
+  /* the squeeze: the pattern tightens toward one side, the way a run of
+     bands does as it turns away from you */
+  const sq=(S.squeeze||0)*3.2;
+  const squeeze=sq===0 ? (t=>t) : (t=>(Math.exp(sq*t)-1)/sq);
+  /* one pixel's worth of blend at the divide, so the edge is clean but not
+     jagged */
+  const aa=1.2/U;
+  const col2=[0,0,0];
+
   for(let y=0,i=0;y<H;y++){
     const v0=(y/H-cy)*ah;
     for(let x=0;x<W;x++,i+=4){
       const u0=(x/W-cx)*aw;
       const uu=u0*ct-v0*st, vv=u0*st+v0*ct;
       let r,g,b;
-      if(kind==="checks"){
-        /* A plane seen at an angle and pulled at the corners. The pull is kept
-           gentle: past a point the squares on the far side shrink under a
-           pixel and the checker turns into moire, so where the warp has
-           squeezed a cell that small the pattern fades to its dark ink rather
-           than fizzing. */
-        const sx=1+bend*1.25*vv, sy=1+bend*1.25*uu;
-        const n2=count*2.6;
-        const X=uu*sx*n2, Y=vv*sy*n2;
-        const fx=X-Math.floor(X), fy=Y-Math.floor(Y);
-        const on=((Math.floor(X)+Math.floor(Y))&1)===0;
-        const edge=Math.min(fx,1-fx,fy,1-fy);
-        /* pixels per cell along the tighter axis */
-        const cellPx=Math.min(W/(Math.abs(sx)*n2*aw+1e-6), H/(Math.abs(sy)*n2*ah+1e-6));
-        const fine=cellPx<6 ? Math.max(0,(cellPx-2)/4) : 1;
-        /* the lit squares take a colour that runs across the sheet, drawn
-           from the inks after the first, which is the dark one */
-        if(M2>1){ const span=M2-1, q=((X+Y)*0.12+phase)%span;
-          sampleO(1+(q<0?q+span:q),inks,1,col); }
-        else { col[0]=blackI[0]; col[1]=blackI[1]; col[2]=blackI[2]; }
-        let w=on?1:0;
-        if(soft>0){ const e=Math.min(1,edge/(soft*0.5)); w=on?e:1-e; w=w*w*(3-2*w); }
-        w*=fine;
-        r=blackI[0]+(col[0]-blackI[0])*w; g=blackI[1]+(col[1]-blackI[1])*w; b=blackI[2]+(col[2]-blackI[2])*w;
+      if(layout==="whole"){
+        field(kind,squeeze(uu),vv,count,col);
       }else{
-        let p;
-        if(kind==="bands"){
-          /* stripes seen through a cylinder: wider at the waist. Past the
-             frame's edge (which a twist or shift can bring into view) the
-             width holds, rather than pinching to a fan. */
-          const vc=vv<-0.5?-0.5:vv>0.5?0.5:vv;
-          const w=1+bend*(1-4*vc*vc)*0.9;
-          p=uu/w*count+phase+count*0.5;
-        }else if(kind==="rings"){
-          const rr=Math.sqrt(uu*uu+vv*vv*(1+bend*1.5)*(1+bend*1.5));
-          p=Math.pow(rr*1.9,0.85)*count+phase;
+        const d=uu*dn+vv*ds-doff;
+        if(layout==="fold"){
+          /* the far side of the divide is the near side, mirrored */
+          if(d>0){ field(kind,squeeze(uu-2*d*dn),vv-2*d*ds,count,col); }
+          else field(kind,squeeze(uu),vv,count,col);
         }else{
-          /* a soft wash: the same run of inks, with a gentle curve */
-          p=(uu+bend*0.35*vv*vv)*count*0.9+phase+count*0.45;
+          /* split: the other form beyond the divide, turned a quarter.
+             cut: a strip along the divide, the other form slipped along it */
+          let m;
+          if(layout==="split") m=d>aa?1:d<-aa?0:(d+aa)/(2*aa);
+          else { const e=cutW-Math.abs(d); m=e>aa?1:e<-aa?0:(e+aa)/(2*aa); }
+          if(m<1) field(kind,squeeze(uu),vv,count,col);
+          if(m>0){
+            let u2,v2;
+            if(layout==="split"){ u2=vv; v2=-uu; }
+            else { u2=uu-ds*slip; v2=vv+dn*slip; }
+            field(kind2,squeeze(u2),v2,count,col2);
+            if(m>=1){ col[0]=col2[0]; col[1]=col2[1]; col[2]=col2[2]; }
+            else { col[0]+=(col2[0]-col[0])*m; col[1]+=(col2[1]-col[1])*m; col[2]+=(col2[2]-col[2])*m; }
+          }
         }
-        sampleO(p,inks,soft,col);
-        r=col[0]; g=col[1]; b=col[2];
       }
+      r=col[0]; g=col[1]; b=col[2];
       /* ---- the grain: dust and speckle, clumped, the same every time ---- */
       if(grain>0){
         const gx=(x/gsc)|0, gy=(y/gsc)|0;
@@ -1025,6 +1090,8 @@ function bindRange(id,fmt,set,after){
 
 buildRatios();buildSwatches();accent();
 segmented($("#dirs"),DIRS,()=>S.kind,v=>{S.kind=v;reframe();});
+segmented($("#layouts"),LAYOUTS,()=>S.layout,v=>{S.layout=v;reframe();});
+segmented($("#dirs2"),DIRS,()=>S.kind2,v=>{S.kind2=v;reframe();});
 segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
 $("#shufColors").addEventListener("click",()=>{
   setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
@@ -1038,6 +1105,9 @@ bindRange("twist",v=>Math.round(v*90)+"°",v=>S.twist=v);
 bindRange("shiftx",v=>Math.round(v*100)+"%",v=>S.shiftx=v);
 bindRange("shifty",v=>Math.round(v*100)+"%",v=>S.shifty=v);
 bindRange("soft",v=>Math.round(v*100)+"%",v=>S.soft=v);
+bindRange("angle",v=>Math.round(v*90)+"°",v=>S.angle=v);
+bindRange("dpos",v=>Math.round(v*100)+"%",v=>S.dpos=v);
+bindRange("squeeze",v=>Math.round(v*100)+"%",v=>S.squeeze=v);
 bindRange("grain",v=>Math.round(v*100)+"%",v=>S.grain=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
@@ -1069,8 +1139,11 @@ function newSeed(v){
   put("shiftx",S.shiftx,Math.round(S.shiftx*100)+"%");
   put("shifty",S.shifty,Math.round(S.shifty*100)+"%");
   put("soft",S.soft,Math.round(S.soft*100)+"%");
-  const host=$("#dirs");
-  if(host) [...host.children].forEach((c,i)=>c.setAttribute("aria-pressed",String(DIRS[i][0]===S.kind)));
+  put("angle",S.angle,Math.round(S.angle*90)+"\u00b0");
+  put("dpos",S.dpos,Math.round(S.dpos*100)+"%");
+  put("squeeze",S.squeeze,Math.round(S.squeeze*100)+"%");
+  const press=(id,list,cur)=>{const h=$("#"+id); if(h) [...h.children].forEach((c,i)=>c.setAttribute("aria-pressed",String(list[i][0]===cur)));};
+  press("dirs",DIRS,S.kind); press("dirs2",DIRS,S.kind2); press("layouts",LAYOUTS,S.layout);
   buildSwatches(); accent();
   reframe();
 }
