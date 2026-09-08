@@ -133,7 +133,7 @@ input{font:inherit;color:inherit}
 .pillbtn:hover{background:rgba(21,22,26,.07)}
 .pillbtn[aria-pressed=true]{background:var(--ink);color:var(--gnd)}
 .pillbtn[aria-pressed=true]:hover{background:var(--ink);opacity:.85}
-.btnrow{display:flex;justify-content:flex-end;gap:10px}
+.btnrow{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px 10px}
 .copy.done{color:var(--ink)}
 
 /* ---------------- hairline sliders ---------------- */
@@ -566,7 +566,7 @@ input[type=range]{accent-color:var(--ink)}
       </div>
       <h2 class="h frame-h">Frame</h2><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span>
     </div>
-    <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
+    <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither</button><button class="pillbtn" id="grainTog" aria-pressed="false">Grain</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
           <div class="pr"><div class="top"><span class="k">Intensity</span><span class="v" id="amtVal">0.80</span></div><div class="track"><input type="range" id="amt" min="0.1" max="2" step="0.05" value="0.8"></div></div>
           <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">24 fps</span></div><div class="track"><input type="range" id="fps" min="6" max="30" step="1" value="24"></div></div>
           <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">120 frames</span></div><div class="track"><input type="range" id="frames" min="24" max="240" step="4" value="120"></div></div></div><div class="group" id="ditherBody" hidden>
@@ -574,6 +574,12 @@ input[type=range]{accent-color:var(--ink)}
   <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
   <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
   <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="dthAmountVal">100%</span></div><div class="track"><input type="range" id="dthAmount" min="0" max="1" step="0.05" value="1"></div></div>
+</div><div class="group" id="grainBody" hidden>
+  <div class="misc stack"><span class="mhead"><span class="k">Blend</span></span><span class="mval"><div class="chips" id="grnBlends"></div></span></div>
+  <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="grnAmountVal">55%</span></div><div class="track"><input type="range" id="grnAmount" min="0" max="1" step="0.05" value="0.55"></div></div>
+  <div class="pr"><div class="top"><span class="k">Grain size</span><span class="v" id="grnSizeVal">1.0</span></div><div class="track"><input type="range" id="grnSize" min="0.5" max="4" step="0.1" value="1"></div></div>
+  <div class="pr"><div class="top"><span class="k">Specks</span><span class="v" id="grnSpecksVal">50%</span></div><div class="track"><input type="range" id="grnSpecks" min="0" max="1" step="0.05" value="0.5"></div></div>
+  <div class="pr"><div class="top"><span class="k">Vignette</span><span class="v" id="grnVignetteVal">50%</span></div><div class="track"><input type="range" id="grnVignette" min="0" max="1" step="0.05" value="0.5"></div></div>
 </div></div>
     <div class="r-bot">
       <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
@@ -1034,6 +1040,105 @@ $("#scrub").max=S.motion.frames-1;
 updateExportNote();
 
 /* ============================================================
+   Grain  (chassis)
+   A post-pass over the finished frame: dust and speckle, clumped the way a
+   dirty print is, laid over the picture in a chosen blend, with a few bright
+   specks and a shade of darkness at the edges of the sheet. The pattern is
+   fixed, not a sprinkle: sampled on a grid sized to the picture, so a 6000px
+   export carries the same grain as the preview, and a redraw is identical.
+   It runs before the dither, so a dithered picture is dithered grain and all.
+============================================================ */
+const GRN={on:false,blend:"add",amount:0.55,size:1,specks:0.5,vignette:0.5};
+function __grnHash(x,y,s){
+  let n=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1274126177);
+  n=Math.imul(n^(n>>>13),1274126177); n^=n>>>16;
+  return (n>>>0)/4294967296;
+}
+function __grnNoise(x,y,s){
+  const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi;
+  const u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);
+  const a=__grnHash(xi,yi,s),b=__grnHash(xi+1,yi,s),c=__grnHash(xi,yi+1,s),d=__grnHash(xi+1,yi+1,s);
+  return (a*(1-u)+b*u)*(1-v)+(c*(1-u)+d*u)*v;
+}
+function __grain(c){
+  if(!GRN.on||GRN.amount<=0)return;
+  if(!c||typeof c.getImageData!=="function"||typeof c.putImageData!=="function")return;
+  const cv=c.canvas;
+  if(!cv||!cv.width||!cv.height)return;
+  const W=cv.width,H=cv.height;
+  let img;
+  try{img=c.getImageData(0,0,W,H);}catch(e){return;}
+  const d=img.data;
+  const U=Math.sqrt(W*H);
+  /* the grain grid: one grain per screen pixel at size 1, in units of the
+     picture rather than device pixels */
+  const gsc=Math.max(1,U/640*GRN.size);
+  const amt=GRN.amount, blend=GRN.blend;
+  const speck=GRN.specks*0.035, vig=GRN.vignette*0.35;
+  /* the clumps are a slow noise, worked out once per grain row and column */
+  const cs=11*gsc;
+  const GW=Math.ceil(W/gsc)+1, GH=Math.ceil(H/gsc)+1;
+  const clumpRow=new Float32Array(GW);
+  let lastGy=-1;
+  for(let y=0,i=0;y<H;y++){
+    const gy=(y/gsc)|0;
+    if(gy!==lastGy){ for(let gx=0;gx<GW;gx++)clumpRow[gx]=__grnNoise(gx*gsc/cs,y/cs,41); lastGy=gy; }
+    const ey=Math.abs(y/H-0.5)*2;
+    for(let x=0;x<W;x++,i+=4){
+      const gx=(x/gsc)|0;
+      const h=__grnHash(gx,gy,3);
+      /* the grain itself: signed, stronger inside a clump */
+      const k=(h-0.5)*120*(0.5+clumpRow[gx]);
+      let r=d[i],g=d[i+1],b=d[i+2];
+      let nr,ng,nb;
+      if(blend==="add"){ nr=r+k; ng=g+k; nb=b+k; }
+      else{
+        /* the grain as a mid-grey layer, neutral where it is 128 */
+        const n=(128+k)/255;
+        if(blend==="multiply"){ nr=r*n; ng=g*n; nb=b*n; }
+        else if(blend==="screen"){ const m=1-n; nr=255-(255-r)*m; ng=255-(255-g)*m; nb=255-(255-b)*m; }
+        else if(blend==="overlay"){
+          nr=r<128?2*r*n:255-2*(255-r)*(1-n);
+          ng=g<128?2*g*n:255-2*(255-g)*(1-n);
+          nb=b<128?2*b*n:255-2*(255-b)*(1-n);
+        }else{ /* soft light */
+          const a=1-2*n, bb=2*n;
+          nr=(a*r*r/255+bb*r); ng=(a*g*g/255+bb*g); nb=(a*b*b/255+bb*b);
+        }
+      }
+      r+=(nr-r)*amt; g+=(ng-g)*amt; b+=(nb-b)*amt;
+      /* a few bright specks, like dust caught in the print */
+      if(speck>0&&h>1-speck){ const w=95*amt; r+=w; g+=w; b+=w; }
+      /* a shade darker at the edges of the sheet */
+      if(vig>0){ const ex=Math.abs(x/W-0.5)*2; const e=ex>ey?ex:ey; const v=1-vig*amt*e*e*e; r*=v; g*=v; b*=v; }
+      d[i]=r<0?0:(r>255?255:r);
+      d[i+1]=g<0?0:(g>255?255:g);
+      d[i+2]=b<0?0:(b>255?255:b);
+    }
+  }
+  c.putImageData(img,0,0);
+}
+(function(){
+  const tog=$("#grainTog");
+  if(!tog)return;
+  segmented($("#grnBlends"),[["add","Add"],["overlay","Overlay"],["soft","Soft light"],["multiply","Multiply"],["screen","Screen"]],
+            ()=>GRN.blend,v=>{GRN.blend=v;requestDraw();});
+  bindRange("grnAmount",v=>Math.round(v*100)+"%",v=>GRN.amount=v,requestDraw);
+  bindRange("grnSize",v=>v.toFixed(1),v=>GRN.size=v,requestDraw);
+  bindRange("grnSpecks",v=>Math.round(v*100)+"%",v=>GRN.specks=v,requestDraw);
+  bindRange("grnVignette",v=>Math.round(v*100)+"%",v=>GRN.vignette=v,requestDraw);
+  tog.addEventListener("click",()=>{
+    GRN.on=!GRN.on;
+    tog.setAttribute("aria-pressed",String(GRN.on));
+    tog.classList.toggle("on",GRN.on);
+    const body=$("#grainBody");
+    if(body)body.hidden=!GRN.on;
+    requestDraw();
+  });
+})();
+
+
+/* ============================================================
    Dither  (chassis)
    A post-pass over the finished frame: the picture is cut down to a few
    tones per channel and an ordered threshold matrix decides which way each
@@ -1117,9 +1222,9 @@ function __dither(c){
 const __paintPlain=paint;
 paint=function(){
   const out=__paintPlain.apply(this,arguments);
-  if(DTH.on)for(let i=0;i<arguments.length;i++){
+  if(DTH.on||GRN.on)for(let i=0;i<arguments.length;i++){
     const a=arguments[i];
-    if(a&&typeof a.getImageData==="function"&&a.canvas){__dither(a);break;}
+    if(a&&typeof a.getImageData==="function"&&a.canvas){__grain(a);__dither(a);break;}
   }
   return out;
 };
