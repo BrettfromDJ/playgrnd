@@ -133,7 +133,33 @@ input{font:inherit;color:inherit}
 .pillbtn:hover{background:rgba(21,22,26,.07)}
 .pillbtn[aria-pressed=true]{background:var(--ink);color:var(--gnd)}
 .pillbtn[aria-pressed=true]:hover{background:var(--ink);opacity:.85}
-.btnrow{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px 10px}
+.btnrow{display:flex;justify-content:flex-end;gap:10px}
+
+/* ---- Animate, Dither, Grain: switch-headed sections in the left rail ----
+   The row reads like every other group heading, full ink on or off: a greyed
+   heading looks like a control that has been taken away rather than one that
+   is merely switched off. The switch alone carries the state, and the dials
+   appear under the row once it is on. */
+.tog-grp{margin:0 0 4px}
+.tog-grp>.pillbtn{width:100%;height:auto;padding:15px 0 13px;border:0;border-radius:0;
+  background:none;color:var(--ink);display:flex;align-items:center;gap:12px;
+  justify-content:space-between;cursor:pointer;
+  font-size:10px;letter-spacing:.32em;text-transform:uppercase;font-weight:700}
+.tog-grp>.pillbtn:hover{background:none;color:var(--ink);opacity:.72}
+.tog-grp>.pillbtn[aria-pressed=true]{background:none;color:var(--ink);opacity:1}
+/* a pixel in from the scroll's clip edge, so the track's border never loses
+   its right side when it darkens on hover */
+.tog-grp .sw{position:relative;flex:none;width:28px;height:15px;border-radius:999px;
+  border:1px solid var(--hair);background:none;margin-right:1px;
+  transition:background .16s ease,border-color .16s ease}
+.tog-grp .sw::after{content:"";position:absolute;top:2px;left:2px;width:9px;height:9px;
+  border-radius:50%;background:var(--key);
+  transition:transform .16s ease,background .16s ease}
+.tog-grp>.pillbtn:hover .sw{border-color:var(--ink)}
+.tog-grp>.pillbtn:hover .sw::after{background:var(--ink)}
+.tog-grp>.pillbtn[aria-pressed=true] .sw{background:var(--ink);border-color:var(--ink)}
+.tog-grp>.pillbtn[aria-pressed=true] .sw::after{transform:translateX(13px);background:var(--gnd)}
+.tog-grp>.group{margin-top:0;padding-bottom:8px}
 .copy.done{color:var(--ink)}
 
 /* ---------------- hairline sliders ---------------- */
@@ -547,7 +573,21 @@ input[type=range]{accent-color:var(--ink)}
         <div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">18%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.18"></div></div></div></details>
     <details class="grp"><summary>Arcs</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Arcs</span><span class="v" id="arcsVal">5</span></div><div class="track"><input type="range" id="arcs" min="0" max="24" step="1" value="5"></div></div>
         <div class="pr"><div class="top"><span class="k">Weight</span><span class="v" id="weightVal">45%</span></div><div class="track"><input type="range" id="weight" min="0" max="1" step="0.01" value="0.45"></div></div>
-        <div class="pr"><div class="top"><span class="k">Bend</span><span class="v" id="bendVal">55%</span></div><div class="track"><input type="range" id="bend" min="0" max="1" step="0.01" value="0.55"></div></div></div></details></div>
+        <div class="pr"><div class="top"><span class="k">Bend</span><span class="v" id="bendVal">55%</span></div><div class="track"><input type="range" id="bend" min="0" max="1" step="0.01" value="0.55"></div></div></div></details><div class="tog-grp"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate<span class="sw" aria-hidden="true"></span></button><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
+          <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
+          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="12"></div></div>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="36"></div></div></div></div><div class="tog-grp"><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither<span class="sw" aria-hidden="true"></span></button><div class="group" id="ditherBody" hidden>
+  <div class="misc stack"><span class="mhead"><span class="k">Pattern</span></span><span class="mval"><div class="chips" id="dthKinds"></div></span></div>
+  <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
+  <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
+  <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="dthAmountVal">100%</span></div><div class="track"><input type="range" id="dthAmount" min="0" max="1" step="0.05" value="1"></div></div>
+</div></div><div class="tog-grp"><button class="pillbtn" id="grainTog" aria-pressed="false">Grain<span class="sw" aria-hidden="true"></span></button><div class="group" id="grainBody" hidden>
+  <div class="misc stack"><span class="mhead"><span class="k">Blend</span></span><span class="mval"><div class="chips" id="grnBlends"></div></span></div>
+  <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="grnAmountVal">55%</span></div><div class="track"><input type="range" id="grnAmount" min="0" max="1" step="0.05" value="0.55"></div></div>
+  <div class="pr"><div class="top"><span class="k">Grain size</span><span class="v" id="grnSizeVal">1.0</span></div><div class="track"><input type="range" id="grnSize" min="0.5" max="4" step="0.1" value="1"></div></div>
+  <div class="pr"><div class="top"><span class="k">Specks</span><span class="v" id="grnSpecksVal">50%</span></div><div class="track"><input type="range" id="grnSpecks" min="0" max="1" step="0.05" value="0.5"></div></div>
+  <div class="pr"><div class="top"><span class="k">Vignette</span><span class="v" id="grnVignetteVal">50%</span></div><div class="track"><input type="range" id="grnVignette" min="0" max="1" step="0.05" value="0.5"></div></div>
+</div></div></div>
     <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">7</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
         
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
@@ -576,21 +616,6 @@ input[type=range]{accent-color:var(--ink)}
       </div>
       <h2 class="h frame-h">Frame</h2><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span>
     </div>
-    <div class="r-mid"><div class="btnrow"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate</button><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither</button><button class="pillbtn" id="grainTog" aria-pressed="false">Grain</button></div><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
-          <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
-          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="12"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="36"></div></div></div><div class="group" id="ditherBody" hidden>
-  <div class="misc stack"><span class="mhead"><span class="k">Pattern</span></span><span class="mval"><div class="chips" id="dthKinds"></div></span></div>
-  <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
-  <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
-  <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="dthAmountVal">100%</span></div><div class="track"><input type="range" id="dthAmount" min="0" max="1" step="0.05" value="1"></div></div>
-</div><div class="group" id="grainBody" hidden>
-  <div class="misc stack"><span class="mhead"><span class="k">Blend</span></span><span class="mval"><div class="chips" id="grnBlends"></div></span></div>
-  <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="grnAmountVal">55%</span></div><div class="track"><input type="range" id="grnAmount" min="0" max="1" step="0.05" value="0.55"></div></div>
-  <div class="pr"><div class="top"><span class="k">Grain size</span><span class="v" id="grnSizeVal">1.0</span></div><div class="track"><input type="range" id="grnSize" min="0.5" max="4" step="0.1" value="1"></div></div>
-  <div class="pr"><div class="top"><span class="k">Specks</span><span class="v" id="grnSpecksVal">50%</span></div><div class="track"><input type="range" id="grnSpecks" min="0" max="1" step="0.05" value="0.5"></div></div>
-  <div class="pr"><div class="top"><span class="k">Vignette</span><span class="v" id="grnVignetteVal">50%</span></div><div class="track"><input type="range" id="grnVignette" min="0" max="1" step="0.05" value="0.5"></div></div>
-</div></div>
     <div class="r-bot">
       <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizePxVal">2400 px</span></div><div class="track"><input type="range" id="sizePx" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
