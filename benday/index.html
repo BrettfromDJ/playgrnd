@@ -3,25 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Relief — playgrnd</title>
+<title>Benday — playgrnd</title>
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/favicon.png" sizes="180x180" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="canonical" href="https://playgrnd.tools/relief">
+<link rel="canonical" href="https://playgrnd.tools/benday">
 <meta property="og:site_name" content="playgrnd">
-<meta property="og:title" content="Relief — playgrnd">
-<meta property="og:description" content="Generate seamless relief-board backgrounds — columns of pattern blocks under routed traces that wrap at every edge, so the tile repeats forever. Exports vector, image and video.">
+<meta property="og:title" content="Benday — playgrnd">
+<meta property="og:description" content="Generate dot-screened thermal backgrounds — a turbulent colour field cut into heat-map bands and printed through a screen of ringed halftone dots. Deal a new variation or turn the dials. Exports image and video.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://playgrnd.tools/relief">
-<meta property="og:image" content="https://playgrnd.tools/relief/og.jpg">
+<meta property="og:url" content="https://playgrnd.tools/benday">
+<meta property="og:image" content="https://playgrnd.tools/benday/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Artwork made with Relief.">
+<meta property="og:image:alt" content="Artwork made with Benday.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Relief — playgrnd">
-<meta name="twitter:description" content="Generate seamless relief-board backgrounds — columns of pattern blocks under routed traces that wrap at every edge, so the tile repeats forever.">
-<meta name="twitter:image" content="https://playgrnd.tools/relief/og.jpg">
-<meta name="description" content="Generate seamless relief-board backgrounds — columns of pattern blocks under routed traces that wrap at every edge, so the tile repeats forever. Exports vector, image and video.">
+<meta name="twitter:title" content="Benday — playgrnd">
+<meta name="twitter:description" content="Generate dot-screened thermal backgrounds — a turbulent colour field cut into heat-map bands and printed through a screen of ringed halftone dots.">
+<meta name="twitter:image" content="https://playgrnd.tools/benday/og.jpg">
+<meta name="description" content="Generate dot-screened thermal backgrounds — a turbulent colour field cut into heat-map bands and printed through a screen of ringed halftone dots. Deal a new variation or turn the dials. Exports image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -574,16 +574,16 @@ input[type=range]{accent-color:var(--ink)}
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
         <span class="slash">&frasl;</span>
-        <span class="tool">Relief</span>
+        <span class="tool">Benday</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">26 / 44</span>
-        <span class="k">Type</span><span class="v">Isometric blocks</span>
+        <span class="k">Index</span><span class="v">44 / 44</span>
+        <span class="k">Type</span><span class="v">Dot-screen thermal</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
       <div class="newblk">
         <div class="newlab"><span class="k">Variation</span>
-          <span class="seedwrap"><input class="seed" id="seed" value="1" inputmode="numeric" aria-label="Variation number"><button class="pbtn copy" id="copySeed"
+          <span class="seedwrap"><input class="seed" id="seed" value="7" inputmode="numeric" aria-label="Variation number"><button class="pbtn copy" id="copySeed"
             aria-label="Copy variation number">Copy</button></span>
         </div>
         <button class="newbtn" id="randomize"><span class="ico" aria-hidden="true">&#8635;</span>
@@ -591,15 +591,20 @@ input[type=range]{accent-color:var(--ink)}
           <span class="sub">Reshuffle every shape</span></button>
       </div>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Blocks</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Cube size</span><span class="v" id="scaleVal">89</span></div><div class="track"><input type="range" id="scale" min="12" max="180" step="1" value="89"></div></div>
-        <div class="pr"><div class="top"><span class="k">Repeat</span><span class="v" id="repeatVal">3</span></div><div class="track"><input type="range" id="repeat" min="1" max="12" step="1" value="3"></div></div>
-        <div class="pr"><div class="top"><span class="k">Interlock</span><span class="v" id="varietyVal">38%</span></div><div class="track"><input type="range" id="variety" min="0" max="1" step="0.01" value="0.38"></div></div>
-        <div class="pr"><div class="top"><span class="k">Flats</span><span class="v" id="solidsVal">14%</span></div><div class="track"><input type="range" id="solids" min="0" max="1" step="0.01" value="0.14"></div></div></div></details>
-    <details class="grp" open><summary>Light</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Relief</span><span class="v" id="reliefVal">90%</span></div><div class="track"><input type="range" id="relief" min="0" max="1" step="0.01" value="0.9"></div></div>
-        <div class="pr"><div class="top"><span class="k">Accent cubes</span><span class="v" id="accentVal">34%</span></div><div class="track"><input type="range" id="accent" min="0" max="1" step="0.01" value="0.34"></div></div></div></details><div class="tog-grp"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate<span class="sw" aria-hidden="true"></span></button><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
-          <div class="pr"><div class="top"><span class="k">Churn</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
-          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">6 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="6"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">24 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="24"></div></div></div></div><div class="tog-grp"><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither<span class="sw" aria-hidden="true"></span></button><div class="group" id="ditherBody" hidden>
+    <div class="l-scroll"><details class="grp" open><summary>Field</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Turbulence</span><span class="v" id="turbVal">70%</span></div><div class="track"><input type="range" id="turb" min="0" max="1" step="0.01" value="0.7"></div></div>
+        <div class="pr"><div class="top"><span class="k">Streak</span><span class="v" id="streakVal">50%</span></div><div class="track"><input type="range" id="streak" min="0" max="1" step="0.01" value="0.5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Direction</span><span class="v" id="dirVal">32°</span></div><div class="track"><input type="range" id="dir" min="-1" max="1" step="0.01" value="0.35"></div></div>
+        <div class="pr"><div class="top"><span class="k">Scale</span><span class="v" id="scaleVal">50%</span></div><div class="track"><input type="range" id="scale" min="0" max="1" step="0.01" value="0.5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Black</span><span class="v" id="blackVal">35%</span></div><div class="track"><input type="range" id="black" min="0" max="1" step="0.01" value="0.35"></div></div></div></details>
+    <details class="grp"><summary>Ramp</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Bands</span><span class="v" id="bandsVal">8</span></div><div class="track"><input type="range" id="bands" min="2" max="16" step="1" value="8"></div></div>
+        <div class="pr"><div class="top"><span class="k">Rims</span><span class="v" id="rimsVal">12%</span></div><div class="track"><input type="range" id="rims" min="0" max="1" step="0.01" value="0.12"></div></div></div></details>
+    <details class="grp"><summary>Screen</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Dot size</span><span class="v" id="dotVal">45%</span></div><div class="track"><input type="range" id="dot" min="0" max="1" step="0.01" value="0.45"></div></div>
+        <div class="pr"><div class="top"><span class="k">Ring</span><span class="v" id="ringVal">60%</span></div><div class="track"><input type="range" id="ring" min="0" max="1" step="0.01" value="0.6"></div></div>
+        <div class="pr"><div class="top"><span class="k">Angle</span><span class="v" id="angleVal">20°</span></div><div class="track"><input type="range" id="angle" min="0" max="1" step="0.01" value="0.25"></div></div>
+        <div class="pr"><div class="top"><span class="k">Bite</span><span class="v" id="biteVal">50%</span></div><div class="track"><input type="range" id="bite" min="0" max="1" step="0.01" value="0.5"></div></div></div></details><div class="tog-grp"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate<span class="sw" aria-hidden="true"></span></button><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
+          <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
+          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="12"></div></div>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="36"></div></div></div></div><div class="tog-grp"><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither<span class="sw" aria-hidden="true"></span></button><div class="group" id="ditherBody" hidden>
   <div class="misc stack"><span class="mhead"><span class="k">Pattern</span></span><span class="mval"><div class="chips" id="dthKinds"></div></span></div>
   <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
   <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
@@ -611,7 +616,8 @@ input[type=range]{accent-color:var(--ink)}
   <div class="pr"><div class="top"><span class="k">Specks</span><span class="v" id="grnSpecksVal">50%</span></div><div class="track"><input type="range" id="grnSpecks" min="0" max="1" step="0.05" value="0.5"></div></div>
   <div class="pr"><div class="top"><span class="k">Vignette</span><span class="v" id="grnVignetteVal">50%</span></div><div class="track"><input type="range" id="grnVignette" min="0" max="1" step="0.05" value="0.5"></div></div>
 </div></div></div>
-    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">6</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">8</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+        
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
@@ -642,9 +648,8 @@ input[type=range]{accent-color:var(--ink)}
       <div class="tbl" style="margin-bottom:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>
-      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
+      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizePxVal">2400 px</span></div><div class="track"><input type="range" id="sizePx" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
-          <button class="lnk" id="expSvg">SVG</button>
           <button class="lnk" id="expVid">Video</button></span></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
     </div>
   </div>
@@ -683,228 +688,184 @@ function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const MODES=[["shuffle","Shuffle"]];
+const MODES=[["drift","Drift"],["churn","Churn"],["pulse","Pulse"]];
 
+/* Each palette is a ramp, dark to hot, the way a thermal camera paints: the
+   field's darkest reaches take the first ink and its hottest the last. */
 const PALETTES=[
-  ["#6C22EE","#7DF0BE","#FADCC2","#1B3ACF","#22D62F","#E2555F"],
-  ["#F07000","#E01020","#FFC800","#1E7FD6","#0FA07A","#C42BC4"],
-  ["#D6006E","#F0407A","#FF9EC0","#2AB7A0","#F0A202","#3B4FE0"],
-  ["#2E7CFF","#1B3FA8","#8AC4FF","#F0532A","#F2C500","#0FA958"],
-  ["#F0A202","#0E4D3C","#12A07A","#7FD4A8","#E0452C","#7A1FD6"]
+  ["#0A0A0C","#5B1E9E","#2C4BE8","#31C6F0","#8FE23A","#F5F03A","#FF8A1E","#FF2A1E"],
+  ["#0A0A0C","#3B1FA8","#1D7FE0","#4FE8D4","#D4FF3C","#FFB020","#FF4A1E","#FF1E8C"],
+  ["#0B0710","#6A0D7A","#C41E8A","#FF6A3D","#FFC93C","#F8F5E4","#7ADFFF","#2B4BFF"],
+  ["#050505","#123E8C","#1FA3C8","#B7F04C","#FFE94D","#FF9A2E","#E8262B","#7A1030"],
+  ["#0A0A0C","#1F3F1A","#2E9E4E","#B9F03A","#FFF35C","#FFA640","#FF5B1E","#FFFFFF"]
 ];
 
+/* A turbulent colour field, cut into thermal bands, seen through a screen
+   of ringed dots. Every setting is a dial and the same dials always give
+   the same sheet. The variation number deals a fresh set of dials and
+   shows the deal on the dials, so a dealt sheet can be adjusted from where
+   it landed. */
 const S={
-  seed:19, ratio:"3:4",
-  scale:89, repeat:3, variety:0.38, solids:0.14,
-  relief:0.9, accent:0.34,
+  seed:7, ratio:"1:1",
+  turb:0.7, streak:0.5, dir:0.35, scale:0.5, black:0.35,
+  bands:8, rims:0.12,
+  dot:0.45, ring:0.6, angle:0.25, bite:0.5,
   pal:PALETTES[0].slice(),
-  motion:{on:false,mode:"shuffle",amount:0.6,fps:6,frames:24},
-  size:2400
+  motion:{on:false,mode:"drift",amount:0.6,fps:12,frames:36},
+  size_px:2400
 };
 
-function hshR(x,y,s){
+const TAUB=Math.PI*2;
+function hshB(x,y,s){
   let n=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1274126177);
-  n=Math.imul(n^(n>>>13),1274126177);
-  n^=n>>>16;
+  n=Math.imul(n^(n>>>13),1274126177); n^=n>>>16;
   return (n>>>0)/4294967296;
 }
-function hex2rgbR(h){h=String(h).replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
-  const n=parseInt(h,16);return[(n>>16)&255,(n>>8)&255,n&255];}
-function rgb2hslR(hex){
-  const [r0,g0,b0]=hex2rgbR(hex), r=r0/255,g=g0/255,b=b0/255;
-  const mx=Math.max(r,g,b), mn=Math.min(r,g,b), d=mx-mn;
-  let h=0,s=0,l=(mx+mn)/2;
-  if(d){
-    s=l>0.5?d/(2-mx-mn):d/(mx+mn);
-    if(mx===r)h=((g-b)/d+(g<b?6:0)); else if(mx===g)h=(b-r)/d+2; else h=(r-g)/d+4;
-    h*=60;
-  }
-  return [h,s,l];
+function vnB(x,y,s){
+  const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi;
+  const u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);
+  const a=hshB(xi,yi,s),b=hshB(xi+1,yi,s),c=hshB(xi,yi+1,s),d=hshB(xi+1,yi+1,s);
+  return (a*(1-u)+b*u)*(1-v)+(c*(1-u)+d*u)*v;
 }
-function hsl2hexR(h,s,l){
-  h=((h%360)+360)%360; s=Math.min(1,Math.max(0,s)); l=Math.min(1,Math.max(0,l));
-  const a=s*Math.min(l,1-l);
-  const f=n=>{const k=(n+h/30)%12;
-    const v=l-a*Math.max(-1,Math.min(k-3,9-k,1));
-    return Math.round(v*255).toString(16).padStart(2,"0");};
-  return "#"+f(0)+f(8)+f(4);
+function rngB(seed){
+  let a=(seed>>>0)||1;
+  return function(){ a^=a<<13; a>>>=0; a^=a>>>17; a^=a<<5; a>>>=0; return a/4294967296; };
 }
-
-/* ---- the three faces ---------------------------------------------------
-   Top, left and right are one colour at three lightnesses, which is the only
-   reason a flat rhombus reads as a lit solid. Relief sets how far apart the
-   three sit: at zero the cube flattens into a hexagon, wide open it reads as
-   hard raking light. The hue drifts a little with the lightness because a
-   real ramp of paint does, and a purely tonal ramp looks plastic. */
-function facesOf(hex,spread){
-  const [h,s,l]=rgb2hslR(hex);
-  const base=Math.min(0.62,Math.max(0.38,l));
-  /* The ramp walks the hue as much as the lightness. Darkening alone turns an
-     orange into brown, and a brown face reads as dirt rather than as the same
-     paint in shadow; swinging the hue instead keeps the dark face a saturated
-     red and the light face a yellow, which is the step the reference has. */
-  const sat=Math.min(1,Math.max(0.55,s));
-  return [
-    hsl2hexR(h+spread*26, Math.min(1,sat*1.00), Math.min(0.92,base+spread*0.22)),
-    hsl2hexR(h,           sat,                  base),
-    hsl2hexR(h-spread*22, Math.min(1,sat*1.06), Math.max(0.16,base-spread*0.16))
-  ];
+/* The deal: everything lands somewhere near the reference sleeve rather
+   than on a corner of the settings nobody would choose. */
+function dealB(seed){
+  const r=rngB(Math.imul(seed|0,2654435761)^0x5bd1e995);
+  S.pal=PALETTES[(r()*PALETTES.length)|0].slice();
+  S.turb=0.4+r()*0.6;
+  S.streak=0.2+r()*0.6;
+  S.dir=(r()-0.5)*2;
+  S.scale=0.3+r()*0.5;
+  S.black=0.2+r()*0.3;
+  S.bands=5+((r()*6)|0);
+  S.rims=r()<0.35?0:0.06+r()*0.2;
+  S.dot=0.3+r()*0.35;
+  S.ring=0.4+r()*0.4;
+  S.angle=r()*0.95;
+  S.bite=0.3+r()*0.4;
+}
+function rgbB(h){
+  h=(h||"#000").replace("#","");
+  if(h.length===3) h=h.split("").map(c=>c+c).join("");
+  return [parseInt(h.slice(0,2),16)||0,parseInt(h.slice(2,4),16)||0,parseInt(h.slice(4,6),16)||0];
 }
 
-/* ---- the repeating unit ------------------------------------------------
-   One unit is worked out and then repeated across the page. A cube is not
-   recoloured face by face — that reads as noise — but turned as a whole: its
-   three tones rotate together. Neighbouring cubes turned differently are what
-   break the plain tumbling-block field into the interlocking hooks. */
-function buildUnit(f){
-  const M=S.motion;
-  /* Amount decides how much of the unit is re-dealt each frame rather than how
-     far anything travels: at the low end a few cubes flip while the rest hold,
-     at the top the whole unit is dealt again. Frame zero always uses the base
-     seed, so the loop closes on itself. */
-  const churn=(M.on&&M.mode==="shuffle")?Math.min(1,M.amount/2):0;
-  const step=S.seed+f*7919;
-  const P=Math.max(1,S.repeat|0), Q=Math.max(1,S.repeat|0);
-  const pal=S.pal.length?S.pal:["#F21D0A"];
-  /* The first ink leads and the rest are accents. Scanning for the most
-     saturated one instead made Rotate a no-op — whichever colour is most
-     saturated stays most saturated however the row is turned — and with
-     accents off it left five of the six inks doing nothing at all. Each
-     palette is ordered so slot 0 holds the ink the scan used to find, so the
-     artwork is unchanged and the button now works. */
-  const base=pal[0];
-  const others=pal.slice(1);
-  const turns=Math.max(1,Math.round(1+S.variety*2));
-  const cells=[];
-  for(let j=0;j<Q;j++) for(let i=0;i<P;i++){
-    const useed=(churn>0 && hshR(i*5+3,j*7+1,S.seed+131)<churn) ? step : S.seed;
-    const rot=Math.floor(hshR(i,j,useed+11)*turns)%3;
-    const solid=hshR(i,j,useed+29)<S.solids;
-    const acc=others.length&&hshR(i,j,useed+41)<S.accent
-      ? others[Math.floor(hshR(i,j,useed+53)*others.length)] : base;
-    cells.push({rot:rot, solid:solid, faces:facesOf(acc,S.relief)});
-  }
-  return {P:P, Q:Q, cells:cells, seed:S.seed};
-}
-
-/* ---- geometry ----------------------------------------------------------
-   Rhombille: every cube is a hexagon cut into three rhombi meeting at its
-   centre, and the hexagons tile the plane on a triangular lattice. The three
-   rhombi are the top, right and left faces of a cube seen from the corner. */
-const SQ3=Math.sqrt(3);
-function facePath(c,cx,cy,sx,sy,k){
-  const hx=SQ3/2*sx, hy=0.5*sy;
-  c.beginPath();
-  if(k===0){                       /* top */
-    c.moveTo(cx,cy-sy); c.lineTo(cx+hx,cy-hy); c.lineTo(cx,cy); c.lineTo(cx-hx,cy-hy);
-  }else if(k===1){                 /* right */
-    c.moveTo(cx,cy); c.lineTo(cx+hx,cy-hy); c.lineTo(cx+hx,cy+hy); c.lineTo(cx,cy+sy);
-  }else{                           /* left */
-    c.moveTo(cx,cy); c.lineTo(cx-hx,cy-hy); c.lineTo(cx-hx,cy+hy); c.lineTo(cx,cy+sy);
-  }
-  c.closePath();
-  c.fill();
-  /* neighbouring faces antialias against each other and leave a pale hairline
-     along every shared edge; stroking in the same ink closes it */
-  if(c.stroke){ c.lineWidth=1; c.strokeStyle=c.fillStyle; c.stroke(); }
-}
-
+let BUFB=null, BUFNB=0;
 function paint(c,W,H,f){
-  const U=buildUnit(f);
-  const M=S.motion;
+  const M=S.motion, T=M.on ? f/M.frames : 0, ph=T*TAUB;
+  const raw=S.pal.length?S.pal:PALETTES[0];
+  const inks=raw.map(rgbB), NI=inks.length;
+  const U=Math.sqrt(W*H);
+  const seed=S.seed|0;
+  const sd1=seed*7+1, sd2=seed*7+2, sd3=seed*7+3, sd4=seed*7+4;
 
-  /* Seamless by construction: work out how many cubes the requested size gives,
-     round that to a whole number of repeating units, then stretch the cube by
-     the couple of percent needed to make it land exactly. That stretch is far
-     below what the eye reads as distortion, and it is what makes the export a
-     true tile rather than a crop of one.
+  /* ---- motion ----
+     Drift walks the field round a small circle in its own space, so the
+     last frame runs straight into the first. Churn swells the turbulence
+     and lets it settle. Pulse breathes the heat up and down. */
+  const dr=(M.on&&M.mode==="drift") ? M.amount*0.5 : 0;
+  const dx=Math.cos(ph)*dr, dy=Math.sin(ph)*dr;
+  const turb=S.turb*(1+((M.on&&M.mode==="churn") ? (1-Math.cos(ph))*0.5*M.amount*0.8 : 0));
+  const heat=(M.on&&M.mode==="pulse") ? (1-Math.cos(ph))*0.5*M.amount*0.16 : 0;
 
-     The repeat is capped at what actually fits. Asking for cubes so large that
-     five of them overflow the page would otherwise round to one unit and stop
-     responding — the size slider would simply die at the top of its travel.
-     Fewer cubes across means a shorter repeat, not a frozen control. */
-  const want=Math.max(6,S.scale);
-  let cubesX=Math.max(1,Math.round(W/(SQ3*want)));
-  let cubesY=Math.max(1,Math.round(H/(1.5*want)));
-  const Pe=Math.max(1,Math.min(U.P,cubesX));
-  const Qe=Math.max(1,Math.min(U.Q,cubesY));
-  cubesX=Math.ceil(cubesX/Pe)*Pe;
-  cubesY=Math.ceil(cubesY/Qe)*Qe;
-  /* Rows alternate by half a cube, so the lattice itself has a vertical period
-     of two rows. An odd row count flips the parity at the wrap and puts every
-     cube along the join half a step out — an unmistakable seam. */
-  if(cubesY&1) cubesY+=Qe*((Qe&1)?1:0)||Qe;
-  const sx=W/(SQ3*cubesX), sy=H/(1.5*cubesY);
+  /* ---- the field ---- */
+  const sc=U*(0.25+S.scale*0.7);
+  const da=S.dir*Math.PI/2, cd=Math.cos(da), sdn=Math.sin(da);
+  const stretch=1+S.streak*3.5;
+  const black=S.black*0.6;
+  const bands=Math.max(2,S.bands|0);
+  const rimW=S.rims*0.5;
 
-  const cols=cubesX+2, rows=cubesY+2;
+  /* ---- the screen ----
+     the dot grid is sized to the picture, so a 6000px export carries the
+     same screen as the preview */
+  const cell=Math.max(2,U*(0.006+S.dot*0.03));
+  /* a square grid turned 90 degrees is the same grid, so the dial stops
+     short of it */
+  const aa=S.angle*Math.PI/180*80, ca=Math.cos(aa), sa=Math.sin(aa);
+  /* even the hottest band keeps a small dot, as the printed sleeve does */
+  const rmin=0.13, rmax=0.7, gamma=1/(0.45+S.bite*1.4);
+  const coreK=S.ring*0.8;
+  const paper=[244,241,232];
 
-  c.fillStyle=U.cells[0].faces[2]; c.fillRect(0,0,W,H);
+  const N=W*H;
+  if(BUFNB!==N){ BUFB=null; BUFNB=N; }
+  const img=BUFB&&BUFB.width===W ? BUFB : (BUFB=c.createImageData(W,H));
+  const px=img.data;
 
-  for(let j=-1;j<rows;j++){
-    for(let i=-1;i<cols;i++){
-      /* rows are offset by half a cube, which is what makes the hexagons
-         interlock rather than sit in columns */
-      const cx=(i+(j&1?0.5:0))*SQ3*sx;
-      const cy=j*1.5*sy;
-      const pi=((i%Pe)+Pe)%Pe, pj=((j%Qe)+Qe)%Qe;
-      const cell=U.cells[pj*U.P+pi];
-      for(let k=0;k<3;k++){
-        c.fillStyle=cell.solid ? cell.faces[1] : cell.faces[(k+cell.rot)%3];
-        facePath(c,cx,cy,sx,sy,k);
+  /* the ink at a position along the ramp, 0 to 1 */
+  const ramp=(t,out)=>{
+    const p=Math.max(0,Math.min(1,t))*(NI-1);
+    const k=Math.min(NI-2,Math.floor(p)), w=p-k;
+    const c0=inks[k], c1=inks[k+1];
+    out[0]=c0[0]+(c1[0]-c0[0])*w; out[1]=c0[1]+(c1[1]-c0[1])*w; out[2]=c0[2]+(c1[2]-c0[2])*w;
+  };
+  const col=[0,0,0], rim=[0,0,0];
+
+  for(let y=0,i=0;y<H;y++){
+    const v0=(y-H*0.5)/sc;
+    const gy0=(-0*sa+y*ca)/cell;
+    for(let x=0;x<W;x++,i+=4){
+      const u0=(x-W*0.5)/sc;
+      /* stretched along the streak direction */
+      const ru=(u0*cd+v0*sdn)/stretch, rv=(-u0*sdn+v0*cd);
+      /* folded by two warps, then read twice at different scales */
+      const q1=vnB(ru*1.5+3.1+dx,rv*1.5+7.7+dy,sd1), q2=vnB(ru*1.5+9.2-dy,rv*1.5+1.3+dx,sd2);
+      const wu=ru+turb*(q1-0.5)*3, wv=rv+turb*(q2-0.5)*3;
+      const m=vnB(wu*2+dx,wv*2+dy,sd3)*0.65+vnB(wu*4.7+dx*2,wv*4.7+dy*2,sd4)*0.35;
+      let val=(m-0.5)*1.9+0.5+heat;
+      /* ---- the ramp, in bands ---- */
+      let b, R,G,B;
+      if(val<black){ b=0; R=inks[0][0]; G=inks[0][1]; B=inks[0][2]; }
+      else{
+        const t=Math.min(0.9999,(val-black)/(1-black));
+        const kb=Math.floor(t*bands), fb=t*bands-kb;
+        b=(kb+0.5)/bands;
+        ramp(kb/(bands-1),col);
+        R=col[0]; G=col[1]; B=col[2];
+        /* a thin rim of a hotter ink where one band meets the next */
+        if(rimW>0&&(fb<rimW||fb>1-rimW)){
+          ramp(Math.min(1,(kb+2)/(bands-1)),rim);
+          R=rim[0]; G=rim[1]; B=rim[2];
+        }
       }
+      /* ---- the screen: a ringed dot on every cell of a turned grid,
+         larger where the field is darker ---- */
+      const gx=(x*ca+y*sa)/cell, gy=(-x*sa+y*ca)/cell;
+      const ddx=gx-Math.floor(gx)-0.5, ddy=gy-Math.floor(gy)-0.5;
+      const d=Math.sqrt(ddx*ddx+ddy*ddy);
+      const r=rmin+(rmax-rmin)*Math.pow(1-b,gamma);
+      const edge=(r-d)*cell+0.5;             /* pixels inside the dot's edge */
+      if(edge>0){
+        const w=edge>1?1:edge;
+        /* the ring is the darkest ink; the core a paper tint of the band,
+           dimmed inside the black reaches so they read as dark, not lit */
+        const cr=r*coreK, ce=(cr-d)*cell+0.5;
+        const dk=inks[0];
+        let nr=dk[0],ng=dk[1],nb=dk[2];
+        if(ce>0){
+          const wc=ce>1?1:ce;
+          const lit=b>0?0.7:0.22;
+          const pr=R+(paper[0]-R)*lit, pg=G+(paper[1]-G)*lit, pb=B+(paper[2]-B)*lit;
+          nr+=(pr-nr)*wc; ng+=(pg-ng)*wc; nb+=(pb-nb)*wc;
+        }
+        R+=(nr-R)*w; G+=(ng-G)*w; B+=(nb-B)*w;
+      }
+      px[i]=R<0?0:(R>255?255:R);
+      px[i+1]=G<0?0:(G>255?255:G);
+      px[i+2]=B<0?0:(B>255?255:B);
+      px[i+3]=255;
     }
   }
+  c.setTransform(1,0,0,1,0,0);
+  c.globalCompositeOperation="source-over";
+  c.globalAlpha=1;
+  c.putImageData(img,0,0);
 }
-
-/* ---- vector ------------------------------------------------------------
-   The same paint() against a recorder, so the SVG cannot drift from what is
-   on screen. Every face is already a quadrilateral, so it lands as a real
-   path rather than a traced outline. */
-function SvgSurfaceR(){
-  this.fillStyle="#000"; this.imageSmoothingEnabled=false;
-  this._b=[]; this._p=null;
-}
-SvgSurfaceR.prototype.save=function(){};
-SvgSurfaceR.prototype.restore=function(){};
-SvgSurfaceR.prototype.translate=function(){};
-SvgSurfaceR.prototype.scale=function(){};
-SvgSurfaceR.prototype.rotate=function(){};
-SvgSurfaceR.prototype.clearRect=function(){};
-SvgSurfaceR.prototype.fillRect=function(x,y,w,h){
-  this._b.push('<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+w.toFixed(1)+
-               '" height="'+h.toFixed(1)+'" fill="'+this.fillStyle+'"/>');
-};
-SvgSurfaceR.prototype.beginPath=function(){this._p=[];};
-SvgSurfaceR.prototype.moveTo=function(x,y){this._p=[[x,y]];};
-SvgSurfaceR.prototype.lineTo=function(x,y){if(this._p)this._p.push([x,y]);};
-SvgSurfaceR.prototype.closePath=function(){};
-SvgSurfaceR.prototype.fill=function(){
-  if(!this._p||this._p.length<3)return;
-  const d=this._p.map(function(q,i){return (i?"L":"M")+q[0].toFixed(1)+" "+q[1].toFixed(1);}).join("")+"Z";
-  /* the canvas strokes each face in its own ink to close the hairline where
-     two faces antialias against each other; the vector has to do the same or
-     the export would be a slightly different picture from the screen */
-  this._b.push('<path d="'+d+'" fill="'+this.fillStyle+
-               '" stroke="'+this.fillStyle+'" stroke-width="1"/>');
-};
-SvgSurfaceR.prototype.markup=function(){return this._b.join("");};
-
-function svgFrame(f){
-  const r=RATIOS.find(x=>x.id===S.ratio);
-  const W=S.size,H=Math.round(S.size*r.h/r.w);
-  const s=new SvgSurfaceR();
-  paint(s,W,H,f);
-  return s.markup();
-}
-function svgWrap(inner){
-  const r=RATIOS.find(x=>x.id===S.ratio);
-  const W=S.size,H=Math.round(S.size*r.h/r.w);
-  return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+
-         '" viewBox="0 0 '+W+' '+H+'">'+
-         '<clipPath id="r"><rect width="'+W+'" height="'+H+'"/></clipPath>'+
-         '<g clip-path="url(#r)">'+inner+'</g></svg>';
-}
-function buildSVG(){return svgWrap(svgFrame(curFrame));}
 
 const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
 function fitCanvas(){
@@ -973,26 +934,21 @@ function save(blob,name){
   a.href=url;a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
-function stamp(){return `relief-${S.seed}-${S.ratio.replace(":","x")}`;}
+function stamp(){return `benday-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
-  const a=$("#expVid"),sc=$("#scrub"),l=$("#expSvgLoop");
+  const a=$("#expVid"),sc=$("#scrub");
   if(a)a.disabled=!S.motion.on;
-  if(l)l.disabled=!S.motion.on;
   if(sc)sc.disabled=!S.motion.on;
 }
 $("#expPng").addEventListener("click",()=>{
   toast("Rendering…",true);
   setTimeout(()=>{
     const r=RATIOS.find(x=>x.id===S.ratio);
-    const W=S.size,H=Math.round(S.size*r.h/r.w);
+    const W=S.size_px,H=Math.round(S.size_px*r.h/r.w);
     const c=document.createElement("canvas");c.width=W;c.height=H;
     paint(c.getContext("2d"),W,H,curFrame);
     c.toBlob(b=>{save(b,stamp()+".png");toast(`PNG saved · ${W}×${H}`);});
   },30);
-});
-$("#expSvg").addEventListener("click",()=>{
-  save(new Blob([buildSVG()],{type:"image/svg+xml"}),stamp()+".svg");
-  toast("SVG saved");
 });
 function pickVideoType(){
   const t=["video/mp4;codecs=avc1.42E01E","video/mp4","video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"];
@@ -1005,7 +961,7 @@ $("#expVid").addEventListener("click",()=>{
   if(!type)return toast("This browser can't record video");
   const ext=type.startsWith("video/mp4")?"mp4":"webm";
   const r=RATIOS.find(x=>x.id===S.ratio);
-  let W=Math.min(1280,S.size);W-=W%2;
+  let W=Math.min(1280,S.size_px);W-=W%2;
   let H=Math.round(W*r.h/r.w);H-=H%2;
   const c=document.createElement("canvas");c.width=W;c.height=H;
   const cc=c.getContext("2d");
@@ -1030,7 +986,7 @@ $("#expVid").addEventListener("click",()=>{
    UI
 ============================================================ */
 function accent(){
-  let best=S.pal[S.pal.length-1],bl=-1;
+  let best=S.pal[Math.min(2,S.pal.length-1)],bl=-1;
   for(const c of S.pal){const l=relLum(c);if(l>bl&&l>0.12){bl=l;best=c;}}
   document.documentElement.style.setProperty("--accent",bl>0?best:"#F5C21B");
   $("#strip").innerHTML=S.pal.map(c=>`<span style="background:${c}"></span>`).join("");
@@ -1118,7 +1074,7 @@ function buildSwatches(){
   S.pal.forEach((c,i)=>{
     const b=document.createElement("button");
     b.className="sw"+(lock?" locked":"");b.type="button";
-    b.setAttribute("aria-label","Ink "+(i+1)+" color");
+    b.setAttribute("aria-label","Ink "+(i+1));
     b.innerHTML=`<span class="fill" style="background:${c}"></span>`+
       `<input type="color" value="${c}"><span class="x" aria-hidden="true">\u00d7</span>`;
     b.querySelector("input").addEventListener("input",e=>{
@@ -1162,22 +1118,28 @@ $("#shufColors").addEventListener("click",()=>{
   setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
 });
 $("#rotColors").addEventListener("click",()=>{
-  setPalette(S.pal.slice(1).concat(S.pal[0]));
+  setPalette([S.pal[0]].concat(S.pal.slice(2),[S.pal[1]]));
 });
-bindRange("scale",v=>v|0,v=>S.scale=v|0);
-bindRange("repeat",v=>v|0,v=>S.repeat=v|0);
-bindRange("variety",v=>Math.round(v*100)+"%",v=>S.variety=v);
-bindRange("solids",v=>Math.round(v*100)+"%",v=>S.solids=v);
-bindRange("relief",v=>Math.round(v*100)+"%",v=>S.relief=v);
-bindRange("accent",v=>Math.round(v*100)+"%",v=>S.accent=v);
+const pc=v=>Math.round(v*100)+"%";
+bindRange("turb",pc,v=>S.turb=v);
+bindRange("streak",pc,v=>S.streak=v);
+bindRange("dir",v=>Math.round(v*90)+"°",v=>S.dir=v);
+bindRange("scale",pc,v=>S.scale=v);
+bindRange("black",pc,v=>S.black=v);
+bindRange("bands",v=>v|0,v=>S.bands=v|0);
+bindRange("rims",pc,v=>S.rims=v);
+bindRange("dot",pc,v=>S.dot=v);
+bindRange("ring",pc,v=>S.ring=v);
+bindRange("angle",v=>Math.round(v*80)+"°",v=>S.angle=v);
+bindRange("bite",pc,v=>S.bite=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
 $("#frames").addEventListener("input",e=>{S.motion.frames=parseInt(e.target.value,10);
   $("#framesVal").textContent=S.motion.frames+" frames";$("#scrub").max=S.motion.frames-1;
   curFrame=Math.min(curFrame,S.motion.frames-1);reframe();if(playing)setPlaying(true);});
-$("#size").addEventListener("input",e=>{S.size=parseInt(e.target.value,10);$("#sizeVal").textContent=S.size+" px";});
-$("#motionTog").addEventListener("click",e=>{
+$("#sizePx").addEventListener("input",e=>{S.size_px=parseInt(e.target.value,10);
+  $("#sizePxVal").textContent=S.size_px+" px";});$("#motionTog").addEventListener("click",e=>{
   S.motion.on=!S.motion.on;
   e.currentTarget.setAttribute("aria-pressed",String(S.motion.on));
   $("#motionBody").hidden=!S.motion.on;
@@ -1187,7 +1149,21 @@ $("#motionTog").addEventListener("click",e=>{
 });
 $("#play").addEventListener("click",()=>{if(!S.motion.on){$("#motionTog").click();return;}setPlaying(!playing);});
 $("#scrub").addEventListener("input",e=>{setPlaying(false);curFrame=parseInt(e.target.value,10)%Math.max(1,S.motion.frames);draw();});
-function newSeed(v){S.seed=(v!==undefined)?v:(Math.random()*99999|0)+1;$("#seed").value=S.seed;reframe();}
+function newSeed(v){
+  S.seed=(v!==undefined)?v:(Math.random()*99999|0)+1;
+  $("#seed").value=S.seed;
+  dealB(S.seed);
+  /* every dealt value onto its dial and its readout, so the sheet can be
+     adjusted from where it landed */
+  const put=(id,val,txt)=>{const e=$("#"+id),l=$("#"+id+"Val");if(e)e.value=val;if(l)l.textContent=txt;};
+  const pc=v=>Math.round(v*100)+"%";
+  put("turb",S.turb,pc(S.turb)); put("streak",S.streak,pc(S.streak)); put("dir",S.dir,Math.round(S.dir*90)+"\u00b0");
+  put("scale",S.scale,pc(S.scale)); put("black",S.black,pc(S.black));
+  put("bands",S.bands,String(S.bands)); put("rims",S.rims,pc(S.rims));
+  put("dot",S.dot,pc(S.dot)); put("ring",S.ring,pc(S.ring)); put("angle",S.angle,Math.round(S.angle*80)+"\u00b0"); put("bite",S.bite,pc(S.bite));
+  buildSwatches(); accent();
+  reframe();
+}
 $("#shuf").addEventListener("click",()=>newSeed());
 $("#seed").addEventListener("change",e=>{const v=parseInt(e.target.value,10);newSeed(Number.isFinite(v)?Math.abs(v):1);});
 art.addEventListener("click",()=>newSeed());
