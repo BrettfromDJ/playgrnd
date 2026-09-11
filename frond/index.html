@@ -2044,6 +2044,11 @@ html.embed body{overflow:hidden!important}
       else if(!on) hint.textContent=MY.cols.length+" color"+(MY.cols.length===1?"":"s")+" saved in this browser";
       else hint.textContent="";
       info.hidden=!dots.innerHTML&&!hint.textContent;
+      /* with the set on, Save changes and Edit sit on the Shuffle row */
+      var home=document.querySelector("#myc>.myc-row"), row=shufB?shufB.parentElement:null;
+      var dest=(on&&row)?row:home;
+      if(dest&&saveB.parentElement!==dest){ dest.appendChild(saveB); dest.appendChild(editB); }
+      document.getElementById("myc").hidden=on&&!!row&&info.hidden&&panel.hidden;
     }
     function putOn(){
       if(!MY.cols.length) MY.cols=vals().filter(Boolean);
@@ -2077,6 +2082,7 @@ html.embed body{overflow:hidden!important}
       panel.hidden=!panel.hidden;
       editB.setAttribute("aria-pressed",panel.hidden?"false":"true");
       if(!panel.hidden){ ta.value=MY.cols.join("\n"); ta.focus(); }
+      ui();
     });
     okB.addEventListener("click",function(){
       var list=parseList(ta.value);
