@@ -3,25 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mosh — playgrnd</title>
+<title>Dawn — playgrnd</title>
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/favicon.png" sizes="180x180" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="canonical" href="https://playgrnd.tools/mosh">
+<link rel="canonical" href="https://playgrnd.tools/dawn">
 <meta property="og:site_name" content="playgrnd">
-<meta property="og:title" content="Mosh — playgrnd">
-<meta property="og:description" content="Generate datamosh backgrounds — stacked bands of corrupted signal: pixel confetti, torn block mosaics, horizontal smear, dead scanlines and chevron tearing. Exports vector, image and video.">
+<meta property="og:title" content="Dawn — playgrnd">
+<meta property="og:description" content="Generate sunrise sky gradients — a zenith, a hazed middle, a pale glow and a warm foot, dealt fresh like a morning and painted with a slight brush and paper. Deal a new variation or turn the dials. Exports image and video.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://playgrnd.tools/mosh">
-<meta property="og:image" content="https://playgrnd.tools/mosh/og.png">
+<meta property="og:url" content="https://playgrnd.tools/dawn">
+<meta property="og:image" content="https://playgrnd.tools/dawn/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Artwork made with Mosh.">
+<meta property="og:image:alt" content="Artwork made with Dawn.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Mosh — playgrnd">
-<meta name="twitter:description" content="Generate datamosh backgrounds — stacked bands of corrupted signal: pixel confetti, torn block mosaics, horizontal smear, dead scanlines and chevron tearing.">
-<meta name="twitter:image" content="https://playgrnd.tools/mosh/og.png">
-<meta name="description" content="Generate datamosh backgrounds — stacked bands of corrupted signal: pixel confetti, torn block mosaics, horizontal smear, dead scanlines and chevron tearing. Exports vector, image and video.">
+<meta name="twitter:title" content="Dawn — playgrnd">
+<meta name="twitter:description" content="Generate sunrise sky gradients — a zenith, a hazed middle, a pale glow and a warm foot, dealt fresh like a morning and painted with a slight brush and paper.">
+<meta name="twitter:image" content="https://playgrnd.tools/dawn/og.jpg">
+<meta name="description" content="Generate sunrise sky gradients — a zenith, a hazed middle, a pale glow and a warm foot, dealt fresh like a morning and painted with a slight brush and paper. Deal a new variation or turn the dials. Exports image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -574,16 +574,16 @@ input[type=range]{accent-color:var(--ink)}
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
         <span class="slash">&frasl;</span>
-        <span class="tool">Mosh</span>
+        <span class="tool">Dawn</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">28 / 47</span>
-        <span class="k">Type</span><span class="v">Corrupted signal</span>
+        <span class="k">Index</span><span class="v">47 / 47</span>
+        <span class="k">Type</span><span class="v">Sunrise gradients</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
       <div class="newblk">
         <div class="newlab"><span class="k">Variation</span>
-          <span class="seedwrap"><input class="seed" id="seed" value="1" inputmode="numeric" aria-label="Variation number"><button class="pbtn copy" id="copySeed"
+          <span class="seedwrap"><input class="seed" id="seed" value="7" inputmode="numeric" aria-label="Variation number"><button class="pbtn copy" id="copySeed"
             aria-label="Copy variation number">Copy</button></span>
         </div>
         <button class="newbtn" id="randomize"><span class="ico" aria-hidden="true">&#8635;</span>
@@ -591,15 +591,19 @@ input[type=range]{accent-color:var(--ink)}
           <span class="sub">Reshuffle every shape</span></button>
       </div>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Signal</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Bands</span><span class="v" id="bandsVal">6</span></div><div class="track"><input type="range" id="bands" min="1" max="14" step="1" value="6"></div></div>
-        <div class="pr"><div class="top"><span class="k">Resolution</span><span class="v" id="colsVal">150</span></div><div class="track"><input type="range" id="cols" min="24" max="420" step="2" value="150"></div></div>
-        <div class="pr"><div class="top"><span class="k">Colour spread</span><span class="v" id="mixVal">62%</span></div><div class="track"><input type="range" id="mix" min="0" max="1" step="0.01" value="0.62"></div></div></div></details>
-    <details class="grp" open><summary>Damage</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Tears</span><span class="v" id="tearsVal">55%</span></div><div class="track"><input type="range" id="tears" min="0" max="1" step="0.01" value="0.55"></div></div>
-        <div class="pr"><div class="top"><span class="k">Smear</span><span class="v" id="runsVal">50%</span></div><div class="track"><input type="range" id="runs" min="0" max="1" step="0.01" value="0.5"></div></div>
-        <div class="pr"><div class="top"><span class="k">Flashes</span><span class="v" id="brightVal">30%</span></div><div class="track"><input type="range" id="bright" min="0" max="1" step="0.01" value="0.3"></div></div></div></details><div class="tog-grp"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate<span class="sw" aria-hidden="true"></span></button><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
+    <div class="l-scroll"><details class="grp" open><summary>Sky</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Sky</span></span><span class="mval"><div class="chips" id="skies"></div></span></div>
+        <div class="pr"><div class="top"><span class="k">Horizon</span><span class="v" id="horizonVal">72%</span></div><div class="track"><input type="range" id="horizon" min="0.2" max="0.95" step="0.01" value="0.72"></div></div>
+        <div class="pr"><div class="top"><span class="k">Spread</span><span class="v" id="spreadVal">50%</span></div><div class="track"><input type="range" id="spread" min="0" max="1" step="0.01" value="0.5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Glow</span><span class="v" id="glowVal">50%</span></div><div class="track"><input type="range" id="glow" min="0" max="1" step="0.01" value="0.5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Haze</span><span class="v" id="hazeVal">40%</span></div><div class="track"><input type="range" id="haze" min="0" max="1" step="0.01" value="0.4"></div></div></div></details>
+    <details class="grp"><summary>Blend</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Softness</span><span class="v" id="softVal">60%</span></div><div class="track"><input type="range" id="soft" min="0" max="1" step="0.01" value="0.6"></div></div>
+        <div class="pr"><div class="top"><span class="k">Hard band</span><span class="v" id="bandVal">0%</span></div><div class="track"><input type="range" id="band" min="0" max="1" step="0.01" value="0"></div></div>
+        <div class="pr"><div class="top"><span class="k">Tilt</span><span class="v" id="tiltVal">0°</span></div><div class="track"><input type="range" id="tilt" min="-1" max="1" step="0.01" value="0"></div></div></div></details>
+    <details class="grp"><summary>Paint</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Brush</span><span class="v" id="brushVal">35%</span></div><div class="track"><input type="range" id="brush" min="0" max="1" step="0.01" value="0.35"></div></div>
+        <div class="pr"><div class="top"><span class="k">Paper</span><span class="v" id="paperVal">40%</span></div><div class="track"><input type="range" id="paper" min="0" max="1" step="0.01" value="0.4"></div></div></div></details><div class="tog-grp"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate<span class="sw" aria-hidden="true"></span></button><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
           <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
           <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="12"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">24 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="24"></div></div></div></div><div class="tog-grp"><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither<span class="sw" aria-hidden="true"></span></button><div class="group" id="ditherBody" hidden>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="36"></div></div></div></div><div class="tog-grp"><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither<span class="sw" aria-hidden="true"></span></button><div class="group" id="ditherBody" hidden>
   <div class="misc stack"><span class="mhead"><span class="k">Pattern</span></span><span class="mval"><div class="chips" id="dthKinds"></div></span></div>
   <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
   <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
@@ -611,7 +615,8 @@ input[type=range]{accent-color:var(--ink)}
   <div class="pr"><div class="top"><span class="k">Specks</span><span class="v" id="grnSpecksVal">50%</span></div><div class="track"><input type="range" id="grnSpecks" min="0" max="1" step="0.05" value="0.5"></div></div>
   <div class="pr"><div class="top"><span class="k">Vignette</span><span class="v" id="grnVignetteVal">50%</span></div><div class="track"><input type="range" id="grnVignette" min="0" max="1" step="0.05" value="0.5"></div></div>
 </div></div></div>
-    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">8</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">6</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+        
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
@@ -642,9 +647,8 @@ input[type=range]{accent-color:var(--ink)}
       <div class="tbl" style="margin-bottom:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>
-      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
+      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizePxVal">2400 px</span></div><div class="track"><input type="range" id="sizePx" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
-          <button class="lnk" id="expSvg">SVG</button>
           <button class="lnk" id="expVid">Video</button></span></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
     </div>
   </div>
@@ -683,261 +687,238 @@ function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const MODES=[["shuffle","Shuffle"],["roll","Roll"]];
+const MODES=[["dawn","Dawn"],["breathe","Breathe"],["drift","Drift"]];
+const SKIES=[["any","Any"],["dawn","Dawn"],["dusk","Dusk"],["day","Day"],["cold","Cold"]];
 
-/* Every band is built from filled rectangles and nothing else. That is not a
-   shortcut: it is what lets the same paint() drive the canvas and the vector
-   export with no second implementation to drift out of step, and it is what a
-   corrupted framebuffer actually is. */
-const KINDS=["confetti","mosaic","smear","scan","chevron"];
-
-/* The colour cube's corners at full strength. Broken data does not fade. */
+/* Each set is a sky read from the top down: the zenith first, the horizon
+   last, and somewhere near the foot a pale glow. Five skies to start; every
+   deal after that is made fresh, the way a morning is. */
 const PALETTES=[
-  ["#000000","#FFFFFF","#FF3131","#31FF6B","#3164FF","#31F0FF","#FF31E0","#FFEE31"],
-  ["#050505","#F2F2F2","#FF1E3C","#19E65A","#1E3CFF","#19E6E6","#FF19C8","#FFE619"],
-  ["#000000","#E8E8E8","#E0202A","#00A650","#1B4FE0","#00C8D2","#EC1E79","#F5D000"],
-  ["#0A0A0A","#FFFFFF","#FF4A00","#7CE860","#2B4FD8","#41C6F0","#F03C8C","#F0D82C"],
-  ["#101010","#FAFAF5","#D6006E","#12B074","#3B4FE0","#00E0E0","#FF6B00","#EFEF20"]
+  ["#152552","#5A6FB8","#B9B4D8","#F1E4D0","#F0A06A","#E6684A"],
+  ["#3A2A5E","#8B6C9C","#D7B9C6","#F3D9A6","#E88A4A","#C94A3A"],
+  ["#4F7FD0","#8DB3E6","#D2E0F0","#F6F1E6","#F0D9B0"],
+  ["#4B6A8A","#8FA3C0","#C8C4D8","#EEE7C2","#7A8CB0"],
+  ["#1C2E66","#3F6FC4","#93C1EE","#F4EAD6","#F5B07A"]
 ];
 
+/* A sunrise sky in stops, top to bottom: the deep of the zenith, a hazed
+   middle, a pale glow near the horizon, the warm foot. Every setting is a
+   dial and the same dials always give the same sheet. The variation
+   number deals a fresh sky and a fresh set of dials and shows the deal on
+   the dials, so a dealt sky can be adjusted from where it landed. */
 const S={
-  seed:5, ratio:"4:5",
-  bands:6, cols:150, mix:0.62,
-  tears:0.55, runs:0.5, bright:0.3,
+  seed:7, ratio:"9:16",
+  sky:"any",
+  horizon:0.72, spread:0.5, glow:0.5, haze:0.4, soft:0.6, band:0,
+  tilt:0, brush:0.35, paper:0.4,
   pal:PALETTES[0].slice(),
-  motion:{on:false,mode:"shuffle",amount:0.6,fps:12,frames:24},
-  size:2400
+  motion:{on:false,mode:"dawn",amount:0.6,fps:12,frames:36},
+  size_px:2400
 };
 
-function hshM(x,y,s){
+const TAUD=Math.PI*2;
+function hshD(x,y,s){
   let n=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1274126177);
-  n=Math.imul(n^(n>>>13),1274126177);
-  n^=n>>>16;
+  n=Math.imul(n^(n>>>13),1274126177); n^=n>>>16;
   return (n>>>0)/4294967296;
 }
-function hex2rgbM(h){h=String(h).replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
-  const n=parseInt(h,16);return[(n>>16)&255,(n>>8)&255,n&255];}
-function lumM(h){const[r,g,b]=hex2rgbM(h);return r*.299+g*.587+b*.114;}
-
-/* ---- ink roles ---------------------------------------------------------
-   Only the darkest is singled out, for the torn wedges and the dead rows.
-   Everything else is picked out of the row by index, so Rotate genuinely
-   re-deals which colour lands where instead of doing nothing. */
-function rolesM(){
-  const pal=S.pal.length?S.pal:["#000000","#FFFFFF"];
-  let dark=pal[0];
-  for(const c of pal) if(lumM(c)<lumM(dark)) dark=c;
-  return {dark:dark, inks:pal};
+function vnD(x,y,s){
+  const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi;
+  const u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);
+  const a=hshD(xi,yi,s),b=hshD(xi+1,yi,s),c=hshD(xi,yi+1,s),d=hshD(xi+1,yi+1,s);
+  return (a*(1-u)+b*u)*(1-v)+(c*(1-u)+d*u)*v;
+}
+function rngD(seed){
+  let a=(seed>>>0)||1;
+  return function(){ a^=a<<13; a>>>=0; a^=a>>>17; a>>>=0; a^=a<<5; a>>>=0; return a/4294967296; };
 }
 
+/* ---- colour: everything is mixed in Oklab, where a run from blue to
+   orange passes through a clean grey rather than a muddy one ---- */
+function s2lD(c){ c/=255; return c<=0.04045?c/12.92:Math.pow((c+0.055)/1.055,2.4); }
+function l2sD(c){ c=c<0?0:(c>1?1:c); return 255*(c<=0.0031308?12.92*c:1.055*Math.pow(c,1/2.4)-0.055); }
+function rgb2labD(rgb){
+  const R=s2lD(rgb[0]),G=s2lD(rgb[1]),B=s2lD(rgb[2]);
+  const l=Math.cbrt(0.4122214708*R+0.5363325363*G+0.0514459929*B);
+  const m=Math.cbrt(0.2119034982*R+0.6806995451*G+0.1073969566*B);
+  const s=Math.cbrt(0.0883024619*R+0.2817188376*G+0.6299787005*B);
+  return [0.2104542553*l+0.7936177850*m-0.0040720468*s, 1.9779984951*l-2.4285922050*m+0.4505937099*s, 0.0259040371*l+0.7827717662*m-0.8086757660*s];
+}
+function lab2rgbD(L,a,b,out){
+  const l_=L+0.3963377774*a+0.2158037573*b, m_=L-0.1055613458*a-0.0638541728*b, s_=L-0.0894841775*a-1.2914855480*b;
+  const l=l_*l_*l_, m=m_*m_*m_, s=s_*s_*s_;
+  out[0]=l2sD(4.0767416621*l-3.3077115913*m+0.2309699292*s);
+  out[1]=l2sD(-1.2684380046*l+2.6097574011*m-0.3413193965*s);
+  out[2]=l2sD(-0.0041960863*l-0.7034186147*m+1.7076147010*s);
+}
+function lchHexD(L,C,h){
+  const o=[0,0,0]; lab2rgbD(L,C*Math.cos(h*Math.PI/180),C*Math.sin(h*Math.PI/180),o);
+  return "#"+o.map(v=>Math.round(v).toString(16).padStart(2,"0")).join("");
+}
+function rgbD(h){
+  h=(h||"#000").replace("#","");
+  if(h.length===3) h=h.split("").map(c=>c+c).join("");
+  return [parseInt(h.slice(0,2),16)||0,parseInt(h.slice(2,4),16)||0,parseInt(h.slice(4,6),16)||0];
+}
+
+/* ---- a sky, dealt ----
+   Not a random run of hues: a zenith, one or two passages down through a
+   hazed middle, a pale glow, and a warm foot, each drawn from the range a
+   real morning gives. Four kinds: dawn, dusk, full day and a cold, overcast
+   light. Now and then the sky is read the other way up, as the series does. */
+function skyDeal(seed,kind){
+  const r=rngD(Math.imul(seed|0,2654435761)^0x5bd1e995);
+  const kinds=["dawn","dusk","day","cold"];
+  const k=(kind&&kind!=="any")?kind:kinds[(r()*kinds.length)|0];
+  const L=(a,b)=>a+r()*(b-a);
+  let st=[];
+  if(k==="dawn"){
+    st.push([L(0.26,0.42),L(0.09,0.15),L(255,285)]);
+    if(r()<0.6) st.push([L(0.5,0.62),L(0.06,0.1),L(265,300)]);
+    st.push([L(0.7,0.8),L(0.03,0.07),L(290,340)]);
+    st.push([L(0.87,0.93),L(0.04,0.1),L(45,85)]);
+    st.push([L(0.62,0.76),L(0.13,0.2),L(25,55)]);
+    if(r()<0.4) st.push([L(0.5,0.6),L(0.14,0.2),L(5,25)]);
+  }else if(k==="dusk"){
+    st.push([L(0.28,0.42),L(0.08,0.13),L(295,330)]);
+    if(r()<0.6) st.push([L(0.5,0.62),L(0.06,0.09),L(320,350)]);
+    st.push([L(0.72,0.8),L(0.03,0.06),L(350,30)]);
+    st.push([L(0.84,0.9),L(0.07,0.11),L(70,95)]);
+    st.push([L(0.55,0.66),L(0.16,0.22),L(22,40)]);
+  }else if(k==="day"){
+    st.push([L(0.5,0.62),L(0.11,0.16),L(240,262)]);
+    st.push([L(0.7,0.8),L(0.07,0.1),L(235,258)]);
+    st.push([L(0.85,0.91),L(0.03,0.06),L(225,270)]);
+    st.push([L(0.93,0.96),L(0.015,0.035),L(70,120)]);
+    st.push(r()<0.5?[L(0.8,0.88),L(0.05,0.08),L(55,85)]:[L(0.55,0.68),L(0.1,0.14),L(240,258)]);
+  }else{
+    st.push([L(0.36,0.5),L(0.05,0.09),L(215,250)]);
+    st.push([L(0.6,0.72),L(0.04,0.07),L(245,280)]);
+    st.push([L(0.76,0.84),L(0.02,0.05),L(280,330)]);
+    st.push([L(0.88,0.93),L(0.04,0.07),L(90,115)]);
+    st.push([L(0.45,0.6),L(0.06,0.1),L(225,255)]);
+  }
+  if(r()<0.2) st.reverse();
+  return st.map(([l,c,h])=>lchHexD(l,c,h));
+}
+
+/* The deal: a fresh sky, then dials that land somewhere near the reference
+   sheets rather than on a corner of the settings nobody would choose. */
+function dealD(seed){
+  const r=rngD(Math.imul(seed|0,2246822519)^0x27d4eb2f);
+  S.pal=skyDeal(seed,S.sky);
+  S.horizon=0.6+r()*0.25;
+  S.spread=0.3+r()*0.4;
+  S.glow=0.3+r()*0.5;
+  S.haze=0.2+r()*0.4;
+  S.soft=0.4+r()*0.5;
+  S.band=r()<0.3?0.3+r()*0.6:0;
+  S.tilt=(r()-0.5)*0.3;
+  S.brush=0.2+r()*0.3;
+  S.paper=0.2+r()*0.3;
+  /* to the dials' own steps, so a readout never disagrees with its dial */
+  for(const k of ["horizon","spread","glow","haze","soft","band","tilt","brush","paper"]) S[k]=Math.round(S[k]*100)/100;
+}
+
+let BUFD=null, BUFND=0;
 function paint(c,W,H,f){
-  const R=rolesM();
-  const M=S.motion;
-  const mseed=(M.on&&M.mode==="shuffle")?S.seed+f*7919:S.seed;
-  const N=Math.max(6,S.cols|0);
-  const cw=W/N;
-  /* Roll wraps at the column count, so a whole revolution lands back on the
-     first frame. Shifting an unwrapped hash would never close the loop. */
-  const roll=(M.on&&M.mode==="roll")
-    ? Math.round((f/M.frames)*N*Math.max(1,Math.round(M.amount*2))) : 0;
-  const wrap=i=>(((i+roll)%N)+N)%N;
-  const ink=v=>R.inks[Math.floor(v*R.inks.length)%R.inks.length];
-  /* mix widens how much of the row a band draws from: low and a band keeps to
-     a few colours, high and every ink is in play */
-  const pick=(v,bias)=>{
-    /* A sixth of everything falls to the darkest ink. Dealing evenly from the
-       row gives a uniformly hot page; broken data has dead patches in it, and
-       it is the dead patches that let the colour read. */
-    if(v<0.16) return R.dark;
-    const n=Math.max(1,Math.round(R.inks.length*(0.25+S.mix*0.75)));
-    return R.inks[(Math.floor(v*n)+bias)%R.inks.length];
-  };
+  const M=S.motion, T=M.on ? f/M.frames : 0, ph=T*TAUD;
+  const raw=S.pal.length>=2?S.pal:PALETTES[0];
+  const labs=raw.map(h=>rgb2labD(rgbD(h)));
+  const n=labs.length;
+  const U=Math.sqrt(W*H);
+  const seed=S.seed|0;
 
-  /* ---- the bands ------------------------------------------------------
-     Heights are uneven and the kinds are dealt from a shuffled deck rather
-     than drawn one at a time, so a page carries every kind once before it
-     repeats any — the reference stacks five different failures, it does not
-     roll the same die five times. */
-  const nb=Math.max(1,S.bands|0);
-  const wts=[]; let tot=0;
-  for(let i=0;i<nb;i++){ const w=0.4+hshM(i,3,S.seed+11)*1.6; wts.push(w); tot+=w; }
-  const deck=KINDS.slice();
-  for(let i=deck.length-1;i>0;i--){
-    const j=Math.floor(hshM(i,7,S.seed+13)*(i+1));
-    const t=deck[i]; deck[i]=deck[j]; deck[j]=t;
+  /* ---- motion ----
+     Dawn lifts the whole sky and lets it settle back, the horizon rising
+     as the light comes. Breathe swells the glow. Drift wanders the brush
+     round a small circle, so the last frame runs into the first. */
+  const rise=(M.on&&M.mode==="dawn") ? (1-Math.cos(ph))*0.5*M.amount*0.18 : 0;
+  const glowK=1+((M.on&&M.mode==="breathe") ? (1-Math.cos(ph))*0.5*M.amount*1.2 : 0);
+  const dr=(M.on&&M.mode==="drift") ? M.amount*0.4 : 0;
+  const dx=Math.cos(ph)*dr, dy=Math.sin(ph)*dr;
+
+  /* ---- the stops: where each sits down the sheet ----
+     the foot at the bottom, the glow at the horizon, the rest spread above
+     it, bunched toward the horizon or spread evenly by the Spread dial */
+  const r=rngD(Math.imul(seed,374761393)^0x165667b1);
+  const hz=Math.max(0.2,Math.min(0.95,S.horizon-rise));
+  const pos=new Float64Array(n);
+  const g=Math.max(1,n-2);
+  for(let k=0;k<n;k++){
+    if(k===n-1) pos[k]=1;
+    else if(k===g) pos[k]=hz;
+    else { const t=k/g; pos[k]=hz*Math.pow(t,0.7+(1-S.spread)*0.9)+(r()-0.5)*0.04*hz*(k>0?1:0); }
+  }
+  for(let k=1;k<n;k++) if(pos[k]<pos[k-1]+0.02) pos[k]=pos[k-1]+0.02;
+  /* haze: the middle stops lose colour toward grey */
+  const haze=S.haze;
+  const stops=labs.map((lab,k)=>{
+    const mid=(k>0&&k<n-1)?1:0;
+    const keep=1-haze*0.8*mid;
+    return [lab[0],lab[1]*keep,lab[2]*keep];
+  });
+  const soft=S.soft, band=S.band, glow=S.glow*glowK;
+
+  /* ---- the run, worked out once as a table ---- */
+  const NL=1024;
+  const LUT=new Float32Array(NL*3);
+  const o=[0,0,0];
+  for(let i=0;i<NL;i++){
+    const t=i/(NL-1);
+    let k=0; while(k<n-2&&t>pos[k+1]) k++;
+    const a=stops[k], b=stops[k+1];
+    let f=(t-pos[k])/Math.max(1e-6,pos[k+1]-pos[k]); f=f<0?0:(f>1?1:f);
+    const sm=f*f*(3-2*f);
+    f=f+(sm-f)*soft;
+    /* the glow stop can meet the foot on a hard line, as some mornings do */
+    if(band>0&&k===g-0){ f=Math.max(0,Math.min(1,(f-0.5)*(1+band*14)+0.5)); }
+    let L=a[0]+(b[0]-a[0])*f, A=a[1]+(b[1]-a[1])*f, B=a[2]+(b[2]-a[2])*f;
+    /* the glow: a lift in light around the glow stop */
+    const dg=(t-hz)/(0.05+0.1*glow);
+    L+=glow*0.12*Math.exp(-dg*dg);
+    lab2rgbD(L,A,B,o);
+    LUT[i*3]=o[0]; LUT[i*3+1]=o[1]; LUT[i*3+2]=o[2];
   }
 
-  let y=0;
-  for(let b=0;b<nb;b++){
-    const h=wts[b]/tot*H;
-    const y0=Math.round(y), y1=(b===nb-1)?H:Math.round(y+h);
-    y=y+h;
-    band(c,W,y0,y1-y0,deck[b%deck.length],b);
-  }
-
-  function band(c,W,by,bh,kind,b){
-    const bs=mseed+b*101;
-    const put=(x0,yy,w,hh,col)=>{ c.fillStyle=col; c.fillRect(x0,yy,w,hh); };
-
-    if(kind==="confetti"){
-      /* Short horizontal runs, not single cells. Corrupted data repeats a
-         value for a few samples before it changes; dealing every cell on its
-         own gives television snow instead. */
-      const rows=Math.max(1,Math.round(bh/cw));
-      const rh=bh/rows;
-      for(let j=0;j<rows;j++){
-        let i=0;
-        while(i<N){
-          const r=hshM(wrap(i),j,bs+17);
-          const long=hshM(wrap(i),j,bs+101);
-          const run=long<0.10 ? 5+Math.floor(long*260) : 1+Math.floor(r*3);
-          const col=pick(hshM(wrap(i),j,bs+19),j);
-          const x0=Math.round(i*cw), x1=Math.round(Math.min(N,i+run)*cw);
-          put(x0,Math.round(by+j*rh),x1-x0,Math.ceil(rh)+1,col);
-          i+=run;
-        }
+  /* ---- the sheet ---- */
+  const N=W*H;
+  if(BUFND!==N){ BUFD=null; BUFND=N; }
+  const img=BUFD&&BUFD.width===W ? BUFD : (BUFD=c.createImageData(W,H));
+  const px=img.data;
+  const ta=S.tilt*Math.PI/18, ct=Math.cos(ta), st=Math.sin(ta);
+  const brush=S.brush, paper=S.paper;
+  /* the brush and the paper are read on a grid sized to the picture, so a
+     6000px export carries the same marks as the preview */
+  const gsc=Math.max(1,U/640);
+  for(let y=0,i=0;y<H;y++){
+    for(let x=0;x<W;x++,i+=4){
+      const xn=(x-W*0.5)/U, yn=(y-H*0.5)/U;
+      /* tilted a little, then wobbled by the brush: broad unevenness across
+         the sheet and fine vertical streaks down it */
+      let t=(yn*ct+xn*st)*U/H+0.5;
+      if(brush>0){
+        const gx=x/gsc, gy=y/gsc;
+        t+=brush*0.05*(vnD(gx/220+dx,gy/420+dy,seed+3)-0.5)+brush*0.012*(vnD(gx/9+dx*3,gy/160,seed+5)-0.5);
       }
-
-    }else if(kind==="mosaic"){
-      /* Coarse blocks with spatial coherence, then hard diagonal tears. The
-         torn side keeps its grid but loses its colour: that is what makes the
-         wedge read as data gone missing rather than as a black triangle drawn
-         on top. */
-      const step=Math.max(2,Math.round(4+hshM(b,5,bs+23)*5));
-      const cols2=Math.ceil(N/step), rows=Math.max(1,Math.round(bh/(cw*step)));
-      const rh=bh/rows;
-      /* At least one tear whenever the slider is off zero. Scaling a hash by
-         the slider instead meant most bands rounded down to none, and the
-         control did nothing on most variations. */
-      const nt=S.tears<=0?0:1+Math.floor(hshM(b,9,bs+29)*S.tears*2.6);
-      const tear=[];
-      for(let t=0;t<nt;t++)
-        tear.push({a:hshM(t,11,bs+31)*rows, k:(hshM(t,13,bs+37)*2-1)*rows/cols2*1.8,
-                   up:hshM(t,15,bs+41)<0.5});
-      for(let j=0;j<rows;j++){
-        for(let i=0;i<cols2;i++){
-          /* A block is torn only where every cut agrees. One cut gives the
-             half-plane the reference has; two give the wedge between them.
-             Taking whichever cut says so instead let two opposed cuts cover
-             the whole band, and the mosaic came out solid black. */
-          let torn=tear.length>0;
-          for(const t of tear){
-            const edge=t.a+t.k*i;
-            if(!(t.up ? (j<edge) : (j>edge))){ torn=false; break; }
-          }
-          const v=hshM(wrap(i*step),j,bs+43);
-          const col=torn ? (v<0.82?R.dark:pick(v,b)) : pick(v,b+j);
-          const x0=Math.round(i*step*cw), x1=Math.round(Math.min(N,(i+1)*step)*cw);
-          put(x0,Math.round(by+j*rh),x1-x0,Math.ceil(rh)+1,col);
-        }
+      const li=Math.max(0,Math.min(NL-1,Math.round(t*(NL-1))))*3;
+      let R=LUT[li],G=LUT[li+1],B=LUT[li+2];
+      if(paper>0){
+        const gx=x/gsc, gy=y/gsc;
+        const mot=1+paper*0.07*(vnD(gx/26,gy/26,seed+7)-0.5)+paper*0.05*(hshD(gx|0,gy|0,seed+9)-0.5);
+        R*=mot; G*=mot; B*=mot;
       }
-
-    }else if(kind==="smear"){
-      /* Long runs on thin rows: a value held far past where it should have
-         changed, which is what a dropped frame looks like when it is dragged
-         sideways. */
-      const rows=Math.max(2,Math.round(bh/Math.max(2,cw*0.6)));
-      const rh=bh/rows;
-      const long=6+S.runs*46;
-      for(let j=0;j<rows;j++){
-        let i=0;
-        while(i<N){
-          const r=hshM(wrap(i),j*3,bs+47);
-          const run=Math.max(1,Math.round(long*(0.25+r*1.5)));
-          const v=hshM(wrap(i),j,bs+53);
-          const col=(hshM(wrap(i),j,bs+59)<S.bright*0.35) ? R.inks[1%R.inks.length] : pick(v,j);
-          const x0=Math.round(i*cw), x1=Math.round(Math.min(N,i+run)*cw);
-          put(x0,Math.round(by+j*rh),x1-x0,Math.ceil(rh)+1,col);
-          i+=run;
-        }
-      }
-
-    }else if(kind==="scan"){
-      /* Whole rows of one value, a few of them cut by a short bright segment. */
-      let yy=by;
-      let j=0;
-      while(yy<by+bh){
-        const r=hshM(0,j,bs+61);
-        const rh=Math.max(1,Math.round(cw*(0.4+r*3.2)));
-        const hh=Math.min(rh,by+bh-yy);
-        put(0,Math.round(yy),W,Math.ceil(hh)+1,pick(hshM(1,j,bs+67),j));
-        if(hshM(2,j,bs+71)<S.bright*0.8){
-          const w=W*(0.08+hshM(3,j,bs+73)*0.5);
-          const x0=W*hshM(4,j,bs+79)*(1-0.08);
-          put(Math.round(x0),Math.round(yy),Math.round(Math.min(w,W-x0)),
-              Math.ceil(hh)+1,R.inks[1%R.inks.length]);
-        }
-        yy+=hh; j++;
-      }
-
-    }else{
-      /* Chevrons: the column index is offset by a triangle wave of the row, so
-         one deck of colours shears into a herringbone. A repeating motif, not
-         noise — the reference has a band of it and it is what stops the page
-         reading as uniformly random. */
-      const rows=Math.max(1,Math.round(bh/cw));
-      const rh=bh/rows;
-      const per=Math.max(3,Math.round(4+hshM(b,17,bs+83)*10));
-      const amp=Math.max(1,Math.round(2+hshM(b,19,bs+89)*6));
-      for(let j=0;j<rows;j++){
-        const t=j%(per*2);
-        const zz=Math.round((t<per ? t : per*2-t)/per*amp);
-        for(let i=0;i<N;i++){
-          /* the colour follows the shifted column alone; biasing it by the row
-             as well re-dealt the motif every line and the band came out as
-             noise with a slight lean rather than as a zigzag */
-          const col=pick(hshM((wrap(i)+zz)%per,0,bs+97),b);
-          put(Math.round(i*cw),Math.round(by+j*rh),
-              Math.ceil(cw)+1,Math.ceil(rh)+1,col);
-        }
-      }
+      px[i]=R<0?0:(R>255?255:R);
+      px[i+1]=G<0?0:(G>255?255:G);
+      px[i+2]=B<0?0:(B>255?255:B);
+      px[i+3]=255;
     }
   }
+  c.setTransform(1,0,0,1,0,0);
+  c.globalCompositeOperation="source-over";
+  c.globalAlpha=1;
+  c.putImageData(img,0,0);
 }
-
-/* ---- vector ------------------------------------------------------------
-   The same paint() against a recorder. Every band is rectangles already, so
-   the export is the picture itself rather than a trace of it, and it cannot
-   drift from the screen. */
-function SvgSurfaceM(){
-  this.fillStyle="#000"; this.imageSmoothingEnabled=false; this._b=[];
-}
-SvgSurfaceM.prototype.save=function(){};
-SvgSurfaceM.prototype.restore=function(){};
-SvgSurfaceM.prototype.translate=function(){};
-SvgSurfaceM.prototype.scale=function(){};
-SvgSurfaceM.prototype.rotate=function(){};
-SvgSurfaceM.prototype.clearRect=function(){};
-SvgSurfaceM.prototype.beginPath=function(){};
-SvgSurfaceM.prototype.moveTo=function(){};
-SvgSurfaceM.prototype.lineTo=function(){};
-SvgSurfaceM.prototype.closePath=function(){};
-SvgSurfaceM.prototype.arc=function(){};
-SvgSurfaceM.prototype.fill=function(){};
-SvgSurfaceM.prototype.stroke=function(){};
-SvgSurfaceM.prototype.fillRect=function(x,y,w,h){
-  if(w<=0||h<=0) return;
-  this._b.push('<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+w.toFixed(1)+
-               '" height="'+h.toFixed(1)+'" fill="'+this.fillStyle+'"/>');
-};
-SvgSurfaceM.prototype.markup=function(){return this._b.join("");};
-
-function svgFrame(f){
-  const r=RATIOS.find(x=>x.id===S.ratio);
-  const W=S.size,H=Math.round(S.size*r.h/r.w);
-  const s=new SvgSurfaceM();
-  paint(s,W,H,f);
-  return s.markup();
-}
-function svgWrap(inner){
-  const r=RATIOS.find(x=>x.id===S.ratio);
-  const W=S.size,H=Math.round(S.size*r.h/r.w);
-  return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+
-         '" viewBox="0 0 '+W+' '+H+'" shape-rendering="crispEdges">'+
-         '<clipPath id="m"><rect width="'+W+'" height="'+H+'"/></clipPath>'+
-         '<g clip-path="url(#m)">'+inner+'</g></svg>';
-}
-function buildSVG(){return svgWrap(svgFrame(curFrame));}
 
 const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
 function fitCanvas(){
@@ -1006,26 +987,21 @@ function save(blob,name){
   a.href=url;a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
-function stamp(){return `mosh-${S.seed}-${S.ratio.replace(":","x")}`;}
+function stamp(){return `dawn-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
-  const a=$("#expVid"),sc=$("#scrub"),l=$("#expSvgLoop");
+  const a=$("#expVid"),sc=$("#scrub");
   if(a)a.disabled=!S.motion.on;
-  if(l)l.disabled=!S.motion.on;
   if(sc)sc.disabled=!S.motion.on;
 }
 $("#expPng").addEventListener("click",()=>{
   toast("Rendering…",true);
   setTimeout(()=>{
     const r=RATIOS.find(x=>x.id===S.ratio);
-    const W=S.size,H=Math.round(S.size*r.h/r.w);
+    const W=S.size_px,H=Math.round(S.size_px*r.h/r.w);
     const c=document.createElement("canvas");c.width=W;c.height=H;
     paint(c.getContext("2d"),W,H,curFrame);
     c.toBlob(b=>{save(b,stamp()+".png");toast(`PNG saved · ${W}×${H}`);});
   },30);
-});
-$("#expSvg").addEventListener("click",()=>{
-  save(new Blob([buildSVG()],{type:"image/svg+xml"}),stamp()+".svg");
-  toast("SVG saved");
 });
 function pickVideoType(){
   const t=["video/mp4;codecs=avc1.42E01E","video/mp4","video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"];
@@ -1038,7 +1014,7 @@ $("#expVid").addEventListener("click",()=>{
   if(!type)return toast("This browser can't record video");
   const ext=type.startsWith("video/mp4")?"mp4":"webm";
   const r=RATIOS.find(x=>x.id===S.ratio);
-  let W=Math.min(1280,S.size);W-=W%2;
+  let W=Math.min(1280,S.size_px);W-=W%2;
   let H=Math.round(W*r.h/r.w);H-=H%2;
   const c=document.createElement("canvas");c.width=W;c.height=H;
   const cc=c.getContext("2d");
@@ -1063,7 +1039,7 @@ $("#expVid").addEventListener("click",()=>{
    UI
 ============================================================ */
 function accent(){
-  let best=S.pal[S.pal.length-1],bl=-1;
+  let best=S.pal[Math.min(2,S.pal.length-1)],bl=-1;
   for(const c of S.pal){const l=relLum(c);if(l>bl&&l>0.12){bl=l;best=c;}}
   document.documentElement.style.setProperty("--accent",bl>0?best:"#F5C21B");
   $("#strip").innerHTML=S.pal.map(c=>`<span style="background:${c}"></span>`).join("");
@@ -1151,7 +1127,7 @@ function buildSwatches(){
   S.pal.forEach((c,i)=>{
     const b=document.createElement("button");
     b.className="sw"+(lock?" locked":"");b.type="button";
-    b.setAttribute("aria-label","Ink "+(i+1)+" color");
+    b.setAttribute("aria-label","Ink "+(i+1));
     b.innerHTML=`<span class="fill" style="background:${c}"></span>`+
       `<input type="color" value="${c}"><span class="x" aria-hidden="true">\u00d7</span>`;
     b.querySelector("input").addEventListener("input",e=>{
@@ -1190,35 +1166,32 @@ function bindRange(id,fmt,set,after){
 }
 
 buildRatios();buildSwatches();accent();
+segmented($("#skies"),SKIES,()=>S.sky,v=>{S.sky=v;S.pal=skyDeal(S.seed,S.sky);buildSwatches();accent();reframe();});
 segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
 $("#shufColors").addEventListener("click",()=>{
-  setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
+  setPalette(skyDeal((Math.random()*1e9)|0,S.sky));
 });
 $("#rotColors").addEventListener("click",()=>{
-  if(S.pal.length<3){setPalette(S.pal.slice(1).concat(S.pal[0]));return;}
-  let di=0;
-  for(let i=1;i<S.pal.length;i++) if(lumM(S.pal[i])<lumM(S.pal[di])) di=i;
-  const rest=S.pal.filter((c,i)=>i!==di);
-  rest.push(rest.shift());
-  const out=S.pal.slice();
-  let k=0;
-  for(let i=0;i<out.length;i++) if(i!==di) out[i]=rest[k++];
-  setPalette(out);
+  setPalette([S.pal[0]].concat(S.pal.slice(2),[S.pal[1]]));
 });
-bindRange("bands",v=>v|0,v=>S.bands=v|0);
-bindRange("cols",v=>v|0,v=>S.cols=v|0);
-bindRange("mix",v=>Math.round(v*100)+"%",v=>S.mix=v);
-bindRange("tears",v=>Math.round(v*100)+"%",v=>S.tears=v);
-bindRange("runs",v=>Math.round(v*100)+"%",v=>S.runs=v);
-bindRange("bright",v=>Math.round(v*100)+"%",v=>S.bright=v);
+const pc=v=>Math.round(v*100)+"%";
+bindRange("horizon",pc,v=>S.horizon=v);
+bindRange("spread",pc,v=>S.spread=v);
+bindRange("glow",pc,v=>S.glow=v);
+bindRange("haze",pc,v=>S.haze=v);
+bindRange("soft",pc,v=>S.soft=v);
+bindRange("band",pc,v=>S.band=v);
+bindRange("tilt",v=>Math.round(v*10)+"°",v=>S.tilt=v);
+bindRange("brush",pc,v=>S.brush=v);
+bindRange("paper",pc,v=>S.paper=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
 $("#frames").addEventListener("input",e=>{S.motion.frames=parseInt(e.target.value,10);
   $("#framesVal").textContent=S.motion.frames+" frames";$("#scrub").max=S.motion.frames-1;
   curFrame=Math.min(curFrame,S.motion.frames-1);reframe();if(playing)setPlaying(true);});
-$("#size").addEventListener("input",e=>{S.size=parseInt(e.target.value,10);$("#sizeVal").textContent=S.size+" px";});
-$("#motionTog").addEventListener("click",e=>{
+$("#sizePx").addEventListener("input",e=>{S.size_px=parseInt(e.target.value,10);
+  $("#sizePxVal").textContent=S.size_px+" px";});$("#motionTog").addEventListener("click",e=>{
   S.motion.on=!S.motion.on;
   e.currentTarget.setAttribute("aria-pressed",String(S.motion.on));
   $("#motionBody").hidden=!S.motion.on;
@@ -1228,7 +1201,20 @@ $("#motionTog").addEventListener("click",e=>{
 });
 $("#play").addEventListener("click",()=>{if(!S.motion.on){$("#motionTog").click();return;}setPlaying(!playing);});
 $("#scrub").addEventListener("input",e=>{setPlaying(false);curFrame=parseInt(e.target.value,10)%Math.max(1,S.motion.frames);draw();});
-function newSeed(v){S.seed=(v!==undefined)?v:(Math.random()*99999|0)+1;$("#seed").value=S.seed;reframe();}
+function newSeed(v){
+  S.seed=(v!==undefined)?v:(Math.random()*99999|0)+1;
+  $("#seed").value=S.seed;
+  dealD(S.seed);
+  /* every dealt value onto its dial and its readout, so the sky can be
+     adjusted from where it landed */
+  const put=(id,val,txt)=>{const e=$("#"+id),l=$("#"+id+"Val");if(e)e.value=val;if(l)l.textContent=txt;};
+  const pc=v=>Math.round(v*100)+"%";
+  put("horizon",S.horizon,pc(S.horizon)); put("spread",S.spread,pc(S.spread)); put("glow",S.glow,pc(S.glow)); put("haze",S.haze,pc(S.haze));
+  put("soft",S.soft,pc(S.soft)); put("band",S.band,pc(S.band)); put("tilt",S.tilt,Math.round(S.tilt*10)+"\u00b0");
+  put("brush",S.brush,pc(S.brush)); put("paper",S.paper,pc(S.paper));
+  buildSwatches(); accent();
+  reframe();
+}
 $("#shuf").addEventListener("click",()=>newSeed());
 $("#seed").addEventListener("change",e=>{const v=parseInt(e.target.value,10);newSeed(Number.isFinite(v)?Math.abs(v):1);});
 art.addEventListener("click",()=>newSeed());
