@@ -577,7 +577,7 @@ input[type=range]{accent-color:var(--ink)}
         <span class="tool">Static</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">16 / 46</span>
+        <span class="k">Index</span><span class="v">16 / 47</span>
         <span class="k">Type</span><span class="v">Glitch poster</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
@@ -1196,7 +1196,10 @@ updateExportNote();
    export carries the same grain as the preview, and a redraw is identical.
    It runs before the dither, so a dithered picture is dithered grain and all.
 ============================================================ */
-const GRN={on:false,blend:"add",amount:0.55,size:1,specks:0.5,vignette:0.5};
+/* a tool may declare GRAIN_DEFAULT to open with the grain on, in a blend
+   and at settings of its own choosing */
+const GRN=Object.assign({on:false,blend:"add",amount:0.55,size:1,specks:0.5,vignette:0.5},
+  (typeof GRAIN_DEFAULT!=="undefined")?GRAIN_DEFAULT:{});
 function __grnHash(x,y,s){
   let n=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1274126177);
   n=Math.imul(n^(n>>>13),1274126177); n^=n>>>16;
@@ -1275,6 +1278,11 @@ function __grain(c){
   bindRange("grnSize",v=>v.toFixed(1),v=>GRN.size=v,requestDraw);
   bindRange("grnSpecks",v=>Math.round(v*100)+"%",v=>GRN.specks=v,requestDraw);
   bindRange("grnVignette",v=>Math.round(v*100)+"%",v=>GRN.vignette=v,requestDraw);
+  /* the dials show the tool's own opening settings */
+  const show=(id,v,fmt)=>{const e=$("#"+id),l=$("#"+id+"Val");if(e)e.value=v;if(l)l.textContent=fmt(v);};
+  show("grnAmount",GRN.amount,v=>Math.round(v*100)+"%"); show("grnSize",GRN.size,v=>(+v).toFixed(1));
+  show("grnSpecks",GRN.specks,v=>Math.round(v*100)+"%"); show("grnVignette",GRN.vignette,v=>Math.round(v*100)+"%");
+  if(GRN.on){ tog.setAttribute("aria-pressed","true"); tog.classList.add("on"); const body=$("#grainBody"); if(body)body.hidden=false; }
   tog.addEventListener("click",()=>{
     GRN.on=!GRN.on;
     tog.setAttribute("aria-pressed",String(GRN.on));

@@ -3,25 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mosh — playgrnd</title>
+<title>Foil — playgrnd</title>
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/favicon.png" sizes="180x180" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="canonical" href="https://playgrnd.tools/mosh">
+<link rel="canonical" href="https://playgrnd.tools/foil">
 <meta property="og:site_name" content="playgrnd">
-<meta property="og:title" content="Mosh — playgrnd">
-<meta property="og:description" content="Generate datamosh backgrounds — stacked bands of corrupted signal: pixel confetti, torn block mosaics, horizontal smear, dead scanlines and chevron tearing. Exports vector, image and video.">
+<meta property="og:title" content="Foil — playgrnd">
+<meta property="og:description" content="Generate crinkled-foil backgrounds — an out-of-focus field cut into slipped tiles, with runs of ink dripping down and a glossy crinkle embossed over it all. Deal a new variation or turn the dials. Exports image and video.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://playgrnd.tools/mosh">
-<meta property="og:image" content="https://playgrnd.tools/mosh/og.png">
+<meta property="og:url" content="https://playgrnd.tools/foil">
+<meta property="og:image" content="https://playgrnd.tools/foil/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Artwork made with Mosh.">
+<meta property="og:image:alt" content="Artwork made with Foil.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Mosh — playgrnd">
-<meta name="twitter:description" content="Generate datamosh backgrounds — stacked bands of corrupted signal: pixel confetti, torn block mosaics, horizontal smear, dead scanlines and chevron tearing.">
-<meta name="twitter:image" content="https://playgrnd.tools/mosh/og.png">
-<meta name="description" content="Generate datamosh backgrounds — stacked bands of corrupted signal: pixel confetti, torn block mosaics, horizontal smear, dead scanlines and chevron tearing. Exports vector, image and video.">
+<meta name="twitter:title" content="Foil — playgrnd">
+<meta name="twitter:description" content="Generate crinkled-foil backgrounds — an out-of-focus field cut into slipped tiles, with runs of ink dripping down and a glossy crinkle embossed over it all.">
+<meta name="twitter:image" content="https://playgrnd.tools/foil/og.jpg">
+<meta name="description" content="Generate crinkled-foil backgrounds — an out-of-focus field cut into slipped tiles, with runs of ink dripping down and a glossy crinkle embossed over it all. Deal a new variation or turn the dials. Exports image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -574,16 +574,16 @@ input[type=range]{accent-color:var(--ink)}
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
         <span class="slash">&frasl;</span>
-        <span class="tool">Mosh</span>
+        <span class="tool">Foil</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">28 / 47</span>
-        <span class="k">Type</span><span class="v">Corrupted signal</span>
+        <span class="k">Index</span><span class="v">47 / 47</span>
+        <span class="k">Type</span><span class="v">Crinkled foil</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
       <div class="newblk">
         <div class="newlab"><span class="k">Variation</span>
-          <span class="seedwrap"><input class="seed" id="seed" value="1" inputmode="numeric" aria-label="Variation number"><button class="pbtn copy" id="copySeed"
+          <span class="seedwrap"><input class="seed" id="seed" value="7" inputmode="numeric" aria-label="Variation number"><button class="pbtn copy" id="copySeed"
             aria-label="Copy variation number">Copy</button></span>
         </div>
         <button class="newbtn" id="randomize"><span class="ico" aria-hidden="true">&#8635;</span>
@@ -591,15 +591,22 @@ input[type=range]{accent-color:var(--ink)}
           <span class="sub">Reshuffle every shape</span></button>
       </div>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Signal</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Bands</span><span class="v" id="bandsVal">6</span></div><div class="track"><input type="range" id="bands" min="1" max="14" step="1" value="6"></div></div>
-        <div class="pr"><div class="top"><span class="k">Resolution</span><span class="v" id="colsVal">150</span></div><div class="track"><input type="range" id="cols" min="24" max="420" step="2" value="150"></div></div>
-        <div class="pr"><div class="top"><span class="k">Colour spread</span><span class="v" id="mixVal">62%</span></div><div class="track"><input type="range" id="mix" min="0" max="1" step="0.01" value="0.62"></div></div></div></details>
-    <details class="grp" open><summary>Damage</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Tears</span><span class="v" id="tearsVal">55%</span></div><div class="track"><input type="range" id="tears" min="0" max="1" step="0.01" value="0.55"></div></div>
-        <div class="pr"><div class="top"><span class="k">Smear</span><span class="v" id="runsVal">50%</span></div><div class="track"><input type="range" id="runs" min="0" max="1" step="0.01" value="0.5"></div></div>
-        <div class="pr"><div class="top"><span class="k">Flashes</span><span class="v" id="brightVal">30%</span></div><div class="track"><input type="range" id="bright" min="0" max="1" step="0.01" value="0.3"></div></div></div></details><div class="tog-grp"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate<span class="sw" aria-hidden="true"></span></button><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
+    <div class="l-scroll"><details class="grp" open><summary>Field</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Field</span></span><span class="mval"><div class="chips" id="fields"></div></span></div>
+        <div class="pr"><div class="top"><span class="k">Blur</span><span class="v" id="blurVal">55%</span></div><div class="track"><input type="range" id="blur" min="0" max="1" step="0.01" value="0.55"></div></div>
+        <div class="pr"><div class="top"><span class="k">Scale</span><span class="v" id="scaleVal">50%</span></div><div class="track"><input type="range" id="scale" min="0" max="1" step="0.01" value="0.5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Lean</span><span class="v" id="leanVal">50%</span></div><div class="track"><input type="range" id="lean" min="0" max="1" step="0.01" value="0.5"></div></div></div></details>
+    <details class="grp"><summary>Tiles</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Columns</span><span class="v" id="colsVal">6</span></div><div class="track"><input type="range" id="cols" min="1" max="16" step="1" value="6"></div></div>
+        <div class="pr"><div class="top"><span class="k">Rows</span><span class="v" id="rowsVal">8</span></div><div class="track"><input type="range" id="rows" min="1" max="20" step="1" value="8"></div></div>
+        <div class="pr"><div class="top"><span class="k">Slip</span><span class="v" id="slipVal">40%</span></div><div class="track"><input type="range" id="slip" min="0" max="1" step="0.01" value="0.4"></div></div>
+        <div class="pr"><div class="top"><span class="k">Seams</span><span class="v" id="seamsVal">40%</span></div><div class="track"><input type="range" id="seams" min="0" max="1" step="0.01" value="0.4"></div></div></div></details>
+    <details class="grp"><summary>Drips</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Drips</span><span class="v" id="dripsVal">5</span></div><div class="track"><input type="range" id="drips" min="0" max="16" step="1" value="5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Length</span><span class="v" id="dlenVal">60%</span></div><div class="track"><input type="range" id="dlen" min="0" max="1" step="0.01" value="0.6"></div></div>
+        <div class="pr"><div class="top"><span class="k">Width</span><span class="v" id="dwidthVal">40%</span></div><div class="track"><input type="range" id="dwidth" min="0" max="1" step="0.01" value="0.4"></div></div></div></details>
+    <details class="grp"><summary>Foil</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Crinkle</span><span class="v" id="crinkleVal">40%</span></div><div class="track"><input type="range" id="crinkle" min="0" max="1" step="0.01" value="0.4"></div></div>
+        <div class="pr"><div class="top"><span class="k">Sheen</span><span class="v" id="sheenVal">50%</span></div><div class="track"><input type="range" id="sheen" min="0" max="1" step="0.01" value="0.5"></div></div></div></details><div class="tog-grp"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate<span class="sw" aria-hidden="true"></span></button><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
           <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
           <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="12"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">24 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="24"></div></div></div></div><div class="tog-grp"><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither<span class="sw" aria-hidden="true"></span></button><div class="group" id="ditherBody" hidden>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="36"></div></div></div></div><div class="tog-grp"><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither<span class="sw" aria-hidden="true"></span></button><div class="group" id="ditherBody" hidden>
   <div class="misc stack"><span class="mhead"><span class="k">Pattern</span></span><span class="mval"><div class="chips" id="dthKinds"></div></span></div>
   <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
   <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
@@ -611,7 +618,8 @@ input[type=range]{accent-color:var(--ink)}
   <div class="pr"><div class="top"><span class="k">Specks</span><span class="v" id="grnSpecksVal">50%</span></div><div class="track"><input type="range" id="grnSpecks" min="0" max="1" step="0.05" value="0.5"></div></div>
   <div class="pr"><div class="top"><span class="k">Vignette</span><span class="v" id="grnVignetteVal">50%</span></div><div class="track"><input type="range" id="grnVignette" min="0" max="1" step="0.05" value="0.5"></div></div>
 </div></div></div>
-    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">8</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">6</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+        
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
@@ -642,9 +650,8 @@ input[type=range]{accent-color:var(--ink)}
       <div class="tbl" style="margin-bottom:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>
-      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
+      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizePxVal">2400 px</span></div><div class="track"><input type="range" id="sizePx" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
-          <button class="lnk" id="expSvg">SVG</button>
           <button class="lnk" id="expVid">Video</button></span></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
     </div>
   </div>
@@ -683,261 +690,254 @@ function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const MODES=[["shuffle","Shuffle"],["roll","Roll"]];
+const MODES=[["drift","Drift"],["slip","Slip"],["run","Run"]];
+const FIELDS=[["bokeh","Bokeh"],["waves","Waves"]];
 
-/* Every band is built from filled rectangles and nothing else. That is not a
-   shortcut: it is what lets the same paint() drive the canvas and the vector
-   export with no second implementation to drift out of step, and it is what a
-   corrupted framebuffer actually is. */
-const KINDS=["confetti","mosaic","smear","scan","chevron"];
-
-/* The colour cube's corners at full strength. Broken data does not fade. */
+/* The first ink is the dark ground, the second the light the picture opens
+   to, the third the ink the drips run in; every ink after that is a blob
+   of colour in the out-of-focus field. */
 const PALETTES=[
-  ["#000000","#FFFFFF","#FF3131","#31FF6B","#3164FF","#31F0FF","#FF31E0","#FFEE31"],
-  ["#050505","#F2F2F2","#FF1E3C","#19E65A","#1E3CFF","#19E6E6","#FF19C8","#FFE619"],
-  ["#000000","#E8E8E8","#E0202A","#00A650","#1B4FE0","#00C8D2","#EC1E79","#F5D000"],
-  ["#0A0A0A","#FFFFFF","#FF4A00","#7CE860","#2B4FD8","#41C6F0","#F03C8C","#F0D82C"],
-  ["#101010","#FAFAF5","#D6006E","#12B074","#3B4FE0","#00E0E0","#FF6B00","#EFEF20"]
+  ["#6B4A1E","#B6D93A","#F28FD4","#3E7A2A","#E0B85A","#8C3B2A"],
+  ["#1B2A49","#9FE0FF","#FFB347","#2E5C8A","#F4A7D6","#7B2CBF"],
+  ["#3A1A2E","#FFD166","#4CE0D2","#C8321E","#F26CA7","#F4EFE3"],
+  ["#14302A","#D4FF3C","#FF5C39","#2A9D8F","#E9C46A","#264653"],
+  ["#2B2D42","#EDF2F4","#EF233C","#8D99AE","#D90429","#F4A261"]
 ];
 
+/* the chassis grain is on from the start on this one, laid over the foil */
+const GRAIN_DEFAULT={on:true,blend:"overlay",amount:0.6,size:1.2,specks:0.35,vignette:0.35};
+
+/* An out-of-focus field cut into a grid of tiles that have slipped, with
+   runs of one ink dripping down and a crinkled foil embossed over it all.
+   Every setting is a dial and the same dials always give the same sheet.
+   The variation number deals a fresh set of dials and shows the deal on
+   the dials, so a dealt sheet can be adjusted from where it landed. */
 const S={
-  seed:5, ratio:"4:5",
-  bands:6, cols:150, mix:0.62,
-  tears:0.55, runs:0.5, bright:0.3,
+  seed:7, ratio:"3:4",
+  field:"bokeh", blur:0.55, scale:0.5, lean:0.5,
+  cols:6, rows:8, slip:0.4, seams:0.4,
+  drips:5, dlen:0.6, dwidth:0.4,
+  crinkle:0.4, sheen:0.5,
   pal:PALETTES[0].slice(),
-  motion:{on:false,mode:"shuffle",amount:0.6,fps:12,frames:24},
-  size:2400
+  motion:{on:false,mode:"drift",amount:0.6,fps:12,frames:36},
+  size_px:2400
 };
 
-function hshM(x,y,s){
+const TAUL=Math.PI*2;
+function hshL(x,y,s){
   let n=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1274126177);
-  n=Math.imul(n^(n>>>13),1274126177);
-  n^=n>>>16;
+  n=Math.imul(n^(n>>>13),1274126177); n^=n>>>16;
   return (n>>>0)/4294967296;
 }
-function hex2rgbM(h){h=String(h).replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
-  const n=parseInt(h,16);return[(n>>16)&255,(n>>8)&255,n&255];}
-function lumM(h){const[r,g,b]=hex2rgbM(h);return r*.299+g*.587+b*.114;}
-
-/* ---- ink roles ---------------------------------------------------------
-   Only the darkest is singled out, for the torn wedges and the dead rows.
-   Everything else is picked out of the row by index, so Rotate genuinely
-   re-deals which colour lands where instead of doing nothing. */
-function rolesM(){
-  const pal=S.pal.length?S.pal:["#000000","#FFFFFF"];
-  let dark=pal[0];
-  for(const c of pal) if(lumM(c)<lumM(dark)) dark=c;
-  return {dark:dark, inks:pal};
+function vnL(x,y,s){
+  const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi;
+  const u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);
+  const a=hshL(xi,yi,s),b=hshL(xi+1,yi,s),c=hshL(xi,yi+1,s),d=hshL(xi+1,yi+1,s);
+  return (a*(1-u)+b*u)*(1-v)+(c*(1-u)+d*u)*v;
+}
+function rngL(seed){
+  let a=(seed>>>0)||1;
+  return function(){ a^=a<<13; a>>>=0; a^=a>>>17; a>>>=0; a^=a<<5; a>>>=0; return a/4294967296; };
+}
+/* The deal: everything lands somewhere near the reference rather than on a
+   corner of the settings nobody would choose. The palette and the field
+   picker are left alone. */
+function dealL(seed){
+  const r=rngL(Math.imul(seed|0,2654435761)^0x5bd1e995);
+  S.blur=0.35+r()*0.45;
+  S.scale=0.3+r()*0.5;
+  S.lean=0.2+r()*0.6;
+  S.cols=4+((r()*5)|0);
+  S.rows=5+((r()*6)|0);
+  S.slip=0.2+r()*0.5;
+  S.seams=0.2+r()*0.5;
+  S.drips=3+((r()*6)|0);
+  S.dlen=0.4+r()*0.5;
+  S.dwidth=0.25+r()*0.4;
+  S.crinkle=0.25+r()*0.35;
+  S.sheen=0.3+r()*0.5;
+}
+function rgbL(h){
+  h=(h||"#000").replace("#","");
+  if(h.length===3) h=h.split("").map(c=>c+c).join("");
+  return [parseInt(h.slice(0,2),16)||0,parseInt(h.slice(2,4),16)||0,parseInt(h.slice(4,6),16)||0];
 }
 
+let BUFL=null, BUFNL=0, CRK=null, CRKKEY="";
 function paint(c,W,H,f){
-  const R=rolesM();
-  const M=S.motion;
-  const mseed=(M.on&&M.mode==="shuffle")?S.seed+f*7919:S.seed;
-  const N=Math.max(6,S.cols|0);
-  const cw=W/N;
-  /* Roll wraps at the column count, so a whole revolution lands back on the
-     first frame. Shifting an unwrapped hash would never close the loop. */
-  const roll=(M.on&&M.mode==="roll")
-    ? Math.round((f/M.frames)*N*Math.max(1,Math.round(M.amount*2))) : 0;
-  const wrap=i=>(((i+roll)%N)+N)%N;
-  const ink=v=>R.inks[Math.floor(v*R.inks.length)%R.inks.length];
-  /* mix widens how much of the row a band draws from: low and a band keeps to
-     a few colours, high and every ink is in play */
-  const pick=(v,bias)=>{
-    /* A sixth of everything falls to the darkest ink. Dealing evenly from the
-       row gives a uniformly hot page; broken data has dead patches in it, and
-       it is the dead patches that let the colour read. */
-    if(v<0.16) return R.dark;
-    const n=Math.max(1,Math.round(R.inks.length*(0.25+S.mix*0.75)));
-    return R.inks[(Math.floor(v*n)+bias)%R.inks.length];
+  const M=S.motion, T=M.on ? f/M.frames : 0, ph=T*TAUL;
+  const raw=S.pal.length?S.pal:PALETTES[0];
+  const inks=raw.map(rgbL), NI=inks.length;
+  const U=Math.sqrt(W*H), aw=W/U, ah=H/U;
+  const seed=S.seed|0;
+  const sd1=seed*7+1, sd2=seed*7+2, sd3=seed*7+3, sd4=seed*7+4;
+
+  /* ---- motion ----
+     Drift walks the field round a small circle, so the last frame runs
+     straight into the first. Slip rocks the tiles out and back. Run lets
+     the drips lengthen and draw back. */
+  const dr=(M.on&&M.mode==="drift") ? M.amount*0.08 : 0;
+  const mx=Math.cos(ph)*dr, my=Math.sin(ph)*dr;
+  const slipK=1+((M.on&&M.mode==="slip") ? (1-Math.cos(ph))*0.5*M.amount*1.2 : 0);
+  const runK=1+((M.on&&M.mode==="run") ? (1-Math.cos(ph))*0.5*M.amount*0.6 : 0);
+
+  /* ---- the inks by role ---- */
+  const dark=inks[0], light=inks[Math.min(1,NI-1)], dripInk=inks[Math.min(2,NI-1)];
+  const blobInks=[]; for(let k=3;k<NI;k++) blobInks.push(inks[k]);
+  if(!blobInks.length) blobInks.push(light);
+
+  /* ---- the field, dealt once per sheet ---- */
+  const r=rngL(Math.imul(seed,2246822519)^0x27d4eb2f);
+  const nBlobs=10;
+  const lean=(S.lean-0.5)*1.4;
+  const blobs=[];
+  for(let k=0;k<nBlobs;k++){
+    const streak=r()<0.45;
+    blobs.push({x:r()*aw, y:r()*ah,
+      rx:(0.08+r()*0.2)*(0.6+S.scale)*(streak?0.3:1), ry:(0.08+r()*0.2)*(0.6+S.scale)*(streak?3:1),
+      ang:streak?lean+(r()-0.5)*0.3:r()*Math.PI, ink:blobInks[(r()*blobInks.length)|0], w:0.8+r()*0.4});
+  }
+  for(const b of blobs){ b.cs=Math.cos(b.ang); b.sn=Math.sin(b.ang); }
+  const soft=0.5+S.blur*1.2;
+  /* the tiles and how far each has slipped */
+  const cols=Math.max(1,S.cols|0), rows=Math.max(1,S.rows|0);
+  const tw=aw/cols, th=ah/rows;
+  const slip=S.slip*0.25*slipK;
+  const seamW=S.seams*U*0.01, seamK=S.seams*0.6;
+  /* the drips */
+  const nD=Math.max(0,S.drips|0);
+  const drips=[];
+  for(let k=0;k<nD;k++){
+    drips.push({x:r()*aw, top:r()*ah*0.35, len:(0.3+r()*0.7)*ah*S.dlen*1.4*runK, w:(0.012+r()*0.03)*(0.4+S.dwidth*1.4), ph:r()*50});
+  }
+  const crinkle=S.crinkle, sheen=S.sheen;
+  /* the crinkle is worked out once, on a grid in sheet units, so a 6000px
+     export carries the same foil as the preview and a redraw costs one
+     lookup per pixel rather than six noise reads */
+  const cres=400, cgw=Math.ceil(aw*cres)+2, cgh=Math.ceil(ah*cres)+2;
+  const ckey=seed+"|"+cgw+"|"+cgh;
+  if(CRKKEY!==ckey){
+    CRK=new Float32Array(cgw*cgh);
+    const hgt=(cx,cy)=>vnL(cx*1.6,cy*1.6,sd4)*0.5+vnL(cx*3.7,cy*3.7,sd3)*0.32+vnL(cx*8,cy*8,sd2)*0.18;
+    for(let gy=0;gy<cgh;gy++) for(let gx=0;gx<cgw;gx++){
+      const cx=gx/cres/0.009, cy=gy/cres/0.009;
+      CRK[gy*cgw+gx]=hgt(cx,cy)-hgt(cx+0.22,cy+0.22);
+    }
+    CRKKEY=ckey;
+  }
+
+  const N=W*H;
+  if(BUFNL!==N){ BUFL=null; BUFNL=N; }
+  const img=BUFL&&BUFL.width===W ? BUFL : (BUFL=c.createImageData(W,H));
+  const px=img.data;
+
+  /* the colour of the field at a point in sheet units */
+  const field=(u,v,out)=>{
+    if(S.field==="waves"){
+      const t=vnL(u*1.6+mx,v*1.6*0.6+my,sd1)*0.7+vnL(u*3.3+mx*2,v*2+my*2,sd2)*0.3;
+      const p=Math.max(0,Math.min(0.999,(t-0.5)*(1.4+S.scale)+0.5));
+      /* a run from the dark ground through the blobs to the light */
+      const stops=[dark].concat(blobInks,[light]);
+      const q=p*(stops.length-1), k=Math.floor(q), fr=q-k;
+      const a=stops[k], b=stops[Math.min(stops.length-1,k+1)];
+      const fs=fr*fr*(3-2*fr);
+      out[0]=a[0]+(b[0]-a[0])*fs; out[1]=a[1]+(b[1]-a[1])*fs; out[2]=a[2]+(b[2]-a[2])*fs;
+      return;
+    }
+    /* bokeh: a base that lightens toward the top, then soft blobs laid over */
+    const base=vnL(u*1.2+mx,v*1.2+my,sd1);
+    let bw=Math.max(0,Math.min(1,(base-0.5)*1.6+0.5-v/ah*0.25+0.2));
+    let R=dark[0]+(light[0]-dark[0])*bw, G=dark[1]+(light[1]-dark[1])*bw, B=dark[2]+(light[2]-dark[2])*bw;
+    for(let k=0;k<nBlobs;k++){
+      const b=blobs[k];
+      const dx=u-b.x+mx*0.5, dy=v-b.y+my*0.5;
+      const lx=(dx*b.cs+dy*b.sn)/b.rx, ly=(-dx*b.sn+dy*b.cs)/b.ry;
+      const d2=lx*lx+ly*ly;
+      if(d2>9) continue;
+      const w=b.w*Math.exp(-d2*soft*0.9);
+      R+=(b.ink[0]-R)*w; G+=(b.ink[1]-G)*w; B+=(b.ink[2]-B)*w;
+    }
+    out[0]=R; out[1]=G; out[2]=B;
   };
-
-  /* ---- the bands ------------------------------------------------------
-     Heights are uneven and the kinds are dealt from a shuffled deck rather
-     than drawn one at a time, so a page carries every kind once before it
-     repeats any — the reference stacks five different failures, it does not
-     roll the same die five times. */
-  const nb=Math.max(1,S.bands|0);
-  const wts=[]; let tot=0;
-  for(let i=0;i<nb;i++){ const w=0.4+hshM(i,3,S.seed+11)*1.6; wts.push(w); tot+=w; }
-  const deck=KINDS.slice();
-  for(let i=deck.length-1;i>0;i--){
-    const j=Math.floor(hshM(i,7,S.seed+13)*(i+1));
-    const t=deck[i]; deck[i]=deck[j]; deck[j]=t;
+  const col=[0,0,0];
+  /* the field is out of focus by nature, so it is worked out on a coarse
+     grid, with a margin for the slipped tiles to read past the edge, and
+     read back smoothly */
+  const fres=200, pad=Math.ceil(slip*1.2*fres)+1;
+  const fgw=Math.ceil(aw*fres)+2*pad+2, fgh=Math.ceil(ah*fres)+2*pad+2;
+  const FM=new Float32Array(fgw*fgh*3);
+  for(let gy=0;gy<fgh;gy++) for(let gx=0;gx<fgw;gx++){
+    field((gx-pad)/fres,(gy-pad)/fres,col);
+    const o=(gy*fgw+gx)*3; FM[o]=col[0]; FM[o+1]=col[1]; FM[o+2]=col[2];
   }
+  const readF=(u,v)=>{
+    const fx=Math.max(0,Math.min(fgw-1.001,u*fres+pad)), fy=Math.max(0,Math.min(fgh-1.001,v*fres+pad));
+    const gx=fx|0, gy=fy|0, tx=fx-gx, ty=fy-gy;
+    const o=(gy*fgw+gx)*3, o2=o+fgw*3;
+    for(let k=0;k<3;k++) col[k]=(FM[o+k]*(1-tx)+FM[o+3+k]*tx)*(1-ty)+(FM[o2+k]*(1-tx)+FM[o2+3+k]*tx)*ty;
+  };
+  /* what each drip does on a given row is the same all along the row */
+  const dwob=new Float32Array(nD), dhalf=new Float32Array(nD);
 
-  let y=0;
-  for(let b=0;b<nb;b++){
-    const h=wts[b]/tot*H;
-    const y0=Math.round(y), y1=(b===nb-1)?H:Math.round(y+h);
-    y=y+h;
-    band(c,W,y0,y1-y0,deck[b%deck.length],b);
-  }
-
-  function band(c,W,by,bh,kind,b){
-    const bs=mseed+b*101;
-    const put=(x0,yy,w,hh,col)=>{ c.fillStyle=col; c.fillRect(x0,yy,w,hh); };
-
-    if(kind==="confetti"){
-      /* Short horizontal runs, not single cells. Corrupted data repeats a
-         value for a few samples before it changes; dealing every cell on its
-         own gives television snow instead. */
-      const rows=Math.max(1,Math.round(bh/cw));
-      const rh=bh/rows;
-      for(let j=0;j<rows;j++){
-        let i=0;
-        while(i<N){
-          const r=hshM(wrap(i),j,bs+17);
-          const long=hshM(wrap(i),j,bs+101);
-          const run=long<0.10 ? 5+Math.floor(long*260) : 1+Math.floor(r*3);
-          const col=pick(hshM(wrap(i),j,bs+19),j);
-          const x0=Math.round(i*cw), x1=Math.round(Math.min(N,i+run)*cw);
-          put(x0,Math.round(by+j*rh),x1-x0,Math.ceil(rh)+1,col);
-          i+=run;
+  for(let y=0,i=0;y<H;y++){
+    const v=y/U;
+    const tj=Math.min(rows-1,Math.floor(v/th));
+    const ey=Math.min(v-tj*th,(tj+1)*th-v)*U;
+    for(let k=0;k<nD;k++){
+      const d=drips[k];
+      const along=(v-d.top)/d.len;
+      if(v<d.top||along>1){ dhalf[k]=-1; continue; }
+      dwob[k]=(vnL(d.ph,v*14,sd2)-0.5)*d.w*1.2;
+      dhalf[k]=d.w*(1-along*0.55)*(0.8+0.4*vnL(d.ph+3,v*6,sd1));
+    }
+    for(let x=0;x<W;x++,i+=4){
+      const u=x/U;
+      /* ---- the tiles: each reads the field from a little way off ---- */
+      const ti=Math.min(cols-1,Math.floor(u/tw));
+      const ox=(hshL(ti,tj,sd3)-0.5)*2*slip, oy=(hshL(ti,tj,sd4)-0.5)*2*slip*0.6;
+      readF(u+ox,v+oy);
+      let R=col[0],G=col[1],B=col[2];
+      /* the seams: a thin dark edge on each tile */
+      if(seamK>0){
+        const ex=Math.min(u-ti*tw,(ti+1)*tw-u)*U;
+        const e=Math.min(ex,ey);
+        if(e<seamW){ const k=1-seamK*(1-e/seamW); R*=k; G*=k; B*=k; }
+      }
+      /* ---- the drips ---- */
+      for(let k=0;k<nD;k++){
+        const half=dhalf[k];
+        if(half<0) continue;
+        const dx=Math.abs(u-drips[k].x-dwob[k]);
+        if(dx<half){
+          const a=Math.min(1,(half-dx)*U/6)*0.85;
+          R+=(dripInk[0]-R)*a; G+=(dripInk[1]-G)*a; B+=(dripInk[2]-B)*a;
         }
       }
-
-    }else if(kind==="mosaic"){
-      /* Coarse blocks with spatial coherence, then hard diagonal tears. The
-         torn side keeps its grid but loses its colour: that is what makes the
-         wedge read as data gone missing rather than as a black triangle drawn
-         on top. */
-      const step=Math.max(2,Math.round(4+hshM(b,5,bs+23)*5));
-      const cols2=Math.ceil(N/step), rows=Math.max(1,Math.round(bh/(cw*step)));
-      const rh=bh/rows;
-      /* At least one tear whenever the slider is off zero. Scaling a hash by
-         the slider instead meant most bands rounded down to none, and the
-         control did nothing on most variations. */
-      const nt=S.tears<=0?0:1+Math.floor(hshM(b,9,bs+29)*S.tears*2.6);
-      const tear=[];
-      for(let t=0;t<nt;t++)
-        tear.push({a:hshM(t,11,bs+31)*rows, k:(hshM(t,13,bs+37)*2-1)*rows/cols2*1.8,
-                   up:hshM(t,15,bs+41)<0.5});
-      for(let j=0;j<rows;j++){
-        for(let i=0;i<cols2;i++){
-          /* A block is torn only where every cut agrees. One cut gives the
-             half-plane the reference has; two give the wedge between them.
-             Taking whichever cut says so instead let two opposed cuts cover
-             the whole band, and the mosaic came out solid black. */
-          let torn=tear.length>0;
-          for(const t of tear){
-            const edge=t.a+t.k*i;
-            if(!(t.up ? (j<edge) : (j>edge))){ torn=false; break; }
-          }
-          const v=hshM(wrap(i*step),j,bs+43);
-          const col=torn ? (v<0.82?R.dark:pick(v,b)) : pick(v,b+j);
-          const x0=Math.round(i*step*cw), x1=Math.round(Math.min(N,(i+1)*step)*cw);
-          put(x0,Math.round(by+j*rh),x1-x0,Math.ceil(rh)+1,col);
-        }
+      /* ---- the foil: a crinkle embossed over everything, lit from the
+         top left, with a glossy sheen on the ridges ---- */
+      if(crinkle>0){
+        const fx=u*cres, fy=v*cres;
+        const gx=Math.min(cgw-2,fx|0), gy=Math.min(cgh-2,fy|0), tx=fx-gx, ty=fy-gy;
+        const i0=gy*cgw+gx;
+        const g0=(CRK[i0]*(1-tx)+CRK[i0+1]*tx)*(1-ty)+(CRK[i0+cgw]*(1-tx)+CRK[i0+cgw+1]*tx)*ty;
+        const g=g0*crinkle*7;
+        const lit=1+g;
+        R*=lit; G*=lit; B*=lit;
+        const sp=Math.max(0,g)*sheen*4;
+        const s2=sp*sp*140;
+        R+=s2; G+=s2; B+=s2;
       }
-
-    }else if(kind==="smear"){
-      /* Long runs on thin rows: a value held far past where it should have
-         changed, which is what a dropped frame looks like when it is dragged
-         sideways. */
-      const rows=Math.max(2,Math.round(bh/Math.max(2,cw*0.6)));
-      const rh=bh/rows;
-      const long=6+S.runs*46;
-      for(let j=0;j<rows;j++){
-        let i=0;
-        while(i<N){
-          const r=hshM(wrap(i),j*3,bs+47);
-          const run=Math.max(1,Math.round(long*(0.25+r*1.5)));
-          const v=hshM(wrap(i),j,bs+53);
-          const col=(hshM(wrap(i),j,bs+59)<S.bright*0.35) ? R.inks[1%R.inks.length] : pick(v,j);
-          const x0=Math.round(i*cw), x1=Math.round(Math.min(N,i+run)*cw);
-          put(x0,Math.round(by+j*rh),x1-x0,Math.ceil(rh)+1,col);
-          i+=run;
-        }
-      }
-
-    }else if(kind==="scan"){
-      /* Whole rows of one value, a few of them cut by a short bright segment. */
-      let yy=by;
-      let j=0;
-      while(yy<by+bh){
-        const r=hshM(0,j,bs+61);
-        const rh=Math.max(1,Math.round(cw*(0.4+r*3.2)));
-        const hh=Math.min(rh,by+bh-yy);
-        put(0,Math.round(yy),W,Math.ceil(hh)+1,pick(hshM(1,j,bs+67),j));
-        if(hshM(2,j,bs+71)<S.bright*0.8){
-          const w=W*(0.08+hshM(3,j,bs+73)*0.5);
-          const x0=W*hshM(4,j,bs+79)*(1-0.08);
-          put(Math.round(x0),Math.round(yy),Math.round(Math.min(w,W-x0)),
-              Math.ceil(hh)+1,R.inks[1%R.inks.length]);
-        }
-        yy+=hh; j++;
-      }
-
-    }else{
-      /* Chevrons: the column index is offset by a triangle wave of the row, so
-         one deck of colours shears into a herringbone. A repeating motif, not
-         noise — the reference has a band of it and it is what stops the page
-         reading as uniformly random. */
-      const rows=Math.max(1,Math.round(bh/cw));
-      const rh=bh/rows;
-      const per=Math.max(3,Math.round(4+hshM(b,17,bs+83)*10));
-      const amp=Math.max(1,Math.round(2+hshM(b,19,bs+89)*6));
-      for(let j=0;j<rows;j++){
-        const t=j%(per*2);
-        const zz=Math.round((t<per ? t : per*2-t)/per*amp);
-        for(let i=0;i<N;i++){
-          /* the colour follows the shifted column alone; biasing it by the row
-             as well re-dealt the motif every line and the band came out as
-             noise with a slight lean rather than as a zigzag */
-          const col=pick(hshM((wrap(i)+zz)%per,0,bs+97),b);
-          put(Math.round(i*cw),Math.round(by+j*rh),
-              Math.ceil(cw)+1,Math.ceil(rh)+1,col);
-        }
-      }
+      px[i]=R<0?0:(R>255?255:R);
+      px[i+1]=G<0?0:(G>255?255:G);
+      px[i+2]=B<0?0:(B>255?255:B);
+      px[i+3]=255;
     }
   }
+  c.setTransform(1,0,0,1,0,0);
+  c.globalCompositeOperation="source-over";
+  c.globalAlpha=1;
+  c.putImageData(img,0,0);
 }
-
-/* ---- vector ------------------------------------------------------------
-   The same paint() against a recorder. Every band is rectangles already, so
-   the export is the picture itself rather than a trace of it, and it cannot
-   drift from the screen. */
-function SvgSurfaceM(){
-  this.fillStyle="#000"; this.imageSmoothingEnabled=false; this._b=[];
-}
-SvgSurfaceM.prototype.save=function(){};
-SvgSurfaceM.prototype.restore=function(){};
-SvgSurfaceM.prototype.translate=function(){};
-SvgSurfaceM.prototype.scale=function(){};
-SvgSurfaceM.prototype.rotate=function(){};
-SvgSurfaceM.prototype.clearRect=function(){};
-SvgSurfaceM.prototype.beginPath=function(){};
-SvgSurfaceM.prototype.moveTo=function(){};
-SvgSurfaceM.prototype.lineTo=function(){};
-SvgSurfaceM.prototype.closePath=function(){};
-SvgSurfaceM.prototype.arc=function(){};
-SvgSurfaceM.prototype.fill=function(){};
-SvgSurfaceM.prototype.stroke=function(){};
-SvgSurfaceM.prototype.fillRect=function(x,y,w,h){
-  if(w<=0||h<=0) return;
-  this._b.push('<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+w.toFixed(1)+
-               '" height="'+h.toFixed(1)+'" fill="'+this.fillStyle+'"/>');
-};
-SvgSurfaceM.prototype.markup=function(){return this._b.join("");};
-
-function svgFrame(f){
-  const r=RATIOS.find(x=>x.id===S.ratio);
-  const W=S.size,H=Math.round(S.size*r.h/r.w);
-  const s=new SvgSurfaceM();
-  paint(s,W,H,f);
-  return s.markup();
-}
-function svgWrap(inner){
-  const r=RATIOS.find(x=>x.id===S.ratio);
-  const W=S.size,H=Math.round(S.size*r.h/r.w);
-  return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+
-         '" viewBox="0 0 '+W+' '+H+'" shape-rendering="crispEdges">'+
-         '<clipPath id="m"><rect width="'+W+'" height="'+H+'"/></clipPath>'+
-         '<g clip-path="url(#m)">'+inner+'</g></svg>';
-}
-function buildSVG(){return svgWrap(svgFrame(curFrame));}
 
 const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
 function fitCanvas(){
@@ -1006,26 +1006,21 @@ function save(blob,name){
   a.href=url;a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
-function stamp(){return `mosh-${S.seed}-${S.ratio.replace(":","x")}`;}
+function stamp(){return `foil-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
-  const a=$("#expVid"),sc=$("#scrub"),l=$("#expSvgLoop");
+  const a=$("#expVid"),sc=$("#scrub");
   if(a)a.disabled=!S.motion.on;
-  if(l)l.disabled=!S.motion.on;
   if(sc)sc.disabled=!S.motion.on;
 }
 $("#expPng").addEventListener("click",()=>{
   toast("Rendering…",true);
   setTimeout(()=>{
     const r=RATIOS.find(x=>x.id===S.ratio);
-    const W=S.size,H=Math.round(S.size*r.h/r.w);
+    const W=S.size_px,H=Math.round(S.size_px*r.h/r.w);
     const c=document.createElement("canvas");c.width=W;c.height=H;
     paint(c.getContext("2d"),W,H,curFrame);
     c.toBlob(b=>{save(b,stamp()+".png");toast(`PNG saved · ${W}×${H}`);});
   },30);
-});
-$("#expSvg").addEventListener("click",()=>{
-  save(new Blob([buildSVG()],{type:"image/svg+xml"}),stamp()+".svg");
-  toast("SVG saved");
 });
 function pickVideoType(){
   const t=["video/mp4;codecs=avc1.42E01E","video/mp4","video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"];
@@ -1038,7 +1033,7 @@ $("#expVid").addEventListener("click",()=>{
   if(!type)return toast("This browser can't record video");
   const ext=type.startsWith("video/mp4")?"mp4":"webm";
   const r=RATIOS.find(x=>x.id===S.ratio);
-  let W=Math.min(1280,S.size);W-=W%2;
+  let W=Math.min(1280,S.size_px);W-=W%2;
   let H=Math.round(W*r.h/r.w);H-=H%2;
   const c=document.createElement("canvas");c.width=W;c.height=H;
   const cc=c.getContext("2d");
@@ -1063,7 +1058,7 @@ $("#expVid").addEventListener("click",()=>{
    UI
 ============================================================ */
 function accent(){
-  let best=S.pal[S.pal.length-1],bl=-1;
+  let best=S.pal[Math.min(2,S.pal.length-1)],bl=-1;
   for(const c of S.pal){const l=relLum(c);if(l>bl&&l>0.12){bl=l;best=c;}}
   document.documentElement.style.setProperty("--accent",bl>0?best:"#F5C21B");
   $("#strip").innerHTML=S.pal.map(c=>`<span style="background:${c}"></span>`).join("");
@@ -1151,7 +1146,7 @@ function buildSwatches(){
   S.pal.forEach((c,i)=>{
     const b=document.createElement("button");
     b.className="sw"+(lock?" locked":"");b.type="button";
-    b.setAttribute("aria-label","Ink "+(i+1)+" color");
+    b.setAttribute("aria-label","Ink "+(i+1));
     b.innerHTML=`<span class="fill" style="background:${c}"></span>`+
       `<input type="color" value="${c}"><span class="x" aria-hidden="true">\u00d7</span>`;
     b.querySelector("input").addEventListener("input",e=>{
@@ -1190,35 +1185,35 @@ function bindRange(id,fmt,set,after){
 }
 
 buildRatios();buildSwatches();accent();
+segmented($("#fields"),FIELDS,()=>S.field,v=>{S.field=v;reframe();});
 segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
 $("#shufColors").addEventListener("click",()=>{
   setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
 });
 $("#rotColors").addEventListener("click",()=>{
-  if(S.pal.length<3){setPalette(S.pal.slice(1).concat(S.pal[0]));return;}
-  let di=0;
-  for(let i=1;i<S.pal.length;i++) if(lumM(S.pal[i])<lumM(S.pal[di])) di=i;
-  const rest=S.pal.filter((c,i)=>i!==di);
-  rest.push(rest.shift());
-  const out=S.pal.slice();
-  let k=0;
-  for(let i=0;i<out.length;i++) if(i!==di) out[i]=rest[k++];
-  setPalette(out);
+  setPalette([S.pal[0]].concat(S.pal.slice(2),[S.pal[1]]));
 });
-bindRange("bands",v=>v|0,v=>S.bands=v|0);
+const pc=v=>Math.round(v*100)+"%";
+bindRange("blur",pc,v=>S.blur=v);
+bindRange("scale",pc,v=>S.scale=v);
+bindRange("lean",pc,v=>S.lean=v);
 bindRange("cols",v=>v|0,v=>S.cols=v|0);
-bindRange("mix",v=>Math.round(v*100)+"%",v=>S.mix=v);
-bindRange("tears",v=>Math.round(v*100)+"%",v=>S.tears=v);
-bindRange("runs",v=>Math.round(v*100)+"%",v=>S.runs=v);
-bindRange("bright",v=>Math.round(v*100)+"%",v=>S.bright=v);
+bindRange("rows",v=>v|0,v=>S.rows=v|0);
+bindRange("slip",pc,v=>S.slip=v);
+bindRange("seams",pc,v=>S.seams=v);
+bindRange("drips",v=>v|0,v=>S.drips=v|0);
+bindRange("dlen",pc,v=>S.dlen=v);
+bindRange("dwidth",pc,v=>S.dwidth=v);
+bindRange("crinkle",pc,v=>S.crinkle=v);
+bindRange("sheen",pc,v=>S.sheen=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
 $("#frames").addEventListener("input",e=>{S.motion.frames=parseInt(e.target.value,10);
   $("#framesVal").textContent=S.motion.frames+" frames";$("#scrub").max=S.motion.frames-1;
   curFrame=Math.min(curFrame,S.motion.frames-1);reframe();if(playing)setPlaying(true);});
-$("#size").addEventListener("input",e=>{S.size=parseInt(e.target.value,10);$("#sizeVal").textContent=S.size+" px";});
-$("#motionTog").addEventListener("click",e=>{
+$("#sizePx").addEventListener("input",e=>{S.size_px=parseInt(e.target.value,10);
+  $("#sizePxVal").textContent=S.size_px+" px";});$("#motionTog").addEventListener("click",e=>{
   S.motion.on=!S.motion.on;
   e.currentTarget.setAttribute("aria-pressed",String(S.motion.on));
   $("#motionBody").hidden=!S.motion.on;
@@ -1228,7 +1223,21 @@ $("#motionTog").addEventListener("click",e=>{
 });
 $("#play").addEventListener("click",()=>{if(!S.motion.on){$("#motionTog").click();return;}setPlaying(!playing);});
 $("#scrub").addEventListener("input",e=>{setPlaying(false);curFrame=parseInt(e.target.value,10)%Math.max(1,S.motion.frames);draw();});
-function newSeed(v){S.seed=(v!==undefined)?v:(Math.random()*99999|0)+1;$("#seed").value=S.seed;reframe();}
+function newSeed(v){
+  S.seed=(v!==undefined)?v:(Math.random()*99999|0)+1;
+  $("#seed").value=S.seed;
+  dealL(S.seed);
+  /* every dealt value onto its dial and its readout, so the sheet can be
+     adjusted from where it landed */
+  const put=(id,val,txt)=>{const e=$("#"+id),l=$("#"+id+"Val");if(e)e.value=val;if(l)l.textContent=txt;};
+  const pc=v=>Math.round(v*100)+"%";
+  put("blur",S.blur,pc(S.blur)); put("scale",S.scale,pc(S.scale)); put("lean",S.lean,pc(S.lean));
+  put("cols",S.cols,String(S.cols)); put("rows",S.rows,String(S.rows)); put("slip",S.slip,pc(S.slip)); put("seams",S.seams,pc(S.seams));
+  put("drips",S.drips,String(S.drips)); put("dlen",S.dlen,pc(S.dlen)); put("dwidth",S.dwidth,pc(S.dwidth));
+  put("crinkle",S.crinkle,pc(S.crinkle)); put("sheen",S.sheen,pc(S.sheen));
+  buildSwatches(); accent();
+  reframe();
+}
 $("#shuf").addEventListener("click",()=>newSeed());
 $("#seed").addEventListener("change",e=>{const v=parseInt(e.target.value,10);newSeed(Number.isFinite(v)?Math.abs(v):1);});
 art.addEventListener("click",()=>newSeed());
