@@ -592,7 +592,7 @@ input[type=range]{accent-color:var(--ink)}
       </div>
     </div>
     <div class="l-scroll"><details class="grp" open><summary>Grid</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Columns</span><span class="v" id="colsVal">48</span></div><div class="track"><input type="range" id="cols" min="16" max="96" step="1" value="48"></div></div>
-        <div class="pr"><div class="top"><span class="k">Gutter</span><span class="v" id="gutterVal">17%</span></div><div class="track"><input type="range" id="gutter" min="0" max="1" step="0.01" value="0.17"></div></div></div></details>
+        <div class="pr"><div class="top"><span class="k">Gutter</span><span class="v" id="gutterVal">20%</span></div><div class="track"><input type="range" id="gutter" min="0" max="1" step="0.01" value="0.2"></div></div></div></details>
     <details class="grp"><summary>Field</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Streak</span><span class="v" id="streakVal">80%</span></div><div class="track"><input type="range" id="streak" min="0" max="1" step="0.01" value="0.8"></div></div>
         <div class="pr"><div class="top"><span class="k">Scale</span><span class="v" id="scaleVal">50%</span></div><div class="track"><input type="range" id="scale" min="0" max="1" step="0.01" value="0.5"></div></div>
         <div class="pr"><div class="top"><span class="k">Slip</span><span class="v" id="slipVal">40%</span></div><div class="track"><input type="range" id="slip" min="0" max="1" step="0.01" value="0.4"></div></div>
@@ -711,7 +711,7 @@ const PALETTES=[
    adjusted from where it landed. */
 const S={
   seed:7, ratio:"3:4",
-  cols:48, gutter:0.17,
+  cols:48, gutter:0.2,
   streak:0.8, scale:0.5, slip:0.4, band:5, blobs:0.35, blobsize:0.5,
   steps:7, ground:0.35, stray:0.3,
   pal:PALETTES[0].slice(),
@@ -738,11 +738,10 @@ function rngS(seed){
 /* The deal: everything lands somewhere near the reference frame rather
    than on a corner of the settings nobody would choose. */
 function dealS(seed){
-  /* the palette is not dealt: the sheet opens in its own set, and New
-     colors is the way to another */
+  /* the palette and the gutter are not dealt: the sheet opens in its own
+     set with a fine gutter, and New colors is the way to another palette */
   const r=rngS(Math.imul(seed|0,2654435761)^0x5bd1e995);
   S.cols=32+((r()*33)|0);
-  S.gutter=0.2+r()*0.4;
   S.streak=0.5+r()*0.45;
   S.scale=0.3+r()*0.5;
   S.slip=0.2+r()*0.5;
