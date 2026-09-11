@@ -298,6 +298,33 @@ input[type=range]{accent-color:var(--ink)}
   .firstrun{transition:none}
   .newbtn.nudge{animation:none}
 }
+/* ---- My colors: one saved set, kept by the browser, used by every tool ----
+   A switch-headed row at the foot of the Color block, in the same language as
+   Animate, Dither and Grain. The saved set shows as a run of small dots on
+   the row, so you can see what it holds without opening anything. */
+.myc{margin-top:16px;padding-top:2px;border-top:1px solid var(--hair2)}
+.myc>.pillbtn{padding:12px 0 10px}
+.myc .t{white-space:nowrap}
+.mydots{flex:1;display:flex;justify-content:flex-end;gap:4px;padding-right:2px;min-width:0}
+.mydots i{display:block;width:8px;height:8px;border-radius:50%;flex:none;
+  box-shadow:inset 0 0 0 1px rgba(21,22,26,.12)}
+/* the picture has drifted from the saved set: a dot after the name */
+.myc>.pillbtn.drift .t::after{content:"";display:inline-block;width:5px;height:5px;
+  border-radius:50%;background:var(--ink);margin-left:8px;vertical-align:1px}
+.myc-row{display:flex;flex-wrap:wrap;gap:10px;margin:2px 0 0}
+.myc-hint{font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--key);
+  line-height:1.6;margin:10px 0 0}
+.myc-hint:empty{display:none}
+.myc-edit{margin-top:12px}
+.myc-ta{display:block;width:100%;box-sizing:border-box;min-height:74px;resize:vertical;
+  font:inherit;font-size:11px;letter-spacing:.06em;line-height:1.5;color:var(--ink);
+  background:none;border:1px solid var(--hair);border-radius:7px;padding:8px 10px}
+.myc-ta:focus{outline:none;border-color:var(--ink)}
+.myc-ta::placeholder{color:var(--key)}
+.myc-edit .myc-row{margin-top:10px}
+/* an ink the chassis made up to fill a slot the set could not: a dashed ring */
+.sw[data-derived]::after{content:"";position:absolute;inset:-4px;border-radius:50%;
+  border:1px dashed var(--key);pointer-events:none}
 /* ---------------- inks ---------------- */
 .sw-grid{display:flex;flex-wrap:wrap;gap:13px;align-items:center;max-width:210px}
 .l-bot .sw-grid{max-width:none}
@@ -619,7 +646,25 @@ input[type=range]{accent-color:var(--ink)}
   <div class="pr"><div class="top"><span class="k">Vignette</span><span class="v" id="grnVignetteVal">50%</span></div><div class="track"><input type="range" id="grnVignette" min="0" max="1" step="0.05" value="0.5"></div></div>
 </div></div></div>
     <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">8</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
-      <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div></div></details>
+      <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div>
+      <div class="tog-grp myc" id="myc">
+        <button class="pillbtn" id="mycTog" aria-pressed="false"><span class="t">My colors</span>
+          <span class="mydots" id="mycDots" aria-hidden="true"></span><span class="sw" aria-hidden="true"></span></button>
+        <div class="myc-row">
+          <button class="lnk" id="mycSave">Save as my colors</button>
+          <button class="lnk" id="mycEdit" aria-pressed="false" hidden>Edit</button>
+        </div>
+        <p class="myc-hint" id="mycHint"></p>
+        <div class="myc-edit" id="mycPanel" hidden>
+          <textarea class="myc-ta" id="mycText" rows="4" spellcheck="false"
+            placeholder="One hex code per line, or a list: #1A1A1A, #FF5C39, #F5F1E8" aria-label="My colors as hex codes"></textarea>
+          <div class="myc-row">
+            <button class="lnk" id="mycApply">Save</button>
+            <button class="lnk" id="mycCopy">Copy</button>
+            <button class="lnk" id="mycRemove">Forget</button>
+          </div>
+        </div>
+      </div></div></details>
       <div class="strip" id="strip"></div>
       <div class="glyph" id="glyph"></div>
     </div>
@@ -1755,6 +1800,240 @@ html.embed body{overflow:hidden!important}
       });
     });
   }
+
+  /* ---- My colors -------------------------------------------------------
+     One saved set, kept by the browser under a single key for the whole
+     site, so a set saved in one tool is already there when any other tool
+     opens. The switch takes the tool's inks from the set; nothing else about
+     the tool changes. It drives the swatch inputs themselves, as Rotate
+     does, so every tool's own colour handling stays in charge. */
+  (function(){
+    var tog=document.getElementById("mycTog");
+    if(!tog) return;
+    var KEY="playgrnd.mycolors";
+    var dots=document.getElementById("mycDots"), saveB=document.getElementById("mycSave"),
+        editB=document.getElementById("mycEdit"), panel=document.getElementById("mycPanel"),
+        ta=document.getElementById("mycText"), okB=document.getElementById("mycApply"),
+        copyB=document.getElementById("mycCopy"), rmB=document.getElementById("mycRemove"),
+        hint=document.getElementById("mycHint"), swHost=document.getElementById("swatches");
+    var MY={cols:[],on:false};
+    var isHex=function(v){ return /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i.test(String(v).trim()); };
+    var norm=function(v){
+      v=String(v).trim().replace("#","").toLowerCase();
+      if(v.length===3) v=v.split("").map(function(c){return c+c;}).join("");
+      return "#"+v;
+    };
+    var parseList=function(text){
+      var out=[], seen={};
+      String(text||"").split(/[\s,;]+/).forEach(function(w){
+        if(!isHex(w)) return;
+        var h=norm(w); if(seen[h]) return; seen[h]=1; out.push(h);
+      });
+      return out;
+    };
+    function load(){
+      try{
+        var j=JSON.parse(localStorage.getItem(KEY)||"null");
+        if(j&&j.cols instanceof Array){ MY.cols=parseList(j.cols.join(" ")); MY.on=!!j.on&&MY.cols.length>0; }
+      }catch(e){}
+    }
+    function store(){ try{ localStorage.setItem(KEY,JSON.stringify({v:1,cols:MY.cols,on:MY.on})); }catch(e){} }
+
+    /* the inks this tool has: its swatch row, or, for a tool with no row,
+       the loose colour fields in the rail */
+    function slots(){
+      var ins=swHost?[].slice.call(swHost.querySelectorAll('input[type=color]')):[];
+      if(!ins.length){
+        var col=document.querySelector(".z-left")||document.body;
+        ins=[].slice.call(col.querySelectorAll('input[type=color]')).filter(function(i){
+          return !i.closest(".cpick")&&!i.closest("#myc"); });
+      }
+      return ins;
+    }
+    function vals(){ return slots().map(function(i){return i.value.toLowerCase();}); }
+
+    function hsl(hex){
+      var n=parseInt(hex.slice(1),16)||0, r=((n>>16)&255)/255, g=((n>>8)&255)/255, b=(n&255)/255;
+      var mx=Math.max(r,g,b), mn=Math.min(r,g,b), d=mx-mn, l=(mx+mn)/2, sa=0, hu=0;
+      if(d){ sa=l>0.5?d/(2-mx-mn):d/(mx+mn);
+        if(mx===r) hu=(g-b)/d+(g<b?6:0); else if(mx===g) hu=(b-r)/d+2; else hu=(r-g)/d+4; hu*=60; }
+      return [hu,sa,l];
+    }
+    function hex(h,s,l){
+      h=((h%360)+360)%360; s=Math.min(1,Math.max(0,s)); l=Math.min(1,Math.max(0,l));
+      var a=s*Math.min(l,1-l);
+      var f=function(n){ var k=(n+h/30)%12; var v=l-a*Math.max(-1,Math.min(k-3,9-k,1));
+        return Math.round(v*255).toString(16).padStart(2,"0"); };
+      return "#"+f(0)+f(8)+f(4);
+    }
+    /* n inks from the set. Enough of them: the first n, in the order given.
+       Too few: the rest are tints and shades of the set's own colours, taken
+       in turn, a step further each lap, so a two-colour brand still gives a
+       seven-ink tool something that belongs to it. */
+    function fit(cols,n){
+      var out=[], derived=[];
+      for(var k=0;k<n;k++){
+        if(k<cols.length){ out.push(cols[k]); continue; }
+        var base=cols[k%cols.length], c=hsl(base), lap=Math.floor(k/cols.length);
+        var dir=(lap&1)?1:-1; if(c[2]>0.62) dir=-dir;
+        var amt=(0.2+0.02*lap)*Math.ceil(lap/2)+0.04;
+        var l=Math.min(0.94,Math.max(0.07,c[2]+dir*amt));
+        var v=hex(c[0],c[1]*(dir>0?0.85:1),l), tries=0;
+        while((out.indexOf(v)>=0||cols.indexOf(v)>=0)&&tries<6){ l=Math.min(0.94,Math.max(0.07,l+dir*0.07)); v=hex(c[0],c[1],l); tries++; }
+        out.push(v); derived.push(v);
+      }
+      return {list:out,derived:derived};
+    }
+    function shuffled(a){
+      var b=a.slice();
+      for(var i=b.length-1;i>0;i--){ var j=(Math.random()*(i+1))|0; var t=b[i]; b[i]=b[j]; b[j]=t; }
+      return b;
+    }
+
+    var applying=false, applied=null, derivedSet={}, own=null;
+    function apply(list,derived){
+      applying=true;
+      derivedSet={}; (derived||[]).forEach(function(c){ derivedSet[c]=1; });
+      for(var i=0;i<list.length;i++){
+        var inp=slots()[i]; if(!inp) break;
+        if(inp.value.toLowerCase()===list[i]) continue;
+        inp.value=list[i];
+        inp.dispatchEvent(new Event("input",{bubbles:true}));
+      }
+      applied=list.slice(0,slots().length);
+      applying=false;
+      mark(); drift();
+    }
+    function mark(){
+      slots().forEach(function(inp){
+        var host=inp.closest(".sw")||inp.parentElement; if(!host) return;
+        if(MY.on&&derivedSet[inp.value.toLowerCase()]) host.setAttribute("data-derived","");
+        else host.removeAttribute("data-derived");
+      });
+    }
+    /* drifted: the inks in front of you are no longer the ones the set gave,
+       as a collection — Rotate moves them round and is not a drift */
+    function drift(){
+      var d=false;
+      if(MY.on&&applied){
+        var a=vals().slice().sort().join(","), b=applied.slice().sort().join(",");
+        d=a!==b;
+      }
+      tog.classList.toggle("drift",d);
+    }
+    function ui(){
+      tog.setAttribute("aria-pressed",MY.on?"true":"false");
+      dots.innerHTML=MY.cols.slice(0,9).map(function(c){ return '<i style="background:'+c+'"></i>'; }).join("");
+      editB.hidden=!MY.cols.length;
+      if(!MY.cols.length) hint.textContent="Nothing saved yet. Save this palette to use it in every tool.";
+      else hint.textContent=MY.cols.length+" color"+(MY.cols.length===1?"":"s")+" · kept by this browser";
+      drift();
+    }
+    function putOn(){
+      if(!MY.cols.length) MY.cols=vals().filter(Boolean);
+      if(!MY.cols.length) return;
+      if(!MY.on) own=vals();
+      MY.on=true; store();
+      var f=fit(MY.cols,slots().length);
+      apply(f.list,f.derived); ui();
+    }
+    function putOff(){
+      MY.on=false; store();
+      derivedSet={}; mark(); tog.classList.remove("drift");
+      if(own){ apply(own); own=null; }
+      applied=null; ui();
+    }
+    function save(){
+      var cur=vals().filter(function(v){ return !derivedSet[v]; });
+      if(!cur.length) return;
+      MY.cols=parseList(cur.join(" "));
+      if(!MY.on) own=vals();
+      MY.on=true; store();
+      var f=fit(MY.cols,slots().length);
+      apply(f.list,f.derived); ui();
+      if(!panel.hidden) ta.value=MY.cols.join("\n");
+    }
+
+    tog.addEventListener("click",function(){ if(MY.on) putOff(); else putOn(); });
+    saveB.addEventListener("click",save);
+    editB.addEventListener("click",function(){
+      panel.hidden=!panel.hidden;
+      editB.setAttribute("aria-pressed",panel.hidden?"false":"true");
+      if(!panel.hidden){ ta.value=MY.cols.join("\n"); ta.focus(); }
+    });
+    okB.addEventListener("click",function(){
+      var list=parseList(ta.value);
+      if(!list.length){ hint.textContent="No colours found. Paste hex codes like #FF5C39."; return; }
+      MY.cols=list; store();
+      if(MY.on){ var f=fit(MY.cols,slots().length); apply(f.list,f.derived); }
+      else putOn();
+      ta.value=MY.cols.join("\n"); ui();
+    });
+    copyB.addEventListener("click",function(){
+      var text=MY.cols.join(", ");
+      var done=function(){ copyB.textContent="Copied"; setTimeout(function(){ copyB.textContent="Copy"; },1200); };
+      if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done,done);
+      else { ta.select(); try{ document.execCommand("copy"); }catch(e){} done(); }
+    });
+    var armed=0;
+    rmB.addEventListener("click",function(){
+      if(!armed){ armed=setTimeout(function(){ armed=0; rmB.textContent="Forget"; },2500); rmB.textContent="Sure?"; return; }
+      clearTimeout(armed); armed=0; rmB.textContent="Forget";
+      var wasOn=MY.on; MY.cols=[];
+      if(wasOn) putOff(); else store();
+      panel.hidden=true; editB.setAttribute("aria-pressed","false"); ui();
+    });
+
+    /* New colors, with the switch on, deals the set again: a new order, and
+       a different pick when the set holds more than the tool needs */
+    document.addEventListener("click",function(e){
+      if(!MY.on) return;
+      var b=e.target.closest&&e.target.closest("#shufColors");
+      if(!b) return;
+      e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
+      var order=shuffled(MY.cols), tries=0;
+      while(MY.cols.length>1&&order.join()===MY.cols.join()&&tries<8){ order=shuffled(MY.cols); tries++; }
+      MY.cols=order; store();
+      var f=fit(MY.cols,slots().length);
+      apply(f.list,f.derived); ui();
+    },true);
+
+    /* a tool whose variation number deals its own palette would deal the
+       set away on every New variation; put it back once the deal has landed */
+    function reassert(){
+      if(!MY.on||!applied) return;
+      setTimeout(function(){
+        if(!MY.on||!applied) return;
+        var f=fit(MY.cols,slots().length);
+        if(vals().join()!==f.list.slice(0,slots().length).join()) apply(f.list,f.derived);
+      },40);
+    }
+    ["randomize","shuf"].forEach(function(id){
+      var b=document.getElementById(id); if(b) b.addEventListener("click",reassert);
+    });
+    var seedIn=document.getElementById("seed");
+    if(seedIn) seedIn.addEventListener("change",reassert);
+    document.addEventListener("keydown",function(e){ if(e.code==="Space"||e.key===" ") reassert(); });
+
+    /* a swatch edited by hand shows as a drift, and a rebuilt row keeps its rings */
+    document.addEventListener("input",function(e){
+      if(applying) return;
+      if(e.target&&e.target.type==="color"){ mark(); drift(); }
+    });
+    if(window.MutationObserver&&swHost)
+      new MutationObserver(function(){ if(!applying){ mark(); drift(); } }).observe(swHost,{childList:true,subtree:true});
+    /* a set saved in another tab shows here at once */
+    window.addEventListener("storage",function(e){
+      if(e.key!==KEY) return;
+      load(); ui();
+      if(MY.on){ var f=fit(MY.cols,slots().length); apply(f.list,f.derived); }
+    });
+
+    load();
+    if(MY.on){ own=vals(); var f=fit(MY.cols,slots().length); apply(f.list,f.derived); }
+    ui();
+  })();
+
   if(window.MutationObserver){
     var dob=new MutationObserver(syncDisabled);
     document.querySelectorAll(".pr input[type=range]").forEach(function(el){
