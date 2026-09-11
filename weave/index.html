@@ -314,18 +314,16 @@ input[type=range]{accent-color:var(--ink)}
 .mycsw .sw:hover{transform:none}
 .mycsw[aria-pressed=true] .sw{background:var(--ink)}
 .mycsw[aria-pressed=true] .sw::after{transform:translateX(13px);background:var(--gnd)}
-.myc{margin-top:16px}
+.myc{margin-top:14px}
+/* three pills across a 246px rail: New colors, Rotate, Save */
+.grp.mine .lnk{padding:0 12px}
+.grp.mine .btn-row,.grp.mine .misc .mval{gap:8px}
 .myc-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
 .myc-row:empty{display:none}
-.mydots{display:flex;gap:4px;padding-right:4px}
-.mydots:empty{display:none}
-.mydots i{display:block;width:8px;height:8px;border-radius:50%;flex:none;
-  box-shadow:inset 0 0 0 1px rgba(21,22,26,.12)}
-.myc-info{display:flex;align-items:center;gap:8px;margin-bottom:12px}
-.myc-info[hidden]{display:none}
 .myc-hint{font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--key);
-  line-height:1.6}
+  line-height:1.6;margin:10px 0 0}
 .myc-hint:empty{display:none}
+.myc[hidden]{display:none}
 .myc-edit{margin-top:12px}
 .myc-ta{display:block;width:100%;box-sizing:border-box;min-height:74px;resize:vertical;
   font:inherit;font-size:11px;letter-spacing:.06em;line-height:1.5;color:var(--ink);
@@ -652,13 +650,9 @@ input[type=range]{accent-color:var(--ink)}
     <div class="l-bot"><details class="grp mine" open><summary>Color<button class="mycsw" id="mycTog" aria-pressed="false">My colors<span class="sw" aria-hidden="true"></span></button></summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Thread colors</span><span class="v" id="swCountVal">7</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
         
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotInks">Rotate</button></span></div>
-      <div class="myc" id="myc">
-        <div class="myc-info" id="mycInfo">
-          <span class="mydots" id="mycDots" aria-hidden="true"></span>
-          <span class="myc-hint" id="mycHint"></span>
-        </div>
-        <div class="myc-row">
-          <button class="lnk" id="mycSave">Save this palette</button>
+      <div class="myc" id="myc" hidden>
+        <div class="myc-row" id="mycHome">
+          <button class="lnk" id="mycSave">Save</button>
           <button class="lnk" id="mycEdit" aria-pressed="false" hidden>Edit</button>
         </div>
         <div class="myc-edit" id="mycPanel" hidden>
@@ -669,6 +663,7 @@ input[type=range]{accent-color:var(--ink)}
             <button class="lnk" id="mycCopy">Copy</button>
             <button class="lnk" id="mycRemove">Forget</button>
           </div>
+          <p class="myc-hint" id="mycHint"></p>
         </div>
       </div></div></details>
       <div class="strip" id="strip"></div>
@@ -1693,12 +1688,12 @@ html.embed body{overflow:hidden!important}
     var tog=document.getElementById("mycTog");
     if(!tog) return;
     var KEY="playgrnd.mycolors";
-    var dots=document.getElementById("mycDots"), saveB=document.getElementById("mycSave"),
+    var saveB=document.getElementById("mycSave"),
         editB=document.getElementById("mycEdit"), panel=document.getElementById("mycPanel"),
         ta=document.getElementById("mycText"), okB=document.getElementById("mycApply"),
         copyB=document.getElementById("mycCopy"), rmB=document.getElementById("mycRemove"),
-        hint=document.getElementById("mycHint"), info=document.getElementById("mycInfo"),
-        swHost=document.getElementById("swatches"),
+        hint=document.getElementById("mycHint"), myc=document.getElementById("myc"),
+        home=document.getElementById("mycHome"), swHost=document.getElementById("swatches"),
         shufB=document.getElementById("shufColors"),
         rotB=document.getElementById("rotColors")||document.getElementById("rotInks");
     var MY={cols:[],on:false};
@@ -1804,9 +1799,11 @@ html.embed body{overflow:hidden!important}
       return vals().slice().sort().join(",")!==applied.slice().sort().join(",");
     }
     function ui(){
-      var on=MY.on, n=slots().length, has=MY.cols.length>0, d=drifted();
+      var on=MY.on, n=slots().length, d=drifted();
       tog.setAttribute("aria-pressed",on?"true":"false");
-      /* the buttons above say what they now do */
+      /* the buttons above say what they now do: off, New colors and Rotate
+         with Save beside them; on, Shuffle, Save and Edit, Save dimmed until
+         a swatch has been changed by hand */
       if(shufB){
         if(!shufB.__label) shufB.__label=shufB.textContent;
         shufB.textContent=on?"Shuffle":shufB.__label;
@@ -1816,19 +1813,13 @@ html.embed body{overflow:hidden!important}
         if(rotB.__hid===undefined) rotB.__hid=rotB.hidden;
         rotB.hidden=on ? (n>=3||n<2) : rotB.__hid;
       }
-      dots.innerHTML=(!on&&has)?MY.cols.slice(0,9).map(function(c){ return '<i style="background:'+c+'"></i>'; }).join(""):"";
-      saveB.hidden=on&&!d;
-      saveB.textContent=on?"Save changes":"Save this palette";
-      editB.hidden=!has;
-      if(!has) hint.textContent="Nothing saved yet. Save this palette and every tool can use it.";
-      else if(!on) hint.textContent=MY.cols.length+" color"+(MY.cols.length===1?"":"s")+" saved in this browser";
-      else hint.textContent="";
-      info.hidden=!dots.innerHTML&&!hint.textContent;
-      /* with the set on, Save changes and Edit sit on the Shuffle row */
-      var home=document.querySelector("#myc>.myc-row"), row=shufB?shufB.parentElement:null;
-      var dest=(on&&row)?row:home;
-      if(dest&&saveB.parentElement!==dest){ dest.appendChild(saveB); dest.appendChild(editB); }
-      document.getElementById("myc").hidden=on&&!!row&&info.hidden&&panel.hidden;
+      saveB.disabled=on&&!d;
+      editB.hidden=!on;
+      if(!on){ panel.hidden=true; editB.setAttribute("aria-pressed","false"); }
+      var row=shufB?shufB.parentElement:home;
+      if(row&&saveB.parentElement!==row){ row.appendChild(saveB); row.appendChild(editB); }
+      hint.textContent="";
+      myc.hidden=panel.hidden&&row!==home;
     }
     function putOn(){
       if(!MY.cols.length) MY.cols=vals().filter(Boolean);
@@ -1866,7 +1857,7 @@ html.embed body{overflow:hidden!important}
     });
     okB.addEventListener("click",function(){
       var list=parseList(ta.value);
-      if(!list.length){ hint.textContent="No colours found. Paste hex codes like #FF5C39."; return; }
+      if(!list.length){ ui(); hint.textContent="No colours found. Paste hex codes like #FF5C39."; return; }
       MY.cols=list; store();
       if(MY.on){ var f=fit(MY.cols,slots().length); apply(f.list,f.derived); }
       else putOn();
