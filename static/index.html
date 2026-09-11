@@ -299,21 +299,32 @@ input[type=range]{accent-color:var(--ink)}
   .newbtn.nudge{animation:none}
 }
 /* ---- My colors: one saved set, kept by the browser, used by every tool ----
-   A switch-headed row at the foot of the Color block, in the same language as
-   Animate, Dither and Grain. The saved set shows as a run of small dots on
-   the row, so you can see what it holds without opening anything. */
-.myc{margin-top:16px;padding-top:2px;border-top:1px solid var(--hair2)}
-.myc>.pillbtn{padding:12px 0 10px}
-.myc .t{white-space:nowrap}
-.mydots{flex:1;display:flex;justify-content:flex-end;gap:4px;padding-right:2px;min-width:0}
+   Not a section of its own: a mode of the Color block. The switch sits on the
+   block's heading where the fold marker sits on the other groups, and when it
+   is on the swatch row is the set. */
+.grp.mine>summary::after{display:none}
+.mycsw{display:flex;align-items:center;gap:10px;border:0;background:none;padding:0;margin:0;
+  color:var(--key);font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;font-weight:700;
+  cursor:pointer}
+.mycsw[aria-pressed=true]{color:var(--ink)}
+.mycsw .sw{position:relative;flex:none;width:28px;height:15px;border-radius:999px;
+  border:1px solid var(--ink);background:none;display:block;cursor:pointer;transform:none}
+.mycsw .sw::after{content:"";position:absolute;top:2px;left:2px;width:9px;height:9px;
+  border-radius:50%;background:var(--ink);transition:transform .16s ease}
+.mycsw .sw:hover{transform:none}
+.mycsw[aria-pressed=true] .sw{background:var(--ink)}
+.mycsw[aria-pressed=true] .sw::after{transform:translateX(13px);background:var(--gnd)}
+.myc{margin-top:16px}
+.myc-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.myc-row:empty{display:none}
+.mydots{display:flex;gap:4px;padding-right:4px}
+.mydots:empty{display:none}
 .mydots i{display:block;width:8px;height:8px;border-radius:50%;flex:none;
   box-shadow:inset 0 0 0 1px rgba(21,22,26,.12)}
-/* the picture has drifted from the saved set: a dot after the name */
-.myc>.pillbtn.drift .t::after{content:"";display:inline-block;width:5px;height:5px;
-  border-radius:50%;background:var(--ink);margin-left:8px;vertical-align:1px}
-.myc-row{display:flex;flex-wrap:wrap;gap:10px;margin:2px 0 0}
+.myc-info{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.myc-info[hidden]{display:none}
 .myc-hint{font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--key);
-  line-height:1.6;margin:10px 0 0}
+  line-height:1.6}
 .myc-hint:empty{display:none}
 .myc-edit{margin-top:12px}
 .myc-ta{display:block;width:100%;box-sizing:border-box;min-height:74px;resize:vertical;
@@ -325,6 +336,10 @@ input[type=range]{accent-color:var(--ink)}
 /* an ink the chassis made up to fill a slot the set could not: a dashed ring */
 .sw[data-derived]::after{content:"";position:absolute;inset:-4px;border-radius:50%;
   border:1px dashed var(--key);pointer-events:none}
+/* with the set on, the swatches can be dragged into a new order */
+#swatches[data-mine] .sw{cursor:grab;transition:transform .14s}
+#swatches[data-mine] .sw.drag{cursor:grabbing;transition:none;z-index:3;transform:scale(1.2)}
+#swatches[data-mine] .sw.drag .fill{box-shadow:0 2px 8px rgba(21,22,26,.25)}
 /* ---------------- inks ---------------- */
 .sw-grid{display:flex;flex-wrap:wrap;gap:13px;align-items:center;max-width:210px}
 .l-bot .sw-grid{max-width:none}
@@ -635,7 +650,7 @@ input[type=range]{accent-color:var(--ink)}
   <div class="pr"><div class="top"><span class="k">Specks</span><span class="v" id="grnSpecksVal">50%</span></div><div class="track"><input type="range" id="grnSpecks" min="0" max="1" step="0.05" value="0.5"></div></div>
   <div class="pr"><div class="top"><span class="k">Vignette</span><span class="v" id="grnVignetteVal">50%</span></div><div class="track"><input type="range" id="grnVignette" min="0" max="1" step="0.05" value="0.5"></div></div>
 </div></div></div>
-    <div class="l-bot"><details class="grp" open><summary>Color</summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Ink</span></span><span class="mval"><div class="sw-grid">
+    <div class="l-bot"><details class="grp mine" open><summary>Color<button class="mycsw" id="mycTog" aria-pressed="false">My colors<span class="sw" aria-hidden="true"></span></button></summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Ink</span></span><span class="mval"><div class="sw-grid">
             <button class="sw" type="button" aria-label="Ink color">
               <span class="fill" id="inkFill"></span>
               <input type="color" id="inkIn" value="#5C1226">
@@ -649,14 +664,15 @@ input[type=range]{accent-color:var(--ink)}
           </div></span></div>
         
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="swapColors">Rotate</button></span></div>
-      <div class="tog-grp myc" id="myc">
-        <button class="pillbtn" id="mycTog" aria-pressed="false"><span class="t">My colors</span>
-          <span class="mydots" id="mycDots" aria-hidden="true"></span><span class="sw" aria-hidden="true"></span></button>
+      <div class="myc" id="myc">
+        <div class="myc-info" id="mycInfo">
+          <span class="mydots" id="mycDots" aria-hidden="true"></span>
+          <span class="myc-hint" id="mycHint"></span>
+        </div>
         <div class="myc-row">
-          <button class="lnk" id="mycSave">Save as my colors</button>
+          <button class="lnk" id="mycSave">Save this palette</button>
           <button class="lnk" id="mycEdit" aria-pressed="false" hidden>Edit</button>
         </div>
-        <p class="myc-hint" id="mycHint"></p>
         <div class="myc-edit" id="mycPanel" hidden>
           <textarea class="myc-ta" id="mycText" rows="4" spellcheck="false"
             placeholder="One hex code per line, or a list: #1A1A1A, #FF5C39, #F5F1E8" aria-label="My colors as hex codes"></textarea>
@@ -1714,9 +1730,11 @@ html.embed body{overflow:hidden!important}
   /* ---- My colors -------------------------------------------------------
      One saved set, kept by the browser under a single key for the whole
      site, so a set saved in one tool is already there when any other tool
-     opens. The switch takes the tool's inks from the set; nothing else about
-     the tool changes. It drives the swatch inputs themselves, as Rotate
-     does, so every tool's own colour handling stays in charge. */
+     opens. The switch turns the Color block into that set: the swatch row
+     is the set, New colors becomes Shuffle, the swatches can be dragged
+     into a new order, and a hand edit offers Save changes. It drives the
+     swatch inputs themselves, as Rotate does, so every tool's own colour
+     handling stays in charge. */
   (function(){
     var tog=document.getElementById("mycTog");
     if(!tog) return;
@@ -1725,7 +1743,10 @@ html.embed body{overflow:hidden!important}
         editB=document.getElementById("mycEdit"), panel=document.getElementById("mycPanel"),
         ta=document.getElementById("mycText"), okB=document.getElementById("mycApply"),
         copyB=document.getElementById("mycCopy"), rmB=document.getElementById("mycRemove"),
-        hint=document.getElementById("mycHint"), swHost=document.getElementById("swatches");
+        hint=document.getElementById("mycHint"), info=document.getElementById("mycInfo"),
+        swHost=document.getElementById("swatches"),
+        shufB=document.getElementById("shufColors"),
+        rotB=document.getElementById("rotColors")||document.getElementById("rotInks");
     var MY={cols:[],on:false};
     var isHex=function(v){ return /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i.test(String(v).trim()); };
     var norm=function(v){
@@ -1812,9 +1833,10 @@ html.embed body{overflow:hidden!important}
       }
       applied=list.slice(0,slots().length);
       applying=false;
-      mark(); drift();
+      mark(); ui();
     }
     function mark(){
+      if(swHost){ if(MY.on) swHost.setAttribute("data-mine",""); else swHost.removeAttribute("data-mine"); }
       slots().forEach(function(inp){
         var host=inp.closest(".sw")||inp.parentElement; if(!host) return;
         if(MY.on&&derivedSet[inp.value.toLowerCase()]) host.setAttribute("data-derived","");
@@ -1822,22 +1844,32 @@ html.embed body{overflow:hidden!important}
       });
     }
     /* drifted: the inks in front of you are no longer the ones the set gave,
-       as a collection — Rotate moves them round and is not a drift */
-    function drift(){
-      var d=false;
-      if(MY.on&&applied){
-        var a=vals().slice().sort().join(","), b=applied.slice().sort().join(",");
-        d=a!==b;
-      }
-      tog.classList.toggle("drift",d);
+       as a collection: Rotate and a drag move them round and are not a drift */
+    function drifted(){
+      if(!MY.on||!applied) return false;
+      return vals().slice().sort().join(",")!==applied.slice().sort().join(",");
     }
     function ui(){
-      tog.setAttribute("aria-pressed",MY.on?"true":"false");
-      dots.innerHTML=MY.cols.slice(0,9).map(function(c){ return '<i style="background:'+c+'"></i>'; }).join("");
-      editB.hidden=!MY.cols.length;
-      if(!MY.cols.length) hint.textContent="Nothing saved yet. Save this palette to use it in every tool.";
-      else hint.textContent=MY.cols.length+" color"+(MY.cols.length===1?"":"s")+" · kept by this browser";
-      drift();
+      var on=MY.on, n=slots().length, has=MY.cols.length>0, d=drifted();
+      tog.setAttribute("aria-pressed",on?"true":"false");
+      /* the buttons above say what they now do */
+      if(shufB){
+        if(!shufB.__label) shufB.__label=shufB.textContent;
+        shufB.textContent=on?"Shuffle":shufB.__label;
+        shufB.hidden=on&&n<3&&MY.cols.length<=n;
+      }
+      if(rotB){
+        if(rotB.__hid===undefined) rotB.__hid=rotB.hidden;
+        rotB.hidden=on ? (n>=3||n<2) : rotB.__hid;
+      }
+      dots.innerHTML=(!on&&has)?MY.cols.slice(0,9).map(function(c){ return '<i style="background:'+c+'"></i>'; }).join(""):"";
+      saveB.hidden=on&&!d;
+      saveB.textContent=on?"Save changes":"Save this palette";
+      editB.hidden=!has;
+      if(!has) hint.textContent="Nothing saved yet. Save this palette and every tool can use it.";
+      else if(!on) hint.textContent=MY.cols.length+" color"+(MY.cols.length===1?"":"s")+" saved in this browser";
+      else hint.textContent="";
+      info.hidden=!dots.innerHTML&&!hint.textContent;
     }
     function putOn(){
       if(!MY.cols.length) MY.cols=vals().filter(Boolean);
@@ -1845,12 +1877,12 @@ html.embed body{overflow:hidden!important}
       if(!MY.on) own=vals();
       MY.on=true; store();
       var f=fit(MY.cols,slots().length);
-      apply(f.list,f.derived); ui();
+      apply(f.list,f.derived);
     }
     function putOff(){
       MY.on=false; store();
-      derivedSet={}; mark(); tog.classList.remove("drift");
-      if(own){ apply(own); own=null; }
+      derivedSet={}; applied=null; mark();
+      if(own){ var o=own; own=null; apply(o); }
       applied=null; ui();
     }
     function save(){
@@ -1860,11 +1892,12 @@ html.embed body{overflow:hidden!important}
       if(!MY.on) own=vals();
       MY.on=true; store();
       var f=fit(MY.cols,slots().length);
-      apply(f.list,f.derived); ui();
+      apply(f.list,f.derived);
       if(!panel.hidden) ta.value=MY.cols.join("\n");
     }
 
-    tog.addEventListener("click",function(){ if(MY.on) putOff(); else putOn(); });
+    /* the switch lives on the heading; it must not fold the block */
+    tog.addEventListener("click",function(e){ e.preventDefault(); e.stopPropagation(); if(MY.on) putOff(); else putOn(); });
     saveB.addEventListener("click",save);
     editB.addEventListener("click",function(){
       panel.hidden=!panel.hidden;
@@ -1894,8 +1927,9 @@ html.embed body{overflow:hidden!important}
       panel.hidden=true; editB.setAttribute("aria-pressed","false"); ui();
     });
 
-    /* New colors, with the switch on, deals the set again: a new order, and
-       a different pick when the set holds more than the tool needs */
+    /* Shuffle: with the switch on, New colors deals the set again, a new
+       order across the tool's roles, and a different pick when the set
+       holds more than the tool needs */
     document.addEventListener("click",function(e){
       if(!MY.on) return;
       var b=e.target.closest&&e.target.closest("#shufColors");
@@ -1905,7 +1939,7 @@ html.embed body{overflow:hidden!important}
       while(MY.cols.length>1&&order.join()===MY.cols.join()&&tries<8){ order=shuffled(MY.cols); tries++; }
       MY.cols=order; store();
       var f=fit(MY.cols,slots().length);
-      apply(f.list,f.derived); ui();
+      apply(f.list,f.derived);
     },true);
 
     /* a tool whose variation number deals its own palette would deal the
@@ -1913,9 +1947,8 @@ html.embed body{overflow:hidden!important}
     function reassert(){
       if(!MY.on||!applied) return;
       setTimeout(function(){
-        if(!MY.on||!applied) return;
-        var f=fit(MY.cols,slots().length);
-        if(vals().join()!==f.list.slice(0,slots().length).join()) apply(f.list,f.derived);
+        if(!MY.on||!applied||!drifted()) return;
+        apply(applied,Object.keys(derivedSet));
       },40);
     }
     ["randomize","shuf"].forEach(function(id){
@@ -1925,13 +1958,73 @@ html.embed body{overflow:hidden!important}
     if(seedIn) seedIn.addEventListener("change",reassert);
     document.addEventListener("keydown",function(e){ if(e.code==="Space"||e.key===" ") reassert(); });
 
-    /* a swatch edited by hand shows as a drift, and a rebuilt row keeps its rings */
+    /* ---- drag a swatch into a new place ----
+       With the set on, the order is the thing you are choosing: which colour
+       is the ground, which the accent. Dragging moves that swatch's colour
+       to the new slot and shifts the others along, through the inputs, so
+       the tool redraws as it would for any edit; the set keeps the order. */
+    if(swHost){
+      var drag=null, justDragged=false;
+      /* registered before the colour picker's own click handler, so a drag
+         that ends on a swatch does not open the picker */
+      document.addEventListener("click",function(ev){
+        if(!justDragged) return;
+        ev.stopPropagation(); ev.stopImmediatePropagation(); ev.preventDefault(); justDragged=false;
+      },true);
+      var swAt=function(){ return [].slice.call(swHost.querySelectorAll(".sw")).filter(function(h){ return h.querySelector('input[type=color]'); }); };
+      swHost.addEventListener("pointerdown",function(e){
+        if(!MY.on||e.button!==0) return;
+        var h=e.target.closest(".sw"); if(!h||!swHost.contains(h)||e.target.closest(".x")) return;
+        var hosts=swAt(), i=hosts.indexOf(h); if(i<0) return;
+        drag={h:h,i:i,x:e.clientX,y:e.clientY,moved:false,to:i,hosts:hosts,
+              rects:hosts.map(function(x){ return x.getBoundingClientRect(); })};
+      });
+      var move=function(e){
+        if(!drag) return;
+        var dx=e.clientX-drag.x, dy=e.clientY-drag.y;
+        if(!drag.moved){ if(Math.abs(dx)<4&&Math.abs(dy)<4) return; drag.moved=true; drag.h.classList.add("drag"); try{ drag.h.setPointerCapture&&e.pointerId!==undefined&&drag.h.setPointerCapture(e.pointerId); }catch(x){} }
+        e.preventDefault();
+        drag.h.style.transform="translate("+dx+"px,"+dy+"px) scale(1.2)";
+        /* the slot under the pointer */
+        var to=drag.i, best=1e9;
+        drag.rects.forEach(function(r,k){ var cx=r.left+r.width/2, cy=r.top+r.height/2; var d=(e.clientX-cx)*(e.clientX-cx)+(e.clientY-cy)*(e.clientY-cy); if(d<best){ best=d; to=k; } });
+        drag.to=to;
+        drag.hosts.forEach(function(x,k){
+          if(x===drag.h) return;
+          var sh=0;
+          if(drag.i<to&&k>drag.i&&k<=to) sh=-1; else if(to<drag.i&&k>=to&&k<drag.i) sh=1;
+          if(!sh){ x.style.transform=""; return; }
+          var r=drag.rects[k], n=drag.rects[k+sh];
+          x.style.transform="translate("+(n.left-r.left)+"px,"+(n.top-r.top)+"px)";
+        });
+      };
+      var end=function(e){
+        if(!drag) return;
+        var d=drag; drag=null;
+        d.hosts.forEach(function(x){ x.style.transform=""; });
+        d.h.classList.remove("drag");
+        if(!d.moved) return;
+        /* a drag is not a click on the swatch */
+        justDragged=true; setTimeout(function(){ justDragged=false; },0);
+        if(d.to===d.i) return;
+        var list=vals(); var v=list.splice(d.i,1)[0]; list.splice(d.to,0,v);
+        var real=list.filter(function(c){ return !derivedSet[c]; });
+        MY.cols=parseList(real.concat(MY.cols).join(" ")); store();
+        /* the row is laid out as you left it; the set keeps the order */
+        apply(list,Object.keys(derivedSet));
+      };
+      document.addEventListener("pointermove",move);
+      document.addEventListener("pointerup",end);
+      document.addEventListener("pointercancel",end);
+    }
+
+    /* a swatch edited by hand offers Save changes; a rebuilt row keeps its rings */
     document.addEventListener("input",function(e){
       if(applying) return;
-      if(e.target&&e.target.type==="color"){ mark(); drift(); }
+      if(e.target&&e.target.type==="color"){ mark(); ui(); }
     });
     if(window.MutationObserver&&swHost)
-      new MutationObserver(function(){ if(!applying){ mark(); drift(); } }).observe(swHost,{childList:true,subtree:true});
+      new MutationObserver(function(){ if(!applying){ mark(); ui(); } }).observe(swHost,{childList:true,subtree:true});
     /* a set saved in another tab shows here at once */
     window.addEventListener("storage",function(e){
       if(e.key!==KEY) return;
@@ -1941,7 +2034,7 @@ html.embed body{overflow:hidden!important}
 
     load();
     if(MY.on){ own=vals(); var f=fit(MY.cols,slots().length); apply(f.list,f.derived); }
-    ui();
+    mark(); ui();
   })();
 
   if(window.MutationObserver){
