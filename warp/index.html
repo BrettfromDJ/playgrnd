@@ -303,6 +303,7 @@ input[type=range]{accent-color:var(--ink)}
    block's heading where the fold marker sits on the other groups, and when it
    is on the swatch row is the set. */
 .grp.mine>summary::after{display:none}
+.mycsw[hidden]{display:none}
 .mycsw{display:flex;align-items:center;gap:10px;border:0;background:none;padding:0;margin:0;
   color:var(--key);font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;font-weight:700;
   cursor:pointer}
@@ -316,8 +317,8 @@ input[type=range]{accent-color:var(--ink)}
 .mycsw[aria-pressed=true] .sw::after{transform:translateX(13px);background:var(--gnd)}
 .myc{margin-top:14px}
 /* three pills across a 246px rail: New colors, Rotate, Save */
-.grp.mine .lnk{padding:0 12px}
-.grp.mine .btn-row,.grp.mine .misc .mval{gap:8px}
+.grp.colr .lnk{padding:0 12px}
+.grp.colr .btn-row,.grp.colr .misc .mval{gap:8px}
 .myc-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
 .myc-row:empty{display:none}
 .myc-hint{font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--key);
@@ -648,7 +649,7 @@ input[type=range]{accent-color:var(--ink)}
   <div class="pr"><div class="top"><span class="k">Specks</span><span class="v" id="grnSpecksVal">50%</span></div><div class="track"><input type="range" id="grnSpecks" min="0" max="1" step="0.05" value="0.5"></div></div>
   <div class="pr"><div class="top"><span class="k">Vignette</span><span class="v" id="grnVignetteVal">50%</span></div><div class="track"><input type="range" id="grnVignette" min="0" max="1" step="0.05" value="0.5"></div></div>
 </div></div></div>
-    <div class="l-bot"><details class="grp mine" open><summary>Color<button class="mycsw" id="mycTog" aria-pressed="false">My colors<span class="sw" aria-hidden="true"></span></button></summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Base + inks</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+    <div class="l-bot"><details class="grp colr" open><summary>Color<button class="mycsw" id="mycTog" aria-pressed="false">My colors<span class="sw" aria-hidden="true"></span></button></summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Base + inks</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
         
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div>
       <div class="myc" id="myc" hidden>
@@ -1795,6 +1796,10 @@ html.embed body{overflow:hidden!important}
     function ui(){
       var on=MY.on, n=slots().length, d=drifted();
       tog.setAttribute("aria-pressed",on?"true":"false");
+      /* the switch appears once there is a set to switch to; until then the
+         fold marker sits on the heading as it does on every other group */
+      tog.hidden=!MY.cols.length;
+      tog.closest(".grp").classList.toggle("mine",MY.cols.length>0);
       /* the buttons above say what they now do: off, New colors and Rotate
          with Save beside them; on, Shuffle, Save and Edit, Save dimmed until
          a swatch has been changed by hand */
