@@ -248,14 +248,6 @@ input{font:inherit;color:inherit}
   .pbtn.go{margin-left:6px}
 }
 
-/* ---------------- new badge ----------------
-   The one filled thing in a page of hairlines, which is the whole point of
-   it. Sized off the row's own type so it sits on the name's baseline rather
-   than pushing the row taller. */
-.tag{flex:none;height:15px;padding:0 7px;border-radius:999px;
-  background:var(--ink);color:var(--gnd);
-  font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;
-  display:inline-flex;align-items:center}
 .row .nm{display:flex;align-items:center;gap:10px;min-width:0}
 .row .nm .t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
@@ -356,7 +348,7 @@ input{font:inherit;color:inherit}
                stroke-linecap="round"><path d="M2.5 4.5L6 8l3.5-3.5"/></svg>
         </button>
         <span class="s mk">Makes</span>
-        <button class="s r" id="sortCat" type="button">Kind
+        <button class="s r" id="sortDate" type="button">Released
           <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"
                stroke-linecap="round"><path d="M2.5 4.5L6 8l3.5-3.5"/></svg>
         </button>
@@ -423,73 +415,66 @@ const pad=n=>String(n).padStart(2,"0");
 
 /* The tool list is the numbering: a tool's number is its position here, so new
    tools go on the end. `cat` is what the tool makes, and it drives the rail on
-   the left as well as the Kind column. */
+   the left; the row itself shows the day the tool went up. */
 const TOOLS=[
-  {slug:"oddgrid", name:"Oddgrid", year:2026, cat:"Patterns", desc:"generative pixel compositions", art:"oddgrid/og.png"},
-  {slug:"terrain", name:"Terrain", year:2026, cat:"Backgrounds", desc:"layered contour landscapes", art:"terrain/og.jpg"},
-  {slug:"filament", name:"Filament", year:2026, cat:"Backgrounds", desc:"flowing thread fields", art:"filament/og.jpg"},
-  {slug:"zig", name:"Zig", year:2026, cat:"Patterns", desc:"rounded zigzag patterns", art:"zig/og.jpg"},
-  {slug:"quilt", name:"Quilt", year:2026, cat:"Patterns", desc:"pixel blanket patterns", art:"quilt/og.png"},
-  {slug:"aura", name:"Aura", year:2026, cat:"Backgrounds", desc:"soft vibrant gradients", art:"aura/og.jpg"},
-  {slug:"warp", name:"Warp", year:2026, cat:"Patterns", desc:"warped op-art patterns", art:"warp/og.jpg"},
-  {slug:"specimen", name:"Specimen", year:2026, cat:"Posters", desc:"type specimen posters", art:"specimen/og.jpg"},
-  {slug:"tokens", name:"Tokens", year:2026, cat:"Badges", desc:"geometric badge sets", art:"tokens/og.jpg"},
-  {slug:"vee", name:"Vee", year:2026, cat:"Patterns", desc:"mirrored chevron stripes", art:"vee/og.png"},
-  {slug:"fete", name:"Fete", year:2026, cat:"Posters", desc:"festival patch posters", art:"fete/og.jpg"},
-  {slug:"parcel", name:"Parcel", year:2026, cat:"Posters", desc:"pixel parcel posters", art:"parcel/og.jpg"},
-  {slug:"weave", name:"Weave", year:2026, cat:"Patterns", desc:"striped ribbon bands", art:"weave/og.png"},
-  {slug:"stipple", name:"Stipple", year:2026, cat:"Textures", desc:"halftone dot portraits of light", art:"stipple/og.jpg"},
-  {slug:"modular", name:"Modular", year:2026, cat:"Posters", desc:"rounded modular grid posters", art:"modular/og.jpg"},
-  {slug:"static", name:"Static", year:2026, cat:"Posters", desc:"glitch pixel posters", art:"static/og.png"},
-  {slug:"optic", name:"Optic", year:2026, cat:"Posters", desc:"striped counterchange posters", art:"optic/og.png"},
-  {slug:"rise", name:"Rise", year:2026, cat:"Backgrounds", desc:"radial stripe arcs", art:"rise/og.png"},
-  {slug:"prism", name:"Prism", year:2026, cat:"Backgrounds", desc:"pixel aurora backdrops", art:"prism/og.png"},
-  {slug:"riso", name:"Riso", year:2026, cat:"Posters", desc:"torn paper collage", art:"riso/og.jpg"},
-  {slug:"delta", name:"Delta", year:2026, cat:"Backgrounds", desc:"corrupted satellite mosaics", art:"delta/og.jpg"},
-  {slug:"mist", name:"Mist", year:2026, cat:"Backgrounds", desc:"sprayed neon washes", art:"mist/og.jpg"},
-  {slug:"totem", name:"Totem", year:2026, cat:"Posters", desc:"mirrored pixel banners", art:"totem/og.png"},
-  {slug:"atlas", name:"Atlas", year:2026, cat:"Textures", desc:"text-mode terrain maps", art:"atlas/og.jpg"},
-  {slug:"sampler", name:"Sampler", year:2026, cat:"Patterns", desc:"modular tile samplers", art:"sampler/og.png"},
-  {slug:"relief", name:"Relief", year:2026, cat:"Patterns", desc:"isometric block lattices", art:"relief/og.jpg"},
-  {slug:"kiosk", name:"Kiosk", year:2026, cat:"Posters", desc:"typographic fly-posters", art:"kiosk/og.jpg"},
-  {slug:"mosh", name:"Mosh", year:2026, cat:"Textures", desc:"corrupted signal", art:"mosh/og.png"},
-  {slug:"pane", name:"Pane", year:2026, cat:"Backgrounds", desc:"gradient panels", art:"pane/og.jpg"},
-  {slug:"sonar", name:"Sonar", year:2026, cat:"Backgrounds", desc:"dithered landmasses", art:"sonar/og.png"},
-  {slug:"bloom", name:"Bloom", year:2026, cat:"Backgrounds", desc:"symmetrical pixel fields", art:"bloom/og.png"},
-  {slug:"sear", name:"Sear", year:2026, cat:"Backgrounds", desc:"smeared thermal fields", art:"sear/og.jpg"},
-  {slug:"carve", name:"Carve", year:2026, cat:"Backgrounds", desc:"carved panel collages", art:"carve/og.jpg", added:"2026-09-04"},
-  {slug:"culture", name:"Culture", year:2026, cat:"Backgrounds", desc:"grainy colony fields", art:"culture/og.jpg", added:"2026-09-04"},
-  {slug:"husk", name:"Husk", year:2026, cat:"Backgrounds", desc:"eaten husk scatters", art:"husk/og.jpg", added:"2026-09-04"},
-  {slug:"strand", name:"Strand", year:2026, cat:"Backgrounds", desc:"branching rod chains", art:"strand/og.jpg", added:"2026-09-04"},
-  {slug:"chaff", name:"Chaff", year:2026, cat:"Backgrounds", desc:"thrown blade scatters", art:"chaff/og.jpg", added:"2026-09-04"},
-  {slug:"splice", name:"Splice", year:2026, cat:"Backgrounds", desc:"cut-up riso collages", art:"splice/og.jpg", added:"2026-09-05"},
-  {slug:"whorl", name:"Whorl", year:2026, cat:"Patterns", desc:"warped op-art stripes", art:"whorl/og.jpg", added:"2026-09-06"},
-  {slug:"sprig", name:"Sprig", year:2026, cat:"Patterns", desc:"drawn botanical repeats", art:"sprig/og.jpg", added:"2026-09-06"},
-  {slug:"frond", name:"Frond", year:2026, cat:"Backgrounds", desc:"degraded still life", art:"frond/og.jpg", added:"2026-09-07"},
-  {slug:"pith", name:"Pith", year:2026, cat:"Textures", desc:"dithered cell tissue", art:"pith/og.jpg", added:"2026-09-07"},
-  {slug:"hiss", name:"Hiss", year:2026, cat:"Backgrounds", desc:"television-snow posters", art:"hiss/og.jpg", added:"2026-09-08"},
-  {slug:"benday", name:"Benday", year:2026, cat:"Backgrounds", desc:"dot-screened thermal fields", art:"benday/og.jpg", added:"2026-09-10"},
-  {slug:"stitch", name:"Stitch", year:2026, cat:"Backgrounds", desc:"glitched pixel grids", art:"stitch/og.png", added:"2026-09-11"},
-  {slug:"fold", name:"Fold", year:2026, cat:"Patterns", desc:"kaleidoscope pixel art", art:"fold/og.png", added:"2026-09-11"},
-  {slug:"coral", name:"Coral", year:2026, cat:"Backgrounds", desc:"sea-fan textile", art:"coral/og.jpg", added:"2026-09-13"},
-  {slug:"satin", name:"Satin", year:2026, cat:"Backgrounds", desc:"warped satin folds", art:"satin/og.jpg", added:"2026-09-13"}
+  {slug:"oddgrid", name:"Oddgrid", year:2026, cat:"Patterns", desc:"generative pixel compositions", art:"oddgrid/og.png", released:"2026-08-25"},
+  {slug:"terrain", name:"Terrain", year:2026, cat:"Backgrounds", desc:"layered contour landscapes", art:"terrain/og.jpg", released:"2026-08-25"},
+  {slug:"filament", name:"Filament", year:2026, cat:"Backgrounds", desc:"flowing thread fields", art:"filament/og.jpg", released:"2026-08-25"},
+  {slug:"zig", name:"Zig", year:2026, cat:"Patterns", desc:"rounded zigzag patterns", art:"zig/og.jpg", released:"2026-08-26"},
+  {slug:"quilt", name:"Quilt", year:2026, cat:"Patterns", desc:"pixel blanket patterns", art:"quilt/og.png", released:"2026-08-26"},
+  {slug:"aura", name:"Aura", year:2026, cat:"Backgrounds", desc:"soft vibrant gradients", art:"aura/og.jpg", released:"2026-08-26"},
+  {slug:"warp", name:"Warp", year:2026, cat:"Patterns", desc:"warped op-art patterns", art:"warp/og.jpg", released:"2026-08-26"},
+  {slug:"specimen", name:"Specimen", year:2026, cat:"Posters", desc:"type specimen posters", art:"specimen/og.jpg", released:"2026-08-25"},
+  {slug:"tokens", name:"Tokens", year:2026, cat:"Badges", desc:"geometric badge sets", art:"tokens/og.jpg", released:"2026-08-25"},
+  {slug:"vee", name:"Vee", year:2026, cat:"Patterns", desc:"mirrored chevron stripes", art:"vee/og.png", released:"2026-08-26"},
+  {slug:"fete", name:"Fete", year:2026, cat:"Posters", desc:"festival patch posters", art:"fete/og.jpg", released:"2026-08-25"},
+  {slug:"parcel", name:"Parcel", year:2026, cat:"Posters", desc:"pixel parcel posters", art:"parcel/og.jpg", released:"2026-08-26"},
+  {slug:"weave", name:"Weave", year:2026, cat:"Patterns", desc:"striped ribbon bands", art:"weave/og.png", released:"2026-08-25"},
+  {slug:"stipple", name:"Stipple", year:2026, cat:"Textures", desc:"halftone dot portraits of light", art:"stipple/og.jpg", released:"2026-08-25"},
+  {slug:"modular", name:"Modular", year:2026, cat:"Posters", desc:"rounded modular grid posters", art:"modular/og.jpg", released:"2026-08-25"},
+  {slug:"static", name:"Static", year:2026, cat:"Posters", desc:"glitch pixel posters", art:"static/og.png", released:"2026-08-25"},
+  {slug:"optic", name:"Optic", year:2026, cat:"Posters", desc:"striped counterchange posters", art:"optic/og.png", released:"2026-08-26"},
+  {slug:"rise", name:"Rise", year:2026, cat:"Backgrounds", desc:"radial stripe arcs", art:"rise/og.png", released:"2026-08-26"},
+  {slug:"prism", name:"Prism", year:2026, cat:"Backgrounds", desc:"pixel aurora backdrops", art:"prism/og.png", released:"2026-08-26"},
+  {slug:"riso", name:"Riso", year:2026, cat:"Posters", desc:"torn paper collage", art:"riso/og.jpg", released:"2026-08-26"},
+  {slug:"delta", name:"Delta", year:2026, cat:"Backgrounds", desc:"corrupted satellite mosaics", art:"delta/og.jpg", released:"2026-08-31"},
+  {slug:"mist", name:"Mist", year:2026, cat:"Backgrounds", desc:"sprayed neon washes", art:"mist/og.jpg", released:"2026-08-26"},
+  {slug:"totem", name:"Totem", year:2026, cat:"Posters", desc:"mirrored pixel banners", art:"totem/og.png", released:"2026-08-31"},
+  {slug:"atlas", name:"Atlas", year:2026, cat:"Textures", desc:"text-mode terrain maps", art:"atlas/og.jpg", released:"2026-08-31"},
+  {slug:"sampler", name:"Sampler", year:2026, cat:"Patterns", desc:"modular tile samplers", art:"sampler/og.png", released:"2026-08-31"},
+  {slug:"relief", name:"Relief", year:2026, cat:"Patterns", desc:"isometric block lattices", art:"relief/og.jpg", released:"2026-08-31"},
+  {slug:"kiosk", name:"Kiosk", year:2026, cat:"Posters", desc:"typographic fly-posters", art:"kiosk/og.jpg", released:"2026-09-01"},
+  {slug:"mosh", name:"Mosh", year:2026, cat:"Textures", desc:"corrupted signal", art:"mosh/og.png", released:"2026-09-01"},
+  {slug:"pane", name:"Pane", year:2026, cat:"Backgrounds", desc:"gradient panels", art:"pane/og.jpg", released:"2026-09-01"},
+  {slug:"sonar", name:"Sonar", year:2026, cat:"Backgrounds", desc:"dithered landmasses", art:"sonar/og.png", released:"2026-09-01"},
+  {slug:"bloom", name:"Bloom", year:2026, cat:"Backgrounds", desc:"symmetrical pixel fields", art:"bloom/og.png", released:"2026-09-01"},
+  {slug:"sear", name:"Sear", year:2026, cat:"Backgrounds", desc:"smeared thermal fields", art:"sear/og.jpg", released:"2026-09-03"},
+  {slug:"carve", name:"Carve", year:2026, cat:"Backgrounds", desc:"carved panel collages", art:"carve/og.jpg", released:"2026-09-04"},
+  {slug:"culture", name:"Culture", year:2026, cat:"Backgrounds", desc:"grainy colony fields", art:"culture/og.jpg", released:"2026-09-04"},
+  {slug:"husk", name:"Husk", year:2026, cat:"Backgrounds", desc:"eaten husk scatters", art:"husk/og.jpg", released:"2026-09-04"},
+  {slug:"strand", name:"Strand", year:2026, cat:"Backgrounds", desc:"branching rod chains", art:"strand/og.jpg", released:"2026-09-04"},
+  {slug:"chaff", name:"Chaff", year:2026, cat:"Backgrounds", desc:"thrown blade scatters", art:"chaff/og.jpg", released:"2026-09-04"},
+  {slug:"splice", name:"Splice", year:2026, cat:"Backgrounds", desc:"cut-up riso collages", art:"splice/og.jpg", released:"2026-09-05"},
+  {slug:"whorl", name:"Whorl", year:2026, cat:"Patterns", desc:"warped op-art stripes", art:"whorl/og.jpg", released:"2026-09-06"},
+  {slug:"sprig", name:"Sprig", year:2026, cat:"Patterns", desc:"drawn botanical repeats", art:"sprig/og.jpg", released:"2026-09-06"},
+  {slug:"frond", name:"Frond", year:2026, cat:"Backgrounds", desc:"degraded still life", art:"frond/og.jpg", released:"2026-09-07"},
+  {slug:"pith", name:"Pith", year:2026, cat:"Textures", desc:"dithered cell tissue", art:"pith/og.jpg", released:"2026-09-07"},
+  {slug:"hiss", name:"Hiss", year:2026, cat:"Backgrounds", desc:"television-snow posters", art:"hiss/og.jpg", released:"2026-09-08"},
+  {slug:"benday", name:"Benday", year:2026, cat:"Backgrounds", desc:"dot-screened thermal fields", art:"benday/og.jpg", released:"2026-09-10"},
+  {slug:"stitch", name:"Stitch", year:2026, cat:"Backgrounds", desc:"glitched pixel grids", art:"stitch/og.png", released:"2026-09-11"},
+  {slug:"fold", name:"Fold", year:2026, cat:"Patterns", desc:"kaleidoscope pixel art", art:"fold/og.png", released:"2026-09-11"},
+  {slug:"coral", name:"Coral", year:2026, cat:"Backgrounds", desc:"sea-fan textile", art:"coral/og.jpg", released:"2026-09-13"},
+  {slug:"satin", name:"Satin", year:2026, cat:"Backgrounds", desc:"warped satin folds", art:"satin/og.jpg", released:"2026-09-13"}
 ];
 
 const numbered=TOOLS.map((t,i)=>({...t,no:i+1}));
 
-/* A tool carries the day it went up, and the badge works itself out from that
-   against the reader's own calendar — so it appears the day a tool ships and
-   is gone a fortnight later without anyone editing anything. Both dates are
-   reduced to a plain day first, so the hour someone visits cannot flip it. */
-const NEW_DAYS=14;
-function isNew(t){
-  if(!t.added) return false;
-  const p=t.added.split("-").map(Number);
-  if(p.length!==3 || p.some(isNaN)) return false;
-  const then=Date.UTC(p[0],p[1]-1,p[2]);
-  const n=new Date();
-  const today=Date.UTC(n.getFullYear(),n.getMonth(),n.getDate());
-  return Math.floor((today-then)/86400000) < NEW_DAYS;
+/* A tool carries the day it went up, shown on its row the way the tool
+   pages print their own date. */
+function fmtDate(d){
+  const p=String(d||"").split("-");
+  if(p.length!==3) return "";
+  return p[2]+"."+p[1]+"."+p[0];
 }
 const CATS=[...new Set(TOOLS.map(t=>t.cat))].sort();
 
@@ -526,19 +511,19 @@ let shown=[];
 function render(){
   shown=sorted().filter(matches);
   listEl.innerHTML = shown.length ? shown.map(t=>
-    `<a class="row" href="${t.slug}/index.html" data-art="${[].concat(t.art||[]).join("|")}" aria-label="${t.name}${isNew(t)?", new":""} — ${t.desc}">`+
+    `<a class="row" href="${t.slug}/index.html" data-art="${[].concat(t.art||[]).join("|")}" aria-label="${t.name} — ${t.desc}, released ${fmtDate(t.released)}">`+
     `<span class="no">${pad(t.no)}</span>`+
     `<span class="nm"><span class="t">${t.name}</span>`+
-    (isNew(t)?`<span class="tag">New</span>`:``)+`</span>`+
+    `</span>`+
     `<span class="mk">${t.desc}</span>`+
-    `<span class="ct">${t.cat}</span></a>`).join("")
+    `<span class="ct">${fmtDate(t.released)}</span></a>`).join("")
     : `<p class="empty">Nothing matches that.</p>`;
   $("#showing").textContent=pad(shown.length)+" / "+pad(TOOLS.length);
   $("#curCat").textContent=cat==="All"?"All":cat;
   $("#curSort").textContent={new:"Newest",old:"Oldest",az:"A–Z"}[ord];
   $("#curTerm").textContent=term?("\u201c"+term+"\u201d"):"\u2014";
   $("#sortName").classList.toggle("on",ord==="az");
-  $("#sortCat").classList.toggle("on",cat!=="All");
+  $("#sortDate").classList.toggle("on",ord==="old");
   fades();
 }
 
@@ -648,10 +633,11 @@ $("#sortName").addEventListener("click",()=>{
   ord = ord==="az" ? "new" : "az";
   syncOrders(); render();
 });
-$("#sortCat").addEventListener("click",()=>{
-  const all=["All",...CATS];
-  cat=all[(all.indexOf(cat)+1)%all.length];
-  buildCats(); render();
+/* the Released heading flips the list between newest and oldest first;
+   the kinds are picked from the rail */
+$("#sortDate").addEventListener("click",()=>{
+  ord=ord==="old"?"new":"old";
+  syncOrders(); render();
 });
 function syncOrders(){
   [...$("#orders").children].forEach(x=>
