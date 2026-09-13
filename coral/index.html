@@ -3,25 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Sampler — playgrnd</title>
+<title>Coral — playgrnd</title>
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/favicon.png" sizes="180x180" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="canonical" href="https://playgrnd.tools/sampler">
+<link rel="canonical" href="https://playgrnd.tools/coral">
 <meta property="og:site_name" content="playgrnd">
-<meta property="og:title" content="Sampler — playgrnd">
-<meta property="og:description" content="Generate seamless sampler-board backgrounds — columns of pattern blocks under routed traces that wrap at every edge, so the tile repeats forever. Exports vector, image and video.">
+<meta property="og:title" content="Coral — playgrnd">
+<meta property="og:description" content="Generate sea-fan backgrounds — ribbed coral branches forking across a dark ground, with torn-paper lobes and a dot screen laid over the top, like a printed textile. Deal a new variation or turn the dials. Exports image and video.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://playgrnd.tools/sampler">
-<meta property="og:image" content="https://playgrnd.tools/sampler/og.png">
+<meta property="og:url" content="https://playgrnd.tools/coral">
+<meta property="og:image" content="https://playgrnd.tools/coral/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Artwork made with Sampler.">
+<meta property="og:image:alt" content="Artwork made with Coral.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Sampler — playgrnd">
-<meta name="twitter:description" content="Generate seamless sampler-board backgrounds — columns of pattern blocks under routed traces that wrap at every edge, so the tile repeats forever.">
-<meta name="twitter:image" content="https://playgrnd.tools/sampler/og.png">
-<meta name="description" content="Generate seamless sampler-board backgrounds — columns of pattern blocks under routed traces that wrap at every edge, so the tile repeats forever. Exports vector, image and video.">
+<meta name="twitter:title" content="Coral — playgrnd">
+<meta name="twitter:description" content="Generate sea-fan backgrounds — ribbed coral branches forking across a dark ground, with torn-paper lobes and a dot screen laid over the top, like a printed textile.">
+<meta name="twitter:image" content="https://playgrnd.tools/coral/og.jpg">
+<meta name="description" content="Generate sea-fan backgrounds — ribbed coral branches forking across a dark ground, with torn-paper lobes and a dot screen laid over the top, like a printed textile. Deal a new variation or turn the dials. Exports image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -615,16 +615,16 @@ input[type=range]{accent-color:var(--ink)}
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
         <span class="slash">&frasl;</span>
-        <span class="tool">Sampler</span>
+        <span class="tool">Coral</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">25 / 47</span>
-        <span class="k">Type</span><span class="v">Modular tiles</span>
+        <span class="k">Index</span><span class="v">47 / 47</span>
+        <span class="k">Type</span><span class="v">Sea-fan textile</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
       <div class="newblk">
         <div class="newlab"><span class="k">Variation</span>
-          <span class="seedwrap"><input class="seed" id="seed" value="1" inputmode="numeric" aria-label="Variation number"><button class="pbtn copy" id="copySeed"
+          <span class="seedwrap"><input class="seed" id="seed" value="7" inputmode="numeric" aria-label="Variation number"><button class="pbtn copy" id="copySeed"
             aria-label="Copy variation number">Copy</button></span>
         </div>
         <button class="newbtn" id="randomize"><span class="ico" aria-hidden="true">&#8635;</span>
@@ -632,15 +632,20 @@ input[type=range]{accent-color:var(--ink)}
           <span class="sub">Reshuffle every shape</span></button>
       </div>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Grid</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Tiles across</span><span class="v" id="gridVal">16</span></div><div class="track"><input type="range" id="grid" min="4" max="48" step="1" value="16"></div></div>
-        <div class="pr"><div class="top"><span class="k">Bands</span><span class="v" id="bandsVal">6</span></div><div class="track"><input type="range" id="bands" min="1" max="14" step="1" value="6"></div></div></div></details>
-    <details class="grp" open><summary>Tiles</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Shapes per band</span><span class="v" id="mixVal">55%</span></div><div class="track"><input type="range" id="mix" min="0" max="1" step="0.01" value="0.55"></div></div>
-        <div class="pr"><div class="top"><span class="k">Rotation</span><span class="v" id="turnVal">75%</span></div><div class="track"><input type="range" id="turn" min="0" max="1" step="0.01" value="0.75"></div></div>
-        <div class="pr"><div class="top"><span class="k">Coverage</span><span class="v" id="densityVal">95%</span></div><div class="track"><input type="range" id="density" min="0.1" max="1" step="0.01" value="0.95"></div></div>
-        <div class="pr"><div class="top"><span class="k">Ink balance</span><span class="v" id="weightVal">50%</span></div><div class="track"><input type="range" id="weight" min="0" max="1" step="0.01" value="0.5"></div></div></div></details><div class="tog-grp"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate<span class="sw" aria-hidden="true"></span></button><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
+    <div class="l-scroll"><details class="grp" open><summary>Fan</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Branches</span><span class="v" id="branchesVal">6</span></div><div class="track"><input type="range" id="branches" min="2" max="12" step="1" value="6"></div></div>
+        <div class="pr"><div class="top"><span class="k">Spacing</span><span class="v" id="spacingVal">50%</span></div><div class="track"><input type="range" id="spacing" min="0" max="1" step="0.01" value="0.5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Spread</span><span class="v" id="spreadVal">70%</span></div><div class="track"><input type="range" id="spread" min="0" max="1" step="0.01" value="0.7"></div></div>
+        <div class="pr"><div class="top"><span class="k">Width</span><span class="v" id="widthVal">60%</span></div><div class="track"><input type="range" id="width" min="0.1" max="1" step="0.01" value="0.6"></div></div>
+        <div class="pr"><div class="top"><span class="k">Wobble</span><span class="v" id="wobbleVal">40%</span></div><div class="track"><input type="range" id="wobble" min="0" max="1" step="0.01" value="0.4"></div></div></div></details>
+    <details class="grp"><summary>Paper</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Cover</span><span class="v" id="coverVal">50%</span></div><div class="track"><input type="range" id="cover" min="0" max="1" step="0.01" value="0.5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">50%</span></div><div class="track"><input type="range" id="size" min="0" max="1" step="0.01" value="0.5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Beneath</span><span class="v" id="beneathVal">35%</span></div><div class="track"><input type="range" id="beneath" min="0" max="1" step="0.01" value="0.35"></div></div></div></details>
+    <details class="grp"><summary>Print</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Ribs</span><span class="v" id="ribsVal">80%</span></div><div class="track"><input type="range" id="ribs" min="0" max="1" step="0.01" value="0.8"></div></div>
+        <div class="pr"><div class="top"><span class="k">Dots</span><span class="v" id="dotsVal">70%</span></div><div class="track"><input type="range" id="dots" min="0" max="1" step="0.01" value="0.7"></div></div>
+        <div class="pr"><div class="top"><span class="k">Shadow</span><span class="v" id="shadowVal">60%</span></div><div class="track"><input type="range" id="shadow" min="0" max="1" step="0.01" value="0.6"></div></div></div></details><div class="tog-grp"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate<span class="sw" aria-hidden="true"></span></button><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
           <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
-          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">6 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="6"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">24 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="24"></div></div></div></div><div class="tog-grp"><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither<span class="sw" aria-hidden="true"></span></button><div class="group" id="ditherBody" hidden>
+          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="12"></div></div>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="36"></div></div></div></div><div class="tog-grp"><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither<span class="sw" aria-hidden="true"></span></button><div class="group" id="ditherBody" hidden>
   <div class="misc stack"><span class="mhead"><span class="k">Pattern</span></span><span class="mval"><div class="chips" id="dthKinds"></div></span></div>
   <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
   <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
@@ -652,7 +657,8 @@ input[type=range]{accent-color:var(--ink)}
   <div class="pr"><div class="top"><span class="k">Specks</span><span class="v" id="grnSpecksVal">50%</span></div><div class="track"><input type="range" id="grnSpecks" min="0" max="1" step="0.05" value="0.5"></div></div>
   <div class="pr"><div class="top"><span class="k">Vignette</span><span class="v" id="grnVignetteVal">50%</span></div><div class="track"><input type="range" id="grnVignette" min="0" max="1" step="0.05" value="0.5"></div></div>
 </div></div></div>
-    <div class="l-bot"><details class="grp colr" open><summary>Color<button class="mycsw" id="mycTog" aria-pressed="false">My colors<span class="sw" aria-hidden="true"></span></button></summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">7</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+    <div class="l-bot"><details class="grp colr" open><summary>Color<button class="mycsw" id="mycTog" aria-pressed="false">My colors<span class="sw" aria-hidden="true"></span></button></summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">5</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+        
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div>
       <div class="myc" id="myc" hidden>
         <div class="myc-row" id="mycHome">
@@ -699,9 +705,8 @@ input[type=range]{accent-color:var(--ink)}
       <div class="tbl" style="margin-bottom:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>
-      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
+      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizePxVal">2400 px</span></div><div class="track"><input type="range" id="sizePx" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
-          <button class="lnk" id="expSvg">SVG</button>
           <button class="lnk" id="expVid">Video</button></span></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
     </div>
   </div>
@@ -740,220 +745,280 @@ function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const MODES=[["shuffle","Shuffle"],["turn","Turn"]];
+const MODES=[["sway","Sway"],["grow","Grow"],["drift","Drift"]];
+/* this sheet opens with the grain on: a printed textile, not a screen fill */
+const GRAIN_DEFAULT={on:true,blend:"multiply",amount:0.45,size:1,specks:0.4,vignette:0.3};
 
+/* The first ink is the dark ground between the branches; the second is the
+   branches; the third the fine ribs across them; the fourth the paper lobes
+   laid over the top; the fifth the dot screen printed on the lobes. A set
+   with fewer inks derives the ribs from the branch and the dots from the
+   lobe. */
 const PALETTES=[
-  ["#101010","#D6FF3C","#6F6A1C","#FF7A1F","#F4786E","#C9C4CA","#A2218E"],
-  ["#060606","#E4402A","#7A1C14","#F5A21E","#FF8FC0","#E2E2E2","#1AA688"],
-  ["#0A0A0C","#DF2C55","#6E1430","#F2B01C","#F58ACB","#DDDCD8","#1C8FA8"],
-  ["#050505","#F04E1E","#8E2A12","#FFC02E","#FF9ED0","#E8E6E0","#22B0A0"],
-  ["#0B0808","#D62828","#7C1A1A","#F0A202","#F58FAF","#DEDEDE","#1F8A70"]
+  ["#33081C","#E8449E","#F7B8DC","#45BE6E","#C9F24E"],
+  ["#0E1A3A","#FF7A1F","#FFD1A6","#2E8BC0","#A6E3FF"],
+  ["#1A1A1A","#F5F1E8","#FFFFFF","#E63946","#FFB4B4"],
+  ["#2B1B4A","#4CE0D2","#D6FFF9","#F26CA7","#FFD6EA"],
+  ["#F4EFE3","#1D3557","#6C8DB5","#F1C40F","#FFF3B0"],
+  ["#101820","#FFED66","#FFFBD6","#00CECB","#B8FFFC"]
 ];
 
-/* Tile vocabulary. Every mark is straight-edged — triangles, bars, elbows,
-   diagonals — because that is what the reference is made of; an arc would
-   read as a different language entirely. Each is drawn in a unit square and
-   then rotated, so four orientations come free from one definition. */
-const TILES=[
-  ["tri","Triangles"],
-  ["diag","Diagonals"],
-  ["bar","Bars"],
-  ["elbow","Elbows"],
-  ["step","Steps"],
-  ["half","Halves"],
-  ["notch","Notches"],
-  ["arrow","Arrows"]
-];
-
+/* A sea fan: ribbed branches growing from a root off the edge of the sheet,
+   forking as they spread so they stay evenly spaced, over a dark ground,
+   with torn-paper lobes laid across the top and a dot screen printed on
+   them. Every setting is a dial and the same dials always give the same
+   sheet. The variation number deals a fresh set of dials and shows the deal
+   on the dials, so a dealt sheet can be adjusted from where it landed. */
 const S={
-  seed:17, ratio:"3:4",
-  grid:16, bands:6, mix:0.55,
-  weight:0.5, density:0.95, turn:0.75,
+  seed:7, ratio:"4:5",
+  branches:6, spacing:0.5, spread:0.7, width:0.6, wobble:0.4,
+  cover:0.5, size:0.5, beneath:0.35,
+  ribs:0.8, dots:0.7, shadow:0.6,
   pal:PALETTES[0].slice(),
-  motion:{on:false,mode:"shuffle",amount:0.6,fps:6,frames:24},
-  size:2400
+  motion:{on:false,mode:"sway",amount:0.6,fps:12,frames:36},
+  size_px:2400
 };
 
-function hshS(x,y,s){
+const TAUC=Math.PI*2;
+function hshC(x,y,s){
   let n=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1274126177);
-  n=Math.imul(n^(n>>>13),1274126177);
-  n^=n>>>16;
+  n=Math.imul(n^(n>>>13),1274126177); n^=n>>>16;
   return (n>>>0)/4294967296;
 }
-function hex2rgbS(h){h=h.replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
-  const n=parseInt(h,16);return[(n>>16)&255,(n>>8)&255,n&255];}
-function lumS(h){const[r,g,b]=hex2rgbS(h);return r*.299+g*.587+b*.114;}
-function darkestS(pal){let d=pal[0];for(const c of pal) if(lumS(c)<lumS(d)) d=c; return d;}
-
-/* ---- bands -------------------------------------------------------------
-   The page stacks into bands, each with its own tile mix and its own pair of
-   inks. Heights land on whole tiles and the run wraps, so the top edge of the
-   tile meets its own bottom edge. */
-function buildBands(f){
-  const M=S.motion;
-  const bseed=(M.on&&M.mode==="shuffle")?S.seed+f*7919:S.seed;
-  const g=Math.max(3,S.grid|0);
-  const r=RATIOS.find(x=>x.id===S.ratio);
-  const rows=Math.max(3,Math.round(g*(r.h/r.w)));
-  const pal=S.pal.length?S.pal:["#111111"];
-  const ground=darkestS(pal);
-  const inks=pal.filter(c=>c!==ground);
-  const use=inks.length?inks:pal;
-
-  const want=Math.max(1,S.bands|0);
-  const out=[];
-  /* start the run at a random row so no band edge is pinned to y=0 */
-  const y0=Math.floor(hshS(0,71,bseed+3)*rows);
-  let y=y0, i=0, guard=0;
-  while(guard++<400){
-    if(y-y0>=rows) break;
-    let h=Math.max(1,Math.round(rows/want*(0.55+hshS(i,11,bseed+13)*0.95)));
-    if((y+h)-y0>rows) h=rows-(y-y0);
-    if(h<1) break;
-    /* each band picks a couple of tile kinds — one kind reads as a weave,
-       three or more reads as noise */
-    const nk=1+Math.floor(hshS(i,17,bseed+19)*(1+S.mix*2.2));
-    const kinds=[];
-    for(let k=0;k<nk;k++) kinds.push(TILES[Math.floor(hshS(i*7+k,23,bseed+29)*TILES.length)][0]);
-    const a=use[Math.floor(hshS(i,31,bseed+37)*use.length)];
-    /* the second ink must be a different ink, not the page. Falling back to
-       the ground made roughly half of every band's tiles invisible, which
-       read as a coverage problem rather than as the colour bug it was —
-       the black in this artwork comes from the shapes, not from blank cells. */
-    const alt=use.filter(c=>c!==a);
-    const b=alt.length?alt[Math.floor(hshS(i,41,bseed+43)*alt.length)]:ground;
-    out.push({y0:y, y1:y+h, kinds:kinds, a:a, b:b, seed:bseed+i*257});
-    y+=h; i++;
-  }
-  return {cols:g, rows:rows, bands:out, ground:ground, inks:use, seed:bseed};
+function vnC(x,y,s){
+  const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi;
+  const u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);
+  const a=hshC(xi,yi,s),b=hshC(xi+1,yi,s),c=hshC(xi,yi+1,s),d=hshC(xi+1,yi+1,s);
+  return (a*(1-u)+b*u)*(1-v)+(c*(1-u)+d*u)*v;
 }
-
-/* ---- one tile ----------------------------------------------------------
-   Drawn in a unit square at the origin; the caller has already translated and
-   rotated, so each shape is defined once and gets four orientations free. */
-function tilePath(c,kind,u){
-  c.beginPath();
-  switch(kind){
-    case "tri":   c.moveTo(0,0); c.lineTo(u,0); c.lineTo(0,u); break;
-    case "half":  c.moveTo(0,0); c.lineTo(u,0); c.lineTo(u,u/2); c.lineTo(0,u/2); break;
-    case "diag":  /* a thick diagonal band corner to corner */
-                  c.moveTo(0,u*0.34); c.lineTo(u*0.66,0); c.lineTo(u,0);
-                  c.lineTo(u,u*0.66); c.lineTo(u*0.34,u); c.lineTo(0,u); break;
-    case "bar":   c.moveTo(0,u*0.30); c.lineTo(u,u*0.30); c.lineTo(u,u*0.70); c.lineTo(0,u*0.70); break;
-    case "elbow": c.moveTo(0,u*0.30); c.lineTo(u*0.70,u*0.30); c.lineTo(u*0.70,u);
-                  c.lineTo(u*0.30,u); c.lineTo(u*0.30,u*0.70); c.lineTo(0,u*0.70); break;
-    case "step":  c.moveTo(0,u*0.5); c.lineTo(u*0.5,u*0.5); c.lineTo(u*0.5,0);
-                  c.lineTo(u,0); c.lineTo(u,u*0.5); c.lineTo(u*0.5,u*0.5);
-                  c.lineTo(u*0.5,u); c.lineTo(0,u); break;
-    case "notch": c.moveTo(0,0); c.lineTo(u,0); c.lineTo(u,u);
-                  c.lineTo(u*0.5,u); c.lineTo(u*0.5,u*0.5); c.lineTo(0,u*0.5); break;
-    case "arrow": c.moveTo(0,0); c.lineTo(u*0.5,u*0.5); c.lineTo(0,u);
-                  c.lineTo(u*0.34,u); c.lineTo(u*0.84,u*0.5); c.lineTo(u*0.34,0); break;
-  }
-  c.closePath();
-  c.fill();
+function rngC(seed){
+  let a=(seed>>>0)||1;
+  return function(){ a^=a<<13; a>>>=0; a^=a>>>17; a>>>=0; a^=a<<5; a>>>=0; return a/4294967296; };
 }
+/* The deal: everything lands somewhere near the reference rather than on a
+   corner of the settings nobody would choose. The palette is left alone:
+   New colors is the way to another one. */
+function dealC(seed){
+  const r=rngC(Math.imul(seed|0,2654435761)^0x5bd1e995);
+  S.branches=4+((r()*6)|0);
+  S.spacing=0.3+r()*0.4;
+  S.spread=0.45+r()*0.5;
+  S.width=0.45+r()*0.35;
+  S.wobble=0.2+r()*0.45;
+  S.cover=0.3+r()*0.4;
+  S.size=0.3+r()*0.45;
+  S.beneath=0.15+r()*0.4;
+  S.ribs=0.5+r()*0.5;
+  S.dots=0.4+r()*0.5;
+  S.shadow=0.35+r()*0.5;
+  for(const k of ["spacing","spread","width","wobble","cover","size","beneath","ribs","dots","shadow"]) S[k]=Math.round(S[k]*100)/100;
+}
+function rgbC(h){
+  h=(h||"#000").replace("#","");
+  if(h.length===3) h=h.split("").map(c=>c+c).join("");
+  return [parseInt(h.slice(0,2),16)||0,parseInt(h.slice(2,4),16)||0,parseInt(h.slice(4,6),16)||0];
+}
+function liftC(c,k){ return [c[0]+(255-c[0])*k,c[1]+(255-c[1])*k,c[2]+(255-c[2])*k]; }
 
+let BUFC=null, FLD=null, GRD=null;
 function paint(c,W,H,f){
-  const bd=buildBands(f);
-  const cw=W/bd.cols, chh=H/bd.rows;
-  const M=S.motion;
-  /* Turn must land on a whole number of quarter-turns across the loop, or the
-     last frame does not meet the first and the animation jumps. Amount sets
-     how many full revolutions, not how far it happens to get. */
-  const turns=Math.max(1,Math.round(M.amount*2));
-  const spin=(M.on&&M.mode==="turn")?(Math.floor((f/M.frames)*4*turns)&3):0;
+  const M=S.motion, T=M.on ? f/M.frames : 0, ph=T*TAUC;
+  const raw=S.pal.length?S.pal:PALETTES[0];
+  const inks=raw.map(rgbC), NI=inks.length;
+  const U=Math.sqrt(W*H);
+  const seed=S.seed|0;
+  const sd1=seed*7+1, sd2=seed*7+2, sd3=seed*7+3, sd4=seed*7+4, sd5=seed*7+5;
 
-  c.fillStyle=bd.ground; c.fillRect(0,0,W,H);
+  /* ---- motion ----
+     Sway walks the wobble round a small circle, so the branches lean and
+     come back and the last frame runs into the first. Grow runs the ribs
+     along the branches, a whole rib per loop, and lets the tubes swell and
+     settle. Drift walks the paper lobes round a small circle. */
+  const swx=(M.on&&M.mode==="sway") ? Math.cos(ph)*M.amount*0.7 : 0;
+  const swy=(M.on&&M.mode==="sway") ? Math.sin(ph)*M.amount*0.7 : 0;
+  const growK=(M.on&&M.mode==="grow") ? Math.max(1,Math.round(M.amount*2)) : 0;
+  const growPh=ph*growK;
+  const swell=(M.on&&M.mode==="grow") ? (1-Math.cos(ph))*0.5*M.amount*0.18 : 0;
+  const drx=(M.on&&M.mode==="drift") ? Math.cos(ph)*M.amount*0.35 : 0;
+  const dry=(M.on&&M.mode==="drift") ? Math.sin(ph)*M.amount*0.35 : 0;
 
-  for(const bn of bd.bands){
-    for(let ry=bn.y0;ry<bn.y1;ry++){
-      /* bands are laid out on a wrapping run, so a band can hang off the
-         bottom; it comes back in at the top of the same tile */
-      const y=((ry%bd.rows)+bd.rows)%bd.rows;
-      for(let x=0;x<bd.cols;x++){
-        const hs=hshS(x*3+1,ry*5+7,bn.seed);
-        if(hs>S.density) continue;
-        const kind=bn.kinds[Math.floor(hshS(x,ry,bn.seed+61)*bn.kinds.length)%bn.kinds.length];
-        /* rotation is what turns eight shapes into a language; Turn biases
-           how freely a tile may spin away from its neighbours */
-        const rq=hshS(x*11,ry*13,bn.seed+67);
-        const rot=(Math.floor(rq*4*(0.25+S.turn*0.75))+spin)&3;
-        const ink=(hshS(x*17,ry*19,bn.seed+73)<0.5+0.3*(S.weight-0.5))?bn.a:bn.b;
-        c.save();
-        c.translate(x*cw,y*chh);
-        /* Scale into the cell FIRST, then rotate inside unit space. Rotating
-           before the scale turns a cell-wide extent onto the cell's other
-           axis, so on a non-square cell every quarter-turned tile overhangs
-           its neighbour — and at the right-hand edge that overhang is clipped
-           instead, which is exactly the sliver a tiling background must not
-           have. This way a tile always fills its own cell and nothing else. */
-        c.scale(cw,chh);
-        c.translate(0.5,0.5); c.rotate(rot*Math.PI/2); c.translate(-0.5,-0.5);
-        c.fillStyle=ink;
-        tilePath(c,kind,1);
-        c.restore();
-      }
+  /* ---- the inks by role ---- */
+  const ground=inks[0], branch=inks[Math.min(1,NI-1)];
+  const rib=NI>2?inks[2]:liftC(branch,0.55);
+  const lobe=NI>3?inks[3]:inks[Math.min(1,NI-1)];
+  const dot=NI>4?inks[4]:liftC(lobe,0.5);
+  const dark=[ground[0]*0.55,ground[1]*0.55,ground[2]*0.55];
+
+  /* ---- the fan, dealt once per sheet ----
+     the root sits off one edge, below most often, and the fan opens toward
+     the middle of the sheet */
+  const r=rngC(Math.imul(seed,2246822519)^0x27d4eb2f);
+  const side=r();
+  let rx,ry;
+  if(side<0.6){ rx=W*(0.2+r()*0.6); ry=H+U*(0.1+r()*0.25); }
+  else if(side<0.8){ rx=-U*(0.1+r()*0.25); ry=H*(0.3+r()*0.5); }
+  else { rx=W+U*(0.1+r()*0.25); ry=H*(0.3+r()*0.5); }
+  const th0=Math.atan2(H*0.5-ry,W*0.5-rx);
+  const range=(0.35+S.spread*0.65)*Math.PI;
+  const thStart=th0-range*0.5;
+  const s=(0.032+S.spacing*0.075)*U;        /* the spacing the branches keep */
+  const N0=Math.max(2,S.branches|0);
+  const r0=N0*s/range;                       /* where N0 branches sit s apart */
+  const hwMax=S.width*s*0.5*0.62*(1+swell);
+  const wob=S.wobble;
+  const ribP=Math.max(1.5,s*0.11), ribK=S.ribs, shK=S.shadow;
+  const shOff=U*0.012*shK;                   /* the paper shadow's throw */
+  const gap=s*0.1*shK;                       /* the branch shadow's throw */
+
+  /* ---- the lobes ---- */
+  const Lsz=U*(0.08+S.size*0.16);
+  const thr=0.62-S.cover*0.16;
+  const cell=Math.max(2,U*0.0095);
+
+  if(!BUFC||BUFC.width!==W||BUFC.height!==H) BUFC=c.createImageData(W,H);
+  const px=BUFC.data;
+
+  /* pass one: the lobe field on a two-pixel grid, read back smoothly, so
+     the paper shadow can look back a few pixels without working the noise
+     twice and the sheet stays quick to redraw */
+  const fw=(W>>1)+2, fh=(H>>1)+2;
+  if(!FLD||FLD.length!==fw*fh) FLD=new Float32Array(fw*fh);
+  const cs0=Math.cos(th0), sn0=Math.sin(th0);
+  for(let j=0,i=0;j<fh;j++){
+    for(let i2=0;i2<fw;i2++,i++){
+      const x=i2*2, y=j*2;
+      /* stretched along the fan's direction, so the pieces lie with the
+         branches rather than sitting as round blots */
+      const xr=(x*cs0+y*sn0)/(Lsz*1.9)+drx, yr=(-x*sn0+y*cs0)/Lsz+dry;
+      FLD[i]=0.58*vnC(xr,yr,sd2)+0.3*vnC(xr*2.3+3.1,yr*2.3+1.7,sd3)+0.12*vnC(xr*6.1+9,yr*6.1+4,sd3);
     }
   }
-}
+  const fld=(x,y)=>{
+    const gx=x*0.5, gy=y*0.5, xi=gx|0, yi=gy|0, xf=gx-xi, yf=gy-yi;
+    const k=yi*fw+xi, a=FLD[k], b=FLD[k+1], cc=FLD[k+fw], d=FLD[k+fw+1];
+    return (a*(1-xf)+b*xf)*(1-yf)+(cc*(1-xf)+d*xf)*yf;
+  };
+  /* the slow fields, on a coarse grid: which lobes go beneath, and how
+     heavy the dot screen prints */
+  const step=8, gw=Math.ceil(W/step)+1, gh=Math.ceil(H/step)+1;
+  if(!GRD||GRD.length!==gw*gh*2) GRD=new Float32Array(gw*gh*2);
+  for(let j=0;j<gh;j++) for(let i2=0;i2<gw;i2++){
+    const x=i2*step, y=j*step, k=(j*gw+i2)*2;
+    GRD[k]=vnC(x/(Lsz*3)+11,y/(Lsz*3)+5,sd4);
+    GRD[k+1]=vnC(x/(U*0.16)+23,y/(U*0.16)+9,sd5);
+  }
+  const grd=(x,y,o)=>{
+    const gx=x/step, gy=y/step, xi=gx|0, yi=gy|0, xf=gx-xi, yf=gy-yi;
+    const k=(yi*gw+xi)*2+o, a=GRD[k], b=GRD[k+2], cc=GRD[k+gw*2], d=GRD[k+gw*2+2];
+    return (a*(1-xf)+b*xf)*(1-yf)+(cc*(1-xf)+d*xf)*yf;
+  };
+  const offI=Math.round(shOff), offJ=Math.round(shOff*0.7);
 
-/* ---- vector ------------------------------------------------------------
-   The same paint() against a recorder, so the SVG cannot drift from the
-   canvas. Transforms are emitted as groups; the shapes are already polygons,
-   so they land as real paths rather than traced outlines. */
-function SvgSurfaceS(){
-  this.fillStyle="#000"; this.imageSmoothingEnabled=false;
-  this._b=[]; this._m=[1,0,0,1,0,0]; this._st=[]; this._p=null;
-}
-function mulS(m,n){
-  return [m[0]*n[0]+m[2]*n[1], m[1]*n[0]+m[3]*n[1],
-          m[0]*n[2]+m[2]*n[3], m[1]*n[2]+m[3]*n[3],
-          m[0]*n[4]+m[2]*n[5]+m[4], m[1]*n[4]+m[3]*n[5]+m[5]];
-}
-SvgSurfaceS.prototype.save=function(){this._st.push(this._m.slice());};
-SvgSurfaceS.prototype.restore=function(){if(this._st.length)this._m=this._st.pop();};
-SvgSurfaceS.prototype.translate=function(x,y){this._m=mulS(this._m,[1,0,0,1,x,y]);};
-SvgSurfaceS.prototype.scale=function(x,y){this._m=mulS(this._m,[x,0,0,y,0,0]);};
-SvgSurfaceS.prototype.rotate=function(a){
-  const c=Math.cos(a), s=Math.sin(a);
-  this._m=mulS(this._m,[c,s,-s,c,0,0]);
-};
-SvgSurfaceS.prototype.clearRect=function(){};
-SvgSurfaceS.prototype.fillRect=function(x,y,w,h){
-  const p=this._pt(x,y), q=this._pt(x+w,y+h);
-  this._b.push('<rect x="'+Math.min(p[0],q[0]).toFixed(1)+'" y="'+Math.min(p[1],q[1]).toFixed(1)+
-    '" width="'+Math.abs(q[0]-p[0]).toFixed(1)+'" height="'+Math.abs(q[1]-p[1]).toFixed(1)+
-    '" fill="'+this.fillStyle+'"/>');
-};
-SvgSurfaceS.prototype._pt=function(x,y){
-  const m=this._m; return [m[0]*x+m[2]*y+m[4], m[1]*x+m[3]*y+m[5]];
-};
-SvgSurfaceS.prototype.beginPath=function(){this._p=[];};
-SvgSurfaceS.prototype.moveTo=function(x,y){this._p=[this._pt(x,y)];};
-SvgSurfaceS.prototype.lineTo=function(x,y){if(this._p)this._p.push(this._pt(x,y));};
-SvgSurfaceS.prototype.closePath=function(){};
-SvgSurfaceS.prototype.fill=function(){
-  if(!this._p||this._p.length<3)return;
-  const d=this._p.map(function(q,i){return (i?"L":"M")+q[0].toFixed(1)+" "+q[1].toFixed(1);}).join("")+"Z";
-  this._b.push('<path d="'+d+'" fill="'+this.fillStyle+'"/>');
-};
-SvgSurfaceS.prototype.markup=function(){return this._b.join("");};
+  for(let y=0,p=0;y<H;y++){
+    for(let x=0;x<W;x++,p+=4){
+      /* ---- where this point sits on the fan ---- */
+      const dx=x-rx, dy=y-ry;
+      let rr=Math.sqrt(dx*dx+dy*dy);
+      let th=Math.atan2(dy,dx);
+      /* the wobble: a slow wave through the whole fan, and a finer one along
+         each branch, both stronger the further they are from the root */
+      if(wob>0){
+        const far=Math.min(1,rr/(U*0.6));
+        th+=wob*0.55*far*(vnC(rr/(U*0.38)+swx+7,th*1.4+swy,sd1)-0.5);
+        th+=wob*0.22*far*(vnC(rr/(U*0.16)+swy+3,th*4.2+swx+5,sd1)-0.5);
+      }
+      let a=th-thStart; a=((a%TAUC)+TAUC)%TAUC;
+      let inB=false, arc=1e9, hw=1, side1=0, bid=0;
+      if(a<=range&&rr>1){
+        const L=Math.log2(rr*range/(N0*s));
+        let Nf, ease, fine, n=0;
+        if(L<0){ Nf=N0; ease=1; fine=false; }
+        else { n=Math.floor(L); const t=L-n; Nf=N0*Math.pow(2,n+1); ease=t*t*(3-2*t); fine=true; }
+        const u=a/range*Nf, i0=Math.floor(u), sp=rr*range/Nf;
+        /* the nearest branch, judged by how far inside its own width the
+           point sits, so a young branch still tucked inside its parent
+           never cuts a notch out of it */
+        let best=1e9;
+        for(let k=i0-1;k<=i0+2;k++){
+          if(k<0||k>Nf) continue;
+          let centre=k, sc=1;
+          if(fine&&(k&1)){
+            /* a new branch leaves its parent and settles midway */
+            const parent=((k>>1)&1)?k-1:k+1;
+            centre=parent+(k-parent)*ease; sc=0.22+0.78*ease;
+          }
+          /* the branch's own identity, the same whichever octave it is
+             seen in: its place across the fan */
+          const id=k/Nf;
+          const d=Math.abs(u-centre)*sp;
+          if(d>=best*hwMax*1.2) continue;
+          /* some branches stop short, with a rounded end */
+          if(fine||L>=0){
+            let q=k, lvl=n+1; while(lvl>0&&(q&1)===0){ q>>=1; lvl--; }
+            if(lvl>0){
+              const hq=hshC(Math.round(id*8192),9,seed);
+              if(hq<0.28){
+                const rs=N0*s/range*Math.pow(2,lvl-1);
+                const rend=rs*(1.5+hq*6), hwk=hwMax*sc;
+                const e=(rend-rr)/Math.max(1,hwk);
+                if(e<0) continue;
+                if(e<1) sc*=Math.sqrt(Math.max(0,1-(1-e)*(1-e)));
+              }
+            }
+          }
+          /* the tube breathes along its length */
+          const h=hwMax*sc*(1+0.2*Math.sin(rr/(s*0.85)+id*137.5));
+          const ratio=d/Math.max(0.5,h);
+          if(ratio<best){ best=ratio; arc=d; hw=h; side1=u-centre>=0?1:-1; bid=Math.round(id*8192); }
+        }
+        inB=best<1;
+      }
 
-function svgFrame(f){
-  const r=RATIOS.find(x=>x.id===S.ratio);
-  const W=S.size,H=Math.round(S.size*r.h/r.w);
-  const s=new SvgSurfaceS();
-  paint(s,W,H,f);
-  return s.markup();
+      /* ---- the lobes ---- */
+      const fv=fld(x,y);
+      const inL=fv>thr;
+      const under=grd(x,y,0)<S.beneath;
+      let sx=x-offI, sy=y-offJ, fs=0;
+      if(sx>=0&&sy>=0) fs=fld(sx,sy);
+      const lobeSh=shK>0&&!inL&&fs>thr;
+      const lobeShUnder=lobeSh&&grd(sx,sy,0)<S.beneath;
+
+      /* ---- compose, ground up ---- */
+      let R=ground[0],G=ground[1],B=ground[2];
+      let onLobe=false;
+      if(lobeShUnder){ const k=0.55*shK; R+=(dark[0]-R)*k; G+=(dark[1]-G)*k; B+=(dark[2]-B)*k; }
+      if(inL&&under){ R=lobe[0];G=lobe[1];B=lobe[2]; onLobe=true; }
+      if(inB){
+        R=branch[0];G=branch[1];B=branch[2]; onLobe=false;
+        /* the ribs run across the tube */
+        if(ribK>0){
+          const rv=0.5+0.5*Math.sin(rr/ribP*TAUC-growPh+hshC(bid,3,seed)*6.28);
+          if(rv>0.7&&arc<hw*0.86){ const k=ribK*Math.min(1,(rv-0.7)*8); R+=(rib[0]-R)*k; G+=(rib[1]-G)*k; B+=(rib[2]-B)*k; }
+        }
+        /* a darker rim down one side, so the tube is round */
+        if(shK>0&&side1>0&&arc>hw*0.58){ const k=shK*0.55*Math.min(1,(arc-hw*0.58)/(hw*0.42)); R+=(dark[0]-R)*k; G+=(dark[1]-G)*k; B+=(dark[2]-B)*k; }
+      }else if(shK>0&&side1>0&&arc<hw+gap){
+        /* the branch's shadow on whatever lies beneath */
+        const k=0.5*shK; R+=(dark[0]-R)*k; G+=(dark[1]-G)*k; B+=(dark[2]-B)*k;
+      }
+      if(lobeSh&&!lobeShUnder){ const k=0.6*shK; R+=(dark[0]-R)*k; G+=(dark[1]-G)*k; B+=(dark[2]-B)*k; }
+      if(inL&&!under){ R=lobe[0];G=lobe[1];B=lobe[2]; onLobe=true; }
+      /* the dot screen, printed on the paper: heavier along the torn edge */
+      if(onLobe&&S.dots>0){
+        const gx=x/cell, gy=y/cell;
+        const ddx=gx-Math.floor(gx)-0.5, ddy=gy-Math.floor(gy)-0.5;
+        const edge=Math.max(0,Math.min(1,(thr+0.13-fv)/0.13));
+        const rad=0.5*S.dots*(0.3+0.4*edge+0.3*grd(x,y,1));
+        if(ddx*ddx+ddy*ddy<rad*rad){ R=dot[0];G=dot[1];B=dot[2]; }
+      }
+      px[p]=R; px[p+1]=G; px[p+2]=B; px[p+3]=255;
+    }
+  }
+  c.setTransform(1,0,0,1,0,0);
+  c.globalCompositeOperation="source-over";
+  c.globalAlpha=1;
+  c.putImageData(BUFC,0,0);
 }
-function svgWrap(inner){
-  const r=RATIOS.find(x=>x.id===S.ratio);
-  const W=S.size,H=Math.round(S.size*r.h/r.w);
-  return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+
-         '" viewBox="0 0 '+W+' '+H+'">'+inner+'</svg>';
-}
-function buildSVG(){return svgWrap(svgFrame(curFrame));}
 
 const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
 function fitCanvas(){
@@ -1022,26 +1087,21 @@ function save(blob,name){
   a.href=url;a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
-function stamp(){return `sampler-${S.seed}-${S.ratio.replace(":","x")}`;}
+function stamp(){return `coral-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
-  const a=$("#expVid"),sc=$("#scrub"),l=$("#expSvgLoop");
+  const a=$("#expVid"),sc=$("#scrub");
   if(a)a.disabled=!S.motion.on;
-  if(l)l.disabled=!S.motion.on;
   if(sc)sc.disabled=!S.motion.on;
 }
 $("#expPng").addEventListener("click",()=>{
   toast("Rendering…",true);
   setTimeout(()=>{
     const r=RATIOS.find(x=>x.id===S.ratio);
-    const W=S.size,H=Math.round(S.size*r.h/r.w);
+    const W=S.size_px,H=Math.round(S.size_px*r.h/r.w);
     const c=document.createElement("canvas");c.width=W;c.height=H;
     paint(c.getContext("2d"),W,H,curFrame);
     c.toBlob(b=>{save(b,stamp()+".png");toast(`PNG saved · ${W}×${H}`);});
   },30);
-});
-$("#expSvg").addEventListener("click",()=>{
-  save(new Blob([buildSVG()],{type:"image/svg+xml"}),stamp()+".svg");
-  toast("SVG saved");
 });
 function pickVideoType(){
   const t=["video/mp4;codecs=avc1.42E01E","video/mp4","video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"];
@@ -1054,7 +1114,7 @@ $("#expVid").addEventListener("click",()=>{
   if(!type)return toast("This browser can't record video");
   const ext=type.startsWith("video/mp4")?"mp4":"webm";
   const r=RATIOS.find(x=>x.id===S.ratio);
-  let W=Math.min(1280,S.size);W-=W%2;
+  let W=Math.min(1280,S.size_px);W-=W%2;
   let H=Math.round(W*r.h/r.w);H-=H%2;
   const c=document.createElement("canvas");c.width=W;c.height=H;
   const cc=c.getContext("2d");
@@ -1079,7 +1139,7 @@ $("#expVid").addEventListener("click",()=>{
    UI
 ============================================================ */
 function accent(){
-  let best=S.pal[S.pal.length-1],bl=-1;
+  let best=S.pal[Math.min(1,S.pal.length-1)],bl=-1;
   for(const c of S.pal){const l=relLum(c);if(l>bl&&l>0.12){bl=l;best=c;}}
   document.documentElement.style.setProperty("--accent",bl>0?best:"#F5C21B");
   $("#strip").innerHTML=S.pal.map(c=>`<span style="background:${c}"></span>`).join("");
@@ -1167,7 +1227,7 @@ function buildSwatches(){
   S.pal.forEach((c,i)=>{
     const b=document.createElement("button");
     b.className="sw"+(lock?" locked":"");b.type="button";
-    b.setAttribute("aria-label","Ink "+(i+1)+" color");
+    b.setAttribute("aria-label","Ink "+(i+1));
     b.innerHTML=`<span class="fill" style="background:${c}"></span>`+
       `<input type="color" value="${c}"><span class="x" aria-hidden="true">\u00d7</span>`;
     b.querySelector("input").addEventListener("input",e=>{
@@ -1211,30 +1271,19 @@ $("#shufColors").addEventListener("click",()=>{
   setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
 });
 $("#rotColors").addEventListener("click",()=>{
-  if(S.pal.length<3){setPalette(S.pal.slice(1).concat(S.pal[0]));return;}
-  let di=0;
-  for(let i=1;i<S.pal.length;i++) if(lumS(S.pal[i])<lumS(S.pal[di])) di=i;
-  const rest=S.pal.filter((c,i)=>i!==di);
-  rest.push(rest.shift());
-  const out=S.pal.slice();
-  let k=0;
-  for(let i=0;i<out.length;i++) if(i!==di) out[i]=rest[k++];
-  setPalette(out);
+  setPalette([S.pal[0]].concat(S.pal.slice(2),[S.pal[1]]));
 });
-bindRange("grid",v=>v|0,v=>S.grid=v|0);
-bindRange("bands",v=>v|0,v=>S.bands=v|0);
-bindRange("mix",v=>Math.round(v*100)+"%",v=>S.mix=v);
-bindRange("weight",v=>Math.round(v*100)+"%",v=>S.weight=v);
-bindRange("density",v=>Math.round(v*100)+"%",v=>S.density=v);
-bindRange("turn",v=>Math.round(v*100)+"%",v=>S.turn=v);
+const pc=v=>Math.round(v*100)+"%";
+bindRange("branches",v=>v|0,v=>S.branches=v|0);
+for(const k of ["spacing","spread","width","wobble","cover","size","beneath","ribs","dots","shadow"]) bindRange(k,pc,v=>S[k]=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
 $("#frames").addEventListener("input",e=>{S.motion.frames=parseInt(e.target.value,10);
   $("#framesVal").textContent=S.motion.frames+" frames";$("#scrub").max=S.motion.frames-1;
   curFrame=Math.min(curFrame,S.motion.frames-1);reframe();if(playing)setPlaying(true);});
-$("#size").addEventListener("input",e=>{S.size=parseInt(e.target.value,10);$("#sizeVal").textContent=S.size+" px";});
-$("#motionTog").addEventListener("click",e=>{
+$("#sizePx").addEventListener("input",e=>{S.size_px=parseInt(e.target.value,10);
+  $("#sizePxVal").textContent=S.size_px+" px";});$("#motionTog").addEventListener("click",e=>{
   S.motion.on=!S.motion.on;
   e.currentTarget.setAttribute("aria-pressed",String(S.motion.on));
   $("#motionBody").hidden=!S.motion.on;
@@ -1244,7 +1293,19 @@ $("#motionTog").addEventListener("click",e=>{
 });
 $("#play").addEventListener("click",()=>{if(!S.motion.on){$("#motionTog").click();return;}setPlaying(!playing);});
 $("#scrub").addEventListener("input",e=>{setPlaying(false);curFrame=parseInt(e.target.value,10)%Math.max(1,S.motion.frames);draw();});
-function newSeed(v){S.seed=(v!==undefined)?v:(Math.random()*99999|0)+1;$("#seed").value=S.seed;reframe();}
+function newSeed(v){
+  S.seed=(v!==undefined)?v:(Math.random()*99999|0)+1;
+  $("#seed").value=S.seed;
+  dealC(S.seed);
+  /* every dealt value onto its dial and its readout, so the sheet can be
+     adjusted from where it landed */
+  const put=(id,val,txt)=>{const e=$("#"+id),l=$("#"+id+"Val");if(e)e.value=val;if(l)l.textContent=txt;};
+  const pc=v=>Math.round(v*100)+"%";
+  put("branches",S.branches,String(S.branches));
+  for(const k of ["spacing","spread","width","wobble","cover","size","beneath","ribs","dots","shadow"]) put(k,S[k],pc(S[k]));
+  buildSwatches(); accent();
+  reframe();
+}
 $("#shuf").addEventListener("click",()=>newSeed());
 $("#seed").addEventListener("change",e=>{const v=parseInt(e.target.value,10);newSeed(Number.isFinite(v)?Math.abs(v):1);});
 art.addEventListener("click",()=>newSeed());
