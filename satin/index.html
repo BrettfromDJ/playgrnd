@@ -3,25 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Sonar — playgrnd</title>
+<title>Satin — playgrnd</title>
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/favicon.png" sizes="180x180" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="canonical" href="https://playgrnd.tools/sonar">
+<link rel="canonical" href="https://playgrnd.tools/satin">
 <meta property="og:site_name" content="playgrnd">
-<meta property="og:title" content="Sonar — playgrnd">
-<meta property="og:description" content="Generate dithered landmass backgrounds — a coastline cut from a noise field, filled as a halftone and dissolving into two colours of speckle at its edge. Exports vector, image and video.">
+<meta property="og:title" content="Satin — playgrnd">
+<meta property="og:description" content="Generate warped satin backgrounds — a sheet of folded cloth twisted, swept or gathered, lit so a sheen runs along every crest, under a heavy grain. Deal a new variation or turn the dials. Exports image and video.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://playgrnd.tools/sonar">
-<meta property="og:image" content="https://playgrnd.tools/sonar/og.png">
+<meta property="og:url" content="https://playgrnd.tools/satin">
+<meta property="og:image" content="https://playgrnd.tools/satin/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Artwork made with Sonar.">
+<meta property="og:image:alt" content="Artwork made with Satin.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Sonar — playgrnd">
-<meta name="twitter:description" content="Generate dithered landmass backgrounds — a coastline cut from a noise field, filled as a halftone and dissolving into two colours of speckle at its edge.">
-<meta name="twitter:image" content="https://playgrnd.tools/sonar/og.png">
-<meta name="description" content="Generate dithered landmass backgrounds — a coastline cut from a noise field, filled as a halftone and dissolving into two colours of speckle at its edge. Exports vector, image and video.">
+<meta name="twitter:title" content="Satin — playgrnd">
+<meta name="twitter:description" content="Generate warped satin backgrounds — a sheet of folded cloth twisted, swept or gathered, lit so a sheen runs along every crest, under a heavy grain.">
+<meta name="twitter:image" content="https://playgrnd.tools/satin/og.jpg">
+<meta name="description" content="Generate warped satin backgrounds — a sheet of folded cloth twisted, swept or gathered, lit so a sheen runs along every crest, under a heavy grain. Deal a new variation or turn the dials. Exports image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -615,16 +615,16 @@ input[type=range]{accent-color:var(--ink)}
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
         <span class="slash">&frasl;</span>
-        <span class="tool">Sonar</span>
+        <span class="tool">Satin</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">30 / 48</span>
-        <span class="k">Type</span><span class="v">Dithered landmass</span>
+        <span class="k">Index</span><span class="v">48 / 48</span>
+        <span class="k">Type</span><span class="v">Warped satin</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
       <div class="newblk">
         <div class="newlab"><span class="k">Variation</span>
-          <span class="seedwrap"><input class="seed" id="seed" value="1" inputmode="numeric" aria-label="Variation number"><button class="pbtn copy" id="copySeed"
+          <span class="seedwrap"><input class="seed" id="seed" value="7" inputmode="numeric" aria-label="Variation number"><button class="pbtn copy" id="copySeed"
             aria-label="Copy variation number">Copy</button></span>
         </div>
         <button class="newbtn" id="randomize"><span class="ico" aria-hidden="true">&#8635;</span>
@@ -632,16 +632,22 @@ input[type=range]{accent-color:var(--ink)}
           <span class="sub">Reshuffle every shape</span></button>
       </div>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Land</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Coverage</span><span class="v" id="levelVal">50%</span></div><div class="track"><input type="range" id="level" min="0" max="1" step="0.01" value="0.5"></div></div>
-        <div class="pr"><div class="top"><span class="k">Feature size</span><span class="v" id="scaleVal">2.2</span></div><div class="track"><input type="range" id="scale" min="1" max="10" step="0.1" value="2.2"></div></div>
-        <div class="pr"><div class="top"><span class="k">Distortion</span><span class="v" id="warpVal">40%</span></div><div class="track"><input type="range" id="warp" min="0" max="1" step="0.01" value="0.4"></div></div></div></details>
-    <details class="grp" open><summary>Halftone</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Resolution</span><span class="v" id="gridVal">150</span></div><div class="track"><input type="range" id="grid" min="40" max="320" step="2" value="150"></div></div>
-        <div class="pr"><div class="top"><span class="k">Depth</span><span class="v" id="depthVal">70%</span></div><div class="track"><input type="range" id="depth" min="0" max="1" step="0.01" value="0.7"></div></div></div></details>
-    <details class="grp" open><summary>Coast</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Fringe</span><span class="v" id="fringeVal">45%</span></div><div class="track"><input type="range" id="fringe" min="0" max="1" step="0.01" value="0.45"></div></div>
-        <div class="pr"><div class="top"><span class="k">Specks</span><span class="v" id="sparkVal">60%</span></div><div class="track"><input type="range" id="spark" min="0" max="1" step="0.01" value="0.6"></div></div></div></details><div class="tog-grp"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate<span class="sw" aria-hidden="true"></span></button><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
+    <div class="l-scroll"><details class="grp" open><summary>Folds</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Folds</span><span class="v" id="foldsVal">14</span></div><div class="track"><input type="range" id="folds" min="3" max="30" step="1" value="14"></div></div>
+        <div class="pr"><div class="top"><span class="k">Direction</span><span class="v" id="directionVal">35°</span></div><div class="track"><input type="range" id="direction" min="0" max="180" step="1" value="35"></div></div>
+        <div class="pr"><div class="top"><span class="k">Wobble</span><span class="v" id="wobbleVal">30%</span></div><div class="track"><input type="range" id="wobble" min="0" max="1" step="0.01" value="0.3"></div></div></div></details>
+    <details class="grp"><summary>Warp</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Warp</span></span><span class="mval"><div class="chips" id="warps"></div></span></div>
+        <div class="pr"><div class="top"><span class="k">Strength</span><span class="v" id="strengthVal">70%</span></div><div class="track"><input type="range" id="strength" min="0" max="1" step="0.01" value="0.7"></div></div>
+        <div class="pr"><div class="top"><span class="k">Reach</span><span class="v" id="reachVal">50%</span></div><div class="track"><input type="range" id="reach" min="0" max="1" step="0.01" value="0.5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Split</span><span class="v" id="splitVal">35%</span></div><div class="track"><input type="range" id="split" min="0" max="1" step="0.01" value="0.35"></div></div></div></details>
+    <details class="grp"><summary>Surface</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Sheen</span><span class="v" id="sheenVal">70%</span></div><div class="track"><input type="range" id="sheen" min="0" max="1" step="0.01" value="0.7"></div></div>
+        <div class="pr"><div class="top"><span class="k">Shadow</span><span class="v" id="shadowVal">60%</span></div><div class="track"><input type="range" id="shadow" min="0" max="1" step="0.01" value="0.6"></div></div>
+        <div class="pr"><div class="top"><span class="k">Crease</span><span class="v" id="creaseVal">40%</span></div><div class="track"><input type="range" id="crease" min="0" max="1" step="0.01" value="0.4"></div></div>
+        <div class="pr"><div class="top"><span class="k">Fringe</span><span class="v" id="chromaVal">45%</span></div><div class="track"><input type="range" id="chroma" min="0" max="1" step="0.01" value="0.45"></div></div>
+        <div class="pr"><div class="top"><span class="k">Depth</span><span class="v" id="depthVal">40%</span></div><div class="track"><input type="range" id="depth" min="0" max="1" step="0.01" value="0.4"></div></div>
+        <div class="pr"><div class="top"><span class="k">Light</span><span class="v" id="lightVal">300°</span></div><div class="track"><input type="range" id="light" min="0" max="359" step="1" value="300"></div></div></div></details><div class="tog-grp"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate<span class="sw" aria-hidden="true"></span></button><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
           <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
-          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">10 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="10"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">24 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="24"></div></div></div></div><div class="tog-grp"><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither<span class="sw" aria-hidden="true"></span></button><div class="group" id="ditherBody" hidden>
+          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="12"></div></div>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="36"></div></div></div></div><div class="tog-grp"><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither<span class="sw" aria-hidden="true"></span></button><div class="group" id="ditherBody" hidden>
   <div class="misc stack"><span class="mhead"><span class="k">Pattern</span></span><span class="mval"><div class="chips" id="dthKinds"></div></span></div>
   <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
   <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
@@ -653,7 +659,8 @@ input[type=range]{accent-color:var(--ink)}
   <div class="pr"><div class="top"><span class="k">Specks</span><span class="v" id="grnSpecksVal">50%</span></div><div class="track"><input type="range" id="grnSpecks" min="0" max="1" step="0.05" value="0.5"></div></div>
   <div class="pr"><div class="top"><span class="k">Vignette</span><span class="v" id="grnVignetteVal">50%</span></div><div class="track"><input type="range" id="grnVignette" min="0" max="1" step="0.05" value="0.5"></div></div>
 </div></div></div>
-    <div class="l-bot"><details class="grp colr" open><summary>Color<button class="mycsw" id="mycTog" aria-pressed="false">My colors<span class="sw" aria-hidden="true"></span></button></summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">6</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+    <div class="l-bot"><details class="grp colr" open><summary>Color<button class="mycsw" id="mycTog" aria-pressed="false">My colors<span class="sw" aria-hidden="true"></span></button></summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">4</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+        
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div>
       <div class="myc" id="myc" hidden>
         <div class="myc-row" id="mycHome">
@@ -700,9 +707,8 @@ input[type=range]{accent-color:var(--ink)}
       <div class="tbl" style="margin-bottom:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>
-      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
+      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizePxVal">2400 px</span></div><div class="track"><input type="range" id="sizePx" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
-          <button class="lnk" id="expSvg">SVG</button>
           <button class="lnk" id="expVid">Video</button></span></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
     </div>
   </div>
@@ -741,158 +747,205 @@ function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const MODES=[["tide","Tide"]];
+const MODES=[["travel","Travel"],["sway","Sway"],["twist","Twist"]];
+const WARPS=[["twist","Twist"],["flow","Flow"],["pinch","Pinch"],["ripple","Ripple"]];
+/* this sheet opens with the grain on: scanned satin, not a screen fill */
+const GRAIN_DEFAULT={on:true,blend:"add",amount:0.5,size:1,specks:0.6,vignette:0.2};
 
+/* The first ink is the shadow in the valleys; the second the cloth itself;
+   the third the sheen along each crest; the fourth the thin colour fringe
+   on the sheen's edge. A set with fewer inks derives the fringe from the
+   sheen. */
 const PALETTES=[
-  ["#0A0F1C","#3DDC97","#4361EE","#FFD166","#EF476F","#F1FAEE"],
-  ["#080A14","#C838C8","#2B4FFF","#CBFF4A","#6B1E9E","#F0ECFA"],
-  ["#0A0F0C","#E0452C","#F0D82C","#2CC8F0","#8A2A1E","#F5F2EA"],
-  ["#0B0B12","#12B07A","#41C6F0","#F0D82C","#0E6B52","#EAF5F0"],
-  ["#100A14","#FF3D9A","#7A3BE0","#38F0C8","#9E1E5E","#F7EFF5"]
+  ["#1E2240","#F24E2B","#6E64F0","#C9B8FF"],
+  ["#12102A","#FF3D7A","#3DE0FF","#E8FBFF"],
+  ["#1A1A1A","#F5F1E8","#FFB347","#FFF3D6"],
+  ["#0B2E2A","#00C2A8","#FFE45C","#FFFBD6"],
+  ["#2B1B4A","#7B2CBF","#F26CA7","#FFD6EA"],
+  ["#101820","#264653","#E9C46A","#FFF1C4"]
 ];
 
+/* A sheet of satin folded into ridges and warped, a swirl or a sweep or a
+   gather, lit from one side so a sheen runs along every crest. Every
+   setting is a dial and the same dials always give the same sheet. The
+   variation number deals a fresh set of dials and shows the deal on the
+   dials, so a dealt sheet can be adjusted from where it landed. */
 const S={
-  seed:12, ratio:"16:9",
-  grid:150, scale:2.2, warp:0.4,
-  level:0.5, fringe:0.45, spark:0.6, depth:0.7,
+  seed:7, ratio:"1:1",
+  folds:14, direction:35, wobble:0.3,
+  warp:"twist", strength:0.7, reach:0.5, split:0.35,
+  sheen:0.7, shadow:0.6, crease:0.4, chroma:0.45, depth:0.4, light:300,
   pal:PALETTES[0].slice(),
-  motion:{on:false,mode:"tide",amount:0.6,fps:10,frames:24},
-  size:2400
+  motion:{on:false,mode:"travel",amount:0.6,fps:12,frames:36},
+  size_px:2400
 };
 
-function hshS(x,y,s){
+const TAUT=Math.PI*2;
+function hshT(x,y,s){
   let n=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1274126177);
-  n=Math.imul(n^(n>>>13),1274126177);
-  n^=n>>>16;
+  n=Math.imul(n^(n>>>13),1274126177); n^=n>>>16;
   return (n>>>0)/4294967296;
 }
-
-/* ---- the field ---------------------------------------------------------
-   Value noise, smoothed and stacked. The coastline is one level cut through
-   it, so the shape is found rather than drawn: bays, spits and the odd hole
-   fall out of the field instead of being placed. */
-function vnoiseS(x,y,s){
-  const xi=Math.floor(x), yi=Math.floor(y);
-  const xf=x-xi, yf=y-yi;
-  const u=xf*xf*(3-2*xf), v=yf*yf*(3-2*yf);
-  const a=hshS(xi,yi,s), b=hshS(xi+1,yi,s), c=hshS(xi,yi+1,s), d=hshS(xi+1,yi+1,s);
+function vnT(x,y,s){
+  const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi;
+  const u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);
+  const a=hshT(xi,yi,s),b=hshT(xi+1,yi,s),c=hshT(xi,yi+1,s),d=hshT(xi+1,yi+1,s);
   return (a*(1-u)+b*u)*(1-v)+(c*(1-u)+d*u)*v;
 }
-function fbmS(x,y,s,oct){
-  let v=0,a=0.5,f=1,t=0;
-  for(let i=0;i<oct;i++){ v+=a*vnoiseS(x*f,y*f,s+i*131); t+=a; f*=2; a*=0.5; }
-  return v/t;
+function rngT(seed){
+  let a=(seed>>>0)||1;
+  return function(){ a^=a<<13; a>>>=0; a^=a>>>17; a>>>=0; a^=a<<5; a>>>=0; return a/4294967296; };
 }
-
-/* ---- ink roles ---------------------------------------------------------
-   By slot, not by scanning. The ground is the first ink, the land the second,
-   the two fringe colours the third and fourth. Choosing them by property —
-   darkest for the ground, most saturated for the land — would read the same
-   however the row is turned, and Rotate would do nothing. */
-function rolesS(){
-  const p=S.pal.length?S.pal:["#0D0E1A","#B93FD6","#3A3AFF","#B6F542"];
-  const at=i=>p[i%p.length];
-  return {ground:at(0), land:at(1), a1:at(2), a2:at(3)};
+/* The deal: everything lands somewhere near the reference rather than on a
+   corner of the settings nobody would choose. The palette and the warp
+   are left alone: New colors and the picker are the way to change them. */
+function dealT(seed){
+  const r=rngT(Math.imul(seed|0,2654435761)^0x5bd1e995);
+  S.folds=8+((r()*15)|0);
+  S.direction=Math.round(r()*180);
+  S.wobble=0.1+r()*0.4;
+  S.strength=0.4+r()*0.5;
+  S.reach=0.3+r()*0.4;
+  S.split=r()<0.35?0:0.2+r()*0.5;
+  S.sheen=0.5+r()*0.45;
+  S.shadow=0.4+r()*0.45;
+  S.crease=0.2+r()*0.5;
+  S.chroma=0.2+r()*0.5;
+  S.depth=0.15+r()*0.45;
+  S.light=Math.round(r()*359);
+  for(const k of ["wobble","strength","reach","split","sheen","shadow","crease","chroma","depth"]) S[k]=Math.round(S[k]*100)/100;
 }
+function rgbT(h){
+  h=(h||"#000").replace("#","");
+  if(h.length===3) h=h.split("").map(c=>c+c).join("");
+  return [parseInt(h.slice(0,2),16)||0,parseInt(h.slice(2,4),16)||0,parseInt(h.slice(4,6),16)||0];
+}
+function liftT(c,k){ return [c[0]+(255-c[0])*k,c[1]+(255-c[1])*k,c[2]+(255-c[2])*k]; }
 
+let BUFT=null, PHT=null;
 function paint(c,W,H,f){
-  const R=rolesS();
-  const M=S.motion;
-  const T=M.on ? f/M.frames : 0;
-  /* Tide breathes the cut level, so the coastline advances and retreats over
-     the loop without the land itself changing shape. A whole number of cycles
-     brings it back to where it started, so the last frame meets the first. */
-  const turns=Math.max(1,Math.round(M.amount*2));
-  const tide=(M.on&&M.mode==="tide")
-    ? Math.sin(T*Math.PI*2*turns)*0.10*Math.min(1.6,M.amount) : 0;
+  const M=S.motion, T=M.on ? f/M.frames : 0, ph=T*TAUT;
+  const raw=S.pal.length?S.pal:PALETTES[0];
+  const inks=raw.map(rgbT), NI=inks.length;
+  const U=Math.sqrt(W*H);
+  const seed=S.seed|0;
+  const sd1=seed*7+1, sd2=seed*7+2, sd3=seed*7+3;
 
-  const cols=Math.max(12,S.grid|0);
-  const cw=W/cols;
-  const rows=Math.max(6,Math.round(H/cw));
-  const ch=H/rows;
-  const asp=W/H;
-  const sc=Math.max(0.5,S.scale);
+  /* ---- motion ----
+     Travel runs the folds along, a whole fold per loop, so the last frame
+     runs into the first. Sway walks the wobble round a small circle. Twist
+     winds the warp up and lets it settle. */
+  const travel=(M.on&&M.mode==="travel") ? T*Math.max(1,Math.round(M.amount*2)) : 0;
+  const swx=(M.on&&M.mode==="sway") ? Math.cos(ph)*M.amount*0.5 : 0;
+  const swy=(M.on&&M.mode==="sway") ? Math.sin(ph)*M.amount*0.5 : 0;
+  const wind=(M.on&&M.mode==="twist") ? (1-Math.cos(ph))*0.5*M.amount*0.6 : 0;
 
-  c.fillStyle=R.ground; c.fillRect(0,0,W,H);
+  /* ---- the inks by role ---- */
+  const valley=inks[0], cloth=inks[Math.min(1,NI-1)];
+  const sheen=NI>2?inks[2]:liftT(cloth,0.6);
+  const fringe=NI>3?inks[3]:liftT(sheen,0.55);
+  const crease=[valley[0]*0.55,valley[1]*0.55,valley[2]*0.55];
 
-  const lvl=Math.min(0.95,Math.max(0.05,S.level*0.7+0.15))+tide;
-  const band=0.012+S.fringe*0.07;      /* how far either side the coast breaks up */
-  const seed=S.seed;
+  /* ---- the sheet, dealt once ---- */
+  const r=rngT(Math.imul(seed,2246822519)^0x27d4eb2f);
+  const cx=(0.3+r()*0.4)*W/U, cy=(0.3+r()*0.4)*H/U;   /* the warp's centre, in sheet units */
+  const A=S.direction*Math.PI/180, cA=Math.cos(A), sA=Math.sin(A);
+  const k0=Math.max(2,S.folds|0)*0.8;                 /* folds across the sheet */
+  const R=0.18+S.reach*0.5, str=S.strength*(1+wind), wob=S.wobble, split=S.split;
+  const warp=S.warp;
+  const pC=cx*cA+cy*sA;
 
-  for(let j=0;j<rows;j++){
-    for(let i=0;i<cols;i++){
-      const u=(i+0.5)/cols, v=(j+0.5)/rows;
-      const x=u*sc*asp, y=v*sc;
-      /* the field is pushed around by a second field, which is what turns
-         concentric blobs into something that flows */
-      const wx=fbmS(x*0.6+11.3, y*0.6+3.7, seed+7, 3)-0.5;
-      const wy=fbmS(x*0.6+5.1, y*0.6+19.9, seed+13, 3)-0.5;
-      const fv=fbmS(x+wx*S.warp*2.4, y+wy*S.warp*2.4, seed, 4);
-      const d=fv-lvl;
-
-      if(d>band){
-        /* inland: the dot grows with depth, so the fill carries the field's
-           shading instead of being a flat area of colour */
-        const t=Math.min(1,(d-band)/(0.20*(1.05-S.depth*0.85)));
-        const k=cw*(0.30+0.68*t);
-        c.fillStyle=R.land;
-        c.fillRect(Math.round(i*cw+(cw-k)/2), Math.round(j*ch+(ch-k)/2),
-                   Math.max(1,Math.round(k)), Math.max(1,Math.round(k)));
-      }else if(d>-band){
-        /* the coast: a speck appears more often the nearer it is to the cut,
-           in one of two colours that are used nowhere else on the page */
-        const near=1-Math.abs(d)/band;
-        if(hshS(i,j,seed+53)<near*near*S.spark*1.35){
-          const k=cw*(0.34+0.42*near);
-          c.fillStyle=hshS(i,j,seed+59)<0.5?R.a1:R.a2;
-          c.fillRect(Math.round(i*cw+(cw-k)/2), Math.round(j*ch+(ch-k)/2),
-                     Math.max(1,Math.round(k)), Math.max(1,Math.round(k)));
-        }
+  /* the fold coordinate: which fold this point sits on, and how deep in
+     the warp it is; worked out on a two-pixel grid and read back smoothly,
+     its slope taken from the grid too */
+  const fw=(W>>1)+3, fh=(H>>1)+3;
+  if(!PHT||PHT.length!==fw*fh*2) PHT=new Float32Array(fw*fh*2);
+  for(let j=0,i=0;j<fh;j++){
+    for(let i2=0;i2<fw;i2++,i+=2){
+      const u=(i2*2-2)/U, v=(j*2-2)/U;
+      const dx=u-cx, dy=v-cy, d=Math.sqrt(dx*dx+dy*dy);
+      const w=Math.exp(-(d*d)/(R*R));
+      let p;
+      if(warp==="twist"){
+        const ang=str*3.2*w, cs=Math.cos(ang), sn=Math.sin(ang);
+        const rx=cx+dx*cs-dy*sn, ry=cy+dx*sn+dy*cs;
+        p=rx*cA+ry*sA;
+      }else if(warp==="flow"){
+        p=u*cA+v*sA;
+        p+=str*0.5*(vnT(u/R*1.3+3,v/R*1.3+1,sd2)-0.5)*2+str*0.18*(vnT(u/R*3.1+8,v/R*3.1+5,sd2)-0.5)*2;
+      }else if(warp==="pinch"){
+        p=u*cA+v*sA;
+        p=pC+(p-pC)*(1+str*2.2*w);
+      }else{
+        p=u*cA+v*sA;
+        p=p*(1-w)+(pC+d)*w;
       }
+      if(wob>0) p+=wob*0.12*(vnT(u*3+swx+1,v*3+swy+2,sd1)-0.5)*2+wob*0.035*(vnT(u*9+swy+4,v*9+swx+7,sd1)-0.5)*2;
+      PHT[i]=p*k0+travel;
+      PHT[i+1]=w;
     }
   }
-}
+  /* where the folds double up */
+  const mask=(u,v)=>{ if(split<=0) return 0; const n=vnT(u*1.7+5,v*1.7+2,sd3); const t=Math.max(0,Math.min(1,(n-0.42)/0.22)); return t*t*(3-2*t)*split; };
 
-/* ---- vector ------------------------------------------------------------
-   The same paint() against a recorder. Every dot is already a rectangle, so
-   the export is the picture itself and cannot drift from the screen. */
-function SvgSurfaceS(){ this.fillStyle="#000"; this.imageSmoothingEnabled=false; this._b=[]; }
-SvgSurfaceS.prototype.save=function(){};
-SvgSurfaceS.prototype.restore=function(){};
-SvgSurfaceS.prototype.translate=function(){};
-SvgSurfaceS.prototype.scale=function(){};
-SvgSurfaceS.prototype.rotate=function(){};
-SvgSurfaceS.prototype.clearRect=function(){};
-SvgSurfaceS.prototype.beginPath=function(){};
-SvgSurfaceS.prototype.moveTo=function(){};
-SvgSurfaceS.prototype.lineTo=function(){};
-SvgSurfaceS.prototype.closePath=function(){};
-SvgSurfaceS.prototype.arc=function(){};
-SvgSurfaceS.prototype.fill=function(){};
-SvgSurfaceS.prototype.stroke=function(){};
-SvgSurfaceS.prototype.fillRect=function(x,y,w,h){
-  if(w<=0||h<=0) return;
-  this._b.push('<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+w.toFixed(1)+
-               '" height="'+h.toFixed(1)+'" fill="'+this.fillStyle+'"/>');
-};
-SvgSurfaceS.prototype.markup=function(){return this._b.join("");};
+  /* ---- the light ---- */
+  const la=S.light*Math.PI/180, el=0.75;
+  const Lx=Math.sin(la)*Math.cos(el), Ly=-Math.cos(la)*Math.cos(el), Lz=Math.sin(el);
+  let Hx=Lx, Hy=Ly, Hz=Lz+1; { const hl=Math.sqrt(Hx*Hx+Hy*Hy+Hz*Hz); Hx/=hl; Hy/=hl; Hz/=hl; }
+  const amp=(0.5+S.shadow*2.2)*U/(TAUT*k0);       /* the folds' height in pixels, from their steepness */
+  const shK=S.sheen, crK=S.crease, chK=S.chroma, dpK=S.depth;
+  const shine=7+shK*12;
 
-function svgFrame(f){
-  const r=RATIOS.find(x=>x.id===S.ratio);
-  const W=S.size,H=Math.round(S.size*r.h/r.w);
-  const s=new SvgSurfaceS();
-  paint(s,W,H,f);
-  return s.markup();
+  if(!BUFT||BUFT.width!==W||BUFT.height!==H) BUFT=c.createImageData(W,H);
+  const px=BUFT.data;
+  const at=(xi,yi)=>PHT[(yi*fw+xi)*2];
+  const cell=U*0.5;                                 /* the mask's grid is in sheet units */
+
+  for(let y=0,p=0;y<H;y++){
+    const gy=(y+2)*0.5, yi=gy|0, yf=gy-yi;
+    for(let x=0;x<W;x++,p+=4){
+      const gx=(x+2)*0.5, xi=gx|0, xf=gx-xi;
+      const k=(yi*fw+xi)*2;
+      const a=PHT[k], b=PHT[k+2], cc=PHT[k+fw*2], d=PHT[k+fw*2+2];
+      const phi=(a*(1-xf)+b*xf)*(1-yf)+(cc*(1-xf)+d*xf)*yf;
+      const w=(PHT[k+1]*(1-xf)+PHT[k+3]*xf)*(1-yf)+(PHT[k+fw*2+1]*(1-xf)+PHT[k+fw*2+3]*xf)*yf;
+      /* the slope of the fold coordinate, per pixel */
+      const gxp=(at(xi+1,yi)-at(xi-1>0?xi-1:0,yi))*0.25, gyp=(at(xi,yi+1)-at(xi,yi-1>0?yi-1:0))*0.25;
+      /* ---- the fold's height and its slope, with doubling where masked ---- */
+      const m=split>0?mask(x/U,y/U):0;
+      const s1=Math.sin(phi*TAUT), c1=Math.cos(phi*TAUT);
+      const s2=Math.sin(phi*TAUT*2), c2=Math.cos(phi*TAUT*2);
+      /* flat crests and narrow valleys: the fold is a raised power of the wave */
+      const base=0.5+0.5*((1-m)*s1+m*s2);
+      const h=Math.pow(base,0.6);
+      const dh=0.3*Math.pow(Math.max(base,0.002),-0.4)*TAUT*((1-m)*c1+2*m*c2);
+      /* the surface normal */
+      let nx=-dh*amp*gxp, ny=-dh*amp*gyp, nz=1;
+      const nl=Math.sqrt(nx*nx+ny*ny+1); nx/=nl; ny/=nl; nz/=nl;
+      const diff=Math.max(0,nx*Lx+ny*Ly+nz*Lz);
+      const nh=Math.max(0,nx*Hx+ny*Hy+nz*Hz);
+      const spec=Math.pow(nh,shine)*shK*1.15;
+      const broad=Math.pow(nh,shine*0.3);
+      /* ---- the colour: valley up to cloth by the light, sheen on top ---- */
+      const lit=0.1+0.9*Math.min(1,diff*1.35);
+      let Rr=valley[0]+(cloth[0]-valley[0])*lit, G=valley[1]+(cloth[1]-valley[1])*lit, B=valley[2]+(cloth[2]-valley[2])*lit;
+      /* the fringe: the sheen's edge takes a colour of its own */
+      const fr=Math.max(0,broad-Math.pow(nh,shine))*chK*0.9;
+      Rr+=(fringe[0]-Rr)*fr; G+=(fringe[1]-G)*fr; B+=(fringe[2]-B)*fr;
+      const sp=Math.min(1,spec);
+      Rr+=(sheen[0]-Rr)*sp; G+=(sheen[1]-G)*sp; B+=(sheen[2]-B)*sp;
+      /* the crease along the bottom of the valley */
+      if(crK>0){ const cr=Math.exp(-h*h*90)*crK; Rr+=(crease[0]-Rr)*cr; G+=(crease[1]-G)*cr; B+=(crease[2]-B)*cr; }
+      /* the depth: the heart of the warp sinks toward the valley ink */
+      if(dpK>0){ const dp=dpK*0.85*w*w; Rr+=(valley[0]-Rr)*dp; G+=(valley[1]-G)*dp; B+=(valley[2]-B)*dp; }
+      px[p]=Rr; px[p+1]=G; px[p+2]=B; px[p+3]=255;
+    }
+  }
+  c.setTransform(1,0,0,1,0,0);
+  c.globalCompositeOperation="source-over";
+  c.globalAlpha=1;
+  c.putImageData(BUFT,0,0);
 }
-function svgWrap(inner){
-  const r=RATIOS.find(x=>x.id===S.ratio);
-  const W=S.size,H=Math.round(S.size*r.h/r.w);
-  return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+
-         '" viewBox="0 0 '+W+' '+H+'" shape-rendering="crispEdges">'+
-         '<clipPath id="so"><rect width="'+W+'" height="'+H+'"/></clipPath>'+
-         '<g clip-path="url(#so)">'+inner+'</g></svg>';
-}
-function buildSVG(){return svgWrap(svgFrame(curFrame));}
 
 const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
 function fitCanvas(){
@@ -961,26 +1014,21 @@ function save(blob,name){
   a.href=url;a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
-function stamp(){return `sonar-${S.seed}-${S.ratio.replace(":","x")}`;}
+function stamp(){return `satin-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
-  const a=$("#expVid"),sc=$("#scrub"),l=$("#expSvgLoop");
+  const a=$("#expVid"),sc=$("#scrub");
   if(a)a.disabled=!S.motion.on;
-  if(l)l.disabled=!S.motion.on;
   if(sc)sc.disabled=!S.motion.on;
 }
 $("#expPng").addEventListener("click",()=>{
   toast("Rendering…",true);
   setTimeout(()=>{
     const r=RATIOS.find(x=>x.id===S.ratio);
-    const W=S.size,H=Math.round(S.size*r.h/r.w);
+    const W=S.size_px,H=Math.round(S.size_px*r.h/r.w);
     const c=document.createElement("canvas");c.width=W;c.height=H;
     paint(c.getContext("2d"),W,H,curFrame);
     c.toBlob(b=>{save(b,stamp()+".png");toast(`PNG saved · ${W}×${H}`);});
   },30);
-});
-$("#expSvg").addEventListener("click",()=>{
-  save(new Blob([buildSVG()],{type:"image/svg+xml"}),stamp()+".svg");
-  toast("SVG saved");
 });
 function pickVideoType(){
   const t=["video/mp4;codecs=avc1.42E01E","video/mp4","video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"];
@@ -993,7 +1041,7 @@ $("#expVid").addEventListener("click",()=>{
   if(!type)return toast("This browser can't record video");
   const ext=type.startsWith("video/mp4")?"mp4":"webm";
   const r=RATIOS.find(x=>x.id===S.ratio);
-  let W=Math.min(1280,S.size);W-=W%2;
+  let W=Math.min(1280,S.size_px);W-=W%2;
   let H=Math.round(W*r.h/r.w);H-=H%2;
   const c=document.createElement("canvas");c.width=W;c.height=H;
   const cc=c.getContext("2d");
@@ -1018,7 +1066,7 @@ $("#expVid").addEventListener("click",()=>{
    UI
 ============================================================ */
 function accent(){
-  let best=S.pal[S.pal.length-1],bl=-1;
+  let best=S.pal[Math.min(1,S.pal.length-1)],bl=-1;
   for(const c of S.pal){const l=relLum(c);if(l>bl&&l>0.12){bl=l;best=c;}}
   document.documentElement.style.setProperty("--accent",bl>0?best:"#F5C21B");
   $("#strip").innerHTML=S.pal.map(c=>`<span style="background:${c}"></span>`).join("");
@@ -1106,7 +1154,7 @@ function buildSwatches(){
   S.pal.forEach((c,i)=>{
     const b=document.createElement("button");
     b.className="sw"+(lock?" locked":"");b.type="button";
-    b.setAttribute("aria-label","Ink "+(i+1)+" color");
+    b.setAttribute("aria-label","Ink "+(i+1));
     b.innerHTML=`<span class="fill" style="background:${c}"></span>`+
       `<input type="color" value="${c}"><span class="x" aria-hidden="true">\u00d7</span>`;
     b.querySelector("input").addEventListener("input",e=>{
@@ -1145,28 +1193,27 @@ function bindRange(id,fmt,set,after){
 }
 
 buildRatios();buildSwatches();accent();
+segmented($("#warps"),WARPS,()=>S.warp,v=>{S.warp=v;reframe();});
 segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
 $("#shufColors").addEventListener("click",()=>{
   setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
 });
 $("#rotColors").addEventListener("click",()=>{
-  setPalette(S.pal.slice(1).concat(S.pal[0]));
+  setPalette([S.pal[0]].concat(S.pal.slice(2),[S.pal[1]]));
 });
-bindRange("level",v=>Math.round(v*100)+"%",v=>S.level=v);
-bindRange("scale",v=>v,v=>S.scale=v);
-bindRange("warp",v=>Math.round(v*100)+"%",v=>S.warp=v);
-bindRange("grid",v=>v|0,v=>S.grid=v|0);
-bindRange("depth",v=>Math.round(v*100)+"%",v=>S.depth=v);
-bindRange("fringe",v=>Math.round(v*100)+"%",v=>S.fringe=v);
-bindRange("spark",v=>Math.round(v*100)+"%",v=>S.spark=v);
+const pc=v=>Math.round(v*100)+"%";
+bindRange("folds",v=>v|0,v=>S.folds=v|0);
+bindRange("direction",v=>Math.round(v)+"°",v=>S.direction=v);
+bindRange("light",v=>Math.round(v)+"°",v=>S.light=v);
+for(const k of ["wobble","strength","reach","split","sheen","shadow","crease","chroma","depth"]) bindRange(k,pc,v=>S[k]=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
 $("#frames").addEventListener("input",e=>{S.motion.frames=parseInt(e.target.value,10);
   $("#framesVal").textContent=S.motion.frames+" frames";$("#scrub").max=S.motion.frames-1;
   curFrame=Math.min(curFrame,S.motion.frames-1);reframe();if(playing)setPlaying(true);});
-$("#size").addEventListener("input",e=>{S.size=parseInt(e.target.value,10);$("#sizeVal").textContent=S.size+" px";});
-$("#motionTog").addEventListener("click",e=>{
+$("#sizePx").addEventListener("input",e=>{S.size_px=parseInt(e.target.value,10);
+  $("#sizePxVal").textContent=S.size_px+" px";});$("#motionTog").addEventListener("click",e=>{
   S.motion.on=!S.motion.on;
   e.currentTarget.setAttribute("aria-pressed",String(S.motion.on));
   $("#motionBody").hidden=!S.motion.on;
@@ -1176,7 +1223,20 @@ $("#motionTog").addEventListener("click",e=>{
 });
 $("#play").addEventListener("click",()=>{if(!S.motion.on){$("#motionTog").click();return;}setPlaying(!playing);});
 $("#scrub").addEventListener("input",e=>{setPlaying(false);curFrame=parseInt(e.target.value,10)%Math.max(1,S.motion.frames);draw();});
-function newSeed(v){S.seed=(v!==undefined)?v:(Math.random()*99999|0)+1;$("#seed").value=S.seed;reframe();}
+function newSeed(v){
+  S.seed=(v!==undefined)?v:(Math.random()*99999|0)+1;
+  $("#seed").value=S.seed;
+  dealT(S.seed);
+  /* every dealt value onto its dial and its readout, so the sheet can be
+     adjusted from where it landed */
+  const put=(id,val,txt)=>{const e=$("#"+id),l=$("#"+id+"Val");if(e)e.value=val;if(l)l.textContent=txt;};
+  const pc=v=>Math.round(v*100)+"%";
+  put("folds",S.folds,String(S.folds));
+  put("direction",S.direction,Math.round(S.direction)+"°"); put("light",S.light,Math.round(S.light)+"°");
+  for(const k of ["wobble","strength","reach","split","sheen","shadow","crease","chroma","depth"]) put(k,S[k],pc(S[k]));
+  buildSwatches(); accent();
+  reframe();
+}
 $("#shuf").addEventListener("click",()=>newSeed());
 $("#seed").addEventListener("change",e=>{const v=parseInt(e.target.value,10);newSeed(Number.isFinite(v)?Math.abs(v):1);});
 art.addEventListener("click",()=>newSeed());
