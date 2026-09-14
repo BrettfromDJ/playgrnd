@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://playgrnd.tools/pour">
 <meta property="og:site_name" content="playgrnd">
 <meta property="og:title" content="Pour — playgrnd">
-<meta property="og:description" content="Generate poured-paint backgrounds — bands of every width sweeping across the sheet in runs of your inks and their tints, glossy, with dappled pools and spotted bands. Deal a new variation or turn the dials. Exports image and video.">
+<meta property="og:description" content="Generate poured-paint backgrounds — bands of every width sweeping across the sheet in runs of your inks and their tints, glossy, some of them spotted. Deal a new variation or turn the dials. Exports image and video.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://playgrnd.tools/pour">
 <meta property="og:image" content="https://playgrnd.tools/pour/og.jpg">
@@ -19,9 +19,9 @@
 <meta property="og:image:alt" content="Artwork made with Pour.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Pour — playgrnd">
-<meta name="twitter:description" content="Generate poured-paint backgrounds — bands of every width sweeping across the sheet in runs of your inks and their tints, glossy, with dappled pools and spotted bands.">
+<meta name="twitter:description" content="Generate poured-paint backgrounds — bands of every width sweeping across the sheet in runs of your inks and their tints, glossy, some of them spotted.">
 <meta name="twitter:image" content="https://playgrnd.tools/pour/og.jpg">
-<meta name="description" content="Generate poured-paint backgrounds — bands of every width sweeping across the sheet in runs of your inks and their tints, glossy, with dappled pools and spotted bands. Deal a new variation or turn the dials. Exports image and video.">
+<meta name="description" content="Generate poured-paint backgrounds — bands of every width sweeping across the sheet in runs of your inks and their tints, glossy, some of them spotted. Deal a new variation or turn the dials. Exports image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -637,8 +637,7 @@ input[type=range]{accent-color:var(--ink)}
         <div class="pr"><div class="top"><span class="k">Vary</span><span class="v" id="varyVal">60%</span></div><div class="track"><input type="range" id="vary" min="0" max="1" step="0.01" value="0.6"></div></div>
         <div class="pr"><div class="top"><span class="k">Curve</span><span class="v" id="curveVal">50%</span></div><div class="track"><input type="range" id="curve" min="0" max="1" step="0.01" value="0.5"></div></div>
         <div class="pr"><div class="top"><span class="k">Wobble</span><span class="v" id="wobbleVal">35%</span></div><div class="track"><input type="range" id="wobble" min="0" max="1" step="0.01" value="0.35"></div></div></div></details>
-    <details class="grp"><summary>Paint</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Pools</span><span class="v" id="poolsVal">35%</span></div><div class="track"><input type="range" id="pools" min="0" max="1" step="0.01" value="0.35"></div></div>
-        <div class="pr"><div class="top"><span class="k">Spots</span><span class="v" id="spotsVal">30%</span></div><div class="track"><input type="range" id="spots" min="0" max="1" step="0.01" value="0.3"></div></div>
+    <details class="grp" open><summary>Paint</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Spots</span><span class="v" id="spotsVal">30%</span></div><div class="track"><input type="range" id="spots" min="0" max="1" step="0.01" value="0.3"></div></div>
         <div class="pr"><div class="top"><span class="k">Gloss</span><span class="v" id="glossVal">60%</span></div><div class="track"><input type="range" id="gloss" min="0" max="1" step="0.01" value="0.6"></div></div>
         <div class="pr"><div class="top"><span class="k">Tints</span><span class="v" id="tintsVal">60%</span></div><div class="track"><input type="range" id="tints" min="0" max="1" step="0.01" value="0.6"></div></div>
         <div class="pr"><div class="top"><span class="k">Runs</span><span class="v" id="runsVal">50%</span></div><div class="track"><input type="range" id="runs" min="0" max="1" step="0.01" value="0.5"></div></div></div></details><div class="tog-grp"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate<span class="sw" aria-hidden="true"></span></button><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
@@ -751,8 +750,8 @@ const GRAIN_DEFAULT={on:true,blend:"overlay",amount:0.35,size:1,specks:0.35,vign
 
 /* Every ink is an anchor: the bands take the inks in runs, and the many
    thin bands between take lighter and darker tints of them, so a set of
-   seven reads as dozens of stripes. The pools take a pale tint of an ink,
-   and a spotted band carries dots of another. */
+   seven reads as dozens of stripes, and a spotted band carries dots of
+   another. */
 const PALETTES=[
   ["#E8407A","#F26A1B","#F4E04D","#2FBF5A","#8FD3F4","#7A5FBF","#1B2A4A"],
   ["#FF3D7A","#FFB020","#3DE0FF","#12102A","#F2F2F0","#00E5A8"],
@@ -763,15 +762,15 @@ const PALETTES=[
 ];
 
 /* Poured paint seen edge-on: a run of bands of every width, hairline to
-   broad, sweeping across the sheet, glossy, with dappled pools breaking
-   the run and spots riding some of the bands. Every setting is a dial and
+   broad, sweeping across the sheet, glossy, with spots riding some of
+   the bands. Every setting is a dial and
    the same dials always give the same sheet. The variation number deals a
    fresh set of dials and shows the deal on the dials, so a dealt sheet can
    be adjusted from where it landed. */
 const S={
   seed:7, ratio:"3:4",
   flow:"pour", bands:0.5, vary:0.6, curve:0.5, wobble:0.35,
-  pools:0.35, spots:0.3, gloss:0.6, tints:0.6, runs:0.5,
+  spots:0.3, gloss:0.6, tints:0.6, runs:0.5,
   pal:PALETTES[0].slice(),
   motion:{on:false,mode:"sway",amount:0.6,fps:12,frames:36},
   size_px:2400
@@ -802,12 +801,11 @@ function dealP(seed){
   S.vary=0.4+r()*0.5;
   S.curve=0.3+r()*0.5;
   S.wobble=0.2+r()*0.4;
-  S.pools=0.15+r()*0.4;
   S.spots=0.1+r()*0.4;
   S.gloss=0.4+r()*0.5;
   S.tints=0.4+r()*0.5;
   S.runs=0.3+r()*0.5;
-  for(const k of ["bands","vary","curve","wobble","pools","spots","gloss","tints","runs"]) S[k]=Math.round(S[k]*100)/100;
+  for(const k of ["bands","vary","curve","wobble","spots","gloss","tints","runs"]) S[k]=Math.round(S[k]*100)/100;
 }
 function rgbP(h){
   h=(h||"#000").replace("#","");
@@ -828,7 +826,7 @@ function paint(c,W,H,f){
   const inks=raw.map(rgbP), NI=inks.length;
   const U=Math.sqrt(W*H);
   const seed=S.seed|0;
-  const sd1=seed*7+1, sd2=seed*7+2, sd3=seed*7+3, sd4=seed*7+4;
+  const sd1=seed*7+1, sd2=seed*7+2, sd4=seed*7+4;
 
   /* ---- motion ----
      Sway walks the wobble round a small circle, so the bands lean and come
@@ -849,12 +847,12 @@ function paint(c,W,H,f){
 
   /* ---- the band coordinate, on a two-pixel grid ----
      which band a point sits on, worked out once for every other pixel and
-     read back smoothly, with the pool field beside it */
+     read back smoothly */
   const fw=(W>>1)+3, fh=(H>>1)+3;
-  if(!GRP||GRP.length!==fw*fh*2) GRP=new Float32Array(fw*fh*2);
+  if(!GRP||GRP.length!==fw*fh) GRP=new Float32Array(fw*fh);
   let pmin=1e9, pmax=-1e9;
   for(let j=0,i=0;j<fh;j++){
-    for(let i2=0;i2<fw;i2++,i+=2){
+    for(let i2=0;i2<fw;i2++,i++){
       const u=(i2*2-2)/U, v=(j*2-2)/U;
       let p;
       if(flow==="pour"){
@@ -873,8 +871,6 @@ function paint(c,W,H,f){
       if(wob>0) p+=wob*0.05*(vnP(u*7+swy+4,v*7+swx+7,sd2)-0.5)*2+wob*0.012*(vnP(u*22+swx+9,v*22+swy+3,sd2)-0.5)*2;
       p*=U;
       GRP[i]=p; if(p<pmin) pmin=p; if(p>pmax) pmax=p;
-      /* the pools: a slow field, stretched along the bands */
-      GRP[i+1]=vnP(u*2.2+11,v*2.2+5,sd3)*0.7+vnP(u*5+3,v*5+9,sd3)*0.3;
     }
   }
 
@@ -914,13 +910,6 @@ function paint(c,W,H,f){
   const LUT=new Int16Array(LN+1);
   for(let k=0,n=0;n<=LN;n++){ const p=lo+n/lscale; while(k<2*M2&&edges[k+1]<p) k++; LUT[n]=k; }
 
-  /* ---- the pools ---- */
-  const thr=0.78-S.pools*0.3;
-  const poolInk=(hshP(3,3,seed)*NI)|0, poolInk2=(poolInk+2)%NI;
-  const pcol=tintP(inks[poolInk],0.55), pcol2=tintP(inks[poolInk2],0.25);
-  const plight=tintP(inks[poolInk],0.8), plight2=tintP(inks[poolInk2],0.5);
-  const mot=U*0.014;
-
   const gl=S.gloss;
   if(!BUFP||BUFP.width!==W||BUFP.height!==H) BUFP=c.createImageData(W,H);
   const px=BUFP.data;
@@ -929,9 +918,8 @@ function paint(c,W,H,f){
     const gy=(y+2)*0.5, yi=gy|0, yf=gy-yi;
     for(let x=0;x<W;x++,p+=4){
       const gx=(x+2)*0.5, xi=gx|0, xf=gx-xi;
-      const k=(yi*fw+xi)*2;
-      const phi=(GRP[k]*(1-xf)+GRP[k+2]*xf)*(1-yf)+(GRP[k+fw*2]*(1-xf)+GRP[k+fw*2+2]*xf)*yf;
-      const pool=(GRP[k+1]*(1-xf)+GRP[k+3]*xf)*(1-yf)+(GRP[k+fw*2+1]*(1-xf)+GRP[k+fw*2+3]*xf)*yf;
+      const k=yi*fw+xi;
+      const phi=(GRP[k]*(1-xf)+GRP[k+1]*xf)*(1-yf)+(GRP[k+fw]*(1-xf)+GRP[k+fw+1]*xf)*yf;
       /* the band under this point */
       let n=((phi-lo)*lscale)|0; if(n<0) n=0; else if(n>LN) n=LN;
       let b=LUT[n];
@@ -955,19 +943,6 @@ function paint(c,W,H,f){
         const hl=Math.exp(-d*d)*gl*0.42;
         R+=(255-R)*hl; G+=(255-G)*hl; B+=(255-B)*hl;
         if(fr>0.82){ const sh=(fr-0.82)/0.18*gl*0.3; R*=1-sh; G*=1-sh; B*=1-sh; }
-      }
-      /* the pools, dappled, with a wet rim */
-      if(pool>thr){
-        const which=pool>thr+0.13&&hshP(Math.floor(x/(U*0.3)),Math.floor(y/(U*0.3)),seed)<0.5;
-        const pc=which?pcol2:pcol, pl=which?plight2:plight;
-        const m=vnP(x/mot+5,y/mot+9,sd4);
-        const cel=Math.max(0,Math.min(1,(m-0.5)*4));
-        R=pc[0]+(pl[0]-pc[0])*cel; G=pc[1]+(pl[1]-pc[1])*cel; B=pc[2]+(pl[2]-pc[2])*cel;
-        const rim=Math.max(0,1-(pool-thr)/0.035)*gl*0.5;
-        R+=(255-R)*rim; G+=(255-G)*rim; B+=(255-B)*rim;
-      }else if(pool>thr-0.02&&gl>0){
-        /* the paint darkens where a pool has crept over it */
-        const sh=(1-(thr-pool)/0.02)*gl*0.35; R*=1-sh; G*=1-sh; B*=1-sh;
       }
       px[p]=R; px[p+1]=G; px[p+2]=B; px[p+3]=255;
     }
@@ -1233,7 +1208,7 @@ $("#rotColors").addEventListener("click",()=>{
   setPalette([S.pal[0]].concat(S.pal.slice(2),[S.pal[1]]));
 });
 const pc=v=>Math.round(v*100)+"%";
-for(const k of ["bands","vary","curve","wobble","pools","spots","gloss","tints","runs"]) bindRange(k,pc,v=>S[k]=v);
+for(const k of ["bands","vary","curve","wobble","spots","gloss","tints","runs"]) bindRange(k,pc,v=>S[k]=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
@@ -1259,7 +1234,7 @@ function newSeed(v){
      adjusted from where it landed */
   const put=(id,val,txt)=>{const e=$("#"+id),l=$("#"+id+"Val");if(e)e.value=val;if(l)l.textContent=txt;};
   const pc=v=>Math.round(v*100)+"%";
-  for(const k of ["bands","vary","curve","wobble","pools","spots","gloss","tints","runs"]) put(k,S[k],pc(S[k]));
+  for(const k of ["bands","vary","curve","wobble","spots","gloss","tints","runs"]) put(k,S[k],pc(S[k]));
   buildSwatches(); accent();
   reframe();
 }
