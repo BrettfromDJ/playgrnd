@@ -3,25 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Specimen — playgrnd</title>
+<title>Pour — playgrnd</title>
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/favicon.png" sizes="180x180" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="canonical" href="https://playgrnd.tools/specimen">
+<link rel="canonical" href="https://playgrnd.tools/pour">
 <meta property="og:site_name" content="playgrnd">
-<meta property="og:title" content="Specimen — playgrnd">
-<meta property="og:description" content="Generate grids of abstract colour blocks on a light ground. Marbling, tendrils, fans, rings and spikes, exported as vector, animation or video.">
+<meta property="og:title" content="Pour — playgrnd">
+<meta property="og:description" content="Generate poured-paint backgrounds — bands of every width sweeping across the sheet in runs of your inks and their tints, glossy, with dappled pools and spotted bands. Deal a new variation or turn the dials. Exports image and video.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://playgrnd.tools/specimen">
-<meta property="og:image" content="https://playgrnd.tools/specimen/og.jpg">
+<meta property="og:url" content="https://playgrnd.tools/pour">
+<meta property="og:image" content="https://playgrnd.tools/pour/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Artwork made with Specimen.">
+<meta property="og:image:alt" content="Artwork made with Pour.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Specimen — playgrnd">
-<meta name="twitter:description" content="Generate grids of abstract colour blocks on a light ground.">
-<meta name="twitter:image" content="https://playgrnd.tools/specimen/og.jpg">
-<meta name="description" content="Generate grids of abstract colour blocks on a light ground. Marbling, tendrils, fans, rings and spikes, exported as vector, animation or video.">
+<meta name="twitter:title" content="Pour — playgrnd">
+<meta name="twitter:description" content="Generate poured-paint backgrounds — bands of every width sweeping across the sheet in runs of your inks and their tints, glossy, with dappled pools and spotted bands.">
+<meta name="twitter:image" content="https://playgrnd.tools/pour/og.jpg">
+<meta name="description" content="Generate poured-paint backgrounds — bands of every width sweeping across the sheet in runs of your inks and their tints, glossy, with dappled pools and spotted bands. Deal a new variation or turn the dials. Exports image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -615,16 +615,16 @@ input[type=range]{accent-color:var(--ink)}
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
         <span class="slash">&frasl;</span>
-        <span class="tool">Specimen</span>
+        <span class="tool">Pour</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">08 / 50</span>
-        <span class="k">Type</span><span class="v">Type specimen</span>
+        <span class="k">Index</span><span class="v">50 / 50</span>
+        <span class="k">Type</span><span class="v">Poured bands</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
       <div class="newblk">
         <div class="newlab"><span class="k">Variation</span>
-          <span class="seedwrap"><input class="seed" id="seed" value="1" inputmode="numeric" aria-label="Variation number"><button class="pbtn copy" id="copySeed"
+          <span class="seedwrap"><input class="seed" id="seed" value="7" inputmode="numeric" aria-label="Variation number"><button class="pbtn copy" id="copySeed"
             aria-label="Copy variation number">Copy</button></span>
         </div>
         <button class="newbtn" id="randomize"><span class="ico" aria-hidden="true">&#8635;</span>
@@ -632,30 +632,19 @@ input[type=range]{accent-color:var(--ink)}
           <span class="sub">Reshuffle every shape</span></button>
       </div>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Grid</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Columns</span><span class="v" id="colsVal">5</span></div><div class="track"><input type="range" id="cols" min="2" max="16" step="1" value="5"></div></div>
-        <div class="misc"><span class="mhead"><span class="k">Square cells</span></span><span class="mval"></span>
-          <button class="switch" id="squareTog" aria-pressed="true" aria-label="Square cells"></button></span></div>
-        <div class="pr"><div class="top"><span class="k">Rows</span><span class="v" id="rowsVal">5</span></div><div class="track"><input type="range" id="rows" min="2" max="16" step="1" value="5"></div></div>
-        <div class="pr"><div class="top"><span class="k">Fill</span><span class="v" id="fillVal">26%</span></div><div class="track"><input type="range" id="fill" min="0.1" max="1" step="0.01" value="0.26"></div></div>
-        <div class="pr"><div class="top"><span class="k">Spanning</span><span class="v" id="spanVal">45%</span></div><div class="track"><input type="range" id="span" min="0" max="1" step="0.01" value="0.45"></div></div>
-        <div class="pr"><div class="top"><span class="k">Gutter</span><span class="v" id="gutVal">0%</span></div><div class="track"><input type="range" id="gut" min="0" max="0.3" step="0.005" value="0"></div></div>
-        <div class="pr"><div class="top"><span class="k">Page rules</span><span class="v" id="rulesVal">14%</span></div><div class="track"><input type="range" id="rules" min="0" max="1" step="0.01" value="0.14"></div></div></div></details>
-    <details class="grp"><summary>Specimens</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Marble</span><span class="v" id="wMarbleVal">26</span></div><div class="track"><input type="range" id="wMarble" min="0" max="100" step="1" value="26"></div></div>
-        <div class="pr"><div class="top"><span class="k">Tendrils</span><span class="v" id="wTendrilVal">16</span></div><div class="track"><input type="range" id="wTendril" min="0" max="100" step="1" value="16"></div></div>
-        <div class="pr"><div class="top"><span class="k">Loops</span><span class="v" id="wLoopVal">12</span></div><div class="track"><input type="range" id="wLoop" min="0" max="100" step="1" value="12"></div></div>
-        <div class="pr"><div class="top"><span class="k">Flat</span><span class="v" id="wFlatVal">14</span></div><div class="track"><input type="range" id="wFlat" min="0" max="100" step="1" value="14"></div></div>
-        <div class="pr"><div class="top"><span class="k">Rings</span><span class="v" id="wRingVal">10</span></div><div class="track"><input type="range" id="wRing" min="0" max="100" step="1" value="10"></div></div>
-        <div class="pr"><div class="top"><span class="k">Fan</span><span class="v" id="wFanVal">10</span></div><div class="track"><input type="range" id="wFan" min="0" max="100" step="1" value="10"></div></div>
-        <div class="pr"><div class="top"><span class="k">Arcs</span><span class="v" id="wArcVal">10</span></div><div class="track"><input type="range" id="wArc" min="0" max="100" step="1" value="10"></div></div>
-        <div class="pr"><div class="top"><span class="k">Spikes</span><span class="v" id="wSpikeVal">8</span></div><div class="track"><input type="range" id="wSpike" min="0" max="100" step="1" value="8"></div></div></div></details>
-    <details class="grp"><summary>Detail</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Marble scale</span><span class="v" id="mScaleVal">2.2</span></div><div class="track"><input type="range" id="mScale" min="0.6" max="6" step="0.1" value="2.2"></div></div>
-        <div class="pr"><div class="top"><span class="k">Marble bands</span><span class="v" id="mBandsVal">4</span></div><div class="track"><input type="range" id="mBands" min="2" max="7" step="1" value="4"></div></div>
-        <div class="pr"><div class="top"><span class="k">Line density</span><span class="v" id="densityVal">55%</span></div><div class="track"><input type="range" id="density" min="0.1" max="1" step="0.01" value="0.55"></div></div>
-        <div class="pr"><div class="top"><span class="k">Line weight</span><span class="v" id="lineWVal">2.0</span></div><div class="track"><input type="range" id="lineW" min="0.4" max="10" step="0.2" value="2"></div></div>
-        <div class="pr"><div class="top"><span class="k">Ink share</span><span class="v" id="inkMixVal">35%</span></div><div class="track"><input type="range" id="inkMix" min="0" max="1" step="0.01" value="0.35"></div></div></div></details><div class="tog-grp"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate<span class="sw" aria-hidden="true"></span></button><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
-          <div class="pr"><div class="top"><span class="k">Intensity</span><span class="v" id="amtVal">0.80</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2.5" step="0.05" value="0.8"></div></div>
-          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="1" max="30" step="1" value="12"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">24 frames</span></div><div class="track"><input type="range" id="frames" min="6" max="60" step="1" value="24"></div></div></div></div><div class="tog-grp"><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither<span class="sw" aria-hidden="true"></span></button><div class="group" id="ditherBody" hidden>
+    <div class="l-scroll"><details class="grp" open><summary>Flow</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Flow</span></span><span class="mval"><div class="chips" id="flows"></div></span></div>
+        <div class="pr"><div class="top"><span class="k">Bands</span><span class="v" id="bandsVal">50%</span></div><div class="track"><input type="range" id="bands" min="0" max="1" step="0.01" value="0.5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Vary</span><span class="v" id="varyVal">60%</span></div><div class="track"><input type="range" id="vary" min="0" max="1" step="0.01" value="0.6"></div></div>
+        <div class="pr"><div class="top"><span class="k">Curve</span><span class="v" id="curveVal">50%</span></div><div class="track"><input type="range" id="curve" min="0" max="1" step="0.01" value="0.5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Wobble</span><span class="v" id="wobbleVal">35%</span></div><div class="track"><input type="range" id="wobble" min="0" max="1" step="0.01" value="0.35"></div></div></div></details>
+    <details class="grp"><summary>Paint</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Pools</span><span class="v" id="poolsVal">35%</span></div><div class="track"><input type="range" id="pools" min="0" max="1" step="0.01" value="0.35"></div></div>
+        <div class="pr"><div class="top"><span class="k">Spots</span><span class="v" id="spotsVal">30%</span></div><div class="track"><input type="range" id="spots" min="0" max="1" step="0.01" value="0.3"></div></div>
+        <div class="pr"><div class="top"><span class="k">Gloss</span><span class="v" id="glossVal">60%</span></div><div class="track"><input type="range" id="gloss" min="0" max="1" step="0.01" value="0.6"></div></div>
+        <div class="pr"><div class="top"><span class="k">Tints</span><span class="v" id="tintsVal">60%</span></div><div class="track"><input type="range" id="tints" min="0" max="1" step="0.01" value="0.6"></div></div>
+        <div class="pr"><div class="top"><span class="k">Runs</span><span class="v" id="runsVal">50%</span></div><div class="track"><input type="range" id="runs" min="0" max="1" step="0.01" value="0.5"></div></div></div></details><div class="tog-grp"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate<span class="sw" aria-hidden="true"></span></button><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
+          <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
+          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="12"></div></div>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="36"></div></div></div></div><div class="tog-grp"><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither<span class="sw" aria-hidden="true"></span></button><div class="group" id="ditherBody" hidden>
   <div class="misc stack"><span class="mhead"><span class="k">Pattern</span></span><span class="mval"><div class="chips" id="dthKinds"></div></span></div>
   <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
   <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
@@ -667,19 +656,9 @@ input[type=range]{accent-color:var(--ink)}
   <div class="pr"><div class="top"><span class="k">Specks</span><span class="v" id="grnSpecksVal">50%</span></div><div class="track"><input type="range" id="grnSpecks" min="0" max="1" step="0.05" value="0.5"></div></div>
   <div class="pr"><div class="top"><span class="k">Vignette</span><span class="v" id="grnVignetteVal">50%</span></div><div class="track"><input type="range" id="grnVignette" min="0" max="1" step="0.05" value="0.5"></div></div>
 </div></div></div>
-    <div class="l-bot"><details class="grp colr" open><summary>Color<button class="mycsw" id="mycTog" aria-pressed="false">My colors<span class="sw" aria-hidden="true"></span></button></summary><div class="grp-b"><div class="pair">
-          <div>
-            <div class="lab"><span>Page</span></div>
-            <button class="sw" id="pageSw"><span class="fill"></span><input type="color" id="pageIn" aria-label="Page"></button>
-          </div>
-          <div>
-            <div class="lab"><span>Ink</span></div>
-            <button class="sw" id="inkSw"><span class="fill"></span><input type="color" id="inkIn" aria-label="Ink"></button>
-          </div>
-        </div>
-        <div class="misc"><span class="mhead"><span class="k">Colors</span><span class="v" id="swCountVal">7</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+    <div class="l-bot"><details class="grp colr" open><summary>Color<button class="mycsw" id="mycTog" aria-pressed="false">My colors<span class="sw" aria-hidden="true"></span></button></summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">7</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
         
-      <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotInks">Rotate</button></span></div>
+      <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div>
       <div class="myc" id="myc" hidden>
         <div class="myc-row" id="mycHome">
           <button class="lnk" id="mycSave">Save</button>
@@ -725,10 +704,8 @@ input[type=range]{accent-color:var(--ink)}
       <div class="tbl" style="margin-bottom:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>
-      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
+      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizePxVal">2400 px</span></div><div class="track"><input type="range" id="sizePx" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
-          <button class="lnk" id="expSvg">SVG</button></span></div>
-        <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expSvgAnim">Animated SVG</button>
           <button class="lnk" id="expVid">Video</button></span></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
     </div>
   </div>
@@ -753,380 +730,259 @@ input[type=range]{accent-color:var(--ink)}
 const $=s=>document.querySelector(s);
 const TAU=Math.PI*2;
 const clamp=(v,a,b)=>v<a?a:v>b?b:v;
-const lerp=(a,b,t)=>a+(b-a)*t;
-const fade=t=>t*t*(3-2*t);
 const reduceMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
 function rng(s){let a=(s>>>0)||1;return()=>{a^=a<<13;a>>>=0;a^=a>>17;a^=a<<5;a>>>=0;return a/4294967296;};}
-function hashi(x,y,z,w,seed){
-  let n=Math.imul(x|0,374761393)^Math.imul(y|0,668265263)^Math.imul(z|0,1440662683)
-       ^Math.imul(w|0,1274126177)^Math.imul(seed|0,1013904223);
+function hashi(x,y,z,s){
+  let n=Math.imul(x|0,374761393)^Math.imul(y|0,668265263)^Math.imul(z|0,1440662683)^Math.imul(s|0,1013904223);
   n=Math.imul(n^(n>>>15),2246822519);n=Math.imul(n^(n>>>13),3266489917);n^=n>>>16;
   return (n>>>0)/4294967296;
 }
-function vnoise(x,y,z,w,seed){
-  const xi=Math.floor(x),yi=Math.floor(y),zi=Math.floor(z),wi=Math.floor(w);
-  const u=fade(x-xi),v=fade(y-yi),s=fade(z-zi),t=fade(w-wi);
-  const face=(dz,dw)=>{
-    const a=hashi(xi,yi,zi+dz,wi+dw,seed),b=hashi(xi+1,yi,zi+dz,wi+dw,seed);
-    const c=hashi(xi,yi+1,zi+dz,wi+dw,seed),d=hashi(xi+1,yi+1,zi+dz,wi+dw,seed);
-    return lerp(lerp(a,b,u),lerp(c,d,u),v);
-  };
-  return lerp(lerp(face(0,0),face(0,1),t),lerp(face(1,0),face(1,1),t),s);
-}
-function fbm(x,y,z,w,seed,oct){
-  let a=0.5,f=1,sum=0,norm=0;
-  for(let i=0;i<oct;i++){sum+=a*vnoise(x*f,y*f,z,w,seed+i*1319);norm+=a;a*=0.5;f*=2;}
-  return sum/norm;
-}
 function hex2rgb(h){h=h.replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");
   return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];}
-function rgb2hex(r,g,b){return"#"+[r,g,b].map(v=>clamp(Math.round(v),0,255).toString(16).padStart(2,"0")).join("");}
-function hsl2hex(h,s,l){h=((h%360)+360)%360;s/=100;l/=100;
-  const c=(1-Math.abs(2*l-1))*s,x=c*(1-Math.abs((h/60)%2-1)),m=l-c/2;let r,g,b;
-  if(h<60)[r,g,b]=[c,x,0];else if(h<120)[r,g,b]=[x,c,0];else if(h<180)[r,g,b]=[0,c,x];
-  else if(h<240)[r,g,b]=[0,x,c];else if(h<300)[r,g,b]=[x,0,c];else[r,g,b]=[c,0,x];
-  return rgb2hex((r+m)*255,(g+m)*255,(b+m)*255);}
 function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4);});
   return .2126*r+.7152*g+.0722*b;}
-function chroma(h){const[r,g,b]=hex2rgb(h);return(Math.max(r,g,b)-Math.min(r,g,b))/255;}
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const PALETTES={
-  Studio: {page:"#F5F1E8",ink:"#1B1B1B",colors:["#E63946","#457B9D","#F4A261","#2A9D8F","#E9C46A","#8338EC","#1B1B1B"]},
-  Riso:   {page:"#F1EBE1",ink:"#0E2A8C",colors:["#1B4FA0","#FF87C3","#8E9A24","#FF5B1E","#0E2A8C"]},
-  Bloom:  {page:"#0A0A0A",ink:"#F2F0EA",colors:["#FFF04D","#FF7A1A","#FF2CB0","#D9F3F0","#B9B6E5"]},
-  Digital:{page:"#EDEDEA",ink:"#0A0A0B",colors:["#C6FF3D","#FFE800","#A97BF5","#0A0A0B","#2AAE9E"]},
-  Mono:   {page:"#E9E9E7",ink:"#0A0A0A",colors:["#0A0A0A","#5A5F66","#9BA1A8","#C9CDD1","#FFFFFF"]}
-};
-const MODES=[["flow","Flow"],["spin","Spin"],["pulse","Pulse"],["cycle","Cycle"]];
-const TYPES=["marble","tendril","loop","flat","ring","fan","arc","spike"];
+const MODES=[["sway","Sway"],["swell","Swell"],["shimmer","Shimmer"]];
+const FLOWS=[["pour","Pour"],["agate","Agate"],["drape","Drape"]];
+/* this sheet opens with the grain on: photographed paint, not a screen fill */
+const GRAIN_DEFAULT={on:true,blend:"overlay",amount:0.35,size:1,specks:0.35,vignette:0.3};
 
+/* Every ink is an anchor: the bands take the inks in runs, and the many
+   thin bands between take lighter and darker tints of them, so a set of
+   seven reads as dozens of stripes. The pools take a pale tint of an ink,
+   and a spotted band carries dots of another. */
+const PALETTES=[
+  ["#E8407A","#F26A1B","#F4E04D","#2FBF5A","#8FD3F4","#7A5FBF","#1B2A4A"],
+  ["#FF3D7A","#FFB020","#3DE0FF","#12102A","#F2F2F0","#00E5A8"],
+  ["#E63946","#F1C40F","#1D3557","#2A9D8F","#F4EFE3","#E76F51"],
+  ["#7B2CBF","#F26CA7","#4CE0D2","#FFD6EA","#2B1B4A","#FFB347"],
+  ["#111111","#F5F1E8","#FF5C39","#3B5BFF","#FFD23F"],
+  ["#264653","#E9C46A","#F4A261","#E76F51","#2A9D8F","#FFF1C4"]
+];
+
+/* Poured paint seen edge-on: a run of bands of every width, hairline to
+   broad, sweeping across the sheet, glossy, with dappled pools breaking
+   the run and spots riding some of the bands. Every setting is a dial and
+   the same dials always give the same sheet. The variation number deals a
+   fresh set of dials and shows the deal on the dials, so a dealt sheet can
+   be adjusted from where it landed. */
 const S={
-  seed:9, ratio:"1:1", cols:5, rows:5, square:true, fill:.26, span:.45, gut:0, rules:.14,
-  w:{marble:26,tendril:16,loop:12,flat:14,ring:10,fan:10,arc:10,spike:8},
-  mScale:2.2, mBands:4, density:.55, lineW:2, inkMix:.35,
-  paletteName:"Studio", page:"#F5F1E8", ink:"#1B1B1B",
-  palette:["#E63946","#457B9D","#F4A261","#2A9D8F","#E9C46A","#8338EC","#1B1B1B"],
-  motion:{on:false,mode:"flow",amount:.8,fps:12,frames:24},
-  size:2400
+  seed:7, ratio:"3:4",
+  flow:"pour", bands:0.5, vary:0.6, curve:0.5, wobble:0.35,
+  pools:0.35, spots:0.3, gloss:0.6, tints:0.6, runs:0.5,
+  pal:PALETTES[0].slice(),
+  motion:{on:false,mode:"sway",amount:0.6,fps:12,frames:36},
+  size_px:2400
 };
-const VB=1000;
-function vh(){const r=RATIOS.find(x=>x.id===S.ratio);return VB*r.h/r.w;}
-// with square cells on, the row count follows the canvas so every cell is a true square
-function gridDims(){
-  if(!S.square) return {C:S.cols, R:S.rows};
-  return {C:S.cols, R:Math.max(1, Math.round(S.cols*vh()/VB))};
+
+const TAUP=Math.PI*2;
+function hshP(x,y,s){
+  let n=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1274126177);
+  n=Math.imul(n^(n>>>13),1274126177); n^=n>>>16;
+  return (n>>>0)/4294967296;
+}
+function vnP(x,y,s){
+  const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi;
+  const u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);
+  const a=hshP(xi,yi,s),b=hshP(xi+1,yi,s),c=hshP(xi,yi+1,s),d=hshP(xi+1,yi+1,s);
+  return (a*(1-u)+b*u)*(1-v)+(c*(1-u)+d*u)*v;
+}
+function rngP(seed){
+  let a=(seed>>>0)||1;
+  return function(){ a^=a<<13; a>>>=0; a^=a>>>17; a>>>=0; a^=a<<5; a>>>=0; return a/4294967296; };
+}
+/* The deal: everything lands somewhere near the reference rather than on a
+   corner of the settings nobody would choose. The palette and the flow
+   are left alone: New colors and the picker are the way to change them. */
+function dealP(seed){
+  const r=rngP(Math.imul(seed|0,2654435761)^0x5bd1e995);
+  S.bands=0.3+r()*0.45;
+  S.vary=0.4+r()*0.5;
+  S.curve=0.3+r()*0.5;
+  S.wobble=0.2+r()*0.4;
+  S.pools=0.15+r()*0.4;
+  S.spots=0.1+r()*0.4;
+  S.gloss=0.4+r()*0.5;
+  S.tints=0.4+r()*0.5;
+  S.runs=0.3+r()*0.5;
+  for(const k of ["bands","vary","curve","wobble","pools","spots","gloss","tints","runs"]) S[k]=Math.round(S[k]*100)/100;
+}
+function rgbP(h){
+  h=(h||"#000").replace("#","");
+  if(h.length===3) h=h.split("").map(c=>c+c).join("");
+  return [parseInt(h.slice(0,2),16)||0,parseInt(h.slice(2,4),16)||0,parseInt(h.slice(4,6),16)||0];
+}
+/* a tint of an ink: toward white above zero, toward black below, keeping
+   a little of the hue even at the ends */
+function tintP(c,t){
+  if(t>=0){ const k=Math.min(1,t); return [c[0]+(255-c[0])*k,c[1]+(255-c[1])*k,c[2]+(255-c[2])*k]; }
+  const k=Math.min(1,-t); return [c[0]*(1-k*0.92),c[1]*(1-k*0.92),c[2]*(1-k*0.92)];
 }
 
-/* ============================================================
-   Contours — closed loops of a noise field, for the marbling
-============================================================ */
-function isoLoops(get,nx,ny,level){
-  const segs=[];
-  const ip=(x1,y1,v1,x2,y2,v2)=>{const t=(level-v1)/((v2-v1)||1e-9);return[x1+(x2-x1)*t,y1+(y2-y1)*t];};
-  for(let j=0;j<ny;j++)for(let i=0;i<nx;i++){
-    const a=get(i,j),b=get(i+1,j),c=get(i+1,j+1),d=get(i,j+1);
-    let k=0;if(a>level)k|=8;if(b>level)k|=4;if(c>level)k|=2;if(d>level)k|=1;
-    if(k===0||k===15)continue;
-    const T=()=>ip(i,j,a,i+1,j,b),R=()=>ip(i+1,j,b,i+1,j+1,c),
-          B=()=>ip(i,j+1,d,i+1,j+1,c),L=()=>ip(i,j,a,i,j+1,d);
-    switch(k){
-      case 1:case 14: segs.push([L(),B()]);break;
-      case 2:case 13: segs.push([B(),R()]);break;
-      case 3:case 12: segs.push([L(),R()]);break;
-      case 4:case 11: segs.push([T(),R()]);break;
-      case 6:case 9:  segs.push([T(),B()]);break;
-      case 7:case 8:  segs.push([L(),T()]);break;
-      case 5:  segs.push([L(),T()]);segs.push([B(),R()]);break;
-      case 10: segs.push([T(),R()]);segs.push([L(),B()]);break;
-    }
-  }
-  const key=p=>p[0].toFixed(4)+","+p[1].toFixed(4);
-  const map=new Map();
-  segs.forEach((s,i)=>{for(const p of s){const k2=key(p);if(!map.has(k2))map.set(k2,[]);map.get(k2).push(i);}});
-  const used=new Uint8Array(segs.length),loops=[];
-  for(let i=0;i<segs.length;i++){
-    if(used[i])continue;
-    used[i]=1;
-    const loop=[segs[i][0],segs[i][1]];
-    let guard=0;
-    while(guard++<100000){
-      const ek=key(loop[loop.length-1]);
-      const c=(map.get(ek)||[]).find(x=>!used[x]);
-      if(c===undefined)break;
-      used[c]=1;
-      const s=segs[c];
-      const nx2=key(s[0])===ek?s[1]:s[0];
-      loop.push(nx2);
-      if(key(nx2)===key(loop[0]))break;
-    }
-    if(loop.length>3)loops.push(loop);
-  }
-  return loops;
-}
-
-/* ============================================================
-   Layout — blocks on the grid, no overlaps
-============================================================ */
-let blocks=[];
-function buildBlocks(){
-  const {C,R}=gridDims();
-  const taken=new Uint8Array(C*R);
-  const r=rng(S.seed*2654435761+7);
-  const total=Object.values(S.w).reduce((a,b)=>a+b,0)||1;
-  const pick=()=>{let n=r()*total;for(const t of TYPES){n-=S.w[t];if(n<=0)return t;}return "flat";};
-  const free=(x,y,w,h)=>{
-    if(x+w>C||y+h>R)return false;
-    for(let j=y;j<y+h;j++)for(let i=x;i<x+w;i++)if(taken[j*C+i])return false;
-    return true;
-  };
-  const out=[];
-  for(let y=0;y<R;y++)for(let x=0;x<C;x++){
-    if(taken[y*C+x])continue;
-    if(r()>S.fill){taken[y*C+x]=1;continue;}          // left as bare page
-    let w=1,h=1;
-    if(r()<S.span){
-      // squares and rectangles in equal measure, whichever happens to fit
-      // small shapes appear more often in the list, so the sheet keeps its density
-      const shapes=[[2,1],[1,2],[2,2],[2,1],[1,2],[2,2],[3,1],[1,3],[2,3],[3,2],[3,3],[4,1],[1,4]];
-      const order=shapes.map((sh,i)=>[sh,r()]).sort((a,b)=>a[1]-b[1]).map(a=>a[0]);
-      for(const sh of order){ if(free(x,y,sh[0],sh[1])){ w=sh[0]; h=sh[1]; break; } }
-    }
-    for(let j=y;j<y+h;j++)for(let i=x;i<x+w;i++)taken[j*C+i]=1;
-    const type=pick();
-    const nc=S.palette.length;
-    out.push({x,y,w,h,type,
-      ci:Math.floor(r()*nc),ci2:Math.floor(r()*nc),ci3:Math.floor(r()*nc),ci4:Math.floor(r()*nc),
-      onInk:r()<S.inkMix, phase:r(), rot:r()*TAU, dir:r()<0.5?-1:1, v:r(), v2:r(), id:out.length});
-  }
-  blocks=out;
-  $("#dims").textContent=out.length;
-}
-
-function cellBox(b){
-  const H=vh();
-  const {C,R}=gridDims();
-  const cw=VB/C, ch=H/R;
-  const g=S.gut*Math.min(cw,ch)*0.5;
-  return {x:b.x*cw+g, y:b.y*ch+g, w:b.w*cw-2*g, h:b.h*ch-2*g};
-}
-
-/* ============================================================
-   Scene
-============================================================ */
-function scene(f){
-  const M=S.motion;
-  const t=M.on?f/M.frames:0;
-  const A=M.on?M.amount:0;
-  const out=[];
-  const H=vh();
-
-  for(const b of blocks){
-    const R2=cellBox(b);
-    if(R2.w<=0||R2.h<=0) continue;
-    const items=[];
-    const col=i=>S.palette[i%S.palette.length]||S.palette[0];
-    const ground=b.onInk?S.ink:col(b.ci);
-    let scale=1, spin=0;
-    if(M.on){
-      if(M.mode==="pulse") scale=1+A*0.12*Math.sin(TAU*(t+b.phase));
-      // whole turns only, wrapped into one revolution, so it lands exactly back where it started
-      if(M.mode==="spin"){
-        const turns=Math.max(1,Math.round(A*2));
-        spin=(((b.dir*turns*TAU*t)%TAU)+TAU)%TAU;
-      }
-    }
-    let shade=0;
-    if(M.on&&M.mode==="cycle") shade=Math.floor(t*S.palette.length);
-    const C=i=>col(i+shade);
-
-    if(b.type==="flat"){
-      items.push({k:"rect",x:R2.x,y:R2.y,w:R2.w,h:R2.h,fill:C(b.ci)});
-    }
-    else if(b.type==="marble"){
-      const nx=Math.max(8,Math.round(28*Math.sqrt(R2.w/R2.h))), ny=Math.max(8,Math.round(28*Math.sqrt(R2.h/R2.w)));
-      const pad=0.16;
-      const sc=S.mScale;
-      let z=0,w2=0;
-      if(M.on&&M.mode==="flow"){z=Math.cos(TAU*t)*A;w2=Math.sin(TAU*t)*A;}
-      const sample=(i,j)=>{
-        const u=(i/nx)*(1+2*pad)-pad, v=(j/ny)*(1+2*pad)-pad;
-        return fbm(u*sc*(R2.w/Math.min(R2.w,R2.h))+b.v*40, v*sc*(R2.h/Math.min(R2.w,R2.h))+b.v2*40, z, w2, S.seed+b.id*97, 3);
-      };
-      const grid=new Float32Array((nx+1)*(ny+1));
-      for(let j=0;j<=ny;j++)for(let i=0;i<=nx;i++)grid[j*(nx+1)+i]=sample(i,j);
-      let lo=1,hi=0;
-      for(const v of grid){if(v<lo)lo=v;if(v>hi)hi=v;}
-      const get=(i,j)=>grid[j*(nx+1)+i];
-      items.push({k:"rect",x:R2.x,y:R2.y,w:R2.w,h:R2.h,fill:C(b.ci)});
-      const bands=S.mBands;
-      const toX=u=>R2.x+((u/nx)*(1+2*pad)-pad)*R2.w;
-      const toY=v=>R2.y+((v/ny)*(1+2*pad)-pad)*R2.h;
-      for(let k=1;k<bands;k++){
-        const level=lo+(hi-lo)*(k/bands);
-        const loops=isoLoops(get,nx,ny,level);
-        if(!loops.length)continue;
-        let d="";
-        for(const L of loops){
-          d+="M"+L.map(p=>toX(p[0]).toFixed(1)+" "+toY(p[1]).toFixed(1)).join("L")+"Z";
-        }
-        items.push({k:"path",d,fill:C(b.ci+k),evenodd:true});
-      }
-    }
-    else if(b.type==="tendril"){
-      items.push({k:"rect",x:R2.x,y:R2.y,w:R2.w,h:R2.h,fill:ground});
-      const n=Math.round(8+S.density*40);
-      const steps=Math.round(30+S.density*70);
-      const stroke=b.onInk?C(b.ci2):S.ink;
-      let z=0,w2=0;
-      if(M.on&&M.mode==="flow"){z=Math.cos(TAU*t)*A;w2=Math.sin(TAU*t)*A;}
-      for(let i=0;i<n;i++){
-        let px=R2.x+hashi(b.id,i,0,1,S.seed)*R2.w;
-        let py=R2.y+hashi(b.id,i,0,2,S.seed)*R2.h;
-        const pts=[[px,py]];
-        const step=Math.min(R2.w,R2.h)/steps*1.3;
-        for(let s2=0;s2<steps;s2++){
-          // noise clusters around its midpoint, so stretch it before using it as an angle —
-          // otherwise every strand points the same way and runs straight
-          const nv=fbm(px/Math.min(R2.w,R2.h)*7+i*3, py/Math.min(R2.w,R2.h)*7, z, w2, S.seed+b.id*13+5, 3);
-          const ang=(nv-0.5)*2.6*TAU;
-          px+=Math.cos(ang)*step; py+=Math.sin(ang)*step;
-          pts.push([px,py]);
-        }
-        items.push({k:"line",pts,stroke,sw:S.lineW*0.45});
-      }
-    }
-    else if(b.type==="loop"){
-      items.push({k:"rect",x:R2.x,y:R2.y,w:R2.w,h:R2.h,fill:ground});
-      const stroke=b.onInk?C(b.ci2):S.ink;
-      const n=Math.round(2+S.density*6);
-      const cx=R2.x+R2.w/2, cy=R2.y+R2.h/2;
-      for(let i=0;i<n;i++){
-        const rr=Math.min(R2.w,R2.h)*(0.18+0.42*hashi(b.id,i,3,0,S.seed))*scale;
-        const rot=b.rot+i*0.7+spin;
-        const sq=0.35+0.6*hashi(b.id,i,4,0,S.seed);
-        const pts=[];
-        for(let s2=0;s2<=64;s2++){
-          const a2=s2/64*TAU;
-          const x=Math.cos(a2)*rr, y=Math.sin(a2)*rr*sq;
-          pts.push([cx+x*Math.cos(rot)-y*Math.sin(rot), cy+x*Math.sin(rot)+y*Math.cos(rot)]);
-        }
-        items.push({k:"line",pts,stroke,sw:S.lineW});
-      }
-    }
-    else if(b.type==="ring"){
-      items.push({k:"rect",x:R2.x,y:R2.y,w:R2.w,h:R2.h,fill:ground});
-      const stroke=b.onInk?C(b.ci2):S.ink;
-      const n=Math.round(3+S.density*12);
-      const cx=R2.x+R2.w/2, cy=R2.y+R2.h/2;
-      const rmax=Math.min(R2.w,R2.h)*0.46*scale;
-      for(let i=0;i<n;i++){
-        const q=(i+1)/n;
-        items.push({k:"ellipse",cx,cy,rx:rmax*q,ry:rmax*q*(0.35+0.65*b.v),rot:(((b.rot+spin+i*0.12)%TAU)+TAU)%TAU,stroke,sw:S.lineW,fill:"none"});
-      }
-    }
-    else if(b.type==="fan"){
-      items.push({k:"rect",x:R2.x,y:R2.y,w:R2.w,h:R2.h,fill:ground});
-      const n=Math.round(3+S.density*10);
-      const px=R2.x+R2.w*(0.5+0.4*(b.v-0.5)), py=R2.y+R2.h*(0.5+0.4*(b.v2-0.5));
-      const len=Math.max(R2.w,R2.h)*0.62*scale;
-      const wdt=Math.min(R2.w,R2.h)*0.09;
-      const spread=Math.PI*(0.4+0.5*b.v);
-      for(let i=0;i<n;i++){
-        const a2=b.rot+spin-spread/2+spread*(n<2?0.5:i/(n-1));
-        const tx=px+Math.cos(a2)*len, ty=py+Math.sin(a2)*len;
-        const nx2=-Math.sin(a2)*wdt/2, ny2=Math.cos(a2)*wdt/2;
-        items.push({k:"poly",pts:[[px+nx2*0.4,py+ny2*0.4],[tx+nx2,ty+ny2],[tx-nx2,ty-ny2],[px-nx2*0.4,py-ny2*0.4]],fill:C(b.ci2+i)});
-      }
-    }
-    else if(b.type==="arc"){
-      items.push({k:"rect",x:R2.x,y:R2.y,w:R2.w,h:R2.h,fill:ground});
-      const stroke=b.onInk?C(b.ci2):S.ink;
-      const n=Math.round(3+S.density*12);
-      const px=R2.x+R2.w/2, py=R2.y+R2.h*1.05;
-      const rmax=Math.max(R2.w,R2.h)*1.15*scale;
-      for(let i=0;i<n;i++){
-        const rr=rmax*(0.25+0.75*(i+1)/n);
-        const pts=[];
-        for(let s2=0;s2<=40;s2++){
-          const a2=Math.PI+ (s2/40)*Math.PI + spin;
-          pts.push([px+Math.cos(a2)*rr, py+Math.sin(a2)*rr*0.9]);
-        }
-        items.push({k:"line",pts,stroke,sw:S.lineW});
-      }
-    }
-    else if(b.type==="spike"){
-      items.push({k:"rect",x:R2.x,y:R2.y,w:R2.w,h:R2.h,fill:ground});
-      const n=Math.round(3+S.density*14);
-      const fill=b.onInk?C(b.ci2):S.ink;
-      for(let i=0;i<n;i++){
-        const ax=R2.x+hashi(b.id,i,7,0,S.seed)*R2.w, ay=R2.y+hashi(b.id,i,8,0,S.seed)*R2.h;
-        const a2=b.rot+spin+hashi(b.id,i,9,0,S.seed)*TAU;
-        const len=Math.min(R2.w,R2.h)*(0.3+0.6*hashi(b.id,i,10,0,S.seed))*scale;
-        const wdt=Math.min(R2.w,R2.h)*0.045;
-        const nx2=-Math.sin(a2)*wdt/2, ny2=Math.cos(a2)*wdt/2;
-        items.push({k:"poly",pts:[[ax+nx2,ay+ny2],[ax+Math.cos(a2)*len,ay+Math.sin(a2)*len],[ax-nx2,ay-ny2]],fill});
-      }
-    }
-
-    out.push({k:"group",clip:R2,items});
-  }
-
-  if(S.rules>0){
-    const {C,R}=gridDims();
-    const cw=VB/C, ch=H/R;
-    let d="";
-    for(let i=1;i<C;i++)d+=`M${(i*cw).toFixed(1)} 0V${H.toFixed(1)}`;
-    for(let j=1;j<R;j++)d+=`M0 ${(j*ch).toFixed(1)}H${VB}`;
-    out.push({k:"rules",d,stroke:S.ink,sw:1,opacity:S.rules});
-  }
-  return out;
-}
-
-/* ============================================================
-   Drawing
-============================================================ */
-const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
-function drawItem(c,s,k){
-  if(s.k==="rect"){c.fillStyle=s.fill;c.fillRect(s.x*k,s.y*k,s.w*k,s.h*k);}
-  else if(s.k==="path"){
-    const p=new Path2D();p.addPath(new Path2D(s.d),new DOMMatrix([k,0,0,k,0,0]));
-    c.fillStyle=s.fill;c.fill(p,s.evenodd?"evenodd":"nonzero");
-  }
-  else if(s.k==="poly"){
-    c.beginPath();s.pts.forEach((p,i)=>i?c.lineTo(p[0]*k,p[1]*k):c.moveTo(p[0]*k,p[1]*k));
-    c.closePath();c.fillStyle=s.fill;c.fill();
-  }
-  else if(s.k==="line"){
-    c.beginPath();s.pts.forEach((p,i)=>i?c.lineTo(p[0]*k,p[1]*k):c.moveTo(p[0]*k,p[1]*k));
-    c.strokeStyle=s.stroke;c.lineWidth=Math.max(0.3,s.sw*k);c.lineCap="round";c.lineJoin="round";c.stroke();
-  }
-  else if(s.k==="ellipse"){
-    c.beginPath();c.ellipse(s.cx*k,s.cy*k,Math.max(0.1,s.rx*k),Math.max(0.1,s.ry*k),s.rot||0,0,TAU);
-    if(s.fill&&s.fill!=="none"){c.fillStyle=s.fill;c.fill();}
-    if(s.stroke){c.strokeStyle=s.stroke;c.lineWidth=Math.max(0.3,s.sw*k);c.stroke();}
-  }
-}
+let BUFP=null, GRP=null;
 function paint(c,W,H,f){
-  const k=W/VB;
-  c.fillStyle=S.page;c.fillRect(0,0,W,H);
-  for(const g of scene(f)){
-    if(g.k==="group"){
-      c.save();
-      c.beginPath();c.rect(g.clip.x*k,g.clip.y*k,g.clip.w*k,g.clip.h*k);c.clip();
-      for(const s of g.items)drawItem(c,s,k);
-      c.restore();
-    } else if(g.k==="rules"){
-      const p=new Path2D();p.addPath(new Path2D(g.d),new DOMMatrix([k,0,0,k,0,0]));
-      c.globalAlpha=g.opacity;c.strokeStyle=g.stroke;c.lineWidth=Math.max(0.5,g.sw*k);c.stroke(p);c.globalAlpha=1;
+  const M=S.motion, T=M.on ? f/M.frames : 0, ph=T*TAUP;
+  const raw=S.pal.length?S.pal:PALETTES[0];
+  const inks=raw.map(rgbP), NI=inks.length;
+  const U=Math.sqrt(W*H);
+  const seed=S.seed|0;
+  const sd1=seed*7+1, sd2=seed*7+2, sd3=seed*7+3, sd4=seed*7+4;
+
+  /* ---- motion ----
+     Sway walks the wobble round a small circle, so the bands lean and come
+     back and the last frame runs into the first. Swell winds the curve up
+     and lets it settle. Shimmer slides the gloss across each band and
+     back. */
+  const swx=(M.on&&M.mode==="sway") ? Math.cos(ph)*M.amount*0.5 : 0;
+  const swy=(M.on&&M.mode==="sway") ? Math.sin(ph)*M.amount*0.5 : 0;
+  const swell=(M.on&&M.mode==="swell") ? (1-Math.cos(ph))*0.5*M.amount*0.5 : 0;
+  const shim=(M.on&&M.mode==="shimmer") ? (1-Math.cos(ph))*0.5*M.amount*0.4 : 0;
+
+  /* ---- the sheet, dealt once ---- */
+  const r=rngP(Math.imul(seed,2246822519)^0x27d4eb2f);
+  const A=(r()*TAUP), cA=Math.cos(A), sA=Math.sin(A);
+  const ccx=(r()<0.5?-0.3+r()*0.2:1.1+r()*0.2)*W/U, ccy=(0.2+r()*0.6)*H/U;   /* the agate's centre, off one side */
+  const curve=S.curve*(1+swell), wob=S.wobble, flow=S.flow;
+  const base=U*(0.008+(1-S.bands)*0.03);         /* the bands' typical width, in pixels */
+
+  /* ---- the band coordinate, on a two-pixel grid ----
+     which band a point sits on, worked out once for every other pixel and
+     read back smoothly, with the pool field beside it */
+  const fw=(W>>1)+3, fh=(H>>1)+3;
+  if(!GRP||GRP.length!==fw*fh*2) GRP=new Float32Array(fw*fh*2);
+  let pmin=1e9, pmax=-1e9;
+  for(let j=0,i=0;j<fh;j++){
+    for(let i2=0;i2<fw;i2++,i+=2){
+      const u=(i2*2-2)/U, v=(j*2-2)/U;
+      let p;
+      if(flow==="pour"){
+        p=u*cA+v*sA;
+        /* a long bend and a shorter one, the pour finding its way */
+        p+=curve*0.5*(vnP(u*1.1+swx+3,v*1.1+swy+1,sd1)-0.5)*2+curve*0.16*(vnP(u*2.6+swy+8,v*2.6+swx+5,sd1)-0.5)*2;
+      }else if(flow==="agate"){
+        const dx=u-ccx, dy=v-ccy;
+        p=Math.sqrt(dx*dx+dy*dy);
+        p+=curve*0.35*(vnP(u*1.4+swx+3,v*1.4+swy+1,sd1)-0.5)*2+curve*0.12*(vnP(u*3.2+swy+8,v*3.2+swx+5,sd1)-0.5)*2;
+      }else{
+        /* drape: vertical bands that hang in folds, looser toward the foot */
+        const hang=0.3+v*0.9;
+        p=u+curve*0.45*hang*(vnP(u*1.6+swx+3,v*0.9+swy+1,sd1)-0.5)*2+curve*0.12*hang*(vnP(u*4+swy+8,v*2.2+swx+5,sd1)-0.5)*2;
+      }
+      if(wob>0) p+=wob*0.05*(vnP(u*7+swy+4,v*7+swx+7,sd2)-0.5)*2+wob*0.012*(vnP(u*22+swx+9,v*22+swy+3,sd2)-0.5)*2;
+      p*=U;
+      GRP[i]=p; if(p<pmin) pmin=p; if(p>pmax) pmax=p;
+      /* the pools: a slow field, stretched along the bands */
+      GRP[i+1]=vnP(u*2.2+11,v*2.2+5,sd3)*0.7+vnP(u*5+3,v*5+9,sd3)*0.3;
     }
   }
+
+  /* ---- the bands: widths, inks and tints, laid out from the sheet's
+     middle outward so a dial does not slide the whole run ---- */
+  const span=Math.max(Math.abs(pmin),Math.abs(pmax))+base*4;
+  const M2=Math.min(4000,Math.ceil(span/(base*0.3))+2);
+  const edges=new Float32Array(2*M2+2), widths=new Float32Array(2*M2+1);
+  const cols=new Float32Array((2*M2+1)*3), spotOf=new Int16Array(2*M2+1), spotted=new Uint8Array(2*M2+1);
+  const vary=S.vary, tints=S.tints, runLen=2+S.runs*10;
+  let ink=(hshP(0,1,seed)*NI)|0, until=0;
+  for(let k=0;k<=2*M2;k++){
+    const i=k-M2;
+    /* the width: hairline to broad, in runs */
+    const slow=vnP(i/7+0.5,0.5,sd4), h=hshP(i,2,seed);
+    let wf=(0.25+2.2*h*h)*(0.35+1.3*slow);
+    wf=1+(wf-1)*vary;
+    const hair=hshP(i,3,seed)<0.14;
+    if(hair) wf=0.18;
+    widths[k]=base*wf;
+    /* the ink: a run of one anchor, then another */
+    if(i>=until){ let nx=(hshP(i,4,seed)*NI)|0; if(nx===ink) nx=(nx+1)%NI; ink=nx; until=i+1+Math.floor(hshP(i,5,seed)*runLen*2); }
+    if(i===-M2){ ink=(hshP(i,4,seed)*NI)|0; until=i+1+Math.floor(hshP(i,5,seed)*runLen*2); }
+    let t=(hshP(i,6,seed)-0.5)*2*tints*0.8;
+    if(hair) t=hshP(i,7,seed)<0.5?0.92:-0.85;
+    const col=tintP(inks[ink],t);
+    cols[k*3]=col[0]; cols[k*3+1]=col[1]; cols[k*3+2]=col[2];
+    spotted[k]=(!hair&&wf>0.9&&hshP(i,8,seed)<S.spots)?1:0;
+    spotOf[k]=(ink+1+((hshP(i,9,seed)*(NI-1))|0))%NI;
+  }
+  /* the edges, outward from the middle band */
+  edges[M2]=-widths[M2]*0.5;
+  for(let k=M2;k<=2*M2;k++) edges[k+1]=edges[k]+widths[k];
+  for(let k=M2-1;k>=0;k--) edges[k]=edges[k+1]-widths[k];
+  /* a lookup from band coordinate to band, so the pixel loop never searches */
+  const LN=8192, lo=edges[0], hi=edges[2*M2+1], lscale=LN/(hi-lo);
+  const LUT=new Int16Array(LN+1);
+  for(let k=0,n=0;n<=LN;n++){ const p=lo+n/lscale; while(k<2*M2&&edges[k+1]<p) k++; LUT[n]=k; }
+
+  /* ---- the pools ---- */
+  const thr=0.78-S.pools*0.3;
+  const poolInk=(hshP(3,3,seed)*NI)|0, poolInk2=(poolInk+2)%NI;
+  const pcol=tintP(inks[poolInk],0.55), pcol2=tintP(inks[poolInk2],0.25);
+  const plight=tintP(inks[poolInk],0.8), plight2=tintP(inks[poolInk2],0.5);
+  const mot=U*0.014;
+
+  const gl=S.gloss;
+  if(!BUFP||BUFP.width!==W||BUFP.height!==H) BUFP=c.createImageData(W,H);
+  const px=BUFP.data;
+
+  for(let y=0,p=0;y<H;y++){
+    const gy=(y+2)*0.5, yi=gy|0, yf=gy-yi;
+    for(let x=0;x<W;x++,p+=4){
+      const gx=(x+2)*0.5, xi=gx|0, xf=gx-xi;
+      const k=(yi*fw+xi)*2;
+      const phi=(GRP[k]*(1-xf)+GRP[k+2]*xf)*(1-yf)+(GRP[k+fw*2]*(1-xf)+GRP[k+fw*2+2]*xf)*yf;
+      const pool=(GRP[k+1]*(1-xf)+GRP[k+3]*xf)*(1-yf)+(GRP[k+fw*2+1]*(1-xf)+GRP[k+fw*2+3]*xf)*yf;
+      /* the band under this point */
+      let n=((phi-lo)*lscale)|0; if(n<0) n=0; else if(n>LN) n=LN;
+      let b=LUT[n];
+      while(b<2*M2&&edges[b+1]<phi) b++;
+      while(b>0&&edges[b]>phi) b--;
+      const bw=widths[b], fr=(phi-edges[b])/bw;
+      let R=cols[b*3], G=cols[b*3+1], B=cols[b*3+2];
+      /* spots riding the band: dots on a jittered grid, clipped to the band */
+      if(spotted[b]){
+        const cs=bw*1.15, cx=Math.floor(x/cs), cy=Math.floor(y/cs);
+        const jx=hshP(cx,cy,seed+b)*0.5+0.25, jy=hshP(cx,cy+77,seed+b)*0.5+0.25;
+        const ddx=x/cs-cx-jx, ddy=y/cs-cy-jy;
+        const inBand=Math.min(fr,1-fr)>0.12;
+        if(inBand&&ddx*ddx+ddy*ddy<0.13&&hshP(cx,cy+151,seed+b)<0.8){
+          const sc=inks[spotOf[b]]; R=sc[0]; G=sc[1]; B=sc[2];
+        }
+      }
+      /* the gloss: a highlight just inside one edge, a shadow at the other */
+      if(gl>0){
+        const gp=0.14+shim, d=(fr-gp)/0.11;
+        const hl=Math.exp(-d*d)*gl*0.42;
+        R+=(255-R)*hl; G+=(255-G)*hl; B+=(255-B)*hl;
+        if(fr>0.82){ const sh=(fr-0.82)/0.18*gl*0.3; R*=1-sh; G*=1-sh; B*=1-sh; }
+      }
+      /* the pools, dappled, with a wet rim */
+      if(pool>thr){
+        const which=pool>thr+0.13&&hshP(Math.floor(x/(U*0.3)),Math.floor(y/(U*0.3)),seed)<0.5;
+        const pc=which?pcol2:pcol, pl=which?plight2:plight;
+        const m=vnP(x/mot+5,y/mot+9,sd4);
+        const cel=Math.max(0,Math.min(1,(m-0.5)*4));
+        R=pc[0]+(pl[0]-pc[0])*cel; G=pc[1]+(pl[1]-pc[1])*cel; B=pc[2]+(pl[2]-pc[2])*cel;
+        const rim=Math.max(0,1-(pool-thr)/0.035)*gl*0.5;
+        R+=(255-R)*rim; G+=(255-G)*rim; B+=(255-B)*rim;
+      }else if(pool>thr-0.02&&gl>0){
+        /* the paint darkens where a pool has crept over it */
+        const sh=(1-(thr-pool)/0.02)*gl*0.35; R*=1-sh; G*=1-sh; B*=1-sh;
+      }
+      px[p]=R; px[p+1]=G; px[p+2]=B; px[p+3]=255;
+    }
+  }
+  c.setTransform(1,0,0,1,0,0);
+  c.globalCompositeOperation="source-over";
+  c.globalAlpha=1;
+  c.putImageData(BUFP,0,0);
 }
+
+const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
 function fitCanvas(){
   const r=RATIOS.find(x=>x.id===S.ratio);
   const box=$(".stage-inner");
-  const dpr=Math.min(2,window.devicePixelRatio||1);
+  let dpr=Math.min(2,window.devicePixelRatio||1);
   let availW=700,availH=700;
   if(box&&box.clientWidth){
     const bs=getComputedStyle(box);
@@ -1146,13 +1002,15 @@ function fitCanvas(){
 let curFrame=0,queued=false;
 function draw(){
   const{w,h}=fitCanvas();
+  const t0=performance.now();
   paint(ctx,w,h,curFrame);
+  const ms=Math.round(performance.now()-t0);
+  $("#dims").textContent=w+"×"+h+" · "+ms+"ms";
   const F=S.motion.on?S.motion.frames:1;
   $("#frameno").textContent=String(curFrame+1).padStart(2,"0")+" / "+String(F).padStart(2,"0");
 }
 function requestDraw(){if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;draw();});}
-function invalidate(){buildBlocks();requestDraw();updateExportNote();}
-function reframe(){requestDraw();}
+const reframe=requestDraw;
 if(window.ResizeObserver){
   const box=$(".stage-inner");
   if(box){let p=false;new ResizeObserver(()=>{if(p)return;p=true;requestAnimationFrame(()=>{p=false;draw();});}).observe(box);}
@@ -1175,66 +1033,6 @@ function setPlaying(v){
 }
 
 /* ============================================================
-   SVG
-============================================================ */
-function itemSVG(s){
-  const n=v=>Number(v).toFixed(1);
-  if(s.k==="rect")return `<rect x="${n(s.x)}" y="${n(s.y)}" width="${n(s.w)}" height="${n(s.h)}" fill="${s.fill}"/>`;
-  if(s.k==="path")return `<path d="${s.d}" fill="${s.fill}"${s.evenodd?' fill-rule="evenodd"':''}/>`;
-  if(s.k==="poly")return `<polygon points="${s.pts.map(p=>n(p[0])+","+n(p[1])).join(" ")}" fill="${s.fill}"/>`;
-  if(s.k==="line")return `<polyline points="${s.pts.map(p=>n(p[0])+","+n(p[1])).join(" ")}" fill="none" stroke="${s.stroke}" stroke-width="${s.sw.toFixed(2)}" stroke-linecap="round" stroke-linejoin="round"/>`;
-  if(s.k==="ellipse")return `<ellipse cx="${n(s.cx)}" cy="${n(s.cy)}" rx="${n(Math.max(0.01,s.rx))}" ry="${n(Math.max(0.01,s.ry))}"${s.rot?` transform="rotate(${(s.rot*180/Math.PI).toFixed(2)} ${n(s.cx)} ${n(s.cy)})"`:""} fill="${s.fill||"none"}" stroke="${s.stroke}" stroke-width="${s.sw.toFixed(2)}"/>`;
-  return "";
-}
-function buildSVG(animated){
-  const r=RATIOS.find(x=>x.id===S.ratio);
-  const W=S.size,H=Math.round(S.size*r.h/r.w),VH=vh();
-  const F=animated?S.motion.frames:1;
-  const dur=(F/S.motion.fps).toFixed(3)+"s";
-  const frames=[];for(let f=0;f<F;f++)frames.push(scene(f));
-  const anim=(attr,vals)=>`<animate attributeName="${attr}" values="${vals.join(";")};${vals[0]}" dur="${dur}" calcMode="discrete" repeatCount="indefinite"/>`;
-  const same=a=>a.every(v=>v===a[0]);
-  let defs="",body="";
-  const g0=frames[0];
-  for(let gi=0;gi<g0.length;gi++){
-    const g=g0[gi];
-    if(g.k==="rules"){
-      body+=`<path d="${g.d}" fill="none" stroke="${g.stroke}" stroke-width="${g.sw}" opacity="${g.opacity}"/>`;
-      continue;
-    }
-    const id="c"+gi;
-    defs+=`<clipPath id="${id}"><rect x="${g.clip.x.toFixed(1)}" y="${g.clip.y.toFixed(1)}" width="${g.clip.w.toFixed(1)}" height="${g.clip.h.toFixed(1)}"/></clipPath>`;
-    let inner="";
-    const n=Math.max(...frames.map(fr=>(fr[gi]&&fr[gi].items?fr[gi].items.length:0)));
-    for(let ii=0;ii<n;ii++){
-      const first=g.items[ii];if(!first)continue;
-      const per=frames.map(fr=>(fr[gi]&&fr[gi].items&&fr[gi].items[ii])||first);
-      const svgs=per.map(itemSVG);
-      if(!animated||same(svgs)){inner+=svgs[0];continue;}
-      // animate whichever attribute actually varies
-      const el=svgs[0];
-      const attr=first.k==="path"?"d":first.k==="line"||first.k==="poly"?"points":null;
-      if(attr){
-        const vals=per.map(s=>first.k==="path"?s.d:s.pts.map(p=>p[0].toFixed(1)+","+p[1].toFixed(1)).join(" "));
-        inner+=el.replace("/>",`>${anim(attr,vals)}</${first.k==="path"?"path":first.k==="poly"?"polygon":"polyline"}>`);
-      } else if(first.k==="ellipse"){
-        const rxs=per.map(s=>Math.max(0.01,s.rx).toFixed(1)), rys=per.map(s=>Math.max(0.01,s.ry).toFixed(1));
-        let kids="";
-        if(!same(rxs))kids+=anim("rx",rxs);
-        if(!same(rys))kids+=anim("ry",rys);
-        inner+=kids?el.replace("/>",`>${kids}</ellipse>`):el;
-      } else if(first.k==="rect"){
-        const fills=per.map(s=>s.fill);
-        inner+=same(fills)?el:el.replace("/>",`>${anim("fill",fills)}</rect>`);
-      } else inner+=el;
-    }
-    body+=`<g clip-path="url(#${id})">${inner}</g>`;
-  }
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${VB} ${VH.toFixed(1)}">`
-       + `<defs>${defs}</defs><rect width="${VB}" height="${VH.toFixed(1)}" fill="${S.page}"/>${body}</svg>`;
-}
-
-/* ============================================================
    Export
 ============================================================ */
 let toastTimer;
@@ -1247,39 +1045,20 @@ function save(blob,name){
   a.href=url;a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
-function stamp(){return `specimen-${S.seed}-${S.ratio.replace(":","x")}`;}
+function stamp(){return `pour-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
-  const n=($("#expNote")||{}),a=$("#expSvgAnim"),v=$("#expVid"),sc=$("#scrub");
+  const a=$("#expVid"),sc=$("#scrub");
   if(a)a.disabled=!S.motion.on;
-  if(v)v.disabled=!S.motion.on;
   if(sc)sc.disabled=!S.motion.on;
-  if(!n)return;
-  n.textContent=S.motion.on
-    ?"Flow reshapes every marble edge each frame, so animated SVG runs large. Video is smaller."
-    :"Turn on motion to export a loop.";
 }
 $("#expPng").addEventListener("click",()=>{
-  const r=RATIOS.find(x=>x.id===S.ratio);
-  const W=S.size,H=Math.round(S.size*r.h/r.w);
-  const c=document.createElement("canvas");c.width=W;c.height=H;
-  paint(c.getContext("2d"),W,H,curFrame);
-  c.toBlob(b=>{save(b,stamp()+".png");toast("PNG saved");});
-});
-$("#expSvg").addEventListener("click",()=>{
-  toast("Building SVG…",true);
+  toast("Rendering…",true);
   setTimeout(()=>{
-    const svg=buildSVG(false);
-    save(new Blob([svg],{type:"image/svg+xml"}),stamp()+".svg");
-    toast(`SVG saved · ${Math.round(svg.length/1024)} KB`);
-  },30);
-});
-$("#expSvgAnim").addEventListener("click",()=>{
-  if(!S.motion.on)return toast("Turn on motion first");
-  toast("Building animated SVG…",true);
-  setTimeout(()=>{
-    const svg=buildSVG(true);
-    save(new Blob([svg],{type:"image/svg+xml"}),stamp()+"-loop.svg");
-    toast(`Animated SVG saved · ${Math.round(svg.length/1024)} KB`);
+    const r=RATIOS.find(x=>x.id===S.ratio);
+    const W=S.size_px,H=Math.round(S.size_px*r.h/r.w);
+    const c=document.createElement("canvas");c.width=W;c.height=H;
+    paint(c.getContext("2d"),W,H,curFrame);
+    c.toBlob(b=>{save(b,stamp()+".png");toast(`PNG saved · ${W}×${H}`);});
   },30);
 });
 function pickVideoType(){
@@ -1293,42 +1072,38 @@ $("#expVid").addEventListener("click",()=>{
   if(!type)return toast("This browser can't record video");
   const ext=type.startsWith("video/mp4")?"mp4":"webm";
   const r=RATIOS.find(x=>x.id===S.ratio);
-  let W=Math.min(1920,S.size);W-=W%2;
+  let W=Math.min(1280,S.size_px);W-=W%2;
   let H=Math.round(W*r.h/r.w);H-=H%2;
   const c=document.createElement("canvas");c.width=W;c.height=H;
   const cc=c.getContext("2d");
-  const F=S.motion.frames,loops=3;
-  const rec=new MediaRecorder(c.captureStream(60),{mimeType:type,videoBitsPerSecond:14000000});
+  const F=S.motion.frames,loops=1;
+  const rec=new MediaRecorder(c.captureStream(60),{mimeType:type,videoBitsPerSecond:16000000});
   const chunks=[];
   rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
-  rec.onstop=()=>{save(new Blob(chunks,{type}),stamp()+"-loop."+ext);toast(ext.toUpperCase()+" saved · 3 loops");};
+  rec.onstop=()=>{save(new Blob(chunks,{type}),stamp()+"-loop."+ext);toast(ext.toUpperCase()+" saved");};
   const was=playing;setPlaying(false);
   toast("Recording…",true);
-  const start=performance.now(),total=(F/S.motion.fps)*1000*loops;
-  paint(cc,W,H,0);rec.start();
-  let last=-1;
-  (function step(now){
-    const el=now-start;
-    const f=Math.min(F*loops-1,Math.floor(el/(total/(F*loops))))%F;
-    if(f!==last){last=f;paint(cc,W,H,f);}
-    if(el<total)requestAnimationFrame(step);
-    else setTimeout(()=>{rec.stop();if(was)setPlaying(true);},120);
-  })(performance.now());
+  let n=0;
+  rec.start();
+  (function step(){
+    paint(cc,W,H,n%F);
+    n++;
+    if(n<F*loops) setTimeout(()=>requestAnimationFrame(step), Math.max(0,1000/S.motion.fps-4));
+    else setTimeout(()=>{rec.stop();if(was)setPlaying(true);},200);
+  })();
 });
 
 /* ============================================================
    UI
 ============================================================ */
 function accent(){
-  let best=S.palette[0],score=-1;
-  for(const c of S.palette){const k=chroma(c)*0.8+relLum(c)*0.3;if(k>score){score=k;best=c;}}
-  document.documentElement.style.setProperty("--accent",best);
-  $("#strip").innerHTML=[S.page,S.ink,...S.palette].map(c=>`<span style="background:${c}"></span>`).join("");
+  let best=S.pal[Math.min(1,S.pal.length-1)],bl=-1;
+  for(const c of S.pal){const l=relLum(c);if(l>bl&&l>0.12){bl=l;best=c;}}
+  document.documentElement.style.setProperty("--accent",bl>0?best:"#F5C21B");
+  $("#strip").innerHTML=S.pal.map(c=>`<span style="background:${c}"></span>`).join("");
   const g=$("#glyph");
   if(g.children.length!==9)g.innerHTML=Array.from({length:9},()=>"<i></i>").join("");
-  [...g.children].forEach((el,i)=>el.classList.toggle("on",[0,1,4,5,7].includes(i)));
-  $("#pageSw").querySelector(".fill").style.background=S.page;
-  $("#inkSw").querySelector(".fill").style.background=S.ink;
+  [...g.children].forEach((el,i)=>el.classList.toggle("on",[0,2,4,6,8].includes(i)));
 }
 function segmented(host,items,get,set){
   if(!host)return;
@@ -1389,7 +1164,6 @@ function segmented(host,items,get,set){
      and that mask would fade the panel too if it hung inside the rail */
   wrap.appendChild(btn); host.appendChild(wrap); document.body.appendChild(menu);
 }
-function refreshPalettes(){}   // palette presets removed; colours are edited by swatch
 function buildRatios(){
   const host=$("#ratios");if(!host)return;
   host.innerHTML="";
@@ -1400,50 +1174,45 @@ function buildRatios(){
     const sc=Math.min(20/r.w,20/r.h);
     b.innerHTML=`<span class="box" style="width:${(r.w*sc).toFixed(1)}px;height:${(r.h*sc).toFixed(1)}px"></span><span class="t">${r.id}</span>`;
     b.onclick=()=>{S.ratio=r.id;$("#ratioVal").textContent=r.id;
-      [...host.children].forEach(c=>c.setAttribute("aria-pressed",String(c===b)));syncGrid();invalidate();};
+      [...host.children].forEach(c=>c.setAttribute("aria-pressed",String(c===b)));reframe();};
     host.appendChild(b);
   });
 }
 function buildSwatches(){
-  const host=$("#swatches");if(!host)return;
+  const host=$("#swatches");
   host.innerHTML="";
-  S.palette.forEach((c,i)=>{
+  const lock=S.pal.length<=2;
+  S.pal.forEach((c,i)=>{
     const b=document.createElement("button");
-    b.className="sw";b.type="button";
-    b.innerHTML=`<span class="fill" style="background:${c}"></span><input type="color" value="${c}" aria-label="Color ${i+1}">${S.palette.length>2?'<span class="x">×</span>':''}`;
-    const input=b.querySelector("input");
-    input.oninput=e=>{S.palette[i]=e.target.value;b.querySelector(".fill").style.background=e.target.value;
-      S.paletteName=null;refreshPalettes();accent();reframe();};
-    b.onclick=e=>{
-      if(e.target.classList.contains("x")){e.preventDefault();e.stopPropagation();
-        S.palette.splice(i,1);S.paletteName=null;buildSwatches();refreshPalettes();accent();invalidate();return;}
-      if(e.target!==input)input.click();
-    };
+    b.className="sw"+(lock?" locked":"");b.type="button";
+    b.setAttribute("aria-label","Ink "+(i+1));
+    b.innerHTML=`<span class="fill" style="background:${c}"></span>`+
+      `<input type="color" value="${c}"><span class="x" aria-hidden="true">\u00d7</span>`;
+    b.querySelector("input").addEventListener("input",e=>{
+      S.pal[i]=e.target.value;
+      b.querySelector(".fill").style.background=e.target.value;
+      accent();reframe();
+    });
+    b.addEventListener("click",e=>{
+      if(e.target.classList.contains("x")&&S.pal.length>2){
+        e.preventDefault();e.stopPropagation();
+        S.pal.splice(i,1);buildSwatches();accent();reframe();
+      }
+    },true);
     host.appendChild(b);
   });
-  if(S.palette.length<12){
-    const add=document.createElement("button");
-    add.className="sw-add";add.type="button";add.textContent="+";
-    add.onclick=()=>{S.palette.push(hsl2hex(Math.random()*360,70+Math.random()*30,45+Math.random()*25));
-      S.paletteName=null;buildSwatches();refreshPalettes();accent();invalidate();};
-    host.appendChild(add);
-  }
-  const cv=$("#swCountVal");if(cv)cv.textContent=S.palette.length;
+  const add=document.createElement("button");
+  add.className="sw-add";add.type="button";add.textContent="+";
+  add.setAttribute("aria-label","Add color");
+  add.addEventListener("click",()=>{
+    const commit=hex=>{S.pal.push(hex);buildSwatches();accent();reframe();};
+    if(window.__pickColour) window.__pickColour(add,commit);
+    else commit(PALETTES[0][(Math.random()*PALETTES[0].length)|0]);
+  });
+  host.appendChild(add);
+  const n=$("#swCountVal"); if(n) n.textContent=S.pal.length;
 }
-function shuffleColors(){
-  const n=S.palette.length,r=rng((Math.random()*1e9)|0);
-  const h0=r()*360,scheme=r();
-  const out=[];
-  for(let i=0;i<n;i++){
-    let h;
-    if(scheme<0.35)h=h0+i*(38+r()*30);
-    else if(scheme<0.7)h=h0+(i%3)*120+(r()-0.5)*34;
-    else h=h0+(i%2?180:0)+(r()-0.5)*60;
-    out.push(hsl2hex(h,72+r()*28,46+r()*22));
-  }
-  S.palette=out;S.paletteName=null;
-  buildSwatches();refreshPalettes();accent();reframe();
-}
+function setPalette(p){S.pal=p.slice();buildSwatches();accent();reframe();}
 function bindRange(id,fmt,set,after){
   const el=$("#"+id),label=$("#"+id+"Val");
   if(!el)return;
@@ -1453,47 +1222,26 @@ function bindRange(id,fmt,set,after){
     (after||reframe)();
   });
 }
-const pct=v=>Math.round(v*100)+"%";
 
-buildRatios();buildSwatches();refreshPalettes();accent();
+buildRatios();buildSwatches();accent();
+segmented($("#flows"),FLOWS,()=>S.flow,v=>{S.flow=v;reframe();});
 segmented($("#modes"),MODES,()=>S.motion.mode,v=>{S.motion.mode=v;reframe();});
-function syncGrid(){
-  const {R}=gridDims();
-  const rw=$("#rows"), rv=$("#rowsVal");
-  if(rw) rw.disabled=S.square;
-  if(rv) rv.textContent=R;
-  if(rw&&S.square) rw.value=Math.min(16,Math.max(2,R));
-}
-bindRange("cols",v=>v,v=>S.cols=v|0,()=>{syncGrid();invalidate();});
-bindRange("rows",v=>v,v=>S.rows=v|0,invalidate);
-$("#squareTog").addEventListener("click",e=>{S.square=!S.square;
-  e.currentTarget.setAttribute("aria-pressed",String(S.square));syncGrid();invalidate();});
-bindRange("fill",pct,v=>S.fill=v,invalidate);
-bindRange("span",pct,v=>S.span=v,invalidate);
-bindRange("gut",pct,v=>S.gut=v);
-bindRange("rules",pct,v=>S.rules=v);
-for(const[id,key]of[["wMarble","marble"],["wTendril","tendril"],["wLoop","loop"],["wFlat","flat"],["wRing","ring"],["wFan","fan"],["wArc","arc"],["wSpike","spike"]]){
-  bindRange(id,v=>v,v=>S.w[key]=v|0,invalidate);
-}
-bindRange("mScale",v=>v.toFixed(1),v=>S.mScale=v);
-bindRange("mBands",v=>v,v=>S.mBands=v|0);
-bindRange("density",pct,v=>S.density=v);
-bindRange("lineW",v=>v.toFixed(1),v=>S.lineW=v);
-bindRange("inkMix",pct,v=>S.inkMix=v,invalidate);
+$("#shufColors").addEventListener("click",()=>{
+  setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
+});
+$("#rotColors").addEventListener("click",()=>{
+  setPalette([S.pal[0]].concat(S.pal.slice(2),[S.pal[1]]));
+});
+const pc=v=>Math.round(v*100)+"%";
+for(const k of ["bands","vary","curve","wobble","pools","spots","gloss","tints","runs"]) bindRange(k,pc,v=>S[k]=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
 $("#frames").addEventListener("input",e=>{S.motion.frames=parseInt(e.target.value,10);
   $("#framesVal").textContent=S.motion.frames+" frames";$("#scrub").max=S.motion.frames-1;
   curFrame=Math.min(curFrame,S.motion.frames-1);reframe();if(playing)setPlaying(true);});
-$("#size").addEventListener("input",e=>{S.size=parseInt(e.target.value,10);$("#sizeVal").textContent=S.size+" px";});
-$("#pageIn").value=S.page;$("#inkIn").value=S.ink;
-$("#pageIn").addEventListener("input",e=>{S.page=e.target.value;S.paletteName=null;refreshPalettes();accent();reframe();});
-$("#inkIn").addEventListener("input",e=>{S.ink=e.target.value;S.paletteName=null;refreshPalettes();accent();reframe();});
-$("#pageSw").addEventListener("click",e=>{if(e.target!==$("#pageIn"))$("#pageIn").click();});
-$("#inkSw").addEventListener("click",e=>{if(e.target!==$("#inkIn"))$("#inkIn").click();});
-$("#shufColors").addEventListener("click",shuffleColors);
-$("#motionTog").addEventListener("click",e=>{
+$("#sizePx").addEventListener("input",e=>{S.size_px=parseInt(e.target.value,10);
+  $("#sizePxVal").textContent=S.size_px+" px";});$("#motionTog").addEventListener("click",e=>{
   S.motion.on=!S.motion.on;
   e.currentTarget.setAttribute("aria-pressed",String(S.motion.on));
   $("#motionBody").hidden=!S.motion.on;
@@ -1503,7 +1251,18 @@ $("#motionTog").addEventListener("click",e=>{
 });
 $("#play").addEventListener("click",()=>{if(!S.motion.on){$("#motionTog").click();return;}setPlaying(!playing);});
 $("#scrub").addEventListener("input",e=>{setPlaying(false);curFrame=parseInt(e.target.value,10)%Math.max(1,S.motion.frames);draw();});
-function newSeed(v){S.seed=(v!==undefined)?v:(Math.random()*99999|0)+1;$("#seed").value=S.seed;invalidate();}
+function newSeed(v){
+  S.seed=(v!==undefined)?v:(Math.random()*99999|0)+1;
+  $("#seed").value=S.seed;
+  dealP(S.seed);
+  /* every dealt value onto its dial and its readout, so the sheet can be
+     adjusted from where it landed */
+  const put=(id,val,txt)=>{const e=$("#"+id),l=$("#"+id+"Val");if(e)e.value=val;if(l)l.textContent=txt;};
+  const pc=v=>Math.round(v*100)+"%";
+  for(const k of ["bands","vary","curve","wobble","pools","spots","gloss","tints","runs"]) put(k,S[k],pc(S[k]));
+  buildSwatches(); accent();
+  reframe();
+}
 $("#shuf").addEventListener("click",()=>newSeed());
 $("#seed").addEventListener("change",e=>{const v=parseInt(e.target.value,10);newSeed(Number.isFinite(v)?Math.abs(v):1);});
 art.addEventListener("click",()=>newSeed());
@@ -1512,8 +1271,8 @@ document.addEventListener("keydown",e=>{
   if(e.code==="Space"){e.preventDefault();newSeed();}
   if(e.key==="p"||e.key==="P"){if(S.motion.on)setPlaying(!playing);}
 });
-syncGrid();
-newSeed(9);
+newSeed(7);
+$("#scrub").max=S.motion.frames-1;
 updateExportNote();
 
 /* ============================================================
