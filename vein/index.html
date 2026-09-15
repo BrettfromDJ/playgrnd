@@ -747,6 +747,8 @@ const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
 const MODES=[["drift","Drift"],["breathe","Breathe"],["turn","Turn"]];
 const FLOWS=[["marble","Marble"],["swirl","Swirl"],["ripple","Ripple"]];
+/* this sheet opens with the grain on: printed paper, not a screen fill */
+const GRAIN_DEFAULT={on:true,blend:"overlay",amount:0.4,size:1,specks:0.4,vignette:0.25};
 
 /* The first ink is the dark ground the pours sit on and the night sky
    behind them; the rest are dealt to the pours in runs, the lighter ones
