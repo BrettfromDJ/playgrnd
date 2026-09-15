@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://playgrnd.tools/vein">
 <meta property="og:site_name" content="playgrnd">
 <meta property="og:title" content="Vein — playgrnd">
-<meta property="og:description" content="Generate cut-paper marbling backgrounds — poured paint sliced into flat vector shapes over a starry ground, with a paper frame the pours spill over. Deal a new variation or turn the dials. Exports image, SVG and video.">
+<meta property="og:description" content="Generate cut-paper marbling backgrounds — poured paint sliced into flat vector shapes over a starry ground. Deal a new variation or turn the dials. Exports image, SVG and video.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://playgrnd.tools/vein">
 <meta property="og:image" content="https://playgrnd.tools/vein/og.jpg">
@@ -19,9 +19,9 @@
 <meta property="og:image:alt" content="Artwork made with Vein.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Vein — playgrnd">
-<meta name="twitter:description" content="Generate cut-paper marbling backgrounds — poured paint sliced into flat vector shapes over a starry ground, with a paper frame the pours spill over.">
+<meta name="twitter:description" content="Generate cut-paper marbling backgrounds — poured paint sliced into flat vector shapes over a starry ground.">
 <meta name="twitter:image" content="https://playgrnd.tools/vein/og.jpg">
-<meta name="description" content="Generate cut-paper marbling backgrounds — poured paint sliced into flat vector shapes over a starry ground, with a paper frame the pours spill over. Deal a new variation or turn the dials. Exports image, SVG and video.">
+<meta name="description" content="Generate cut-paper marbling backgrounds — poured paint sliced into flat vector shapes over a starry ground. Deal a new variation or turn the dials. Exports image, SVG and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -637,10 +637,8 @@ input[type=range]{accent-color:var(--ink)}
         <div class="pr"><div class="top"><span class="k">Curve</span><span class="v" id="curveVal">60%</span></div><div class="track"><input type="range" id="curve" min="0" max="1" step="0.01" value="0.6"></div></div>
         <div class="pr"><div class="top"><span class="k">Levels</span><span class="v" id="levelsVal">9</span></div><div class="track"><input type="range" id="levels" min="3" max="14" step="1" value="9"></div></div>
         <div class="pr"><div class="top"><span class="k">Stripes</span><span class="v" id="tigerVal">50%</span></div><div class="track"><input type="range" id="tiger" min="0" max="1" step="0.01" value="0.5"></div></div></div></details>
-    <details class="grp"><summary>Finish</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Edges</span><span class="v" id="edgesVal">40%</span></div><div class="track"><input type="range" id="edges" min="0" max="1" step="0.01" value="0.4"></div></div>
+    <details class="grp" open><summary>Finish</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Edges</span><span class="v" id="edgesVal">40%</span></div><div class="track"><input type="range" id="edges" min="0" max="1" step="0.01" value="0.4"></div></div>
         <div class="pr"><div class="top"><span class="k">Stars</span><span class="v" id="starsVal">50%</span></div><div class="track"><input type="range" id="stars" min="0" max="1" step="0.01" value="0.5"></div></div>
-        <div class="pr"><div class="top"><span class="k">Frame</span><span class="v" id="frameVal">35%</span></div><div class="track"><input type="range" id="frame" min="0" max="1" step="0.01" value="0.35"></div></div>
-        <div class="pr"><div class="top"><span class="k">Spill</span><span class="v" id="spillVal">50%</span></div><div class="track"><input type="range" id="spill" min="0" max="1" step="0.01" value="0.5"></div></div>
         <div class="pr"><div class="top"><span class="k">Tints</span><span class="v" id="tintsVal">50%</span></div><div class="track"><input type="range" id="tints" min="0" max="1" step="0.01" value="0.5"></div></div>
         <div class="pr"><div class="top"><span class="k">Runs</span><span class="v" id="runsVal">50%</span></div><div class="track"><input type="range" id="runs" min="0" max="1" step="0.01" value="0.5"></div></div></div></details><div class="tog-grp"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate<span class="sw" aria-hidden="true"></span></button><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
           <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
@@ -752,7 +750,7 @@ const FLOWS=[["marble","Marble"],["swirl","Swirl"],["ripple","Ripple"]];
 
 /* The first ink is the dark ground the pours sit on and the night sky
    behind them; the rest are dealt to the pours in runs, the lighter ones
-   also lending the stars and the paper of the frame. */
+   also lending the stars. */
 const PALETTES=[
   ["#0E1A2B","#2E63B8","#7FA8E0","#E9DCC3","#F2892B","#E0362F","#2FA39A","#8B5A2B"],
   ["#12102A","#FF3D7A","#3DE0FF","#F2F2F0","#FFB020","#00E5A8","#7B5CFF"],
@@ -771,7 +769,7 @@ const PALETTES=[
 const S={
   seed:7, ratio:"3:4",
   flow:"marble", scale:0.5, curve:0.6, levels:9, tiger:0.5,
-  edges:0.4, stars:0.5, frame:0.35, spill:0.5, tints:0.5, runs:0.5,
+  edges:0.4, stars:0.5, tints:0.5, runs:0.5,
   pal:PALETTES[0].slice(),
   motion:{on:false,mode:"drift",amount:0.6,fps:12,frames:36},
   size_px:2400
@@ -804,11 +802,9 @@ function dealV(seed){
   S.tiger=0.3+r()*0.5;
   S.edges=0.2+r()*0.5;
   S.stars=0.3+r()*0.5;
-  S.frame=r()<0.2?0:0.2+r()*0.35;
-  S.spill=0.3+r()*0.5;
   S.tints=0.3+r()*0.5;
   S.runs=0.3+r()*0.5;
-  for(const k of ["scale","curve","tiger","edges","stars","frame","spill","tints","runs"]) S[k]=Math.round(S[k]*100)/100;
+  for(const k of ["scale","curve","tiger","edges","stars","tints","runs"]) S[k]=Math.round(S[k]*100)/100;
 }
 function rgbV(h){
   h=(h||"#000").replace("#","");
@@ -962,20 +958,7 @@ function sceneV(W,H,f){
     const ik=hshV(k,13,seed)<0.7?light:1+((hshV(k,14,seed)*(NI-1))|0);
     stars.push([x,y,U*(0.0012+hshV(k,15,seed)*0.002),hexV(tintV(inks[ik],0.4))]);
   }
-  /* ---- the frame: paper, with the pours spilling over it ---- */
-  const fw=S.frame*U*0.06;
-  const paper=hexV(tintV(inks[light],0.55));
-  const spills=[];
-  if(fw>0&&S.spill>0){
-    const ns2=Math.round(S.spill*8);
-    for(let k=0;k<ns2;k++){
-      const side=k&3, tt=hshV(k,21,seed), rad=U*(0.04+hshV(k,22,seed)*0.08);
-      const x=side===0?tt*W:side===1?W-fw*0.5:side===2?tt*W:fw*0.5;
-      const y=side===0?fw*0.5:side===1?tt*H:side===2?H-fw*0.5:tt*H;
-      spills.push([x,y,rad]);
-    }
-  }
-  return {ground:hexV(inks[0]),items,stars,fw,paper,spills,W,H};
+  return {ground:hexV(inks[0]),items,stars,W,H};
 }
 
 function paint(c,W,H,f){
@@ -985,26 +968,11 @@ function paint(c,W,H,f){
   c.globalAlpha=1;
   c.fillStyle=sc.ground; c.fillRect(0,0,W,H);
   const paths=sc.items.map(it=>new Path2D(it.d));
-  const drawLevels=()=>{
-    sc.items.forEach((it,k)=>{
-      c.fillStyle=it.fill; c.fill(paths[k],"evenodd");
-      if(it.stroke){ c.strokeStyle=it.stroke; c.lineWidth=it.sw; c.lineJoin="round"; c.stroke(paths[k]); }
-    });
-  };
-  drawLevels();
+  sc.items.forEach((it,k)=>{
+    c.fillStyle=it.fill; c.fill(paths[k],"evenodd");
+    if(it.stroke){ c.strokeStyle=it.stroke; c.lineWidth=it.sw; c.lineJoin="round"; c.stroke(paths[k]); }
+  });
   for(const s of sc.stars){ c.fillStyle=s[3]; c.beginPath(); c.arc(s[0],s[1],s[2],0,TAUV); c.fill(); }
-  if(sc.fw>0){
-    c.fillStyle=sc.paper;
-    c.beginPath(); c.rect(0,0,W,H); c.rect(sc.fw,sc.fw,W-2*sc.fw,H-2*sc.fw); c.fill("evenodd");
-    if(sc.spills.length){
-      c.save(); c.beginPath();
-      for(const s of sc.spills){ c.moveTo(s[0]+s[2],s[1]); c.arc(s[0],s[1],s[2],0,TAUV); }
-      c.clip();
-      c.fillStyle=sc.ground; c.fillRect(0,0,W,H);
-      drawLevels();
-      c.restore();
-    }
-  }
 }
 
 /* ---- the SVG: the same scene, written out ---- */
@@ -1015,15 +983,8 @@ function svgFrame(f){
   const p=v=>Math.round(v*10)/10;
   let lv="";
   for(const it of sc.items) lv+=`<path d="${it.d}" fill="${it.fill}" fill-rule="evenodd"${it.stroke?` stroke="${it.stroke}" stroke-width="${p(it.sw)}" stroke-linejoin="round"`:""}/>`;
-  let out=`<rect width="${W}" height="${H}" fill="${sc.ground}"/><g id="lv${f}">${lv}</g>`;
+  let out=`<rect width="${W}" height="${H}" fill="${sc.ground}"/><g>${lv}</g>`;
   if(sc.stars.length) out+=`<g>`+sc.stars.map(s=>`<circle cx="${p(s[0])}" cy="${p(s[1])}" r="${p(s[2])}" fill="${s[3]}"/>`).join("")+`</g>`;
-  if(sc.fw>0){
-    out+=`<path d="M0 0H${W}V${H}H0Z M${p(sc.fw)} ${p(sc.fw)}H${p(W-sc.fw)}V${p(H-sc.fw)}H${p(sc.fw)}Z" fill="${sc.paper}" fill-rule="evenodd"/>`;
-    if(sc.spills.length){
-      out+=`<clipPath id="sp${f}">`+sc.spills.map(s=>`<circle cx="${p(s[0])}" cy="${p(s[1])}" r="${p(s[2])}"/>`).join("")+`</clipPath>`;
-      out+=`<g clip-path="url(#sp${f})"><rect width="${W}" height="${H}" fill="${sc.ground}"/><use href="#lv${f}"/></g>`;
-    }
-  }
   return out;
 }
 function svgWrap(inner){
@@ -1318,7 +1279,7 @@ $("#rotColors").addEventListener("click",()=>{
 });
 const pc=v=>Math.round(v*100)+"%";
 bindRange("levels",v=>v|0,v=>S.levels=v|0);
-for(const k of ["scale","curve","tiger","edges","stars","frame","spill","tints","runs"]) bindRange(k,pc,v=>S[k]=v);
+for(const k of ["scale","curve","tiger","edges","stars","tints","runs"]) bindRange(k,pc,v=>S[k]=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
@@ -1345,7 +1306,7 @@ function newSeed(v){
   const put=(id,val,txt)=>{const e=$("#"+id),l=$("#"+id+"Val");if(e)e.value=val;if(l)l.textContent=txt;};
   const pc=v=>Math.round(v*100)+"%";
   put("levels",S.levels,String(S.levels));
-  for(const k of ["scale","curve","tiger","edges","stars","frame","spill","tints","runs"]) put(k,S[k],pc(S[k]));
+  for(const k of ["scale","curve","tiger","edges","stars","tints","runs"]) put(k,S[k],pc(S[k]));
   buildSwatches(); accent();
   reframe();
 }
