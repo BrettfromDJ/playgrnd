@@ -816,11 +816,13 @@ function paint(c,W,H,f){
   /* ---- motion ----
      Flicker re-deals which cells the sparse patches keep, every frame.
      Drift walks every patch round a small circle, so the last frame runs
-     into the first. Breathe swells the glyphs and lets them settle. */
+     into the first. Breathe draws the glyphs in and lets them swell back. */
   const flick=(M.on&&M.mode==="flicker") ? (f|0)*911 : 0;
   const drx=(M.on&&M.mode==="drift") ? Math.cos(ph)*M.amount*2.5 : 0;
   const dry=(M.on&&M.mode==="drift") ? Math.sin(ph)*M.amount*2.5 : 0;
-  const mark=Math.min(1,S.mark*(1+((M.on&&M.mode==="breathe") ? (1-Math.cos(ph))*0.5*M.amount*0.3 : 0)));
+  /* Breathe draws the glyphs in from full size and lets them back out, so
+     they never outgrow their cell and the loop never sits still. */
+  const mark=S.mark*(1-((M.on&&M.mode==="breathe") ? (1-Math.cos(ph))*0.5*M.amount*0.5 : 0));
 
   /* ---- the inks by role ---- */
   const ground=raw[0];
