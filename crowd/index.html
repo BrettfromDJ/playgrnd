@@ -3,25 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Bloom — playgrnd</title>
+<title>Crowd — playgrnd</title>
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/favicon.png" sizes="180x180" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="canonical" href="https://playgrnd.tools/bloom">
+<link rel="canonical" href="https://playgrnd.tools/crowd">
 <meta property="og:site_name" content="playgrnd">
-<meta property="og:title" content="Bloom — playgrnd">
-<meta property="og:description" content="Generate symmetrical pixel-field banners — soft rings spreading from the centre, quantised into big square pixels and mirrored on both axes, with a quiet middle for a headline. Exports vector, image and video.">
+<meta property="og:title" content="Crowd — playgrnd">
+<meta property="og:description" content="Generate solarised water backgrounds — rows of skewed waves with curling crests, combed into strands and ringed with oil drops, every height mapped round a false-colour ramp of your inks. Deal a new variation or turn the dials. Exports image and video.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://playgrnd.tools/bloom">
-<meta property="og:image" content="https://playgrnd.tools/bloom/og.png">
+<meta property="og:url" content="https://playgrnd.tools/crowd">
+<meta property="og:image" content="https://playgrnd.tools/crowd/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Artwork made with Bloom.">
+<meta property="og:image:alt" content="Artwork made with Crowd.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Bloom — playgrnd">
-<meta name="twitter:description" content="Generate symmetrical pixel-field banners — soft rings spreading from the centre, quantised into big square pixels and mirrored on both axes, with a quiet middle for a headline.">
-<meta name="twitter:image" content="https://playgrnd.tools/bloom/og.png">
-<meta name="description" content="Generate symmetrical pixel-field banners — soft rings spreading from the centre, quantised into big square pixels and mirrored on both axes, with a quiet middle for a headline. Exports vector, image and video.">
+<meta name="twitter:title" content="Crowd — playgrnd">
+<meta name="twitter:description" content="Generate solarised water backgrounds — rows of skewed waves with curling crests, combed into strands and ringed with oil drops, every height mapped round a false-colour ramp of your inks.">
+<meta name="twitter:image" content="https://playgrnd.tools/crowd/og.jpg">
+<meta name="description" content="Generate solarised water backgrounds — rows of skewed waves with curling crests, combed into strands and ringed with oil drops, every height mapped round a false-colour ramp of your inks. Deal a new variation or turn the dials. Exports image and video.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
 <style>
 :root{
@@ -615,16 +615,16 @@ input[type=range]{accent-color:var(--ink)}
       <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
         <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
         <span class="slash">&frasl;</span>
-        <span class="tool">Bloom</span>
+        <span class="tool">Crowd</span>
       </a>
       <div class="tbl">
-        <span class="k">Index</span><span class="v">31 / 52</span>
-        <span class="k">Type</span><span class="v">Symmetrical pixel field</span>
+        <span class="k">Index</span><span class="v">52 / 52</span>
+        <span class="k">Type</span><span class="v">Blurred crowd</span>
       </div>
       <a class="lnk back" href="../index.html">&larr; All tools</a>
       <div class="newblk">
         <div class="newlab"><span class="k">Variation</span>
-          <span class="seedwrap"><input class="seed" id="seed" value="1" inputmode="numeric" aria-label="Variation number"><button class="pbtn copy" id="copySeed"
+          <span class="seedwrap"><input class="seed" id="seed" value="7" inputmode="numeric" aria-label="Variation number"><button class="pbtn copy" id="copySeed"
             aria-label="Copy variation number">Copy</button></span>
         </div>
         <button class="newbtn" id="randomize"><span class="ico" aria-hidden="true">&#8635;</span>
@@ -632,15 +632,17 @@ input[type=range]{accent-color:var(--ink)}
           <span class="sub">Reshuffle every shape</span></button>
       </div>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Field</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Pixels across</span><span class="v" id="colsVal">40</span></div><div class="track"><input type="range" id="cols" min="8" max="96" step="1" value="40"></div></div>
-        <div class="pr"><div class="top"><span class="k">Rings</span><span class="v" id="ringsVal">7</span></div><div class="track"><input type="range" id="rings" min="1" max="14" step="1" value="7"></div></div>
-        <div class="pr"><div class="top"><span class="k">Distortion</span><span class="v" id="warpVal">50%</span></div><div class="track"><input type="range" id="warp" min="0" max="1" step="0.01" value="0.5"></div></div>
-        <div class="pr"><div class="top"><span class="k">Grain</span><span class="v" id="grainVal">30%</span></div><div class="track"><input type="range" id="grain" min="0" max="1" step="0.01" value="0.3"></div></div></div></details>
-    <details class="grp" open><summary>Levels</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Steps</span><span class="v" id="stepsVal">6</span></div><div class="track"><input type="range" id="steps" min="2" max="14" step="1" value="6"></div></div>
-        <div class="pr"><div class="top"><span class="k">Quiet centre</span><span class="v" id="calmVal">35%</span></div><div class="track"><input type="range" id="calm" min="0" max="1" step="0.01" value="0.35"></div></div></div></details><div class="tog-grp"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate<span class="sw" aria-hidden="true"></span></button><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
+    <div class="l-scroll"><details class="grp" open><summary>Crowd</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Figures</span><span class="v" id="crowdVal">30</span></div><div class="track"><input type="range" id="crowd" min="1" max="48" step="1" value="30"></div></div>
+        <div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="scaleVal">40%</span></div><div class="track"><input type="range" id="scale" min="0" max="1" step="0.01" value="0.4"></div></div>
+        <div class="pr"><div class="top"><span class="k">Wobble</span><span class="v" id="wobbleVal">35%</span></div><div class="track"><input type="range" id="wobble" min="0" max="1" step="0.01" value="0.35"></div></div></div></details>
+    <details class="grp" open><summary>Glow</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Blur</span><span class="v" id="blurVal">50%</span></div><div class="track"><input type="range" id="blur" min="0" max="1" step="0.01" value="0.5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Halo</span><span class="v" id="haloVal">50%</span></div><div class="track"><input type="range" id="halo" min="0" max="1" step="0.01" value="0.5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Dark rim</span><span class="v" id="edgeVal">30%</span></div><div class="track"><input type="range" id="edge" min="0" max="1" step="0.01" value="0.3"></div></div></div></details>
+    <details class="grp" open><summary>Arrows</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Arrows</span><span class="v" id="arrowsVal">50%</span></div><div class="track"><input type="range" id="arrows" min="0" max="1" step="0.01" value="0.5"></div></div>
+        <div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="arrowSizeVal">50%</span></div><div class="track"><input type="range" id="arrowSize" min="0" max="1" step="0.01" value="0.5"></div></div></div></details><div class="tog-grp"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate<span class="sw" aria-hidden="true"></span></button><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
           <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="amtVal">0.60</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2" step="0.05" value="0.6"></div></div>
-          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">8 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="8"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">24 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="24"></div></div></div></div><div class="tog-grp"><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither<span class="sw" aria-hidden="true"></span></button><div class="group" id="ditherBody" hidden>
+          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">12 fps</span></div><div class="track"><input type="range" id="fps" min="2" max="30" step="1" value="12"></div></div>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">36 frames</span></div><div class="track"><input type="range" id="frames" min="8" max="60" step="2" value="36"></div></div></div></div><div class="tog-grp"><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither<span class="sw" aria-hidden="true"></span></button><div class="group" id="ditherBody" hidden>
   <div class="misc stack"><span class="mhead"><span class="k">Pattern</span></span><span class="mval"><div class="chips" id="dthKinds"></div></span></div>
   <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
   <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
@@ -652,7 +654,8 @@ input[type=range]{accent-color:var(--ink)}
   <div class="pr"><div class="top"><span class="k">Specks</span><span class="v" id="grnSpecksVal">50%</span></div><div class="track"><input type="range" id="grnSpecks" min="0" max="1" step="0.05" value="0.5"></div></div>
   <div class="pr"><div class="top"><span class="k">Vignette</span><span class="v" id="grnVignetteVal">50%</span></div><div class="track"><input type="range" id="grnVignette" min="0" max="1" step="0.05" value="0.5"></div></div>
 </div></div></div>
-    <div class="l-bot"><details class="grp colr" open><summary>Color<button class="mycsw" id="mycTog" aria-pressed="false">My colors<span class="sw" aria-hidden="true"></span></button></summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">6</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+    <div class="l-bot"><details class="grp colr" open><summary>Color<button class="mycsw" id="mycTog" aria-pressed="false">My colors<span class="sw" aria-hidden="true"></span></button></summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Inks</span><span class="v" id="swCountVal">3</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+        
       <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="shufColors">New colors</button><button class="lnk" id="rotColors">Rotate</button></span></div>
       <div class="myc" id="myc" hidden>
         <div class="myc-row" id="mycHome">
@@ -699,9 +702,8 @@ input[type=range]{accent-color:var(--ink)}
       <div class="tbl" style="margin-bottom:20px">
         <span class="k">Version</span><span class="v build" id="build">v1</span>
       </div>
-      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
+      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizePxVal">2400 px</span></div><div class="track"><input type="range" id="sizePx" min="600" max="6000" step="100" value="2400"></div></div>
         <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
-          <button class="lnk" id="expSvg">SVG</button>
           <button class="lnk" id="expVid">Video</button></span></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
     </div>
   </div>
@@ -740,163 +742,246 @@ function relLum(h){const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.
 
 const RATIOS=[{id:"9:16",w:9,h:16},{id:"3:4",w:3,h:4},{id:"4:5",w:4,h:5},{id:"1:1",w:1,h:1},
  {id:"5:4",w:5,h:4},{id:"4:3",w:4,h:3},{id:"3:2",w:3,h:2},{id:"16:9",w:16,h:9}];
-const MODES=[["ripple","Ripple"],["breathe","Breathe"]];
+const MODES=[["sway","Sway"],["pulse","Pulse"],["flicker","Flicker"]];
+const GRAIN_DEFAULT={on:true,blend:"overlay",amount:0.35,size:1,specks:0.3,vignette:0.2};
 
-/* A ramp, in order: slot 0 is the deepest band and the last is the palest.
-   Because the ramp is the row's own order, Rotate genuinely re-deals which
-   colour sits at which depth instead of doing nothing. */
+/* The first ink is the ground, the second the core of the figures, the
+   third the halo round them; any further inks are extra halo bands laid
+   between the halo and the core, in the order they sit. */
 const PALETTES=[
-  ["#1B2A49","#2E5C8A","#3F9BC4","#7FD1D8","#BEEFDC","#F3FBEB"],
-  ["#0A8FE8","#17BEF2","#5FD4F7","#A9E6F9","#9FDE7C","#C9EEA6"],
-  ["#0B6FD6","#12A8EC","#4FC8F5","#9EE0F7","#8AD46A","#BCEA98"],
-  ["#7A1FD6","#B23BE8","#E06AF0","#F0A8F5","#F5D06A","#FAE7A8"],
-  ["#E0452C","#F07A2C","#F5A94A","#FAD08A","#7ACBB0","#B6E4D6"],
-  ["#12143A","#2B3F8A","#3F79D6","#6FB0EC","#A8D8F5","#DCEFFA"]
+  ["#B5BAB6","#D6EE3A","#F08AE6"],
+  ["#1A1B1F","#7CFF5A","#FF3DA6","#3DE0FF"],
+  ["#E9E4D6","#FF5C39","#2B3BFF"],
+  ["#2A2340","#FFE45C","#00E5A8","#7B5CFF"],
+  ["#C9C3B4","#111111","#E8412C","#F5C400"],
+  ["#0B0F1A","#F2F2F0","#FF3DA6","#FFB020","#3DE0FF"]
 ];
 
+/* A crowd of figures, heads and shoulders, blurred into soft blobs and
+   pushed through a false-colour ramp: ground where nothing stands, a halo
+   round every figure, a core where a figure is solid, with a darker rim
+   where the halo meets the ground. A scatter of small arrows lies over the
+   top in the core ink, gathered in patches. Every setting is a dial and the
+   same dials always give the same sheet. The variation number deals a
+   fresh set of dials and shows the deal on the dials, so a dealt sheet can
+   be adjusted from where it landed. */
 const S={
-  seed:8, ratio:"16:9",
-  cols:40, rings:7, warp:0.5,
-  grain:0.3, steps:6, calm:0.35,
+  seed:7, ratio:"3:4",
+  crowd:30, scale:0.4, wobble:0.35,
+  blur:0.5, halo:0.5, edge:0.3,
+  arrows:0.5, arrowSize:0.5,
   pal:PALETTES[0].slice(),
-  motion:{on:false,mode:"ripple",amount:0.6,fps:8,frames:24},
-  size:2400
+  motion:{on:false,mode:"sway",amount:0.6,fps:12,frames:36},
+  size_px:2400
 };
 
-function hshB(x,y,s){
+const TAUC=Math.PI*2;
+function hshC(x,y,s){
   let n=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1274126177);
-  n=Math.imul(n^(n>>>13),1274126177);
-  n^=n>>>16;
+  n=Math.imul(n^(n>>>13),1274126177); n^=n>>>16;
   return (n>>>0)/4294967296;
 }
-function vnoiseB(x,y,s){
-  const xi=Math.floor(x), yi=Math.floor(y);
-  const xf=x-xi, yf=y-yi;
-  const u=xf*xf*(3-2*xf), v=yf*yf*(3-2*yf);
-  const a=hshB(xi,yi,s), b=hshB(xi+1,yi,s), c=hshB(xi,yi+1,s), d=hshB(xi+1,yi+1,s);
+function vnC(x,y,s){
+  const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi;
+  const u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);
+  const a=hshC(xi,yi,s),b=hshC(xi+1,yi,s),c=hshC(xi,yi+1,s),d=hshC(xi+1,yi+1,s);
   return (a*(1-u)+b*u)*(1-v)+(c*(1-u)+d*u)*v;
 }
-function fbmB(x,y,s,oct){
-  let v=0,a=0.5,f=1,t=0;
-  for(let i=0;i<oct;i++){ v+=a*vnoiseB(x*f,y*f,s+i*131); t+=a; f*=2; a*=0.5; }
-  return v/t;
+function rngC(seed){
+  let a=(seed>>>0)||1;
+  return function(){ a^=a<<13; a>>>=0; a^=a>>>17; a>>>=0; a^=a<<5; a>>>=0; return a/4294967296; };
 }
-
-function paint(c,W,H,f){
-  const M=S.motion;
-  const T=M.on ? f/M.frames : 0;
-  const turns=Math.max(1,Math.round(M.amount*2));
-  const pal=S.pal.length?S.pal:["#0A8FE8","#C9EEA6"];
-  const steps=Math.max(2,S.steps|0);
-  /* Every level lands somewhere in the row whatever the step count is. Reading
-     pal[k] straight would leave the later inks unused the moment steps fell
-     below the number of colours — a palette with dead swatches in it. */
-  const ramp=k=>pal[Math.floor(((k%steps)+steps)%steps/steps*pal.length)%pal.length];
-
-  const cols=Math.max(4,S.cols|0);
-  const cw=W/cols;
-  const rows=Math.max(3,Math.round(H/cw));
-  const ch=H/rows;
-  const asp=W/H;
-
-  /* Cell edges are mirrored, not rounded twice. Rounding each edge on its own
-     lets a column and its opposite number land a pixel apart — the decisions
-     were already symmetric, but the geometry drawing them was not, and the
-     page failed a left-to-right flip by a hairline down every boundary. */
-  const edges=(n,total)=>{
-    const step=total/n, e=new Array(n+1);
-    for(let k=0;k<=n;k++){
-      const m=Math.min(k,n-k);
-      const v=Math.round(m*step);
-      e[k]=(k<=n-k)?v:total-v;
+/* The deal: everything lands somewhere near the reference rather than on a
+   corner of the settings nobody would choose. The palette is left alone:
+   New colors is the way to another one. */
+function dealC(seed){
+  const r=rngC(Math.imul(seed|0,2654435761)^0x5bd1e995);
+  S.crowd=20+((r()*26)|0);
+  S.scale=0.25+r()*0.3;
+  S.wobble=0.2+r()*0.3;
+  S.blur=0.35+r()*0.4;
+  S.halo=0.3+r()*0.4;
+  S.edge=0.15+r()*0.3;
+  S.arrows=0.3+r()*0.4;
+  S.arrowSize=0.3+r()*0.4;
+  for(const k of ["scale","wobble","blur","halo","edge","arrows","arrowSize"]) S[k]=Math.round(S[k]*100)/100;
+}
+function rgbC(h){
+  h=(h||"#000").replace("#","");
+  if(h.length===3) h=h.split("").map(c=>c+c).join("");
+  return [parseInt(h.slice(0,2),16)||0,parseInt(h.slice(2,4),16)||0,parseInt(h.slice(4,6),16)||0];
+}
+/* a box blur, run three times, is as good as a gaussian here */
+function blurC(a,b,w,h,rad){
+  if(rad<1) return;
+  const r=rad|0, n=2*r+1;
+  for(let pass=0;pass<3;pass++){
+    for(let y=0;y<h;y++){
+      const o=y*w; let s=0;
+      for(let i=-r;i<=r;i++) s+=a[o+Math.min(w-1,Math.max(0,i))];
+      for(let x=0;x<w;x++){ b[o+x]=s/n; s+=a[o+Math.min(w-1,x+r+1)]-a[o+Math.max(0,x-r)]; }
     }
-    return e;
-  };
-
-  /* Ripple marches the bands outward a whole level at a time, so a full loop
-     lands back on the first frame. Breathe swells the quiet centre instead. */
-  const march=(M.on&&M.mode==="ripple") ? T*steps*turns : 0;
-  const swell=(M.on&&M.mode==="breathe")
-    ? 1+Math.sin(T*Math.PI*2*turns)*0.35*Math.min(1.6,M.amount) : 1;
-
-  const EX=edges(cols,W), EY=edges(rows,H);
-  for(let j=0;j<rows;j++){
-    for(let i=0;i<cols;i++){
-      /* The mirror is structural: each cell reads the field at its own
-         quadrant's coordinates, so the four quadrants are one decision read
-         four times. Flipping the finished pixels instead leaves the middle
-         row and column half a cell out whenever the count is odd. */
-      const mi=Math.min(i,cols-1-i), mj=Math.min(j,rows-1-j);
-      const u=(mi+0.5)/cols, v=(mj+0.5)/rows;
-      const dx=(0.5-u)*asp, dy=0.5-v;
-      let r=Math.hypot(dx,dy)/Math.hypot(0.5*asp,0.5);
-
-      /* The rings are pushed off true by two fields read at the same mirrored
-         coordinates — a slow one that swings whole lobes out of round and a
-         quicker one that roughens their edges. One gentle field left the bands
-         as clean ovals, and the page read as a target rather than as weather. */
-      const slow=fbmB(u*3.2+3.1, v*3.2+7.7, S.seed+11, 3)-0.5;
-      const fast=fbmB(u*9.5+13.7, v*9.5+2.3, S.seed+17, 2)-0.5;
-      r+=(slow*1.35+fast*0.5)*S.warp;
-
-      const calmR=S.calm*0.55*swell;
-      let lvl;
-      if(r<=calmR){
-        /* the innermost band simply grows: the quiet middle is part of the
-           pattern rather than a panel dropped on top of it */
-        lvl=0;
-      }else{
-        /* grain works in whole levels, not in radius: a tenth of a level never
-           crosses a boundary, so the control did nothing you could see */
-        const g=(fbmB(u*21+1.3, v*21+9.1, S.seed+29, 2)-0.5)*S.grain*2.4;
-        lvl=(r-calmR)/(1-calmR)*Math.max(1,S.rings)+g+march;
-      }
-      c.fillStyle=ramp(Math.floor(lvl));
-      c.fillRect(EX[i], EY[j], EX[i+1]-EX[i], EY[j+1]-EY[j]);
+    for(let x=0;x<w;x++){
+      let s=0;
+      for(let i=-r;i<=r;i++) s+=b[Math.min(h-1,Math.max(0,i))*w+x];
+      for(let y=0;y<h;y++){ a[y*w+x]=s/n; s+=b[Math.min(h-1,y+r+1)*w+x]-b[Math.max(0,y-r)*w+x]; }
     }
   }
 }
 
-/* ---- vector ------------------------------------------------------------
-   The same paint() against a recorder. Every pixel is already a rectangle, so
-   the export is the picture itself and cannot drift from the screen. */
-function SvgSurfaceB(){ this.fillStyle="#000"; this.imageSmoothingEnabled=false; this._b=[]; }
-SvgSurfaceB.prototype.save=function(){};
-SvgSurfaceB.prototype.restore=function(){};
-SvgSurfaceB.prototype.translate=function(){};
-SvgSurfaceB.prototype.scale=function(){};
-SvgSurfaceB.prototype.rotate=function(){};
-SvgSurfaceB.prototype.clearRect=function(){};
-SvgSurfaceB.prototype.beginPath=function(){};
-SvgSurfaceB.prototype.moveTo=function(){};
-SvgSurfaceB.prototype.lineTo=function(){};
-SvgSurfaceB.prototype.closePath=function(){};
-SvgSurfaceB.prototype.arc=function(){};
-SvgSurfaceB.prototype.fill=function(){};
-SvgSurfaceB.prototype.stroke=function(){};
-SvgSurfaceB.prototype.fillRect=function(x,y,w,h){
-  if(w<=0||h<=0) return;
-  this._b.push('<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+w.toFixed(1)+
-               '" height="'+h.toFixed(1)+'" fill="'+this.fillStyle+'"/>');
-};
-SvgSurfaceB.prototype.markup=function(){return this._b.join("");};
+let BUFC=null, FLD=null, TMP=null;
+function paint(c,W,H,f){
+  const M=S.motion, T=M.on ? f/M.frames : 0, ph=T*TAUC;
+  const raw=S.pal.length?S.pal:PALETTES[0];
+  const inks=raw.map(rgbC), NI=inks.length;
+  const U=Math.sqrt(W*H);
+  const seed=S.seed|0;
+  const sd1=seed*7+1, sd2=seed*7+2, sd3=seed*7+3;
 
-function svgFrame(f){
-  const r=RATIOS.find(x=>x.id===S.ratio);
-  const W=S.size,H=Math.round(S.size*r.h/r.w);
-  const s=new SvgSurfaceB();
-  paint(s,W,H,f);
-  return s.markup();
+  /* ---- motion ----
+     Sway walks every figure round its own small circle, so the last frame
+     runs into the first. Pulse swells the halo and lets it settle. Flicker
+     re-deals the arrows every frame. */
+  const sway=(M.on&&M.mode==="sway") ? M.amount : 0;
+  const pulse=(M.on&&M.mode==="pulse") ? (1-Math.cos(ph))*0.5*M.amount*0.35 : 0;
+  const flick=(M.on&&M.mode==="flicker") ? (f|0)*911 : 0;
+
+  /* ---- the inks by role ---- */
+  const ground=inks[0], core=NI>1?inks[1]:inks[0];
+  const halos=NI>2?inks.slice(2):[core];
+  const dark=halos[0].map((v,i)=>v*0.45+[30,0,70][i]*0.55);   /* the rim: the halo, dimmed toward violet */
+
+  /* ---- the ramp: a lookup over the figure mask, ground to rim to halo
+     bands to core ---- */
+  const LN=1024, LUT=new Float32Array(LN*3);
+  const tc=0.62;                                              /* where the core begins */
+  const mix=(a,b,t)=>[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t];
+  const rim=mix(halos[0],dark,S.edge);
+  /* the stops along the mask: ground, the rim, the halo bands, the core */
+  const stops=[[0,ground],[0.05,ground],[0.2,rim]];
+  const nb=halos.length, h0=0.32, span=Math.max(0.06,tc-h0);
+  for(let k=0;k<nb;k++) stops.push([h0+k*span/nb,halos[k]]);
+  stops.push([tc+0.12,core],[1,core]);
+  for(let i=0,k=0;i<LN;i++){
+    const m=i/(LN-1);
+    while(k<stops.length-2&&m>=stops[k+1][0]) k++;
+    const [ma,ca]=stops[k],[mb,cb]=stops[k+1];
+    let t=(m-ma)/(mb-ma); t=t<0?0:t>1?1:t; t=t*t*(3-2*t);
+    const col=mix(ca,cb,t);
+    LUT[i*3]=col[0]; LUT[i*3+1]=col[1]; LUT[i*3+2]=col[2];
+  }
+
+  /* ---- the crowd, dealt once ---- */
+  const r=rngC(Math.imul(seed,2246822519)^0x27d4eb2f);
+  const n=Math.max(1,S.crowd|0);
+  const figs=[];
+  for(let k=0;k<n;k++){
+    const big=r();
+    const hr=U*(0.018+S.scale*0.06)*(0.5+Math.pow(big,1.6)*1.3);
+    const bh=hr*(2.4+r()*3.2), bw=hr*(1.5+r()*0.8);
+    /* loosely in rows, the way a crowd stands */
+    const rows=3+((r()*3)|0), row=(r()*rows)|0;
+    const cx=(-0.06+r()*1.12)*W, cy=((row+r()*1.2-0.3)/rows)*H;
+    const phs=r()*TAUC, sr=U*0.012*(0.6+r()*0.8);
+    figs.push({cx,cy,hr,bh,bw,rr:hr*(0.6+r()*0.5),phs,sr,ns:seed*13+k*7});
+  }
+  /* the figures sway in place */
+  for(const g of figs){ g.x=g.cx+Math.cos(ph+g.phs)*sway*g.sr; g.y=g.cy+Math.sin(ph+g.phs)*sway*g.sr; }
+
+  /* ---- the mask on a coarse grid: a signed distance to the nearest
+     figure, its edge wobbled, then blurred ---- */
+  const gs=Math.max(2,Math.round(U/420));
+  const fw=Math.ceil(W/gs)+2, fh=Math.ceil(H/gs)+2;
+  if(!FLD||FLD.length!==fw*fh){ FLD=new Float32Array(fw*fh); TMP=new Float32Array(fw*fh); }
+  const wob=S.wobble;
+  /* the halo is a band of set width round every figure, so a small figure
+     is all halo and a big one opens up to its core */
+  const haloW=U*(0.012+S.halo*0.06);
+  const marg=haloW*2+U*0.03;
+  FLD.fill(0);
+  for(const g of figs){
+    const x0=Math.max(0,((g.x-g.bw*0.5-g.hr-marg)/gs)|0), x1=Math.min(fw-1,((g.x+g.bw*0.5+g.hr+marg)/gs)|0);
+    const y0=Math.max(0,((g.y-g.hr*1.2-marg)/gs)|0), y1=Math.min(fh-1,((g.y+g.hr+g.bh+marg)/gs)|0);
+    const hw=g.bw*0.5-g.rr, hh=g.bh*0.5-g.rr, by=g.y+g.hr*0.9+g.bh*0.5;
+    const wf=1/(g.hr*1.4);
+    for(let j=y0;j<=y1;j++){
+      const py=(j-1)*gs+gs*0.5;
+      for(let i=x0;i<=x1;i++){
+        const px=(i-1)*gs+gs*0.5;
+        /* the head */
+        const dx=px-g.x, dy=py-g.y;
+        let d=Math.sqrt(dx*dx+dy*dy)-g.hr;
+        /* the shoulders: a rounded box below the head */
+        const qx=Math.abs(px-g.x)-hw, qy=Math.abs(py-by)-hh;
+        const ox=Math.max(qx,0), oy=Math.max(qy,0);
+        const db=Math.sqrt(ox*ox+oy*oy)+Math.min(Math.max(qx,qy),0)-g.rr;
+        if(db<d) d=db;
+        d+=(vnC(px*wf+3,py*wf+7,g.ns)-0.5)*wob*g.hr*1.6;
+        /* inside the halo the mask climbs from the outer edge to the core */
+        const m=0.5-d/(haloW*2);
+        const v=m<0?0:m>1?1:m;
+        const q=j*fw+i;
+        if(v>FLD[q]) FLD[q]=v;
+      }
+    }
+  }
+  blurC(FLD,TMP,fw,fh,(0.004+S.blur*0.04)*U/gs);
+
+  /* ---- the sheet: every pixel reads the mask and takes its colour from
+     the ramp ---- */
+  if(!BUFC||BUFC.width!==W||BUFC.height!==H) BUFC=c.createImageData(W,H);
+  const px=BUFC.data;
+  const lift=pulse;                                           /* Pulse pushes the mask up the ramp */
+  for(let y=0,p=0;y<H;y++){
+    const gy=(y+gs)/gs-0.5, yi=gy|0, yf=gy-yi;
+    const row0=yi*fw, row1=Math.min(fh-1,yi+1)*fw;
+    for(let x=0;x<W;x++,p+=4){
+      const gx=(x+gs)/gs-0.5, xi=gx|0, xf=gx-xi;
+      const xj=Math.min(fw-1,xi+1);
+      let m=(FLD[row0+xi]*(1-xf)+FLD[row0+xj]*xf)*(1-yf)+(FLD[row1+xi]*(1-xf)+FLD[row1+xj]*xf)*yf;
+      if(lift) m=m*(1+lift)+lift*0.25*m;
+      if(m>1) m=1;
+      const li=(m*(LN-1))|0;
+      px[p]=LUT[li*3]; px[p+1]=LUT[li*3+1]; px[p+2]=LUT[li*3+2]; px[p+3]=255;
+    }
+  }
+  c.setTransform(1,0,0,1,0,0);
+  c.globalCompositeOperation="source-over";
+  c.globalAlpha=1;
+  c.putImageData(BUFC,0,0);
+
+  /* ---- the arrows: a jittered grid, kept in patches, each patch leaning
+     its own way ---- */
+  const dens=S.arrows;
+  if(dens>0){
+    const sp=U*0.019*(0.7+S.arrowSize*0.9), sz=sp*0.55;
+    c.strokeStyle="rgb("+core[0]+","+core[1]+","+core[2]+")";
+    c.lineWidth=Math.max(0.8,sz*0.15);
+    c.lineCap="round"; c.lineJoin="round";
+    c.globalAlpha=0.9;
+    const cols=Math.ceil(W/sp)+1, rows=Math.ceil(H/sp)+1;
+    c.beginPath();
+    for(let j=0;j<rows;j++) for(let i=0;i<cols;i++){
+      const x=(i+0.5)*sp, y=(j+0.5)*sp;
+      /* the patches: a slow noise picks where the arrows gather */
+      const patch=vnC(x/U*3.2+1,y/U*3.2+5,sd1)*0.7+vnC(x/U*9+4,y/U*9+2,sd2)*0.3;
+      if(patch<1-dens*0.95) continue;
+      if(hshC(i,j,sd3+flick)<0.3) continue;
+      const jx=(hshC(i,j,sd3+1+flick)-0.5)*sp*0.6, jy=(hshC(i,j,sd3+2+flick)-0.5)*sp*0.6;
+      /* each patch leans one way, every arrow a little off it */
+      const lean=Math.PI*0.75+(vnC(x/U*2.2+9,y/U*2.2+3,sd2)-0.5)*Math.PI*1.6;
+      const a=lean+(hshC(i,j,sd3+3+flick)-0.5)*0.9;
+      const ca=Math.cos(a), sa=Math.sin(a);
+      const ax=x+jx, ay=y+jy;
+      const tx=ax+ca*sz*0.5, ty=ay+sa*sz*0.5;
+      c.moveTo(ax-ca*sz*0.5,ay-sa*sz*0.5); c.lineTo(tx,ty);
+      c.moveTo(tx-ca*sz*0.42-sa*sz*0.34,ty-sa*sz*0.42+ca*sz*0.34); c.lineTo(tx,ty);
+      c.lineTo(tx-ca*sz*0.42+sa*sz*0.34,ty-sa*sz*0.42-ca*sz*0.34);
+    }
+    c.stroke();
+    c.globalAlpha=1;
+  }
 }
-function svgWrap(inner){
-  const r=RATIOS.find(x=>x.id===S.ratio);
-  const W=S.size,H=Math.round(S.size*r.h/r.w);
-  return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+
-         '" viewBox="0 0 '+W+' '+H+'" shape-rendering="crispEdges">'+
-         '<clipPath id="bl"><rect width="'+W+'" height="'+H+'"/></clipPath>'+
-         '<g clip-path="url(#bl)">'+inner+'</g></svg>';
-}
-function buildSVG(){return svgWrap(svgFrame(curFrame));}
 
 const art=$("#art"), ctx=art.getContext("2d",{alpha:false});
 function fitCanvas(){
@@ -965,26 +1050,21 @@ function save(blob,name){
   a.href=url;a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
 }
-function stamp(){return `bloom-${S.seed}-${S.ratio.replace(":","x")}`;}
+function stamp(){return `crowd-${S.seed}-${S.ratio.replace(":","x")}`;}
 function updateExportNote(){
-  const a=$("#expVid"),sc=$("#scrub"),l=$("#expSvgLoop");
+  const a=$("#expVid"),sc=$("#scrub");
   if(a)a.disabled=!S.motion.on;
-  if(l)l.disabled=!S.motion.on;
   if(sc)sc.disabled=!S.motion.on;
 }
 $("#expPng").addEventListener("click",()=>{
   toast("Rendering…",true);
   setTimeout(()=>{
     const r=RATIOS.find(x=>x.id===S.ratio);
-    const W=S.size,H=Math.round(S.size*r.h/r.w);
+    const W=S.size_px,H=Math.round(S.size_px*r.h/r.w);
     const c=document.createElement("canvas");c.width=W;c.height=H;
     paint(c.getContext("2d"),W,H,curFrame);
     c.toBlob(b=>{save(b,stamp()+".png");toast(`PNG saved · ${W}×${H}`);});
   },30);
-});
-$("#expSvg").addEventListener("click",()=>{
-  save(new Blob([buildSVG()],{type:"image/svg+xml"}),stamp()+".svg");
-  toast("SVG saved");
 });
 function pickVideoType(){
   const t=["video/mp4;codecs=avc1.42E01E","video/mp4","video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"];
@@ -997,7 +1077,7 @@ $("#expVid").addEventListener("click",()=>{
   if(!type)return toast("This browser can't record video");
   const ext=type.startsWith("video/mp4")?"mp4":"webm";
   const r=RATIOS.find(x=>x.id===S.ratio);
-  let W=Math.min(1280,S.size);W-=W%2;
+  let W=Math.min(1280,S.size_px);W-=W%2;
   let H=Math.round(W*r.h/r.w);H-=H%2;
   const c=document.createElement("canvas");c.width=W;c.height=H;
   const cc=c.getContext("2d");
@@ -1022,7 +1102,7 @@ $("#expVid").addEventListener("click",()=>{
    UI
 ============================================================ */
 function accent(){
-  let best=S.pal[S.pal.length-1],bl=-1;
+  let best=S.pal[Math.min(1,S.pal.length-1)],bl=-1;
   for(const c of S.pal){const l=relLum(c);if(l>bl&&l>0.12){bl=l;best=c;}}
   document.documentElement.style.setProperty("--accent",bl>0?best:"#F5C21B");
   $("#strip").innerHTML=S.pal.map(c=>`<span style="background:${c}"></span>`).join("");
@@ -1110,7 +1190,7 @@ function buildSwatches(){
   S.pal.forEach((c,i)=>{
     const b=document.createElement("button");
     b.className="sw"+(lock?" locked":"");b.type="button";
-    b.setAttribute("aria-label","Ink "+(i+1)+" color");
+    b.setAttribute("aria-label","Ink "+(i+1));
     b.innerHTML=`<span class="fill" style="background:${c}"></span>`+
       `<input type="color" value="${c}"><span class="x" aria-hidden="true">\u00d7</span>`;
     b.querySelector("input").addEventListener("input",e=>{
@@ -1154,22 +1234,19 @@ $("#shufColors").addEventListener("click",()=>{
   setPalette(window.__freshPalette(PALETTES[(Math.random()*PALETTES.length)|0]));
 });
 $("#rotColors").addEventListener("click",()=>{
-  setPalette(S.pal.slice(1).concat(S.pal[0]));
+  setPalette(S.pal.slice(1).concat([S.pal[0]]));
 });
-bindRange("cols",v=>v|0,v=>S.cols=v|0);
-bindRange("rings",v=>v|0,v=>S.rings=v|0);
-bindRange("warp",v=>Math.round(v*100)+"%",v=>S.warp=v);
-bindRange("grain",v=>Math.round(v*100)+"%",v=>S.grain=v);
-bindRange("steps",v=>v|0,v=>S.steps=v|0);
-bindRange("calm",v=>Math.round(v*100)+"%",v=>S.calm=v);
+const pc=v=>Math.round(v*100)+"%";
+bindRange("crowd",v=>v|0,v=>S.crowd=v|0);
+for(const k of ["scale","wobble","blur","halo","edge","arrows","arrowSize"]) bindRange(k,pc,v=>S[k]=v);
 bindRange("amt",v=>v.toFixed(2),v=>S.motion.amount=v);
 $("#fps").addEventListener("input",e=>{S.motion.fps=parseInt(e.target.value,10);
   $("#fpsVal").textContent=S.motion.fps+" fps";if(playing)setPlaying(true);});
 $("#frames").addEventListener("input",e=>{S.motion.frames=parseInt(e.target.value,10);
   $("#framesVal").textContent=S.motion.frames+" frames";$("#scrub").max=S.motion.frames-1;
   curFrame=Math.min(curFrame,S.motion.frames-1);reframe();if(playing)setPlaying(true);});
-$("#size").addEventListener("input",e=>{S.size=parseInt(e.target.value,10);$("#sizeVal").textContent=S.size+" px";});
-$("#motionTog").addEventListener("click",e=>{
+$("#sizePx").addEventListener("input",e=>{S.size_px=parseInt(e.target.value,10);
+  $("#sizePxVal").textContent=S.size_px+" px";});$("#motionTog").addEventListener("click",e=>{
   S.motion.on=!S.motion.on;
   e.currentTarget.setAttribute("aria-pressed",String(S.motion.on));
   $("#motionBody").hidden=!S.motion.on;
@@ -1179,7 +1256,19 @@ $("#motionTog").addEventListener("click",e=>{
 });
 $("#play").addEventListener("click",()=>{if(!S.motion.on){$("#motionTog").click();return;}setPlaying(!playing);});
 $("#scrub").addEventListener("input",e=>{setPlaying(false);curFrame=parseInt(e.target.value,10)%Math.max(1,S.motion.frames);draw();});
-function newSeed(v){S.seed=(v!==undefined)?v:(Math.random()*99999|0)+1;$("#seed").value=S.seed;reframe();}
+function newSeed(v){
+  S.seed=(v!==undefined)?v:(Math.random()*99999|0)+1;
+  $("#seed").value=S.seed;
+  dealC(S.seed);
+  /* every dealt value onto its dial and its readout, so the sheet can be
+     adjusted from where it landed */
+  const put=(id,val,txt)=>{const e=$("#"+id),l=$("#"+id+"Val");if(e)e.value=val;if(l)l.textContent=txt;};
+  const pc=v=>Math.round(v*100)+"%";
+  put("crowd",S.crowd,String(S.crowd));
+  for(const k of ["scale","wobble","blur","halo","edge","arrows","arrowSize"]) put(k,S[k],pc(S[k]));
+  buildSwatches(); accent();
+  reframe();
+}
 $("#shuf").addEventListener("click",()=>newSeed());
 $("#seed").addEventListener("change",e=>{const v=parseInt(e.target.value,10);newSeed(Number.isFinite(v)?Math.abs(v):1);});
 art.addEventListener("click",()=>newSeed());
