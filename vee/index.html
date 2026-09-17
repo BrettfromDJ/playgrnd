@@ -2463,9 +2463,10 @@ html.embed body{overflow:hidden!important}
   addEventListener("resize",function(){ place(expBody,exp); });
 
   /* ---- a fresh variation every visit ------------------------------------
-     The page opens on a different deal each time, the way pressing New
-     would, unless the address pins one with ?seed=N (or #seed=N, for hosts
-     that drop query strings). Embedded copies already do this themselves. */
+     The page opens on a different deal each time, with different colours,
+     the way pressing New and New colors would, unless the address pins one
+     with ?seed=N (or #seed=N, for hosts that drop query strings). Embedded
+     copies already do this themselves. */
   (function(){
     var q=new URLSearchParams(location.search);
     var embedded=q.has("embed")||location.hash.indexOf("embed")>-1;
@@ -2478,6 +2479,10 @@ html.embed body{overflow:hidden!important}
       return;
     }
     var sh=$("#shuf"); if(sh) sh.click();
+    /* and fresh colours with it, unless My colors is switched on */
+    var mine=false;
+    try{ var j=JSON.parse(localStorage.getItem("playgrnd.mycolors")||"null"); mine=!!(j&&j.on&&j.cols instanceof Array&&j.cols.length); }catch(e){}
+    var sc=$("#shufColors"); if(sc&&!mine) sc.click();
   })();
 
   /* ---- first run: point out the New button ------------------------------
