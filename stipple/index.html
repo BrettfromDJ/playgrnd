@@ -2547,6 +2547,24 @@ html.embed body{overflow:hidden!important}
   });
   addEventListener("resize",function(){ place(expBody,exp); });
 
+  /* ---- a fresh variation every visit ------------------------------------
+     The page opens on a different deal each time, the way pressing New
+     would, unless the address pins one with ?seed=N (or #seed=N, for hosts
+     that drop query strings). Embedded copies already do this themselves. */
+  (function(){
+    var q=new URLSearchParams(location.search);
+    var embedded=q.has("embed")||location.hash.indexOf("embed")>-1;
+    try{ embedded=embedded||window.self!==window.top; }catch(e){ embedded=true; }
+    if(embedded) return;
+    var m=/(?:^|[?#&])seed=(\d+)/.exec(location.search+location.hash);
+    var pin=q.get("seed")||(m&&m[1]);
+    if(pin){
+      if(seedIn){ seedIn.value=pin; seedIn.dispatchEvent(new Event("change",{bubbles:true})); }
+      return;
+    }
+    var sh=$("#shuf"); if(sh) sh.click();
+  })();
+
   /* ---- first run: point out the New button ------------------------------
      Shown once per person, not once per tool, and it goes the moment they do
      the thing it is asking for. */
