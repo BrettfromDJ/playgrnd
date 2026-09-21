@@ -17,10 +17,10 @@ a{color:inherit;text-decoration:none}
 .proto-tag a:hover{opacity:1}
 
 /* --- type --- */
-.lbl{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);font-weight:500}
+.lbl{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);font-weight:400}
 .val{font-size:12px;color:var(--ink);font-variant-numeric:tabular-nums}
 .sub{font-size:11px;color:var(--ink2)}
-.h{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);font-weight:500;margin:0}
+.h{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);font-weight:500;margin:0}
 
 /* --- logo / header bits --- */
 .logo{font-size:18px;font-weight:500;letter-spacing:-.02em}
@@ -50,6 +50,8 @@ a{color:inherit;text-decoration:none}
 .btn.big{min-height:44px;font-size:12px;width:100%}
 .btn.icon{width:var(--tap);padding:0;border-radius:50%}
 .btn.ghost{border-color:var(--line2)}
+.btn.sm{min-height:28px;padding:0 10px;font-size:10px;letter-spacing:.06em;border-color:var(--line2)}
+.acts{display:flex;gap:6px;flex-wrap:nowrap}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 
 /* --- switch --- */
@@ -65,10 +67,10 @@ a{color:inherit;text-decoration:none}
 .chip[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
 
 /* --- ratio tiles --- */
-.ratios{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.ratio{min-height:44px;border:1px solid var(--line2);border-radius:8px;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:10px}
+.ratios{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.ratio{height:32px;padding:0;border:1px solid var(--line2);border-radius:6px;background:transparent;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:5px;font-size:10px;line-height:1}
 /* ratio glyph */
-.ratio i{display:block;border:1.5px solid currentColor;border-radius:2px;width:12px;height:15px}
+.ratio i{display:block;border:1.5px solid currentColor;border-radius:1.5px;flex:none}
 .ratio[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
 
 /* --- swatches --- */
