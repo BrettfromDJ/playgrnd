@@ -74,9 +74,9 @@ a{color:inherit;text-decoration:none}
 .ratio[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
 
 /* --- swatches --- */
-.inks{display:flex;gap:10px;flex-wrap:wrap}
-.ink{width:28px;height:28px;border-radius:50%;border:2px solid rgba(0,0,0,.15);padding:0}
-.ink.add{background:transparent;border:1.5px dashed var(--line2);font-size:16px;color:var(--ink2)}
+.inks{display:flex;gap:8px;flex-wrap:wrap}
+.ink{width:22px;height:22px;border-radius:50%;border:1px solid rgba(0,0,0,.25);padding:0}
+.ink.add{background:transparent;border:1px dashed var(--line2);font-size:13px;color:var(--ink2)}
 
 /* --- misc --- */
 .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
