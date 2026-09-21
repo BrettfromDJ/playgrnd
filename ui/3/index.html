@@ -10,12 +10,12 @@
 .stage .sp{flex:1}
 .stage .pic{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
 .stage img{max-height:100%;max-width:100%;width:auto;height:auto}
-.desk{padding:24px;display:flex;flex-direction:column;gap:26px;border-left:1px solid var(--line)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.desk{padding:20px;display:flex;flex-direction:column;gap:18px;border-left:1px solid var(--line)}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 .grid .span{grid-column:1/-1}
-.card.dial{gap:4px;min-height:120px}
-.val.big{font-size:30px;line-height:1.1}
-.sec{display:flex;flex-direction:column;gap:12px}
+.card.dial{gap:0;min-height:84px}
+.val.big{font-size:20px;line-height:1.2}
+.sec{display:flex;flex-direction:column;gap:8px}
 @media(max-width:900px){.app{grid-template-columns:1fr}.stage{position:sticky;height:auto;padding:14px;gap:10px;background:var(--bg);z-index:2;border-bottom:1px solid var(--line)}.stage .pic{height:42vh}.desk{border:0;padding:16px}}
 </style></head>
 <body>
@@ -44,14 +44,14 @@
 <button class="ink" style="background:#F0FF6A" aria-label="Ink 4"></button>
 <button class="ink add" aria-label="Add colour">+</button></div><div class="row"><button class="btn">New colors</button><button class="btn">Rotate</button><button class="btn">Save</button></div></div></div>
   <div class="sec"><p class="h">Frame</p><div class="card"><div class="ratios" data-one>
-<button class="ratio" aria-pressed="false"><i style="width:11px;height:20px"></i>9:16</button>
-<button class="ratio" aria-pressed="true"><i style="width:15px;height:20px"></i>3:4</button>
-<button class="ratio" aria-pressed="false"><i style="width:16px;height:20px"></i>4:5</button>
-<button class="ratio" aria-pressed="false"><i style="width:18px;height:18px"></i>1:1</button>
-<button class="ratio" aria-pressed="false"><i style="width:20px;height:16px"></i>5:4</button>
-<button class="ratio" aria-pressed="false"><i style="width:20px;height:15px"></i>4:3</button>
-<button class="ratio" aria-pressed="false"><i style="width:21px;height:14px"></i>3:2</button>
-<button class="ratio" aria-pressed="false"><i style="width:22px;height:12px"></i>16:9</button></div></div></div>
+<button class="ratio" aria-pressed="false"><i style="width:9px;height:16px"></i>9:16</button>
+<button class="ratio" aria-pressed="true"><i style="width:12px;height:16px"></i>3:4</button>
+<button class="ratio" aria-pressed="false"><i style="width:13px;height:16px"></i>4:5</button>
+<button class="ratio" aria-pressed="false"><i style="width:15px;height:15px"></i>1:1</button>
+<button class="ratio" aria-pressed="false"><i style="width:16px;height:13px"></i>5:4</button>
+<button class="ratio" aria-pressed="false"><i style="width:16px;height:12px"></i>4:3</button>
+<button class="ratio" aria-pressed="false"><i style="width:17px;height:11px"></i>3:2</button>
+<button class="ratio" aria-pressed="false"><i style="width:18px;height:10px"></i>16:9</button></div></div></div>
   <div class="sec"><p class="h">Motion</p><div class="card" style="display:flex;flex-direction:column;gap:14px"><div class="sw"><span class="lbl">Animate</span><button class="knob" aria-pressed="false" data-body="m3" aria-label="Animate"></button></div><div id="m3" hidden class="grid"><div class="span"><div class="chips" data-one><button class="chip" aria-pressed="true">Sway</button><button class="chip" aria-pressed="false">Pulse</button><button class="chip" aria-pressed="false">Flicker</button></div></div><div class="card dial"><span class="lbl">Amount</span><span class="val big">0.6</span>
 <input type="range" min="0.05" max="2" step="0.05" value="0.6" data-fmt="pct" aria-label="Amount"></div><div class="card dial"><span class="lbl">Speed</span><span class="val big">12</span>
 <input type="range" min="2" max="30" step="1" value="12" data-fmt="fps" aria-label="Speed"></div><div class="card dial"><span class="lbl">Loop length</span><span class="val big">36</span>

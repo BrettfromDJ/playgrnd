@@ -5,19 +5,19 @@
 <link rel="stylesheet" href="../base.css">
 <style>
 body{overflow:hidden}
-.stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:72px 24px 110px}
+.stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:64px 24px 90px}
 .stage img{max-height:100%;max-width:100%;width:auto;height:auto}
-.hdr{position:fixed;top:16px;left:20px;right:20px;display:flex;align-items:center;gap:16px;z-index:5}
+.hdr{position:fixed;top:14px;left:20px;right:20px;display:flex;align-items:center;gap:16px;z-index:5}
 .hdr .sp{flex:1}
-.fab{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);display:flex;gap:6px;padding:8px;background:var(--ink);border-radius:999px;box-shadow:0 12px 40px rgba(0,0,0,.3);z-index:6}
-.fab button{min-height:52px;padding:0 18px;border-radius:999px;border:0;background:transparent;color:#fff;font-size:14px;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.fab{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);display:flex;gap:4px;padding:6px;background:var(--ink);border-radius:999px;box-shadow:0 12px 40px rgba(0,0,0,.3);z-index:6}
+.fab button{min-height:40px;padding:0 14px;border-radius:999px;border:0;background:transparent;color:#fff;font-size:11px;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
 .fab button:hover{background:rgba(255,255,255,.12)}
 .fab button.hi{background:var(--accent);color:var(--ink)}
-.sheet{position:fixed;right:20px;top:72px;bottom:96px;width:440px;max-width:calc(100vw - 40px);background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.25);padding:20px;display:flex;flex-direction:column;gap:18px;overflow:auto;z-index:7;transform:translateX(calc(100% + 40px));transition:transform .2s;visibility:hidden}
+.sheet{position:fixed;right:20px;top:64px;bottom:80px;width:360px;max-width:calc(100vw - 40px);background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.25);padding:16px;display:flex;flex-direction:column;gap:12px;overflow:auto;z-index:7;transform:translateX(calc(100% + 40px));transition:transform .2s;visibility:hidden}
 .sheet.open{transform:none;visibility:visible}
 .sheet .head{display:flex;justify-content:space-between;align-items:center}
-.sheet .grp{display:flex;flex-direction:column;gap:12px;padding-top:12px;border-top:1px solid var(--line)}
-@media(max-width:700px){.hdr .seedbox{display:none}.stage{padding:64px 12px 100px}.sheet{left:0;right:0;top:auto;bottom:0;width:auto;max-width:none;max-height:72vh;border-radius:18px 18px 0 0;transform:translateY(110%)}.sheet.open{transform:none}.fab{left:12px;right:12px;transform:none;justify-content:space-between}.fab button{padding:0 12px;font-size:12px}}
+.sheet .grp{display:flex;flex-direction:column;gap:6px;padding-top:10px;border-top:1px solid var(--line)}
+@media(max-width:700px){.proto-tag{bottom:80px}.hdr .seedbox{display:none}.stage{padding:64px 12px 100px}.sheet{left:0;right:0;top:auto;bottom:0;width:auto;max-width:none;max-height:72vh;border-radius:18px 18px 0 0;transform:translateY(110%)}.sheet.open{transform:none}.fab{left:12px;right:12px;transform:none;justify-content:space-between}.fab button{padding:0 12px;font-size:12px}}
 </style></head>
 <body>
 <div class="hdr"><div class="crumb"><span class="logo">playgrnd</span><span class="sub">/</span><span class="tool">Crowd</span></div><span class="sp"></span><div class="seedbox"><span class="lbl">Variation</span><input value="61851" inputmode="numeric" aria-label="Variation number"><button class="btn ghost">Copy</button></div></div>
@@ -56,14 +56,14 @@ body{overflow:hidden}
 <button class="ink" style="background:#F0FF6A" aria-label="Ink 4"></button>
 <button class="ink add" aria-label="Add colour">+</button></div><div class="row"><button class="btn">New colors</button><button class="btn">Rotate</button><button class="btn">Save</button></div><p class="sub">Tap a swatch to change it. Drag to reorder.</p></aside>
 <aside class="sheet" id="sh-frame"><div class="head"><p class="h">Frame</p><button class="btn icon ghost" data-close="sh-frame" aria-label="Close">&times;</button></div><div class="ratios" data-one>
-<button class="ratio" aria-pressed="false"><i style="width:11px;height:20px"></i>9:16</button>
-<button class="ratio" aria-pressed="true"><i style="width:15px;height:20px"></i>3:4</button>
-<button class="ratio" aria-pressed="false"><i style="width:16px;height:20px"></i>4:5</button>
-<button class="ratio" aria-pressed="false"><i style="width:18px;height:18px"></i>1:1</button>
-<button class="ratio" aria-pressed="false"><i style="width:20px;height:16px"></i>5:4</button>
-<button class="ratio" aria-pressed="false"><i style="width:20px;height:15px"></i>4:3</button>
-<button class="ratio" aria-pressed="false"><i style="width:21px;height:14px"></i>3:2</button>
-<button class="ratio" aria-pressed="false"><i style="width:22px;height:12px"></i>16:9</button></div></aside>
+<button class="ratio" aria-pressed="false"><i style="width:9px;height:16px"></i>9:16</button>
+<button class="ratio" aria-pressed="true"><i style="width:12px;height:16px"></i>3:4</button>
+<button class="ratio" aria-pressed="false"><i style="width:13px;height:16px"></i>4:5</button>
+<button class="ratio" aria-pressed="false"><i style="width:15px;height:15px"></i>1:1</button>
+<button class="ratio" aria-pressed="false"><i style="width:16px;height:13px"></i>5:4</button>
+<button class="ratio" aria-pressed="false"><i style="width:16px;height:12px"></i>4:3</button>
+<button class="ratio" aria-pressed="false"><i style="width:17px;height:11px"></i>3:2</button>
+<button class="ratio" aria-pressed="false"><i style="width:18px;height:10px"></i>16:9</button></div></aside>
 <aside class="sheet" id="sh-export"><div class="head"><p class="h">Export</p><button class="btn icon ghost" data-close="sh-export" aria-label="Close">&times;</button></div><div class="dial"><div class="top"><span class="lbl">Size</span><span class="val">2400</span></div>
 <input type="range" min="600" max="6000" step="100" value="2400" data-fmt="px" aria-label="Size"></div><div class="row"><button class="btn primary" style="flex:1">PNG</button><button class="btn" style="flex:1">Video</button></div><p class="sub">Video needs Animate on.</p></aside>
 <div class="proto-tag"><span>4 / 5 · Focus</span><a href="../">All five</a></div>

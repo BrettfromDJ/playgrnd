@@ -4,18 +4,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="../base.css">
 <style>
-.app{display:grid;grid-template-columns:360px 1fr 300px;min-height:100vh}
-.rail{padding:28px 24px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:22px;overflow:auto;max-height:100vh;position:sticky;top:0}
-.rail2{padding:28px 24px;border-left:1px solid var(--line);display:flex;flex-direction:column;gap:22px}
+.app{display:grid;grid-template-columns:300px 1fr 260px;min-height:100vh}
+.rail{padding:22px 20px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:16px;overflow:auto;max-height:100vh;position:sticky;top:0}
+.rail2{padding:22px 20px;border-left:1px solid var(--line);display:flex;flex-direction:column;gap:18px}
 .stage{display:flex;align-items:center;justify-content:center;padding:32px}
 .stage img{max-height:calc(100vh - 64px);max-width:100%;width:auto}
 details{border-top:1px solid var(--line);padding-top:14px}
 summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:var(--tap)}
 summary::-webkit-details-marker{display:none}
-summary::after{content:"–";font-size:18px;color:var(--ink2)}
+summary::after{content:"–";font-size:14px;color:var(--ink2)}
 details:not([open]) summary::after{content:"+"}
-.body{display:flex;flex-direction:column;gap:14px;padding:6px 0 10px}
-.meta{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;font-size:13px}
+.body{display:flex;flex-direction:column;gap:8px;padding:2px 0 8px}
+.meta{display:grid;grid-template-columns:auto 1fr;gap:2px 14px;font-size:11px}
 .meta b{font-weight:500}
 @media(max-width:1000px){.app{grid-template-columns:minmax(0,1fr)}.rail{position:static;max-height:none;border:0;order:2}.rail2{border:0;order:3}.stage{order:1;padding:16px}.stage img{max-height:60vh}}
 </style></head>
@@ -55,14 +55,14 @@ details:not([open]) summary::after{content:"+"}
 <main class="stage"><img class="art" src="../art/crowd.jpg" alt=""></main>
 <aside class="rail2">
   <div><p class="h" style="margin-bottom:12px">Frame</p><div class="ratios" data-one>
-<button class="ratio" aria-pressed="false"><i style="width:11px;height:20px"></i>9:16</button>
-<button class="ratio" aria-pressed="true"><i style="width:15px;height:20px"></i>3:4</button>
-<button class="ratio" aria-pressed="false"><i style="width:16px;height:20px"></i>4:5</button>
-<button class="ratio" aria-pressed="false"><i style="width:18px;height:18px"></i>1:1</button>
-<button class="ratio" aria-pressed="false"><i style="width:20px;height:16px"></i>5:4</button>
-<button class="ratio" aria-pressed="false"><i style="width:20px;height:15px"></i>4:3</button>
-<button class="ratio" aria-pressed="false"><i style="width:21px;height:14px"></i>3:2</button>
-<button class="ratio" aria-pressed="false"><i style="width:22px;height:12px"></i>16:9</button></div></div>
+<button class="ratio" aria-pressed="false"><i style="width:9px;height:16px"></i>9:16</button>
+<button class="ratio" aria-pressed="true"><i style="width:12px;height:16px"></i>3:4</button>
+<button class="ratio" aria-pressed="false"><i style="width:13px;height:16px"></i>4:5</button>
+<button class="ratio" aria-pressed="false"><i style="width:15px;height:15px"></i>1:1</button>
+<button class="ratio" aria-pressed="false"><i style="width:16px;height:13px"></i>5:4</button>
+<button class="ratio" aria-pressed="false"><i style="width:16px;height:12px"></i>4:3</button>
+<button class="ratio" aria-pressed="false"><i style="width:17px;height:11px"></i>3:2</button>
+<button class="ratio" aria-pressed="false"><i style="width:18px;height:10px"></i>16:9</button></div></div>
   <div class="meta"><span class="sub">Ratio</span><b>3:4</b><span class="sub">Inks</span><b>04</b><span class="sub">Render</b><b>461×615 · 76ms</b></div>
   <div><p class="h" style="margin-bottom:12px">Export</p><div class="body"><div class="dial"><div class="top"><span class="lbl">Size</span><span class="val">2400</span></div>
 <input type="range" min="600" max="6000" step="100" value="2400" data-fmt="px" aria-label="Size"></div><div class="row"><button class="btn primary" style="flex:1">PNG</button><button class="btn" style="flex:1">Video</button></div></div></div>
