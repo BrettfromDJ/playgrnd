@@ -4,9 +4,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="../base.css">
 <style>
-.app{display:grid;grid-template-columns:300px 1fr 260px;min-height:100vh}
+.app{display:grid;grid-template-columns:300px 1fr;min-height:100vh}
 .rail{padding:22px 20px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:16px;overflow:auto;max-height:100vh;position:sticky;top:0}
-.rail2{padding:22px 20px;border-left:1px solid var(--line);display:flex;flex-direction:column;gap:18px}
 .stage{display:flex;align-items:center;justify-content:center;padding:32px}
 .stage img{max-height:calc(100vh - 64px);max-width:100%;width:auto}
 details{border-top:1px solid var(--line);padding-top:14px}
@@ -17,7 +16,7 @@ details:not([open]) summary::after{content:"+"}
 .body{display:flex;flex-direction:column;gap:8px;padding:2px 0 8px}
 .meta{display:grid;grid-template-columns:auto 1fr;gap:2px 14px;font-size:11px}
 .meta b{font-weight:500}
-@media(max-width:1000px){.app{grid-template-columns:minmax(0,1fr)}.rail{position:static;max-height:none;border:0;order:2}.rail2{border:0;order:3}.stage{order:1;padding:16px}.stage img{max-height:60vh}}
+@media(max-width:1000px){.app{grid-template-columns:minmax(0,1fr)}.rail{position:static;max-height:none;border:0;order:2}.stage{order:1;padding:16px}.stage img{max-height:60vh}}
 </style></head>
 <body>
 <div class="app">
@@ -51,10 +50,7 @@ details:not([open]) summary::after{content:"+"}
   <details><summary><span class="h">Grain</span></summary><div class="body"><div class="sw"><span class="lbl">Grain</span><button class="knob" aria-pressed="true" data-body="g1" aria-label="Grain"></button></div><div id="g1" class="body"><div class="chips" data-one><button class="chip" aria-pressed="true">Overlay</button><button class="chip" aria-pressed="false">Multiply</button><button class="chip" aria-pressed="false">Add</button></div><div class="dial"><div class="top"><span class="lbl">Amount</span><span class="val">0.35</span></div>
 <input type="range" min="0" max="1" step="0.01" value="0.35" data-fmt="pct" aria-label="Amount"></div><div class="dial"><div class="top"><span class="lbl">Grain size</span><span class="val">1</span></div>
 <input type="range" min="0.5" max="3" step="0.1" value="1" data-fmt="pct" aria-label="Grain size"></div></div></div></details>
-</aside>
-<main class="stage"><img class="art" src="../art/crowd.jpg" alt=""></main>
-<aside class="rail2">
-  <div><p class="h" style="margin-bottom:12px">Frame</p><div class="ratios" data-one>
+  <details open><summary><span class="h">Frame</span></summary><div class="body"><div class="ratios" data-one>
 <button class="ratio" aria-pressed="false"><i style="width:9px;height:16px"></i>9:16</button>
 <button class="ratio" aria-pressed="true"><i style="width:12px;height:16px"></i>3:4</button>
 <button class="ratio" aria-pressed="false"><i style="width:13px;height:16px"></i>4:5</button>
@@ -62,11 +58,11 @@ details:not([open]) summary::after{content:"+"}
 <button class="ratio" aria-pressed="false"><i style="width:16px;height:13px"></i>5:4</button>
 <button class="ratio" aria-pressed="false"><i style="width:16px;height:12px"></i>4:3</button>
 <button class="ratio" aria-pressed="false"><i style="width:17px;height:11px"></i>3:2</button>
-<button class="ratio" aria-pressed="false"><i style="width:18px;height:10px"></i>16:9</button></div></div>
-  <div class="meta"><span class="sub">Ratio</span><b>3:4</b><span class="sub">Inks</span><b>04</b><span class="sub">Render</b><b>461×615 · 76ms</b></div>
-  <div><p class="h" style="margin-bottom:12px">Export</p><div class="body"><div class="dial"><div class="top"><span class="lbl">Size</span><span class="val">2400</span></div>
-<input type="range" min="600" max="6000" step="100" value="2400" data-fmt="px" aria-label="Size"></div><div class="row"><button class="btn primary" style="flex:1">PNG</button><button class="btn" style="flex:1">Video</button></div></div></div>
+<button class="ratio" aria-pressed="false"><i style="width:18px;height:10px"></i>16:9</button></div></div></details>
+  <details open><summary><span class="h">Export</span></summary><div class="body"><div class="dial"><div class="top"><span class="lbl">Size</span><span class="val">2400</span></div>
+<input type="range" min="600" max="6000" step="100" value="2400" data-fmt="px" aria-label="Size"></div><div class="row"><button class="btn primary" style="flex:1">PNG</button><button class="btn" style="flex:1">Video</button></div></div></details>
 </aside>
+<main class="stage"><img class="art" src="../art/crowd.jpg" alt=""></main>
 </div>
 <div class="proto-tag"><span>1 / 5 · Big rail</span><a href="../">All five</a></div>
 <script src="../base.js"></script>
