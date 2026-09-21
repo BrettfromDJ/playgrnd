@@ -46,6 +46,7 @@ a{color:inherit;text-decoration:none}
 .btn{min-height:var(--tap);padding:0 14px;border-radius:999px;border:1px solid var(--ink);background:transparent;font-size:11px;letter-spacing:.08em;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}
 .btn:hover{background:rgba(0,0,0,.05)}
 .btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn svg{flex:none}
 .btn.primary:hover{background:#000}
 .btn.big{min-height:44px;font-size:12px;width:100%}
 .btn.icon{width:var(--tap);padding:0;border-radius:50%}
