@@ -3,7 +3,7 @@
    is drawn at a size a thumb can hit and a label at a size an eye can read. */
 :root{
   --bg:#EBEBE8; --panel:#F4F4F1; --ink:#15161A; --ink2:#4A4B50; --ink3:#7A7B80;
-  --line:#D6D6D2; --line2:#C2C2BE; --accent:#F5C21B;
+  --line:#D6D6D2; --line2:#C2C2BE; --accent:#F5C21B; --on-ink:#fff; --swb:rgba(0,0,0,.25); --thumb:#fff;
   --mono:"DM Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   --r:10px; --tap:36px;
 }
@@ -12,8 +12,8 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.4 var(--mon
 button,input{font:inherit;color:inherit}
 button{cursor:pointer}
 a{color:inherit;text-decoration:none}
-.proto-tag{pointer-events:none;position:fixed;left:12px;bottom:12px;z-index:50;background:var(--ink);color:#fff;font-size:11px;letter-spacing:.06em;padding:8px 12px;border-radius:999px;display:flex;gap:10px;align-items:center}
-.proto-tag a{pointer-events:auto;color:#fff;opacity:.7}
+.proto-tag{pointer-events:none;position:fixed;left:12px;bottom:12px;z-index:50;background:var(--ink);color:var(--on-ink);font-size:11px;letter-spacing:.06em;padding:8px 12px;border-radius:999px;display:flex;gap:10px;align-items:center}
+.proto-tag a{pointer-events:auto;color:var(--on-ink);opacity:.7}
 .proto-tag a:hover{opacity:1}
 
 /* --- type --- */
@@ -36,18 +36,18 @@ a{color:inherit;text-decoration:none}
   background:linear-gradient(90deg,var(--ink) 0 var(--p),var(--line2) var(--p) 100%)}
 .dial input[type=range]::-moz-range-track{height:4px;border-radius:999px;background:var(--line2)}
 .dial input[type=range]::-moz-range-progress{height:4px;border-radius:999px;background:var(--ink)}
-.dial input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#fff;border:2.5px solid var(--ink);margin-top:-7px;box-shadow:0 1px 4px rgba(0,0,0,.18)}
-.dial input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#fff;border:2.5px solid var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.18)}
+.dial input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--thumb);border:2.5px solid var(--ink);margin-top:-7px;box-shadow:0 1px 4px rgba(0,0,0,.18)}
+.dial input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--thumb);border:2.5px solid var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.18)}
 .dial input[type=range]:focus-visible{outline:none}
 .dial input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(245,194,27,.6)}
 .dial .val-in{width:64px;text-align:right;border:0;border-bottom:2px solid var(--line2);background:transparent;padding:2px 0;font-size:15px}
 
 /* --- buttons --- */
 .btn{min-height:var(--tap);padding:0 14px;border-radius:999px;border:1px solid var(--ink);background:transparent;font-size:11px;letter-spacing:.08em;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}
-.btn:hover{background:rgba(0,0,0,.05)}
-.btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn:hover{background:var(--panel)}
+.btn.primary{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
 .btn svg{flex:none}
-.btn.primary:hover{background:#000}
+.btn.primary:hover{filter:brightness(1.15)}
 .btn.big{min-height:44px;font-size:12px;width:100%}
 .btn.icon{width:var(--tap);padding:0;border-radius:50%}
 .btn.ghost{border-color:var(--line2)}
@@ -58,25 +58,25 @@ a{color:inherit;text-decoration:none}
 /* --- switch --- */
 .sw{display:flex;align-items:center;justify-content:space-between;min-height:var(--tap);gap:12px}
 .sw .knob{width:40px;height:24px;border-radius:999px;background:var(--line2);position:relative;border:0;flex:none;transition:background .15s}
-.sw .knob::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .15s}
+.sw .knob::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--thumb);box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .15s}
 .sw .knob[aria-pressed=true]{background:var(--ink)}
 .sw .knob[aria-pressed=true]::after{transform:translateX(16px)}
 
 /* --- chips --- */
 .chips{display:flex;gap:8px;flex-wrap:wrap}
 .chip{min-height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--line2);background:transparent;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
-.chip[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
 
 /* --- ratio tiles --- */
 .ratios{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 .ratio{height:32px;padding:0;border:1px solid var(--line2);border-radius:6px;background:transparent;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:5px;font-size:10px;line-height:1}
 /* ratio glyph */
 .ratio i{display:block;border:1.5px solid currentColor;border-radius:1.5px;flex:none}
-.ratio[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.ratio[aria-pressed=true]{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
 
 /* --- swatches --- */
 .inks{display:flex;gap:8px;flex-wrap:wrap}
-.ink{width:22px;height:22px;border-radius:50%;border:1px solid rgba(0,0,0,.25);padding:0}
+.ink{width:22px;height:22px;border-radius:50%;border:1px solid var(--swb);padding:0}
 .ink.add{background:transparent;border:1px dashed var(--line2);font-size:13px;color:var(--ink2)}
 
 /* --- misc --- */
