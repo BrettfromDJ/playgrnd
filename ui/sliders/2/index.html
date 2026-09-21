@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Slider 2: Bar — playgrnd</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../../base.css">
+<style>
+.app{display:grid;grid-template-rows:auto 1fr;grid-template-columns:minmax(0,1fr);min-height:100vh}
+.bar{display:flex;align-items:center;gap:12px;padding:10px 18px;border-bottom:1px solid var(--line)}
+.bar .sp{flex:1}
+.main{display:grid;grid-template-columns:300px minmax(0,1fr)}
+.rail{padding:18px 20px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:6px;overflow:auto;max-height:calc(100vh - 57px);position:sticky;top:57px}
+.stage{display:flex;align-items:center;justify-content:center;padding:28px}
+.stage img{max-height:calc(100vh - 57px - 56px);max-width:100%;width:auto}
+details{border-top:1px solid var(--line);padding-top:8px}
+details:first-of-type{border-top:0;padding-top:0}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:var(--tap)}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"–";font-size:14px;color:var(--ink2)}
+details:not([open]) summary::after{content:"+"}
+.body{display:flex;flex-direction:column;gap:6px;padding:0 0 10px}
+@media(max-width:900px){.main{grid-template-columns:minmax(0,1fr)}.rail{position:static;max-height:none;border:0;order:2}.stage{order:1;padding:14px}.stage img{max-height:56vh}
+ .bar{flex-wrap:wrap;gap:8px;padding:10px 12px}.bar .sp{display:none}.bar .crumb{width:100%}.bar .seedbox .lbl,.bar .seedbox .ghost{display:none}.bar .seedbox input{width:84px}.bar .btn{padding:0 12px}}
+.dial{gap:2px;min-height:44px}
+.dial input[type=range]{height:28px}
+.dial input[type=range]::-webkit-slider-runnable-track{height:12px;border-radius:4px}
+.dial input[type=range]::-moz-range-track,.dial input[type=range]::-moz-range-progress{height:12px;border-radius:4px}
+.dial input[type=range]::-webkit-slider-thumb{width:2px;height:12px;border:0;border-radius:0;background:transparent;margin-top:0;box-shadow:none}
+.dial input[type=range]::-moz-range-thumb{width:2px;height:12px;border:0;border-radius:0;background:transparent;box-shadow:none}</style></head>
+<body>
+<div class="app">
+<header class="bar">
+  <a class="btn ghost" href="#">&larr; All tools</a>
+  <div class="crumb"><span class="logo">playgrnd</span><span class="sub">/</span><span class="tool">Crowd</span></div>
+  <span class="sp"></span>
+  <div class="seedbox"><span class="lbl">Variation</span><input value="61851" inputmode="numeric" aria-label="Variation number"><button class="btn ghost">Copy</button></div>
+  <button class="btn primary" data-new>&#8635;&nbsp; New</button>
+  <button class="btn">Export</button>
+</header>
+<div class="main">
+<aside class="rail">
+  <details open><summary><span class="h">Crowd</span></summary><div class="body"><div class="dial"><div class="top"><span class="lbl">Figures</span><span class="val">44</span></div>
+<input type="range" min="1" max="48" step="1" value="44" data-fmt="int" aria-label="Figures"></div><div class="dial"><div class="top"><span class="lbl">Size</span><span class="val">0.54</span></div>
+<input type="range" min="0" max="1" step="0.01" value="0.54" data-fmt="pct" aria-label="Size"></div><div class="dial"><div class="top"><span class="lbl">Wobble</span><span class="val">0.34</span></div>
+<input type="range" min="0" max="1" step="0.01" value="0.34" data-fmt="pct" aria-label="Wobble"></div></div></details>
+  <details open><summary><span class="h">Glow</span></summary><div class="body"><div class="dial"><div class="top"><span class="lbl">Blur</span><span class="val">0.42</span></div>
+<input type="range" min="0" max="1" step="0.01" value="0.42" data-fmt="pct" aria-label="Blur"></div><div class="dial"><div class="top"><span class="lbl">Halo</span><span class="val">0.51</span></div>
+<input type="range" min="0" max="1" step="0.01" value="0.51" data-fmt="pct" aria-label="Halo"></div><div class="dial"><div class="top"><span class="lbl">Dark rim</span><span class="val">0.18</span></div>
+<input type="range" min="0" max="1" step="0.01" value="0.18" data-fmt="pct" aria-label="Dark rim"></div></div></details>
+  <details open><summary><span class="h">Arrows</span></summary><div class="body"><div class="dial"><div class="top"><span class="lbl">Arrows</span><span class="val">0.5</span></div>
+<input type="range" min="0" max="1" step="0.01" value="0.5" data-fmt="pct" aria-label="Arrows"></div><div class="dial"><div class="top"><span class="lbl">Arrow size</span><span class="val">0.5</span></div>
+<input type="range" min="0" max="1" step="0.01" value="0.5" data-fmt="pct" aria-label="Arrow size"></div></div></details>
+  <details open><summary><span class="h">Color</span></summary><div class="body"><div class="inks">
+<button class="ink" style="background:#2B2140" aria-label="Ink 1"></button>
+<button class="ink" style="background:#B5F53A" aria-label="Ink 2"></button>
+<button class="ink" style="background:#1E3BFF" aria-label="Ink 3"></button>
+<button class="ink" style="background:#F0FF6A" aria-label="Ink 4"></button>
+<button class="ink add" aria-label="Add colour">+</button></div><div class="row"><button class="btn">New colors</button><button class="btn">Rotate</button><button class="btn">Save</button></div></div></details>
+  <details open><summary><span class="h">Frame</span></summary><div class="body"><div class="ratios" data-one>
+<button class="ratio" aria-pressed="false"><i style="width:9px;height:16px"></i>9:16</button>
+<button class="ratio" aria-pressed="true"><i style="width:12px;height:16px"></i>3:4</button>
+<button class="ratio" aria-pressed="false"><i style="width:13px;height:16px"></i>4:5</button>
+<button class="ratio" aria-pressed="false"><i style="width:15px;height:15px"></i>1:1</button>
+<button class="ratio" aria-pressed="false"><i style="width:16px;height:13px"></i>5:4</button>
+<button class="ratio" aria-pressed="false"><i style="width:16px;height:12px"></i>4:3</button>
+<button class="ratio" aria-pressed="false"><i style="width:17px;height:11px"></i>3:2</button>
+<button class="ratio" aria-pressed="false"><i style="width:18px;height:10px"></i>16:9</button></div></div></details>
+  <details><summary><span class="h">Motion</span></summary><div class="body"><div class="sw"><span class="lbl">Animate</span><button class="knob" aria-pressed="false" data-body="m" aria-label="Animate"></button></div><div id="m" hidden class="body"><div class="chips" data-one><button class="chip" aria-pressed="true">Sway</button><button class="chip" aria-pressed="false">Pulse</button><button class="chip" aria-pressed="false">Flicker</button></div><div class="dial"><div class="top"><span class="lbl">Amount</span><span class="val">0.6</span></div>
+<input type="range" min="0.05" max="2" step="0.05" value="0.6" data-fmt="pct" aria-label="Amount"></div><div class="dial"><div class="top"><span class="lbl">Speed</span><span class="val">12</span></div>
+<input type="range" min="2" max="30" step="1" value="12" data-fmt="fps" aria-label="Speed"></div><div class="dial"><div class="top"><span class="lbl">Loop length</span><span class="val">36</span></div>
+<input type="range" min="8" max="60" step="2" value="36" data-fmt="fr" aria-label="Loop length"></div></div></div></details>
+  <details><summary><span class="h">Grain</span></summary><div class="body"><div class="sw"><span class="lbl">Grain</span><button class="knob" aria-pressed="true" data-body="g" aria-label="Grain"></button></div><div id="g" class="body"><div class="chips" data-one><button class="chip" aria-pressed="true">Overlay</button><button class="chip" aria-pressed="false">Multiply</button><button class="chip" aria-pressed="false">Add</button></div><div class="dial"><div class="top"><span class="lbl">Amount</span><span class="val">0.35</span></div>
+<input type="range" min="0" max="1" step="0.01" value="0.35" data-fmt="pct" aria-label="Amount"></div><div class="dial"><div class="top"><span class="lbl">Grain size</span><span class="val">1</span></div>
+<input type="range" min="0.5" max="3" step="0.1" value="1" data-fmt="pct" aria-label="Grain size"></div></div></div></details>
+  <details><summary><span class="h">Export</span></summary><div class="body"><div class="dial"><div class="top"><span class="lbl">Size</span><span class="val">2400</span></div>
+<input type="range" min="600" max="6000" step="100" value="2400" data-fmt="px" aria-label="Size"></div><div class="row"><button class="btn primary" style="flex:1">PNG</button><button class="btn" style="flex:1">Video</button></div></div></details>
+</aside>
+<main class="stage"><img class="art" src="../../art/crowd.jpg" alt=""></main>
+</div></div>
+<div class="proto-tag"><span>Slider 2 / 5 · Bar</span><a href="../">All five</a></div>
+<script src="../../base.js"></script>
+</body></html>

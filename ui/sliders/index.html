@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Slider designs — playgrnd</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../base.css">
+<style>
+.wrap{max-width:1180px;margin:0 auto;padding:40px 24px 80px}
+h1{font-size:22px;font-weight:500;margin:0 0 8px}
+.lead{max-width:720px;color:var(--ink2);margin:0 0 28px;font-size:13px}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
+.opt{display:block;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.opt:hover{border-color:var(--ink)}
+.opt>img{display:block;width:100%;border-bottom:1px solid var(--line)}
+.opt .t{display:flex;gap:12px;align-items:baseline;padding:14px 16px 0}
+.opt .num{font-size:11px;color:var(--ink3)}
+.opt .name{font-size:17px;font-weight:500}
+.opt p{padding:6px 16px 16px;margin:0;color:var(--ink2);font-size:12px}
+</style></head>
+<body><div class="wrap">
+<h1>Slider designs</h1>
+<p class="lead">All five use the same page: option 1's single left rail with the Deck's top bar. Only the sliders differ. <a href="../" style="text-decoration:underline">Back to the layouts</a>.</p>
+<div class="opts"><a class="opt" href="1/"><img src="shots/1.png" alt=""><div class="t"><span class="num">1</span><span class="name">Line</span></div><p>A hairline made legible: 2px track, a small ring thumb, value at the right. The closest to today.</p></a><a class="opt" href="2/"><img src="shots/2.png" alt=""><div class="t"><span class="num">2</span><span class="name">Bar</span></div><p>No thumb. The filled bar is the handle, like a volume slider. Drag anywhere along it.</p></a><a class="opt" href="3/"><img src="shots/3.png" alt=""><div class="t"><span class="num">3</span><span class="name">Notched</span></div><p>A ruler under the track, tick every ten percent, and a square thumb that reads like a fader cap.</p></a><a class="opt" href="4/"><img src="shots/4.png" alt=""><div class="t"><span class="num">4</span><span class="name">Stepper</span></div><p>Minus and plus at each end for one-step nudges, with a slim bar between for the big moves.</p></a><a class="opt" href="5/"><img src="shots/5.png" alt=""><div class="t"><span class="num">5</span><span class="name">Blocks</span></div><p>A meter of twenty blocks that fill as you drag, no thumb. Reads at a glance like a level on a mixing desk.</p></a></div>
+</div></body></html>
