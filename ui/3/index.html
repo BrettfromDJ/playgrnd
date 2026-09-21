@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prototype 3: Desk — playgrnd</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../base.css">
+<style>
+.app{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:100vh}
+.stage{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;padding:24px;gap:16px}
+.stage .top{display:flex;align-items:center;gap:16px}
+.stage .sp{flex:1}
+.stage .pic{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
+.stage img{max-height:100%;max-width:100%;width:auto;height:auto}
+.desk{padding:24px;display:flex;flex-direction:column;gap:26px;border-left:1px solid var(--line)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid .span{grid-column:1/-1}
+.card.dial{gap:4px;min-height:120px}
+.val.big{font-size:30px;line-height:1.1}
+.sec{display:flex;flex-direction:column;gap:12px}
+@media(max-width:900px){.app{grid-template-columns:1fr}.stage{position:sticky;height:auto;padding:14px;gap:10px;background:var(--bg);z-index:2;border-bottom:1px solid var(--line)}.stage .pic{height:42vh}.desk{border:0;padding:16px}}
+</style></head>
+<body>
+<div class="app">
+<section class="stage">
+  <div class="top"><div class="crumb"><span class="logo">playgrnd</span><span class="sub">/</span><span class="tool">Crowd</span></div><span class="sp"></span><a class="btn ghost" href="#">All tools</a></div>
+  <div class="pic"><img class="art" src="../art/crowd.jpg" alt=""></div>
+  <div class="row"><div class="seedbox"><span class="lbl">Variation</span><input value="61851" inputmode="numeric" aria-label="Variation number"><button class="btn ghost">Copy</button></div><span style="flex:1"></span><button class="btn primary" data-new>&#8635;&nbsp; New variation</button></div>
+</section>
+<section class="desk">
+  <div class="sec"><p class="h">Crowd</p><div class="grid"><div class="card dial"><span class="lbl">Figures</span><span class="val big">44</span>
+<input type="range" min="1" max="48" step="1" value="44" data-fmt="int" aria-label="Figures"></div><div class="card dial"><span class="lbl">Size</span><span class="val big">0.54</span>
+<input type="range" min="0" max="1" step="0.01" value="0.54" data-fmt="pct" aria-label="Size"></div><div class="card dial"><span class="lbl">Wobble</span><span class="val big">0.34</span>
+<input type="range" min="0" max="1" step="0.01" value="0.34" data-fmt="pct" aria-label="Wobble"></div></div></div>
+  <div class="sec"><p class="h">Glow</p><div class="grid"><div class="card dial"><span class="lbl">Blur</span><span class="val big">0.42</span>
+<input type="range" min="0" max="1" step="0.01" value="0.42" data-fmt="pct" aria-label="Blur"></div><div class="card dial"><span class="lbl">Halo</span><span class="val big">0.51</span>
+<input type="range" min="0" max="1" step="0.01" value="0.51" data-fmt="pct" aria-label="Halo"></div><div class="card dial"><span class="lbl">Dark rim</span><span class="val big">0.18</span>
+<input type="range" min="0" max="1" step="0.01" value="0.18" data-fmt="pct" aria-label="Dark rim"></div></div></div>
+  <div class="sec"><p class="h">Arrows</p><div class="grid"><div class="card dial"><span class="lbl">Arrows</span><span class="val big">0.5</span>
+<input type="range" min="0" max="1" step="0.01" value="0.5" data-fmt="pct" aria-label="Arrows"></div><div class="card dial"><span class="lbl">Arrow size</span><span class="val big">0.5</span>
+<input type="range" min="0" max="1" step="0.01" value="0.5" data-fmt="pct" aria-label="Arrow size"></div></div></div>
+  <div class="sec"><p class="h">Color</p><div class="card" style="display:flex;flex-direction:column;gap:14px"><div class="inks">
+<button class="ink" style="background:#2B2140" aria-label="Ink 1"></button>
+<button class="ink" style="background:#B5F53A" aria-label="Ink 2"></button>
+<button class="ink" style="background:#1E3BFF" aria-label="Ink 3"></button>
+<button class="ink" style="background:#F0FF6A" aria-label="Ink 4"></button>
+<button class="ink add" aria-label="Add colour">+</button></div><div class="row"><button class="btn">New colors</button><button class="btn">Rotate</button><button class="btn">Save</button></div></div></div>
+  <div class="sec"><p class="h">Frame</p><div class="card"><div class="ratios" data-one>
+<button class="ratio" aria-pressed="false"><i style="width:11px;height:20px"></i>9:16</button>
+<button class="ratio" aria-pressed="true"><i style="width:15px;height:20px"></i>3:4</button>
+<button class="ratio" aria-pressed="false"><i style="width:16px;height:20px"></i>4:5</button>
+<button class="ratio" aria-pressed="false"><i style="width:18px;height:18px"></i>1:1</button>
+<button class="ratio" aria-pressed="false"><i style="width:20px;height:16px"></i>5:4</button>
+<button class="ratio" aria-pressed="false"><i style="width:20px;height:15px"></i>4:3</button>
+<button class="ratio" aria-pressed="false"><i style="width:21px;height:14px"></i>3:2</button>
+<button class="ratio" aria-pressed="false"><i style="width:22px;height:12px"></i>16:9</button></div></div></div>
+  <div class="sec"><p class="h">Motion</p><div class="card" style="display:flex;flex-direction:column;gap:14px"><div class="sw"><span class="lbl">Animate</span><button class="knob" aria-pressed="false" data-body="m3" aria-label="Animate"></button></div><div id="m3" hidden class="grid"><div class="span"><div class="chips" data-one><button class="chip" aria-pressed="true">Sway</button><button class="chip" aria-pressed="false">Pulse</button><button class="chip" aria-pressed="false">Flicker</button></div></div><div class="card dial"><span class="lbl">Amount</span><span class="val big">0.6</span>
+<input type="range" min="0.05" max="2" step="0.05" value="0.6" data-fmt="pct" aria-label="Amount"></div><div class="card dial"><span class="lbl">Speed</span><span class="val big">12</span>
+<input type="range" min="2" max="30" step="1" value="12" data-fmt="fps" aria-label="Speed"></div><div class="card dial"><span class="lbl">Loop length</span><span class="val big">36</span>
+<input type="range" min="8" max="60" step="2" value="36" data-fmt="fr" aria-label="Loop length"></div></div></div></div>
+  <div class="sec"><p class="h">Grain</p><div class="card" style="display:flex;flex-direction:column;gap:14px"><div class="sw"><span class="lbl">Grain</span><button class="knob" aria-pressed="true" data-body="g3" aria-label="Grain"></button></div><div id="g3" class="grid"><div class="span"><div class="chips" data-one><button class="chip" aria-pressed="true">Overlay</button><button class="chip" aria-pressed="false">Multiply</button><button class="chip" aria-pressed="false">Add</button></div></div><div class="card dial"><span class="lbl">Amount</span><span class="val big">0.35</span>
+<input type="range" min="0" max="1" step="0.01" value="0.35" data-fmt="pct" aria-label="Amount"></div><div class="card dial"><span class="lbl">Grain size</span><span class="val big">1</span>
+<input type="range" min="0.5" max="3" step="0.1" value="1" data-fmt="pct" aria-label="Grain size"></div></div></div></div>
+  <div class="sec"><p class="h">Export</p><div class="card" style="display:flex;flex-direction:column;gap:14px"><div class="dial"><div class="top"><span class="lbl">Size</span><span class="val">2400</span></div>
+<input type="range" min="600" max="6000" step="100" value="2400" data-fmt="px" aria-label="Size"></div><div class="row"><button class="btn primary" style="flex:1">PNG</button><button class="btn" style="flex:1">Video</button></div></div></div>
+</section>
+</div>
+<div class="proto-tag"><span>3 / 5 · Desk</span><a href="../">All five</a></div>
+<script src="../base.js"></script>
+</body></html>

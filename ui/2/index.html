@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prototype 2: Deck — playgrnd</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../base.css">
+<style>
+.app{display:grid;grid-template-rows:auto 1fr auto;grid-template-columns:minmax(0,1fr);height:100vh}
+.bar{display:flex;align-items:center;gap:16px;padding:12px 20px;border-bottom:1px solid var(--line)}
+.bar .sp{flex:1}
+.stage{display:flex;align-items:center;justify-content:center;padding:20px;min-height:0}
+.stage img{max-height:100%;max-width:100%;width:auto;height:auto}
+.dock{border-top:1px solid var(--line);background:var(--panel)}
+.tabs{display:flex;gap:4px;padding:10px 12px 0;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{min-height:var(--tap);padding:0 16px;border:0;border-radius:10px 10px 0 0;background:transparent;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);white-space:nowrap}
+.tab[aria-selected=true]{background:var(--bg);color:var(--ink);box-shadow:inset 0 -3px 0 var(--ink)}
+.pane{padding:18px 20px 22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px 28px;align-items:start;min-height:120px;background:var(--bg)}
+.pane[hidden]{display:none}
+.pane .wide{grid-column:1/-1}
+@media(max-width:700px){.bar{padding:10px 12px;gap:8px;flex-wrap:wrap}.bar .sp{display:none}.bar .crumb{width:100%}.bar .seedbox .lbl,.bar .seedbox .ghost{display:none}.bar .seedbox input{width:84px}.bar .btn{padding:0 12px}.pane{grid-template-columns:1fr;gap:12px;padding:12px 14px 16px;max-height:38vh;overflow:auto}.stage{padding:10px}}
+</style></head>
+<body>
+<div class="app">
+<header class="bar">
+  <div class="crumb"><span class="logo">playgrnd</span><span class="sub">/</span><span class="tool">Crowd</span></div>
+  <span class="sp"></span>
+  <div class="seedbox"><span class="lbl">Variation</span><input value="61851" inputmode="numeric" aria-label="Variation number"><button class="btn ghost">Copy</button></div>
+  <button class="btn primary" data-new>&#8635;&nbsp; New</button>
+  <button class="btn">Export</button>
+</header>
+<main class="stage"><img class="art" src="../art/crowd.jpg" alt=""></main>
+<section class="dock" data-tabs>
+  <div class="tabs">
+    <button class="tab" data-tab="t1" aria-selected="true">Crowd</button>
+    <button class="tab" data-tab="t2" aria-selected="false">Glow</button>
+    <button class="tab" data-tab="t3" aria-selected="false">Arrows</button>
+    <button class="tab" data-tab="t4" aria-selected="false">Color</button>
+    <button class="tab" data-tab="t5" aria-selected="false">Frame</button>
+    <button class="tab" data-tab="t6" aria-selected="false">Motion</button>
+    <button class="tab" data-tab="t7" aria-selected="false">Grain</button>
+    <button class="tab" data-tab="t8" aria-selected="false">Export</button>
+  </div>
+  <div class="pane" id="t1"><div class="dial"><div class="top"><span class="lbl">Figures</span><span class="val">44</span></div>
+<input type="range" min="1" max="48" step="1" value="44" data-fmt="int" aria-label="Figures"></div><div class="dial"><div class="top"><span class="lbl">Size</span><span class="val">0.54</span></div>
+<input type="range" min="0" max="1" step="0.01" value="0.54" data-fmt="pct" aria-label="Size"></div><div class="dial"><div class="top"><span class="lbl">Wobble</span><span class="val">0.34</span></div>
+<input type="range" min="0" max="1" step="0.01" value="0.34" data-fmt="pct" aria-label="Wobble"></div></div>
+  <div class="pane" id="t2" hidden><div class="dial"><div class="top"><span class="lbl">Blur</span><span class="val">0.42</span></div>
+<input type="range" min="0" max="1" step="0.01" value="0.42" data-fmt="pct" aria-label="Blur"></div><div class="dial"><div class="top"><span class="lbl">Halo</span><span class="val">0.51</span></div>
+<input type="range" min="0" max="1" step="0.01" value="0.51" data-fmt="pct" aria-label="Halo"></div><div class="dial"><div class="top"><span class="lbl">Dark rim</span><span class="val">0.18</span></div>
+<input type="range" min="0" max="1" step="0.01" value="0.18" data-fmt="pct" aria-label="Dark rim"></div></div>
+  <div class="pane" id="t3" hidden><div class="dial"><div class="top"><span class="lbl">Arrows</span><span class="val">0.5</span></div>
+<input type="range" min="0" max="1" step="0.01" value="0.5" data-fmt="pct" aria-label="Arrows"></div><div class="dial"><div class="top"><span class="lbl">Arrow size</span><span class="val">0.5</span></div>
+<input type="range" min="0" max="1" step="0.01" value="0.5" data-fmt="pct" aria-label="Arrow size"></div></div>
+  <div class="pane" id="t4" hidden><div class="wide"><div class="inks">
+<button class="ink" style="background:#2B2140" aria-label="Ink 1"></button>
+<button class="ink" style="background:#B5F53A" aria-label="Ink 2"></button>
+<button class="ink" style="background:#1E3BFF" aria-label="Ink 3"></button>
+<button class="ink" style="background:#F0FF6A" aria-label="Ink 4"></button>
+<button class="ink add" aria-label="Add colour">+</button></div></div><div class="wide"><div class="row"><button class="btn">New colors</button><button class="btn">Rotate</button><button class="btn">Save</button></div></div></div>
+  <div class="pane" id="t5" hidden><div class="wide"><div class="ratios" data-one>
+<button class="ratio" aria-pressed="false"><i style="width:11px;height:20px"></i>9:16</button>
+<button class="ratio" aria-pressed="true"><i style="width:15px;height:20px"></i>3:4</button>
+<button class="ratio" aria-pressed="false"><i style="width:16px;height:20px"></i>4:5</button>
+<button class="ratio" aria-pressed="false"><i style="width:18px;height:18px"></i>1:1</button>
+<button class="ratio" aria-pressed="false"><i style="width:20px;height:16px"></i>5:4</button>
+<button class="ratio" aria-pressed="false"><i style="width:20px;height:15px"></i>4:3</button>
+<button class="ratio" aria-pressed="false"><i style="width:21px;height:14px"></i>3:2</button>
+<button class="ratio" aria-pressed="false"><i style="width:22px;height:12px"></i>16:9</button></div></div></div>
+  <div class="pane" id="t6" hidden><div class="wide"><div class="sw"><span class="lbl">Animate</span><button class="knob" aria-pressed="true" data-body="m2" aria-label="Animate"></button></div></div><div class="wide" id="m2"><div class="chips" data-one><button class="chip" aria-pressed="true">Sway</button><button class="chip" aria-pressed="false">Pulse</button><button class="chip" aria-pressed="false">Flicker</button></div></div><div class="dial"><div class="top"><span class="lbl">Amount</span><span class="val">0.6</span></div>
+<input type="range" min="0.05" max="2" step="0.05" value="0.6" data-fmt="pct" aria-label="Amount"></div><div class="dial"><div class="top"><span class="lbl">Speed</span><span class="val">12</span></div>
+<input type="range" min="2" max="30" step="1" value="12" data-fmt="fps" aria-label="Speed"></div><div class="dial"><div class="top"><span class="lbl">Loop length</span><span class="val">36</span></div>
+<input type="range" min="8" max="60" step="2" value="36" data-fmt="fr" aria-label="Loop length"></div></div>
+  <div class="pane" id="t7" hidden><div class="wide"><div class="sw"><span class="lbl">Grain</span><button class="knob" aria-pressed="true" data-body="g2" aria-label="Grain"></button></div></div><div class="wide" id="g2"><div class="chips" data-one><button class="chip" aria-pressed="true">Overlay</button><button class="chip" aria-pressed="false">Multiply</button><button class="chip" aria-pressed="false">Add</button></div></div><div class="dial"><div class="top"><span class="lbl">Amount</span><span class="val">0.35</span></div>
+<input type="range" min="0" max="1" step="0.01" value="0.35" data-fmt="pct" aria-label="Amount"></div><div class="dial"><div class="top"><span class="lbl">Grain size</span><span class="val">1</span></div>
+<input type="range" min="0.5" max="3" step="0.1" value="1" data-fmt="pct" aria-label="Grain size"></div></div>
+  <div class="pane" id="t8" hidden><div class="dial"><div class="top"><span class="lbl">Size</span><span class="val">2400</span></div>
+<input type="range" min="600" max="6000" step="100" value="2400" data-fmt="px" aria-label="Size"></div><div><div class="row"><button class="btn primary" style="flex:1">PNG</button><button class="btn" style="flex:1">Video</button></div></div></div>
+</section>
+</div>
+<div class="proto-tag"><span>2 / 5 · Deck</span><a href="../">All five</a></div>
+<script src="../base.js"></script>
+</body></html>

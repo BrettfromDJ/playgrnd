@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prototype 5: Steppers — playgrnd</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../base.css">
+<style>
+body{font-size:16px}
+.lbl{font-size:14px}.val{font-size:16px}
+.app{display:grid;grid-template-columns:minmax(0,1fr) 520px;min-height:100vh}
+.stage{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;padding:24px;gap:16px}
+.stage .pic{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
+.stage img{max-height:100%;max-width:100%;width:auto;height:auto}
+.stage .top{display:flex;align-items:center;gap:16px}.stage .sp{flex:1}
+.ctl{padding:24px;border-left:1px solid var(--line);display:flex;flex-direction:column;gap:24px}
+.sec{display:flex;flex-direction:column;gap:10px}
+.step{display:grid;grid-template-columns:52px 1fr 52px;gap:10px;align-items:stretch;min-height:64px}
+.pm{border:1.5px solid var(--line2);border-radius:12px;background:var(--panel);font-size:24px;line-height:1}
+.pm:active{background:var(--ink);color:#fff}
+.mid{display:flex;flex-direction:column;gap:8px;justify-content:center}
+.mid .l{display:flex;justify-content:space-between;align-items:baseline}
+.bar{height:16px;border-radius:999px;background:var(--line2);overflow:hidden;cursor:pointer;position:relative}
+.bar i{display:block;height:100%;width:50%;background:var(--ink);border-radius:999px}
+.ratio{min-height:64px;font-size:15px}
+.ink{width:48px;height:48px}
+.chip{min-height:48px;font-size:15px}
+@media(max-width:1000px){.app{grid-template-columns:1fr}.stage{position:sticky;height:auto;padding:14px;gap:10px;z-index:2;background:var(--bg);border-bottom:1px solid var(--line)}.stage .pic{height:40vh}.ctl{border:0;padding:16px}}
+</style></head>
+<body>
+<div class="app">
+<section class="stage">
+  <div class="top"><div class="crumb"><span class="logo">playgrnd</span><span class="sub">/</span><span class="tool">Crowd</span></div><span class="sp"></span><a class="btn ghost" href="#">All tools</a></div>
+  <div class="pic"><img class="art" src="../art/crowd.jpg" alt=""></div>
+  <div class="row"><div class="seedbox"><span class="lbl">Variation</span><input value="61851" inputmode="numeric" aria-label="Variation number"><button class="btn ghost">Copy</button></div><span style="flex:1"></span><button class="btn primary" data-new style="min-height:56px">&#8635;&nbsp; New variation</button></div>
+</section>
+<section class="ctl">
+  <div class="sec"><p class="h">Crowd</p><div class="step" data-min="1" data-max="48" data-step="1" data-fmt="int" data-val="44">
+<button class="pm" aria-label="Less Figures">&minus;</button>
+<div class="mid"><div class="l"><span class="lbl">Figures</span><span class="val"></span></div><div class="bar"><i></i></div></div>
+<button class="pm" aria-label="More Figures">+</button></div><div class="step" data-min="0" data-max="1" data-step="0.02" data-fmt="pct" data-val="0.54">
+<button class="pm" aria-label="Less Size">&minus;</button>
+<div class="mid"><div class="l"><span class="lbl">Size</span><span class="val"></span></div><div class="bar"><i></i></div></div>
+<button class="pm" aria-label="More Size">+</button></div><div class="step" data-min="0" data-max="1" data-step="0.02" data-fmt="pct" data-val="0.34">
+<button class="pm" aria-label="Less Wobble">&minus;</button>
+<div class="mid"><div class="l"><span class="lbl">Wobble</span><span class="val"></span></div><div class="bar"><i></i></div></div>
+<button class="pm" aria-label="More Wobble">+</button></div></div>
+  <div class="sec"><p class="h">Glow</p><div class="step" data-min="0" data-max="1" data-step="0.02" data-fmt="pct" data-val="0.42">
+<button class="pm" aria-label="Less Blur">&minus;</button>
+<div class="mid"><div class="l"><span class="lbl">Blur</span><span class="val"></span></div><div class="bar"><i></i></div></div>
+<button class="pm" aria-label="More Blur">+</button></div><div class="step" data-min="0" data-max="1" data-step="0.02" data-fmt="pct" data-val="0.51">
+<button class="pm" aria-label="Less Halo">&minus;</button>
+<div class="mid"><div class="l"><span class="lbl">Halo</span><span class="val"></span></div><div class="bar"><i></i></div></div>
+<button class="pm" aria-label="More Halo">+</button></div><div class="step" data-min="0" data-max="1" data-step="0.02" data-fmt="pct" data-val="0.18">
+<button class="pm" aria-label="Less Dark rim">&minus;</button>
+<div class="mid"><div class="l"><span class="lbl">Dark rim</span><span class="val"></span></div><div class="bar"><i></i></div></div>
+<button class="pm" aria-label="More Dark rim">+</button></div></div>
+  <div class="sec"><p class="h">Arrows</p><div class="step" data-min="0" data-max="1" data-step="0.02" data-fmt="pct" data-val="0.5">
+<button class="pm" aria-label="Less Arrows">&minus;</button>
+<div class="mid"><div class="l"><span class="lbl">Arrows</span><span class="val"></span></div><div class="bar"><i></i></div></div>
+<button class="pm" aria-label="More Arrows">+</button></div><div class="step" data-min="0" data-max="1" data-step="0.02" data-fmt="pct" data-val="0.5">
+<button class="pm" aria-label="Less Arrow size">&minus;</button>
+<div class="mid"><div class="l"><span class="lbl">Arrow size</span><span class="val"></span></div><div class="bar"><i></i></div></div>
+<button class="pm" aria-label="More Arrow size">+</button></div></div>
+  <div class="sec"><p class="h">Color</p><div class="inks">
+<button class="ink" style="background:#2B2140" aria-label="Ink 1"></button>
+<button class="ink" style="background:#B5F53A" aria-label="Ink 2"></button>
+<button class="ink" style="background:#1E3BFF" aria-label="Ink 3"></button>
+<button class="ink" style="background:#F0FF6A" aria-label="Ink 4"></button>
+<button class="ink add" aria-label="Add colour">+</button></div><div class="row"><button class="btn">New colors</button><button class="btn">Rotate</button><button class="btn">Save</button></div></div>
+  <div class="sec"><p class="h">Frame</p><div class="ratios" data-one>
+<button class="ratio" aria-pressed="false"><i style="width:11px;height:20px"></i>9:16</button>
+<button class="ratio" aria-pressed="true"><i style="width:15px;height:20px"></i>3:4</button>
+<button class="ratio" aria-pressed="false"><i style="width:16px;height:20px"></i>4:5</button>
+<button class="ratio" aria-pressed="false"><i style="width:18px;height:18px"></i>1:1</button>
+<button class="ratio" aria-pressed="false"><i style="width:20px;height:16px"></i>5:4</button>
+<button class="ratio" aria-pressed="false"><i style="width:20px;height:15px"></i>4:3</button>
+<button class="ratio" aria-pressed="false"><i style="width:21px;height:14px"></i>3:2</button>
+<button class="ratio" aria-pressed="false"><i style="width:22px;height:12px"></i>16:9</button></div></div>
+  <div class="sec"><div class="sw"><span class="lbl">Animate</span><button class="knob" aria-pressed="false" data-body="m5" aria-label="Animate"></button></div><div id="m5" hidden class="sec"><div class="chips" data-one><button class="chip" aria-pressed="true">Sway</button><button class="chip" aria-pressed="false">Pulse</button><button class="chip" aria-pressed="false">Flicker</button></div><div class="step" data-min="0.05" data-max="2" data-step="0.05" data-fmt="pct" data-val="0.6">
+<button class="pm" aria-label="Less Amount">&minus;</button>
+<div class="mid"><div class="l"><span class="lbl">Amount</span><span class="val"></span></div><div class="bar"><i></i></div></div>
+<button class="pm" aria-label="More Amount">+</button></div><div class="step" data-min="2" data-max="30" data-step="1" data-fmt="fps" data-val="12">
+<button class="pm" aria-label="Less Speed">&minus;</button>
+<div class="mid"><div class="l"><span class="lbl">Speed</span><span class="val"></span></div><div class="bar"><i></i></div></div>
+<button class="pm" aria-label="More Speed">+</button></div><div class="step" data-min="8" data-max="60" data-step="2" data-fmt="fr" data-val="36">
+<button class="pm" aria-label="Less Loop length">&minus;</button>
+<div class="mid"><div class="l"><span class="lbl">Loop length</span><span class="val"></span></div><div class="bar"><i></i></div></div>
+<button class="pm" aria-label="More Loop length">+</button></div></div></div>
+  <div class="sec"><div class="sw"><span class="lbl">Grain</span><button class="knob" aria-pressed="true" data-body="g5" aria-label="Grain"></button></div><div id="g5" class="sec"><div class="chips" data-one><button class="chip" aria-pressed="true">Overlay</button><button class="chip" aria-pressed="false">Multiply</button><button class="chip" aria-pressed="false">Add</button></div><div class="step" data-min="0" data-max="1" data-step="0.02" data-fmt="pct" data-val="0.35">
+<button class="pm" aria-label="Less Amount">&minus;</button>
+<div class="mid"><div class="l"><span class="lbl">Amount</span><span class="val"></span></div><div class="bar"><i></i></div></div>
+<button class="pm" aria-label="More Amount">+</button></div><div class="step" data-min="0.5" data-max="3" data-step="0.1" data-fmt="pct" data-val="1">
+<button class="pm" aria-label="Less Grain size">&minus;</button>
+<div class="mid"><div class="l"><span class="lbl">Grain size</span><span class="val"></span></div><div class="bar"><i></i></div></div>
+<button class="pm" aria-label="More Grain size">+</button></div></div></div>
+  <div class="sec"><p class="h">Export</p><div class="step" data-min="600" data-max="6000" data-step="100" data-fmt="px" data-val="2400">
+<button class="pm" aria-label="Less Size">&minus;</button>
+<div class="mid"><div class="l"><span class="lbl">Size</span><span class="val"></span></div><div class="bar"><i></i></div></div>
+<button class="pm" aria-label="More Size">+</button></div><div class="row"><button class="btn primary" style="flex:1">PNG</button><button class="btn" style="flex:1">Video</button></div></div>
+</section>
+</div>
+<div class="proto-tag"><span>5 / 5 · Steppers</span><a href="../">All five</a></div>
+<script src="../base.js"></script><script>
+document.querySelectorAll(".step").forEach(function(s){
+  var mn=+s.dataset.min,mx=+s.dataset.max,st=+s.dataset.step,v=+s.dataset.val,fmt=s.dataset.fmt;
+  var out=s.querySelector(".val"),bar=s.querySelector(".bar"),fillEl=bar.querySelector("i"),pm=s.querySelectorAll(".pm");
+  function show(){ var t=fmt==="int"?String(v):fmt==="px"?v+" px":fmt==="fps"?v+" fps":fmt==="fr"?v+" frames":Math.round(v*100)+"%"; out.textContent=t; fillEl.style.width=((v-mn)/(mx-mn)*100)+"%"; }
+  function set(x){ v=Math.min(mx,Math.max(mn,Math.round(x/st)*st)); v=+v.toFixed(3); show(); }
+  pm[0].addEventListener("click",function(){ set(v-st); }); pm[1].addEventListener("click",function(){ set(v+st); });
+  function fromEvent(e){ var r=bar.getBoundingClientRect(); var x=(e.touches?e.touches[0].clientX:e.clientX); set(mn+(x-r.left)/r.width*(mx-mn)); }
+  var drag=false;
+  bar.addEventListener("pointerdown",function(e){ drag=true; bar.setPointerCapture(e.pointerId); fromEvent(e); });
+  bar.addEventListener("pointermove",function(e){ if(drag) fromEvent(e); });
+  bar.addEventListener("pointerup",function(){ drag=false; });
+  show();
+});
+</script>
+</body></html>

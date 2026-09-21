@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tool page layouts — playgrnd</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="base.css">
+<style>
+.wrap{max-width:1180px;margin:0 auto;padding:40px 24px 80px}
+h1{font-size:26px;font-weight:500;margin:0 0 8px}
+.lead{max-width:720px;color:var(--ink2);margin:0 0 28px}
+.now{display:grid;grid-template-columns:1fr 1fr;gap:12px 28px;max-width:720px;margin:0 0 40px;padding:18px 20px;background:var(--panel);border:1px solid var(--line);border-radius:14px;font-size:14px}
+.now b{font-weight:500}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:22px}
+.opt{display:block;background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;position:relative}
+.opt:hover{border-color:var(--ink)}
+.opt>img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;border-bottom:1px solid var(--line)}
+.opt .t{display:flex;gap:12px;align-items:baseline;padding:16px 18px 0}
+.opt .num{font-size:13px;color:var(--ink3)}
+.opt .name{font-size:20px;font-weight:500}
+.opt p{padding:6px 18px 18px;margin:0;color:var(--ink2);font-size:14px}
+.opt .mini{position:absolute;right:14px;top:14px;width:64px;border-radius:8px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.25);border:2px solid #fff}
+.opt .mini img{display:block;width:100%}
+</style></head>
+<body><div class="wrap">
+<h1>Tool page layouts</h1>
+<p class="lead">Five ways to make the tool page easier to see and easier to grab. Same brand, same controls, same picture in every one. Each opens with the real dial set from Crowd so you can feel the sliders, chips and buttons at their new sizes. Try them on your phone too.</p>
+<div class="now"><span>Labels today</span><b>8.5px at 45% grey</b><span>Labels in every option</span><b>13–16px at full ink</b><span>Slider track today</span><b>1px hairline, 12px thumb</b><span>Slider in every option</span><b>8–16px track, 26px thumb</b><span>Smallest tap target today</span><b>15px swatch</b><span>Smallest tap target now</span><b>40px</b></div>
+<div class="opts"><a class="opt" href="1/"><img src="shots/1-desktop.png" alt=""><div class="t"><span class="num">1</span><span class="name">Big rail</span></div><p>Today's layout, kept. Everything in it is bigger: 13–15px type at full ink, 8px slider tracks, 26px thumbs, 44px rows.</p><div class="mini"><img src="shots/1-mobile.png" alt=""></div></a><a class="opt" href="2/"><img src="shots/2-desktop.png" alt=""><div class="t"><span class="num">2</span><span class="name">Deck</span></div><p>Art on top, a tabbed dock along the bottom. One tab open at a time, its dials laid side by side at full width. Built for thumbs.</p><div class="mini"><img src="shots/2-mobile.png" alt=""></div></a><a class="opt" href="3/"><img src="shots/3-desktop.png" alt=""><div class="t"><span class="num">3</span><span class="name">Desk</span></div><p>Art pinned on the left, a grid of large dial cards on the right. Each card shows its number big, so you can read the setting from across the room.</p><div class="mini"><img src="shots/3-mobile.png" alt=""></div></a><a class="opt" href="4/"><img src="shots/4-desktop.png" alt=""><div class="t"><span class="num">4</span><span class="name">Focus</span></div><p>The picture gets the whole screen. A floating bar of five big buttons sits at the bottom; each opens a sheet with large controls, then gets out of the way.</p><div class="mini"><img src="shots/4-mobile.png" alt=""></div></a><a class="opt" href="5/"><img src="shots/5-desktop.png" alt=""><div class="t"><span class="num">5</span><span class="name">Steppers</span></div><p>No hairline sliders at all. Every dial is a wide bar with big minus and plus buttons, so a nudge is one tap and a jump is a tap on the bar. 16px type throughout.</p><div class="mini"><img src="shots/5-mobile.png" alt=""></div></a></div>
+</div></body></html>
