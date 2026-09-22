@@ -50,8 +50,18 @@ details:not([open]) summary::after{content:"+"}
 .rows .r .rm{width:26px;height:26px;border:0;background:transparent;color:var(--ink3);display:inline-flex;align-items:center;justify-content:center;padding:0}
 .rows .r .rm:hover{color:var(--ink)}
 .rows .none{display:flex;align-items:center;justify-content:center;height:34px;font-size:11px;color:var(--ink3)}
-.addrow{display:flex;gap:6px}
-.addrow input{flex:1;min-width:0;height:28px;border:1px solid var(--line2);border-radius:6px;background:var(--bg);color:var(--ink);padding:0 10px;font-size:11px}
+.paste{display:flex;flex-direction:column;gap:6px;border:1px dashed var(--line2);border-radius:8px;padding:10px}
+.paste.has{border-style:solid;border-color:var(--ink)}
+.plbl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2)}
+.paste textarea{width:100%;border:0;background:transparent;color:var(--ink);font:12px/1.5 var(--mono);padding:0;resize:none;outline:none;text-transform:uppercase}
+.paste textarea::placeholder{color:var(--ink3);text-transform:none}
+.prev{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:28px}
+.pdots{display:flex;gap:5px;flex-wrap:wrap}
+.pdots i{width:16px;height:16px;border-radius:50%;border:1px solid var(--swb);display:block}
+.pdots .n{font-size:10px;color:var(--ink3)}
+.mf .or{font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.08em}
+.mf .sp{flex:1}
+.mf .btn.sm{gap:6px}
 .mf,.mf2{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .mf2{border-top:1px solid var(--line);padding-top:10px}
 .lnk{border:0;background:transparent;padding:0;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);white-space:nowrap}
@@ -84,8 +94,12 @@ details:not([open]) summary::after{content:"+"}
     <div class="modal" id="myModal" role="dialog" aria-label="My colors" hidden>
       <div class="mh"><span class="h">My colors</span><span class="sub">Used on every tool</span><button class="ib" id="myClose" aria-label="Close"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
       <div class="rows" id="myRows"></div>
-      <div class="addrow"><input id="myAdd" placeholder="Paste hex codes, one or many" aria-label="Add colours"><button class="btn sm" id="myAddBtn">Add</button></div>
-      <div class="mf"><button class="btn sm" id="myUseCur"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.5 0 2-1 2-2v-1a2 2 0 0 1 2-2h1a4 4 0 0 0 4-4 9 9 0 0 0-9-9z"/><circle cx="7.5" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="10" cy="7.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="15" cy="7.5" r="1.2" fill="currentColor" stroke="none"/></svg>Use this tool's colors</button><button class="lnk" id="myClear">Remove all</button></div>
+      <div class="paste" id="paste">
+        <label class="plbl" for="myAdd">Paste hex codes here</label>
+        <textarea id="myAdd" rows="2" placeholder="#F5C21B  111111  #F2F1EC&#10;One per line or all at once. Anything with a hex code works." aria-label="Paste hex codes"></textarea>
+        <div class="prev"><div class="pdots" id="pDots"></div><button class="btn primary sm" id="myAddBtn" disabled>Add colours</button></div>
+      </div>
+      <div class="mf"><span class="or">or</span><button class="btn sm" id="myUseCur"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.5 0 2-1 2-2v-1a2 2 0 0 1 2-2h1a4 4 0 0 0 4-4 9 9 0 0 0-9-9z"/><circle cx="7.5" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="10" cy="7.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="15" cy="7.5" r="1.2" fill="currentColor" stroke="none"/></svg>Use this tool's colors</button><span class="sp"></span><button class="lnk" id="myClear">Remove all</button></div>
       <div class="mf2"><span class="note" id="myNote"></span><button class="btn primary sm" id="myDone">Done</button></div>
     </div>
   </div>
@@ -159,7 +173,7 @@ details:not([open]) summary::after{content:"+"}
     var mb=$("#myBtn");mb.classList.toggle("set",has);$("#myLbl").textContent=has?"My colors":"Set colors";
     var md=$("#myDots");md.innerHTML="";mine.slice(0,5).forEach(function(c){var i=document.createElement("i");i.style.background=c;md.appendChild(i);});
     var rows=$("#myRows");rows.innerHTML="";
-    if(!mine.length){rows.innerHTML='<div class="none">Nothing yet. Paste some hex codes below.</div>';}
+    rows.hidden=!mine.length; $("#myClear").hidden=!mine.length;
     mine.forEach(function(c,i){var r=document.createElement("div");r.className="r";r.innerHTML='<span class="g">'+GRIP+'</span><button class="d" style="background:'+c+'" aria-label="Change"></button><input value="'+c.replace("#","")+'" aria-label="Hex"><button class="rm" aria-label="Remove">'+X+'</button>';
       r.querySelector("input").addEventListener("change",function(e){var v=("#"+e.target.value.replace("#","")).toUpperCase();if(/^#[0-9A-F]{6}$/.test(v)){mine[i]=v;render();}});
       r.querySelector(".rm").addEventListener("click",function(){mine.splice(i,1);render();});
@@ -181,8 +195,14 @@ details:not([open]) summary::after{content:"+"}
   $("#myBtn").addEventListener("click",function(){$("#myModal").hidden?open():close();});
   $("#myClose").addEventListener("click",close);
   $("#myDone").addEventListener("click",function(){if(mine.length)mode="mine";close();render();});
-  $("#myAddBtn").addEventListener("click",function(){var v=parse($("#myAdd").value);if(v.length){mine=mine.concat(v);$("#myAdd").value="";render();}});
-  $("#myAdd").addEventListener("keydown",function(e){if(e.key==="Enter")$("#myAddBtn").click();});
+  function preview(){var v=parse($("#myAdd").value);var pd=$("#pDots");pd.innerHTML="";v.forEach(function(c){var i=document.createElement("i");i.style.background=c;pd.appendChild(i);});
+    if(v.length){var n=document.createElement("span");n.className="n";n.textContent=v.length+" found";pd.appendChild(n);}
+    $("#myAddBtn").disabled=!v.length;$("#myAddBtn").textContent=v.length?"Add "+v.length+(v.length===1?" colour":" colours"):"Add colours";$("#paste").classList.toggle("has",v.length>0);}
+  function addFromBox(){var v=parse($("#myAdd").value);if(v.length){mine=mine.concat(v);$("#myAdd").value="";preview();render();}}
+  $("#myAddBtn").addEventListener("click",addFromBox);
+  $("#myAdd").addEventListener("input",preview);
+  $("#myAdd").addEventListener("paste",function(){setTimeout(addFromBox,0);});
+  $("#myAdd").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();addFromBox();}});
   $("#myUseCur").addEventListener("click",function(){mine=rnd.slice();render();});
   $("#myClear").addEventListener("click",function(){mine=[];mode="random";render();});
   document.addEventListener("keydown",function(e){if(e.key==="Escape")close();});
