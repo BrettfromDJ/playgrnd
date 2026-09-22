@@ -83,16 +83,15 @@ svg{flex:none;display:block}
 .seg{display:grid;grid-template-columns:1fr 1fr;height:36px;padding:4px;gap:0;background:var(--well);border-radius:4px}
 .seg button{height:28px;border-radius:3px;font:10px var(--mono);color:var(--mute)}
 .seg button[aria-pressed=true]{background:var(--fill);color:var(--fg)}
-.inks{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.inks{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;margin-bottom:2px}
 .ink{width:22px;height:22px;border-radius:50%;border:1px solid rgba(255,255,255,.18);padding:0;flex:none}
 .ink.on{outline:2px solid #fff;outline-offset:2px}
 .ink.add{border:1px solid var(--line);color:var(--fg);display:inline-flex;align-items:center;justify-content:center;background:transparent}
 .ink.derived{border-style:dashed}
-.acts{display:flex;gap:8px;flex-wrap:wrap}
+.acts{display:flex;gap:8px;flex-wrap:wrap;row-gap:8px}
 .acts .pill.sm{gap:10px}
 .note{margin:0;font-size:12px;line-height:15px;color:var(--mute);max-width:252px}
-#mineEmpty{display:flex;flex-direction:column;gap:12px}
-#mineFull{display:flex;flex-direction:column;gap:12px}
+#colorRandom,#mineEmpty,#mineFull{display:flex;flex-direction:column;gap:16px}
 .pickslot:empty{display:none}
 .picker{background:var(--well);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:10px}
 .pk-field{height:110px;border-radius:6px;position:relative;cursor:crosshair;touch-action:none}
