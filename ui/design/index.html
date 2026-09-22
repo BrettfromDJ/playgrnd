@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tool page — Figma build — playgrnd</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Roboto+Mono:wght@400&display=swap">
+<style>
+:root{--bg:#000;--well:#121216;--fill:#252531;--fill2:#393945;--line:#1f1f25;--mute:#798183;--fg:#fff;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"Roboto Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font:12px/1.25 var(--sans);-webkit-font-smoothing:antialiased;min-height:100%}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0;padding:0}
+a{color:inherit;text-decoration:none}
+svg{flex:none;display:block}
+[hidden]{display:none!important}
+.app{min-height:100vh;padding:32px}
+.top{display:flex;align-items:center;gap:22px;height:53px}
+.top .logo{height:53px;width:128px;display:block;background:#F5C21B;-webkit-mask:center/contain no-repeat;mask:center/contain no-repeat}
+.top .toolname{font:10px var(--mono);color:var(--fg);margin-left:3px}
+.top .sp{flex:1}
+.top .wrap{position:relative;flex:none}
+.top .wrap+.wrap{margin-left:-10px}
+
+/* pills */
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:39px;padding:0 16px;border-radius:60px;font-size:12px;line-height:1;white-space:nowrap;border:1px solid transparent;flex:none}
+.pill.med{font-weight:500}
+.pill.fill{background:var(--line)}
+.pill.line{border-color:var(--line)}
+.pill.line2{border-color:rgba(255,255,255,.16)}
+.pill.white{background:#fff;color:#000}
+.pill.white.med,.pill.white{font-weight:500}
+.pill.sm{height:29px;padding:0 12px;font-size:10px;font-weight:400}
+.pill.sm.med{font-size:12px;font-weight:500}
+.pill.big{width:100%;height:39px}
+.pill:hover{filter:brightness(1.18)}
+.pill.white:hover{filter:brightness(.94)}
+.pill[aria-pressed=true]{background:var(--line);border-color:var(--line)}
+.pill[aria-pressed=false]{background:transparent}
+.chips{display:flex;gap:8px}
+
+/* layout */
+.main{display:flex;gap:0;align-items:flex-start}
+.rail{width:274px;flex:none;padding-top:26px}
+.stage{flex:1;min-width:0;display:flex;justify-content:center;padding-top:12px}
+.art{display:block;width:702px;max-width:100%;height:auto}
+
+/* rail rows */
+.rail hr{border:0;border-top:1px solid var(--line);margin:24px 0}
+.vrow,.arow,.trow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.vrow{margin-top:12px;height:29px}
+.arow{height:29px}
+.trow{height:29px}
+.seed{gap:8px;font-size:12px;padding:0 12px;width:78px;justify-content:space-between}
+.seed span{font-variant-numeric:tabular-nums}
+.h{font-size:12px;color:var(--fg)}
+.plbl{font:10px var(--mono);color:var(--mute);line-height:1}
+.sq{width:12px;height:12px;border:1px solid #fff;border-radius:2px;display:block}
+.sq.wide{width:14px;height:9px}.sq.tall{width:9px;height:14px}
+
+/* sections */
+.sec .sh{display:flex;align-items:center;justify-content:space-between;width:100%;height:15px;font-size:12px;color:var(--fg);text-align:left}
+.sec .sh svg{transition:transform .15s}
+.sec.closed .sh svg{transform:rotate(180deg)}
+.sec.closed .sb{display:none}
+.sec .sb,#grainBody,#animBody{display:flex;flex-direction:column;gap:12px}
+.sec .sb{padding-top:16px}
+.param{display:flex;flex-direction:column;gap:9px}
+.bar{position:relative;height:25px;border-radius:4px;background:var(--well);overflow:hidden}
+.bar .fill{position:absolute;left:0;top:0;height:24px;width:var(--p,40%);background:var(--fill);border-radius:4px;pointer-events:none}
+.bar .v{position:absolute;right:8px;top:0;height:25px;display:flex;align-items:center;font-size:10px;color:var(--fg);pointer-events:none;font-variant-numeric:tabular-nums}
+.bar input[type=range]{-webkit-appearance:none;appearance:none;position:absolute;inset:0;width:100%;height:100%;margin:0;background:transparent;opacity:0;cursor:ew-resize}
+.bar input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:1px;height:25px}
+.bar input[type=range]:focus-visible{opacity:1;outline:1px solid var(--mute);outline-offset:-1px;background:transparent}
+.bar input[type=range]:focus-visible::-webkit-slider-thumb{background:#fff;width:2px}
+
+/* toggle */
+.tg{width:40px;height:20px;border-radius:60px;background:var(--line);position:relative;flex:none;transition:background .15s}
+.tg::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;opacity:.2;transition:transform .15s,opacity .15s}
+.tg[aria-checked=true]{background:var(--fill2)}
+.tg[aria-checked=true]::after{transform:translateX(20px);opacity:1}
+
+/* colour */
+.seg{display:grid;grid-template-columns:1fr 1fr;height:36px;padding:4px;gap:0;background:var(--well);border-radius:4px}
+.seg button{height:28px;border-radius:3px;font:10px var(--mono);color:var(--mute)}
+.seg button[aria-pressed=true]{background:var(--fill);color:var(--fg)}
+.inks{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.ink{width:22px;height:22px;border-radius:50%;border:1px solid rgba(255,255,255,.18);padding:0;flex:none}
+.ink.on{outline:2px solid #fff;outline-offset:2px}
+.ink.add{border:1px solid var(--line);color:var(--fg);display:inline-flex;align-items:center;justify-content:center;background:transparent}
+.ink.derived{border-style:dashed}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.acts .pill.sm{gap:10px}
+.note{margin:0;font-size:12px;line-height:15px;color:var(--mute);max-width:252px}
+#mineEmpty{display:flex;flex-direction:column;gap:12px}
+#mineFull{display:flex;flex-direction:column;gap:12px}
+.pickslot:empty{display:none}
+.picker{background:var(--well);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:10px}
+.pk-field{height:110px;border-radius:6px;position:relative;cursor:crosshair;touch-action:none}
+.pk-cur{position:absolute;width:12px;height:12px;border:2px solid #fff;border-radius:50%;box-shadow:0 0 0 1px rgba(0,0,0,.6);transform:translate(-50%,-50%);pointer-events:none}
+.pk-hue{-webkit-appearance:none;appearance:none;width:100%;height:12px;border-radius:999px;background:linear-gradient(90deg,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00);margin:0}
+.pk-hue::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.6)}
+.pk-hue::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.6)}
+.pk-row{display:flex;align-items:center;gap:8px}
+.pk-row .hash{color:var(--mute);font-size:12px}
+.pk-row input[type=text]{flex:1;min-width:0;height:29px;border:1px solid var(--line);border-radius:60px;background:transparent;color:var(--fg);padding:0 12px;font-size:12px;text-transform:uppercase;outline:none}
+.pk-row input[type=text]:focus{border-color:var(--mute)}
+.pk-foot{display:flex;align-items:center;justify-content:space-between}
+.lnk{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);white-space:nowrap}
+.lnk:hover{color:var(--fg)}
+.lnk.danger:hover{color:#FF6B6B}
+.ib{width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;color:var(--fg);border-radius:4px}
+.ib.pk{width:29px;height:29px;border:1px solid var(--line);border-radius:50%}
+
+/* popovers (top right) */
+.pop{position:absolute;right:0;top:calc(100% + 14px);width:292px;background:#000;border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:12px;z-index:20;box-shadow:0 24px 60px rgba(0,0,0,.6)}
+.mh{display:flex;align-items:center;justify-content:space-between}
+.mt{font-size:12px}
+.mydots{display:none;gap:2px}
+#myBtn.set .mydots{display:inline-flex}
+.mydots i{width:8px;height:8px;border-radius:50%;display:block}
+.rows{display:flex;flex-direction:column;background:var(--well);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.rows .r{display:flex;align-items:center;gap:10px;height:42px;padding:0 12px}
+.rows .r+.r{border-top:1px solid var(--line)}
+.rows .r .d{width:22px;height:22px;border-radius:50%;border:1px solid rgba(255,255,255,.18);flex:none;cursor:pointer}
+.rows .r input{flex:1;min-width:0;border:0;background:transparent;color:var(--fg);font-size:12px;font-weight:500;text-transform:uppercase;outline:none;padding:0}
+.rows .r .rm{width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;color:var(--fg);opacity:.7}
+.rows .r .rm:hover{opacity:1}
+.addrow{display:flex;gap:12px;align-items:center}
+.hexin{flex:1;min-width:0;height:29px;border:1px solid var(--line);border-radius:60px;background:transparent;padding:0 12px;font-size:12px;outline:none;text-transform:uppercase}
+.hexin::placeholder{color:var(--mute);opacity:.5;text-transform:none}
+.hexin:focus{border-color:var(--mute)}
+.pill.sm#addBtn{width:48px;padding:0;font-size:12px}
+.orrow{display:flex;align-items:center;gap:12px}
+.or{font-size:10px;color:var(--mute)}
+.export .param{gap:9px}
+.export .chips{margin-top:2px}
+
+@media(max-width:900px){
+  .app{padding:16px}
+  .top{gap:12px;height:auto;flex-wrap:wrap}
+  .top .logo{height:36px}
+  .main{flex-direction:column}
+  .rail{width:100%;padding-top:16px}
+  .stage{width:100%;order:-1;padding-top:16px}
+  .pop{position:fixed;left:16px;right:16px;top:auto;bottom:16px;width:auto}
+}
+.hexin.bad{border-color:#FF6B6B}</style></head><body><div class="app">
+<header class="top">
+  <a class="pill fill" href="../../" id="allTools"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4"/><path d="M10 5l-7 7 7 7"/></svg><span>All tools</span></a>
+  <span class="logo" role="img" aria-label="playgrnd" style="-webkit-mask-image:url(../../logo.svg);mask-image:url(../../logo.svg)"></span>
+  <span class="toolname">Crowd</span>
+  <span class="sp"></span>
+  <div class="wrap">
+    <button class="pill line med" id="myBtn" aria-haspopup="dialog" aria-expanded="false"><span class="mydots" id="myDots"></span><span id="myLbl">Set colors</span></button>
+    <div class="pop modal" id="myModal" role="dialog" aria-label="My colors" hidden>
+      <div class="mh"><span class="mt">My colors</span><button class="ib" id="myClose" aria-label="Close"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+      <div class="rows" id="myRows" hidden></div>
+      <div class="addrow"><input class="hexin" id="hexIn" placeholder="Hex color (#F1F1F1)" aria-label="Hex color" autocomplete="off" spellcheck="false"><button class="pill white sm" id="addBtn">Add</button></div>
+      <div class="orrow"><span class="or">OR</span><button class="pill fill sm med" id="saveCurBtn">Save current colors</button></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <button class="pill fill med" id="expBtn" aria-haspopup="dialog" aria-expanded="false"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20V6"/><path d="M5 13l7-7 7 7"/></svg><span>Export</span></button>
+    <div class="pop export" id="expPop" role="dialog" aria-label="Export" hidden>
+      <div class="param"><span class="plbl">Size</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="px" min="800" max="4800" step="100" value="2400" data-fmt="px" aria-label="Size"></div></div>
+      <div class="chips" data-one><button class="pill fill sm" aria-pressed="true">PNG</button><button class="pill line2 sm" aria-pressed="false">Video</button></div>
+      <button class="pill white big" id="expGo">Export</button>
+    </div>
+  </div>
+</header>
+<div class="main">
+<aside class="rail">
+  <button class="pill white big med" data-new><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 12a8.5 8.5 0 1 1-2.5-6"/><path d="M20.5 3v6h-6"/></svg><span>New variation</span></button>
+  <div class="vrow"><span class="plbl">Variation</span><button class="pill line sm seed" id="seedBtn" title="Copy variation number"><span id="seedNum">61858</span><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg></button></div>
+  <hr>
+  <section class="sec"><button class="sh" aria-expanded="true"><span>Crowd</span><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16l8-8 8 8"/></svg></button><div class="sb"><div class="param"><span class="plbl">Figures</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="figures" min="0" max="1" step="0.01" value="0.06" data-fmt="pct" aria-label="Figures"></div></div><div class="param"><span class="plbl">Size</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="size" min="0" max="1" step="0.01" value="0.46" data-fmt="pct" aria-label="Size"></div></div><div class="param"><span class="plbl">Wobble</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="wobble" min="0" max="1" step="0.01" value="0.3" data-fmt="pct" aria-label="Wobble"></div></div></div></section><hr>
+  <section class="sec"><button class="sh" aria-expanded="true"><span>Glow</span><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16l8-8 8 8"/></svg></button><div class="sb"><div class="param"><span class="plbl">Blur</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="blur" min="0" max="1" step="0.01" value="0.06" data-fmt="pct" aria-label="Blur"></div></div><div class="param"><span class="plbl">Halo</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="halo" min="0" max="1" step="0.01" value="0.46" data-fmt="pct" aria-label="Halo"></div></div><div class="param"><span class="plbl">Dark rim</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="rim" min="0" max="1" step="0.01" value="0.3" data-fmt="pct" aria-label="Dark rim"></div></div></div></section><hr>
+  <section class="sec"><button class="sh" aria-expanded="true"><span>Arrows</span><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16l8-8 8 8"/></svg></button><div class="sb"><div class="param"><span class="plbl">Arrows</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="arrows" min="0" max="1" step="0.01" value="0.06" data-fmt="pct" aria-label="Arrows"></div></div><div class="param"><span class="plbl">Arrow size</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="arrowsz" min="0" max="1" step="0.01" value="0.46" data-fmt="pct" aria-label="Arrow size"></div></div></div></section><hr>
+  <div class="arow"><span class="h">Aspect ratio</span><button class="pill fill sm" id="ratioBtn"><i class="sq"></i><span id="ratioLbl">1:1</span></button></div>
+  <hr>
+  <section class="sec"><button class="sh" aria-expanded="true"><span>Color</span><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16l8-8 8 8"/></svg></button><div class="sb" id="colorBody">
+    <div class="seg" id="src"><button data-mode="random" aria-pressed="true">Random</button><button data-mode="mine" aria-pressed="false">My colors</button></div>
+    <div id="colorRandom">
+      <div class="inks" id="inksRandom"></div>
+      <div class="pickslot" id="pickRandom"></div>
+      <div class="acts"><button class="pill line sm" id="shufRandom"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8" cy="8" r="1.4" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.4" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.4" fill="currentColor" stroke="none"/></svg><span>New colors</span></button><button class="pill line sm" id="rotRandom" title="Moves each colour to the next job"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3"/><path d="M18 3v4h-4"/><path d="M20 12a8 8 0 0 1-14 5.3"/><path d="M6 21v-4h4"/></svg><span>Rotate</span></button><button class="pill line sm" id="saveCur" title="Save these as My colors"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-6-4.5L6 21z"/></svg><span>Save</span></button></div>
+    </div>
+    <div id="colorMine" hidden>
+      <div id="mineEmpty">
+        <p class="note">No colors saved yet. Save them once and every tool can use them.</p>
+        <div class="acts"><button class="pill line sm" id="setColors"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.5 0 2-1 2-2v-1a2 2 0 0 1 2-2h1a4 4 0 0 0 4-4 9 9 0 0 0-9-9z"/><circle cx="7.5" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="10" cy="7.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="15" cy="7.5" r="1.3" fill="currentColor" stroke="none"/></svg><span>Set colors</span></button><button class="pill line sm" id="useThese"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-6-4.5L6 21z"/></svg><span>Save current</span></button></div>
+      </div>
+      <div id="mineFull" hidden>
+        <div class="inks" id="inksMine"></div>
+        <div class="pickslot" id="pickMine"></div>
+        <div class="acts"><button class="pill line sm" id="rotMine" title="Moves each colour to the next job"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3"/><path d="M18 3v4h-4"/><path d="M20 12a8 8 0 0 1-14 5.3"/><path d="M6 21v-4h4"/></svg><span>Rotate</span></button><button class="pill line sm" id="editMine"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4l10-10-4-4L4 16z"/><path d="M13 7l4 4"/></svg><span>Edit</span></button></div>
+      </div>
+    </div>
+  </div></section>
+  <hr>
+  <section class="sec"><button class="sh" aria-expanded="true"><span>Animate</span><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16l8-8 8 8"/></svg></button><div class="sb"><div class="trow"><span class="plbl">Animate</span><button class="tg" id="anim" role="switch" aria-checked="false" aria-label="Animate"></button></div><div id="animBody" hidden><div class="param"><span class="plbl">Amount</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="amount" min="0" max="1" step="0.01" value="0.5" data-fmt="pct" aria-label="Amount"></div></div><div class="param"><span class="plbl">Speed</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="fps" min="6" max="60" step="1" value="24" data-fmt="fps" aria-label="Speed"></div></div></div></div></section><hr>
+  <section class="sec"><button class="sh" aria-expanded="true"><span>Grain</span><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16l8-8 8 8"/></svg></button><div class="sb"><div class="trow"><span class="plbl">Grain</span><button class="tg" id="grainOn" role="switch" aria-checked="true" aria-label="Grain"></button></div><div id="grainBody"><div class="chips" data-one><button class="pill fill sm" aria-pressed="true">Overlay</button><button class="pill line sm" aria-pressed="false">Multiply</button><button class="pill line sm" aria-pressed="false">Add</button></div><div class="param"><span class="plbl">Amount</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="gamt" min="0" max="1" step="0.01" value="0.06" data-fmt="pct" aria-label="Amount"></div></div><div class="param"><span class="plbl">Grain size</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="gsize" min="0" max="1" step="0.01" value="0.06" data-fmt="pct" aria-label="Grain size"></div></div></div></div></section>
+</aside>
+<main class="stage"><img class="art" id="art" src="../art/crowd.jpg" alt=""></main>
+</div></div><script>
+(function(){
+  var $=function(s){return document.querySelector(s)};
+  /* sliders: fill + readout */
+  function fmtv(r){var v=+r.value,f=r.dataset.fmt||"pct";return f==="px"?v+"px":f==="fps"?v+" fps":f==="int"?String(v):Math.round(v*100)+"%";}
+  document.querySelectorAll(".bar input[type=range]").forEach(function(r){
+    var bar=r.parentNode,fill=bar.querySelector(".fill"),out=bar.querySelector(".v");
+    function show(){var p=(r.value-r.min)/(r.max-r.min)*100;fill.style.width=p+"%";out.textContent=fmtv(r);}
+    r.addEventListener("input",show);show();
+  });
+  /* section headers collapse */
+  document.querySelectorAll(".sec .sh").forEach(function(b){b.addEventListener("click",function(){var s=b.parentNode,c=s.classList.toggle("closed");b.setAttribute("aria-expanded",String(!c));});});
+  /* toggles */
+  document.querySelectorAll(".tg").forEach(function(t){t.addEventListener("click",function(){var on=t.getAttribute("aria-checked")!=="true";t.setAttribute("aria-checked",String(on));
+    var body=document.getElementById(t.id==="anim"?"animBody":t.id==="grainOn"?"grainBody":"");if(body)body.hidden=!on;});});
+  /* one-of chip groups */
+  document.querySelectorAll("[data-one]").forEach(function(g){g.querySelectorAll("[aria-pressed]").forEach(function(b){b.addEventListener("click",function(){
+    g.querySelectorAll("[aria-pressed]").forEach(function(x){x.setAttribute("aria-pressed","false");x.classList.remove("fill");x.classList.add(g.closest(".export")?"line2":"line");});
+    b.setAttribute("aria-pressed","true");b.classList.add("fill");b.classList.remove("line","line2");});});});
+  /* new variation + seed */
+  var arts=["../art/crowd.jpg","../art/vein.jpg","../art/motley.jpg"],ai=0;
+  document.querySelector("[data-new]").addEventListener("click",function(){ai=(ai+1)%arts.length;$("#art").src=arts[ai];$("#seedNum").textContent=Math.floor(Math.random()*90000)+10000;});
+  $("#seedBtn").addEventListener("click",function(){var n=$("#seedNum").textContent;if(navigator.clipboard)navigator.clipboard.writeText(n).catch(function(){});var s=$("#seedNum");s.textContent="Copied";setTimeout(function(){s.textContent=n;},900);});
+  /* aspect ratio cycles */
+  var RATIOS=[["1:1",""],["4:5","tall"],["3:4","tall"],["16:9","wide"],["9:16","tall"]],ri=0;
+  $("#ratioBtn").addEventListener("click",function(){ri=(ri+1)%RATIOS.length;$("#ratioLbl").textContent=RATIOS[ri][0];$("#ratioBtn .sq").className="sq "+RATIOS[ri][1];});
+  /* popovers */
+  function pop(btn,el,onOpen){
+    function open(){closeAll();el.hidden=false;btn.setAttribute("aria-expanded","true");if(onOpen)onOpen();}
+    function close(){el.hidden=true;btn.setAttribute("aria-expanded","false");}
+    btn.addEventListener("click",function(){el.hidden?open():close();});
+    return {open:open,close:close,el:el,btn:btn};
+  }
+  var pops=[];function closeAll(){pops.forEach(function(p){p.close();});}
+  var myPop=pop($("#myBtn"),$("#myModal"),function(){setTimeout(function(){$("#hexIn").focus();},40);});
+  var exPop=pop($("#expBtn"),$("#expPop"));pops.push(myPop,exPop);
+  $("#myClose").addEventListener("click",myPop.close);
+  $("#expGo").addEventListener("click",exPop.close);
+  document.addEventListener("keydown",function(e){if(e.key==="Escape")closeAll();});
+  document.addEventListener("click",function(e){if(e.target.closest("#setColors,#editMine,.wrap"))return;closeAll();});
+
+  /* ---- colours ---- */
+  var PALS=[["#2B2140","#B5F53A","#1E3BFF","#F0FF6A"],["#0B0F1A","#FF3DA6","#3DE0FF","#FFE45C"],["#E9E4D6","#FF5C39","#2B3BFF","#1B1B1B"],["#2A2340","#FFE45C","#00E5A8","#7B5CFF"]];
+  var rnd=PALS[0].slice(),mine=[],mode="random",pi=0,pick=null;
+  try{var st=JSON.parse(localStorage.getItem("playgrnd.design.mycolors")||"null");if(st&&st.cols&&st.cols.length){mine=st.cols;if(st.on)mode="mine";}}catch(e){}
+  function persist(){try{localStorage.setItem("playgrnd.design.mycolors",JSON.stringify({cols:mine,on:mode==="mine"}));}catch(e){}}
+  var PLUS='<svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 4v16M4 12h16"/></svg>';
+  var X='<svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  var EYE='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4l6 6M4 20l1-4 9-9 3 3-9 9z"/></svg>';
+  var ROLES=["Ground","Core","Halo","Band","Extra"];
+  function dot(c,derived,list,i){var b=document.createElement("button");b.className="ink"+(derived?" derived":"")+(pick&&pick.list===list&&pick.i===i?" on":"");b.style.background=c;b.title=(ROLES[i]||"Extra")+" · "+c;b.setAttribute("aria-label",b.title+" (tap to change)");
+    if(!derived)b.addEventListener("click",function(){pick=(pick&&pick.list===list&&pick.i===i)?null:{list:list,i:i};render();});return b;}
+  function addDot(list){var b=document.createElement("button");b.className="ink add";b.innerHTML=PLUS;b.title="Add colour";b.setAttribute("aria-label","Add colour");
+    b.addEventListener("click",function(){var arr=list==="rnd"?rnd:mine;arr.push("#"+["FF6B6B","3DE0FF","F5C21B","B5F53A","FF3DA6"][arr.length%5]);pick={list:list,i:arr.length-1};persist();render();});return b;}
+  function hex2hsv(h){var n=parseInt(h.slice(1),16),r=(n>>16)/255,g=((n>>8)&255)/255,b=(n&255)/255,mx=Math.max(r,g,b),mn=Math.min(r,g,b),d=mx-mn,hh=0;
+    if(d){if(mx===r)hh=((g-b)/d)%6;else if(mx===g)hh=(b-r)/d+2;else hh=(r-g)/d+4;hh*=60;if(hh<0)hh+=360;}return {h:hh,s:mx?d/mx:0,v:mx};}
+  function hsv2hex(h,s,v){var c=v*s,x=c*(1-Math.abs((h/60)%2-1)),m=v-c,r=0,g=0,b=0;
+    if(h<60){r=c;g=x}else if(h<120){r=x;g=c}else if(h<180){g=c;b=x}else if(h<240){g=x;b=c}else if(h<300){r=x;b=c}else{r=c;b=x}
+    var t=function(q){return ("0"+Math.round((q+m)*255).toString(16)).slice(-2)};return ("#"+t(r)+t(g)+t(b)).toUpperCase();}
+  function picker(list,i){
+    var arr=list==="rnd"?rnd:mine,col=arr[i],hsv=hex2hsv(col);
+    var el=document.createElement("div");el.className="picker";
+    el.innerHTML='<div class="pk-field"><span class="pk-cur"></span></div><input type="range" class="pk-hue" min="0" max="360" step="1" aria-label="Hue">'+
+      '<div class="pk-row"><span class="hash">#</span><input type="text" maxlength="6" aria-label="Hex"><button class="ib pk" data-eye aria-label="Pick from screen" title="Pick from screen">'+EYE+'</button></div>'+
+      '<div class="pk-foot"><button class="lnk danger" data-rm>Remove colour</button><button class="pill line sm" data-ok>Done</button></div>';
+    var field=el.querySelector(".pk-field"),cur=el.querySelector(".pk-cur"),hue=el.querySelector(".pk-hue"),hex=el.querySelector("input[type=text]");
+    function paint(){field.style.background="linear-gradient(to top,#000,transparent),linear-gradient(to right,#fff,hsl("+hsv.h+",100%,50%))";cur.style.left=(hsv.s*100)+"%";cur.style.top=((1-hsv.v)*100)+"%";hue.value=hsv.h;hex.value=col.slice(1);}
+    function commit(){arr[i]=col;paint();persist();
+      var host=document.getElementById(list==="rnd"?"inksRandom":"inksMine"),dots=host.querySelectorAll(".ink:not(.add)");if(dots[i]){dots[i].style.background=col;dots[i].title=col;}
+      if(list==="mine")drawDots();}
+    function fromField(e){var r=field.getBoundingClientRect();hsv.s=Math.min(1,Math.max(0,(e.clientX-r.left)/r.width));hsv.v=Math.min(1,Math.max(0,1-(e.clientY-r.top)/r.height));col=hsv2hex(hsv.h,hsv.s,hsv.v);commit();}
+    var down=false;field.addEventListener("pointerdown",function(e){down=true;field.setPointerCapture(e.pointerId);fromField(e);});
+    field.addEventListener("pointermove",function(e){if(down)fromField(e);});field.addEventListener("pointerup",function(){down=false;});
+    hue.addEventListener("input",function(){hsv.h=+hue.value;col=hsv2hex(hsv.h,hsv.s,hsv.v);commit();});
+    hex.addEventListener("change",function(){var v=("#"+hex.value.replace("#","")).toUpperCase();if(/^#[0-9A-F]{6}$/.test(v)){col=v;hsv=hex2hsv(col);commit();}else hex.value=col.slice(1);});
+    var eye=el.querySelector("[data-eye]");if(window.EyeDropper){eye.addEventListener("click",function(){new EyeDropper().open().then(function(r){col=r.sRGBHex.toUpperCase();hsv=hex2hsv(col);commit();}).catch(function(){});});}else eye.hidden=true;
+    el.querySelector("[data-rm]").addEventListener("click",function(){if(arr.length>1){arr.splice(i,1);pick=null;persist();render();}});
+    el.querySelector("[data-ok]").addEventListener("click",function(){pick=null;render();});
+    paint();return el;}
+  function shade(c,k){var n=parseInt(c.slice(1),16),r=n>>16,g=(n>>8)&255,b=n&255;var f=function(v){return Math.round(v+(255-v)*k)};return "#"+((1<<24)+(f(r)<<16)+(f(g)<<8)+f(b)).toString(16).slice(1).toUpperCase();}
+  function fit(cols,n){var out=cols.slice(0,n),i=0;while(out.length<n){out.push({c:shade(cols[i%cols.length],0.35+0.15*i),d:true});i++;}return out.map(function(x){return typeof x==="string"?{c:x,d:false}:x});}
+  function drawDots(){var md=$("#myDots");md.innerHTML="";mine.slice(0,4).forEach(function(c){var i=document.createElement("i");i.style.background=c;md.appendChild(i);});}
+  function render(){
+    var has=mine.length>0;
+    $("#colorRandom").hidden=mode!=="random";$("#colorMine").hidden=mode!=="mine";
+    document.querySelectorAll("#src button").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.mode===mode));});
+    var ir=$("#inksRandom");ir.innerHTML="";rnd.forEach(function(c,i){ir.appendChild(dot(c,false,"rnd",i));});ir.appendChild(addDot("rnd"));
+    var pr=$("#pickRandom");pr.innerHTML="";if(pick&&pick.list==="rnd"&&rnd[pick.i])pr.appendChild(picker("rnd",pick.i));
+    $("#mineEmpty").hidden=has;$("#mineFull").hidden=!has;
+    var im=$("#inksMine");im.innerHTML="";if(has){fit(mine,4).forEach(function(x,i){im.appendChild(dot(x.c,x.d,"mine",i));});im.appendChild(addDot("mine"));}
+    var pm=$("#pickMine");pm.innerHTML="";if(pick&&pick.list==="mine"&&mine[pick.i])pm.appendChild(picker("mine",pick.i));
+    $("#myBtn").classList.toggle("set",has);$("#myLbl").textContent=has?"My colors":"Set colors";drawDots();
+    var rows=$("#myRows");rows.innerHTML="";rows.hidden=!has;
+    mine.forEach(function(c,i){var r=document.createElement("div");r.className="r";r.innerHTML='<button class="d" style="background:'+c+'" aria-label="Change colour"></button><input value="'+c.replace("#","")+'" aria-label="Hex" spellcheck="false"><button class="rm" aria-label="Remove">'+X+'</button>';
+      r.querySelector(".d").addEventListener("click",function(){mode="mine";pick={list:"mine",i:i};myPop.close();persist();render();});
+      r.querySelector("input").addEventListener("change",function(e){var v=("#"+e.target.value.replace("#","")).toUpperCase();if(/^#[0-9A-F]{6}$/.test(v)){mine[i]=v;persist();render();}else e.target.value=c.replace("#","");});
+      r.querySelector(".rm").addEventListener("click",function(){mine.splice(i,1);if(!mine.length)mode="random";persist();render();});
+      rows.appendChild(r);});
+    $("#saveCurBtn").textContent=has?"Replace with current colors":"Save current colors";
+  }
+  function parse(t){return (t.match(/#?[0-9a-fA-F]{6}\b/g)||[]).map(function(h){return ("#"+h.replace("#","")).toUpperCase();});}
+  function addFromInput(){var v=parse($("#hexIn").value);if(v.length){mine=mine.concat(v);$("#hexIn").value="";mode="mine";persist();render();}else{$("#hexIn").classList.add("bad");setTimeout(function(){$("#hexIn").classList.remove("bad");},400);}}
+  $("#addBtn").addEventListener("click",addFromInput);
+  $("#hexIn").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();addFromInput();}});
+  $("#hexIn").addEventListener("paste",function(){setTimeout(function(){if(parse($("#hexIn").value).length>1)addFromInput();},0);});
+  $("#saveCurBtn").addEventListener("click",function(){mine=rnd.slice();mode="mine";pick=null;persist();render();});
+  document.querySelectorAll("#src button").forEach(function(b){b.addEventListener("click",function(){mode=b.dataset.mode;pick=null;persist();render();});});
+  $("#shufRandom").addEventListener("click",function(){pi=(pi+1)%PALS.length;rnd=PALS[pi].slice();pick=null;render();});
+  function rotate(hostId,arr){
+    var host=$(hostId),cells=[].slice.call(host.querySelectorAll(".ink:not(.add)"));if(cells.length<2)return;
+    var step=cells[1].getBoundingClientRect().left-cells[0].getBoundingClientRect().left;
+    cells.forEach(function(k,i){k.style.transition="transform .22s ease";k.style.transform=i===0?"translate("+(step*(cells.length-1))+"px,-8px)":"translateX("+(-step)+"px)";});
+    setTimeout(function(){arr.push(arr.shift());pick=null;persist();render();},230);}
+  $("#rotRandom").addEventListener("click",function(){rotate("#inksRandom",rnd);});
+  $("#rotMine").addEventListener("click",function(){rotate("#inksMine",mine);});
+  $("#saveCur").addEventListener("click",function(){mine=rnd.slice();mode="mine";pick=null;persist();render();});
+  $("#useThese").addEventListener("click",function(){mine=rnd.slice();pick=null;persist();render();});
+  $("#setColors").addEventListener("click",function(){myPop.open();});
+  $("#editMine").addEventListener("click",function(){myPop.open();});
+  render();
+})();
+</script></body></html>
