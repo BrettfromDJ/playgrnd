@@ -58,8 +58,14 @@ svg{flex:none;display:block}
 .ib.cp{width:16px;height:16px;opacity:.85}.ib.cp:hover{opacity:1}
 .h{font-size:12px;color:var(--fg)}
 .plbl{font:10px var(--mono);color:var(--mute);line-height:1}
-.sq{width:12px;height:12px;border:1px solid #fff;border-radius:2px;display:block}
-.sq.wide{width:14px;height:9px}.sq.tall{width:9px;height:14px}
+.sq{width:12px;height:12px;border:1px solid #fff;border-radius:2px;display:block;flex:none}
+.menu{position:fixed;z-index:30;width:150px;background:var(--well);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 16px 40px rgba(0,0,0,.6)}
+.menu .ri{display:flex;align-items:center;gap:14px;width:100%;height:36px;padding:0 10px;border-radius:8px;font-size:12px;color:var(--fg);text-align:left}
+.menu .ri:hover{background:rgba(255,255,255,.05)}
+.menu .ri[aria-selected=true]{background:var(--fill)}
+.menu .ri .g{width:16px;display:flex;justify-content:center}
+.menu .ri .ck{margin-left:auto;display:none}
+.menu .ri[aria-selected=true] .ck{display:block}
 
 /* sections */
 .sec .sh{display:flex;align-items:center;justify-content:space-between;width:100%;height:15px;font-size:12px;color:var(--fg);text-align:left}
@@ -180,7 +186,7 @@ svg{flex:none;display:block}
   <section class="sec"><button class="sh" aria-expanded="true"><span>Crowd</span><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16l8-8 8 8"/></svg></button><div class="sb"><div class="param"><span class="plbl">Figures</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="figures" min="0" max="1" step="0.01" value="0.06" data-fmt="pct" aria-label="Figures"></div></div><div class="param"><span class="plbl">Size</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="size" min="0" max="1" step="0.01" value="0.46" data-fmt="pct" aria-label="Size"></div></div><div class="param"><span class="plbl">Wobble</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="wobble" min="0" max="1" step="0.01" value="0.3" data-fmt="pct" aria-label="Wobble"></div></div></div></section><hr>
   <section class="sec"><button class="sh" aria-expanded="true"><span>Glow</span><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16l8-8 8 8"/></svg></button><div class="sb"><div class="param"><span class="plbl">Blur</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="blur" min="0" max="1" step="0.01" value="0.06" data-fmt="pct" aria-label="Blur"></div></div><div class="param"><span class="plbl">Halo</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="halo" min="0" max="1" step="0.01" value="0.46" data-fmt="pct" aria-label="Halo"></div></div><div class="param"><span class="plbl">Dark rim</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="rim" min="0" max="1" step="0.01" value="0.3" data-fmt="pct" aria-label="Dark rim"></div></div></div></section><hr>
   <section class="sec"><button class="sh" aria-expanded="true"><span>Arrows</span><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16l8-8 8 8"/></svg></button><div class="sb"><div class="param"><span class="plbl">Arrows</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="arrows" min="0" max="1" step="0.01" value="0.06" data-fmt="pct" aria-label="Arrows"></div></div><div class="param"><span class="plbl">Arrow size</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="arrowsz" min="0" max="1" step="0.01" value="0.46" data-fmt="pct" aria-label="Arrow size"></div></div></div></section><hr>
-  <div class="arow"><span class="h">Aspect ratio</span><button class="pill fill sm" id="ratioBtn"><i class="sq"></i><span id="ratioLbl">1:1</span></button></div>
+  <div class="arow"><span class="h">Aspect ratio</span><button class="pill fill sm" id="ratioBtn" aria-haspopup="listbox" aria-expanded="false"><i class="sq"></i><span id="ratioLbl">1:1</span></button><div class="menu" id="ratioMenu" role="listbox" aria-label="Aspect ratio" hidden></div></div>
   <hr>
   <section class="sec"><button class="sh" aria-expanded="true"><span>Color</span><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16l8-8 8 8"/></svg></button><div class="sb" id="colorBody">
     <div class="seg" id="src"><button data-mode="random" aria-pressed="true">Random</button><button data-mode="mine" aria-pressed="false">My colors</button></div>
@@ -234,8 +240,21 @@ svg{flex:none;display:block}
   $("#seedNum").addEventListener("keydown",function(e){if(e.key==="Enter"){this.blur();}});
   $("#seedBtn").addEventListener("click",function(){var s=$("#seedNum"),n=s.value;if(navigator.clipboard)navigator.clipboard.writeText(n).catch(function(){});s.value="Copied";setTimeout(function(){s.value=n;},900);});
   /* aspect ratio cycles */
-  var RATIOS=[["1:1",""],["4:5","tall"],["3:4","tall"],["16:9","wide"],["9:16","tall"]],ri=0;
-  $("#ratioBtn").addEventListener("click",function(){ri=(ri+1)%RATIOS.length;$("#ratioLbl").textContent=RATIOS[ri][0];$("#ratioBtn .sq").className="sq "+RATIOS[ri][1];});
+  var RATIOS=[[9,16],[3,4],[2,3],[1,1],[4,3],[16,9],[3,2]],ri=3;
+  var CK='<svg class="ck" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>';
+  function glyph(w,h,m){var k=m/Math.max(w,h);var e=document.createElement("i");e.className="sq";e.style.width=Math.round(w*k)+"px";e.style.height=Math.round(h*k)+"px";return e;}
+  function setRatio(i){ri=i;var r=RATIOS[i];$("#ratioLbl").textContent=r[0]+":"+r[1];var b=$("#ratioBtn");b.replaceChild(glyph(r[0],r[1],12),b.querySelector(".sq"));}
+  var rm=$("#ratioMenu");document.body.appendChild(rm); /* out of the scrolling, masked rail */
+  RATIOS.forEach(function(r,i){var b=document.createElement("button");b.className="ri";b.setAttribute("role","option");var g=document.createElement("span");g.className="g";g.appendChild(glyph(r[0],r[1],14));b.appendChild(g);
+    var t=document.createElement("span");t.textContent=r[0]+":"+r[1];b.appendChild(t);b.insertAdjacentHTML("beforeend",CK);
+    b.addEventListener("click",function(){setRatio(i);closeRatio();});rm.appendChild(b);});
+  function openRatio(){closeAll();rm.querySelectorAll(".ri").forEach(function(b,i){b.setAttribute("aria-selected",String(i===ri));});rm.hidden=false;
+    var a=$("#ratioBtn").getBoundingClientRect(),h=rm.offsetHeight;var top=a.top-8-h;if(top<8)top=Math.min(a.bottom+8,window.innerHeight-h-8);
+    rm.style.top=top+"px";rm.style.left=Math.max(16,a.right-rm.offsetWidth)+"px";$("#ratioBtn").setAttribute("aria-expanded","true");}
+  function closeRatio(){rm.hidden=true;$("#ratioBtn").setAttribute("aria-expanded","false");}
+  $("#ratioBtn").addEventListener("click",function(){rm.hidden?openRatio():closeRatio();});
+  document.querySelector(".rail").addEventListener("scroll",closeRatio);
+  setRatio(ri);window.__closeRatio=closeRatio;
   /* popovers */
   function pop(btn,el,onOpen){
     function open(){closeAll();el.hidden=false;btn.setAttribute("aria-expanded","true");if(onOpen)onOpen();}
@@ -243,13 +262,13 @@ svg{flex:none;display:block}
     btn.addEventListener("click",function(){el.hidden?open():close();});
     return {open:open,close:close,el:el,btn:btn};
   }
-  var pops=[];function closeAll(){pops.forEach(function(p){p.close();});}
+  var pops=[];function closeAll(){pops.forEach(function(p){p.close();});if(window.__closeRatio)window.__closeRatio();}
   var myPop=pop($("#myBtn"),$("#myModal"),function(){setTimeout(function(){$("#hexIn").focus();},40);});
   var exPop=pop($("#expBtn"),$("#expPop"));pops.push(myPop,exPop);
   $("#myClose").addEventListener("click",myPop.close);
   $("#expGo").addEventListener("click",exPop.close);
   document.addEventListener("keydown",function(e){if(e.key==="Escape")closeAll();});
-  document.addEventListener("click",function(e){if(e.target.closest("#setColors,#editMine,.wrap"))return;closeAll();});
+  document.addEventListener("click",function(e){if(e.target.closest("#setColors,#editMine,.wrap,#ratioBtn,#ratioMenu"))return;closeAll();});
 
   /* ---- colours ---- */
   var PALS=[["#2B2140","#B5F53A","#1E3BFF","#F0FF6A"],["#0B0F1A","#FF3DA6","#3DE0FF","#FFE45C"],["#E9E4D6","#FF5C39","#2B3BFF","#1B1B1B"],["#2A2340","#FFE45C","#00E5A8","#7B5CFF"]];
