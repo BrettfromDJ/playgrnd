@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My colors, top bar — playgrnd</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../base.css"><style>
+/* dark */
+:root{--bg:#141416;--panel:#1E1E21;--ink:#F2F1EC;--ink2:#B6B5B0;--ink3:#7C7B77;--line:#2A2A2E;--line2:#3C3C41;--on-ink:#141416;--swb:rgba(255,255,255,.28);--thumb:#F2F1EC}
+.app{display:grid;grid-template-rows:auto 1fr;grid-template-columns:minmax(0,1fr);min-height:100vh}
+.bar{display:flex;align-items:center;gap:12px;padding:10px 18px;border-bottom:1px solid var(--line)}
+.bar .sp{flex:1}
+.main{display:grid;grid-template-columns:300px minmax(0,1fr)}
+.rail{padding:18px 20px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:6px;overflow:auto;max-height:calc(100vh - 57px);position:sticky;top:57px}
+.stage{display:flex;align-items:center;justify-content:center;padding:28px}
+.stage img{max-height:calc(100vh - 57px - 56px);max-width:100%;width:auto}
+details{border-top:1px solid var(--line);padding-top:8px}
+details:first-of-type{border-top:0;padding-top:0}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:var(--tap)}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"–";font-size:14px;color:var(--ink2)}
+details:not([open]) summary::after{content:"+"}
+.body{display:flex;flex-direction:column;gap:6px;padding:0 0 10px}
+@media(max-width:900px){.main{grid-template-columns:minmax(0,1fr)}.rail{position:static;max-height:none;border:0;order:2}.stage{order:1;padding:14px}.stage img{max-height:56vh}
+ .bar{flex-wrap:wrap;gap:8px;padding:10px 12px}.bar .sp{display:none}.bar .crumb{width:100%}.bar .seedbox .lbl,.bar .seedbox .ghost{display:none}.bar .seedbox input{width:84px}.bar .btn{padding:0 12px}}
+.dial{gap:2px;min-height:44px}
+.dial .top{padding-right:0}
+.dial .wrap{position:relative}
+.dial input[type=range]{height:28px;display:block}
+.dial input[type=range]::-webkit-slider-runnable-track{height:18px;border-radius:4px}
+.dial input[type=range]::-moz-range-track,.dial input[type=range]::-moz-range-progress{height:18px;border-radius:4px}
+.dial input[type=range]::-webkit-slider-thumb{width:2px;height:18px;border:0;border-radius:0;background:transparent;margin-top:0;box-shadow:none}
+.dial input[type=range]::-moz-range-thumb{width:2px;height:18px;border:0;border-radius:0;background:transparent;box-shadow:none}
+.dial .val{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:11px;line-height:1;pointer-events:none;color:#fff;mix-blend-mode:difference;white-space:nowrap;text-align:right}
+.mywrap{position:relative}
+.mybtn{gap:8px;border-color:var(--line2)}
+.mybtn.set{border-color:var(--ink)}
+.mydots{display:none;gap:3px}
+.mybtn.set .mydots{display:inline-flex}
+.mydots i{width:10px;height:10px;border-radius:50%;border:1px solid var(--swb);display:block}
+.modal{position:absolute;right:0;top:calc(100% + 8px);width:320px;background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:14px;box-shadow:0 20px 50px rgba(0,0,0,.55);display:flex;flex-direction:column;gap:10px;z-index:20}
+.modal[hidden]{display:none}
+.mh{display:flex;align-items:center;gap:10px}
+.mh .h{flex:none}.mh .sub{flex:1;font-size:10px}
+.ib{width:26px;height:26px;border-radius:6px;border:1px solid var(--line2);background:transparent;display:inline-flex;align-items:center;justify-content:center;color:var(--ink);padding:0;flex:none}
+.rows{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:8px;overflow:hidden;min-height:34px}
+.rows .r{display:grid;grid-template-columns:14px 22px 1fr 26px;gap:10px;align-items:center;height:34px;padding:0 8px 0 6px;background:var(--bg)}
+.rows .r+.r{border-top:1px solid var(--line)}
+.rows .r .g{color:var(--ink3);cursor:grab}
+.rows .r .d{width:22px;height:22px;border-radius:50%;border:1px solid var(--swb);padding:0;cursor:pointer}
+.rows .r input{border:0;background:transparent;color:var(--ink);font-size:12px;text-transform:uppercase;min-width:0}
+.rows .r .rm{width:26px;height:26px;border:0;background:transparent;color:var(--ink3);display:inline-flex;align-items:center;justify-content:center;padding:0}
+.rows .r .rm:hover{color:var(--ink)}
+.rows .none{display:flex;align-items:center;justify-content:center;height:34px;font-size:11px;color:var(--ink3)}
+.addrow{display:flex;gap:6px}
+.addrow input{flex:1;min-width:0;height:28px;border:1px solid var(--line2);border-radius:6px;background:var(--bg);color:var(--ink);padding:0 10px;font-size:11px}
+.mf,.mf2{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.mf2{border-top:1px solid var(--line);padding-top:10px}
+.lnk{border:0;background:transparent;padding:0;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);white-space:nowrap}
+.lnk:hover{color:var(--ink)}
+.btn.primary.sm{border-color:var(--ink)}
+.src{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line2);border-radius:8px;padding:2px;gap:2px;background:var(--panel);margin-bottom:8px}
+.src button{height:26px;border:0;border-radius:6px;background:transparent;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+.src button[aria-pressed=true]{background:var(--ink);color:var(--on-ink)}
+.inks{gap:8px}
+.ink.derived{outline:1.5px dashed var(--ink2);outline-offset:2px}
+.acts2{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:28px;margin-top:8px}
+.btn.sm.act{gap:6px;padding:0 10px 0 8px}
+.rowsb{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.note{font-size:10px;color:var(--ink3)}
+.empty p{margin:0 0 4px;font-size:11px;color:var(--ink2);line-height:1.5}
+.guide{position:fixed;left:16px;bottom:16px;max-width:360px;background:var(--panel);border:1px solid var(--line2);border-radius:10px;padding:10px 12px;font-size:11px;line-height:1.5;color:var(--ink2);z-index:30}
+.guide b{color:var(--ink);font-weight:500;display:block;margin-bottom:2px}
+@media(max-width:900px){.modal{position:fixed;left:12px;right:12px;top:auto;bottom:12px;width:auto}.guide{display:none}}
+</style></head>
+<body><div class="app">
+<header class="bar">
+  <a class="btn ghost" href="#">&larr; All tools</a>
+  <div class="crumb"><img class="logo" src="../../logo.svg" alt="playgrnd"><span class="sub">/</span><span class="tool">Crowd</span></div>
+  <span class="sp"></span>
+  <div class="seedbox"><span class="lbl">Variation</span><input value="61851" inputmode="numeric" aria-label="Variation number"><button class="btn ghost">Copy</button></div>
+  <button class="btn primary" data-new><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg>New variation</button>
+  <button class="btn">Export</button>
+  <div class="mywrap">
+    <button class="btn mybtn" id="myBtn" aria-haspopup="dialog" aria-expanded="false"><span class="mydots" id="myDots"></span><span id="myLbl">Set colors</span></button>
+    <div class="modal" id="myModal" role="dialog" aria-label="My colors" hidden>
+      <div class="mh"><span class="h">My colors</span><span class="sub">Used on every tool</span><button class="ib" id="myClose" aria-label="Close"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+      <div class="rows" id="myRows"></div>
+      <div class="addrow"><input id="myAdd" placeholder="Paste hex codes, one or many" aria-label="Add colours"><button class="btn sm" id="myAddBtn">Add</button></div>
+      <div class="mf"><button class="btn sm" id="myUseCur"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.5 0 2-1 2-2v-1a2 2 0 0 1 2-2h1a4 4 0 0 0 4-4 9 9 0 0 0-9-9z"/><circle cx="7.5" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="10" cy="7.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="15" cy="7.5" r="1.2" fill="currentColor" stroke="none"/></svg>Use this tool's colors</button><button class="lnk" id="myClear">Remove all</button></div>
+      <div class="mf2"><span class="note" id="myNote"></span><button class="btn primary sm" id="myDone">Done</button></div>
+    </div>
+  </div>
+</header>
+<div class="main">
+<aside class="rail">
+  <details open><summary><span class="h">Crowd</span></summary><div class="body"><div class="dial"><div class="top"><span class="lbl">Figures</span></div>
+<div class="wrap"><input type="range" min="1" max="48" step="1" value="44" data-fmt="int" aria-label="Figures"><span class="val">44</span></div></div><div class="dial"><div class="top"><span class="lbl">Size</span></div>
+<div class="wrap"><input type="range" min="0" max="1" step="0.01" value="0.54" data-fmt="pct" aria-label="Size"><span class="val">0.54</span></div></div><div class="dial"><div class="top"><span class="lbl">Wobble</span></div>
+<div class="wrap"><input type="range" min="0" max="1" step="0.01" value="0.34" data-fmt="pct" aria-label="Wobble"><span class="val">0.34</span></div></div></div></details>
+  <details open><summary><span class="h">Glow</span></summary><div class="body"><div class="dial"><div class="top"><span class="lbl">Blur</span></div>
+<div class="wrap"><input type="range" min="0" max="1" step="0.01" value="0.42" data-fmt="pct" aria-label="Blur"><span class="val">0.42</span></div></div><div class="dial"><div class="top"><span class="lbl">Halo</span></div>
+<div class="wrap"><input type="range" min="0" max="1" step="0.01" value="0.51" data-fmt="pct" aria-label="Halo"><span class="val">0.51</span></div></div><div class="dial"><div class="top"><span class="lbl">Dark rim</span></div>
+<div class="wrap"><input type="range" min="0" max="1" step="0.01" value="0.18" data-fmt="pct" aria-label="Dark rim"><span class="val">0.18</span></div></div></div></details>
+  <details open><summary><span class="h">Color</span></summary><div class="body" id="colorBody">
+    <div class="src" id="src"><button data-mode="random" aria-pressed="true">Random</button><button data-mode="mine" aria-pressed="false">My colors</button></div>
+    <div id="colorRandom">
+      <div class="inks" id="inksRandom"></div>
+      <div class="acts2"><button class="btn sm act" id="shufRandom"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg>Shuffle</button><button class="lnk" id="saveCur">Save as my colors</button></div>
+    </div>
+    <div id="colorMine" hidden>
+      <div id="mineEmpty" class="empty">
+        <p>No colors saved yet. Set them once and every tool can use them.</p>
+        <div class="acts2"><button class="btn sm act" id="setColors"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.5 0 2-1 2-2v-1a2 2 0 0 1 2-2h1a4 4 0 0 0 4-4 9 9 0 0 0-9-9z"/><circle cx="7.5" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="10" cy="7.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="15" cy="7.5" r="1.2" fill="currentColor" stroke="none"/></svg>Set colors</button><button class="lnk" id="useThese">Use these</button></div>
+      </div>
+      <div id="mineFull" hidden>
+        <div class="rowsb"><div class="inks" id="inksMine"></div><button class="ib" id="editMine" aria-label="Edit my colors" title="Edit my colors"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4l10-10-4-4L4 16z"/><path d="M13 7l4 4"/></svg></button></div>
+        <div class="acts2"><button class="btn sm act" id="shufMine"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg>Shuffle</button><span class="note">Shuffle reorders your set</span></div>
+      </div>
+    </div>
+  </div></details>
+  <details open><summary><span class="h">Arrows</span></summary><div class="body"><div class="dial"><div class="top"><span class="lbl">Arrows</span></div>
+<div class="wrap"><input type="range" min="0" max="1" step="0.01" value="0.5" data-fmt="pct" aria-label="Arrows"><span class="val">0.5</span></div></div><div class="dial"><div class="top"><span class="lbl">Arrow size</span></div>
+<div class="wrap"><input type="range" min="0" max="1" step="0.01" value="0.5" data-fmt="pct" aria-label="Arrow size"><span class="val">0.5</span></div></div></div></details>
+  <details open><summary><span class="h">Frame</span></summary><div class="body"><div class="ratios" data-one>
+<button class="ratio" aria-pressed="false"><i style="width:7px;height:12px"></i>9:16</button>
+<button class="ratio" aria-pressed="true"><i style="width:9px;height:12px"></i>3:4</button>
+<button class="ratio" aria-pressed="false"><i style="width:10px;height:12px"></i>4:5</button>
+<button class="ratio" aria-pressed="false"><i style="width:11px;height:11px"></i>1:1</button>
+<button class="ratio" aria-pressed="false"><i style="width:12px;height:10px"></i>5:4</button>
+<button class="ratio" aria-pressed="false"><i style="width:12px;height:9px"></i>4:3</button>
+<button class="ratio" aria-pressed="false"><i style="width:13px;height:9px"></i>3:2</button>
+<button class="ratio" aria-pressed="false"><i style="width:14px;height:8px"></i>16:9</button></div></div></details>
+  <details><summary><span class="h">Motion</span></summary><div class="body"><div class="sw"><span class="lbl">Animate</span><button class="knob" aria-pressed="false" data-body="m" aria-label="Animate"></button></div><div id="m" hidden class="body"><div class="chips" data-one><button class="chip" aria-pressed="true">Sway</button><button class="chip" aria-pressed="false">Pulse</button><button class="chip" aria-pressed="false">Flicker</button></div><div class="dial"><div class="top"><span class="lbl">Amount</span></div>
+<div class="wrap"><input type="range" min="0.05" max="2" step="0.05" value="0.6" data-fmt="pct" aria-label="Amount"><span class="val">0.6</span></div></div><div class="dial"><div class="top"><span class="lbl">Speed</span></div>
+<div class="wrap"><input type="range" min="2" max="30" step="1" value="12" data-fmt="fps" aria-label="Speed"><span class="val">12</span></div></div><div class="dial"><div class="top"><span class="lbl">Loop length</span></div>
+<div class="wrap"><input type="range" min="8" max="60" step="2" value="36" data-fmt="fr" aria-label="Loop length"><span class="val">36</span></div></div></div></div></details>
+  <details><summary><span class="h">Grain</span></summary><div class="body"><div class="sw"><span class="lbl">Grain</span><button class="knob" aria-pressed="true" data-body="g" aria-label="Grain"></button></div><div id="g" class="body"><div class="chips" data-one><button class="chip" aria-pressed="true">Overlay</button><button class="chip" aria-pressed="false">Multiply</button><button class="chip" aria-pressed="false">Add</button></div><div class="dial"><div class="top"><span class="lbl">Amount</span></div>
+<div class="wrap"><input type="range" min="0" max="1" step="0.01" value="0.35" data-fmt="pct" aria-label="Amount"><span class="val">0.35</span></div></div><div class="dial"><div class="top"><span class="lbl">Grain size</span></div>
+<div class="wrap"><input type="range" min="0.5" max="3" step="0.1" value="1" data-fmt="pct" aria-label="Grain size"><span class="val">1</span></div></div></div></div></details>
+  <details><summary><span class="h">Export</span></summary><div class="body"><div class="dial"><div class="top"><span class="lbl">Size</span></div>
+<div class="wrap"><input type="range" min="600" max="6000" step="100" value="2400" data-fmt="px" aria-label="Size"><span class="val">2400</span></div></div><div class="row"><button class="btn primary" style="flex:1">PNG</button><button class="btn" style="flex:1">Video</button></div></div></details>
+</aside>
+<main class="stage"><img class="art" id="art" src="../art/crowd.jpg" alt=""></main>
+</div></div>
+<div class="guide" id="guide"><b>Try it</b> Pick My colors in the rail. Nothing is saved yet, so it offers Set colors, which opens the panel under the top-right button. Add a few hex codes, or Use this tool's colors, then Done. The top-right button now shows your set on every tool.</div><script src="../base.js"></script><script>
+(function(){
+  var PALS=[["#2B2140","#B5F53A","#1E3BFF","#F0FF6A"],["#0B0F1A","#FF3DA6","#3DE0FF","#FFE45C"],["#E9E4D6","#FF5C39","#2B3BFF","#1B1B1B"],["#2A2340","#FFE45C","#00E5A8","#7B5CFF"]];
+  var rnd=PALS[0].slice(), mine=[], mode="random", pi=0;
+  var $=function(s){return document.querySelector(s)};
+  function dot(c,derived){var b=document.createElement("button");b.className="ink"+(derived?" derived":"");b.style.background=c;b.setAttribute("aria-label",c);return b;}
+  function shade(c,k){var n=parseInt(c.slice(1),16),r=n>>16,g=(n>>8)&255,b=n&255;var f=function(v){return Math.round(v+(255-v)*k)};return "#"+((1<<24)+(f(r)<<16)+(f(g)<<8)+f(b)).toString(16).slice(1).toUpperCase();}
+  function fit(cols,n){var out=cols.slice(0,n);var i=0;while(out.length<n){out.push({c:shade(cols[i%cols.length],0.35+0.15*i),d:true});i++;}return out.map(function(x){return typeof x==="string"?{c:x,d:false}:x});}
+  function render(){
+    $("#colorRandom").hidden=mode!=="random"; $("#colorMine").hidden=mode!=="mine";
+    document.querySelectorAll("#src button").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.mode===mode));});
+    var ir=$("#inksRandom");ir.innerHTML="";rnd.forEach(function(c){ir.appendChild(dot(c));});
+    var has=mine.length>0;
+    $("#mineEmpty").hidden=has;$("#mineFull").hidden=!has;
+    var im=$("#inksMine");im.innerHTML="";if(has)fit(mine,4).forEach(function(x){im.appendChild(dot(x.c,x.d));});
+    var mb=$("#myBtn");mb.classList.toggle("set",has);$("#myLbl").textContent=has?"My colors":"Set colors";
+    var md=$("#myDots");md.innerHTML="";mine.slice(0,5).forEach(function(c){var i=document.createElement("i");i.style.background=c;md.appendChild(i);});
+    var rows=$("#myRows");rows.innerHTML="";
+    if(!mine.length){rows.innerHTML='<div class="none">Nothing yet. Paste some hex codes below.</div>';}
+    mine.forEach(function(c,i){var r=document.createElement("div");r.className="r";r.innerHTML='<span class="g">'+GRIP+'</span><button class="d" style="background:'+c+'" aria-label="Change"></button><input value="'+c.replace("#","")+'" aria-label="Hex"><button class="rm" aria-label="Remove">'+X+'</button>';
+      r.querySelector("input").addEventListener("change",function(e){var v=("#"+e.target.value.replace("#","")).toUpperCase();if(/^#[0-9A-F]{6}$/.test(v)){mine[i]=v;render();}});
+      r.querySelector(".rm").addEventListener("click",function(){mine.splice(i,1);render();});
+      rows.appendChild(r);});
+    $("#myNote").textContent=has?mine.length+" colours · used on every tool":"";
+  }
+  var GRIP='<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.5"/><circle cx="15" cy="6" r="1.5"/><circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="9" cy="18" r="1.5"/><circle cx="15" cy="18" r="1.5"/></svg>';
+  var X='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  function open(){$("#myModal").hidden=false;$("#myBtn").setAttribute("aria-expanded","true");setTimeout(function(){$("#myAdd").focus();},50);}
+  function close(){$("#myModal").hidden=true;$("#myBtn").setAttribute("aria-expanded","false");if(mine.length&&mode==="mine")render();}
+  function parse(t){return (t.match(/#?[0-9a-fA-F]{6}\b/g)||[]).map(function(h){return ("#"+h.replace("#","")).toUpperCase();});}
+  document.querySelectorAll("#src button").forEach(function(b){b.addEventListener("click",function(){mode=b.dataset.mode;render();});});
+  $("#shufRandom").addEventListener("click",function(){pi=(pi+1)%PALS.length;rnd=PALS[pi].slice();render();});
+  $("#shufMine").addEventListener("click",function(){mine.push(mine.shift());render();});
+  $("#saveCur").addEventListener("click",function(){mine=rnd.slice();mode="mine";render();});
+  $("#useThese").addEventListener("click",function(){mine=rnd.slice();render();});
+  $("#setColors").addEventListener("click",open);
+  $("#editMine").addEventListener("click",open);
+  $("#myBtn").addEventListener("click",function(){$("#myModal").hidden?open():close();});
+  $("#myClose").addEventListener("click",close);
+  $("#myDone").addEventListener("click",function(){if(mine.length)mode="mine";close();render();});
+  $("#myAddBtn").addEventListener("click",function(){var v=parse($("#myAdd").value);if(v.length){mine=mine.concat(v);$("#myAdd").value="";render();}});
+  $("#myAdd").addEventListener("keydown",function(e){if(e.key==="Enter")$("#myAddBtn").click();});
+  $("#myUseCur").addEventListener("click",function(){mine=rnd.slice();render();});
+  $("#myClear").addEventListener("click",function(){mine=[];mode="random";render();});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape")close();});
+  document.addEventListener("click",function(e){if(e.target.closest("#setColors,#editMine,#myBtn"))return;if(!$("#myModal").hidden&&!e.target.closest(".mywrap"))close();});
+  render();
+})();
+</script></body></html>
