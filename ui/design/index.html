@@ -15,7 +15,7 @@ svg{flex:none;display:block}
 [hidden]{display:none!important}
 .app{height:100vh;padding:32px;display:flex;flex-direction:column}
 .top{display:flex;align-items:center;gap:22px;height:53px}
-.top .logo{height:53px;width:128px;display:block;background:#F5C21B;-webkit-mask:center/contain no-repeat;mask:center/contain no-repeat}
+.top .logo{height:53px;width:auto;display:block}
 .top .toolname{font:10px var(--mono);color:var(--fg);margin-left:3px}
 .top .sp{flex:1}
 .top .wrap{position:relative;flex:none}
@@ -42,6 +42,7 @@ svg{flex:none;display:block}
 .main{display:flex;gap:0;align-items:stretch;flex:1;min-height:0}
 .rail{width:274px;flex:none;padding-top:26px;padding-bottom:24px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none}
 .rail::-webkit-scrollbar{display:none}
+.rail{-webkit-mask-image:linear-gradient(to bottom,transparent,#000 26px,#000 calc(100% - 20px),transparent);mask-image:linear-gradient(to bottom,transparent,#000 26px,#000 calc(100% - 20px),transparent)}
 .stage{flex:1;min-width:0;display:flex;justify-content:center;align-items:flex-start;padding-top:12px;min-height:0}
 .art{display:block;height:calc(100% - 12px);max-height:932px;width:auto;max-width:100%}
 
@@ -142,7 +143,7 @@ svg{flex:none;display:block}
   .top{gap:12px;height:auto;flex-wrap:wrap}
   .top .logo{height:36px}
   .main{flex-direction:column}
-  .rail{width:100%;padding-top:16px;overflow:visible}
+  .rail{width:100%;padding-top:16px;overflow:visible;-webkit-mask-image:none;mask-image:none}
   .stage{width:100%;order:-1;padding-top:16px}
   .art{height:auto;width:100%}
   .pop{position:fixed;left:16px;right:16px;top:auto;bottom:16px;width:auto}
@@ -150,7 +151,7 @@ svg{flex:none;display:block}
 .hexin.bad{border-color:#FF6B6B}</style></head><body><div class="app">
 <header class="top">
   <a class="pill fill" href="../../" id="allTools"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4"/><path d="M10 5l-7 7 7 7"/></svg><span>All tools</span></a>
-  <span class="logo" role="img" aria-label="playgrnd" style="-webkit-mask-image:url(../../logo.svg);mask-image:url(../../logo.svg)"></span>
+  <img class="logo" src="../../logo.png" alt="playgrnd">
   <span class="toolname">Crowd</span>
   <span class="sp"></span>
   <div class="wrap">
