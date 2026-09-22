@@ -13,7 +13,7 @@ button{cursor:pointer;background:none;border:0;padding:0}
 a{color:inherit;text-decoration:none}
 svg{flex:none;display:block}
 [hidden]{display:none!important}
-.app{min-height:100vh;padding:32px}
+.app{height:100vh;padding:32px;display:flex;flex-direction:column}
 .top{display:flex;align-items:center;gap:22px;height:53px}
 .top .logo{height:53px;width:128px;display:block;background:#F5C21B;-webkit-mask:center/contain no-repeat;mask:center/contain no-repeat}
 .top .toolname{font:10px var(--mono);color:var(--fg);margin-left:3px}
@@ -39,10 +39,11 @@ svg{flex:none;display:block}
 .chips{display:flex;gap:8px}
 
 /* layout */
-.main{display:flex;gap:0;align-items:flex-start}
-.rail{width:274px;flex:none;padding-top:26px}
-.stage{flex:1;min-width:0;display:flex;justify-content:center;padding-top:12px}
-.art{display:block;width:702px;max-width:100%;height:auto}
+.main{display:flex;gap:0;align-items:stretch;flex:1;min-height:0}
+.rail{width:274px;flex:none;padding-top:26px;padding-bottom:24px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.stage{flex:1;min-width:0;display:flex;justify-content:center;align-items:flex-start;padding-top:12px;min-height:0}
+.art{display:block;height:calc(100% - 12px);max-height:932px;width:auto;max-width:100%}
 
 /* rail rows */
 .rail hr{border:0;border-top:1px solid var(--line);margin:24px 0}
@@ -50,8 +51,10 @@ svg{flex:none;display:block}
 .vrow{margin-top:12px;height:29px}
 .arow{height:29px}
 .trow{height:29px}
-.seed{gap:8px;font-size:12px;padding:0 12px;width:78px;justify-content:space-between}
-.seed span{font-variant-numeric:tabular-nums}
+.seed{gap:6px;font-size:12px;padding:0 10px 0 12px;width:78px;justify-content:space-between}
+.seed input{width:40px;min-width:0;border:0;background:transparent;padding:0;font-size:12px;font-variant-numeric:tabular-nums;outline:none;color:var(--fg)}
+.seed:focus-within{border-color:var(--mute)}
+.ib.cp{width:16px;height:16px;opacity:.85}.ib.cp:hover{opacity:1}
 .h{font-size:12px;color:var(--fg)}
 .plbl{font:10px var(--mono);color:var(--mute);line-height:1}
 .sq{width:12px;height:12px;border:1px solid #fff;border-radius:2px;display:block}
@@ -135,12 +138,13 @@ svg{flex:none;display:block}
 .export .chips{margin-top:2px}
 
 @media(max-width:900px){
-  .app{padding:16px}
+  .app{padding:16px;height:auto;min-height:100vh}
   .top{gap:12px;height:auto;flex-wrap:wrap}
   .top .logo{height:36px}
   .main{flex-direction:column}
-  .rail{width:100%;padding-top:16px}
+  .rail{width:100%;padding-top:16px;overflow:visible}
   .stage{width:100%;order:-1;padding-top:16px}
+  .art{height:auto;width:100%}
   .pop{position:fixed;left:16px;right:16px;top:auto;bottom:16px;width:auto}
 }
 .hexin.bad{border-color:#FF6B6B}</style></head><body><div class="app">
@@ -170,7 +174,7 @@ svg{flex:none;display:block}
 <div class="main">
 <aside class="rail">
   <button class="pill white big med" data-new><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 12a8.5 8.5 0 1 1-2.5-6"/><path d="M20.5 3v6h-6"/></svg><span>New variation</span></button>
-  <div class="vrow"><span class="plbl">Variation</span><button class="pill line sm seed" id="seedBtn" title="Copy variation number"><span id="seedNum">61858</span><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg></button></div>
+  <div class="vrow"><span class="plbl">Variation</span><span class="pill line sm seed"><input id="seedNum" value="61858" maxlength="6" inputmode="numeric" pattern="[0-9]*" aria-label="Variation number (type one and press Enter)"><button class="ib cp" id="seedBtn" title="Copy variation number" aria-label="Copy variation number"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg></button></span></div>
   <hr>
   <section class="sec"><button class="sh" aria-expanded="true"><span>Crowd</span><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16l8-8 8 8"/></svg></button><div class="sb"><div class="param"><span class="plbl">Figures</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="figures" min="0" max="1" step="0.01" value="0.06" data-fmt="pct" aria-label="Figures"></div></div><div class="param"><span class="plbl">Size</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="size" min="0" max="1" step="0.01" value="0.46" data-fmt="pct" aria-label="Size"></div></div><div class="param"><span class="plbl">Wobble</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="wobble" min="0" max="1" step="0.01" value="0.3" data-fmt="pct" aria-label="Wobble"></div></div></div></section><hr>
   <section class="sec"><button class="sh" aria-expanded="true"><span>Glow</span><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16l8-8 8 8"/></svg></button><div class="sb"><div class="param"><span class="plbl">Blur</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="blur" min="0" max="1" step="0.01" value="0.06" data-fmt="pct" aria-label="Blur"></div></div><div class="param"><span class="plbl">Halo</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="halo" min="0" max="1" step="0.01" value="0.46" data-fmt="pct" aria-label="Halo"></div></div><div class="param"><span class="plbl">Dark rim</span><div class="bar"><div class="fill"></div><span class="v"></span><input type="range" id="rim" min="0" max="1" step="0.01" value="0.3" data-fmt="pct" aria-label="Dark rim"></div></div></div></section><hr>
@@ -222,8 +226,12 @@ svg{flex:none;display:block}
     b.setAttribute("aria-pressed","true");b.classList.add("fill");b.classList.remove("line","line2");});});});
   /* new variation + seed */
   var arts=["../art/crowd.jpg","../art/vein.jpg","../art/motley.jpg"],ai=0;
-  document.querySelector("[data-new]").addEventListener("click",function(){ai=(ai+1)%arts.length;$("#art").src=arts[ai];$("#seedNum").textContent=Math.floor(Math.random()*90000)+10000;});
-  $("#seedBtn").addEventListener("click",function(){var n=$("#seedNum").textContent;if(navigator.clipboard)navigator.clipboard.writeText(n).catch(function(){});var s=$("#seedNum");s.textContent="Copied";setTimeout(function(){s.textContent=n;},900);});
+  function showSeed(n){ai=n%arts.length;$("#art").src=arts[ai];}
+  document.querySelector("[data-new]").addEventListener("click",function(){var n=Math.floor(Math.random()*90000)+10000;$("#seedNum").value=n;showSeed(n);});
+  $("#seedNum").addEventListener("input",function(){this.value=this.value.replace(/\D/g,"");});
+  $("#seedNum").addEventListener("change",function(){if(this.value)showSeed(+this.value);});
+  $("#seedNum").addEventListener("keydown",function(e){if(e.key==="Enter"){this.blur();}});
+  $("#seedBtn").addEventListener("click",function(){var s=$("#seedNum"),n=s.value;if(navigator.clipboard)navigator.clipboard.writeText(n).catch(function(){});s.value="Copied";setTimeout(function(){s.value=n;},900);});
   /* aspect ratio cycles */
   var RATIOS=[["1:1",""],["4:5","tall"],["3:4","tall"],["16:9","wide"],["9:16","tall"]],ri=0;
   $("#ratioBtn").addEventListener("click",function(){ri=(ri+1)%RATIOS.length;$("#ratioLbl").textContent=RATIOS[ri][0];$("#ratioBtn .sq").className="sq "+RATIOS[ri][1];});
