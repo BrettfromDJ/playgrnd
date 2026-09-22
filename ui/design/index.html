@@ -9,7 +9,11 @@
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--fg);font:12px/1.25 var(--sans);-webkit-font-smoothing:antialiased;min-height:100%}
 /* 1.5px dot grid on a 20px pitch */
-body{background-image:radial-gradient(circle,rgba(255,255,255,.13) .75px,transparent .8px);background-size:20px 20px;background-position:6px 6px}
+.glow{position:fixed;inset:0;z-index:0;pointer-events:none;background:var(--bg)}
+.glow .b{position:absolute;inset:0;background-repeat:no-repeat;opacity:0;transition:opacity 1.2s ease}
+.glow .b.on{opacity:1}
+.glow::after{content:"";position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.13) .75px,transparent .8px);background-size:20px 20px;background-position:6px 6px}
+.app{position:relative;z-index:1}
 button,input{font:inherit;color:inherit}
 button{cursor:pointer;background:none;border:0;padding:0}
 a{color:inherit;text-decoration:none}
@@ -156,7 +160,7 @@ svg{flex:none;display:block}
   .art{height:auto;width:100%}
   .pop{position:fixed;left:16px;right:16px;top:auto;bottom:16px;width:auto}
 }
-.hexin.bad{border-color:#FF6B6B}</style></head><body><div class="app">
+.hexin.bad{border-color:#FF6B6B}</style></head><body><div class="glow" id="glow" aria-hidden="true"></div><div class="app">
 <header class="top">
   <a class="pill fill" href="../../" id="allTools"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4"/><path d="M10 5l-7 7 7 7"/></svg><span>All tools</span></a>
   <img class="logo" src="../../logo.png" alt="playgrnd">
@@ -235,6 +239,19 @@ svg{flex:none;display:block}
     b.setAttribute("aria-pressed","true");b.classList.add("fill");b.classList.remove("line","line2");});});});
   /* new variation + seed */
   var arts=["../art/crowd.jpg","../art/vein.jpg","../art/motley.jpg"],ai=0;
+  /* ambient glow: sample the output on a tiny canvas, paint 3 soft blobs, crossfade */
+  var glow=$("#glow"),gl=[document.createElement("div"),document.createElement("div")],gi=0;gl.forEach(function(d){d.className="b";glow.appendChild(d);});
+  function sampleArt(img){try{var c=document.createElement("canvas"),n=12;c.width=n;c.height=n;var x=c.getContext("2d",{willReadFrequently:true});x.drawImage(img,0,0,n,n);var d=x.getImageData(0,0,n,n).data,px=[];
+      for(var i=0;i<d.length;i+=4){var r=d[i],g=d[i+1],b=d[i+2],mx=Math.max(r,g,b),mn=Math.min(r,g,b);px.push({r:r,g:g,b:b,s:mx?(mx-mn)/mx:0,v:mx/255});}
+      px.sort(function(a,b){return (b.s*b.v)-(a.s*a.v);});var out=[];
+      px.forEach(function(q){if(out.length>=3)return;var far=out.every(function(o){return Math.abs(o.r-q.r)+Math.abs(o.g-q.g)+Math.abs(o.b-q.b)>120;});if(far)out.push(q);});
+      while(out.length<3)out.push(px[out.length]||{r:60,g:60,b:80});return out;}catch(e){return null;}}
+  function paintGlow(){var img=$("#art");if(!img.complete||!img.naturalWidth)return;var c=sampleArt(img);if(!c)return;
+    var f=function(q,a){return "rgba("+q.r+","+q.g+","+q.b+","+a+")"};
+    var next=gl[gi=1-gi];
+    next.style.backgroundImage="radial-gradient(60vmax 60vmax at 62% 38%,"+f(c[0],.32)+",transparent 60%),radial-gradient(48vmax 48vmax at 40% 80%,"+f(c[1],.26)+",transparent 60%),radial-gradient(44vmax 44vmax at 84% 78%,"+f(c[2],.24)+",transparent 60%)";
+    gl.forEach(function(d){d.classList.toggle("on",d===next);});}
+  $("#art").addEventListener("load",paintGlow);paintGlow();
   function showSeed(n){ai=n%arts.length;$("#art").src=arts[ai];}
   document.querySelector("[data-new]").addEventListener("click",function(){var n=Math.floor(Math.random()*90000)+10000;$("#seedNum").value=n;showSeed(n);});
   $("#seedNum").addEventListener("input",function(){this.value=this.value.replace(/\D/g,"");});
