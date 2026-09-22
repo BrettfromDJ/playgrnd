@@ -22,578 +22,319 @@
 <meta name="twitter:description" content="Generate dot fields — halftone lattices and contour scatters read from a noise field, with optional symmetry.">
 <meta name="twitter:image" content="https://playgrnd.tools/stipple/og.jpg">
 <meta name="description" content="Generate dot fields — halftone lattices and contour scatters read from a noise field, with optional symmetry. Exports vector, animation and video.">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Roboto+Mono&display=swap">
 <style>
-:root{
-  --gnd:#EFEFEC;
-  --ink:#15161A;
-  --hair:rgba(21,22,26,.28);
-  --hair2:rgba(21,22,26,.13);
-  --key:rgba(21,22,26,.45);
-  --mono:"DM Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
-  --pad:56px;
-}
+:root{--bg:#000;--well:#121216;--fill:#252531;--fill2:#393945;--line:#1f1f25;--mute:#798183;--fg:#fff;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"Roboto Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --gnd:#000;--ink:#fff;--hair:#1f1f25;--hair2:#1f1f25;--key:#798183}
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
-body{min-height:100dvh;background:radial-gradient(120% 80% at 50% 0%,#F5F5F3 0%,#EAEAE7 100%);
-  background-attachment:fixed;color:var(--ink);font-family:var(--mono);font-weight:400;
-  -webkit-font-smoothing:antialiased;overflow:hidden}
-button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
-input{font:inherit;color:inherit}
-:focus-visible{outline:1px solid var(--ink);outline-offset:3px}
-
-/* ---------------- page marks ---------------- */
-.mark{position:fixed;pointer-events:none;z-index:1}
-.crop{width:20px;height:20px;border:1px solid var(--hair)}
-.crop.tl{left:26px;top:26px;border-right:0;border-bottom:0}
-.crop.tr{right:26px;top:26px;border-left:0;border-bottom:0}
-.crop.bl{left:26px;bottom:26px;border-right:0;border-top:0}
-.crop.br{right:26px;bottom:26px;border-left:0;border-top:0}
-.edgetick{width:8px;height:1px;background:var(--hair)}
-
-/* ---------------- type ---------------- */
-/* Output and Frame read heavier only because they are <h2>; state it outright so
-   the group headings can match */
-.h{font-size:10px;letter-spacing:.32em;text-transform:uppercase;margin:0 0 13px;
-  font-weight:700}
-.k{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key)}
-.v{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase}
-.tbl{display:grid;grid-template-columns:auto auto;column-gap:22px;row-gap:5px;align-items:baseline}
-.tbl .v{justify-self:start}
-/* every button is a pill; anything you click carries the heading weight */
-.lnk{display:inline-flex;align-items:center;justify-content:center;gap:7px;
-  height:26px;padding:0 15px;border:1px solid var(--ink);border-radius:999px;
-  font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;font-weight:700;
-  color:var(--ink);background:none;text-decoration:none;
-  transition:background .13s,color .13s}
-/* icons carried over from a tool's own buttons stay at label size */
-.lnk svg,.misc svg,.grp-b svg{width:11px;height:11px;flex:none;display:block}
-.lnk:hover{background:rgba(21,22,26,.07);color:var(--ink)}
-.lnk[aria-pressed=true],.lnk.on{background:var(--ink);color:var(--gnd);text-decoration:none}
-/* Video and SVG loop switch themselves off until Animate is on. The chassis
-   styled a disabled scrub bar and disabled capture arrows but never a
-   disabled .lnk, so those two buttons looked exactly like working ones,
-   swallowed the click, and read as broken. */
-.lnk[disabled]{opacity:.3;cursor:not-allowed}
-.lnk[disabled]:hover{background:none;color:var(--ink)}
-/* The one standing line of text that stays, because it is not documentation:
-   it says why the Video button is dead, which is the difference between a
-   control that is disabled and one that looks broken. It carries its own size
-   and colour rather than sharing a rule with the notes, which went — left
-   leaning on that rule it fell back to the browser's default paragraph and
-   came out at twice the size of everything around it. */
-.vidhint{margin:14px 0 0;font-size:8.5px;letter-spacing:.06em;line-height:1.7;
-  color:var(--key);text-transform:none}
-
-/* ---------------- rig ---------------- */
-.rig{height:100dvh;display:grid;
-  grid-template-columns:246px minmax(0,1fr) 246px;
-  grid-template-rows:minmax(0,1fr) auto;
-  padding:var(--pad) 60px;column-gap:38px;row-gap:16px;position:relative;z-index:2}
-.zone{min-width:0}
-/* the side columns run the full height of the page and scroll on their own, so a
-   tool can carry any number of parameter groups without the layout changing */
-.z-left{grid-column:1;grid-row:1/3} .z-right{grid-column:3;grid-row:1/3}
-.z-left,.z-right{align-self:stretch;min-height:0;max-height:100%;
-  display:flex;flex-direction:column}
-/* one soft-edged scroll box: no scrollbar, no border, just a fade at the foot */
-.l-scroll,.z-right{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;
-  scrollbar-width:none;-ms-overflow-style:none;--fade:0px;
-  -webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - var(--fade)),transparent 100%);
-  mask-image:linear-gradient(to bottom,#000 calc(100% - var(--fade)),transparent 100%)}
-.l-scroll::-webkit-scrollbar,.z-right::-webkit-scrollbar{width:0;height:0;display:none}
-.l-top,.l-bot{flex:none}
-.l-bot{padding-top:26px}
-.z-stage{grid-column:2;grid-row:1}
-.z-bottom{grid-column:2;grid-row:2;justify-self:center;text-align:center}
-.z-right{text-align:right}
-.r-mid{margin:auto 0}          /* centred between the readout and the corner */
-.r-bot{flex:none;margin-top:auto}   /* pinned to the foot of the column */
-
-/* ---------------- identity ---------------- */
-.idline{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;margin-bottom:14px}
-.idline .brand{display:block;width:118px;color:var(--ink)}
-.idline .brand img{width:100%;height:auto;display:block}
-.idline .slash{font-size:10px;color:var(--key)}
-.idline .tool{font-size:10px;letter-spacing:.32em;text-transform:uppercase}
-.back{margin-top:16px}
-
-/* ---------------- variation pill ---------------- */
-.seed{width:62px;border:0;background:none;text-align:center;font-size:9px;
-  letter-spacing:.16em;padding:0}
-.seed:focus{outline:none;text-decoration:underline;text-underline-offset:4px}
-.pbtn{height:20px;padding:0 12px;border-radius:999px;font-size:8.5px;letter-spacing:.22em;
-  text-transform:uppercase;font-weight:700;color:var(--key);transition:.12s}
-.pbtn:hover{color:var(--ink)}
-
-/* standalone pill button — same language as the variation pill */
-.pillbtn{height:28px;padding:0 18px;border-radius:999px;border:1px solid var(--ink);
-  background:none;color:var(--ink);font-size:8.5px;letter-spacing:.22em;
-  text-transform:uppercase;font-weight:700;transition:background .13s,color .13s}
-.pillbtn:hover{background:rgba(21,22,26,.07)}
-.pillbtn[aria-pressed=true]{background:var(--ink);color:var(--gnd)}
-.pillbtn[aria-pressed=true]:hover{background:var(--ink);opacity:.85}
-.btnrow{display:flex;justify-content:flex-end;gap:10px}
-
-/* ---- Animate, Dither, Grain: switch-headed sections in the left rail ----
-   The row reads like every other group heading, full ink on or off: a greyed
-   heading looks like a control that has been taken away rather than one that
-   is merely switched off. The switch alone carries the state, and the dials
-   appear under the row once it is on. */
-.tog-grp{margin:0 0 4px}
-.tog-grp>.pillbtn{width:100%;height:auto;padding:15px 0 13px;border:0;border-radius:0;
-  background:none;color:var(--ink);display:flex;align-items:center;gap:12px;
-  justify-content:space-between;cursor:pointer;
-  font-size:10px;letter-spacing:.32em;text-transform:uppercase;font-weight:700}
-.tog-grp>.pillbtn:hover,.tog-grp>.pillbtn[aria-pressed=true]{background:none;color:var(--ink);opacity:1}
-/* The scroll box clips at its own right edge, and the switch sits on that
-   edge; the moment its border darkens on hover, a browser that rounds the
-   box a fraction wide cuts the right side off the track. So the scroll's
-   clip edge is pushed six pixels out into the column gap while its content
-   stays exactly where it was: nothing moves, and there is room to spare. */
-.l-scroll{padding-right:6px;margin-right:-6px}
-.tog-grp .sw{position:relative;flex:none;width:28px;height:15px;border-radius:999px;
-  border:1px solid var(--ink);background:none}
-/* nothing happens on hover; the knob slides only when the switch is thrown */
-.tog-grp .sw::after{content:"";position:absolute;top:2px;left:2px;width:9px;height:9px;
-  border-radius:50%;background:var(--ink);transition:transform .16s ease}
-.tog-grp>.pillbtn[aria-pressed=true] .sw{background:var(--ink);border-color:var(--ink)}
-.tog-grp>.pillbtn[aria-pressed=true] .sw::after{transform:translateX(13px);background:var(--gnd)}
-.tog-grp>.group{margin-top:0;padding-bottom:8px}
-.copy.done{color:var(--ink)}
-
-/* ---------------- hairline sliders ---------------- */
-.pr{margin-bottom:17px}
-.pr .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
-.track{position:relative;height:16px}
-/* The two hairlines are drawn on the wrapper, and a wrapper's ::after paints
-   on top of its own children — so without this the fill line covered the
-   middle of the range input and ate the click that landed on it. */
-.track::before,.track::after,.scrubwrap::before{pointer-events:none}
-.track::before{content:"";position:absolute;left:0;right:0;top:7px;height:1px;background:var(--hair2)}
-.track{--tw:10px}
-.track::after{content:"";position:absolute;left:0;top:7px;height:1px;background:var(--ink);
-  width:calc(var(--tw)/2 + (100% - var(--tw)) * var(--p,0) / 100)}
-.pr:hover .track::after{height:2px;top:6.5px}
-.track input[type=range]{position:absolute;inset:0;width:100%;height:16px;margin:0;
-  -webkit-appearance:none;appearance:none;background:none;cursor:pointer;
-  /* A finger dragging sideways along a slider looks a lot like a finger
-     swiping the panel, and the browser resolves that in favour of the scroll
-     unless it is told otherwise. pan-y keeps the vertical swipe for the panel
-     and hands every sideways drag to the control. */
-  touch-action:pan-y}
-.track input[type=range]:active{cursor:grabbing}
-.track input[type=range]::-webkit-slider-runnable-track{height:16px;background:none}
-/* the dot stays one size — its width is baked into the fill and notch maths above */
-.track input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
-  width:10px;height:10px;border:0;border-radius:50%;background:var(--ink);
-  /* webkit hangs the thumb from the top of the runnable track, so this margin is
-     what centres the dot on the 1px rule at 7.5px, not decoration */
-  margin-top:2.5px}
-.track input[type=range]::-moz-range-track{height:16px;background:none;border:0}
-.track input[type=range]::-moz-range-thumb{width:10px;height:10px;border:0;border-radius:50%;
-  background:var(--ink);cursor:grab}
-.track input[type=range]:active::-moz-range-thumb{cursor:grabbing}
-.notch{position:absolute;top:5px;width:1px;height:5px;background:var(--hair2)}
-/* A sixteen-pixel band is a hard thing to land a fingertip on: Apple asks for
-   forty-four and a finger covers most of the row either way. Under a coarse
-   pointer the input grows to forty and hangs over the row above and below its
-   own hairline. Nothing moves — the drawn slider is exactly where it was, the
-   target around it is simply bigger than what you can see. The rows are far
-   enough apart that two of these never overlap. */
-@media (pointer:coarse){
-  .track input[type=range]{top:-12px;bottom:-12px;height:auto}
-  .track input[type=range]::-webkit-slider-runnable-track{height:40px}
-  /* webkit hangs the thumb from the top of the runnable track, so this is what
-     re-centres the dot on the hairline now that the track is forty tall */
-  .track input[type=range]::-webkit-slider-thumb{margin-top:15px}
-  #scrub{height:38px;margin:-12px 0}
-  #scrub::-webkit-slider-runnable-track{height:38px}
-  #scrub::-webkit-slider-thumb{margin-top:13.5px}
-  .scrubwrap{position:relative;z-index:1}
-}
-/* safety net: if a range control ever escapes the converter it still reads in
-   ink rather than the browser's blue */
-input[type=range]{accent-color:var(--ink)}
-
-/* ---------------- stage ---------------- */
-.z-stage{position:relative;display:grid;place-items:center;padding:34px 46px 30px;min-height:0}
-.ring{position:absolute;left:50%;top:50%;translate:-50% -50%;
-  width:var(--ring,100%);height:var(--ring,100%);aspect-ratio:1;
-  border:1px solid var(--hair2);border-radius:50%;pointer-events:none}
-.xh{position:absolute;background:var(--hair2);pointer-events:none}
-.xh.hz{left:-24px;right:-24px;top:50%;height:1px}
-.xh.vt{top:-24px;bottom:-24px;left:50%;width:1px}
-.holder{position:relative;display:block;max-width:100%;max-height:100%;line-height:0}
-#art{display:block;max-width:100%;max-height:100%;cursor:pointer;
-  box-shadow:0 26px 60px rgba(21,22,26,.14)}
-.corner{position:absolute;width:12px;height:12px;border:1px solid var(--ink);pointer-events:none}
-.corner.a{left:-18px;top:-18px;border-right:0;border-bottom:0}
-.corner.b{right:-18px;top:-18px;border-left:0;border-bottom:0}
-.corner.c{left:-18px;bottom:-18px;border-right:0;border-top:0}
-.corner.d{right:-18px;bottom:-18px;border-left:0;border-top:0}
-
-/* ---------------- frame rack ---------------- */
-.rack{display:grid;grid-template-columns:repeat(4,1fr);gap:12px 10px;margin-bottom:18px}
-.ratio{height:40px;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:6px}
-.ratio .box{border:1px solid var(--hair);transition:.12s}
-.ratio .t{font-size:7.5px;letter-spacing:.15em;color:var(--key);transition:.12s}
-.ratio:hover .box{border-color:var(--ink)}
-.ratio:hover .t{color:var(--ink)}
-.ratio[aria-pressed=true] .box{border-color:var(--ink);background:var(--ink)}
-.ratio[aria-pressed=true] .t{color:var(--ink)}
-
-/* The hidden attribute only means display:none in the browser's own sheet, so
-   any display rule of ours quietly outranks it — .misc{display:flex} was
-   keeping rows on screen that had been hidden deliberately. State it once,
-   loudly, rather than remembering to at every rule that sets display. */
+body{background:var(--bg);color:var(--fg);font:12px/1.25 var(--sans);-webkit-font-smoothing:antialiased;overflow:hidden;min-height:100dvh}
+button,input,textarea{font:inherit;color:inherit}
+button{background:none;border:0;padding:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+svg{flex:none;display:block}
+:focus-visible{outline:1px solid var(--mute);outline-offset:3px}
 [hidden]{display:none!important}
 
-/* ---------------- typed fields ---------------- */
-/* One hairline under the text, the same weight as a slider track, so a field
-   you type into reads as part of the instrument rather than as a web form. */
-.mval input[type=text]{width:100%;min-width:0;box-sizing:border-box;border:0;
-  border-bottom:1px solid var(--hair);background:none;color:var(--ink);
-  font-family:var(--mono);font-size:10px;letter-spacing:.10em;padding:4px 0}
-.mval input[type=text]:focus{outline:none;border-bottom-color:var(--ink)}
-.mval input[type=text]::placeholder{color:var(--key)}
+/* ---------------- ambient glow + dot grid ---------------- */
+.glow{position:fixed;inset:0;z-index:0;pointer-events:none;background:var(--bg)}
+.glow .b{position:absolute;inset:0;background-repeat:no-repeat}
+.glow::after{content:"";position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.13) .75px,transparent .8px);background-size:20px 20px;background-position:6px 6px}
+.app{position:relative;z-index:1;height:100dvh;padding:32px;display:flex;flex-direction:column}
 
-/* ---------------- first run ---------------- */
-/* The one thing a newcomer has to discover is that New deals a whole new
-   picture. Everything else can be found by poking about; that cannot, because
-   the button looks like a form control. Shown once, ever. */
-.firstrun{position:fixed;z-index:40;padding:9px 15px;border:1px solid var(--ink);
-  border-radius:999px;background:var(--gnd);color:var(--ink);
-  font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;white-space:nowrap;
-  opacity:0;translate:0 -6px;transition:opacity .32s ease,translate .32s ease;
-  pointer-events:none;box-shadow:0 8px 26px rgba(21,22,26,.10)}
-.firstrun.on{opacity:1;translate:0 0}
-.firstrun::before{content:"";position:absolute;left:var(--ax,50%);top:-4px;width:6px;height:6px;
-  margin-left:-3px;background:var(--gnd);border-left:1px solid var(--ink);
-  border-top:1px solid var(--ink);rotate:45deg}
-/* ---- new variation ----------------------------------------------------
-   It used to float over the middle of the artwork's top edge, which put the
-   one control everybody reaches for somewhere nothing else lives, and cost
-   the artwork the space it sat in. It goes with the other controls now,
-   under the way back to the index, and says what it does.
------------------------------------------------------------------------- */
-.newblk{margin-top:22px}
-.newlab{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
-.newlab .seedwrap{display:flex;align-items:center;gap:4px}
-.newlab .seed{width:auto;min-width:34px;text-align:right}
-.newbtn{width:100%;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;
-  column-gap:11px;align-items:center;text-align:left;
-  background:var(--ink);color:var(--gnd);border:0;border-radius:7px;
-  padding:12px 14px;cursor:pointer;font-family:var(--mono);
-  transition:opacity .15s ease,transform .12s ease}
-.newbtn:hover{opacity:.87}
-.newbtn:active{transform:translateY(1px)}
-.newbtn .ico{grid-row:1/3;font-size:21px;line-height:1;opacity:.9}
-.newbtn .t{font-size:11px;letter-spacing:.12em;text-transform:uppercase}
-.newbtn .sub{font-size:8px;letter-spacing:.1em;opacity:.62;margin-top:3px}
+/* ---------------- pills ---------------- */
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:39px;padding:0 16px;border-radius:60px;font-size:12px;line-height:1;white-space:nowrap;border:1px solid transparent;flex:none;cursor:pointer;color:var(--fg)}
+.pill.med{font-weight:500}
+.pill.fill{background:var(--line)}
+.pill.line{border-color:var(--line)}
+.pill.white{background:#fff;color:#000;font-weight:500}
+.pill.sm{height:29px;padding:0 12px;font-size:10px;font-weight:400}
+.pill.big{width:100%;height:39px}
+.pill:hover{filter:brightness(1.18)}
+.pill.white:hover{filter:brightness(.94)}
+.pill[disabled]{opacity:.35;cursor:not-allowed;filter:none}
+
+/* ---------------- top bar ---------------- */
+.topbar{display:flex;align-items:center;gap:22px;height:53px;flex:none}
+.topbar .logo{height:53px;width:auto;display:block;transform:translateY(5px)}
+.topbar .toolname{font:10px var(--mono);color:var(--fg);margin-left:3px}
+.topbar .sp{flex:1}
+.topbar .wrap{position:relative;flex:none}
+.topbar .wrap+.wrap{margin-left:-10px}
+.mydots{display:none;gap:2px}
+#mycBtn.set .mydots{display:inline-flex}
+.mydots i{width:8px;height:8px;border-radius:50%;display:block}
+
+/* ---------------- layout ---------------- */
+.main{display:flex;align-items:stretch;flex:1;min-height:0}
+.rail{width:274px;flex:none;padding:26px 0 24px;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;
+  scrollbar-width:none;-ms-overflow-style:none;--fade:0px;
+  -webkit-mask-image:linear-gradient(to bottom,transparent,#000 26px,#000 calc(100% - var(--fade)),transparent);
+  mask-image:linear-gradient(to bottom,transparent,#000 26px,#000 calc(100% - var(--fade)),transparent)}
+.rail::-webkit-scrollbar{width:0;height:0;display:none}
+.stagecol{flex:1;min-width:0;min-height:0;display:flex;flex-direction:column;align-items:center;padding:12px 0 0 32px}
+.z-stage{position:relative;flex:1;min-height:0;width:100%;display:flex;align-items:flex-start;justify-content:center}
+.holder{position:relative;display:block;max-width:100%;max-height:100%;line-height:0}
+#art{display:block;max-width:100%;max-height:100%;cursor:pointer}
+.ring,.xh,.corner,#strip,#glyph,#ratioVal,.readouts,.mark{display:none}
+
+/* ---------------- rail rows ---------------- */
+.rail hr{border:0;border-top:1px solid var(--line);margin:24px 0}
+.vrow,.arow,.trow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.vrow{margin-top:12px;height:29px}
+.arow{height:29px}
+.h{font-size:12px;color:var(--fg);font-weight:400;margin:0}
+.k,.lab,.plbl{font:10px var(--mono);color:var(--mute);line-height:1;text-transform:none;letter-spacing:0}
+.seed{gap:6px;font-size:12px;padding:0 10px 0 12px;min-width:78px;justify-content:space-between}
+.seed input.seed{width:48px;min-width:0;border:0;background:transparent;padding:0;margin:0;font-size:12px;
+  font-variant-numeric:tabular-nums;outline:none;color:var(--fg);text-align:left}
+.seed:focus-within{border-color:var(--mute)}
+.ib{width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;color:var(--fg);border-radius:4px;padding:0}
+.ib.cp{width:16px;height:16px;opacity:.85;position:relative}
+.ib.cp:hover{opacity:1}
+.ib.cp[data-copied] svg{visibility:hidden}
+.ib.cp[data-copied]::after{content:"\2713";position:absolute;inset:0;display:grid;place-items:center;font-size:11px}
+.newbtn{margin:0}
+.newbtn .sub{display:none}
 .newbtn.nudge{animation:nudge 1.8s ease-in-out 3}
 @keyframes nudge{0%,100%{transform:none}12%{transform:translateY(-2px)}24%{transform:none}}
-@media (prefers-reduced-motion:reduce){
-  .firstrun{transition:none}
-  .newbtn.nudge{animation:none}
+
+/* ---------------- sections ---------------- */
+.grp{margin:0;padding:24px 0 0;border-top:1px solid var(--line)}
+.grp:first-of-type{border-top:0}
+.grp>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;
+  gap:12px;height:15px;font-size:12px;color:var(--fg);padding:0;margin-bottom:24px}
+.grp>summary::-webkit-details-marker{display:none}
+.grp>summary::after{content:"";width:8px;height:8px;flex:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 16l8-8 8 8'/%3E%3C/svg%3E") no-repeat center/8px;
+  transition:transform .15s}
+.grp:not([open])>summary::after{transform:rotate(180deg)}
+.grp:not([open])>summary{margin-bottom:0}
+.grp[open]>summary{margin-bottom:16px}
+.grp-b{padding-bottom:24px;display:flex;flex-direction:column;gap:12px}
+.grp-b>*{margin:0}
+.grp-b .grp-b{padding:0}
+.grp-b>div:not(.pr):not(.misc):not(.seg):not(.myc):not(.pickslot):not(.acts):not([id]){display:contents}
+.grp-b>div[id]:not(.pr):not(.misc):not(.group):not(.seg):not(#mineEmpty){display:flex;flex-direction:column;gap:12px}
+.grp-b>.seg{display:grid}
+.tog-grp{border-top:1px solid var(--line);padding:24px 0}
+.tog-grp+.tog-grp{padding-top:24px}
+.tog-grp>.pillbtn{width:100%;height:20px;padding:0;border:0;border-radius:0;background:none;color:var(--fg);
+  display:flex;align-items:center;justify-content:space-between;font-size:12px;cursor:pointer}
+.tog-grp>.pillbtn:hover{filter:none}
+.tog-grp .sw,.mycsw .sw{position:relative;flex:none;width:40px;height:20px;border-radius:60px;background:var(--line);display:block;transition:background .15s}
+.tog-grp .sw::after,.mycsw .sw::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;opacity:.2;transition:transform .15s,opacity .15s}
+.tog-grp>.pillbtn[aria-pressed=true] .sw{background:var(--fill2)}
+.tog-grp>.pillbtn[aria-pressed=true] .sw::after{transform:translateX(20px);opacity:1}
+.tog-grp>.group{margin-top:16px;display:flex;flex-direction:column;gap:12px}
+.tog-grp>.group>*{margin:0}
+.group{margin:0}
+
+/* ---------------- bar sliders ---------------- */
+.pr{position:relative;display:flex;flex-direction:column;gap:9px}
+.pr .top{display:flex;justify-content:space-between;align-items:baseline}
+.pr .top .v{position:absolute;right:8px;bottom:0;height:25px;display:flex;align-items:center;font-size:10px;color:var(--fg);
+  pointer-events:none;z-index:2;font-variant-numeric:tabular-nums;letter-spacing:0;text-transform:none;font-family:var(--sans)}
+.track{position:relative;height:25px;border-radius:4px;background:var(--well);overflow:hidden;--tw:0px}
+.track::before{display:none}
+.track::after{content:"";position:absolute;left:0;top:0;height:24px;border-radius:4px;background:var(--fill);pointer-events:none;
+  width:calc(var(--p,0) * 1%)}
+.track input[type=range]{position:absolute;inset:0;width:100%;height:100%;margin:0;-webkit-appearance:none;appearance:none;
+  background:none;cursor:ew-resize;opacity:0;touch-action:pan-y;z-index:1}
+.track input[type=range]::-webkit-slider-runnable-track{height:25px;background:none}
+.track input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:1px;height:25px;border:0;background:transparent}
+.track input[type=range]::-moz-range-track{height:25px;background:none;border:0}
+.track input[type=range]::-moz-range-thumb{width:1px;height:25px;border:0;background:transparent}
+.track input[type=range]:focus-visible{opacity:1;outline:1px solid var(--mute);outline-offset:-1px}
+.notch{display:none}
+@media (pointer:coarse){
+  .track input[type=range]{top:-8px;bottom:-8px;height:auto}
+  .track input[type=range]::-webkit-slider-runnable-track{height:41px}
 }
-/* ---- My colors: one saved set, kept by the browser, used by every tool ----
-   Not a section of its own: a mode of the Color block. The switch sits on the
-   block's heading where the fold marker sits on the other groups, and when it
-   is on the swatch row is the set. */
-.grp.mine>summary::after{display:none}
-.mycsw[hidden]{display:none}
-.mycsw{display:flex;align-items:center;gap:10px;border:0;background:none;padding:0;margin:0;
-  color:var(--key);font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;font-weight:700;
-  cursor:pointer}
-.mycsw[aria-pressed=true]{color:var(--ink)}
-.mycsw .sw{position:relative;flex:none;width:28px;height:15px;border-radius:999px;
-  border:1px solid var(--ink);background:none;display:block;cursor:pointer;transform:none}
-.mycsw .sw::after{content:"";position:absolute;top:2px;left:2px;width:9px;height:9px;
-  border-radius:50%;background:var(--ink);transition:transform .16s ease}
-.mycsw .sw:hover{transform:none}
-.mycsw[aria-pressed=true] .sw{background:var(--ink)}
-.mycsw[aria-pressed=true] .sw::after{transform:translateX(13px);background:var(--gnd)}
-.myc{margin-top:14px}
-/* three pills across a 246px rail: New colors, Rotate, Save */
-.grp.colr .lnk{padding:0 12px}
-.grp.colr .btn-row,.grp.colr .misc .mval{gap:8px}
-.myc-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
-.myc-row:empty{display:none}
-.myc-hint{font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--key);
-  line-height:1.6;margin:10px 0 0}
-.myc-hint:empty{display:none}
-.myc[hidden]{display:none}
-.myc-edit{margin-top:12px}
-.myc-ta{display:block;width:100%;box-sizing:border-box;min-height:74px;resize:vertical;
-  font:inherit;font-size:11px;letter-spacing:.06em;line-height:1.5;color:var(--ink);
-  background:none;border:1px solid var(--hair);border-radius:7px;padding:8px 10px}
-.myc-ta:focus{outline:none;border-color:var(--ink)}
-.myc-ta::placeholder{color:var(--key)}
-.myc-edit .myc-row{margin-top:10px}
-/* an ink the chassis made up to fill a slot the set could not: a dashed ring */
-.sw[data-derived]::after{content:"";position:absolute;inset:-4px;border-radius:50%;
-  border:1px dashed var(--key);pointer-events:none}
-/* with the set on, the swatches can be dragged into a new order */
-#swatches[data-mine] .sw{cursor:grab;transition:transform .14s}
-#swatches[data-mine] .sw.drag{cursor:grabbing;transition:none;z-index:3;transform:scale(1.2)}
-#swatches[data-mine] .sw.drag .fill{box-shadow:0 2px 8px rgba(21,22,26,.25)}
-/* ---------------- inks ---------------- */
-.sw-grid{display:flex;flex-wrap:wrap;gap:13px;align-items:center;max-width:210px}
-.l-bot .sw-grid{max-width:none}
-.l-bot .btn-row{margin-top:18px}
-/* the fill carries the circle, not the swatch: the swatch must not clip, or
-   the delete badge hanging off its corner would be sliced in half */
-.sw{position:relative;width:18px;height:18px;border-radius:50%;display:block;
-  cursor:pointer;transition:transform .12s}
-.sw:hover{transform:scale(1.14)}
-.sw .fill{position:absolute;inset:0;border-radius:50%}
-/* the native input is only a value holder now — clicking the circle opens the
-   wheel-and-hex popover instead, so this must never swallow the click */
-.sw input{position:absolute;inset:0;width:100%;height:100%;
-  border:0;padding:0;background:none;opacity:0;pointer-events:none}
-/* delete is a badge in the corner, so the circle itself is free to mean edit */
-.sw .x{position:absolute;top:-5px;right:-5px;width:12px;height:12px;border-radius:50%;
-  display:grid;place-items:center;font-size:8px;line-height:1;cursor:pointer;
-  background:var(--ink);color:var(--gnd);border:1px solid var(--gnd);
-  opacity:0;transform:scale(.6);transition:opacity .12s,transform .12s}
+input[type=range]{accent-color:#fff}
+
+/* ---------------- misc rows from the tool ---------------- */
+.misc{display:flex;flex-direction:column;align-items:stretch;gap:9px;margin:0}
+.misc .mhead{display:flex;align-items:baseline;gap:10px}
+.misc .mhead:empty{display:none}
+.misc>.mval:empty{display:none}
+.misc:has(>.switch){flex-direction:row;align-items:center;justify-content:space-between;height:29px}
+.misc:has(>.switch) .mhead{flex:1}
+.drop{width:100%;border:1px dashed var(--line);border-radius:12px;padding:14px 12px;font-size:10px;line-height:1.5;color:var(--mute);text-align:center;background:none}
+.drop:hover{border-color:var(--mute);color:var(--fg)}
+.misc .mval{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0}
+.misc .v,.val{font-size:10px;color:var(--fg);font-family:var(--sans)}
+.pair{display:flex;gap:16px}
+.pair>*{display:flex;flex-direction:column;gap:9px;flex:1}
+.sec-h{font-size:12px;margin:0}
+.mval input[type=text],.myc-ta{width:100%;min-width:0;height:29px;border:1px solid var(--line);border-radius:60px;background:transparent;
+  color:var(--fg);padding:0 12px;font-size:12px;outline:none}
+.mval input[type=text]:focus{border-color:var(--mute)}
+.mval input[type=text]::placeholder{color:var(--mute);opacity:.5}
+.switch{width:40px;height:20px;border-radius:60px;background:var(--line);position:relative;flex:none;border:0}
+.switch::after{content:"";position:absolute;left:2px;top:2px;width:16px;height:16px;border-radius:50%;background:#fff;opacity:.2;transition:.15s}
+.switch[aria-pressed=true]{background:var(--fill2)}
+.switch[aria-pressed=true]::after{transform:translateX(20px);opacity:1}
+/* any button the tool passes through is a small pill */
+.lnk,.btn,.chip,.pillbtn,.lnks button{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:29px;padding:0 12px;
+  border-radius:60px;border:1px solid var(--line);font-size:10px;color:var(--fg);background:none;white-space:nowrap;text-decoration:none}
+.lnk:hover,.btn:hover,.chip:hover{filter:brightness(1.3)}
+.lnk[aria-pressed=true],.chip[aria-pressed=true],.lnk.on{background:var(--line)}
+.lnk[disabled],.btn[disabled]{opacity:.35;cursor:not-allowed}
+.lnk svg,.btn svg{width:10px;height:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;flex:1 1 auto;min-width:0}
+.btn-row,.row,.expmenu,.lnks{display:flex;flex-wrap:wrap;gap:8px;margin:0}
+.vidhint{margin:0;font-size:10px;color:var(--mute);line-height:1.5}
+
+/* ---------------- dropdown pickers ---------------- */
+.pick{position:relative;flex:1 1 auto;width:100%;min-width:0}
+.pick-btn{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;height:29px;
+  border:1px solid var(--line);border-radius:60px;background:transparent;color:var(--fg);padding:0 12px;cursor:pointer;text-align:left;font-size:12px}
+.pick-btn:focus{outline:none}
+.pick-btn .chev{flex:none;width:8px;height:8px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 8l8 8 8-8'/%3E%3C/svg%3E") no-repeat center/8px;transition:transform .15s}
+.pick-btn[aria-expanded=true] .chev{transform:rotate(180deg)}
+.pick-menu,.menu{position:fixed;z-index:80;margin:0;padding:6px;list-style:none;background:var(--well);border:1px solid var(--line);
+  border-radius:12px;max-height:min(60vh,420px);overflow-y:auto;box-shadow:0 16px 40px rgba(0,0,0,.6)}
+.pick-menu li{display:flex;align-items:center;justify-content:space-between;gap:10px;height:36px;padding:0 10px;border-radius:8px;cursor:pointer;color:var(--fg);font-size:12px}
+.pick-menu li:hover,.pick-menu li.hi{background:rgba(255,255,255,.05)}
+.pick-menu li[aria-selected=true]{background:var(--fill)}
+.pick-menu li[aria-selected=true]::after{content:"\2713";font-size:11px}
+
+/* ---------------- aspect ratio ---------------- */
+.arow .pill .sq{width:12px;height:12px;border:1px solid #fff;border-radius:2px;display:block;flex:none}
+.menu{width:150px}
+.rack{display:flex;flex-direction:column;gap:0;margin:0}
+.ratio{display:flex;flex-direction:row;align-items:center;gap:14px;width:100%;height:36px;padding:0 10px;border-radius:8px;font-size:12px;color:var(--fg);text-align:left}
+.ratio:hover{background:rgba(255,255,255,.05)}
+.ratio[aria-pressed=true]{background:var(--fill)}
+.ratio .box{border:1px solid #fff;border-radius:2px;flex:none;display:block;transform:scale(.7);transform-origin:center;margin:0}
+.ratio .box{margin-left:calc((14px - 20px)/2);margin-right:calc((14px - 20px)/2)}
+.ratio .t{font-size:12px;color:var(--fg);letter-spacing:0}
+.ratio::after{content:"";margin-left:auto;width:12px;height:12px;display:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5 9-10'/%3E%3C/svg%3E") no-repeat center/12px}
+.ratio[aria-pressed=true]::after{display:block}
+
+/* ---------------- colour ---------------- */
+.seg{display:grid;grid-template-columns:1fr 1fr;height:36px;padding:4px;background:var(--well);border-radius:4px}
+.seg button{height:28px;border-radius:3px;font:10px var(--mono);color:var(--mute)}
+.seg button[aria-pressed=true]{background:var(--fill);color:var(--fg)}
+.colr-body{display:flex;flex-direction:column;gap:16px}
+.colr-body>*{margin:0}
+.colr-body .misc:has(#swatches)>.mhead{display:none}
+.mnote{margin:0;font-size:12px;line-height:15px;color:var(--mute);max-width:252px}
+#mineEmpty{display:flex;flex-direction:column;gap:12px}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.sw-grid{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.sw{position:relative;width:22px;height:22px;border-radius:50%;display:block;cursor:pointer;transition:transform .12s}
+.sw .fill{position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+.sw input{position:absolute;inset:0;width:100%;height:100%;border:0;padding:0;background:none;opacity:0;pointer-events:none}
+.sw .x{position:absolute;top:-5px;right:-5px;width:13px;height:13px;border-radius:50%;display:grid;place-items:center;font-size:9px;line-height:1;cursor:pointer;
+  background:#fff;color:#000;border:1px solid #000;opacity:0;transform:scale(.6);transition:opacity .12s,transform .12s}
 .sw:hover .x,.sw:focus-visible .x,.sw .x:hover{opacity:1;transform:scale(1)}
 .sw.locked .x{display:none}
-/* single-colour chips get the same treatment: click to edit, no native dialog */
 [data-ink]{position:relative;cursor:pointer}
 [data-ink] input[type=color]{pointer-events:none}
-.sw-add{width:18px;height:18px;border-radius:50%;border:1px solid var(--hair);
-  display:grid;place-items:center;font-size:9px;line-height:1;color:var(--key);transition:.12s}
-.sw-add:hover{border-color:var(--ink);color:var(--ink)}
-.lnks{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.sw-add{width:22px;height:22px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:11px;line-height:1;color:var(--fg)}
+.sw-add:hover{border-color:var(--mute)}
+.sw[data-derived] .fill{box-shadow:inset 0 0 0 1px rgba(255,255,255,.18),0 0 0 1px transparent}
+.sw[data-derived]::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px dashed var(--mute);pointer-events:none}
+#swatches[data-mine] .sw{cursor:grab}
+#swatches[data-mine] .sw.drag{cursor:grabbing;transition:none;z-index:3;transform:scale(1.2)}
+.mycsw,#myc,#mycEdit,#mycPanel{display:none!important}
+.myc-hint{display:none}
+#mycSave{gap:10px}
 
-/* ---------------- captures ---------------- */
-.caps{display:flex;gap:9px;justify-content:center}
-.cap{width:11px;height:11px;border-radius:50%;border:1px solid var(--hair);display:block;
-  padding:0;transition:.12s}
-.cap:hover{border-color:var(--ink)}
-.cap[aria-current=true]{background:var(--ink);border-color:var(--ink)}
-.cap.slot{opacity:.45;cursor:default}
-.capnav{font-size:9px;color:var(--key);padding:0 4px;line-height:11px}
-.capnav[disabled]{opacity:.3;pointer-events:none}
-.tport{display:flex;align-items:center;gap:12px;margin-top:16px;justify-content:center}
-.play{width:18px;height:18px;display:grid;place-items:center}
-.play svg{fill:var(--ink);width:8px;height:9px}
-#scrub{width:150px;height:14px;-webkit-appearance:none;appearance:none;background:none;margin:0;
-  touch-action:pan-y}
-#scrub::-webkit-slider-runnable-track{height:14px;background:none}
-#scrub::-webkit-slider-thumb{-webkit-appearance:none;width:3px;height:11px;border:0;
-  border-radius:0;background:var(--ink)}
-#scrub::-moz-range-track{height:14px;background:none;border:0}
-#scrub::-moz-range-thumb{width:3px;height:11px;border:0;border-radius:0;background:var(--ink)}
-.scrubwrap{position:relative;height:14px}
-.scrubwrap::before{content:"";position:absolute;left:0;right:0;top:6px;height:1px;
-  background:var(--hair2)}
-#scrub[disabled]{opacity:.35}
-.hint{display:block;margin-top:14px}
+/* ---------------- top-right popovers ---------------- */
+.pop,.group.pop{position:fixed;z-index:70;width:292px;background:#000;border:1px solid var(--line);border-radius:12px;padding:20px;
+  display:flex;flex-direction:column;gap:12px;box-shadow:0 24px 60px rgba(0,0,0,.6);text-align:left;margin:0}
+.group.pop>*{margin:0}
+.group.pop .lnk.primary{background:#fff;color:#000;font-weight:500}
+.group.pop .lnk.primary:hover{filter:brightness(.94)}
+.mh{display:flex;align-items:center;justify-content:space-between}
+.mt{font-size:12px}
+.rows{display:flex;flex-direction:column;background:var(--well);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.rows .r{display:flex;align-items:center;gap:10px;height:42px;padding:0 12px}
+.rows .r+.r{border-top:1px solid var(--line)}
+.rows .r .d{width:22px;height:22px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);flex:none;cursor:pointer}
+.rows .r input{flex:1;min-width:0;border:0;background:transparent;color:var(--fg);font-size:12px;font-weight:500;text-transform:uppercase;outline:none;padding:0;height:auto;border-radius:0}
+.rows .r .rm{width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;color:var(--fg);opacity:.7;padding:0}
+.rows .r .rm:hover{opacity:1}
+.addrow{display:flex;gap:12px;align-items:center}
+.hexin{flex:1;min-width:0;height:29px;border:1px solid var(--line);border-radius:60px;background:transparent;padding:0 12px;font-size:12px;outline:none;text-transform:uppercase;color:var(--fg)}
+.hexin::placeholder{color:var(--mute);opacity:.5;text-transform:none}
+.hexin:focus{border-color:var(--mute)}
+.hexin.bad{border-color:#FF6B6B}
+.pill.sm#mycAdd{width:48px;padding:0;font-size:12px}
+.orrow{display:flex;align-items:center;gap:12px}
+.or{font-size:10px;color:var(--mute)}
 
-/* ---------------- parameter groups ---------------- */
-.grp{margin:0 0 4px}
-.grp>summary{list-style:none;cursor:pointer;display:flex;align-items:center;
-  justify-content:space-between;gap:12px;font-size:10px;letter-spacing:.32em;
-  text-transform:uppercase;font-weight:700;padding:15px 0 13px;background:none}
-.grp>summary::after{font-weight:400}
-.grp>summary::-webkit-details-marker{display:none}
-.grp>summary::after{content:"+";font-size:12px;line-height:1;color:var(--key);
-  letter-spacing:0;transition:color .12s}
-.grp[open]>summary::after{content:"\2212"}
-.grp>summary:hover::after{color:var(--ink)}
-.grp-b{padding-bottom:8px}
-.z-right .grp>summary{flex-direction:row-reverse;justify-content:flex-start;gap:10px}
-.idblock{padding-bottom:4px}
-.frame-h{margin:30px 0 14px}
-.z-left .idblock{padding-bottom:34px}
-
-/* leftovers passed through from the tool's own panel */
-.misc{display:flex;align-items:center;justify-content:space-between;gap:12px;
-  margin-bottom:14px;min-height:20px}
-/* in the colour corner nothing sits opposite anything: label above, control below */
-.l-bot .misc{flex-direction:column;align-items:flex-start;gap:9px;margin-bottom:18px}
-.l-bot .misc .mhead{width:100%;justify-content:flex-start}
-.l-bot .misc .mval{justify-content:flex-start;width:100%}
-.l-bot .misc:last-child{margin-bottom:0}
-.misc .mhead{display:flex;align-items:baseline;gap:10px;flex:none}
-.misc.stack{flex-direction:column;align-items:flex-start;gap:9px}
-.misc.stack .mhead,.misc.stack .mval{width:100%;justify-content:flex-start}
-.misc .mval{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;
-  min-width:0}
-.l-bot .misc .mval{gap:10px}
-.misc .sw-grid{max-width:none}
-.btn-row,.expmenu{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
-.z-left .btn-row{justify-content:flex-start}
-/* a row that is only a button has nothing to sit opposite — start it at the edge */
-.misc .mhead:empty{display:none}
-.misc .mhead:empty + .mval{justify-content:flex-start;flex:1}
-.pair{display:flex;gap:30px;margin-bottom:18px}
-.pair>*{display:flex;flex-direction:column;gap:9px}
-.pair .lab{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key);
-  display:block;margin:0}
-.sec-h{font-size:10px;letter-spacing:.32em;text-transform:uppercase;margin:0 0 12px}
-.lab{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key)}
-.val{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase}
-.switch{width:30px;height:16px;border-radius:999px;border:1px solid var(--ink);position:relative}
-.switch::after{content:"";position:absolute;left:2px;top:1.5px;width:11px;height:11px;
-  border-radius:50%;background:var(--ink);transition:.13s}
-.switch[aria-pressed=true]{background:var(--ink)}
-.switch[aria-pressed=true]::after{left:15px;background:var(--gnd)}
-
-/* ---------------- disclosures ---------------- */
-.group{margin-top:14px}
-.group[hidden]{display:none}
-/* floats over the page so the layout underneath never reflows */
-.group.pop{position:fixed;z-index:70;margin:0;width:232px;padding:16px;
-  background:var(--gnd);border:1px solid var(--ink);text-align:left}
-.group.pop .chips,.group.pop .expmenu{justify-content:flex-start}
-.group.pop .pr .top{flex-direction:row}
-.group.pop .pr{margin-bottom:0}
-.group.pop .expmenu{gap:14px 18px;margin-top:14px}
-.group.pop > :last-child{margin-bottom:0}
-.chips{display:flex;flex-wrap:wrap;gap:14px;margin-top:4px;flex:1 1 auto;min-width:0}
-/* ---- pickers: one dropdown, the same on every tool ----
-   A row of names side by side read as a menu that had been spilled out; a
-   list of fourteen styles took three lines. Every picker is now a dropdown.
-   The browser's own menu draws its list in the system face and copies the
-   field's capitals into it, so the list is drawn here instead: a bordered
-   field with the current choice and a chevron, and a panel of choices in
-   the rail's own type that floats over the page. */
-.pick{position:relative;flex:1 1 auto;width:100%;min-width:0}
-.pick-btn{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;
-  border:1px solid var(--ink);border-radius:4px;background:transparent;color:var(--ink);
-  padding:9px 11px 9px 12px;cursor:pointer;text-align:left;
-  font-family:var(--mono);font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;font-weight:700}
-.pick-btn:focus{outline:none}
-.pick-btn .chev{flex:none;width:9px;height:9px;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M1.5 3.5 5 7l3.5-3.5' fill='none' stroke='%2315161A' stroke-width='1.2'/%3E%3C/svg%3E") no-repeat center/9px 9px;
-  transition:transform .15s ease}
-.pick-btn[aria-expanded=true] .chev{transform:rotate(180deg)}
-.pick-menu{position:fixed;z-index:80;margin:0;padding:5px 0;list-style:none;
-  background:var(--gnd);border:1px solid var(--ink);border-radius:4px;
-  max-height:min(60vh,420px);overflow-y:auto;box-shadow:0 10px 30px rgba(21,22,26,.12)}
-.pick-menu[hidden]{display:none}
-.pick-menu li{display:flex;align-items:center;justify-content:space-between;gap:10px;
-  padding:9px 12px;cursor:pointer;color:var(--ink);
-  font-family:var(--mono);font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;font-weight:700}
-.pick-menu li:hover,.pick-menu li.hi{background:rgba(21,22,26,.07)}
-.pick-menu li[aria-selected=true]::after{content:"\2713";font-size:10px;letter-spacing:0}
-/* the label sits close to its field, so the two read as one control */
-.misc.stack:has(.pick){gap:5px}
-.chips:has(.pick){margin-top:0}
-.chip{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;font-weight:700;
-  color:var(--key);transition:color .12s}
-.chip:hover{color:var(--ink)}
-.chip[aria-pressed=true]{color:var(--ink);text-decoration:underline;text-underline-offset:4px}
-.modrow{margin-bottom:14px}
-.expmenu{display:flex;flex-wrap:wrap;gap:16px;margin-top:14px;justify-content:flex-end}
-.z-right .rack,.z-right .tbl,.z-right .pr,.z-right .chips{margin-left:auto}
-.z-right,.z-br{text-align:right}
-/* the readout hugs the right edge, keys right-aligned against the gutter and
-   values left-aligned in a capped column so a long one wraps tidily instead of
-   stretching the table and ragging the second line */
-.z-right .tbl,.z-br .tbl{justify-content:end;column-gap:20px}
-.z-right .tbl .k{text-align:right;white-space:nowrap}
-.z-right .tbl .v{justify-self:stretch;text-align:right;max-width:150px;line-height:1.5}
-.z-right .chips{justify-content:flex-end}
-.z-right .pr .top,.z-br .pr .top{flex-direction:row}
-.rightblock{width:196px}
-
-/* ---------------- colour picker ----------------
-   One box, one click: the field of colour, the hue, the hex and the confirm
-   are all in it at once. The old one put the wheel behind a button that
-   opened the operating system's own dialog, which is neither one click nor
-   part of this instrument. */
-.cpick{position:fixed;z-index:80;width:198px;padding:11px;background:var(--gnd);
-  border:1px solid var(--ink);box-shadow:0 18px 44px rgba(21,22,26,.18)}
-.cpick .sv{position:relative;height:116px;cursor:crosshair;touch-action:none;
-  outline:1px solid var(--hair2)}
+/* ---------------- colour picker ---------------- */
+.cpick{position:fixed;z-index:80;width:274px;padding:12px;background:var(--well);border:1px solid var(--line);border-radius:12px;box-shadow:0 18px 44px rgba(0,0,0,.6)}
+.cpick .sv{position:relative;height:110px;cursor:crosshair;touch-action:none;border-radius:6px;overflow:hidden}
 .cpick .sv .lay{position:absolute;inset:0}
-.cpick .dot{position:absolute;width:11px;height:11px;border-radius:50%;
-  border:1.5px solid #fff;box-shadow:0 0 0 1px rgba(21,22,26,.55);
-  translate:-50% -50%;pointer-events:none}
-.cpick .hue{position:relative;height:11px;margin-top:10px;cursor:ew-resize;touch-action:none;
-  outline:1px solid var(--hair2);
-  background:linear-gradient(to right,#f00 0%,#ff0 17%,#0f0 33%,#0ff 50%,
-             #00f 67%,#f0f 83%,#f00 100%)}
-.cpick .hue .hnd{position:absolute;top:-2px;width:5px;height:15px;background:var(--gnd);
-  border:1px solid var(--ink);translate:-50% 0;pointer-events:none}
-.cpick .cprow{display:flex;align-items:center;gap:8px;margin-top:11px}
-.cpick .cpsw{flex:none;width:20px;height:20px;border-radius:50%;
-  box-shadow:inset 0 0 0 1px rgba(21,22,26,.3)}
-.cpick .cphex{flex:1 1 auto;min-width:0;height:20px;background:none;border:0;
-  border-bottom:1px solid var(--hair);padding:0;color:var(--ink);
-  font-family:var(--mono);font-size:9.5px;letter-spacing:.10em;text-transform:lowercase}
-.cpick .cphex:focus{outline:none;border-bottom-color:var(--ink)}
-.cpick .cphex.bad{border-bottom-color:#c8484d;color:#c8484d}
-.cpick .cpok{flex:none;height:20px;padding:0 11px;background:var(--ink);color:var(--gnd);
-  font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;font-weight:700}
-.cpick .cpok:hover{opacity:.85}
+.cpick .dot{position:absolute;width:12px;height:12px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.6);translate:-50% -50%;pointer-events:none}
+.cpick .hue{position:relative;height:12px;margin-top:10px;cursor:ew-resize;touch-action:none;border-radius:999px;
+  background:linear-gradient(to right,#f00 0%,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,#f00 100%)}
+.cpick .hue .hnd{position:absolute;top:-2px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.6);translate:-50% 0;pointer-events:none}
+.cpick .cprow{display:flex;align-items:center;gap:8px;margin-top:10px}
+.cpick .cpsw{flex:none;width:22px;height:22px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+.cpick .cphex{flex:1 1 auto;min-width:0;height:29px;background:none;border:1px solid var(--line);border-radius:60px;padding:0 12px;color:var(--fg);font-size:12px;text-transform:uppercase}
+.cpick .cphex:focus{outline:none;border-color:var(--mute)}
+.cpick .cphex.bad{border-color:#FF6B6B;color:#FF6B6B}
+.cpick .cpok{flex:none;height:29px;padding:0 12px;background:#fff;color:#000;border-radius:60px;font-size:10px;font-weight:500}
+.cpick .cpok:hover{filter:brightness(.94)}
 
-/* ---------------- toast ---------------- */
-.toast{position:fixed;left:50%;bottom:26px;translate:-50% 8px;background:var(--ink);
-  color:var(--gnd);padding:9px 18px;font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;
+/* ---------------- captures + transport ---------------- */
+.z-bottom{flex:none;display:flex;flex-direction:column;align-items:center;gap:10px;padding:16px 0 0}
+.z-bottom .h{display:none}
+.caps{display:flex;gap:9px;justify-content:center;align-items:center}
+.cap{width:10px;height:10px;border-radius:50%;border:1px solid rgba(255,255,255,.3);display:block;padding:0;transition:.12s}
+.cap:hover{border-color:#fff}
+.cap[aria-current=true]{background:#fff;border-color:#fff}
+.cap.slot{opacity:.35;cursor:default}
+.capnav{font-size:11px;color:var(--mute);padding:0 4px;line-height:10px}
+.capnav[disabled]{opacity:.3;pointer-events:none}
+.tport{display:flex;align-items:center;gap:12px;justify-content:center}
+.play{width:18px;height:18px;display:grid;place-items:center}
+.play svg{fill:#fff;width:8px;height:9px}
+#scrub{width:150px;height:14px;-webkit-appearance:none;appearance:none;background:none;margin:0;touch-action:pan-y}
+#scrub::-webkit-slider-runnable-track{height:14px;background:none}
+#scrub::-webkit-slider-thumb{-webkit-appearance:none;width:3px;height:11px;border:0;border-radius:0;background:#fff}
+#scrub::-moz-range-track{height:14px;background:none;border:0}
+#scrub::-moz-range-thumb{width:3px;height:11px;border:0;border-radius:0;background:#fff}
+.scrubwrap{position:relative;height:14px}
+.scrubwrap::before{content:"";position:absolute;left:0;right:0;top:6px;height:1px;background:var(--line);pointer-events:none}
+#scrub[disabled]{opacity:.35}
+.frameno{font-variant-numeric:tabular-nums}
+.hint{display:none}
+
+/* ---------------- toast, first run ---------------- */
+.toast{position:fixed;left:50%;bottom:26px;translate:-50% 8px;background:#fff;color:#000;padding:9px 16px;border-radius:60px;font-size:11px;
   opacity:0;pointer-events:none;transition:.2s;z-index:90}
 .toast.show{opacity:1;translate:-50% 0}
-.toast.busy::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;
-  background:var(--gnd);margin-right:8px;vertical-align:middle;animation:pulse 1s infinite}
+.toast.busy::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:#000;margin-right:8px;vertical-align:middle;animation:pulse 1s infinite}
 @keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
-
-#strip,#glyph,#ratioVal{display:none}
+.firstrun{position:fixed;z-index:40;padding:9px 15px;border:1px solid var(--line);border-radius:60px;background:var(--well);color:var(--fg);font-size:11px;white-space:nowrap;
+  opacity:0;translate:0 -6px;transition:opacity .32s ease,translate .32s ease;pointer-events:none}
+.firstrun.on{opacity:1;translate:0 0}
+.firstrun::before{content:"";position:absolute;left:var(--ax,50%);top:-4px;width:6px;height:6px;margin-left:-3px;background:var(--well);border-left:1px solid var(--line);border-top:1px solid var(--line);rotate:45deg}
+@media (prefers-reduced-motion:reduce){.firstrun{transition:none}.newbtn.nudge{animation:none}}
 
 /* ---------------- narrow ---------------- */
-@media (max-width:1180px){
+@media (max-width:900px){
   body{overflow:auto}
-  .rig{height:auto;min-height:100dvh;grid-template-columns:1fr;
-    grid-template-rows:auto;row-gap:30px;padding:0 30px 60px}
-  .z-left,.z-stage,.z-right,.z-bottom{
-    grid-column:1;grid-row:auto;justify-self:stretch;align-self:auto;text-align:left;
-    max-height:none;overflow:visible;display:block}
-  .l-scroll{overflow:visible;max-height:none;-webkit-mask-image:none;mask-image:none}
-  .l-bot{padding-top:12px}
-  /* the tool name heads the page, then the work, which stays put while the
-     controls scroll under it. display:contents lets the identity block out of
-     the left column so it can be ordered ahead of the stage */
-  .z-left{display:contents}
-  .l-top{order:0} .z-stage{order:1} .l-scroll{order:2} .l-bot{order:3}
-  .z-bottom{order:4} .z-right{order:5}
-  .l-top{padding-top:30px}
-  /* The blanket display:block above is for the rails, but it lands on the
-     stage too and takes its place-items:center with it, so the artwork stacked
-     against the top of a fixed-height stage with the slack all below it. Worst
-     on a wide ratio, where the artwork is short and the gap is most of the
-     stage. Everything else in here is absolutely positioned, so the grid has
-     one item to centre and centres it. */
-  .z-stage{height:52dvh;padding:26px 26px 26px;overflow:hidden;
-    display:grid;place-items:center;
-    position:sticky;top:0;z-index:20;background:#F3F3F1;
-    margin:0 -30px;padding-left:30px;padding-right:30px}
-  .z-bottom{justify-self:stretch;text-align:left}
-  .z-right .grp>summary{flex-direction:row}
-  .xh.hz{left:0;right:0} .xh.vt{top:0;bottom:0}
-  .z-right,.z-br{text-align:left}
-  .z-right .rack,.z-right .tbl,.z-right .pr,.z-right .chips{margin-left:0}
-  .rack{justify-content:start}
-  .z-right .chips,.expmenu,.z-right .tbl,.z-br .tbl{justify-content:start}
-  /* Stacked, these spec tables are the full width of the page instead of a
-     narrow rail, and two auto columns split all of it between them — which
-     threw the values into the middle of the page, a long way from their
-     labels. Size the columns to their contents and let the slack sit after
-     them. */
-  .tbl{justify-content:start}
-  .btnrow{justify-content:flex-start}
-  .rightblock{width:auto}
-  /* Stacked, the right rail's three blocks fall into ordinary flow and the
-     Animate and Export pills end up edge to edge — on the desktop rig it is
-     the auto margins centring Animate that hold them apart, and those collapse
-     to nothing here. */
-  .r-mid,.r-bot{margin-top:26px}
-  .z-bottom{justify-self:stretch;text-align:left}
-  .caps,.tport{justify-content:flex-start}
-  .mark{display:none}
+  .app{height:auto;min-height:100dvh;padding:16px}
+  .topbar{gap:12px;height:auto;flex-wrap:wrap}
+  .topbar .logo{height:36px;transform:none}
+  .main{flex-direction:column}
+  .rail{width:100%;padding-top:16px;overflow:visible;-webkit-mask-image:none;mask-image:none}
+  .stagecol{width:100%;order:-1;padding:16px 0 0}
+  .z-stage{height:52dvh;position:sticky;top:0;z-index:20;background:var(--bg);align-items:center}
+  #art{max-height:100%}
+  .pop,.group.pop{position:fixed;left:16px!important;right:16px;top:auto!important;bottom:16px;width:auto}
 }
 </style>
 <!-- Vercel Web Analytics. Vercel serves this script itself on the live
@@ -602,37 +343,33 @@ input[type=range]{accent-color:var(--ink)}
 </head>
 <body>
 
-<span class="mark crop tl"></span><span class="mark crop tr"></span>
-<span class="mark crop bl"></span><span class="mark crop br"></span>
-<span class="mark edgetick" style="left:24px;top:32%"></span>
-<span class="mark edgetick" style="left:24px;top:50%"></span>
-<span class="mark edgetick" style="left:24px;top:68%"></span>
-<span class="mark edgetick" style="right:24px;top:50%"></span>
-
-<div class="rig">
-  <div class="zone z-left">
-    <div class="l-top idblock">
-      <a class="idline" href="../index.html" aria-label="playgrnd — all tools">
-        <span class="brand"><img src="../logo.png" width="694" height="282" alt="playgrnd"></span>
-        <span class="slash">&frasl;</span>
-        <span class="tool">Stipple</span>
-      </a>
-      <div class="tbl">
-        <span class="k">Index</span><span class="v">14 / 52</span>
-        <span class="k">Type</span><span class="v">Halftone dots</span>
-      </div>
-      <a class="lnk back" href="../index.html">&larr; All tools</a>
-      <div class="newblk">
-        <div class="newlab"><span class="k">Variation</span>
-          <span class="seedwrap"><input class="seed" id="seed" value="1" inputmode="numeric" aria-label="Variation number"><button class="pbtn copy" id="copySeed"
-            aria-label="Copy variation number">Copy</button></span>
-        </div>
-        <button class="newbtn" id="randomize"><span class="ico" aria-hidden="true">&#8635;</span>
-          <span class="t">New variation</span>
-          <span class="sub">Reshuffle every shape</span></button>
-      </div>
+<div class="glow" id="glow" aria-hidden="true"><div class="b" id="glowB"></div></div>
+<div class="app">
+<header class="topbar">
+  <a class="pill fill" href="../index.html" id="allTools"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4"/><path d="M10 5l-7 7 7 7"/></svg><span>All tools</span></a>
+  <img class="logo" src="../logo.png" alt="playgrnd">
+  <span class="toolname">Stipple</span>
+  <span class="sp"></span>
+  <div class="wrap">
+    <button class="pill line med" id="mycBtn" aria-haspopup="dialog" aria-expanded="false"><span class="mydots" id="mycDots"></span><span id="mycLbl">Set colors</span></button>
+    <div class="pop" id="mycModal" role="dialog" aria-label="My colors" hidden>
+      <div class="mh"><span class="mt">My colors</span><button class="ib" id="mycClose" aria-label="Close"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+      <div class="rows" id="mycRows" hidden></div>
+      <div class="addrow"><input class="hexin" id="mycHex" placeholder="Hex color (#F1F1F1)" aria-label="Hex color" autocomplete="off" spellcheck="false"><button class="pill white sm" id="mycAdd">Add</button></div>
+      <div class="orrow"><span class="or">OR</span><button class="pill fill sm med" id="mycSaveCur">Save current colors</button></div>
     </div>
-    <div class="l-scroll"><details class="grp" open><summary>Dots</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Mode</span></span><span class="mval"><div class="chips" id="modesDot"></div></span></div>
+  </div>
+  <div class="wrap"><button class="pill fill med" id="exportTog" aria-pressed="false"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20V6"/><path d="M5 13l7-7 7 7"/></svg><span>Export</span></button><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
+        <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
+          <button class="lnk" id="expSvg">SVG</button></span></div>
+        <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expSvgAnim">Animated SVG</button>
+          <button class="lnk" id="expVid">Video</button></span></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div></div>
+</header>
+<div class="main">
+<aside class="rail z-left l-scroll">
+  <button class="pill white big med newbtn" id="randomize"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 12a8.5 8.5 0 1 1-2.5-6"/><path d="M20.5 3v6h-6"/></svg><span class="t">New variation</span><span class="sub"></span></button><div class="vrow"><span class="k">Variation</span><span class="pill line sm seed" id="seedPill"><input class="seed" id="seed" value="1" inputmode="numeric" aria-label="Variation number"><button class="ib cp" id="copySeed" title="Copy variation number" aria-label="Copy variation number"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg></button></span></div>
+  <hr>
+  <details class="grp" open><summary>Dots</summary><div class="grp-b"><div class="misc stack"><span class="mhead"><span class="k">Mode</span></span><span class="mval"><div class="chips" id="modesDot"></div></span></div>
         <div class="misc stack"><span class="mhead"><span class="k">Lattice</span></span><span class="mval"><div class="chips" id="lattices"></div></span></div>
         <div class="misc stack"><span class="mhead"><span class="k">Shape</span></span><span class="mval"><div class="chips" id="shapes"></div></span></div>
         <div class="pr"><div class="top"><span class="k">Resolution</span><span class="v" id="resVal">72</span></div><div class="track"><input type="range" id="res" min="12" max="200" step="1" value="72"></div></div>
@@ -642,27 +379,14 @@ input[type=range]{accent-color:var(--ink)}
         <div class="pr"><div class="top"><span class="k">Jitter</span><span class="v" id="jitVal">0%</span></div><div class="track"><input type="range" id="jit" min="0" max="1" step="0.01" value="0"></div></div>
         <div id="contourOnly"><div class="pr"><div class="top"><span class="k">Edge pull</span><span class="v" id="edgeVal">85%</span></div><div class="track"><input type="range" id="edge" min="0" max="1" step="0.01" value="0.85"></div></div>
           <div class="pr"><div class="top"><span class="k">Loose scatter</span><span class="v" id="looseVal">12%</span></div><div class="track"><input type="range" id="loose" min="0" max="0.6" step="0.01" value="0.12"></div></div></div></div></details>
-    <details class="grp"><summary>Field</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Field scale</span><span class="v" id="zoomVal">2.4</span></div><div class="track"><input type="range" id="zoom" min="0.5" max="9" step="0.1" value="2.4"></div></div>
+  <details class="grp" open><summary>Field</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Field scale</span><span class="v" id="zoomVal">2.4</span></div><div class="track"><input type="range" id="zoom" min="0.5" max="9" step="0.1" value="2.4"></div></div>
         <div class="pr"><div class="top"><span class="k">Warp</span><span class="v" id="warpVal">80%</span></div><div class="track"><input type="range" id="warp" min="0" max="3" step="0.02" value="0.8"></div></div>
         <div class="pr"><div class="top"><span class="k">Detail</span><span class="v" id="octVal">4</span></div><div class="track"><input type="range" id="oct" min="1" max="7" step="1" value="4"></div></div>
         <div class="pr"><div class="top"><span class="k">Contrast</span><span class="v" id="contrastVal">160%</span></div><div class="track"><input type="range" id="contrast" min="0.4" max="4" step="0.05" value="1.6"></div></div>
         <div class="misc stack"><span class="mhead"><span class="k">Symmetry</span></span><span class="mval"><div class="chips" id="syms"></div></span></div>
-        <div class="pr" id="foldRow" hidden><div class="top"><span class="k">Folds</span><span class="v" id="foldsVal">6</span></div><div class="track"><input type="range" id="folds" min="2" max="16" step="1" value="6"></div></div></div></details><div class="tog-grp"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate<span class="sw" aria-hidden="true"></span></button><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
-          <div class="pr"><div class="top"><span class="k">Intensity</span><span class="v" id="amtVal">0.30</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2.5" step="0.05" value="0.3"></div></div>
-          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">14 fps</span></div><div class="track"><input type="range" id="fps" min="1" max="30" step="1" value="14"></div></div>
-          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">30 frames</span></div><div class="track"><input type="range" id="frames" min="6" max="90" step="1" value="30"></div></div></div></div><div class="tog-grp"><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither<span class="sw" aria-hidden="true"></span></button><div class="group" id="ditherBody" hidden>
-  <div class="misc stack"><span class="mhead"><span class="k">Pattern</span></span><span class="mval"><div class="chips" id="dthKinds"></div></span></div>
-  <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
-  <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
-  <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="dthAmountVal">100%</span></div><div class="track"><input type="range" id="dthAmount" min="0" max="1" step="0.05" value="1"></div></div>
-</div></div><div class="tog-grp"><button class="pillbtn" id="grainTog" aria-pressed="false">Grain<span class="sw" aria-hidden="true"></span></button><div class="group" id="grainBody" hidden>
-  <div class="misc stack"><span class="mhead"><span class="k">Blend</span></span><span class="mval"><div class="chips" id="grnBlends"></div></span></div>
-  <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="grnAmountVal">55%</span></div><div class="track"><input type="range" id="grnAmount" min="0" max="1" step="0.05" value="0.55"></div></div>
-  <div class="pr"><div class="top"><span class="k">Grain size</span><span class="v" id="grnSizeVal">1.0</span></div><div class="track"><input type="range" id="grnSize" min="0.5" max="4" step="0.1" value="1"></div></div>
-  <div class="pr"><div class="top"><span class="k">Specks</span><span class="v" id="grnSpecksVal">50%</span></div><div class="track"><input type="range" id="grnSpecks" min="0" max="1" step="0.05" value="0.5"></div></div>
-  <div class="pr"><div class="top"><span class="k">Vignette</span><span class="v" id="grnVignetteVal">50%</span></div><div class="track"><input type="range" id="grnVignette" min="0" max="1" step="0.05" value="0.5"></div></div>
-</div></div></div>
-    <div class="l-bot"><details class="grp colr" open><summary>Color<button class="mycsw" id="mycTog" aria-pressed="false">My colors<span class="sw" aria-hidden="true"></span></button></summary><div class="grp-b"><div class="misc"><span class="mhead"><span class="k">Dot colours</span><span class="v" id="swCountVal">3</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
+        <div class="pr" id="foldRow" hidden><div class="top"><span class="k">Folds</span><span class="v" id="foldsVal">6</span></div><div class="track"><input type="range" id="folds" min="2" max="16" step="1" value="6"></div></div></div></details>
+  <div class="grp" style="padding-bottom:24px"><div class="arow"><span class="h">Aspect ratio</span><button class="pill fill sm" id="ratioBtn" aria-haspopup="listbox" aria-expanded="false"><i class="sq"></i><span id="ratioEcho">1:1</span></button><div class="menu" id="ratioMenu" role="listbox" aria-label="Aspect ratio" hidden><div class="rack" id="ratios"></div></div></div><span class="val" id="ratioVal" hidden>1:1</span></div>
+  <details class="grp colr" open><summary>Color<button class="mycsw" id="mycTog" aria-pressed="false">My colors<span class="sw" aria-hidden="true"></span></button></summary><div class="grp-b"><div class="seg" id="colorSeg"><button data-mode="random" aria-pressed="true">Random</button><button data-mode="mine" aria-pressed="false">My colors</button></div><div class="colr-body" id="colrBody"><div class="misc"><span class="mhead"><span class="k">Dot colours</span><span class="v" id="swCountVal">3</span></span><span class="mval"><div class="sw-grid" id="swatches"></div></span></div>
         <div class="pair">
           <div>
             <div class="lab"><span>Ground</span></div>
@@ -691,56 +415,52 @@ input[type=range]{accent-color:var(--ink)}
           </div>
           <p class="myc-hint" id="mycHint"></p>
         </div>
+      </div></div>
+      <div id="mineEmpty" hidden>
+        <p class="mnote">No colors saved yet. Save them once and every tool can use them.</p>
+        <div class="acts"><button class="pill line sm" id="setColorsBtn"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.5 0 2-1 2-2v-1a2 2 0 0 1 2-2h1a4 4 0 0 0 4-4 9 9 0 0 0-9-9z"/><circle cx="7.5" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="10" cy="7.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="15" cy="7.5" r="1.3" fill="currentColor" stroke="none"/></svg><span>Set colors</span></button><button class="pill line sm" id="saveCurBtn"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-6-4.5L6 21z"/></svg><span>Save current</span></button></div>
       </div></div></details>
-      <div class="strip" id="strip"></div>
-      <div class="glyph" id="glyph"></div>
-    </div>
+  <div class="tog-grp"><button class="pillbtn" id="motionTog" aria-pressed="false">Animate<span class="sw" aria-hidden="true"></span></button><div class="group" id="motionBody" hidden><div class="misc stack"><span class="mhead"><span class="k">Movement</span></span><span class="mval"><div class="chips" id="modes"></div></span></div>
+          <div class="pr"><div class="top"><span class="k">Intensity</span><span class="v" id="amtVal">0.30</span></div><div class="track"><input type="range" id="amt" min="0.05" max="2.5" step="0.05" value="0.3"></div></div>
+          <div class="pr"><div class="top"><span class="k">Speed</span><span class="v" id="fpsVal">14 fps</span></div><div class="track"><input type="range" id="fps" min="1" max="30" step="1" value="14"></div></div>
+          <div class="pr"><div class="top"><span class="k">Loop length</span><span class="v" id="framesVal">30 frames</span></div><div class="track"><input type="range" id="frames" min="6" max="90" step="1" value="30"></div></div></div></div><div class="tog-grp"><button class="pillbtn" id="ditherTog" aria-pressed="false">Dither<span class="sw" aria-hidden="true"></span></button><div class="group" id="ditherBody" hidden>
+  <div class="misc stack"><span class="mhead"><span class="k">Pattern</span></span><span class="mval"><div class="chips" id="dthKinds"></div></span></div>
+  <div class="pr"><div class="top"><span class="k">Pixel size</span><span class="v" id="dthSizeVal">2</span></div><div class="track"><input type="range" id="dthSize" min="1" max="10" step="1" value="2"></div></div>
+  <div class="pr"><div class="top"><span class="k">Tones</span><span class="v" id="dthLevelsVal">3 tones</span></div><div class="track"><input type="range" id="dthLevels" min="2" max="8" step="1" value="3"></div></div>
+  <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="dthAmountVal">100%</span></div><div class="track"><input type="range" id="dthAmount" min="0" max="1" step="0.05" value="1"></div></div>
+</div></div><div class="tog-grp"><button class="pillbtn" id="grainTog" aria-pressed="false">Grain<span class="sw" aria-hidden="true"></span></button><div class="group" id="grainBody" hidden>
+  <div class="misc stack"><span class="mhead"><span class="k">Blend</span></span><span class="mval"><div class="chips" id="grnBlends"></div></span></div>
+  <div class="pr"><div class="top"><span class="k">Amount</span><span class="v" id="grnAmountVal">55%</span></div><div class="track"><input type="range" id="grnAmount" min="0" max="1" step="0.05" value="0.55"></div></div>
+  <div class="pr"><div class="top"><span class="k">Grain size</span><span class="v" id="grnSizeVal">1.0</span></div><div class="track"><input type="range" id="grnSize" min="0.5" max="4" step="0.1" value="1"></div></div>
+  <div class="pr"><div class="top"><span class="k">Specks</span><span class="v" id="grnSpecksVal">50%</span></div><div class="track"><input type="range" id="grnSpecks" min="0" max="1" step="0.05" value="0.5"></div></div>
+  <div class="pr"><div class="top"><span class="k">Vignette</span><span class="v" id="grnVignetteVal">50%</span></div><div class="track"><input type="range" id="grnVignette" min="0" max="1" step="0.05" value="0.5"></div></div>
+</div></div>
+  <div class="readouts" hidden>
+    <span id="sizeEcho"></span><span id="inkEcho"></span><span id="dims"></span><span id="build">v1</span>
   </div>
-
-  <main class="zone z-stage stage-inner">
+</aside>
+<main class="stagecol">
+  <div class="zone z-stage stage-inner">
     <span class="ring"></span><span class="xh hz"></span><span class="xh vt"></span>
     <span class="holder">
       <canvas id="art" width="800" height="800"></canvas>
       <span class="corner a"></span><span class="corner b"></span>
       <span class="corner c"></span><span class="corner d"></span>
     </span>
-  </main>
-
-  <div class="zone z-right">
-    <div class="r-top idblock">
-      <h2 class="h">Output</h2>
-      <div class="tbl">
-        <span class="k">Ratio</span><span class="v" id="ratioEcho">1:1</span>
-        <span class="k">Size</span><span class="v" id="sizeEcho">&mdash;</span>
-        <span class="k">Inks</span><span class="v" id="inkEcho">&mdash;</span>
-        <span class="k">Render</span><span class="v" id="dims">&mdash;</span>
-      </div>
-      <h2 class="h frame-h">Frame</h2><div class="rack" id="ratios"></div><span class="val" id="ratioVal" hidden>1:1</span>
-    </div>
-    <div class="r-bot">
-      <div class="tbl" style="margin-bottom:20px">
-        <span class="k">Version</span><span class="v build" id="build">v1</span>
-      </div>
-      <div class="btnrow"><button class="pillbtn" id="exportTog" aria-pressed="false">Export</button></div><div class="group" id="exportBody" hidden><div class="pr"><div class="top"><span class="k">Size</span><span class="v" id="sizeVal">2400 px</span></div><div class="track"><input type="range" id="size" min="600" max="6000" step="100" value="2400"></div></div>
-        <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expPng">PNG</button>
-          <button class="lnk" id="expSvg">SVG</button></span></div>
-        <div class="misc"><span class="mhead"></span><span class="mval"><button class="lnk" id="expSvgAnim">Animated SVG</button>
-          <button class="lnk" id="expVid">Video</button></span></div><p class="note vidhint" hidden>Video needs Animate switched on.</p></div>
-    </div>
   </div>
-
   <div class="zone z-bottom">
-    <h2 class="h">Captures</h2>
     <div class="caps" id="history"></div>
     <div class="tport">
       <button class="play" id="play" aria-label="Play or pause"><svg width="8" height="9" viewBox="0 0 10 11" id="playIcon"><path d="M0 0l10 5.5L0 11z"/></svg></button>
       <span class="scrubwrap"><input type="range" id="scrub" min="0" max="15" step="1" value="0" aria-label="Timeline" disabled></span>
       <span class="k frameno" id="frameno">01 / 01</span>
     </div>
-    <span class="k hint">Space &mdash; new variation &middot; P &mdash; play</span>
   </div>
+</main>
+</div>
 </div>
 <div class="toast" id="toast"></div>
+<div class="strip" id="strip"></div><div class="glyph" id="glyph"></div>
 <button id="shuf" hidden aria-hidden="true"></button>
 
 <script>
@@ -2230,9 +1950,9 @@ html.embed body{overflow:hidden!important}
     if(window.__toast) window.__toast("Variation "+v+" copied");
     if(!copy) return;
     copy.classList.add("done");
-    copy.textContent="Copied";
+    copy.setAttribute("data-copied","1");
     clearTimeout(copy.__t);
-    copy.__t=setTimeout(function(){copy.classList.remove("done");copy.textContent="Copy";},1500);
+    copy.__t=setTimeout(function(){copy.classList.remove("done");copy.removeAttribute("data-copied");},1500);
   }
   function legacy(v){
     try{
@@ -2630,6 +2350,142 @@ html.embed body{overflow:hidden!important}
 
 
   requestAnimationFrame(function(){requestAnimationFrame(record);});
+})();
+</script>
+
+<script>
+/* Figma chassis: the new controls, driving the instrument runtime underneath. */
+(function(){
+  "use strict";
+  var $=function(s){return document.querySelector(s);};
+  var ICONS={dice:'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8" cy="8" r="1.4" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.4" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.4" fill="currentColor" stroke="none"/></svg>',rotate:'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3"/><path d="M18 3v4h-4"/><path d="M20 12a8 8 0 0 1-14 5.3"/><path d="M6 21v-4h4"/></svg>',bookmark:'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-6-4.5L6 21z"/></svg>',pencil:'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4l10-10-4-4L4 16z"/><path d="M13 7l4 4"/></svg>',palette:'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.5 0 2-1 2-2v-1a2 2 0 0 1 2-2h1a4 4 0 0 0 4-4 9 9 0 0 0-9-9z"/><circle cx="7.5" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="10" cy="7.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="15" cy="7.5" r="1.3" fill="currentColor" stroke="none"/></svg>'};
+  function icon(id,name){var b=document.getElementById(id);if(!b||b.querySelector("svg"))return;b.insertAdjacentHTML("afterbegin",ICONS[name]);}
+  icon("shufColors","dice");["rotColors","rotInks","repick","swapColors"].forEach(function(i){icon(i,"rotate");});
+  icon("mycSave","bookmark");
+
+  /* ---- ambient glow: three colours from a 12x12 sample of the picture --- */
+  var art=$("#art"), gb=$("#glowB");
+  function sample(){try{var c=document.createElement("canvas"),n=12;c.width=n;c.height=n;var x=c.getContext("2d",{willReadFrequently:true});x.drawImage(art,0,0,n,n);var d=x.getImageData(0,0,n,n).data,px=[];
+      for(var i=0;i<d.length;i+=4){var r=d[i],g=d[i+1],b=d[i+2],mx=Math.max(r,g,b),mn=Math.min(r,g,b);px.push({r:r,g:g,b:b,s:mx?(mx-mn)/mx:0,v:mx/255});}
+      px.sort(function(a,b){return (b.s*b.v)-(a.s*a.v);});var out=[];
+      px.forEach(function(q){if(out.length>=2)return;var far=out.every(function(o){return Math.abs(o.r-q.r)+Math.abs(o.g-q.g)+Math.abs(o.b-q.b)>120;});if(far)out.push(q);});
+      while(out.length<2)out.push(px[out.length]||{r:60,g:60,b:80});return out;}catch(e){return null;}}
+  var gt=null;
+  function glow(){clearTimeout(gt);gt=setTimeout(function(){if(!art||!gb||!art.width)return;var c=sample();if(!c)return;
+    var f=function(q,a){return "rgba("+q.r+","+q.g+","+q.b+","+a+")"};
+    gb.style.backgroundImage="radial-gradient(95vw 60vh at 50% -8%,"+f(c[0],.20)+",transparent 70%),radial-gradient(55vw 40vh at 88% 6%,"+f(c[1],.10)+",transparent 70%)";},220);}
+  ["randomize","shufColors","shuf","seed"].forEach(function(id){var b=document.getElementById(id);if(b){b.addEventListener("click",glow);b.addEventListener("change",glow);}});
+  document.addEventListener("input",function(e){if(e.target&&(e.target.type==="color"||e.target.closest(".rail")))glow();});
+  document.addEventListener("click",function(e){if(e.target.closest(".rail,.cpick,.pick-menu,#mycModal"))glow();});
+  setTimeout(glow,300);setTimeout(glow,1200);
+
+  /* ---- popovers: only one open at a time ------------------------------- */
+  var closers=[];
+  function closeOthers(me){closers.forEach(function(f){if(f!==me)f();});}
+
+  /* ---- aspect ratio: the rack opens as a list from the pill ------------ */
+  (function(){
+    var btn=$("#ratioBtn"), menu=$("#ratioMenu"), rack=$("#ratios");
+    if(!btn||!menu||!rack) return;
+    document.body.appendChild(menu);
+    function sync(){
+      var on=rack.querySelector('.ratio[aria-pressed="true"]'); if(!on) return;
+      var t=on.querySelector(".t"), box=on.querySelector(".box"), sq=btn.querySelector(".sq"), lbl=$("#ratioEcho");
+      if(t&&lbl) lbl.textContent=t.textContent.trim();
+      if(box&&sq){ var w=parseFloat(box.style.width)||20, h=parseFloat(box.style.height)||20, k=12/Math.max(w,h);
+        sq.style.width=Math.round(w*k)+"px"; sq.style.height=Math.round(h*k)+"px"; }
+    }
+    function close(){ if(menu.hidden) return; menu.hidden=true; btn.setAttribute("aria-expanded","false"); }
+    function open(){ closeOthers(close); sync(); menu.hidden=false; opened=Date.now();
+      var a=btn.getBoundingClientRect(), h=menu.offsetHeight, top=a.top-8-h;
+      if(top<8) top=Math.min(a.bottom+8,innerHeight-h-8);
+      menu.style.top=top+"px"; menu.style.left=Math.max(16,a.right-menu.offsetWidth)+"px";
+      btn.setAttribute("aria-expanded","true"); }
+    closers.push(close);
+    btn.addEventListener("click",function(){ menu.hidden?open():close(); });
+    rack.addEventListener("click",function(e){ if(e.target.closest(".ratio")) setTimeout(function(){ sync(); close(); },0); });
+    document.addEventListener("mousedown",function(e){ if(!menu.hidden&&!menu.contains(e.target)&&!btn.contains(e.target)) close(); },true);
+    document.addEventListener("keydown",function(e){ if(e.key==="Escape") close(); });
+    var opened=0;
+    $(".rail").addEventListener("scroll",function(){ if(Date.now()-opened>400) close(); var t=$(".firstrun"); if(t){ t.remove(); try{ localStorage.setItem("playgrnd.seen.new","1"); }catch(e){} } },{passive:true});
+    if(window.MutationObserver) new MutationObserver(sync).observe(rack,{attributes:true,subtree:true,childList:true,attributeFilter:["aria-pressed","style"]});
+    sync(); setTimeout(sync,50); setTimeout(sync,600);
+  })();
+
+  /* ---- export popover closes the others ---------------------------------- */
+  (function(){ var b=$("#exportTog"), body=$("#exportBody"); if(!b||!body) return;
+    var first=body.querySelector("#expPng")||body.querySelector(".lnk"); if(first) first.classList.add("primary");
+    b.addEventListener("click",function(){ if(!body.hidden) closeOthers(null); },true);
+    closers.push(function(){ if(!body.hidden) b.click(); });
+  })();
+
+  /* ---- My colors: the Figma controls over the instrument's own runtime ---
+     The runtime keeps one saved set in localStorage and drives the tool's
+     swatch inputs. Its buttons (mycTog, mycSave, mycApply, mycRemove, the
+     textarea mycText) stay in the page, hidden; these controls press them. */
+  (function(){
+    var tog=$("#mycTog"), seg=$("#colorSeg"); if(!tog||!seg) return;
+    var KEY="playgrnd.mycolors";
+    var saveB=$("#mycSave"), ta=$("#mycText"), okB=$("#mycApply"), rmB=$("#mycRemove"),
+        body=$("#colrBody"), empty=$("#mineEmpty"), btn=$("#mycBtn"), modal=$("#mycModal"),
+        rows=$("#mycRows"), hexIn=$("#mycHex"), addB=$("#mycAdd"), curB=$("#mycSaveCur"),
+        closeB=$("#mycClose"), setB=$("#setColorsBtn"), saveCur=$("#saveCurBtn"), lbl=$("#mycLbl"), dots=$("#mycDots");
+    var wantMine=false;
+    function state(){ var cols=[],on=false; try{ var j=JSON.parse(localStorage.getItem(KEY)||"null"); if(j&&j.cols instanceof Array){cols=j.cols;on=!!j.on&&cols.length>0;} }catch(e){}
+      on=on&&tog.getAttribute("aria-pressed")==="true"; return {cols:cols,on:on}; }
+    function parse(t){ return (String(t||"").match(/#?[0-9a-fA-F]{6}\b/g)||[]).map(function(h){ return ("#"+h.replace("#","")).toLowerCase(); }); }
+    function setCols(list){ ta.value=list.join("\n"); okB.click(); wantMine=true; setTimeout(render,0); }
+    function forget(){ rmB.click(); rmB.click(); wantMine=false; setTimeout(render,0); }
+    var editB=document.createElement("button"); editB.className="lnk"; editB.id="editMine"; editB.innerHTML=ICONS.pencil+"<span>Edit</span>"; editB.hidden=true;
+    editB.addEventListener("click",openModal);
+    function render(){
+      var s=state(), mine=s.on||(wantMine&&!s.cols.length);
+      seg.querySelectorAll("button").forEach(function(b){ b.setAttribute("aria-pressed",String((b.dataset.mode==="mine")===mine)); });
+      var showEmpty=mine&&!s.cols.length;
+      empty.hidden=!showEmpty; body.hidden=showEmpty;
+      if(btn){ btn.classList.toggle("set",s.cols.length>0); lbl.textContent=s.cols.length?"My colors":"Set colors";
+        dots.innerHTML=""; s.cols.slice(0,4).forEach(function(c){ var i=document.createElement("i"); i.style.background=c; dots.appendChild(i); }); }
+      /* Edit sits with the colour buttons while the set is in use */
+      if(saveB&&saveB.parentElement&&editB.parentElement!==saveB.parentElement) saveB.parentElement.appendChild(editB);
+      editB.hidden=!s.on;
+      if(curB) curB.textContent=s.cols.length?"Replace with current colors":"Save current colors";
+      if(!modal||modal.hidden) return;
+      rows.innerHTML=""; rows.hidden=!s.cols.length;
+      s.cols.forEach(function(c,i){
+        var r=document.createElement("div"); r.className="r";
+        r.innerHTML='<button class="d" style="background:'+c+'" aria-label="Change colour"></button><input value="'+c.replace("#","")+'" aria-label="Hex" spellcheck="false" maxlength="7"><button class="rm" aria-label="Remove"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>';
+        r.querySelector(".d").addEventListener("click",function(ev){ var d=ev.currentTarget;
+          window.__pickColour(d,function(v){ var l=state().cols.slice(); l[i]=v; setCols(l); },{start:c,label:"Done",live:false}); });
+        r.querySelector("input").addEventListener("change",function(e){ var v=parse(e.target.value); if(v.length){ var l=state().cols.slice(); l[i]=v[0]; setCols(l); } else e.target.value=c.replace("#",""); });
+        r.querySelector(".rm").addEventListener("click",function(){ var l=state().cols.slice(); l.splice(i,1); if(l.length) setCols(l); else forget(); });
+        rows.appendChild(r);
+      });
+    }
+    function openModal(){ if(!modal) return; closeOthers(closeModal); modal.hidden=false; btn.setAttribute("aria-expanded","true"); render(); setTimeout(function(){ hexIn.focus(); },40); }
+    function closeModal(){ if(!modal||modal.hidden) return; modal.hidden=true; btn.setAttribute("aria-expanded","false"); }
+    closers.push(closeModal);
+    if(btn) btn.addEventListener("click",function(){ modal.hidden?openModal():closeModal(); });
+    if(closeB) closeB.addEventListener("click",closeModal);
+    function addFromInput(){ var v=parse(hexIn.value); if(v.length){ setCols(state().cols.concat(v)); hexIn.value=""; } else { hexIn.classList.add("bad"); setTimeout(function(){ hexIn.classList.remove("bad"); },400); } }
+    if(addB) addB.addEventListener("click",addFromInput);
+    if(hexIn){ hexIn.addEventListener("keydown",function(e){ if(e.key==="Enter"){ e.preventDefault(); addFromInput(); } });
+      hexIn.addEventListener("paste",function(){ setTimeout(function(){ if(parse(hexIn.value).length>1) addFromInput(); },0); }); }
+    if(curB) curB.addEventListener("click",function(){ saveB.click(); wantMine=true; setTimeout(render,0); });
+    if(saveCur) saveCur.addEventListener("click",function(){ saveB.click(); wantMine=true; setTimeout(render,0); });
+    if(setB) setB.addEventListener("click",openModal);
+    seg.querySelectorAll("button").forEach(function(b){ b.addEventListener("click",function(){
+      var s=state(), mine=b.dataset.mode==="mine";
+      if(mine){ wantMine=true; if(s.cols.length&&!s.on) tog.click(); }
+      else { wantMine=false; if(s.on) tog.click(); }
+      setTimeout(render,0);
+    }); });
+    document.addEventListener("mousedown",function(e){ if(modal&&!modal.hidden&&!modal.contains(e.target)&&!btn.contains(e.target)&&!e.target.closest(".cpick,#setColorsBtn,#editMine")) closeModal(); },true);
+    document.addEventListener("keydown",function(e){ if(e.key==="Escape") closeModal(); });
+    if(window.MutationObserver) new MutationObserver(function(){ render(); }).observe(tog,{attributes:true,attributeFilter:["aria-pressed","hidden"]});
+    window.addEventListener("storage",function(e){ if(e.key===KEY) render(); });
+    document.addEventListener("click",function(){ setTimeout(render,0); });
+    render();
+  })();
 })();
 </script>
 </body>
