@@ -77,6 +77,21 @@ details:not([open]) summary::after{content:"+"}
 .btn.sm.act{gap:6px;padding:0 10px 0 8px}
 .rowsb{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .note{font-size:10px;color:var(--ink3)}
+.ink.on{outline:2px solid var(--ink);outline-offset:2px}
+.ink.add{color:var(--ink2);display:inline-flex;align-items:center;justify-content:center}
+.pickslot:empty{display:none}
+.picker{margin-top:10px;background:var(--panel);border:1px solid var(--line2);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:8px}
+.pk-field{height:110px;border-radius:6px;position:relative;cursor:crosshair;touch-action:none}
+.pk-cur{position:absolute;width:12px;height:12px;border:2px solid #fff;border-radius:50%;box-shadow:0 0 0 1px rgba(0,0,0,.6);transform:translate(-50%,-50%);pointer-events:none}
+.pk-hue{-webkit-appearance:none;appearance:none;width:100%;height:12px;border-radius:999px;background:linear-gradient(90deg,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00);margin:0}
+.pk-hue::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.6)}
+.pk-hue::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.6)}
+.pk-row{display:flex;align-items:center;gap:6px}
+.pk-row .hash{color:var(--ink3);font-size:11px}
+.pk-row input[type=text]{flex:1;min-width:0;height:26px;border:1px solid var(--line2);border-radius:6px;background:var(--bg);color:var(--ink);padding:0 8px;font-size:11px;text-transform:uppercase}
+.pk-row .sp{flex:1}
+.pk-foot{display:flex;align-items:center;justify-content:space-between}
+.pk-foot .lnk.danger:hover{color:#FF6B6B}
 .empty p{margin:0 0 4px;font-size:11px;color:var(--ink2);line-height:1.5}
 .guide{position:fixed;left:16px;bottom:16px;max-width:360px;background:var(--panel);border:1px solid var(--line2);border-radius:10px;padding:10px 12px;font-size:11px;line-height:1.5;color:var(--ink2);z-index:30}
 .guide b{color:var(--ink);font-weight:500;display:block;margin-bottom:2px}
@@ -119,6 +134,7 @@ details:not([open]) summary::after{content:"+"}
     <div class="src" id="src"><button data-mode="random" aria-pressed="true">Random</button><button data-mode="mine" aria-pressed="false">My colors</button></div>
     <div id="colorRandom">
       <div class="inks" id="inksRandom"></div>
+      <div class="pickslot" id="pickRandom"></div>
       <div class="acts2"><button class="btn sm act" id="shufRandom"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg>Shuffle</button><button class="lnk" id="saveCur">Save as my colors</button></div>
     </div>
     <div id="colorMine" hidden>
@@ -128,7 +144,8 @@ details:not([open]) summary::after{content:"+"}
       </div>
       <div id="mineFull" hidden>
         <div class="rowsb"><div class="inks" id="inksMine"></div><button class="ib" id="editMine" aria-label="Edit my colors" title="Edit my colors"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4l10-10-4-4L4 16z"/><path d="M13 7l4 4"/></svg></button></div>
-        <div class="acts2"><button class="btn sm act" id="shufMine"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg>Shuffle</button><span class="note">Shuffle reorders your set</span></div>
+        <div class="pickslot" id="pickMine"></div>
+        <div class="acts2"><button class="btn sm act" id="shufMine"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg>Shuffle</button><span class="note">Tap a swatch to change it</span></div>
       </div>
     </div>
   </div></details>
@@ -156,21 +173,55 @@ details:not([open]) summary::after{content:"+"}
 </aside>
 <main class="stage"><img class="art" id="art" src="../art/crowd.jpg" alt=""></main>
 </div></div>
-<div class="guide" id="guide"><b>Try it</b> Pick My colors in the rail. Nothing is saved yet, so it offers Set colors, which opens the panel under the top-right button. Add a few hex codes, or Use this tool's colors, then Done. The top-right button now shows your set on every tool.</div><script src="../base.js"></script><script>
+<div class="guide" id="guide"><b>Try it</b> Tap any swatch to change it, + to add one. Pick My colors in the rail. Nothing is saved yet, so it offers Set colors, which opens the panel under the top-right button. Add a few hex codes, or Use this tool's colors, then Done. The top-right button now shows your set on every tool.</div><script src="../base.js"></script><script>
 (function(){
   var PALS=[["#2B2140","#B5F53A","#1E3BFF","#F0FF6A"],["#0B0F1A","#FF3DA6","#3DE0FF","#FFE45C"],["#E9E4D6","#FF5C39","#2B3BFF","#1B1B1B"],["#2A2340","#FFE45C","#00E5A8","#7B5CFF"]];
   var rnd=PALS[0].slice(), mine=[], mode="random", pi=0;
   var $=function(s){return document.querySelector(s)};
-  function dot(c,derived){var b=document.createElement("button");b.className="ink"+(derived?" derived":"");b.style.background=c;b.setAttribute("aria-label",c);return b;}
+  var pick=null;   /* {list:"rnd"|"mine", i} while a swatch is open */
+  var PLUS='<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
+  function dot(c,derived,list,i){var b=document.createElement("button");b.className="ink"+(derived?" derived":"")+(pick&&pick.list===list&&pick.i===i?" on":"");b.style.background=c;b.setAttribute("aria-label",c+" (tap to change)");b.title=c;
+    if(list!==undefined&&!derived)b.addEventListener("click",function(){pick=(pick&&pick.list===list&&pick.i===i)?null:{list:list,i:i};render();});return b;}
+  function addDot(list){var b=document.createElement("button");b.className="ink add";b.innerHTML=PLUS;b.setAttribute("aria-label","Add colour");b.title="Add colour";
+    b.addEventListener("click",function(){var arr=list==="rnd"?rnd:mine;arr.push("#"+["FF6B6B","3DE0FF","F5C21B","B5F53A","FF3DA6"][arr.length%5]);pick={list:list,i:arr.length-1};render();});return b;}
+  /* colour maths */
+  function hex2hsv(h){var n=parseInt(h.slice(1),16),r=(n>>16)/255,g=((n>>8)&255)/255,b=(n&255)/255,mx=Math.max(r,g,b),mn=Math.min(r,g,b),d=mx-mn,hh=0;
+    if(d){if(mx===r)hh=((g-b)/d)%6;else if(mx===g)hh=(b-r)/d+2;else hh=(r-g)/d+4;hh*=60;if(hh<0)hh+=360;}return {h:hh,s:mx?d/mx:0,v:mx};}
+  function hsv2hex(h,s,v){var c=v*s,x=c*(1-Math.abs((h/60)%2-1)),m=v-c,r=0,g=0,b=0;
+    if(h<60){r=c;g=x}else if(h<120){r=x;g=c}else if(h<180){g=c;b=x}else if(h<240){g=x;b=c}else if(h<300){r=x;b=c}else{r=c;b=x}
+    var t=function(q){return ("0"+Math.round((q+m)*255).toString(16)).slice(-2)};return ("#"+t(r)+t(g)+t(b)).toUpperCase();}
+  function picker(list,i){
+    var arr=list==="rnd"?rnd:mine, col=arr[i], hsv=hex2hsv(col);
+    var el=document.createElement("div");el.className="picker";
+    el.innerHTML='<div class="pk-field"><span class="pk-cur"></span></div><input type="range" class="pk-hue" min="0" max="360" step="1" aria-label="Hue">'+
+      '<div class="pk-row"><span class="hash">#</span><input type="text" maxlength="6" aria-label="Hex"><button class="ib" data-eye aria-label="Pick from screen" title="Pick from screen">'+EYE+'</button></div>'+
+      '<div class="pk-foot"><button class="lnk danger" data-rm>Remove colour</button><button class="btn sm" data-ok>Done</button></div>';
+    var field=el.querySelector(".pk-field"),cur=el.querySelector(".pk-cur"),hue=el.querySelector(".pk-hue"),hex=el.querySelector("input[type=text]");
+    function paint(){field.style.background="linear-gradient(to top,#000,transparent),linear-gradient(to right,#fff,hsl("+hsv.h+",100%,50%))";cur.style.left=(hsv.s*100)+"%";cur.style.top=((1-hsv.v)*100)+"%";hue.value=hsv.h;hex.value=col.slice(1);}
+    function commit(){arr[i]=col;paint();
+      var host=document.getElementById(list==="rnd"?"inksRandom":"inksMine");var dots=host.querySelectorAll(".ink:not(.add)");if(dots[i]){dots[i].style.background=col;dots[i].title=col;}
+      if(list==="mine"){var md=document.getElementById("myDots");md.innerHTML="";mine.slice(0,5).forEach(function(c){var q=document.createElement("i");q.style.background=c;md.appendChild(q);});}}
+    function fromField(e){var r=field.getBoundingClientRect();hsv.s=Math.min(1,Math.max(0,(e.clientX-r.left)/r.width));hsv.v=Math.min(1,Math.max(0,1-(e.clientY-r.top)/r.height));col=hsv2hex(hsv.h,hsv.s,hsv.v);commit();}
+    var down=false;field.addEventListener("pointerdown",function(e){down=true;field.setPointerCapture(e.pointerId);fromField(e);});
+    field.addEventListener("pointermove",function(e){if(down)fromField(e);});field.addEventListener("pointerup",function(){down=false;});
+    hue.addEventListener("input",function(){hsv.h=+hue.value;col=hsv2hex(hsv.h,hsv.s,hsv.v);commit();});
+    hex.addEventListener("change",function(){var v=("#"+hex.value.replace("#","")).toUpperCase();if(/^#[0-9A-F]{6}$/.test(v)){col=v;hsv=hex2hsv(col);commit();}else hex.value=col.slice(1);});
+    var eye=el.querySelector("[data-eye]");if(window.EyeDropper){eye.addEventListener("click",function(){new EyeDropper().open().then(function(r){col=r.sRGBHex.toUpperCase();hsv=hex2hsv(col);commit();}).catch(function(){});});}else eye.hidden=true;
+    el.querySelector("[data-rm]").addEventListener("click",function(){if(arr.length>1){arr.splice(i,1);pick=null;render();}});
+    el.querySelector("[data-ok]").addEventListener("click",function(){pick=null;render();});
+    paint();return el;}
+  var EYE='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4l6 6M4 20l1-4 9-9 3 3-9 9z"/></svg>';
   function shade(c,k){var n=parseInt(c.slice(1),16),r=n>>16,g=(n>>8)&255,b=n&255;var f=function(v){return Math.round(v+(255-v)*k)};return "#"+((1<<24)+(f(r)<<16)+(f(g)<<8)+f(b)).toString(16).slice(1).toUpperCase();}
   function fit(cols,n){var out=cols.slice(0,n);var i=0;while(out.length<n){out.push({c:shade(cols[i%cols.length],0.35+0.15*i),d:true});i++;}return out.map(function(x){return typeof x==="string"?{c:x,d:false}:x});}
   function render(){
     $("#colorRandom").hidden=mode!=="random"; $("#colorMine").hidden=mode!=="mine";
     document.querySelectorAll("#src button").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.mode===mode));});
-    var ir=$("#inksRandom");ir.innerHTML="";rnd.forEach(function(c){ir.appendChild(dot(c));});
+    var ir=$("#inksRandom");ir.innerHTML="";rnd.forEach(function(c,i){ir.appendChild(dot(c,false,"rnd",i));});ir.appendChild(addDot("rnd"));
+    var pr=$("#pickRandom");pr.innerHTML="";if(pick&&pick.list==="rnd"&&rnd[pick.i])pr.appendChild(picker("rnd",pick.i));
     var has=mine.length>0;
     $("#mineEmpty").hidden=has;$("#mineFull").hidden=!has;
-    var im=$("#inksMine");im.innerHTML="";if(has)fit(mine,4).forEach(function(x){im.appendChild(dot(x.c,x.d));});
+    var im=$("#inksMine");im.innerHTML="";if(has){fit(mine,4).forEach(function(x,i){im.appendChild(dot(x.c,x.d,"mine",i));});im.appendChild(addDot("mine"));}
+    var pm=$("#pickMine");pm.innerHTML="";if(pick&&pick.list==="mine"&&mine[pick.i])pm.appendChild(picker("mine",pick.i));
     var mb=$("#myBtn");mb.classList.toggle("set",has);$("#myLbl").textContent=has?"My colors":"Set colors";
     var md=$("#myDots");md.innerHTML="";mine.slice(0,5).forEach(function(c){var i=document.createElement("i");i.style.background=c;md.appendChild(i);});
     var rows=$("#myRows");rows.innerHTML="";
@@ -186,9 +237,9 @@ details:not([open]) summary::after{content:"+"}
   function open(){$("#myModal").hidden=false;$("#myBtn").setAttribute("aria-expanded","true");setTimeout(function(){$("#myAdd").focus();},50);}
   function close(){$("#myModal").hidden=true;$("#myBtn").setAttribute("aria-expanded","false");if(mine.length&&mode==="mine")render();}
   function parse(t){return (t.match(/#?[0-9a-fA-F]{6}\b/g)||[]).map(function(h){return ("#"+h.replace("#","")).toUpperCase();});}
-  document.querySelectorAll("#src button").forEach(function(b){b.addEventListener("click",function(){mode=b.dataset.mode;render();});});
-  $("#shufRandom").addEventListener("click",function(){pi=(pi+1)%PALS.length;rnd=PALS[pi].slice();render();});
-  $("#shufMine").addEventListener("click",function(){mine.push(mine.shift());render();});
+  document.querySelectorAll("#src button").forEach(function(b){b.addEventListener("click",function(){mode=b.dataset.mode;pick=null;render();});});
+  $("#shufRandom").addEventListener("click",function(){pi=(pi+1)%PALS.length;rnd=PALS[pi].slice();pick=null;render();});
+  $("#shufMine").addEventListener("click",function(){mine.push(mine.shift());pick=null;render();});
   $("#saveCur").addEventListener("click",function(){mine=rnd.slice();mode="mine";render();});
   $("#useThese").addEventListener("click",function(){mine=rnd.slice();render();});
   $("#setColors").addEventListener("click",open);
