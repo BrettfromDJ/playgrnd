@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Roboto+Mono&display=swap">
 <style>
-:root{--bg:#000;--well:rgba(16,16,22,.62);--fill:rgba(255,255,255,.11);--fill2:rgba(255,255,255,.24);--line:rgba(255,255,255,.08);--glass:rgba(14,14,18,.66);--stroke:rgba(255,255,255,.1);--mute:#798183;--fg:#fff;
+:root{--bg:#000;--well:rgba(16,16,22,.62);--fill:rgba(255,255,255,.11);--fill2:rgba(255,255,255,.24);--line:rgba(255,255,255,.08);--glass:rgba(8,8,12,.9);--stroke:rgba(255,255,255,.1);--mute:#798183;--fg:#fff;
   --sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"Roboto Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   --gnd:#000;--ink:#fff;--hair:#1f1f25;--hair2:#1f1f25;--key:#798183}
 *{box-sizing:border-box}
@@ -184,7 +184,7 @@ input[type=range]{accent-color:#fff}
 .lnk:hover,.btn:hover,.chip:hover{filter:brightness(1.3)}
 .lnk[aria-pressed=true],.chip[aria-pressed=true],.lnk.on{background:var(--line)}
 .lnk[disabled],.btn[disabled]{opacity:.35;cursor:not-allowed}
-.lnk svg,.btn svg{width:10px;height:10px}
+.lnk svg,.btn svg{width:12px;height:12px}
 .chips{display:flex;flex-wrap:wrap;gap:8px;flex:1 1 auto;min-width:0}
 .btn-row,.row,.expmenu,.lnks{display:flex;flex-wrap:wrap;gap:8px;margin:0}
 .vidhint{margin:0;font-size:10px;color:var(--mute);line-height:1.5}
@@ -245,11 +245,15 @@ input[type=range]{accent-color:#fff}
 #swatches[data-mine] .sw{cursor:grab}
 #swatches[data-mine] .sw.drag{cursor:grabbing;transition:none;z-index:3;transform:scale(1.2)}
 .mycsw,#myc,#mycEdit,#mycPanel{display:none!important}
+body.mine-on #shufColors{display:none!important}
+body.mine-on #rotColors,body.mine-on #rotInks,body.mine-on #repick,body.mine-on #swapColors{display:inline-flex!important}
 .myc-hint{display:none}
 #mycSave{gap:10px}
 
 /* ---------------- top-right popovers ---------------- */
-.pop,.group.pop{position:fixed;z-index:70;width:292px;background:var(--glass);-webkit-backdrop-filter:blur(24px) saturate(1.4);backdrop-filter:blur(24px) saturate(1.4);border:1px solid var(--stroke);border-radius:12px;padding:20px;
+.pop{position:absolute;right:0;top:calc(100% + 14px)}
+.group.pop{position:fixed}
+.pop,.group.pop{z-index:70;width:292px;background:var(--glass);-webkit-backdrop-filter:blur(24px) saturate(1.4);backdrop-filter:blur(24px) saturate(1.4);border:1px solid var(--stroke);border-radius:12px;padding:20px;
   display:flex;flex-direction:column;gap:12px;box-shadow:0 24px 60px rgba(0,0,0,.6);text-align:left;margin:0}
 .group.pop>*{margin:0}
 .group.pop .lnk.primary{background:#fff;color:#000;font-weight:500}
@@ -2281,7 +2285,7 @@ html.embed body{overflow:hidden!important}
 (function(){
   "use strict";
   var $=function(s){return document.querySelector(s);};
-  var ICONS={dice:'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8" cy="8" r="1.4" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.4" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.4" fill="currentColor" stroke="none"/></svg>',rotate:'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3"/><path d="M18 3v4h-4"/><path d="M20 12a8 8 0 0 1-14 5.3"/><path d="M6 21v-4h4"/></svg>',bookmark:'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-6-4.5L6 21z"/></svg>',pencil:'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4l10-10-4-4L4 16z"/><path d="M13 7l4 4"/></svg>',palette:'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.5 0 2-1 2-2v-1a2 2 0 0 1 2-2h1a4 4 0 0 0 4-4 9 9 0 0 0-9-9z"/><circle cx="7.5" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="10" cy="7.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="15" cy="7.5" r="1.3" fill="currentColor" stroke="none"/></svg>'};
+  var ICONS={dice:'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="4.5"/><circle cx="8" cy="8" r="2.2" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="2.2" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="2.2" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="2.2" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="2.2" fill="currentColor" stroke="none"/></svg>',rotate:'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3"/><path d="M18 3v4h-4"/><path d="M20 12a8 8 0 0 1-14 5.3"/><path d="M6 21v-4h4"/></svg>',bookmark:'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-6-4.5L6 21z"/></svg>',pencil:'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4l10-10-4-4L4 16z"/><path d="M13 7l4 4"/></svg>',palette:'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.5 0 2-1 2-2v-1a2 2 0 0 1 2-2h1a4 4 0 0 0 4-4 9 9 0 0 0-9-9z"/><circle cx="7.5" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="10" cy="7.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="15" cy="7.5" r="1.3" fill="currentColor" stroke="none"/></svg>'};
   function icon(id,name){var b=document.getElementById(id);if(!b||b.querySelector("svg"))return;b.insertAdjacentHTML("afterbegin",ICONS[name]);}
   icon("shufColors","dice");["rotColors","rotInks","repick","swapColors"].forEach(function(i){icon(i,"rotate");});
   icon("mycSave","bookmark");
@@ -2371,6 +2375,9 @@ html.embed body{overflow:hidden!important}
       /* Edit sits with the colour buttons while the set is in use */
       if(saveB&&saveB.parentElement&&editB.parentElement!==saveB.parentElement) saveB.parentElement.appendChild(editB);
       editB.hidden=!s.on; if(saveB) saveB.hidden=s.on;
+      /* one word for reordering, on both sides of the switch: Rotate. The runtime's Shuffle goes. */
+      var nsw=document.querySelectorAll("#swatches .sw").length;
+      document.body.classList.toggle("mine-on",s.on&&nsw>=2);
       if(curB) curB.textContent=s.cols.length?"Replace with current colors":"Save current colors";
       if(!modal||modal.hidden) return;
       rows.innerHTML=""; rows.hidden=!s.cols.length;
