@@ -38,10 +38,9 @@ svg{flex:none;display:block}
 :focus-visible{outline:1px solid var(--mute);outline-offset:3px}
 [hidden]{display:none!important}
 
-/* ---------------- ambient glow + dot grid ---------------- */
+/* ---------------- ambient glow ---------------- */
 .glow{position:fixed;inset:0;z-index:0;pointer-events:none;background:var(--bg)}
 .glow .b{position:absolute;inset:0;background-repeat:no-repeat}
-.glow::after{content:"";position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.13) .75px,transparent .8px);background-size:20px 20px;background-position:6px 6px}
 .app{position:relative;z-index:1;height:100dvh;padding:32px;display:flex;flex-direction:column}
 
 /* ---------------- pills ---------------- */
