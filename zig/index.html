@@ -225,6 +225,14 @@ input[type=range]{accent-color:#fff}
 .colr-body{display:flex;flex-direction:column;gap:16px}
 .colr-body>*{margin:0}
 .colr-body .misc:has(#swatches)>.mhead{display:none}
+.colr-body .misc.captioned:has(#swatches)>.mhead{display:flex}
+.colr-body .misc.captioned>.mhead .v{display:none}
+.named{display:flex;gap:8px;flex-wrap:wrap}
+.npill{display:inline-flex;align-items:center;gap:8px;height:29px;padding:0 12px 0 8px;border:1px solid var(--stroke);border-radius:60px;font-size:10px;color:var(--fg);cursor:pointer;white-space:nowrap}
+.npill:hover{filter:brightness(1.3)}
+.npill .sw{width:12px;height:12px}
+.npill .sw .x{display:none}
+.npill .sw:hover{transform:none}
 .mnote{margin:0;font-size:12px;line-height:15px;color:var(--mute);max-width:252px}
 #mineEmpty{display:flex;flex-direction:column;gap:12px}
 .acts{display:flex;gap:8px;flex-wrap:wrap}
@@ -2390,6 +2398,46 @@ html.embed body{overflow:hidden!important}
   document.addEventListener("input",function(e){if(e.target&&(e.target.type==="color"||e.target.closest(".rail")))glow();});
   document.addEventListener("click",function(e){if(e.target.closest(".rail,.cpick,.pick-menu,#mycModal"))glow();});
   setTimeout(glow,300);setTimeout(glow,1200);
+
+  /* ---- named colours as pills ---------------------------------------------
+     A tool's Ground, Grid, Ink or Paper is one colour with a job, not one of
+     the inks. Each becomes a pill that carries its own swatch, all on one row
+     above the inks. The swatch element moves with its id and input, so the
+     tool's own code and the colour picker keep working on it. */
+  (function(){
+    var body=$("#colrBody"); if(!body) return;
+    var pills=[], first=null;
+    function pill(sw,label,at){
+      var p=document.createElement("span"); p.className="npill"; p.setAttribute("role","button"); p.tabIndex=0;
+      p.appendChild(sw); var t=document.createElement("span"); t.textContent=label; p.appendChild(t);
+      p.addEventListener("click",function(e){ if(!e.target.closest(".sw")) sw.click(); });
+      p.addEventListener("keydown",function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); sw.click(); } });
+      pills.push(p); if(!first) first=at;
+    }
+    [].slice.call(body.querySelectorAll(".pair>div")).forEach(function(d){
+      var sw=d.querySelector(".sw"), lab=d.querySelector(".lab"); if(!sw) return;
+      pill(sw,(lab?lab.textContent:sw.getAttribute("aria-label")||"").trim(),d.closest(".pair"));
+    });
+    [].slice.call(body.querySelectorAll(".misc")).forEach(function(m){
+      var mv=m.querySelector(".mval"); if(!mv||mv.querySelector("#swatches")) return;
+      var sws=mv.querySelectorAll(".sw"); if(sws.length!==1) return;
+      if(mv.querySelectorAll("input,button,select,textarea,.chips,.pick").length!==2) return;   /* the swatch and its input, nothing else */
+      var k=m.querySelector(".mhead .k"); var label=(k?k.textContent:sws[0].getAttribute("aria-label")||"").trim().replace(/ colou?r$/i,"");
+      pill(sws[0],label,m);
+    });
+    if(!pills.length) return;
+    var row=document.createElement("div"); row.className="named";
+    pills.forEach(function(p){ row.appendChild(p); });
+    /* the pills sit above the inks whatever order the tool wrote them in */
+    var swm=body.querySelector("#swatches"), anchor=(swm&&swm.closest(".misc"))||first;
+    anchor.parentNode.insertBefore(row,anchor);
+    [].slice.call(body.querySelectorAll(".pair,.misc")).forEach(function(el){
+      if(el.querySelector(".sw,input,button,select,textarea,.chips,.pick")) return;
+      el.remove();
+    });
+    /* with named pills above it, the ink row takes the tool's own caption back */
+    var sm=body.querySelector("#swatches"); var cm=sm&&sm.closest(".misc"); if(cm) cm.classList.add("captioned");
+  })();
 
   /* ---- popovers: only one open at a time ------------------------------- */
   var closers=[];
