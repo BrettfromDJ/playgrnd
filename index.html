@@ -21,402 +21,147 @@
 <meta name="twitter:image" content="https://playgrnd.tools/og.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Roboto+Mono&display=swap">
+<meta name="theme-color" content="#000000">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/favicon.png" sizes="180x180" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <style>
-/* The homepage runs the same chassis as every tool: one instrument frame,
-   fixed rails, a scrolling window in the middle. The tokens below are lifted
-   verbatim from a tool page so the two can never drift apart. */
-:root{
-  --gnd:#EFEFEC;
-  --ink:#15161A;
-  --hair:rgba(21,22,26,.28);
-  --hair2:rgba(21,22,26,.13);
-  --key:rgba(21,22,26,.45);
-  --mono:"DM Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
-  --pad:56px;
-}
+:root{--bg:#000;--well:rgba(16,16,22,.62);--fill:rgba(255,255,255,.11);--line:rgba(255,255,255,.08);--glass:rgba(8,8,12,.9);--stroke:rgba(255,255,255,.1);--mute:#798183;--fg:#fff;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"Roboto Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
-body{min-height:100dvh;background:radial-gradient(120% 80% at 50% 0%,#F5F5F3 0%,#EAEAE7 100%);
-  background-attachment:fixed;color:var(--ink);font-family:var(--mono);font-weight:400;
-  -webkit-font-smoothing:antialiased;overflow:hidden}
-button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
-input{font:inherit;color:inherit}
-:focus-visible{outline:1px solid var(--ink);outline-offset:3px}
+body{background:var(--bg);color:var(--fg);font:12px/1.25 var(--sans);-webkit-font-smoothing:antialiased;overflow:hidden;min-height:100dvh}
+button,input{font:inherit;color:inherit}
+button{background:none;border:0;padding:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+svg{flex:none;display:block}
 [hidden]{display:none!important}
-
-/* ---------------- page marks ---------------- */
-.mark{position:fixed;pointer-events:none;z-index:1}
-.crop{width:20px;height:20px;border:1px solid var(--hair)}
-.crop.tl{left:26px;top:26px;border-right:0;border-bottom:0}
-.crop.tr{right:26px;top:26px;border-left:0;border-bottom:0}
-.crop.bl{left:26px;bottom:26px;border-right:0;border-top:0}
-.crop.br{right:26px;bottom:26px;border-left:0;border-top:0}
-.edgetick{width:8px;height:1px;background:var(--hair)}
-.edgetick.l{left:26px;top:50%} .edgetick.r{right:26px;top:50%}
-
-/* ---------------- type ---------------- */
-.h{font-size:10px;letter-spacing:.32em;text-transform:uppercase;margin:0 0 13px;font-weight:700}
-.k{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key)}
-.v{font-size:8.5px;letter-spacing:.19em;text-transform:uppercase}
-.tbl{display:grid;grid-template-columns:auto auto;column-gap:22px;row-gap:5px;align-items:baseline}
-.tbl .v{justify-self:start}
-.note{font-size:8.5px;letter-spacing:.12em;line-height:1.75;color:var(--key);margin-top:14px}
-
-/* ---------------- rig ---------------- */
-.rig{height:100dvh;display:grid;
-  grid-template-columns:246px minmax(0,1fr) 246px;
-  grid-template-rows:minmax(0,1fr) auto;
-  padding:var(--pad) 60px;column-gap:38px;row-gap:16px;position:relative;z-index:2}
-.zone{min-width:0}
-.z-left{grid-column:1;grid-row:1/3} .z-right{grid-column:3;grid-row:1/3}
-.z-left,.z-right{align-self:stretch;min-height:0;max-height:100%;
-  display:flex;flex-direction:column}
-.l-scroll,.z-right{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;
-  scrollbar-width:none;-ms-overflow-style:none;--fade:0px;
-  -webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - var(--fade)),transparent 100%);
-  mask-image:linear-gradient(to bottom,#000 calc(100% - var(--fade)),transparent 100%)}
-.l-scroll::-webkit-scrollbar,.z-right::-webkit-scrollbar{width:0;height:0;display:none}
-.l-top,.l-bot{flex:none}
-.l-scroll{padding-top:8px}
-.l-bot{padding-top:26px}
-.z-stage{grid-column:2;grid-row:1}
-.z-bottom{grid-column:2;grid-row:2;justify-self:center;text-align:center}
-.z-right{text-align:right}
-.r-mid{margin:auto 0}
-/* the right rail reads right-to-left against the page edge; set it here
-   rather than inline so the stacked layout can put it back to the left */
-.z-right .tbl{justify-content:end}
-.r-bot{flex:none}
-
-/* ---------------- identity ---------------- */
-.idline{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit;margin-bottom:20px}
-.idline .brand{display:block;width:118px;color:var(--ink)}
-.idline .brand img{width:100%;height:auto;display:block}
-.idline .slash{font-size:10px;color:var(--key)}
-.idline .tool{font-size:10px;letter-spacing:.32em;text-transform:uppercase}
-
-/* ---------------- pills ---------------- */
-.z-top{position:absolute;left:50%;top:0;translate:-50% 0;z-index:12}
-.pill{display:flex;align-items:center;gap:0;height:28px;padding:0 4px 0 18px;
-  border:1px solid var(--ink);border-radius:999px;background:var(--gnd)}
-.pill .lb{font-size:8.5px;letter-spacing:.22em;text-transform:uppercase}
-.pill .sep{width:1px;height:11px;background:var(--hair);margin:0 14px}
-.q{width:150px;border:0;background:none;font-size:9px;letter-spacing:.16em;padding:0;
-  text-transform:uppercase}
-.q::placeholder{color:var(--key);text-transform:uppercase;letter-spacing:.16em}
-.q:focus{outline:none}
-/* the browser's own clear affordance arrives in its accent blue and sits right
-   next to our Clear button doing the same job; drop it rather than have two */
-.q::-webkit-search-cancel-button,.q::-webkit-search-decoration{-webkit-appearance:none;display:none}
-.pbtn{height:20px;padding:0 12px;border-radius:999px;font-size:8.5px;letter-spacing:.22em;
-  text-transform:uppercase;font-weight:700;color:var(--key);transition:.12s}
-.pbtn:hover{color:var(--ink)}
-.pbtn.go{background:var(--ink);color:var(--gnd);margin-left:12px}
-.pbtn.go:hover{color:var(--gnd);opacity:.82}
-.pillbtn{height:26px;padding:0 15px;border-radius:999px;border:1px solid var(--ink);
-  background:none;color:var(--ink);font-size:8.5px;letter-spacing:.19em;
-  text-transform:uppercase;font-weight:700;transition:background .13s,color .13s}
-.pillbtn:hover{background:rgba(21,22,26,.07)}
-.pillbtn[aria-pressed=true]{background:var(--ink);color:var(--gnd)}
-.pillbtn[aria-pressed=true]:hover{background:var(--ink);opacity:.85}
-.btnrow{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
-
-/* ---------------- category rail ---------------- */
-/* Same two-column key/value shape as a tool's readout, made clickable. The
-   count sits where a value would, so the rail reads as an instrument panel
-   rather than as a nav menu bolted on. */
-.cats{display:flex;flex-direction:column;gap:1px}
-.cat{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:12px;
-  padding:7px 0;border-bottom:1px solid var(--hair2);text-align:left;
-  font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key);
-  transition:color .12s}
-.cat:hover{color:var(--ink)}
-.cat[aria-pressed=true]{color:var(--ink);font-weight:700}
-.cat .n{font-size:8.5px;letter-spacing:.19em}
-.cat[aria-pressed=true] .n{font-weight:400}
-
-/* ---------------- the index ---------------- */
-.z-stage{position:relative;display:flex;flex-direction:column;min-height:0;padding:64px 0 22px}
-/* A tool page marks its canvas with corner brackets and rings the empty ground
-   behind it. Here the middle of the page is a list, so the brackets stay — they
-   frame content — and the ring and crosshair go: a circle drawn across thirty
-   rows of type reads as a smudge on the screen, not as a registration mark. */
-.sheet{position:relative;z-index:2;display:flex;flex-direction:column;min-height:0}
-.corner{position:absolute;width:12px;height:12px;border:1px solid var(--ink);
-  pointer-events:none;z-index:3}
-.corner.a{left:-20px;top:-20px;border-right:0;border-bottom:0}
-.corner.b{right:-20px;top:-20px;border-left:0;border-bottom:0}
-.corner.c{left:-20px;bottom:-20px;border-right:0;border-top:0}
-.corner.d{right:-20px;bottom:-20px;border-left:0;border-top:0}
-.thead{display:grid;grid-template-columns:34px minmax(0,1.05fr) minmax(0,1.5fr) 104px;
-  gap:16px;align-items:baseline;padding:0 2px 10px 20px;border-bottom:1px solid var(--hair);flex:none}
-.thead .s{display:inline-flex;align-items:center;gap:6px;font-size:8.5px;letter-spacing:.19em;
-  text-transform:uppercase;color:var(--key);transition:color .12s}
-.thead button.s:hover{color:var(--ink)}
-.thead .s.on{color:var(--ink);font-weight:700}
-.thead .s svg{width:9px;height:9px;transition:transform .2s ease}
-.thead .s.flip svg{transform:rotate(180deg)}
-.thead .r{justify-self:end;text-align:right}
-
-.list{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;padding-left:20px;
-  scrollbar-width:none;-ms-overflow-style:none;--fade:0px;
-  -webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - var(--fade)),transparent 100%);
-  mask-image:linear-gradient(to bottom,#000 calc(100% - var(--fade)),transparent 100%)}
-.list::-webkit-scrollbar{width:0;height:0;display:none}
-
-.row{display:grid;grid-template-columns:34px minmax(0,1.05fr) minmax(0,1.5fr) 104px;
-  gap:16px;align-items:baseline;padding:13px 2px;border-bottom:1px solid var(--hair2);
-  text-decoration:none;color:inherit;position:relative;transition:padding-left .16s ease}
-.row .no{font-size:8.5px;letter-spacing:.19em;color:var(--key);transition:color .12s}
-/* the tool name is the one piece of content here, so it carries the weight the
-   tool's own name carries in its header — same tracking, one step up in size */
-.row .nm{font-size:12px;letter-spacing:.22em;text-transform:uppercase;transition:color .12s}
-.row .mk{font-size:8.5px;letter-spacing:.14em;color:var(--key);transition:color .12s;
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.row .ct{justify-self:end;font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;
-  color:var(--key);transition:color .12s}
-/* a tick that grows out of the left margin, the way the crop marks frame the
-   page — the hover state is a mark, not a highlight */
-.row::before{content:"";position:absolute;left:-15px;top:50%;width:0;height:1px;
-  background:var(--ink);transition:width .16s ease}
-.row:hover{padding-left:8px}
-.row:hover::before{width:14px}
-.row:hover .no,.row:hover .mk,.row:hover .ct{color:var(--ink)}
-.row:focus-visible{outline-offset:-1px}
-.empty{padding:34px 2px;font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key)}
-
-/* ---------------- the slide ---------------- */
-/* Sits at the foot of the left rail, above the note. It is decoration, so it
-   carries no alt text and is removed outright if the file is missing rather
-   than left as a broken-image box. */
-.slide{display:block;width:88%;max-width:212px;height:auto;margin:0 0 26px}
-
-.hint{display:block;font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key)}
-.kbd{color:var(--ink)}
-
-/* ---------------- narrow ---------------- */
-@media (max-width:1180px){
+:focus-visible{outline:1px solid var(--mute);outline-offset:3px}
+.glow{position:fixed;inset:0;z-index:0;pointer-events:none;background:var(--bg)}
+.glow .b{position:absolute;inset:0;background-repeat:no-repeat;transition:opacity .5s ease;opacity:0}
+.glow .b.on{opacity:1}
+.app{position:relative;z-index:1;height:100dvh;padding:32px;display:flex;flex-direction:column}
+.pill{-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);display:inline-flex;align-items:center;justify-content:center;gap:8px;height:39px;padding:0 16px;border-radius:60px;font-size:12px;line-height:1;white-space:nowrap;border:1px solid transparent;flex:none;cursor:pointer;color:var(--fg)}
+.pill.med{font-weight:500}
+.pill.fill{background:var(--line);box-shadow:inset 0 1px 0 rgba(255,255,255,.1)}
+.pill.line{border-color:var(--stroke)}
+.pill.white{background:#fff;color:#000;font-weight:500}
+.pill.sm{height:29px;padding:0 12px;font-size:10px;font-weight:400}
+.pill:hover{filter:brightness(1.18)}
+.pill.white:hover{filter:brightness(.94)}
+.pill[aria-pressed=true]{background:var(--fill);border-color:transparent;box-shadow:inset 0 1px 0 rgba(255,255,255,.1)}
+.topbar{display:flex;align-items:center;gap:22px;height:53px;flex:none}
+.topbar .logo{height:53px;width:auto;display:block;transform:translateY(5px)}
+.topbar .count{font:10px var(--mono);color:var(--mute);margin-left:3px}
+.topbar .sp{flex:1}
+.topbar .wrap{position:relative;flex:none}
+.mydots{display:none;gap:2px}
+#mycBtn.set .mydots{display:inline-flex}
+.mydots i{width:8px;height:8px;border-radius:50%;display:block}
+.main{display:flex;align-items:stretch;flex:1;min-height:0}
+.rail{width:274px;flex:none;padding:26px 0 24px;display:flex;flex-direction:column;gap:0;overflow-y:auto;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.h{font-size:12px;color:var(--fg);margin:0 0 16px}
+.k{font:10px var(--mono);color:var(--mute)}
+.grp{padding:24px 0;border-top:1px solid var(--stroke)}
+.grp:first-child{border-top:0;padding-top:0}
+.field{position:relative;display:flex;align-items:center;height:39px;border:1px solid var(--stroke);border-radius:60px;padding:0 12px 0 14px;gap:10px;color:var(--mute)}
+.field input{flex:1;min-width:0;border:0;background:none;outline:none;color:var(--fg);font-size:12px;padding:0}
+.field input::placeholder{color:var(--mute);opacity:.6}
+.field:focus-within{border-color:var(--mute)}
+.field .clr{width:16px;height:16px;display:grid;place-items:center;color:var(--mute)}
+.field .clr:hover{color:var(--fg)}
+.kinds{display:flex;flex-direction:column;gap:6px}
+.kind{display:flex;align-items:center;justify-content:space-between;height:36px;padding:0 12px 0 14px;border-radius:60px;border:1px solid transparent;color:var(--fg);text-align:left}
+.kind:hover{background:rgba(255,255,255,.04)}
+.kind[aria-pressed=true]{background:var(--fill);box-shadow:inset 0 1px 0 rgba(255,255,255,.1)}
+.kind .n{font:10px var(--mono);color:var(--mute)}
+.kind[aria-pressed=true] .n{color:var(--fg)}
+.orders{display:flex;gap:8px;flex-wrap:wrap}
+.about{font-size:12px;line-height:1.5;color:var(--mute);margin:0}
+.slide{width:120px;height:auto;display:block;margin-top:20px;opacity:.9}
+.stagecol{position:relative;flex:1;min-width:0;min-height:0;display:flex;flex-direction:column;padding:26px 0 0 56px}
+.scroll{flex:1;min-height:0;overflow-y:auto;scrollbar-width:none;--fade:0px;
+  -webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 48px),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 48px),transparent);padding-bottom:48px}
+.scroll::-webkit-scrollbar{display:none}
+/* grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;padding-top:4px}
+@media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card{padding:6px}.card .cb{flex-direction:column;gap:2px}}
+.card{min-width:0;display:flex;flex-direction:column;gap:10px;padding:10px;border-radius:14px;border:1px solid var(--stroke);background:rgba(255,255,255,.03);transition:background .12s,transform .12s}
+.card:hover{background:rgba(255,255,255,.06);transform:translateY(-1px)}
+.card img{display:block;width:100%;aspect-ratio:1200/630;object-fit:cover;border-radius:8px;background:var(--well)}
+.card .cb{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:0 2px 2px}
+.card .nm{font-size:12px;font-weight:500}
+.card .cb>span:first-child{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}
+.card .mk{display:block;font:10px var(--mono);color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .d{font:10px var(--mono);color:var(--mute);flex:none}
+.empty{padding:40px 0;color:var(--mute);font-size:12px}
+.foot{flex:none;padding:12px 0 0 56px;font:10px var(--mono);color:var(--mute);display:flex;gap:16px}
+.foot b{color:var(--fg);font-weight:400}
+.pop{position:absolute;right:0;top:calc(100% + 14px);z-index:70;width:292px;background:var(--glass);-webkit-backdrop-filter:blur(24px) saturate(1.4);backdrop-filter:blur(24px) saturate(1.4);border:1px solid var(--stroke);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:12px;box-shadow:0 24px 60px rgba(0,0,0,.6)}
+.pop p{margin:0;font-size:12px;line-height:1.5;color:var(--mute)}
+.pop .mt{font-size:12px;color:var(--fg)}
+@media (max-width:900px){
   body{overflow:auto}
-  .rig{height:auto;min-height:100dvh;grid-template-columns:1fr;grid-template-rows:auto;
-    row-gap:30px;padding:0 30px 60px}
-  .z-left,.z-stage,.z-right,.z-bottom{grid-column:1;grid-row:auto;justify-self:stretch;
-    align-self:auto;text-align:left;max-height:none;overflow:visible;display:block}
-  .l-scroll{overflow:visible;max-height:none;-webkit-mask-image:none;mask-image:none}
-  .z-left{display:contents}
-  .l-top{order:0;padding-top:30px} .z-stage{order:1}
-  .l-scroll{order:2} .l-bot{order:3} .z-right{order:4} .z-bottom{order:5}
-  /* the filter pill leaves its absolute slot and becomes the first row */
-  .z-top{position:static;translate:none;margin-bottom:26px}
-  /* Stacked, the pill stops being a centred capsule and runs the width of
-     the page, but the search field stayed 150px wide, so Clear and Random
-     sat bunched on the left with up to 700px of empty pill after them.
-     The field takes the slack instead, which puts Random back on the
-     right-hand end where it belongs — and on a phone the same rule keeps
-     the pill from running off the side. */
-  .q{width:auto;flex:1 1 0;min-width:0}
-  .z-stage{padding:0}
-  .list{overflow:visible;max-height:none;-webkit-mask-image:none;mask-image:none}
-  .slide{max-width:168px;margin-top:10px}
-  .btnrow{justify-content:flex-start}
-  /* the right rail is a centred column on the desktop rig; stacked it is just
-     three blocks in a row, so the auto margin that centred it has to go or the
-     Order pills ride up into the About heading */
-  .z-right,.z-right .tbl{text-align:left;justify-content:start}
-  /* Stacked, these spec tables are the full width of the page instead of a
-     narrow rail, and two auto columns split all of it between them — which
-     threw the values into the middle of the page, a long way from their
-     labels. Size the columns to their contents and let the slack sit after
-     them. */
-  .tbl{justify-content:start}
-  .r-top,.r-mid,.r-bot{margin:0}
-  .r-mid,.r-bot{margin-top:30px}
-  .mark{display:none}
+  .app{height:auto;min-height:100dvh;padding:16px}
+  .topbar{gap:12px;height:auto;flex-wrap:wrap}
+  .topbar .logo{height:36px;transform:none}
+  .main{flex-direction:column}
+  .rail{width:100%;padding:16px 0 0;overflow:visible}
+  .rail .grp{padding:16px 0}
+  .kinds{flex-direction:row;flex-wrap:wrap;gap:8px}
+  .kind{height:29px;padding:0 12px;border:1px solid var(--stroke);gap:8px;font-size:10px}
+  .slide,.about{display:none}
+  .stagecol{padding:8px 0 0}
+  .scroll{overflow:visible;-webkit-mask-image:none;mask-image:none;padding-bottom:0}
+  .foot{display:none}
+  .pop{position:fixed;left:16px;right:16px;top:auto;bottom:16px;width:auto}
 }
-@media (max-width:620px){
-  .thead,.row{grid-template-columns:26px minmax(0,1fr) 86px;gap:12px}
-  .thead{padding-left:2px} .list{padding-left:0}
-  .row::before{display:none} .row:hover{padding-left:2px}
-  .thead .mk,.row .mk{display:none}
-  .idline .brand{width:100px}
-  .pill{max-width:100%;padding-left:14px}
-  .pill .sep{margin:0 10px}
-  .pbtn{padding:0 9px}
-  .pbtn.go{margin-left:6px}
-}
-
-.row .nm{display:flex;align-items:center;gap:10px;min-width:0}
-.row .nm .t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-
-/* ---------------- scroll cue ----------------
-   Sits under the index and only while there is more of it below. The
-   scrollbars are hidden everywhere on this page, so without it a list that
-   continues reads as finished. */
-.scrollmore{display:flex;align-items:center;justify-content:center;gap:9px;
-  margin:12px 0 0;padding:0 0 2px;
-  font-size:8.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--key);
-  pointer-events:none;user-select:none}
-.scrollmore .ring{display:grid;place-items:center;width:19px;height:19px;
-  border:1px solid var(--hair);border-radius:50%}
-.scrollmore svg{width:11px;height:11px;display:block;animation:sm-bob 2.4s ease-in-out infinite}
-@keyframes sm-bob{0%,72%,100%{transform:none}84%{transform:translateY(2px)}}
-@media (prefers-reduced-motion:reduce){ .scrollmore svg{animation:none} }
-
-/* ---------------- hover thumbnail ----------------
-   A framed preview that trails the cursor down the index. Each tool's frames
-   stack and cross-fade, so a tool given more than one image reads as a
-   flipbook rather than a still. Fine pointers only: there is no hover on a
-   phone, and the whole thing would only sit in the way. */
-#peek{
-  position:fixed;z-index:60;width:clamp(230px,21vw,380px);aspect-ratio:1200/630;
-  border:1px solid var(--ink);background:var(--gnd);
-  box-shadow:0 10px 34px rgba(21,22,26,.14);
-  pointer-events:none;overflow:hidden;display:none}
-/* every picture stays in the frame, only one is shown, and the swap is a
-   hard cut: a fade here reads as a flicker when you run down the list */
-#peek img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  display:none}
-#peek img.show{display:block}
-@media (hover:hover) and (pointer:fine){ #peek.on{display:block} }
 </style>
+</head>
+<body>
+<div class="glow" id="glow" aria-hidden="true"><div class="b" id="g0"></div><div class="b" id="g1"></div></div>
+<div class="app">
+<header class="topbar">
+  <img class="logo" src="logo.png" alt="playgrnd">
+  <span class="count" id="count">52 tools</span>
+  <span class="sp"></span>
+  <button class="pill line med" id="random"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="4.5"/><circle cx="8" cy="8" r="2.2" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="2.2" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="2.2" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="2.2" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="2.2" fill="currentColor" stroke="none"/></svg><span>Random tool</span></button>
+  <div class="wrap">
+    <button class="pill line med" id="mycBtn"><span class="mydots" id="mycDots"></span><span id="mycLbl">Set colors</span></button>
+    <div class="pop" id="mycPop" hidden><span class="mt">My colors</span><p>One saved set of colours, kept by your browser and offered by every tool. Open any tool and use Set colors to add hex codes; they show up here and on every other tool.</p></div>
+  </div>
+</header>
+<div class="main">
+<aside class="rail">
+  <div class="grp">
+    <label class="field"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" placeholder="Filter tools" autocomplete="off" spellcheck="false" aria-label="Filter tools"><button class="clr" id="clr" aria-label="Clear" hidden><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></label>
+  </div>
+  <div class="grp"><h2 class="h">Kind</h2><div class="kinds" id="kinds"></div></div>
+  <div class="grp"><h2 class="h">Order</h2><div class="orders" id="orders">
+    <button class="pill line sm" data-o="new" aria-pressed="true">Newest</button>
+    <button class="pill line sm" data-o="old" aria-pressed="false">Oldest</button>
+    <button class="pill line sm" data-o="az" aria-pressed="false">A&ndash;Z</button>
+  </div></div>
+  <div class="grp"><p class="about">Tiny tools for making weird, beautiful things. Every tool runs in the browser. Nothing is uploaded and nothing is stored. Exports are yours.</p>
+    <img class="slide" src="og.jpg" alt="" hidden></div>
+</aside>
+<main class="stagecol">
+  <div class="scroll" id="scroll">
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty" hidden>Nothing matches. Clear the filter to see everything.</div>
+  </div>
+  <div class="foot"><span><b>Type</b> filter</span><span><b>Enter</b> open first</span><span><b>Esc</b> clear</span><span><b>R</b> random</span></div>
+</main>
+</div>
+</div>
 <!-- Vercel Web Analytics. Vercel serves this script itself on the live
      site; it 404s locally and on any other host, which is harmless. -->
 <script defer src="/_vercel/insights/script.js"></script>
-</head>
-<body>
-
-<div class="mark crop tl"></div><div class="mark crop tr"></div>
-<div class="mark crop bl"></div><div class="mark crop br"></div>
-<div class="mark edgetick l"></div><div class="mark edgetick r"></div>
-
-<div class="rig">
-
-  <!-- ---------------- left rail: identity, then the categories ---------- -->
-  <div class="zone z-left">
-    <div class="l-top">
-      <a class="idline" href="./" aria-label="playgrnd — home">
-        <span class="brand"><img src="logo.png" width="694" height="282" alt="playgrnd"></span>
-        <span class="slash">&frasl;</span>
-        <span class="tool">Index</span>
-      </a>
-      <div class="tbl">
-        <span class="k">Tools</span><span class="v" id="statTools">00</span>
-        <span class="k">Kinds</span><span class="v" id="statCats">00</span>
-        <span class="k">Year</span><span class="v" id="statYear">2026</span>
-        <span class="k">Price</span><span class="v">Free</span>
-      </div>
-    </div>
-
-    <div class="l-scroll" id="lscroll">
-      <h2 class="h" style="margin-top:30px">Kind</h2>
-      <div class="cats" id="cats"></div>
-    </div>
-
-    <div class="l-bot">
-      <img class="slide" id="slide" src="art/slide.png" alt="" width="694" height="546">
-      <p class="note">Every tool runs in the browser.<br>Nothing is uploaded and nothing<br>is stored. Exports are yours.</p>
-    </div>
-  </div>
-
-  <!-- ---------------- centre: the index ---------------------------------- -->
-  <div class="zone z-stage">
-    <!-- the filter pill sits where a tool puts its variation pill: inside the
-         stage, not the rig. top:0 resolves against the padding *box*, which for
-         a border-less element is its outer edge — anchored to .rig it would ride
-         flush against the top of the window with the page margin lost. -->
-    <div class="z-top">
-      <div class="pill">
-        <span class="lb">Filter</span>
-        <span class="sep"></span>
-        <input class="q" id="q" type="search" placeholder="All tools" aria-label="Filter tools"
-               autocomplete="off" spellcheck="false">
-        <button class="pbtn" id="clear" type="button">Clear</button>
-        <button class="pbtn go" id="lucky" type="button">Random</button>
-      </div>
-    </div>
-
-    <div class="sheet">
-      <span class="corner a"></span><span class="corner b"></span>
-      <span class="corner c"></span><span class="corner d"></span>
-      <div class="thead">
-        <span class="s">No.</span>
-        <button class="s" id="sortName" type="button">Tool
-          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"
-               stroke-linecap="round"><path d="M2.5 4.5L6 8l3.5-3.5"/></svg>
-        </button>
-        <span class="s mk">Makes</span>
-        <button class="s r" id="sortDate" type="button">Released
-          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"
-               stroke-linecap="round"><path d="M2.5 4.5L6 8l3.5-3.5"/></svg>
-        </button>
-      </div>
-      <div class="list" id="list"></div>
-      <!-- Says out loud what the fade at the foot of the list only hints at.
-           Driven by the same measurement as the fade, so the two can never
-           disagree. -->
-      <p class="scrollmore" id="scrollMore" hidden aria-hidden="true">
-        <span class="ring">
-          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor"
-               stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 2.5v7M3 6.5L6 9.5l3-3"/>
-          </svg>
-        </span>Scroll to see more
-      </p>
-    </div>
-  </div>
-
-  <!-- ---------------- right rail: the readout and the sort --------------- -->
-  <div class="zone z-right">
-    <div class="r-top">
-      <h2 class="h">Index</h2>
-      <div class="tbl">
-        <span class="k">Showing</span><span class="v" id="showing">00 / 00</span>
-        <span class="k">Kind</span><span class="v" id="curCat">All</span>
-        <span class="k">Order</span><span class="v" id="curSort">Newest</span>
-        <span class="k">Match</span><span class="v" id="curTerm">&mdash;</span>
-      </div>
-    </div>
-
-    <div class="r-mid">
-      <h2 class="h">Order</h2>
-      <div class="btnrow" id="orders">
-        <button class="pillbtn" type="button" data-ord="new" aria-pressed="true">Newest</button>
-        <button class="pillbtn" type="button" data-ord="old" aria-pressed="false">Oldest</button>
-        <button class="pillbtn" type="button" data-ord="az" aria-pressed="false">A&ndash;Z</button>
-      </div>
-    </div>
-
-    <div class="r-bot">
-      <h2 class="h">About</h2>
-      <p class="note">Tiny tools for making weird,<br>beautiful things.</p>
-    </div>
-  </div>
-
-  <!-- ---------------- bottom: the keyboard line -------------------------- -->
-  <div class="zone z-bottom">
-    <span class="hint"><span class="kbd">Type</span> &mdash; filter &middot;
-      <span class="kbd">Enter</span> &mdash; open first &middot;
-      <span class="kbd">Esc</span> &mdash; clear</span>
-  </div>
-
-</div>
-
-<div id="peek" aria-hidden="true"></div>
-
 <script>
-(() => {
-"use strict";
-
-const $=s=>document.querySelector(s);
-const pad=n=>String(n).padStart(2,"0");
-
-/* The tool list is the numbering: a tool's number is its position here, so new
-   tools go on the end. `cat` is what the tool makes, and it drives the rail on
-   the left; the row itself shows the day the tool went up. */
-const TOOLS=[
+(function(){
+  var TOOLS=[
   {slug:"oddgrid", name:"Oddgrid", year:2026, cat:"Patterns", desc:"generative pixel compositions", art:"oddgrid/og.png", released:"2026-08-25"},
   {slug:"terrain", name:"Terrain", year:2026, cat:"Backgrounds", desc:"layered contour landscapes", art:"terrain/og.jpg", released:"2026-08-25"},
   {slug:"filament", name:"Filament", year:2026, cat:"Backgrounds", desc:"flowing thread fields", art:"filament/og.jpg", released:"2026-08-25"},
@@ -470,246 +215,74 @@ const TOOLS=[
   {slug:"vein", name:"Vein", year:2026, cat:"Backgrounds", desc:"cut-paper marbling, in vector", art:"vein/og.jpg", released:"2026-09-15"},
   {slug:"crowd", name:"Crowd", year:2026, cat:"Backgrounds", desc:"blurred crowd", art:"crowd/og.jpg", released:"2026-09-16"}
 ];
-
-const numbered=TOOLS.map((t,i)=>({...t,no:i+1}));
-
-/* A tool carries the day it went up, shown on its row as month/day/year. */
-function fmtDate(d){
-  const p=String(d||"").split("-");
-  if(p.length!==3) return "";
-  return p[1]+"/"+p[2]+"/"+p[0];
-}
-const CATS=[...new Set(TOOLS.map(t=>t.cat))].sort();
-
-let ord="new", cat="All", term="";
-
-/* ---- the rail ------------------------------------------------------- */
-const catsEl=$("#cats");
-function buildCats(){
-  const rows=[["All","All tools",TOOLS.length]]
-    .concat(CATS.map(c=>[c,c,TOOLS.filter(t=>t.cat===c).length]));
-  catsEl.innerHTML=rows.map(([id,label,n])=>
-    `<button class="cat" type="button" data-cat="${id}" aria-pressed="${id===cat}">`+
-    `<span>${label}</span><span class="n">${pad(n)}</span></button>`).join("");
-}
-catsEl.addEventListener("click",e=>{
-  const b=e.target.closest("button[data-cat]"); if(!b) return;
-  cat=b.dataset.cat; buildCats(); render();
-});
-
-/* ---- the list ------------------------------------------------------- */
-const listEl=$("#list");
-function sorted(){
-  const l=numbered.slice();
-  if(ord==="new") l.reverse();
-  else if(ord==="az") l.sort((a,b)=>a.name.localeCompare(b.name));
-  return l;
-}
-function matches(t){
-  if(cat!=="All"&&t.cat!==cat) return false;
-  if(!term) return true;
-  return (t.name+" "+t.desc+" "+t.cat).toLowerCase().includes(term);
-}
-let shown=[];
-function render(){
-  shown=sorted().filter(matches);
-  listEl.innerHTML = shown.length ? shown.map(t=>
-    `<a class="row" href="${t.slug}/index.html" data-art="${[].concat(t.art||[]).join("|")}" aria-label="${t.name} — ${t.desc}, released ${fmtDate(t.released)}">`+
-    `<span class="no">${pad(t.no)}</span>`+
-    `<span class="nm"><span class="t">${t.name}</span>`+
-    `</span>`+
-    `<span class="mk">${t.desc}</span>`+
-    `<span class="ct">${fmtDate(t.released)}</span></a>`).join("")
-    : `<p class="empty">Nothing matches that.</p>`;
-  $("#showing").textContent=pad(shown.length)+" / "+pad(TOOLS.length);
-  $("#curCat").textContent=cat==="All"?"All":cat;
-  $("#curSort").textContent={new:"Newest",old:"Oldest",az:"A–Z"}[ord];
-  $("#curTerm").textContent=term?("\u201c"+term+"\u201d"):"\u2014";
-  $("#sortName").classList.toggle("on",ord==="az");
-  $("#sortDate").classList.toggle("on",ord==="old");
-  fades();
-}
-
-/* ---- hover thumbnail --------------------------------------------------
-   Wired once on the list rather than per row, so it keeps working after a
-   filter or a re-sort throws the rows away and builds them again. */
-const peek=$("#peek");
-const finePointer=window.matchMedia("(hover:hover) and (pointer:fine)");
-const FRAME_MS=620;
-let peekKey="",flipTimer=0,preloaded=false;
-
-/* One <img> per picture, built once and kept for the life of the page.
-   Rebuilding the frame's contents on every row threw the old picture away
-   before the new one had arrived, and the empty frame behind it is what
-   flashed white. */
-const frames=new Map();
-function frameFor(src){
-  let im=frames.get(src);
-  if(!im){
-    im=new Image(); im.alt=""; im.decoding="async"; im.src=src;
-    frames.set(src,im); peek.appendChild(im);
+  var $=function(s){return document.querySelector(s);};
+  var ROOT="./";
+  var state={q:"",kind:"All",order:"new"};
+  function fmt(d){var p=d.split("-");return p[1]+"/"+p[2]+"/"+p[0];}
+  function esc(s){return s.replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});}
+  function mark(s,q){ if(!q) return esc(s); var i=s.toLowerCase().indexOf(q.toLowerCase()); if(i<0) return esc(s); return esc(s.slice(0,i))+"<b>"+esc(s.slice(i,i+q.length))+"</b>"+esc(s.slice(i+q.length)); }
+  /* kinds */
+  var kinds={}; TOOLS.forEach(function(t){ kinds[t.cat]=(kinds[t.cat]||0)+1; });
+  var kh=$("#kinds"); var names=["All"].concat(Object.keys(kinds).sort());
+  names.forEach(function(k){ var b=document.createElement("button"); b.className="kind"; b.dataset.k=k; b.innerHTML="<span>"+(k==="All"?"All tools":k)+"</span><span class='n'>"+String(k==="All"?TOOLS.length:kinds[k]).padStart(2,"0")+"</span>";
+    b.addEventListener("click",function(){ state.kind=k; render(); }); kh.appendChild(b); });
+  function items(){
+    var q=state.q.trim().toLowerCase();
+    var out=TOOLS.map(function(t,i){ return Object.assign({no:i+1},t); }).filter(function(t){
+      if(state.kind!=="All"&&t.cat!==state.kind) return false;
+      if(q&&t.name.toLowerCase().indexOf(q)<0&&t.desc.toLowerCase().indexOf(q)<0&&t.cat.toLowerCase().indexOf(q)<0) return false;
+      return true; });
+    if(state.order==="new") out.sort(function(a,b){ return b.no-a.no; });
+    else if(state.order==="old") out.sort(function(a,b){ return a.no-b.no; });
+    else out.sort(function(a,b){ return a.name.localeCompare(b.name); });
+    return out;
   }
-  return im;
-}
-function drawn(im){ return im.complete && im.naturalWidth>0; }
-function reveal(im){
-  frames.forEach(f=>{ if(f!==im) f.classList.remove("show"); });
-  im.classList.add("show");
-  peek.classList.add("on");
-}
-function stopFlip(){ if(flipTimer){clearInterval(flipTimer);flipTimer=0;} }
-function hidePeek(){ peek.classList.remove("on"); stopFlip(); peekKey=""; }
-function showThumb(key){
-  if(key===peekKey)return;
-  peekKey=key; stopFlip();
-  const list=key.split("|").filter(Boolean).map(frameFor);
-  if(!list.length)return;
-  const first=list[0];
-  /* Whatever is on screen stays there until the new picture can actually be
-     drawn, so the frame is never empty. On the very first hover there is
-     nothing to hold, so the frame stays hidden rather than opening blank. */
-  if(drawn(first)) reveal(first);
-  else first.addEventListener("load",()=>{ if(peekKey===key) reveal(first); },{once:true});
-  if(list.length<2)return;
-  let i=0;
-  flipTimer=setInterval(()=>{
-    i=(i+1)%list.length;
-    if(peekKey===key&&drawn(list[i])) reveal(list[i]);
-  },FRAME_MS);
-}
-/* The moment someone starts running down the index, fetch the rest quietly
-   so every row after the first is instant. Never runs on a phone, which has
-   no hover and would only be paying for pictures it cannot show. */
-function preloadThumbs(){
-  if(preloaded)return; preloaded=true;
-  TOOLS.forEach(t=>[].concat(t.art||[]).forEach(frameFor));
-}
-function placePeek(e){
-  const w=peek.offsetWidth||300,h=peek.offsetHeight||158;
-  let x=e.clientX+26,y=e.clientY+20;
-  /* near an edge it swaps to the other side of the cursor rather than
-     hanging off the page */
-  if(x+w>innerWidth-14)x=e.clientX-w-26;
-  if(y+h>innerHeight-14)y=e.clientY-h-20;
-  peek.style.left=x+"px";peek.style.top=y+"px";
-}
-/* One handler for entering a row and for moving inside it: a move has to be
-   able to bring the thumbnail back, or a wheel scroll with the pointer sat
-   still over a row would hide it until the cursor crossed into another one. */
-let lastX=-1,lastY=-1;
-function overRow(e){
-  lastX=e.clientX; lastY=e.clientY; preloadThumbs();
-  const row=e.target.closest(".row");
-  if(!row||!row.dataset.art){hidePeek();return;}
-  showThumb(row.dataset.art);
-  placePeek(e);
-  /* opening the frame is reveal()'s job, and it only does it once there is
-     a picture to put in it */
-}
-/* Scrolling slides a different row under a cursor that has not moved. Hiding
-   the thumbnail would blink it out on every trackpad nudge, so look up
-   whatever is under the cursor now and swap the picture instead. */
-function afterScroll(){
-  if(!peek.classList.contains("on"))return;
-  const el=document.elementFromPoint(lastX,lastY);
-  const row=el&&el.closest?el.closest(".row"):null;
-  if(!row||!row.dataset.art){hidePeek();return;}
-  showThumb(row.dataset.art);
-}
-if(finePointer.matches){
-  listEl.addEventListener("mouseover",overRow);
-  listEl.addEventListener("mousemove",overRow);
-  listEl.addEventListener("mouseleave",hidePeek);
-  window.addEventListener("scroll",afterScroll,true);
-}
-
-/* ---- order ----------------------------------------------------------- */
-$("#orders").addEventListener("click",e=>{
-  const b=e.target.closest("button[data-ord]"); if(!b) return;
-  ord=b.dataset.ord;
-  [...e.currentTarget.children].forEach(x=>
-    x.setAttribute("aria-pressed",String(x===b)));
+  function render(){
+    var q=state.q.trim(), list=items();
+    kh.querySelectorAll(".kind").forEach(function(b){ b.setAttribute("aria-pressed",String(b.dataset.k===state.kind)); });
+    document.querySelectorAll("#orders button").forEach(function(b){ b.setAttribute("aria-pressed",String(b.dataset.o===state.order)); });
+    $("#clr").hidden=!q;
+    $("#count").textContent=(list.length===TOOLS.length?TOOLS.length+" tools":list.length+" of "+TOOLS.length+" tools");
+    var G=$("#grid"); $("#empty").hidden=list.length>0;
+    G.innerHTML="";
+    list.forEach(function(t){
+      var c=document.createElement("a"); c.className="card"; c.href=ROOT+t.slug+"/"; c.dataset.slug=t.slug; c.dataset.art=ROOT+t.art;
+      c.innerHTML="<img loading='lazy' src='"+ROOT+t.art+"' alt='"+esc(t.name)+"'><div class='cb'><span><span class='nm'>"+mark(t.name,q)+"</span><br><span class='mk'>"+mark(t.desc,q)+"</span></span><span class='d'>"+fmt(t.released)+"</span></div>";
+      G.appendChild(c);
+    });
+  }
+  /* filter */
+  var q=$("#q");
+  q.addEventListener("input",function(){ state.q=q.value; render(); });
+  $("#clr").addEventListener("click",function(){ q.value=""; state.q=""; render(); q.focus(); });
+  document.querySelectorAll("#orders button").forEach(function(b){ b.addEventListener("click",function(){ state.order=b.dataset.o; render(); }); });
+  $("#random").addEventListener("click",function(){ var t=TOOLS[(Math.random()*TOOLS.length)|0]; location.href=ROOT+t.slug+"/"; });
+  document.addEventListener("keydown",function(e){
+    if(e.target===q){ if(e.key==="Escape"){ q.value=""; state.q=""; render(); } if(e.key==="Enter"){ var f=items()[0]; if(f) location.href=ROOT+f.slug+"/"; } return; }
+    if(e.metaKey||e.ctrlKey||e.altKey) return;
+    if(e.key==="r"||e.key==="R"){ $("#random").click(); return; }
+    if(e.key.length===1&&/[a-z0-9 ]/i.test(e.key)){ q.focus(); }
+  });
+  /* hover: the page glows with the colours of the tool under the cursor */
+  var g=[$("#g0"),$("#g1")], gi=0, cache={}, cur=null;
+  function sample(src,cb){ if(cache[src]) return cb(cache[src]); var im=new Image(); im.onload=function(){ try{ var c=document.createElement("canvas"),n=12; c.width=n; c.height=n; var x=c.getContext("2d",{willReadFrequently:true}); x.drawImage(im,0,0,n,n);
+      var d=x.getImageData(0,0,n,n).data,px=[]; for(var i=0;i<d.length;i+=4){ var r=d[i],gg=d[i+1],b=d[i+2],mx=Math.max(r,gg,b),mn=Math.min(r,gg,b); px.push({r:r,g:gg,b:b,s:mx?(mx-mn)/mx:0,v:mx/255}); }
+      px.sort(function(a,b){ return (b.s*b.v)-(a.s*a.v); }); var out=[]; px.forEach(function(p){ if(out.length>=2) return; if(out.every(function(o){ return Math.abs(o.r-p.r)+Math.abs(o.g-p.g)+Math.abs(o.b-p.b)>120; })) out.push(p); });
+      while(out.length<2) out.push(px[out.length]||{r:60,g:60,b:80}); cache[src]=out; cb(out); }catch(e){} }; im.src=src; }
+  function glow(src){ sample(src,function(c){ if(cur!==src) return; var f=function(q,a){ return "rgba("+q.r+","+q.g+","+q.b+","+a+")"; };
+    var nx=g[gi=1-gi]; nx.style.backgroundImage="radial-gradient(95vw 60vh at 50% -8%,"+f(c[0],.22)+",transparent 70%),radial-gradient(55vw 40vh at 88% 6%,"+f(c[1],.12)+",transparent 70%)";
+    g.forEach(function(d){ d.classList.toggle("on",d===nx); }); }); }
+  document.addEventListener("mouseover",function(e){ var r=e.target.closest(".card"); if(!r) return; if(cur!==r.dataset.art){ cur=r.dataset.art; glow(cur); } });
+  /* the top-right button reads the site-wide set */
+  (function(){ var cols=[]; try{ var j=JSON.parse(localStorage.getItem("playgrnd.mycolors")||"null"); if(j&&j.cols instanceof Array) cols=j.cols; }catch(e){}
+    var b=$("#mycBtn"); b.classList.toggle("set",cols.length>0); $("#mycLbl").textContent=cols.length?"My colors":"Set colors";
+    var d=$("#mycDots"); cols.slice(0,4).forEach(function(c){ var i=document.createElement("i"); i.style.background=c; d.appendChild(i); });
+    var pop=$("#mycPop"); b.addEventListener("click",function(){ pop.hidden=!pop.hidden; });
+    document.addEventListener("mousedown",function(e){ if(!pop.hidden&&!pop.contains(e.target)&&!b.contains(e.target)) pop.hidden=true; },true);
+  })();
   render();
-});
-/* the column headings do the same job as the pills, so they stay in step */
-$("#sortName").addEventListener("click",()=>{
-  ord = ord==="az" ? "new" : "az";
-  syncOrders(); render();
-});
-/* the Released heading flips the list between newest and oldest first;
-   the kinds are picked from the rail */
-$("#sortDate").addEventListener("click",()=>{
-  ord=ord==="old"?"new":"old";
-  syncOrders(); render();
-});
-function syncOrders(){
-  [...$("#orders").children].forEach(x=>
-    x.setAttribute("aria-pressed",String(x.dataset.ord===ord)));
-}
-
-/* ---- filter ---------------------------------------------------------- */
-const q=$("#q");
-q.addEventListener("input",()=>{term=q.value.trim().toLowerCase();render();});
-q.addEventListener("keydown",e=>{
-  if(e.key==="Enter"&&shown.length) location.href=shown[0].slug+"/index.html";
-  if(e.key==="Escape"){q.value="";term="";render();}
-});
-$("#clear").addEventListener("click",()=>{
-  q.value="";term="";cat="All";ord="new";
-  buildCats();syncOrders();render();q.focus();
-});
-$("#lucky").addEventListener("click",()=>{
-  const pool=shown.length?shown:numbered;
-  location.href=pool[(Math.random()*pool.length)|0].slug+"/index.html";
-});
-/* typing anywhere on the page goes to the filter, the way the tools let you
-   hit a key without hunting for the control first */
-addEventListener("keydown",e=>{
-  if(e.metaKey||e.ctrlKey||e.altKey) return;
-  const t=e.target;
-  if(t&&(t.tagName==="INPUT"||t.tagName==="TEXTAREA")) return;
-  if(e.key==="Escape"){$("#clear").click();return;}
-  if(e.key.length===1&&/\S/.test(e.key)){ q.focus(); }
-});
-
-/* ---- soft fade at the foot of anything that scrolls ------------------ */
-/* The mask is only worth showing when there is something below the fold; a
-   permanent fade over a short list just looks like the text is broken. */
-function fade(el){
-  if(!el) return;
-  const over=el.scrollHeight-el.clientHeight;
-  const left=over-el.scrollTop;
-  const more=(over>4&&left>4);
-  el.style.setProperty("--fade", more ? "58px" : "0px");
-  /* the index says so in words as well. Stacked, the list is not its own
-     scroller and the window's own scrollbar does the job, so `over` is 0
-     there and the cue stays away by itself. */
-  if(el===listEl){ const c=$("#scrollMore"); if(c) c.hidden=!more; }
-}
-/* after a frame as well as inline: a mask set in the same tick as the innerHTML
-   that produced the overflow can be measured before the rows have laid out, and
-   the list then hard-cuts at the fold with no fade at all */
-function fades(){
-  const els=[listEl,$("#lscroll"),$(".z-right")];
-  els.forEach(fade);
-  requestAnimationFrame(()=>els.forEach(fade));
-}
-[listEl,$("#lscroll"),$(".z-right")].forEach(el=>el&&el.addEventListener("scroll",()=>fade(el)));
-addEventListener("resize",fades);
-
-/* ---- the slide ------------------------------------------------------- */
-/* Decoration, so a missing file should cost nothing: take the element out
-   rather than leave the browser's broken-image box in the rail. */
-{
-  const im=$("#slide");
-  if(im) im.addEventListener("error",()=>{im.remove();fades();});
-}
-
-/* ---- go -------------------------------------------------------------- */
-$("#statTools").textContent=pad(TOOLS.length);
-$("#statCats").textContent=pad(CATS.length);
-$("#statYear").textContent=String(Math.max(...TOOLS.map(t=>t.year)));
-buildCats(); render();
+  /* opening glow: the newest tool */
+  cur=ROOT+TOOLS[TOOLS.length-1].art; glow(cur);
 })();
 </script>
 </body>
