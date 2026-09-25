@@ -74,12 +74,13 @@ svg{flex:none;display:block}
 /* tracklist */
 .list{display:flex;flex-direction:column;min-height:0}
 .thead,.row{display:grid;grid-template-columns:36px minmax(100px,1fr) minmax(0,1.5fr) 88px 72px;gap:16px;align-items:center}
-.thead{height:32px;font:10px var(--mono);color:var(--mute);border-bottom:1px solid var(--stroke);flex:none;padding:0 0}
+.thead{height:32px;font:10px var(--mono);color:var(--mute);flex:none;padding:0 16px;position:relative}
+.thead::after{content:"";position:absolute;left:16px;right:16px;bottom:0;height:1px;background:var(--stroke)}
 .scroll{flex:1;min-height:0;overflow-y:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 40px),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 40px),transparent);padding-bottom:40px}
 .scroll::-webkit-scrollbar{display:none}
-.row{position:relative;height:44px;padding:0 8px;margin:0 -8px;border-radius:8px;transition:background .12s}
+.row{position:relative;height:44px;padding:0 16px;border-radius:10px;transition:background .12s}
 /* the hairline is drawn separately so the rounded hover fill never bends it */
-.row::after{content:"";position:absolute;left:8px;right:8px;bottom:0;height:1px;background:var(--stroke)}
+.row::after{content:"";position:absolute;left:16px;right:16px;bottom:0;height:1px;background:var(--stroke)}
 .row:hover::after,.row.hi::after{opacity:0}
 .row:hover,.row.hi{background:rgba(255,255,255,.05)}
 .row .no{font:10px var(--mono);color:var(--mute)}
