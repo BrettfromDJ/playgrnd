@@ -62,8 +62,9 @@ svg{flex:none;display:block}
 .main{display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,44%);gap:48px;flex:1;min-height:0;padding-top:26px}
 /* featured */
 .feat{display:flex;flex-direction:column;min-height:0;gap:14px}
-.frame{position:relative;flex:1;min-height:0;border-radius:14px;overflow:hidden;background:var(--well);border:1px solid var(--stroke)}
-.frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .25s ease}
+.frame{position:relative;flex:none;aspect-ratio:1;width:100%;max-width:calc(100dvh - 268px);border-radius:14px;overflow:hidden;background:var(--well);border:1px solid var(--stroke)}
+.feat{justify-content:center}
+.frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .25s ease;background:#000}
 .frame img.on{opacity:1}
 .cap{display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
 .cap .nm{font-size:14px;font-weight:500;margin-bottom:4px}
@@ -176,58 +177,58 @@ svg{flex:none;display:block}
 <script>
 (function(){
   var TOOLS=[
-  {slug:"oddgrid", name:"Oddgrid", year:2026, cat:"Patterns", desc:"generative pixel compositions", art:"oddgrid/og.png", released:"2026-08-25"},
-  {slug:"terrain", name:"Terrain", year:2026, cat:"Backgrounds", desc:"layered contour landscapes", art:"terrain/og.jpg", released:"2026-08-25"},
-  {slug:"filament", name:"Filament", year:2026, cat:"Backgrounds", desc:"flowing thread fields", art:"filament/og.jpg", released:"2026-08-25"},
-  {slug:"zig", name:"Zig", year:2026, cat:"Patterns", desc:"rounded zigzag patterns", art:"zig/og.jpg", released:"2026-08-26"},
-  {slug:"quilt", name:"Quilt", year:2026, cat:"Patterns", desc:"pixel blanket patterns", art:"quilt/og.png", released:"2026-08-26"},
-  {slug:"aura", name:"Aura", year:2026, cat:"Backgrounds", desc:"soft vibrant gradients", art:"aura/og.jpg", released:"2026-08-26"},
-  {slug:"warp", name:"Warp", year:2026, cat:"Patterns", desc:"warped op-art patterns", art:"warp/og.jpg", released:"2026-08-26"},
-  {slug:"specimen", name:"Specimen", year:2026, cat:"Posters", desc:"type specimen posters", art:"specimen/og.jpg", released:"2026-08-25"},
-  {slug:"tokens", name:"Tokens", year:2026, cat:"Badges", desc:"geometric badge sets", art:"tokens/og.jpg", released:"2026-08-25"},
-  {slug:"vee", name:"Vee", year:2026, cat:"Patterns", desc:"mirrored chevron stripes", art:"vee/og.png", released:"2026-08-26"},
-  {slug:"fete", name:"Fete", year:2026, cat:"Posters", desc:"festival patch posters", art:"fete/og.jpg", released:"2026-08-25"},
-  {slug:"parcel", name:"Parcel", year:2026, cat:"Posters", desc:"pixel parcel posters", art:"parcel/og.jpg", released:"2026-08-26"},
-  {slug:"weave", name:"Weave", year:2026, cat:"Patterns", desc:"striped ribbon bands", art:"weave/og.png", released:"2026-08-25"},
-  {slug:"stipple", name:"Stipple", year:2026, cat:"Textures", desc:"halftone dot portraits of light", art:"stipple/og.jpg", released:"2026-08-25"},
-  {slug:"modular", name:"Modular", year:2026, cat:"Posters", desc:"rounded modular grid posters", art:"modular/og.jpg", released:"2026-08-25"},
-  {slug:"static", name:"Static", year:2026, cat:"Posters", desc:"glitch pixel posters", art:"static/og.png", released:"2026-08-25"},
-  {slug:"optic", name:"Optic", year:2026, cat:"Posters", desc:"striped counterchange posters", art:"optic/og.png", released:"2026-08-26"},
-  {slug:"rise", name:"Rise", year:2026, cat:"Backgrounds", desc:"radial stripe arcs", art:"rise/og.png", released:"2026-08-26"},
-  {slug:"prism", name:"Prism", year:2026, cat:"Backgrounds", desc:"pixel aurora backdrops", art:"prism/og.png", released:"2026-08-26"},
-  {slug:"riso", name:"Riso", year:2026, cat:"Posters", desc:"torn paper collage", art:"riso/og.jpg", released:"2026-08-26"},
-  {slug:"delta", name:"Delta", year:2026, cat:"Backgrounds", desc:"corrupted satellite mosaics", art:"delta/og.jpg", released:"2026-08-31"},
-  {slug:"mist", name:"Mist", year:2026, cat:"Backgrounds", desc:"sprayed neon washes", art:"mist/og.jpg", released:"2026-08-26"},
-  {slug:"totem", name:"Totem", year:2026, cat:"Posters", desc:"mirrored pixel banners", art:"totem/og.png", released:"2026-08-31"},
-  {slug:"atlas", name:"Atlas", year:2026, cat:"Textures", desc:"text-mode terrain maps", art:"atlas/og.jpg", released:"2026-08-31"},
-  {slug:"sampler", name:"Sampler", year:2026, cat:"Patterns", desc:"modular tile samplers", art:"sampler/og.png", released:"2026-08-31"},
-  {slug:"relief", name:"Relief", year:2026, cat:"Patterns", desc:"isometric block lattices", art:"relief/og.jpg", released:"2026-08-31"},
-  {slug:"kiosk", name:"Kiosk", year:2026, cat:"Posters", desc:"typographic fly-posters", art:"kiosk/og.jpg", released:"2026-09-01"},
-  {slug:"mosh", name:"Mosh", year:2026, cat:"Textures", desc:"corrupted signal", art:"mosh/og.png", released:"2026-09-01"},
-  {slug:"pane", name:"Pane", year:2026, cat:"Backgrounds", desc:"gradient panels", art:"pane/og.jpg", released:"2026-09-01"},
-  {slug:"sonar", name:"Sonar", year:2026, cat:"Backgrounds", desc:"dithered landmasses", art:"sonar/og.png", released:"2026-09-01"},
-  {slug:"bloom", name:"Bloom", year:2026, cat:"Backgrounds", desc:"symmetrical pixel fields", art:"bloom/og.png", released:"2026-09-01"},
-  {slug:"sear", name:"Sear", year:2026, cat:"Backgrounds", desc:"smeared thermal fields", art:"sear/og.jpg", released:"2026-09-03"},
-  {slug:"carve", name:"Carve", year:2026, cat:"Backgrounds", desc:"carved panel collages", art:"carve/og.jpg", released:"2026-09-04"},
-  {slug:"culture", name:"Culture", year:2026, cat:"Backgrounds", desc:"grainy colony fields", art:"culture/og.jpg", released:"2026-09-04"},
-  {slug:"husk", name:"Husk", year:2026, cat:"Backgrounds", desc:"eaten husk scatters", art:"husk/og.jpg", released:"2026-09-04"},
-  {slug:"strand", name:"Strand", year:2026, cat:"Backgrounds", desc:"branching rod chains", art:"strand/og.jpg", released:"2026-09-04"},
-  {slug:"chaff", name:"Chaff", year:2026, cat:"Backgrounds", desc:"thrown blade scatters", art:"chaff/og.jpg", released:"2026-09-04"},
-  {slug:"splice", name:"Splice", year:2026, cat:"Backgrounds", desc:"cut-up riso collages", art:"splice/og.jpg", released:"2026-09-05"},
-  {slug:"whorl", name:"Whorl", year:2026, cat:"Patterns", desc:"warped op-art stripes", art:"whorl/og.jpg", released:"2026-09-06"},
-  {slug:"sprig", name:"Sprig", year:2026, cat:"Patterns", desc:"drawn botanical repeats", art:"sprig/og.jpg", released:"2026-09-06"},
-  {slug:"frond", name:"Frond", year:2026, cat:"Backgrounds", desc:"degraded still life", art:"frond/og.jpg", released:"2026-09-07"},
-  {slug:"pith", name:"Pith", year:2026, cat:"Textures", desc:"dithered cell tissue", art:"pith/og.jpg", released:"2026-09-07"},
-  {slug:"hiss", name:"Hiss", year:2026, cat:"Backgrounds", desc:"television-snow posters", art:"hiss/og.jpg", released:"2026-09-08"},
-  {slug:"benday", name:"Benday", year:2026, cat:"Backgrounds", desc:"dot-screened thermal fields", art:"benday/og.jpg", released:"2026-09-10"},
-  {slug:"stitch", name:"Stitch", year:2026, cat:"Backgrounds", desc:"glitched pixel grids", art:"stitch/og.png", released:"2026-09-11"},
-  {slug:"fold", name:"Fold", year:2026, cat:"Patterns", desc:"kaleidoscope pixel art", art:"fold/og.png", released:"2026-09-11"},
-  {slug:"coral", name:"Coral", year:2026, cat:"Backgrounds", desc:"sea-fan textile", art:"coral/og.jpg", released:"2026-09-13"},
-  {slug:"dahlia", name:"Dahlia", year:2026, cat:"Posters", desc:"chrysanthemum burst posters", art:"dahlia/og.jpg", released:"2026-09-13"},
-  {slug:"cipher", name:"Cipher", year:2026, cat:"Patterns", desc:"glyph-grid fields", art:"cipher/og.jpg", released:"2026-09-14"},
-  {slug:"motley", name:"Motley", year:2026, cat:"Patterns", desc:"glyph patchwork", art:"motley/og.jpg", released:"2026-09-14"},
-  {slug:"vein", name:"Vein", year:2026, cat:"Backgrounds", desc:"cut-paper marbling, in vector", art:"vein/og.jpg", released:"2026-09-15"},
-  {slug:"crowd", name:"Crowd", year:2026, cat:"Backgrounds", desc:"blurred crowd", art:"crowd/og.jpg", released:"2026-09-16"}
+  {slug:"oddgrid", name:"Oddgrid", year:2026, cat:"Patterns", desc:"generative pixel compositions", art:"oddgrid/og.png", released:"2026-08-25", sq:"oddgrid/home.svg", jpg:"oddgrid/home.jpg"},
+  {slug:"terrain", name:"Terrain", year:2026, cat:"Backgrounds", desc:"layered contour landscapes", art:"terrain/og.jpg", released:"2026-08-25", sq:"terrain/home.jpg", jpg:"terrain/home.jpg"},
+  {slug:"filament", name:"Filament", year:2026, cat:"Backgrounds", desc:"flowing thread fields", art:"filament/og.jpg", released:"2026-08-25", sq:"filament/home.svg", jpg:"filament/home.jpg"},
+  {slug:"zig", name:"Zig", year:2026, cat:"Patterns", desc:"rounded zigzag patterns", art:"zig/og.jpg", released:"2026-08-26", sq:"zig/home.svg", jpg:"zig/home.jpg"},
+  {slug:"quilt", name:"Quilt", year:2026, cat:"Patterns", desc:"pixel blanket patterns", art:"quilt/og.png", released:"2026-08-26", sq:"quilt/home.svg", jpg:"quilt/home.jpg"},
+  {slug:"aura", name:"Aura", year:2026, cat:"Backgrounds", desc:"soft vibrant gradients", art:"aura/og.jpg", released:"2026-08-26", sq:"aura/home.jpg", jpg:"aura/home.jpg"},
+  {slug:"warp", name:"Warp", year:2026, cat:"Patterns", desc:"warped op-art patterns", art:"warp/og.jpg", released:"2026-08-26", sq:"warp/home.svg", jpg:"warp/home.jpg"},
+  {slug:"specimen", name:"Specimen", year:2026, cat:"Posters", desc:"type specimen posters", art:"specimen/og.jpg", released:"2026-08-25", sq:"specimen/home.svg", jpg:"specimen/home.jpg"},
+  {slug:"tokens", name:"Tokens", year:2026, cat:"Badges", desc:"geometric badge sets", art:"tokens/og.jpg", released:"2026-08-25", sq:"tokens/home.svg", jpg:"tokens/home.jpg"},
+  {slug:"vee", name:"Vee", year:2026, cat:"Patterns", desc:"mirrored chevron stripes", art:"vee/og.png", released:"2026-08-26", sq:"vee/home.svg", jpg:"vee/home.jpg"},
+  {slug:"fete", name:"Fete", year:2026, cat:"Posters", desc:"festival patch posters", art:"fete/og.jpg", released:"2026-08-25", sq:"fete/home.svg", jpg:"fete/home.jpg"},
+  {slug:"parcel", name:"Parcel", year:2026, cat:"Posters", desc:"pixel parcel posters", art:"parcel/og.jpg", released:"2026-08-26", sq:"parcel/home.svg", jpg:"parcel/home.jpg"},
+  {slug:"weave", name:"Weave", year:2026, cat:"Patterns", desc:"striped ribbon bands", art:"weave/og.png", released:"2026-08-25", sq:"weave/home.svg", jpg:"weave/home.jpg"},
+  {slug:"stipple", name:"Stipple", year:2026, cat:"Textures", desc:"halftone dot portraits of light", art:"stipple/og.jpg", released:"2026-08-25", sq:"stipple/home.svg", jpg:"stipple/home.jpg"},
+  {slug:"modular", name:"Modular", year:2026, cat:"Posters", desc:"rounded modular grid posters", art:"modular/og.jpg", released:"2026-08-25", sq:"modular/home.svg", jpg:"modular/home.jpg"},
+  {slug:"static", name:"Static", year:2026, cat:"Posters", desc:"glitch pixel posters", art:"static/og.png", released:"2026-08-25", sq:"static/home.svg", jpg:"static/home.jpg"},
+  {slug:"optic", name:"Optic", year:2026, cat:"Posters", desc:"striped counterchange posters", art:"optic/og.png", released:"2026-08-26", sq:"optic/home.svg", jpg:"optic/home.jpg"},
+  {slug:"rise", name:"Rise", year:2026, cat:"Backgrounds", desc:"radial stripe arcs", art:"rise/og.png", released:"2026-08-26", sq:"rise/home.svg", jpg:"rise/home.jpg"},
+  {slug:"prism", name:"Prism", year:2026, cat:"Backgrounds", desc:"pixel aurora backdrops", art:"prism/og.png", released:"2026-08-26", sq:"prism/home.svg", jpg:"prism/home.jpg"},
+  {slug:"riso", name:"Riso", year:2026, cat:"Posters", desc:"torn paper collage", art:"riso/og.jpg", released:"2026-08-26", sq:"riso/home.svg", jpg:"riso/home.jpg"},
+  {slug:"delta", name:"Delta", year:2026, cat:"Backgrounds", desc:"corrupted satellite mosaics", art:"delta/og.jpg", released:"2026-08-31", sq:"delta/home.jpg", jpg:"delta/home.jpg"},
+  {slug:"mist", name:"Mist", year:2026, cat:"Backgrounds", desc:"sprayed neon washes", art:"mist/og.jpg", released:"2026-08-26", sq:"mist/home.jpg", jpg:"mist/home.jpg"},
+  {slug:"totem", name:"Totem", year:2026, cat:"Posters", desc:"mirrored pixel banners", art:"totem/og.png", released:"2026-08-31", sq:"totem/home.svg", jpg:"totem/home.jpg"},
+  {slug:"atlas", name:"Atlas", year:2026, cat:"Textures", desc:"text-mode terrain maps", art:"atlas/og.jpg", released:"2026-08-31", sq:"atlas/home.svg", jpg:"atlas/home.jpg"},
+  {slug:"sampler", name:"Sampler", year:2026, cat:"Patterns", desc:"modular tile samplers", art:"sampler/og.png", released:"2026-08-31", sq:"sampler/home.svg", jpg:"sampler/home.jpg"},
+  {slug:"relief", name:"Relief", year:2026, cat:"Patterns", desc:"isometric block lattices", art:"relief/og.jpg", released:"2026-08-31", sq:"relief/home.svg", jpg:"relief/home.jpg"},
+  {slug:"kiosk", name:"Kiosk", year:2026, cat:"Posters", desc:"typographic fly-posters", art:"kiosk/og.jpg", released:"2026-09-01", sq:"kiosk/home.svg", jpg:"kiosk/home.jpg"},
+  {slug:"mosh", name:"Mosh", year:2026, cat:"Textures", desc:"corrupted signal", art:"mosh/og.png", released:"2026-09-01", sq:"mosh/home.svg", jpg:"mosh/home.jpg"},
+  {slug:"pane", name:"Pane", year:2026, cat:"Backgrounds", desc:"gradient panels", art:"pane/og.jpg", released:"2026-09-01", sq:"pane/home.svg", jpg:"pane/home.jpg"},
+  {slug:"sonar", name:"Sonar", year:2026, cat:"Backgrounds", desc:"dithered landmasses", art:"sonar/og.png", released:"2026-09-01", sq:"sonar/home.svg", jpg:"sonar/home.jpg"},
+  {slug:"bloom", name:"Bloom", year:2026, cat:"Backgrounds", desc:"symmetrical pixel fields", art:"bloom/og.png", released:"2026-09-01", sq:"bloom/home.svg", jpg:"bloom/home.jpg"},
+  {slug:"sear", name:"Sear", year:2026, cat:"Backgrounds", desc:"smeared thermal fields", art:"sear/og.jpg", released:"2026-09-03", sq:"sear/home.jpg", jpg:"sear/home.jpg"},
+  {slug:"carve", name:"Carve", year:2026, cat:"Backgrounds", desc:"carved panel collages", art:"carve/og.jpg", released:"2026-09-04", sq:"carve/home.svg", jpg:"carve/home.jpg"},
+  {slug:"culture", name:"Culture", year:2026, cat:"Backgrounds", desc:"grainy colony fields", art:"culture/og.jpg", released:"2026-09-04", sq:"culture/home.jpg", jpg:"culture/home.jpg"},
+  {slug:"husk", name:"Husk", year:2026, cat:"Backgrounds", desc:"eaten husk scatters", art:"husk/og.jpg", released:"2026-09-04", sq:"husk/home.jpg", jpg:"husk/home.jpg"},
+  {slug:"strand", name:"Strand", year:2026, cat:"Backgrounds", desc:"branching rod chains", art:"strand/og.jpg", released:"2026-09-04", sq:"strand/home.jpg", jpg:"strand/home.jpg"},
+  {slug:"chaff", name:"Chaff", year:2026, cat:"Backgrounds", desc:"thrown blade scatters", art:"chaff/og.jpg", released:"2026-09-04", sq:"chaff/home.jpg", jpg:"chaff/home.jpg"},
+  {slug:"splice", name:"Splice", year:2026, cat:"Backgrounds", desc:"cut-up riso collages", art:"splice/og.jpg", released:"2026-09-05", sq:"splice/home.jpg", jpg:"splice/home.jpg"},
+  {slug:"whorl", name:"Whorl", year:2026, cat:"Patterns", desc:"warped op-art stripes", art:"whorl/og.jpg", released:"2026-09-06", sq:"whorl/home.jpg", jpg:"whorl/home.jpg"},
+  {slug:"sprig", name:"Sprig", year:2026, cat:"Patterns", desc:"drawn botanical repeats", art:"sprig/og.jpg", released:"2026-09-06", sq:"sprig/home.jpg", jpg:"sprig/home.jpg"},
+  {slug:"frond", name:"Frond", year:2026, cat:"Backgrounds", desc:"degraded still life", art:"frond/og.jpg", released:"2026-09-07", sq:"frond/home.jpg", jpg:"frond/home.jpg"},
+  {slug:"pith", name:"Pith", year:2026, cat:"Textures", desc:"dithered cell tissue", art:"pith/og.jpg", released:"2026-09-07", sq:"pith/home.jpg", jpg:"pith/home.jpg"},
+  {slug:"hiss", name:"Hiss", year:2026, cat:"Backgrounds", desc:"television-snow posters", art:"hiss/og.jpg", released:"2026-09-08", sq:"hiss/home.jpg", jpg:"hiss/home.jpg"},
+  {slug:"benday", name:"Benday", year:2026, cat:"Backgrounds", desc:"dot-screened thermal fields", art:"benday/og.jpg", released:"2026-09-10", sq:"benday/home.jpg", jpg:"benday/home.jpg"},
+  {slug:"stitch", name:"Stitch", year:2026, cat:"Backgrounds", desc:"glitched pixel grids", art:"stitch/og.png", released:"2026-09-11", sq:"stitch/home.jpg", jpg:"stitch/home.jpg"},
+  {slug:"fold", name:"Fold", year:2026, cat:"Patterns", desc:"kaleidoscope pixel art", art:"fold/og.png", released:"2026-09-11", sq:"fold/home.jpg", jpg:"fold/home.jpg"},
+  {slug:"coral", name:"Coral", year:2026, cat:"Backgrounds", desc:"sea-fan textile", art:"coral/og.jpg", released:"2026-09-13", sq:"coral/home.jpg", jpg:"coral/home.jpg"},
+  {slug:"dahlia", name:"Dahlia", year:2026, cat:"Posters", desc:"chrysanthemum burst posters", art:"dahlia/og.jpg", released:"2026-09-13", sq:"dahlia/home.jpg", jpg:"dahlia/home.jpg"},
+  {slug:"cipher", name:"Cipher", year:2026, cat:"Patterns", desc:"glyph-grid fields", art:"cipher/og.jpg", released:"2026-09-14", sq:"cipher/home.jpg", jpg:"cipher/home.jpg"},
+  {slug:"motley", name:"Motley", year:2026, cat:"Patterns", desc:"glyph patchwork", art:"motley/og.jpg", released:"2026-09-14", sq:"motley/home.jpg", jpg:"motley/home.jpg"},
+  {slug:"vein", name:"Vein", year:2026, cat:"Backgrounds", desc:"cut-paper marbling, in vector", art:"vein/og.jpg", released:"2026-09-15", sq:"vein/home.svg", jpg:"vein/home.jpg"},
+  {slug:"crowd", name:"Crowd", year:2026, cat:"Backgrounds", desc:"blurred crowd", art:"crowd/og.jpg", released:"2026-09-16", sq:"crowd/home.jpg", jpg:"crowd/home.jpg"}
 ], ROOT="./";
   var $=function(s){return document.querySelector(s);};
   var state={kind:"All",q:""}, feat=null;
@@ -246,13 +247,13 @@ svg{flex:none;display:block}
       while(out.length<2) out.push(px[out.length]||{r:60,g:60,b:80}); cache[src]=out; cb(out); }catch(e){} }; im.src=src; }
   function show(t){
     if(feat&&feat.slug===t.slug) return; feat=t;
-    var src=ROOT+t.art, im=imgs[t.slug];
+    var src=ROOT+t.sq, im=imgs[t.slug];
     if(!im){ im=document.createElement("img"); im.src=src; im.alt=t.name; frame.appendChild(im); imgs[t.slug]=im; }
     Object.keys(imgs).forEach(function(k){ imgs[k].classList.toggle("on",k===t.slug); });
     $("#fName").textContent=t.name; $("#fMk").textContent=t.desc+" · "+t.cat; $("#fDate").textContent=fmt(t.released);
     $("#fOpen").href=ROOT+t.slug+"/"; $("#fOpenName").textContent=t.name;
     document.querySelectorAll(".row").forEach(function(r){ r.classList.toggle("hi",r.dataset.slug===t.slug); });
-    sample(src,function(c){ if(feat!==t) return; var f=function(q,a){ return "rgba("+q.r+","+q.g+","+q.b+","+a+")"; };
+    sample(ROOT+t.jpg,function(c){ if(feat!==t) return; var f=function(q,a){ return "rgba("+q.r+","+q.g+","+q.b+","+a+")"; };
       var nx=g[gi=1-gi]; nx.style.backgroundImage="radial-gradient(95vw 60vh at 50% -8%,"+f(c[0],.22)+",transparent 70%),radial-gradient(55vw 40vh at 88% 6%,"+f(c[1],.12)+",transparent 70%)";
       g.forEach(function(d){ d.classList.toggle("on",d===nx); }); });
   }
