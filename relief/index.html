@@ -385,7 +385,7 @@ body.mine-on #rotColors,body.mine-on #rotInks,body.mine-on #repick,body.mine-on 
   <details class="grp" open><summary>Blocks</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Cube size</span><span class="v" id="scaleVal">89</span></div><div class="track"><input type="range" id="scale" min="12" max="180" step="1" value="89"></div></div>
         <div class="pr"><div class="top"><span class="k">Repeat</span><span class="v" id="repeatVal">3</span></div><div class="track"><input type="range" id="repeat" min="1" max="12" step="1" value="3"></div></div>
         <div class="pr"><div class="top"><span class="k">Interlock</span><span class="v" id="varietyVal">38%</span></div><div class="track"><input type="range" id="variety" min="0" max="1" step="0.01" value="0.38"></div></div>
-        <div class="pr"><div class="top"><span class="k">Flats</span><span class="v" id="solidsVal">14%</span></div><div class="track"><input type="range" id="solids" min="0" max="1" step="0.01" value="0.14"></div></div></div></details>
+        <div class="pr"><div class="top"><span class="k">Flats</span><span class="v" id="solidsVal">0%</span></div><div class="track"><input type="range" id="solids" min="0" max="1" step="0.01" value="0"></div></div></div></details>
   <details class="grp" open><summary>Light</summary><div class="grp-b"><div class="pr"><div class="top"><span class="k">Relief</span><span class="v" id="reliefVal">90%</span></div><div class="track"><input type="range" id="relief" min="0" max="1" step="0.01" value="0.9"></div></div>
         <div class="pr"><div class="top"><span class="k">Accent cubes</span><span class="v" id="accentVal">34%</span></div><div class="track"><input type="range" id="accent" min="0" max="1" step="0.01" value="0.34"></div></div></div></details>
   <div class="grp" style="padding-bottom:24px"><div class="arow"><span class="h">Aspect ratio</span><button class="pill fill sm" id="ratioBtn" aria-haspopup="listbox" aria-expanded="false"><i class="sq"></i><span id="ratioEcho">1:1</span></button><div class="menu" id="ratioMenu" role="listbox" aria-label="Aspect ratio" hidden><div class="rack" id="ratios"></div></div></div><span class="val" id="ratioVal" hidden>1:1</span></div>
@@ -486,7 +486,7 @@ const PALETTES=[
 
 const S={
   seed:19, ratio:"1:1",
-  scale:89, repeat:3, variety:0.38, solids:0.14,
+  scale:89, repeat:3, variety:0.38, solids:0,
   relief:0.9, accent:0.34,
   pal:PALETTES[0].slice(),
   motion:{on:false,mode:"shuffle",amount:0.6,fps:6,frames:24},
