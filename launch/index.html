@@ -1330,7 +1330,7 @@ function initAudio() {
   audio.p = p;
   // electric drive
   const t = { out: ctx.createGain(), oscs: [] }; t.out.gain.value = 0;
-  for (const [mult, g] of [[1, 0.3], [2.02, 0.12], [3.5, 0.05], [12, 0.025]]) {
+  for (const [mult, g] of [[1, 0.26], [2.02, 0.16], [3.5, 0.09], [6, 0.05], [12, 0.03]]) {
     const o = ctx.createOscillator(); o.type = "sine"; const gg = ctx.createGain(); gg.gain.value = g; o.connect(gg).connect(t.out); o.start(); t.oscs.push({ o, mult });
   }
   const hiss = noise(); const hbp = ctx.createBiquadFilter(); hbp.type = "bandpass"; hbp.frequency.value = 3000; hbp.Q.value = 0.8;
@@ -1359,45 +1359,53 @@ function porscheRPM(v, maxv) {
   return { rpm: Math.min(rpm, 7500), g };
 }
 const tmpV = new THREE.Vector3();
+const carVel = new THREE.Vector3(), relV = new THREE.Vector3();
 function updateAudio(dt) {
   if (!audio.ctx) return;
   const ctx = audio.ctx, now = ctx.currentTime;
   audio.master.gain.setTargetAtTime(state.sound ? 0.8 : 0, now, 0.05);
-  const rate = state.slow;
+  // slow motion lowers the pitch only a little: phone speakers can't play the
+  // very low notes a true quarter-speed engine would make
+  const rate = 0.62 + 0.38 * state.slow;
   const camR = new THREE.Vector3(1, 0, 0).applyQuaternion(camera.quaternion);
   for (const k of ["tesla", "porsche"]) {
     const rig = rigs[k]; if (!rig) continue;
     const q = rig.live || { v: 0, a: 0 };
     tmpV.copy(rig.root.position).setY(0.6).sub(camera.position);
     const d = Math.max(2.5, tmpV.length());
-    const pan = clamp(tmpV.normalize().dot(camR), -1, 1) * 0.8;
-    // doppler from the car's speed along the line of sight
-    const vr = -q.v * tmpV.x; const dop = clamp(343 / (343 - vr * 0.7), 0.6, 1.8);
-    const near = clamp(6 / d, 0, 1) ** 0.8;
+    tmpV.normalize();
+    const pan = clamp(tmpV.dot(camR), -1, 1) * 0.55;
+    // doppler from the car's speed relative to the camera, which may be moving too
+    relV.copy(carVel.set(q.v, 0, 0)).sub(camState.vel);
+    const away = clamp(relV.dot(tmpV), -120, 120);
+    const dop = clamp(343 / (343 + away * 0.6), 0.8, 1.3);
+    // a broadcast mix: both cars always audible, the nearer one lifted a little,
+    // and slow enough that camera cuts don't make either engine drop out
+    const level = 0.55 + 0.45 * clamp(9 / d, 0, 1);
     if (k === "porsche") {
       const { rpm } = porscheRPM(q.v, runs.porsche?.fit.vmax || 1);
       const racing = state.phase === "race" || state.phase === "finish";
       const idle = racing ? rpm : (state.phase === "tree" ? 3800 + Math.sin(performance.now() / 90) * 300 : 950);
       const fire = idle / 60 * 3 * dop * rate;
-      for (const o of audio.p.oscs) o.o.frequency.setTargetAtTime(fire * o.mult, now, 0.02);
-      audio.p.lp.frequency.setTargetAtTime(600 + idle * 0.45 * (q.a > 0 ? 1.2 : 0.6), now, 0.03);
-      audio.p.out.gain.setTargetAtTime((0.15 + (racing ? 0.25 : 0.05)) * near, now, 0.05);
+      for (const o of audio.p.oscs) o.o.frequency.setTargetAtTime(fire * o.mult, now, 0.03);
+      audio.p.lp.frequency.setTargetAtTime(700 + idle * 0.45 * (q.a > 0 ? 1.2 : 0.7), now, 0.05);
+      audio.p.out.gain.setTargetAtTime((0.15 + (racing ? 0.22 : 0.05)) * level, now, 0.3);
       audio.p.whistle.frequency.setTargetAtTime(2400 + idle * 0.6, now, 0.05);
-      audio.p.wg.gain.setTargetAtTime(racing && q.a > 0 ? 0.02 : 0, now, 0.1);
-      audio.p.pan.pan.setTargetAtTime(pan, now, 0.05);
+      audio.p.wg.gain.setTargetAtTime(racing && q.a > 0 ? 0.02 : 0, now, 0.15);
+      audio.p.pan.pan.setTargetAtTime(pan, now, 0.25);
     } else {
-      const f0 = (40 + q.v * 9.5) * dop * rate;
-      for (const o of audio.t.oscs) o.o.frequency.setTargetAtTime(f0 * o.mult, now, 0.02);
-      const on = q.v > 0.1 || state.phase === "tree";
-      audio.t.out.gain.setTargetAtTime((on ? 0.12 + clamp(q.a / 20, 0, 0.25) : 0.01) * near, now, 0.05);
-      audio.t.hiss.gain.setTargetAtTime(rig.jetAmt > 0 ? 0.9 * rig.jetAmt : 0, now, 0.03);
-      audio.t.pan.pan.setTargetAtTime(pan, now, 0.05);
+      const f0 = (55 + q.v * 9.5) * dop * rate;
+      for (const o of audio.t.oscs) o.o.frequency.setTargetAtTime(f0 * o.mult, now, 0.03);
+      const on = state.phase !== "stage" || q.v > 0.1;
+      audio.t.out.gain.setTargetAtTime((on ? 0.14 + clamp(q.a / 20, 0, 0.22) : 0.02) * level, now, 0.3);
+      audio.t.hiss.gain.setTargetAtTime(rig.jetAmt > 0 ? 0.9 * rig.jetAmt : 0, now, 0.05);
+      audio.t.pan.pan.setTargetAtTime(pan, now, 0.25);
     }
   }
-  // wind follows the camera's own speed
-  const cs = camState.speed || 0;
-  audio.wind.g.gain.setTargetAtTime(clamp(cs / 90, 0, 1) * 0.35, now, 0.1);
-  audio.wind.f.frequency.setTargetAtTime(300 + cs * 18, now, 0.1);
+  // wind follows the camera's own (smoothed) speed, ignoring the jumps at cuts
+  const cs = camState.vel.length();
+  audio.wind.g.gain.setTargetAtTime(clamp(cs / 90, 0, 1) * 0.3, now, 0.4);
+  audio.wind.f.frequency.setTargetAtTime(300 + cs * 16, now, 0.3);
   audio.crowd.gain.setTargetAtTime(state.phase === "done" ? 0.02 : state.crowd || 0.02, now, 0.4);
 }
 
@@ -1410,7 +1418,7 @@ controls.minDistance = 4; controls.maxDistance = 40; controls.maxPolarAngle = Ma
 controls.target.set(-1.2, 0.6, 0);
 controls.autoRotate = true; controls.autoRotateSpeed = 0.35;
 camera.position.set(7.2, 1.5, -8.6);
-const camState = { anchor: null, speed: 0, prev: new THREE.Vector3(), shake: 0, shot: null, fov: 38 };
+const camState = { anchor: null, vel: new THREE.Vector3(), speed: 0, prev: new THREE.Vector3(), shake: 0, shot: null, fov: 38 };
 // tall screens need a wider lens to keep both cars in frame
 const portrait = () => camera.aspect < 1 ? Math.min(1.9, 0.8 / camera.aspect) : 1;
 const noise1 = t => Math.sin(t * 1.7) * 0.5 + Math.sin(t * 3.1 + 1.3) * 0.3 + Math.sin(t * 7.3 + 2.1) * 0.2;
@@ -1444,7 +1452,7 @@ function updateCamera(dt, rt) {
       camera.lookAt(controls.target);
     } else controls.update();
     camera.fov = lerp(camera.fov, 38 * portrait(), 1 - Math.exp(-dt * 3)); camera.updateProjectionMatrix();
-    camState.speed = 0; lens.uniforms.uBlur.value = 0;
+    camState.speed = 0; camState.vel.set(0, 0, 0); camState.prev.copy(camera.position); lens.uniforms.uBlur.value = 0;
     return;
   }
   let mode = state.cam;
@@ -1509,6 +1517,7 @@ function updateCamera(dt, rt) {
       break; }
   }
   const snap = camState.cut || shot === "cockpit" || shot === "chase" || shot === "chaseT";
+  const cutNow = camState.cut;
   if (camState.cut) { camera.position.copy(want); controls.target.copy(look); camState.cut = false; }
   else {
     // carry the camera along with what it tracks, so easing only smooths the
@@ -1527,7 +1536,12 @@ function updateCamera(dt, rt) {
   camera.lookAt(controls.target);
   camera.fov = lerp(camera.fov, Math.min(100, fov * (shot === "side" || shot === "sideP" ? 1 : portrait())), 1 - Math.exp(-dt * 4)); camera.updateProjectionMatrix();
   lens.uniforms.uBlur.value = lerp(lens.uniforms.uBlur.value, blur, 1 - Math.exp(-dt * 5));
-  camState.speed = camera.position.distanceTo(camState.prev) / Math.max(dt, 1e-4);
+  // camera velocity for the sound, skipping the frame of a cut (a jump, not motion)
+  if (!cutNow && dt > 0) {
+    const v = tmpV.copy(camera.position).sub(camState.prev).divideScalar(dt);
+    if (v.length() < 150) camState.vel.lerp(v, 1 - Math.exp(-dt * 6));
+  }
+  camState.speed = camState.vel.length();
   camState.prev.copy(camera.position);
 }
 
@@ -1635,7 +1649,7 @@ function resetRace() {
 }
 function startRace() {
   if (state.phase !== "stage") return;
-  initAudio(); audio.ctx?.resume();
+  initAudio(); audio.ctx?.resume?.();
   hideSlip();
   prepareRuns();
   state.winner = runs.tesla.et <= runs.porsche.et ? "tesla" : "porsche";
@@ -1752,6 +1766,8 @@ function resize() {
   if (window.__motes) window.__motes.uniforms.uScale.value = h;
 }
 addEventListener("resize", resize);
+// phones suspend audio when the page is hidden or a call comes in; pick it back up
+document.addEventListener("visibilitychange", () => { if (!document.hidden && audio.ctx && audio.ctx.state !== "running") audio.ctx.resume?.(); });
 
 const clock = new THREE.Clock();
 let hudTick = 0;
@@ -1865,7 +1881,7 @@ function seek(t, cam) {
   state.clock = t; state.freeze = true; if (cam) state.cam = cam; camState.shot = null;
   $("#bars").classList.add("on"); document.body.classList.add("racing");
 }
-window.__launch = { state, rigs, runs, startRace, camera, controls, setTree, seek, emit };
+window.__launch = { state, rigs, runs, startRace, camera, controls, setTree, seek, emit, audio };
 </script>
 </body>
 </html>
