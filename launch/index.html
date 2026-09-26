@@ -144,6 +144,8 @@ body.racing .card .spec{display:none}
 .tree{position:fixed;left:50%;top:50%;transform:translate(-50%,-58%);display:flex;gap:18px;pointer-events:none;
   opacity:0;transition:opacity .25s}
 .tree.on{opacity:1}
+/* in the driver's seat the lights sit low, clear of the rear-view mirror */
+body.incar .tree{top:66%}
 .tree .col{display:flex;flex-direction:column;gap:9px;padding:14px 12px;border-radius:40px;background:rgba(6,7,9,.66);
   border:1px solid var(--faint);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .tree .b{width:30px;height:30px;border-radius:50%;background:#1a1b1f;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
@@ -255,11 +257,8 @@ body.racing .card .spec{display:none}
 
   <div class="cams">
     <div class="seg" id="camSeg" role="group" aria-label="Camera">
-      <button type="button" data-cam="director" aria-pressed="true">Director</button>
-      <button type="button" data-cam="chase">Chase</button>
-      <button type="button" data-cam="side">Side</button>
-      <button type="button" data-cam="aerial">Aerial</button>
-      <button type="button" data-cam="cockpit">Cockpit</button>
+      <button type="button" data-cam="cockpit" aria-pressed="true">Cockpit</button>
+      <button type="button" data-cam="outside">Outside</button>
     </div>
   </div>
 
@@ -585,7 +584,7 @@ function paintMaterial(car) {
     color: new THREE.Color(car.paint.color), metalness: car.paint.metal, roughness: car.paint.rough,
     clearcoat: 1, clearcoatRoughness: 0.1, envMapIntensity: 1.0,
   });
-  const u = { uHead: { value: 1.2 }, uDRL: { value: 5 }, uTail: { value: 5 } };
+  const u = { uHead: { value: 1.2 }, uDRL: { value: 5 }, uTail: { value: 5 }, uCabin: { value: 0 } };
   mat.userData.u = u;
   const { fns, body } = maskGLSL(car.masks);
   mat.onBeforeCompile = sh => {
@@ -596,13 +595,15 @@ function paintMaterial(car) {
     sh.fragmentShader = sh.fragmentShader
       .replace("#include <common>", `#include <common>
 varying vec3 vOP; varying vec3 vON;
-uniform float uHead; uniform float uDRL; uniform float uTail;
+uniform float uHead; uniform float uDRL; uniform float uTail; uniform float uCabin;
 float sdBox(vec2 p, vec2 b){ vec2 d = abs(p) - b; return length(max(d, 0.0)) + min(max(d.x, d.y), 0.0); }
 float sdEll(vec2 p, vec2 r){ float k0 = length(p / r); float k1 = length(p / (r * r)); return k0 * (k0 - 1.0) / max(k1, 1e-6); }
 float sdSeg(vec2 p, vec2 a, vec2 b){ vec2 pa = p - a, ba = b - a; float h = clamp(dot(pa, ba) / dot(ba, ba), 0.0, 1.0); return length(pa - ba * h); }
 ${fns}`)
       .replace("#include <color_fragment>", `#include <color_fragment>
 vec3 p = vOP; vec3 n = normalize(vON);
+// from the driver's seat the shell above the beltline is replaced by the cockpit's own pillars and roof
+if (uCabin > 0.5 && p.z > 0.74 && p.x < 0.98 && p.x > -1.5) discard;
 vec3 mCol = diffuseColor.rgb; float mR = roughness; float mM = metalness; float mCC = 1.0; vec3 mEm = vec3(0.0);
 ${body}
 diffuseColor.rgb = mCol;`)
@@ -647,21 +648,22 @@ composer.addPass(new ShaderPass({
 const bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.6, 0.55, 0.85);
 composer.addPass(bloom);
 const lens = new ShaderPass({
-  uniforms: { tDiffuse: { value: null }, uBlur: { value: 0 }, uTime: { value: 0 }, uAspect: { value: 1 }, uCenter: { value: new THREE.Vector2(.5, .5) } },
+  uniforms: { tDiffuse: { value: null }, uBlur: { value: 0 }, uSpeed: { value: 0 }, uTime: { value: 0 }, uAspect: { value: 1 }, uCenter: { value: new THREE.Vector2(.5, .5) } },
   vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
-  fragmentShader: `uniform sampler2D tDiffuse; uniform float uBlur; uniform float uTime; uniform float uAspect; uniform vec2 uCenter; varying vec2 vUv;
+  fragmentShader: `uniform sampler2D tDiffuse; uniform float uBlur; uniform float uSpeed; uniform float uTime; uniform float uAspect; uniform vec2 uCenter; varying vec2 vUv;
     float h(vec2 p){ return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
     void main(){
       vec2 d = vUv - uCenter; float r = length(d * vec2(uAspect, 1.0));
-      float amt = uBlur * smoothstep(0.08, 0.7, r);
+      float amt = uBlur * smoothstep(0.12, 0.75, r);
       vec3 acc = vec3(0.0); float jit = h(vUv * 800.0 + uTime) ;
       for (int i = 0; i < 10; i++) { float t = (float(i) + jit) / 10.0; acc += texture2D(tDiffuse, vUv - d * amt * t * 0.16).rgb; }
       vec3 col = acc / 10.0;
       // lens fringe at the edges
-      float ca = 0.0016 * r * r * (1.0 + uBlur * 3.0);
+      float ca = 0.0016 * r * r * (1.0 + uBlur * 3.0 + uSpeed * 5.0);
       col.r = mix(col.r, texture2D(tDiffuse, vUv + d * ca * 4.0).r, 0.6);
       col.b = mix(col.b, texture2D(tDiffuse, vUv - d * ca * 4.0).b, 0.6);
-      float vig = smoothstep(1.05, 0.25, r); col *= mix(0.45, 1.0, vig);
+      // the view tunnels in as the speed climbs
+      float vig = smoothstep(1.05 - 0.4 * uSpeed, 0.25 - 0.12 * uSpeed, r); col *= mix(0.45 - 0.25 * uSpeed, 1.0, vig);
       col += (h(vUv * 1200.0 + fract(uTime) * 91.0) - 0.5) * 0.018;
       gl_FragColor = vec4(col, 1.0);
     }`,
@@ -1263,11 +1265,163 @@ function buildRig(key, gltf) {
 }
 
 /* ======================================================================
+   The Roadster's cockpit, its rear-view mirror, and the things that make
+   speed legible: lane studs and light streaks
+   ====================================================================== */
+const cockpit = { group: new THREE.Group() };
+function buildCockpit(rig) {
+  const g = cockpit.group; g.visible = false;
+  const trimM = new THREE.MeshStandardMaterial({ color: 0x0c0c0e, roughness: 0.72 });
+  const softM = new THREE.MeshStandardMaterial({ color: 0x17171a, roughness: 0.9 });
+  const alcM = new THREE.MeshStandardMaterial({ color: 0x1d1d20, roughness: 0.55, metalness: 0.2 });
+  const box = (w, h, d, m, x, y, z) => { const o = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); o.position.set(x, y, z); g.add(o); return o; };
+  // dash: a low slab under the windscreen, and its lip toward the driver
+  box(0.46, 0.08, 1.6, trimM, 0.72, 0.69, 0);
+  box(0.08, 0.05, 1.5, alcM, 0.48, 0.75, 0).rotation.z = -0.2;
+  // doors, with a lighter cap along the top
+  for (const sz of [-1, 1]) {
+    box(1.7, 0.36, 0.05, softM, 0.1, 0.55, sz * 0.8);
+    box(1.7, 0.04, 0.12, alcM, 0.1, 0.745, sz * 0.77);
+  }
+  // A-pillars and the header rail over the windscreen
+  const bar = (a, b, r, m) => {
+    const d = new THREE.Vector3().subVectors(b, a);
+    const o = new THREE.Mesh(new THREE.CylinderGeometry(r, r, d.length(), 10), m);
+    o.position.copy(a).addScaledVector(d, 0.5); o.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.normalize()); g.add(o);
+  };
+  for (const sz of [-1, 1]) bar(new THREE.Vector3(0.92, 0.74, sz * 0.74), new THREE.Vector3(0.34, 1.045, sz * 0.56), 0.024, trimM);
+  bar(new THREE.Vector3(0.34, 1.05, -0.58), new THREE.Vector3(0.34, 1.05, 0.58), 0.03, trimM);
+  // the glass roof, heavily tinted
+  const roof = new THREE.Mesh(new THREE.PlaneGeometry(1.25, 1.1), new THREE.MeshBasicMaterial({ color: 0x020304, transparent: true, opacity: 0.86, side: THREE.DoubleSide }));
+  roof.rotation.x = Math.PI / 2; roof.position.set(-0.28, 1.085, 0); g.add(roof);
+  // steering yoke on its column
+  const yoke = new THREE.Group(); yoke.position.set(0.36, 0.74, EYE.z); yoke.rotation.z = -0.42; yoke.scale.setScalar(0.9); g.add(yoke);
+  const path = new THREE.CatmullRomCurve3([[0.09, -0.17], [-0.05, -0.17], [-0.1, -0.1], [-0.1, 0.1], [-0.05, 0.17], [0.09, 0.17]].map(([y, z]) => new THREE.Vector3(0, y, z)));
+  yoke.add(new THREE.Mesh(new THREE.TubeGeometry(path, 40, 0.02, 10), trimM));
+  const hub = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.06, 0.03, 20), alcM); hub.rotation.z = Math.PI / 2; yoke.add(hub);
+  bar(new THREE.Vector3(0.37, 0.74, EYE.z), new THREE.Vector3(0.58, 0.68, EYE.z), 0.025, trimM);
+  // centre screen: live speed and the gap to the 911
+  const c = document.createElement("canvas"); c.width = 512; c.height = 320;
+  const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace;
+  const scr = new THREE.Mesh(new THREE.PlaneGeometry(0.24, 0.15), new THREE.MeshBasicMaterial({ map: tex, color: new THREE.Color(1.1, 1.1, 1.1) }));
+  scr.position.set(0.5, 0.75, 0.06); scr.rotation.set(0, -Math.PI / 2, 0); scr.rotateX(-0.45); g.add(scr);
+  box(0.02, 0.17, 0.26, trimM, 0.506, 0.75, 0.06).rotation.set(0, 0, 0.45);
+  cockpit.screen = { c, tex, last: -1 };
+  rig.body.add(g);
+}
+function drawScreen() {
+  const S = cockpit.screen; if (!S || !cockpit.group.visible) return;
+  const T = rigs.tesla.live, P = rigs.porsche.live;
+  const spd = fmtSpd(T.v);
+  const key = spd + "|" + Math.round((T.s - P.s) / 3);
+  if (key === S.last) return; S.last = key;
+  const g = S.c.getContext("2d");
+  g.fillStyle = "#05070a"; g.fillRect(0, 0, 512, 320);
+  g.fillStyle = "#f2efe8"; g.textAlign = "center"; g.textBaseline = "alphabetic";
+  g.font = "500 150px DM Mono, ui-monospace, monospace"; g.fillText(spd, 256, 190);
+  g.fillStyle = "rgba(242,239,232,.55)"; g.font = "500 26px DM Mono, ui-monospace, monospace"; g.fillText(uLabel().toUpperCase(), 256, 232);
+  // power bar
+  const k = clamp(speedK(T.v), 0, 1);
+  g.fillStyle = "rgba(255,255,255,.12)"; g.fillRect(56, 256, 400, 6);
+  g.fillStyle = "#ff4b3e"; g.fillRect(56, 256, 400 * k, 6);
+  const gap = T.s - P.s;
+  g.fillStyle = "#8fd3ff"; g.font = "500 24px DM Mono, ui-monospace, monospace";
+  g.fillText(Math.abs(gap) < 0.5 ? "911 ALONGSIDE" : (gap > 0 ? "911 −" : "911 +") + fmtDist(Math.abs(gap)).toUpperCase(), 256, 300);
+  S.tex.needsUpdate = true;
+}
+
+// rear-view mirror: a second camera looking back over the Roadster's tail,
+// shown on a mirror hung at the top of the windscreen
+const mirror = { group: new THREE.Group(), on: false, tick: 0 };
+{
+  mirror.rt = new THREE.WebGLRenderTarget(MOBILE ? 384 : 640, MOBILE ? 112 : 188, { type: THREE.HalfFloatType });
+  mirror.cam = new THREE.PerspectiveCamera(20, 3.4, 0.4, 1800);
+  const glass = new THREE.Mesh(new THREE.PlaneGeometry(1, 1 / 3.4), new THREE.MeshBasicMaterial({ map: mirror.rt.texture, side: THREE.DoubleSide, fog: false }));
+  glass.scale.x = -1; // a mirror shows the world reversed left to right
+  const frame = new THREE.Mesh(new THREE.PlaneGeometry(1.05, 1 / 3.4 + 0.05), new THREE.MeshBasicMaterial({ color: 0x050506, fog: false }));
+  frame.position.z = -0.002; glass.renderOrder = 1001; frame.renderOrder = 1000;
+  // drawn last and on top of everything, including the tinted roof glass
+  for (const m of [glass, frame]) { m.material.depthTest = false; m.material.depthWrite = false; m.material.transparent = true; }
+  mirror.group.add(frame, glass); mirror.group.visible = false;
+  camera.add(mirror.group); scene.add(camera);
+}
+function placeMirror() {
+  // keep the mirror the same size on screen whatever the lens is doing
+  const d = 0.5, halfH = Math.tan(camera.fov * Math.PI / 360) * d, halfW = halfH * camera.aspect;
+  const w = halfW * 2 * (camera.aspect > 1 ? 0.3 : 0.58), h = w / 3.4;
+  mirror.group.scale.setScalar(w);
+  // hung just below the race clock, like a real mirror at the top of the screen
+  mirror.group.position.set(0, halfH * (camera.aspect > 1 ? 0.62 : 0.5) - h / 2, -d);
+}
+function renderMirror() {
+  if (!mirror.on || !rigs.tesla) return;
+  if (MOBILE && (mirror.tick++ & 1)) return; // half rate on phones
+  const T = rigs.tesla;
+  T.body.localToWorld(mirror.cam.position.set(-0.35, 1.02, 0));
+  T.body.localToWorld(tmpV.set(-40, 0.55, 2.2));
+  mirror.cam.lookAt(tmpV);
+  mirror.cam.updateMatrixWorld();
+  T.root.visible = false; mirror.group.visible = false;
+  const wet = groundU.uWet.value; groundU.uWet.value = 0; if (refl) refl.visible = false;
+  renderer.setRenderTarget(mirror.rt); renderer.render(scene, mirror.cam); renderer.setRenderTarget(null);
+  groundU.uWet.value = wet; if (refl) refl.visible = true;
+  T.root.visible = true; mirror.group.visible = true;
+}
+
+// reflective studs along every lane line: the fastest-moving reference in view
+{
+  const xs = []; for (let x = 4; x < TRACK_START + TRACK_LEN - 40; x += 8) xs.push(x);
+  const zs = [-5.35, 0, 5.35];
+  const studs = new THREE.InstancedMesh(new THREE.BoxGeometry(0.16, 0.03, 0.12), new THREE.MeshBasicMaterial({ color: new THREE.Color(3.2, 2.5, 1.5) }), xs.length * zs.length);
+  const M = new THREE.Matrix4(); let i = 0;
+  for (const x of xs) for (const z of zs) { M.makeTranslation(x, 0.015, z); studs.setMatrixAt(i++, M); }
+  scene.add(studs);
+}
+// light streaks: short lines in the air around the Roadster whose length is what
+// the eye would smear at this speed
+const STREAKS = { n: MOBILE ? 140 : 280 };
+{
+  const n = STREAKS.n;
+  STREAKS.p = new Float32Array(n * 3);
+  STREAKS.pos = new Float32Array(n * 6); STREAKS.col = new Float32Array(n * 6);
+  const g = new THREE.BufferGeometry();
+  g.setAttribute("position", new THREE.BufferAttribute(STREAKS.pos, 3));
+  g.setAttribute("color", new THREE.BufferAttribute(STREAKS.col, 3));
+  STREAKS.mesh = new THREE.LineSegments(g, new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false }));
+  STREAKS.mesh.frustumCulled = false; scene.add(STREAKS.mesh);
+  for (let i = 0; i < n; i++) STREAKS.p[i * 3] = -1e4;
+}
+function stepStreaks() {
+  const T = rigs.tesla; if (!T) return;
+  const racing = state.phase === "race" || state.phase === "finish" || state.phase === "done";
+  const v = racing ? T.live.v : 0, k = speedK(v);
+  const show = smooth(22, 70, v);
+  STREAKS.mesh.visible = show > 0.001;
+  if (!STREAKS.mesh.visible) return;
+  const cx = camera.position.x, cz = T.car.lane, len = v * 0.045 * (1 + k * 1.2);
+  const P = STREAKS.p, pos = STREAKS.pos, col = STREAKS.col;
+  for (let i = 0; i < STREAKS.n; i++) {
+    let x = P[i * 3], y = P[i * 3 + 1], z = P[i * 3 + 2];
+    if (x < cx - 3 || x > cx + 190) {
+      x = cx + 8 + Math.random() * 180; y = 0.12 + Math.random() ** 2 * 7;
+      z = (Math.random() - 0.5) * 26;
+      if (Math.abs(z - cz) < 1.4 && y < 1.8) z += (z > cz ? 1 : -1) * 2.2;
+      P[i * 3] = x; P[i * 3 + 1] = y; P[i * 3 + 2] = z;
+    }
+    const dist = x - cx, fade = show * smooth(190, 60, dist) * smooth(-3, 6, dist) * 0.6;
+    pos.set([x, y, z, x + len, y, z], i * 6);
+    col.set([fade, fade * 0.93, fade * 0.82, 0, 0, 0], i * 6);
+  }
+  STREAKS.mesh.geometry.attributes.position.needsUpdate = true;
+  STREAKS.mesh.geometry.attributes.color.needsUpdate = true;
+}
+
+/* ======================================================================
    Race state
    ====================================================================== */
 const state = {
   phase: "stage", t: 0, tree: 0, clock: 0, slow: 1, units: "mph",
-  teslaV: "std", porscheV: "turbos", cam: "director", sound: true,
+  teslaV: "std", porscheV: "turbos", cam: "cockpit", sound: true,
 };
 const runs = {};
 function prepareRuns() {
@@ -1403,9 +1557,9 @@ function updateAudio(dt) {
     }
   }
   // wind follows the camera's own (smoothed) speed, ignoring the jumps at cuts
-  const cs = camState.vel.length();
-  audio.wind.g.gain.setTargetAtTime(clamp(cs / 90, 0, 1) * 0.3, now, 0.4);
-  audio.wind.f.frequency.setTargetAtTime(300 + cs * 16, now, 0.3);
+  const cs = camState.vel.length(), wk = Math.pow(speedK(cs), 1.5);
+  audio.wind.g.gain.setTargetAtTime(cs > 1 ? 0.05 + 0.4 * wk : 0, now, 0.3);
+  audio.wind.f.frequency.setTargetAtTime(280 + 2600 * wk, now, 0.25);
   audio.crowd.gain.setTargetAtTime(state.phase === "done" ? 0.02 : state.crowd || 0.02, now, 0.4);
 }
 
@@ -1418,32 +1572,30 @@ controls.minDistance = 4; controls.maxDistance = 40; controls.maxPolarAngle = Ma
 controls.target.set(-1.2, 0.6, 0);
 controls.autoRotate = true; controls.autoRotateSpeed = 0.35;
 camera.position.set(7.2, 1.5, -8.6);
-const camState = { anchor: null, vel: new THREE.Vector3(), speed: 0, prev: new THREE.Vector3(), shake: 0, shot: null, fov: 38 };
+const camState = { wasIn: null, anchor: null, vel: new THREE.Vector3(), speed: 0, prev: new THREE.Vector3(), shake: 0, shot: null, fov: 38 };
 // tall screens need a wider lens to keep both cars in frame
 const portrait = () => camera.aspect < 1 ? Math.min(1.9, 0.8 / camera.aspect) : 1;
 const noise1 = t => Math.sin(t * 1.7) * 0.5 + Math.sin(t * 3.1 + 1.3) * 0.3 + Math.sin(t * 7.3 + 2.1) * 0.2;
 
-function lead() { const a = rigs.tesla.live.s, b = rigs.porsche.live.s; return a >= b ? "tesla" : "porsche"; }
-function shotFor(t) {
-  // the director's cut, by race time
-  if (state.phase === "finish" || state.phase === "done") return "finishline";
-  const et = Math.min(runs.tesla.et, runs.porsche.et);
-  if (t < 1.1) return "launch";
-  if (t < 2.6) return "chaseT";
-  if (t < et - 1.25 && t < 4.6) return "sideP";
-  if (t < et - 1.25) return "aerial";
-  return "finishline";
-}
-const look = new THREE.Vector3(), want = new THREE.Vector3();
-function updateCamera(dt, rt) {
-  const T = rigs.tesla, P = rigs.porsche;
-  const tx = T.root.position.x, px = P.root.position.x;
+// how far into the Roadster's speed range we are: 0 at rest, 1 at 250 mph. Every
+// speed effect runs off a curve of this that steepens at the top, so 200 -> 220
+// still reads as faster
+const speedK = v => clamp(v / (250 * MPH), 0, 1.15);
+const EYE = new THREE.Vector3(-0.22, 0.92, -0.36);   // Roadster driver's eye, car space (left-hand drive)
+const AHEAD = new THREE.Vector3(30, -0.5, 0.2);
+const look = new THREE.Vector3(), want = new THREE.Vector3(), camOff = new THREE.Vector3(6, 1, 1);
+function updateCamera(dt) {
+  const T = rigs.tesla;
   const racing = state.phase === "race" || state.phase === "finish" || state.phase === "done";
-  controls.enabled = !racing;
-  if (!racing) {
+  const inCar = state.cam === "cockpit" && (racing || state.phase === "tree");
+  cockpit.group.visible = inCar; mirror.group.visible = inCar; mirror.on = inCar;
+  T.paint.userData.u.uCabin.value = inCar ? 1 : 0;
+  document.body.classList.toggle("incar", inCar);
+  controls.enabled = !racing && !inCar;
+  if (!racing && !inCar) {
     controls.autoRotate = state.phase === "stage";
     if (state.phase === "tree") {
-      // push in slowly on the front of both cars as the tree counts down
+      // outside view: push in slowly on the front of both cars as the tree counts down
       const k = smooth(0, 3.4, state.t);
       want.set(lerp(9, 7, k), lerp(1.3, 0.75, k), lerp(-7.5, -5.2, k));
       camera.position.lerp(want, 1 - Math.exp(-dt * 2));
@@ -1452,96 +1604,50 @@ function updateCamera(dt, rt) {
       camera.lookAt(controls.target);
     } else controls.update();
     camera.fov = lerp(camera.fov, 38 * portrait(), 1 - Math.exp(-dt * 3)); camera.updateProjectionMatrix();
-    camState.speed = 0; camState.vel.set(0, 0, 0); camState.prev.copy(camera.position); lens.uniforms.uBlur.value = 0;
+    camState.speed = 0; camState.vel.set(0, 0, 0); camState.prev.copy(camera.position);
+    lens.uniforms.uBlur.value = 0; lens.uniforms.uSpeed.value = 0; camState.wasIn = null;
     return;
   }
-  let mode = state.cam;
-  let shot = mode === "director" ? shotFor(state.clock) : mode;
-  if (shot !== camState.shot) { camState.cut = true; camState.shot = shot; camState.shotT = 0; }
-  camState.shotT += dt;
-  const Lk = lead(), L = rigs[Lk];
-  const vLead = L.live.v;
-  let fov = 38, blur = 0, shake = 0, anchor = null; // anchor: the x the shot travels with
-  switch (shot) {
-    case "launch": { // low between the lanes, behind the line, both cars squatting away from us
-      want.set(-9.5, 0.55, 0.0); look.set(10 + Math.max(tx, px) * 0.3, 1.0, 0);
-      fov = 42; shake = 0.015 + Math.min(1, state.clock) * 0.035;
-      break; }
-    case "chase": case "chaseT": {
-      const R = shot === "chaseT" ? T : (mode === "chase" ? L : T);
-      const v = R.live.v, x = R.root.position.x, z = R.root.position.z;
-      anchor = x;
-      want.set(x - 7.6 - v * 0.02, 1.35 + v * 0.002, z * 0.55); look.set(x + 6, 0.7, z * 0.8);
-      fov = 46 + clamp(v / 100, 0, 1) * 22; blur = clamp(v / 90, 0, 1) * 0.9; shake = 0.012 + v * 0.00035;
-      break; }
-    case "side": case "sideP": {
-      // tracking from beyond the wall: frame both cars while they fit, then stay
-      // on the leader with the chaser trailing in from the left edge
-      const spread = Math.abs(tx - px), leadX = Math.max(tx, px);
-      const D = WALL_Z + 7.5 + 2.6, VMAX = 50;
-      const maxHalf = D * Math.tan(VMAX / 2 * Math.PI / 180) * camera.aspect;
-      const need = spread / 2 + 4.2;
-      if (camera.aspect < 1) {
-        // an upright phone is too narrow for two cars side by side, so run ahead of the
-        // leader down the middle of the strip and look back: the lanes sit either side
-        // of centre and the gap opens up in depth
-        const lz = rigs[Lk].car.lane * 0.45;
-        want.set(leadX + 21, 1.9, lz); look.set(leadX - 6 - spread * 0.2, 0.45, lz * 0.6);
-        fov = 62; anchor = leadX; shake = 0.008 + vLead * 0.0001;
-        break;
-      }
-      let c;
-      if (need <= maxHalf) { c = (tx + px) / 2 + 0.4; fov = 2 * Math.atan(need / camera.aspect / D) * 180 / Math.PI; }
-      else { c = leadX - maxHalf * 0.5; fov = VMAX; }
-      fov = clamp(fov, 14, VMAX);
-      want.set(c, 3.1, WALL_Z + 7.5); look.set(c, 0.35, 0);
-      anchor = leadX;
-      shake = 0.008 + vLead * 0.00012;
-      break; }
-    case "aerial": {
-      const spread = Math.abs(tx - px);
-      const back = Math.min(tx, px), front = Math.max(tx, px);
-      want.set(back - 13 - spread * 0.15, 5.5 + spread * 0.14, -4.5); look.set(front + 5, 0.3, 0);
-      anchor = back;
-      fov = 44; blur = 0.06; shake = 0.01;
-      break; }
-    case "cockpit": {
-      const x = P.root.position.x, z = P.root.position.z;
-      want.set(x - 0.3, 1.04, z - 0.36); look.set(x + 30, 0.9 - P.pitch * 8, z - 1.6);
-      fov = 64; blur = clamp(P.live.v / 80, 0, 1) * 0.7; shake = 0.004 + P.live.v * 0.00018;
-      break; }
-    case "finishline": {
-      want.set(DIST + 16, 1.0, -(WALL_Z - 1.2)); look.set(Math.max(Math.min(tx, px + 30), DIST - 150), 0.8, 0);
-      if (state.phase === "done") look.set(Math.max(tx, px) - 20, 0.8, 0);
-      fov = 30; shake = 0.004;
-      break; }
-  }
-  const snap = camState.cut || shot === "cockpit" || shot === "chase" || shot === "chaseT";
-  const cutNow = camState.cut;
-  if (camState.cut) { camera.position.copy(want); controls.target.copy(look); camState.cut = false; }
-  else {
-    // carry the camera along with what it tracks, so easing only smooths the
-    // framing and never leaves the camera trailing a car doing 150 mph
-    if (anchor !== null && camState.anchor !== null) {
-      const dx = anchor - camState.anchor;
-      camera.position.x += dx; controls.target.x += dx;
-    }
-    const k = snap ? 1 - Math.exp(-dt * 12) : 1 - Math.exp(-dt * 4);
-    camera.position.lerp(want, shot === "cockpit" ? 1 : k);
-    controls.target.lerp(look, shot === "cockpit" ? 1 : 1 - Math.exp(-dt * 6));
-  }
-  camState.anchor = anchor;
+  const v = T.live.v, a = T.live.a || 0, k = speedK(v), k2 = Math.pow(k, 1.7);
+  const cut = camState.wasIn !== state.cam; camState.wasIn = state.cam;
   const tt = performance.now() / 1000;
-  camera.position.x += noise1(tt * 11) * shake; camera.position.y += noise1(tt * 13 + 4) * shake;
-  camera.lookAt(controls.target);
-  camera.fov = lerp(camera.fov, Math.min(100, fov * (shot === "side" || shot === "sideP" ? 1 : portrait())), 1 - Math.exp(-dt * 4)); camera.updateProjectionMatrix();
-  lens.uniforms.uBlur.value = lerp(lens.uniforms.uBlur.value, blur, 1 - Math.exp(-dt * 5));
-  // camera velocity for the sound, skipping the frame of a cut (a jump, not motion)
-  if (!cutNow && dt > 0) {
-    const v = tmpV.copy(camera.position).sub(camState.prev).divideScalar(dt);
-    if (v.length() < 150) camState.vel.lerp(v, 1 - Math.exp(-dt * 6));
+  let fov, blur, shake, buzz;
+  if (inCar) {
+    // the eye rides with the body (so it pitches with the squat), and the head is
+    // pressed back into the seat under hard acceleration
+    T.body.updateMatrixWorld(true);
+    want.copy(EYE); want.x -= clamp(a, -12, 20) * 0.0045;
+    T.body.localToWorld(camera.position.copy(want));
+    T.body.localToWorld(look.copy(want).add(AHEAD));
+    fov = 62 + 36 * k2;
+    blur = v > 6 ? 0.1 + 1.35 * k * k : 0;
+    shake = 0.0012 + 0.006 * k2; buzz = 0.0008 + 0.004 * k2;
+  } else {
+    // outside: low behind the Roadster's right shoulder, the 911 in the next lane
+    const x = T.root.position.x, z = T.car.lane;
+    want.set(-6.3 - k * 0.8, 1.15 - k * 0.3, camera.aspect < 1 ? 0.6 : 1.4);
+    if (cut) camOff.copy(want); else camOff.lerp(want, 1 - Math.exp(-dt * 3));
+    camera.position.set(x + camOff.x, camOff.y, z + camOff.z);
+    look.set(x + 9, 0.55, z + 0.5);
+    fov = 50 + 20 * k2;
+    blur = v > 6 ? 0.12 + 1.2 * k * k : 0;
+    shake = 0.006 + 0.03 * k2; buzz = 0.002 + 0.006 * k2;
   }
-  camState.speed = camState.vel.length();
+  controls.target.copy(look);
+  // blur streaks radiate from the Roadster in the outside view, so it stays sharp
+  if (inCar) lens.uniforms.uCenter.value.set(0.5, 0.5);
+  else { tmpV.set(T.root.position.x, 0.7, T.car.lane).project(camera); lens.uniforms.uCenter.value.lerp(tmpV.set(tmpV.x * 0.5 + 0.5, tmpV.y * 0.5 + 0.5, 0), cut ? 1 : 0.2); }
+  // a slow sway plus a fast buzz that both grow with speed
+  camera.position.x += noise1(tt * 9) * shake;
+  camera.position.y += noise1(tt * 11 + 4) * shake + noise1(tt * 47 + 1) * buzz;
+  camera.position.z += noise1(tt * 43 + 7) * buzz;
+  camera.lookAt(controls.target);
+  const pm = Math.min(portrait(), 1.3);
+  const f = Math.min(112, fov * pm);
+  camera.fov = cut ? f : lerp(camera.fov, f, 1 - Math.exp(-dt * 3)); camera.updateProjectionMatrix();
+  lens.uniforms.uBlur.value = lerp(lens.uniforms.uBlur.value, blur, 1 - Math.exp(-dt * 5));
+  lens.uniforms.uSpeed.value = lerp(lens.uniforms.uSpeed.value, k2, 1 - Math.exp(-dt * 5));
+  camState.vel.set(v, 0, 0); camState.speed = v;
   camState.prev.copy(camera.position);
 }
 
@@ -1675,9 +1781,6 @@ function stepFlow(dt) {
     // slow motion as the winner hits the line
     const wet = runs[state.winner].et, let_ = Math.max(runs.tesla.et, runs.porsche.et);
     let target = 1;
-    if (state.cam === "director" || state.cam === "side" || state.cam === "aerial") {
-      if (state.clock > wet - 0.35 && state.clock < wet + 0.55) target = 0.2;
-    }
     state.slow = lerp(state.slow, target, 1 - Math.exp(-dt * 10));
     state.clock += dt * state.slow;
     if (state.clock > 0.8) $("#tree").classList.remove("on");
@@ -1782,7 +1885,8 @@ function step() {
   for (const k in rigs) placeRig(k, state.clock > 0 && state.phase !== "stage" && state.phase !== "tree" ? state.clock : 0, gdt);
   emitEffects(gdt); stepParts(gdt); stepFlashes(rdt);
   if (rigs.tesla && rigs.porsche) {
-    updateCamera(rdt, gdt);
+    updateCamera(rdt);
+    placeMirror(); stepStreaks(); drawScreen();
     placeLamps([rigs.tesla.root.position.x, rigs.porsche.root.position.x, camera.position.x + 20]);
     const fx = (controls.target.x);
     moon.position.set(fx - 30, 60, 40); moon.target.position.set(fx, 0, 0);
@@ -1792,6 +1896,7 @@ function step() {
   try { updateAudio(rdt); } catch (err) { console.warn("audio", err); }
   if ((hudTick = (hudTick + 1) % 2) === 0) updateHUD();
   renderer.shadowMap.needsUpdate = true;
+  renderMirror();
   composer.render(rdt);
 }
 
@@ -1825,7 +1930,7 @@ $("#sndBtn").onclick = () => { state.sound = !state.sound; $("#sndBtn").setAttri
 addEventListener("keydown", e => {
   if (e.target.closest && e.target.closest("input,textarea")) return;
   if (e.code === "Space" || e.code === "Enter") { e.preventDefault(); if (state.phase === "stage") startRace(); else if (state.phase === "done") { hideSlip(); resetRace(); } }
-  const cams = { Digit1: "director", Digit2: "chase", Digit3: "side", Digit4: "aerial", Digit5: "cockpit" };
+  const cams = { Digit1: "cockpit", Digit2: "outside" };
   if (cams[e.code]) $(`#camSeg button[data-cam=${cams[e.code]}]`).click();
 });
 
@@ -1842,6 +1947,7 @@ drawBoard("t", "-.---", "---.--", false); drawBoard("p", "-.---", "---.--", fals
 prepareRuns();
 Promise.all([loadOne(CAR.tesla.file, 0), loadOne(CAR.porsche.file, 1)]).then(([t, p]) => {
   buildRig("tesla", t); buildRig("porsche", p);
+  buildCockpit(rigs.tesla);
   for (const k in rigs) placeRig(k, 0, 0);
   if (STUDIO) studio(STUDIO);
   $("#loadBar").style.width = "100%";
