@@ -211,7 +211,12 @@ body.racing .card .spec{display:none}
   .dock .sep{display:none}
   .dock .grp .k{display:none}
   .go{width:100%;justify-content:center}
-  .tree .b{width:22px;height:22px}
+  .tree .b{width:18px;height:18px}
+  .tree .b.s{width:18px;height:9px}
+  .tree{top:30%;gap:10px}
+  .tree .col{padding:10px 8px;gap:6px}
+  .card,.dock,.pill,.seg,.tree .col{backdrop-filter:none;-webkit-backdrop-filter:none}
+  .card,.dock{background:rgba(10,11,15,.82)}
 }
 @media (max-width:900px) and (max-height:500px){
   .card{display:none}
@@ -352,6 +357,8 @@ const params = new URLSearchParams(location.search);
 const STUDIO = params.get("studio");          // ?studio=911|roadster — a turntable for checking the models
 const STILL = params.has("still");            // render one settled frame (used for the share image)
 const TSCALE = +params.get("timescale") || 1;  // fast-forward, for testing
+// phones get a lighter scene: their GPUs reset the canvas if a frame runs long
+const MOBILE = matchMedia("(pointer: coarse)").matches || Math.min(innerWidth, innerHeight) < 600;
 
 /* ======================================================================
    The numbers. Each car is a point mass pushed by min(grip, power / speed)
@@ -612,7 +619,7 @@ diffuseColor.rgb = mCol;`)
    ====================================================================== */
 const canvas = $("#gl");
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: "high-performance", preserveDrawingBuffer: STILL });
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setPixelRatio(Math.min(devicePixelRatio, MOBILE ? 1.25 : 2));
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.05;
 renderer.shadowMap.enabled = true;
@@ -625,13 +632,16 @@ scene.fog = new THREE.FogExp2(FOG, 0.0042);
 scene.background = FOG.clone();
 const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 6000);
 
-const composer = new EffectComposer(renderer, new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, samples: 4 }));
+const composer = new EffectComposer(renderer, new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, samples: MOBILE ? 0 : 4 }));
 composer.addPass(new RenderPass(scene, camera));
 // cap single-pixel glints before the bloom so they spread as soft glows, not blocks
 composer.addPass(new ShaderPass({
   uniforms: { tDiffuse: { value: null } },
   vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
   fragmentShader: `uniform sampler2D tDiffuse; varying vec2 vUv; void main(){ vec3 c = texture2D(tDiffuse, vUv).rgb; float l = max(max(c.r, c.g), c.b);
+    // a single NaN or negative pixel would be smeared over the whole frame by the bloom
+    if (!(l >= 0.0 && l < 1e6)) c = vec3(0.0);
+    c = max(c, vec3(0.0));
     gl_FragColor = vec4(c * min(1.0, 14.0 / max(l, 1e-4)), 1.0); }`,
 }));
 const bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.6, 0.55, 0.85);
@@ -699,7 +709,7 @@ scene.add(hemi);
 const moon = new THREE.DirectionalLight(0x9fb2ff, 0.55);
 moon.position.set(-30, 60, 40);
 moon.castShadow = true;
-moon.shadow.mapSize.set(2048, 2048);
+moon.shadow.mapSize.set(MOBILE ? 1024 : 2048, MOBILE ? 1024 : 2048);
 Object.assign(moon.shadow.camera, { left: -26, right: 26, top: 26, bottom: -26, near: 1, far: 200 });
 moon.shadow.bias = -0.0004; moon.shadow.normalBias = 0.02;
 scene.add(moon, moon.target);
@@ -744,7 +754,7 @@ const blotchTex = noiseTex(256, (x, y) => {
   return clamp(n * 255, 0, 255);
 });
 
-const WET = !params.has("dry") && !matchMedia("(pointer: coarse)").matches;
+const WET = !params.has("dry") && !MOBILE;
 const groundU = { uDist: { value: DIST }, tGrain: { value: grainTex }, tBlotch: { value: blotchTex }, tRefl: { value: null }, uRefMat: { value: new THREE.Matrix4() }, uWet: { value: WET ? 1 : 0 } };
 const groundMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.6, metalness: 0 });
 groundMat.onBeforeCompile = sh => {
@@ -1136,10 +1146,10 @@ const smokeTex = canvasTex(128, 128, (g, w, h) => {
 });
 const smokeMat = new THREE.ShaderMaterial({
   transparent: true, depthWrite: false,
-  uniforms: { tMap: { value: smokeTex }, uScale: { value: 800 }, fogColor: { value: FOG }, fogDensity: { value: 0.0042 } },
+  uniforms: { tMap: { value: smokeTex }, uScale: { value: 800 }, uMaxPt: { value: MOBILE ? 260 : 900 }, fogColor: { value: FOG }, fogDensity: { value: 0.0042 } },
   vertexShader: `attribute float size; attribute float alpha; attribute float tint; varying float vA; varying float vT; varying float vFog;
-    uniform float uScale; uniform float fogDensity;
-    void main(){ vA = alpha; vT = tint; vec4 mv = modelViewMatrix * vec4(position, 1.0); gl_PointSize = min(size * uScale / -mv.z, 900.0);
+    uniform float uScale; uniform float fogDensity; uniform float uMaxPt;
+    void main(){ vA = alpha; vT = tint; vec4 mv = modelViewMatrix * vec4(position, 1.0); gl_PointSize = min(size * uScale / max(-mv.z, 0.1), uMaxPt);
       float d = -mv.z; vFog = 1.0 - exp(-fogDensity * fogDensity * d * d); gl_Position = projectionMatrix * mv; }`,
   fragmentShader: `uniform sampler2D tMap; uniform vec3 fogColor; varying float vA; varying float vT; varying float vFog;
     void main(){ vec4 t = texture2D(tMap, gl_PointCoord); vec3 c = mix(vec3(0.16, 0.155, 0.15), vec3(0.75, 0.82, 0.95), vT);
@@ -1678,13 +1688,13 @@ function emitEffects(dt) {
     const q = rig.live, x = rig.root.position.x, z = rig.car.lane;
     // launch: a burst of tyre smoke that trails behind the rear wheels
     if (state.phase === "race" && state.clock < 1.4 && q.v > 0) {
-      const n = Math.ceil(dt * 90 * (1.4 - state.clock));
+      const n = Math.ceil(dt * (MOBILE ? 30 : 90) * (1.4 - state.clock));
       for (let i = 0; i < n; i++) for (const s of [-1, 1]) {
         emit({ x: x - rig.car.wb / 2 - 0.3, y: 0.25, z: z + s * 0.8 }, { x: (Math.random() - 0.3) * 4, y: 0.4 + Math.random(), z: s * (0.5 + Math.random() * 1.5) }, 0.9, 2.2, 2.5 + Math.random() * 2, 0.45);
       }
     }
     if (rig.jetAmt > 0) {
-      for (let i = 0; i < 4; i++) for (const s of [-1, 1]) emit({ x: x + rig.car.tail - 0.6, y: 0.52, z: z + s * 0.32 }, { x: -18 - Math.random() * 10, y: Math.random(), z: s * Math.random() }, 0.35, 3.2, 0.6 + Math.random() * 0.4, 0.5, 1);
+      for (let i = 0; i < (MOBILE ? 1 : 4); i++) for (const s of [-1, 1]) emit({ x: x + rig.car.tail - 0.6, y: 0.52, z: z + s * 0.32 }, { x: -18 - Math.random() * 10, y: Math.random(), z: s * Math.random() }, 0.35, 3.2, 0.6 + Math.random() * 0.4, 0.5, 1);
     }
     // a tickle of haze from the lanes while staged
     if (state.phase === "tree" && Math.random() < dt * 6) emit({ x: x - 2.2, y: 0.2, z: z + (Math.random() - 0.5) * 2 }, { x: -0.3, y: 0.2, z: 0 }, 1.5, 0.6, 4, 0.12);
@@ -1721,6 +1731,10 @@ addEventListener("resize", resize);
 const clock = new THREE.Clock();
 let hudTick = 0;
 function frame() {
+  if (!STILL && !glLost) requestAnimationFrame(frame);
+  try { step(); } catch (err) { console.error(err); }
+}
+function step() {
   const rdt = Math.min(clock.getDelta(), 0.05) * TSCALE;
   stepFlow(rdt);
   const gdt = rdt * state.slow;
@@ -1734,12 +1748,21 @@ function frame() {
   }
   sky.position.copy(camera.position);
   lens.uniforms.uTime.value = performance.now() / 1000;
-  updateAudio(rdt);
+  try { updateAudio(rdt); } catch (err) { console.warn("audio", err); }
   if ((hudTick = (hudTick + 1) % 2) === 0) updateHUD();
   renderer.shadowMap.needsUpdate = true;
   composer.render(rdt);
-  if (!STILL) requestAnimationFrame(frame);
 }
+
+// if the phone resets the 3D canvas anyway, say so and bring it back
+let glLost = false;
+canvas.addEventListener("webglcontextlost", e => {
+  e.preventDefault(); glLost = true;
+  $("#loadTxt").textContent = "The graphics reset. Reloading…";
+  $("#load").classList.remove("done");
+});
+canvas.addEventListener("webglcontextrestored", () => location.reload());
+canvas.addEventListener("webglcontextlost", () => setTimeout(() => location.reload(), 2500));
 
 /* ======================================================================
    UI wiring
