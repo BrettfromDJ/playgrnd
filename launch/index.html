@@ -1241,7 +1241,7 @@ function buildRig(key, gltf) {
   const heads = [];
   for (const s of [-1, 1]) {
     const h = car.head[0];
-    const sp = new THREE.SpotLight(0xf2f6ff, 45, 90, 0.42, 0.55, 2);
+    const sp = new THREE.SpotLight(0xf2f6ff, 30, 90, 0.42, 0.6, 2);
     sp.position.set(h[0], h[2], -s * h[1]);
     sp.target.position.set(h[0] + 20, 0, -s * h[1] * 1.4);
     root.add(sp, sp.target); heads.push(sp);
@@ -1410,7 +1410,7 @@ controls.minDistance = 4; controls.maxDistance = 40; controls.maxPolarAngle = Ma
 controls.target.set(-1.2, 0.6, 0);
 controls.autoRotate = true; controls.autoRotateSpeed = 0.35;
 camera.position.set(7.2, 1.5, -8.6);
-const camState = { speed: 0, prev: new THREE.Vector3(), shake: 0, shot: null, fov: 38 };
+const camState = { anchor: null, speed: 0, prev: new THREE.Vector3(), shake: 0, shot: null, fov: 38 };
 // tall screens need a wider lens to keep both cars in frame
 const portrait = () => camera.aspect < 1 ? Math.min(1.9, 0.8 / camera.aspect) : 1;
 const noise1 = t => Math.sin(t * 1.7) * 0.5 + Math.sin(t * 3.1 + 1.3) * 0.3 + Math.sin(t * 7.3 + 2.1) * 0.2;
@@ -1453,7 +1453,7 @@ function updateCamera(dt, rt) {
   camState.shotT += dt;
   const Lk = lead(), L = rigs[Lk];
   const vLead = L.live.v;
-  let fov = 38, blur = 0, shake = 0;
+  let fov = 38, blur = 0, shake = 0, anchor = null; // anchor: the x the shot travels with
   switch (shot) {
     case "launch": { // low between the lanes, behind the line, both cars squatting away from us
       want.set(-9.5, 0.55, 0.0); look.set(10 + Math.max(tx, px) * 0.3, 1.0, 0);
@@ -1462,21 +1462,39 @@ function updateCamera(dt, rt) {
     case "chase": case "chaseT": {
       const R = shot === "chaseT" ? T : (mode === "chase" ? L : T);
       const v = R.live.v, x = R.root.position.x, z = R.root.position.z;
+      anchor = x;
       want.set(x - 7.6 - v * 0.02, 1.35 + v * 0.002, z * 0.55); look.set(x + 6, 0.7, z * 0.8);
       fov = 46 + clamp(v / 100, 0, 1) * 22; blur = clamp(v / 90, 0, 1) * 0.9; shake = 0.012 + v * 0.00035;
       break; }
-    case "side": case "sideP": { // tracking from beyond the wall, zooming out as the gap opens
-      const mid = (tx + px) / 2 + 0.4, spread = Math.abs(tx - px);
-      const D = WALL_Z + 7.5 + 2.6;
-      want.set(mid, 3.1, WALL_Z + 7.5); look.set(mid, 0.35, 0);
-      const half = spread / 2 + 4.2;
-      fov = clamp(2 * Math.atan(half / camera.aspect / D) * 180 / Math.PI, 14, 75);
+    case "side": case "sideP": {
+      // tracking from beyond the wall: frame both cars while they fit, then stay
+      // on the leader with the chaser trailing in from the left edge
+      const spread = Math.abs(tx - px), leadX = Math.max(tx, px);
+      const D = WALL_Z + 7.5 + 2.6, VMAX = 50;
+      const maxHalf = D * Math.tan(VMAX / 2 * Math.PI / 180) * camera.aspect;
+      const need = spread / 2 + 4.2;
+      if (camera.aspect < 1) {
+        // an upright phone is too narrow for two cars side by side, so run ahead of the
+        // leader down the middle of the strip and look back: the lanes sit either side
+        // of centre and the gap opens up in depth
+        const lz = rigs[Lk].car.lane * 0.45;
+        want.set(leadX + 21, 1.9, lz); look.set(leadX - 6 - spread * 0.2, 0.45, lz * 0.6);
+        fov = 62; anchor = leadX; shake = 0.008 + vLead * 0.0001;
+        break;
+      }
+      let c;
+      if (need <= maxHalf) { c = (tx + px) / 2 + 0.4; fov = 2 * Math.atan(need / camera.aspect / D) * 180 / Math.PI; }
+      else { c = leadX - maxHalf * 0.5; fov = VMAX; }
+      fov = clamp(fov, 14, VMAX);
+      want.set(c, 3.1, WALL_Z + 7.5); look.set(c, 0.35, 0);
+      anchor = leadX;
       shake = 0.008 + vLead * 0.00012;
       break; }
     case "aerial": {
       const spread = Math.abs(tx - px);
       const back = Math.min(tx, px), front = Math.max(tx, px);
       want.set(back - 13 - spread * 0.15, 5.5 + spread * 0.14, -4.5); look.set(front + 5, 0.3, 0);
+      anchor = back;
       fov = 44; blur = 0.06; shake = 0.01;
       break; }
     case "cockpit": {
@@ -1493,10 +1511,17 @@ function updateCamera(dt, rt) {
   const snap = camState.cut || shot === "cockpit" || shot === "chase" || shot === "chaseT";
   if (camState.cut) { camera.position.copy(want); controls.target.copy(look); camState.cut = false; }
   else {
+    // carry the camera along with what it tracks, so easing only smooths the
+    // framing and never leaves the camera trailing a car doing 150 mph
+    if (anchor !== null && camState.anchor !== null) {
+      const dx = anchor - camState.anchor;
+      camera.position.x += dx; controls.target.x += dx;
+    }
     const k = snap ? 1 - Math.exp(-dt * 12) : 1 - Math.exp(-dt * 4);
     camera.position.lerp(want, shot === "cockpit" ? 1 : k);
     controls.target.lerp(look, shot === "cockpit" ? 1 : 1 - Math.exp(-dt * 6));
   }
+  camState.anchor = anchor;
   const tt = performance.now() / 1000;
   camera.position.x += noise1(tt * 11) * shake; camera.position.y += noise1(tt * 13 + 4) * shake;
   camera.lookAt(controls.target);
